@@ -1,0 +1,16 @@
+{
+    "examples":[
+        {
+            "title": "Media Streamer",
+            "design": "Material",
+            "screenshot": "example1.png",
+            "url": "media-streamer"
+        },
+        {
+            "title": "Chat",
+            "design": "Bootstrap",
+            "screenshot": "example2.png",
+            "url": "chat"
+        }
+    ]
+}

@@ -1,0 +1,84 @@
+{
+    "icons":[
+        {
+            "title": "Euro Sign",
+            "name": "euro, euro_symbol",
+            "html_entity": "&#8364;",
+            "html_entity_2": "&#x20AC;"
+        },
+        {
+            "title": "Black Square",
+            "name": "-",
+            "html_entity": "&#9632"
+        },
+        {
+            "title": "Black Up-Pointing Triangle",
+            "name": "-",
+            "html_entity": "&#9650"
+        },
+        {
+            "title": "White Up-Pointing Small Triangle",
+            "name": "change_history",
+            "html_entity": "&#9653"
+        },
+        {
+            "title": "Black Circle",
+            "name": "lens",
+            "html_entity": "&#9679"
+        },
+        {
+            "title": "Eighth Note",
+            "name": "audiotrack, music_note",
+            "html_entity": "&#9834;",
+            "html_entity_2": ""
+        },
+        {
+            "title": "Black Star",
+            "name": "grade, star_rate",
+            "html_entity": "&#9733;",
+            "html_entity_2": ""
+        },
+        {
+            "title": "Warning Sign",
+            "name": "report_problem, warning",
+            "html_entity": "&#9888;",
+            "html_entity_2": ""
+        },
+        {
+            "title": "Disabled Hourglass",
+            "name": "hourglass_disabled",
+            "html_entity": "&#8987;",
+            "html_entity_2": ""
+        },
+        {
+            "title": "Hourglass",
+            "name": "hourglass_bottom",
+            "html_entity": "&#8987;",
+            "html_entity_2": ""
+        },
+        {
+            "title": "Hourglass with Flowing Sand",
+            "name": "hourglass_top",
+            "html_entity": "&#9203;",
+            "html_entity_2": ""
+        },
+        {
+            "title": "White Hourglass",
+            "name": "hourglass_empty",
+            "html_entity": "&#10710;",
+            "html_entity_2": ""
+        },
+        {
+            "title": "Black Hourglass",
+            "name": "hourglass_full",
+            "html_entity": "&#10711;",
+            "html_entity_2": ""
+        },
+        {
+            "title": "Television",
+            "name": "tv",
+            "html_entity": "&#128250;",
+            "html_entity_2": "&#x1F4FA;"
+        }
+    ]
+ }

@@ -1,0 +1,8 @@
+body.bg{
+    background: rgb(255,255,255);
+    background: linear-gradient(320deg, rgba(255,255,255,1) 51%, rgba(248,248,248,1) 57%, rgba(245,245,245,1) 57%, rgba(219,219,219,1) 100%);
+}
+
+section{
+    margin-top: 2rem;
+}
