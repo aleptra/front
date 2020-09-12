@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" cache="no">
+<head>
+    <title>Front</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge;ie=10;chrome=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link type="text/css" href="../../front/front.css" rel="stylesheet">
+    <link type="text/css" href="../../design/front/theme/front.css?4" rel="stylesheet">
+    <link type="text/css" href="assets/css/theme.css?4" rel="stylesheet">
+    <script src="http://localhost:8888/ui/front.js" lib="xhr;popup;nav;json;drag;tabs"></script>
+</head>
+<body class="bg">
+
+    <header>
+        <nav class="topbar dark h4_5 gap2-" selective="true">
+            <button class="md_d rounded h0 f2" onclick="dom.toggle('aside?tag=0')">≡</button>
+            <a class="b0" href="./" target="_top" href2="./home.html" key="0"><img src="assets/img/logo.png"></a>
+            <a href="./documentation.html" key="1">Documentation</a>
+            <a href="./icons.html" key="2">Icons</a>
+            <a href="./examples.html" key="3">Examples</a>
+        </nav>
+    </header>
+
+    <nav></nav>
+    <aside class="xl_dn"></aside>
+    <main class="p3" include="home.html"></main>
+    <aside class="lg_dn"></aside>
+    <footer>
+        <div eventlistener="offline" eventaction="dom.create('div', ['id=offline', 'className=alert pf b1 l1 bcred white snack', 'innerHTML=<i class=icon>⚠</i> Connection lost...'], 'footer')"></div>
+        <div eventlistener="online" eventaction="dom.hide('offline')"></div>
+    </footer>
+</body>
+</html>
