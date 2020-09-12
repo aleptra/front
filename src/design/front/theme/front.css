@@ -12,11 +12,6 @@
     color: #111;
 }
 
-html {
-	letter-spacing: .02em;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 body{
     scrollbar-base-color: transparent;
     scrollbar-face-color: transparent;

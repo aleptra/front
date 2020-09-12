@@ -29,6 +29,8 @@ html {
     height: 100%;
     font-size: 1em;
     line-height: 1.6;
+    letter-spacing: .02em;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 img,ul,ol{ border: 0; padding: 0 }
@@ -76,9 +78,9 @@ body {
     min-height: 100vh;
     width: 100vw;
     min-width: 100vw;
-    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "head head head" "nav nav nav" "left middle right" "foot foot foot";
     grid-template-rows: auto auto 1fr auto;
-    grid-template-areas: "header header header""navigation navigation navigation""column-left column-center column-right""footer footer footer";
+    grid-template-columns: auto 1fr auto;
     -ms-grid-columns: auto 1fr auto;
     -ms-grid-rows: auto auto 1fr auto;    
     zoom: 1;
@@ -92,7 +94,7 @@ body {
 }
 
 body>header {
-    grid-area: header;
+    grid-area: head;
     -ms-grid-row: 1;
     -ms-grid-column: 1;
     -ms-grid-column-span: 3;
@@ -100,7 +102,7 @@ body>header {
 }
 
 body>nav {
-    grid-area: navigation;
+    grid-area: nav;
     -ms-grid-row: 2;
     -ms-grid-column: 1;
     -ms-grid-column-span: 3;
@@ -108,14 +110,14 @@ body>nav {
 }
 
 body>aside {
-    grid-area: column-left;
+    grid-area: left;
     -ms-grid-row: 3;
     -ms-grid-column: 1;
     overflow: auto;
 }
 
 body>main {
-    grid-area: column-center;
+    grid-area: middle;
     -ms-grid-row: 3;
     -ms-grid-column: 2;
     overflow: auto;
@@ -124,14 +126,14 @@ body>main {
 }
 
 body>main+aside {
-    grid-area: column-right;
+    grid-area: right;
     -ms-grid-row: 3;
     -ms-grid-column: 3;
     overflow: auto;
 }
 
 body>footer {
-    grid-area: footer;
+    grid-area: foot;
     -ms-grid-row: 4;
     -ms-grid-column: 1;
     -ms-grid-column-span: 3;
