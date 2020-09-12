@@ -1,3 +1,4 @@
 .grid [class*='w'] {
     flex-direction: column;
+    -ms-flex-direction: column;
 }

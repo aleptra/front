@@ -609,7 +609,10 @@ summary{
     padding: 10px 15px;
     border: #a0a0a0 solid 1px;
     background: #f5f5f5;
-  }.sidebar{
+  }.grid [class*='w'] {
+    flex-direction: column;
+    -ms-flex-direction: column;
+}.sidebar{
     flex-direction: column;
     -ms-flex-direction: column;
     overflow: scroll;

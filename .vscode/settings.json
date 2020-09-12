@@ -1,0 +1,10 @@
+{
+    "filewatcher.commands" : [
+        {
+            "match": "\\.css*",
+            "isAsync": true,
+            "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
+            "event": "onFileChange"
+        }
+    ]
+}
