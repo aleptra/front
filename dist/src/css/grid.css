@@ -1,0 +1,3 @@
+.grid [class*='w'] {
+    flex-direction: column;
+}
