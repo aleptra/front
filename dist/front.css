@@ -374,6 +374,11 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 600px) {
     body .lg_du{display: inherit}
+
+    .grid {
+        flex-direction: column;
+        -ms-flex-direction: column;
+    };
 }
 
 @media only screen and (max-width: 480px) {
