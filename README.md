@@ -1,6 +1,8 @@
 # Front (Experimental)
 
-[Explore documentation][0]
+<img src="https://3el.github.io/front/assets/img/icon_black.svg" width="100">
+
+## [Explore documentation][0]
 
 ## Browser support
 
@@ -8,4 +10,31 @@
 | --------- | --------- | --------- | --------- | --------- | --------- |
 | Yes | 10 & 11 | Yes | Yes | Yes | Yes
 
-[0]: https://3el.github.io/front
+## Development Environment
+### Requirements
+- [x] Visual Studio Code
+- [x] File Watcher for VS Code
+
+### IDE
+Visual Studio Code is recommended for this project.
+
+### Watcher
+A file watcher is recommended to be present and installed as extension.
+The file watcher must run the command ```make``` so that source CSS can be rebuild.
+
+#### File Watcher (settings.json)
+```
+{
+    "filewatcher.commands" : [
+        {
+            "match": "\\.css*",
+            "isAsync": true,
+            "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
+            "event": "onFileChange"
+        }
+    ]
+}
+```
+[0]:https://3el.github.io/front
+[1]:https://code.visualstudio.com
+[2]:https://marketplace.visualstudio.com/items?itemName=appulate.filewatcher
