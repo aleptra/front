@@ -242,6 +242,7 @@ summary{
 .pr10{ padding-right: 10rem }
 .pt05{ padding-top: .5rem }
 .pt1{ padding-top: 1rem }
+.pt105{ padding-top: 1.5rem }
 .pt2{ padding-top: 2rem }
 .m05, .m05- *{ margin: .5rem }
 .mt1, .mt1- *{ margin-top: 1rem }
@@ -702,7 +703,7 @@ button.icon,
 }
 
 .sidebar summary{
-    padding: .4rem 1rem .4rem 1.5rem;
+    padding: .6rem 1rem .6rem 1.5rem;
 }
 
 .sidebar details * summary{
