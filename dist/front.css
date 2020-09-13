@@ -321,36 +321,74 @@ summary{
 
 /* Screen Sized: XXS, XS, SM, MD, LG, XL, XXL, XXXL */
 
+body [class*='_dn'], body [class*='_du']{display: none}
+
+/*Min*/
+@media only screen and (min-width: 1440px) {
+    body .xxxl_dn{display: inherit}
+}
+
+@media only screen and (min-width: 1280px) {
+    body .xxl_dn{display: inherit}
+}
+
+@media only screen and (min-width: 960px) {
+    body .xl_dn{display: inherit}
+}
+
+@media only screen and (min-width: 600px) {
+    body .lg_dn{display: inherit}
+}
+
+@media only screen and (min-width: 480px) {
+    body .md_dn{display: inherit}
+}
+
+@media only screen and (min-width: 360px) {
+    body .sm_dn{display: inherit}
+}
+
+@media only screen and (min-width: 300px) {
+    body .xs_dn{display: inherit}
+}
+
+@media only screen and (min-width: 220px) {
+    body .xxs_dn{display: inherit}
+}
+
+
+
+/*Max*/
 @media only screen and (max-width: 1440px) {
-    .xxxl_dn{display: none}
+    body .xxxl_du{display: inherit}
 }
 
 @media only screen and (max-width: 1280px) {
-    .xxl_dn{display: none}
+    body .xxl_du{display: inherit}
 }
 
 @media only screen and (max-width: 960px) {
-    .xl_dn{display: none}
+    body .xl_du{display: inherit}
 }
 
 @media only screen and (max-width: 600px) {
-    .lg_dn{display: none}
+    body .lg_du{display: inherit}
 }
 
 @media only screen and (max-width: 480px) {
-    .md_dn{display: none}
+    body .md_du{display: inherit}
 }
 
 @media only screen and (max-width: 360px) {
-    .sm_dn{display: none}
+    body .sm_du{display: inherit}
 }
 
 @media only screen and (max-width: 300px) {
-    .xs_dn{display: none}
+    body .xs_du{display: inherit}
 }
 
 @media only screen and (max-width: 220px) {
-    .xxs_dn{display: none}
+    body .xxs_du{display: inherit}
 }summary::-webkit-details-marker {
     display: none
 }
@@ -659,7 +697,7 @@ button.icon,
 .sidebar a,
 .sidebar summary *,
 .sidebar details details summary{
-    padding: .4rem 1rem .4rem 2.2rem;
+    padding: .5rem 1rem .5rem 2.2rem;
     font-size: 92%;
 }
 
