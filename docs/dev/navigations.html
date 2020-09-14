@@ -35,17 +35,21 @@
 		<input type="radio" name="tabnew1" id="tab1">
 		<label class="z08" for="tab1">Code</label>
 		<section class="tabnew1">
-		  <code class="antiquewhite">
-			&lt;button<span class="navajowhite"> class=</span>"text"&gt;<span class="azure">Button</span>&lt;/button&gt;<br>
-			&lt;button<span class="navajowhite"> class=</span>"text"&gt;&lt;i<span class="navajowhite"> class=</span><span class="white">"icon"</span>&gt;<span class="azure">&#9733</span>&lt;/i><span class="azure">Button</span>&lt;/button&gt;
-		  </code>
+			<code class="antiquewhite">
+				&lt;nav<span class="navajowhite"> class=</span>"crumbs pointer pt05"><br>
+				&emsp;&emsp;&lt;ol&gt;<br>
+				&emsp;&emsp;&emsp;&lt;li&gt;&lt;a&gt;Home&lt;/a&gt;&lt;/li&gt;<br>
+				&emsp;&emsp;&emsp;&lt;li&gt;&lt;a&gt;Page&lt;/a&gt;&lt;/li&gt;<br>
+				&emsp;&emsp;&emsp;&lt;li&gt;About&lt;/li&gt;<br>
+				&emsp;&emsp;&lt;/ol&gt;<br>
+				&lt;/nav&gt;
+			</code>
 		</section>
 
 		<input type="radio" name="tabnew1" id="tab2" checked>
 		<label class="z08" for="tab2">Preview</label>
 		<section class="tabnew1">
 		  <pre>
-			<div class="gap1-">
 				<nav class="crumbs pointer pt05">
 					<ol>
 						<li><a>Home</a></li>
@@ -53,92 +57,12 @@
 						<li>About</li>
 					</ol>
 				</nav>
-			</div>
 		  </pre>
 		</section>
 	</nav>
 </section>
-
-<section>
-	<h2>Crumbs</h2>
-	<section>
-		<h3>Standard</h3>
-		<p>Standard crumbs with slash as delimiter.</p>
-		<div class="mb2 mt2">
-			<samp class="h10">
-				<nav class="crumbs">
-					<ol>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Page</a></li>
-						<li>About</li>
-					</ol>
-				</nav>
-			</samp>
-			<code class="markup p1 mt1">
-				&lt;nav <span class="pink">class=</span><span class="lime">"crumbs light"</span>><br>
-					&emsp;&emsp;&lt;ol&gt;<br>
-						&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span class="lime">"#"</span>&gt;<span class="white">Home</span>&lt;/a&gt;&lt;/li&gt;<br>
-						&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span class="lime">"#"</span>&gt;<span class="white">Page</span>&lt;/a&gt;&lt;/li&gt;<br>
-						&emsp;&emsp;&emsp;&emsp;&lt;li&gt;<span class="white">About</span>&lt;/li&gt;<br>
-					&emsp;&emsp;&lt;/ol&gt;<br>
-				&lt;/nav>
-			</code>
-		</div>
-	</section>
 	
-	<section>
-		<h3>Colored</h3>
-		<p>Standard crumbs with a background and a text color.</p>
-		<div class="mb2 mt2">
-			<samp class="h10">
-				<nav class="crumbs p05 light red">
-					<ol>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Page</a></li>
-						<li>About</li>
-					</ol>
-				</nav>
-			</samp>
-			<code class="markup p1 mt1">
-				&lt;nav <span class="pink">class=</span><span class="lime">"crumbs p05 bsnow red"</span>><br>
-					&emsp;&emsp;&lt;ol&gt;<br>
-						&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span class="lime">"#"</span>&gt;<span class="white">Home</span>&lt;/a&gt;&lt;/li&gt;<br>
-						&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span class="lime">"#"</span>&gt;<span class="white">Page</span>&lt;/a&gt;&lt;/li&gt;<br>
-						&emsp;&emsp;&emsp;&emsp;&lt;li&gt;<span class="white">About</span>&lt;/li&gt;<br>
-					&emsp;&emsp;&lt;/ol&gt;<br>
-				&lt;/nav>
-			</code>
-		</div>
-	</section>
-	
-	<section>
-		<h3>Delimiters</h3>
-		<p>Crumbs with guillemets as delimiter.</p>
-		<div class="mb2 mt2">
-			<samp class="h10">
-				<nav class="crumbs">
-					<ol class="guillemet">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Page</a></li>
-						<li>About</li>
-					</ol>
-				</nav>
-			</samp>
-			<code class="markup p1 mt1">
-				&lt;nav <span class="pink">class=</span><span class="lime">"crumbs"</span>><br>
-					&emsp;&emsp;&lt;ol <span class="pink">class=</span><span class="lime">"guillemet"</span>&gt;<br>
-						&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span class="lime">"#"</span>&gt;<span class="white">Home</span>&lt;/a&gt;&lt;/li&gt;<br>
-						&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span class="lime">"#"</span>&gt;<span class="white">Page</span>&lt;/a&gt;&lt;/li&gt;<br>
-						&emsp;&emsp;&emsp;&emsp;&lt;li&gt;<span class="white">About</span>&lt;/li&gt;<br>
-					&emsp;&emsp;&lt;/ol&gt;<br>
-				&lt;/nav>
-			</code>
-		</div>
-	</section>
-	
-	<h2 class="mt2 mb1"><span class="lime">&#9703;&nbsp;</span>Pagination</h2>
-	<hr>
-
+	<h2>Pagination</h2>
 	<section>
 		<h3>Standard</h3>
 		<p>Pagination with guillemets.</p>

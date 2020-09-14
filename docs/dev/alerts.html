@@ -1,15 +1,15 @@
 <template>
-	<aside index="0"></aside>
-	<aside index="1">
-		<nav class="sidebar w11">
-			<h5 class="p1 mt1">Alerts</h5>
-			<ul>
+    <aside index="0"></aside>
+    <aside index="1">
+        <nav class="sidebar w11">
+            <h5 class="p1 mt1">Alerts</h5>
+            <ul>
                 <li><a href="#">Dialog</a></li>
                 <li><a href="#">Snack</a></li>
                 <li><a href="#">Banner</a></li>
-			</ul>
-		</nav>
-	</aside>
+            </ul>
+        </nav>
+    </aside>
 </template>
 
 <h1>Alerts</h1>
@@ -31,9 +31,27 @@
 
 <section>
     <h2>Snack alert</h2>
-    <div class="alert dark snack">
-        <i class="icon">⚠</i> Connection lost...
-    </div>
+    <nav class="tabsX">
+        <input type="radio" name="tabnew2" id="tab3">
+        <label class="z08" for="tab3">Code</label>
+        <section class="tabnew2">
+            <code class="antiquewhite">
+                &lt;div<span class="navajowhite"> class=</span>"alert dark snack"&gt;<br>
+                &emsp;&emsp;&lt;i<span class="navajowhite"> class=</span>"icon"&gt;⚠&lt;/i&gt; Connection lost...<br>
+                &lt;/div&gt;
+            </code>
+        </section>
+
+        <input type="radio" name="tabnew2" id="tab4" checked>
+        <label class="z08" for="tab4">Preview</label>
+        <section class="tabnew2">
+            <pre>
+                <div class="alert dark snack">
+                    <i class="icon">⚠</i> Connection lost...
+                </div>
+            </pre>
+        </section>
+    </nav>
 </section>
 
 <section>
@@ -42,4 +60,3 @@
         <p></p>
     </div>
 </section>
-

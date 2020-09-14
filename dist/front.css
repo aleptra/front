@@ -378,7 +378,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     .grid {
         flex-direction: column;
         -ms-flex-direction: column;
-    };
+    }
+
+    .grid > * {
+        padding: unset;
+        width: unset;
+    }
 }
 
 @media only screen and (max-width: 480px) {
