@@ -1,19 +1,35 @@
-/* Crumbs */
-nav.crumbs{
+nav{
   word-break: break-all;
 }
 
-.crumbs.guillemet * li:after{
-    content: "\00a0\00a0 \00BB \00a0\00a0"
+nav.guillemet * li:after{
+  content: "\00a0\00a0 \00BB \00a0\00a0"
 }
 
-.crumbs.pointer * li:after{
-    content: "\00a0\00a0 \276F \00a0\00a0"
+nav.pointer * li:after{
+  content: "\00a0\00a0 \276F \00a0\00a0"
 }
+
+/* Crumbs */
 
 .crumbs * li:last-child:after{
     content: "";
 }
+
+/* Pagination */
+nav.pagination a{
+	padding: .25em .5em;
+}
+
+nav.pagination > span a{
+	color: inherit;
+	background-color: inherit;
+}
+
+nav.pagination a:hover{
+	background-color: rgba(0,0,0, 0.5);
+}
+
 
 /* Tabs */
 
