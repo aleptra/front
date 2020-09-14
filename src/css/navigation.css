@@ -33,12 +33,12 @@ nav.pagination a:hover{
 
 /* Tabs */
 
-nav.tabsX {
+nav.tabs {
   flex-wrap: wrap;
   -ms-flex-wrap: wrap;
 }
 
-nav.tabsX label {
+nav.tabs label {
   order: 0;
   display: block;
   padding: .4rem 1.5rem;
@@ -50,15 +50,15 @@ nav.tabsX label {
   color: #444
 }
 
-nav.tabsX label:active{
+nav.tabs label:active{
   background-color: #fff;
 }
 
-nav.tabsX label:last-of-type{
+nav.tabs label:last-of-type{
   border-right-width: thin;
 }
 
-nav.tabsX [class^="tabnew"] {
+nav.tabs [class^="tabnew"] {
   order: 1;
   flex-grow: 1;
   width: 100%;
@@ -68,17 +68,19 @@ nav.tabsX [class^="tabnew"] {
   border: 1px solid #ddd;
 }
 
-nav.tabsX input[type="radio"] {
+nav.tabs input[type="radio"] {
   display: none;
 }
 
-nav.tabsX input[type="radio"]:checked + label {
+nav.tabs input[type="radio"]:checked + label {
   background-color:#fff;
   color: #000;
   font-weight: bold;
+  margin-bottom: -1px;
+  z-index: 1;
 }
 
-nav.tabsX input[type="radio"]:checked + label + [class^="tabnew"] {
+nav.tabs input[type="radio"]:checked + label + [class^="tabnew"] {
   display: block;
   background-color:#ffffff;
   color:#000;
