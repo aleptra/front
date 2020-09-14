@@ -101,7 +101,6 @@
 
 
 <h2 class="mt2 mb1"><span class="lime">&#9703;&nbsp;</span>Side bar</h2>
-<hr>
 
 <section>
 	<h3>Standard</h3>
@@ -376,104 +375,41 @@
 	</div>
 </section>
 
-<h2>CSS Tab</h2>
-<div style="float: left; width: 300px">
+	<a name="tabs"></a>
+	<h2>Tabs</h2>
+	<nav class="tabsX">
+		<input type="radio" name="tabnew10" id="tab10">
+		<label class="z08" for="tab10">Code</label>
+		<section class="tabnew10">
+			<code class="antiquewhite">
+			</code>
+		</section>
 
-	<input class="radio" id="four" name="group" type="radio" checked>
-	<input class="radio" id="five" name="group" type="radio">
-	<input class="radio" id="six" name="group" type="radio">
+		<input type="radio" name="tabnew10" id="tab11" checked>
+		<label class="z08" for="tab11">Preview</label>
+		<section class="tabnew10">
+			<pre>
+				<nav class="tabsX">
+					<input type="radio" name="tabnewdemo" id="tabdemo1" checked>
+					<label for="tabdemo1">Tab 1</label>
+					<section class="tabnewdemo">
+						<p>Content from Tab 1</p>
+					</section>
+			
+					<input type="radio" name="tabnewdemo" id="tabdemo2">
+					<label for="tabdemo2">Tab 2</label>
+					<section class="tabnewdemo">
+						<p>Content from Tab 2</p>
+					</section>
 
-	<div class="tabs">
-		<label class="tab" id="four-tab" for="four">CSS</label>
-		<label class="tab" id="five-tab" for="five">Skills</label>
-		<label class="tab" id="six-tab" for="six">Prerequisites</label>
-	</div>
-
-	<div class="panels">
-		<div class="panel" id="four-panel">
-			<div class="panel-title">Why Learn CSS?</div>
-			<p>1</p>
-		</div>
-		<div class="panel" id="five-panel">
-			<div class="panel-title">Take-Away Skills</div>
-			<p>2</p>
-		</div>
-		<div class="panel" id="six-panel">
-			<div class="panel-title">Note on Prerequisites</div>
-			<p>3</p>
-		</div>
-	</div>
-
-</div>
-
-
-
-<style>
-	.tab {
-		cursor: pointer;
-		padding: 10px 20px;
-		margin: 0px 2px;
-		background: #000;
-		display: inline-block;
-		color: #fff;
-		border-radius: 3px 3px 0px 0px;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
-	}
-
-	.panels {
-		background: #fffffff6;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
-		min-height: 200px;
-		width: 100%;
-		max-width: 500px;
-		border-radius: 3px;
-		overflow: hidden;
-		padding: 20px;
-	}
-
-	.panel {
-		display: none;
-		animation: fadein .8s;
-	}
-
-	@keyframes fadein {
-		from {
-			opacity: 0;
-		}
-
-		to {
-			opacity: 1;
-		}
-	}
-
-	.panel-title {
-		font-size: 1.5em;
-		font-weight: bold
-	}
-
-	.radio {
-		display: none;
-	}
-
-	#one:checked~.panels #one-panel,
-	#two:checked~.panels #two-panel,
-	#three:checked~.panels #three-panel,
-	#four:checked~.panels #four-panel,
-	#five:checked~.panels #five-panel,
-	#six:checked~.panels #six-panel {
-		display: block
-	}
-
-	#one:checked~.tabs #one-tab,
-	#two:checked~.tabs #two-tab,
-	#three:checked~.tabs #three-tab,
-	#four:checked~.tabs #four-tab,
-	#five:checked~.tabs #five-tab,
-	#six:checked~.tabs #six-tab {
-		background: #fffffff6;
-		color: #000;
-		border-top: 3px solid #000;
-	}
-</style>
+					<input type="radio" name="tabnewdemo" id="tabdemo3">
+					<label for="tabdemo3">Tab 3</label>
+					<section class="tabnewdemo">
+						<p>Content from Tab 3</p>
+					</section>
+				</nav>
+		  	</pre>
+		</section>
+	</nav>
 
 </section>
