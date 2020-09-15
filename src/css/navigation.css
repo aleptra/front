@@ -27,7 +27,7 @@ nav.pagination > span a{
 }
 
 nav.pagination a:hover{
-	background-color: rgba(0,0,0, 0.5);
+	background-color: rgba(0,0,0, .1);
 }
 
 
@@ -76,7 +76,7 @@ nav.tabs input[type="radio"]:checked + label {
   background-color:#fff;
   color: #000;
   font-weight: bold;
-  margin-bottom: -1px;
+  margin-bottom: -.1rem;
   z-index: 1;
 }
 
