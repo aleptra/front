@@ -1,0 +1,51 @@
+<template>
+    <aside index="0"></aside>
+    <aside index="1">
+        <nav class="sidebar w11">
+            <h5 class="p1 mt1">Menus</h5>
+            <ul>
+                <li><a href="#">Dropdown</a></li>
+            </ul>
+        </nav>
+    </aside>
+</template>
+
+<h1>Menus</h1>
+<nav class="crumbs pointer pt05">
+    <ol>
+        <li><a href="#">Documentation</a></li>
+        <li><a>Development</a></li>
+        <li><a>Components</a></li>
+        <li>Boxes</li>
+    </ol>
+</nav>
+
+<section>
+    <h2>Dropdown</h2>
+    <nav class="tabs">
+        <input type="radio" name="tabnew1" id="tab1">
+        <label class="z08" for="tab1">Code</label>
+        <section class="tabnew1">
+            <code class="antiquewhite">
+                &lt;div<span class="navajowhite"> class=</span>"alert dialog"&gt;<br>
+                &emsp;&emsp;&lt;i<span class="navajowhite"> class=</span>"icon"&gt;⚠&lt;/i&gt; Connection lost...<br>
+                &lt;/div&gt;
+            </code>
+        </section>
+
+        <input type="radio" name="tabnew1" id="tab2" checked>
+        <label class="z08" for="tab2">Preview</label>
+        <section class="tabnew1">
+            <pre class="h10">
+                <div class="dropdown">
+                    <span>Mouse over me</span>
+                    <nav class="dropdown-content">
+                      <a>Link 1</a>
+                      <a>Link 2</a>
+                      <a>Link 3</a>
+                    </nav>
+                  </div>
+            </pre>
+        </section>
+    </nav>
+</section>
