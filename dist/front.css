@@ -74,17 +74,18 @@ body {
     display: -ms-grid;
     display: -moz-grid;
     display: grid;
-    height: 100vh;
-    min-height: 100vh;
-    width: 100vw;
-    min-width: 100vw;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    min-width: 100%;
     grid-template-areas: "head head head" "nav nav nav" "left middle right" "foot foot foot";
     grid-template-rows: auto auto 1fr auto;
     grid-template-columns: auto 1fr auto;
     -ms-grid-columns: auto 1fr auto;
-    -ms-grid-rows: auto auto 1fr auto;    
-    zoom: 1;
+    -ms-grid-rows: auto auto 1fr auto;
+    -ms-zoom: 1;
     font-size: 100%;
+    zoom: 1;
     text-rendering: optimizeLegibility;
     font-feature-settings: "kern";
     -moz-font-feature-settings: "kern=1";
@@ -179,9 +180,15 @@ summary{
 .light, .light- * { background-color: #f7f7f7 !important; color: #111 !important }
 .lightdark, .lightdark- * { background-color: lightgray!important; color: #222 !important }
 
-.glow- >*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
-.shade- >*:hover{ box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .1), 0px 0px 3px 0px rgba(0,0,0, .1) }
-.border- >*:hover{ box-shadow: 1px 1px 1px 1px rgba(0,0,0, .1) }
+.glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
+.inset->*:hover, .inset{ box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .1), 0px 0px 3px 0px rgba(0,0,0, .1) }
+.shade->*:hover, .shade{
+    box-shadow: 0 2px 4px rgba(0,0,0, .5);
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .5);
+    -moz-box-shadow: 0 2px 4px rgba(0,0,0, .5)
+}
+.border->*:hover{ box-shadow: 1px 1px 1px 1px rgba(0,0,0, .1) }
+.zoom->*:hover{zoom: 1.01};  
 
 .tal { text-align: left }
 .tar { text-align: right }
@@ -748,7 +755,6 @@ button.icon,
     width: 100%;
     -ms-flex-align: center;
     align-items: center;
-    -ms-flex-direction: row;
     list-style: none;
     z-index: 20;
 }
@@ -774,6 +780,7 @@ button.icon,
     -ms-flex-align: center;
     align-items: center;
 }
+
 .bottombar a,
 .topbar a{ height: 100% }
 
@@ -878,7 +885,6 @@ nav.pagination > span a{
 nav.pagination a:hover{
 	background-color: rgba(0,0,0, .1);
 }
-
 
 /* Tabs */
 

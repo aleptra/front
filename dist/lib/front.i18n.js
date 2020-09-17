@@ -3,11 +3,7 @@ libAttribute.push(
 );
 
 function i18n(el) {
-
-    var e = event && (event.target || event.srcElement);
-    
-    if (e && e.attributes && e.attributes['i18n']){
-        alert(e);
+    if (el && el.attributes && el.attributes['i18n']){
+        //alert(el);
     }
-
 }

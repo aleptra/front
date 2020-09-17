@@ -28,8 +28,7 @@
 	</ol>
 </nav>
 
-<a name="crumbs"></a>
-<section>
+<section id="crumbs">
 	<h2>Crumbs</h2>
 	<nav class="tabs">
 		<input type="radio" name="tabnew1" id="tab1">
@@ -62,7 +61,7 @@
 	</nav>
 </section>
 
-<section>
+<section id="pagination">
 	<h2>Pagination</h2>
 	<nav class="tabs">
 		<input type="radio" name="tabnew2" id="tab3">
@@ -99,294 +98,127 @@
 	</nav>
 </section>
 
-
-<h2 class="mt2 mb1"><span class="lime">&#9703;&nbsp;</span>Side bar</h2>
-
+<a id="sidebar"></a>
 <section>
-	<h3>Standard</h3>
-	<p>Side bar floated to left.</p>
-	<div class="mb2 mt2">
-		<samp>
-			<nav class="sidebar dark">
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</nav>
-		</samp>
-		<code class="markup p1 mt1">
-			&lt;nav <span class="pink">class=</span><span class="lime">"sidebar dark"</span>&gt;<br>
-			&emsp;&emsp;&lt;ul&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 1</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 2</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 3</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&lt;/ul&gt;<br>
-			&lt;/nav&gt;
-		</code>
-	</div>
-</section>
-
-<section>
-	<h3>Standard</h3>
-	<p>Side bar with arrow to right.</p>
-	<div class="mb2 mt2">
-		<samp>
-			<nav class="sidebar dark">
-				<ul class="rarrow">
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</nav>
-		</samp>
-		<code class="markup p1 mt1">
-			&lt;nav <span class="pink">class=</span><span class="lime">"sidebar dark"</span>&gt;<br>
-			&emsp;&emsp;&lt;ul <span class="pink">class=</span><span class="lime">"rarrow"</span>&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 1</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 2</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 3</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&lt;/ul&gt;<br>
-			&lt;/nav&gt;
-		</code>
-	</div>
-</section>
-
-<section>
-	<h3>Floated</h3>
-	<p>Side bar floated to the right.</p>
-	<div class="mb2 mt2">
-		<samp>
-			<nav class="sidebar light fr">
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</nav>
-		</samp>
-		<code class="markup p1 mt1">
-			&lt;nav <span class="pink">class=</span><span class="lime">"sidebar light fr"</span>&gt;<br>
-			&emsp;&emsp;&lt;ul&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 1</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 2</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 3</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&lt;/ul&gt;<br>
-			&lt;/nav&gt;
-		</code>
-	</div>
-</section>
-
-<section>
-	<h3>Colored</h3>
-	<p>Side bar with custom colors.</p>
-	<div class="mb2 mt2">
-		<samp>
-			<nav class="sidebar bred yellow">
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</nav>
-		</samp>
-		<code class="markup p1 mt1">
-			&lt;nav <span class="pink">class=</span><span class="lime">"sidebar bred yellow"</span>&gt;<br>
-			&emsp;&emsp;&lt;ul&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 1</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 2</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 3</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&lt;/ul&gt;<br>
-			&lt;/nav&gt;
-		</code>
-	</div>
-</section>
-
-<section>
-	<h3>Icons</h3>
-	<p>Side bar with big icons.</p>
-	<div class="mb2 mt2">
-		<samp>
-			<nav class="sidebar dark w0 dib">
-				<ul class="fz5">
-					<li><a href="#">&#9733;</a></li>
-					<li><a href="#">&#10084;</a></li>
-					<li><a href="#">&#10047;</a></li>
-				</ul>
-			</nav>
-		</samp>
-		<code class="markup p1 mt1">
-			&lt;nav <span class="pink">class=</span><span class="lime">"sidebar dark w0 dib"</span>&gt;<br>
-			&emsp;&emsp;&lt;ul <span class="pink">class=</span><span class="lime">"fz5"</span>&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 1</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 2</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 3</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&lt;/ul&gt;<br>
-			&lt;/nav&gt;
-		</code>
-	</div>
-</section>
-
-<h2 class="mt2 mb1"><span class="lime">&#9703;&nbsp;</span>Top bar</h2>
-<hr>
-
-<section>
-	<h3>Standard</h3>
-	<p>Top bar.</p>
-	<div class="mb2 mt2">
-		<samp class="h10">
-			<nav class="topbar dark">
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</nav>
-		</samp>
-		<code class="markup p1 mt1">
-			&lt;nav <span class="pink">class=</span><span class="lime">"topbar dark"</span>&gt;<br>
-			&emsp;&emsp;&lt;ul&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 1</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 2</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 3</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&lt;/ul&gt;<br>
-			&lt;/nav&gt;
-		</code>
-	</div>
-</section>
-
-<section>
-	<h3>Forms</h3>
-	<p>Top bar with forms.</p>
-	<div class="mb2 mt2">
-		<samp resizable="true">
-			<nav class="topbar dark">
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-				<form class="fr">
-					<input type="text" placeholder="Search..">
-				</form>
-			</nav>
-			<nav class="topbar dark mt1">
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-				<form class="fr">
-					<input type="text" placeholder="Username">
-					<input type="text" placeholder="Password">
-					<button>Login</button>
-				</form>
-			</nav>
-		</samp>
-		<code class="markup p1 mt1">
-			&lt;nav <span class="pink">class=</span><span class="lime">"topbar dark"</span>&gt;<br>
-			&emsp;&emsp;&lt;ul&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 1</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 2</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 3</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&lt;/ul&gt;<br>
-			&lt;/nav&gt;
-		</code>
-	</div>
-</section>
-
-<section>
-	<h3>Icons</h3>
-	<p>Top bar.</p>
-	<div class="mb2 mt2">
-		<samp>
-			<nav class="topbar dark">
-				<ul class="fz2">
-					<li><a href="#">&#10016;</a></li>
-					<li><a href="#">&#10084;</a></li>
-					<li><a href="#">&#9993;</a></li>
-				</ul>
-			</nav>
-		</samp>
-		<code class="markup p1 mt1">
-			&lt;nav <span class="pink">class=</span><span class="lime">"topbar dark"</span>&gt;<br>
-			&emsp;&emsp;&lt;ul&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 1</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 2</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 3</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&lt;/ul&gt;<br>
-			&lt;/nav&gt;
-		</code>
-	</div>
-</section>
-
-<h2 class="mt2 mb1"><span class="lime">&#9703;&nbsp;</span>Bottom bar</h2>
-<hr>
-
-<section>
-	<h3>Standard</h3>
-	<p>Bottom bar.</p>
-	<div class="mb2 mt2">
-		<samp>
-			<nav class="bottombar dark">
-				<ul class="fz09">
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</nav>
-		</samp>
-		<code class="markup p1 mt1">
-			&lt;nav <span class="pink">class=</span><span class="lime">"bottombar dark"</span>&gt;<br>
-			&emsp;&emsp;&lt;ul <span class="pink">class=</span><span class="lime">"fz09"</span>&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 1</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 2</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&emsp;&emsp;&lt;li&gt;&lt;a <span class="pink">href=</span><span
-				class="lime">"#"</span>&gt;<span class="white">Link 3</span>&lt;/a&gt;&lt;/li&gt;<br>
-			&emsp;&emsp;&lt;/ul&gt;<br>
-			&lt;/nav&gt;
-		</code>
-	</div>
-</section>
-
-	<a name="tabs"></a>
-	<h2>Tabs</h2>
+	<h2>Sidebar</h2>
 	<nav class="tabs">
-		<input type="radio" name="tabnew10" id="tab10">
-		<label class="z08" for="tab10">Code</label>
-		<section class="tabnew10">
+		<input type="radio" name="tabnew3" id="tab5">
+		<label class="z08" for="tab5">Code</label>
+		<section class="tabnew3">
 			<code class="antiquewhite">
+				&lt;nav<span class="navajowhite"> class=</span>"sidebar light w15"><br>
+				&emsp;&emsp;&lt;a<span class="navajowhite"> href="#"</span>&gt;Link 1&lt;/a&gt;<br>
+				&emsp;&emsp;&lt;a<span class="navajowhite"> href="#"</span>&gt;Link 2&lt;/a&gt;<br>
+				&emsp;&emsp;&lt;a<span class="navajowhite"> href="#"</span>&gt;Link 3&lt;/a&gt;<br>
+				&lt;/nav&gt;
 			</code>
 		</section>
 
-		<input type="radio" name="tabnew10" id="tab11" checked>
-		<label class="z08" for="tab11">Preview</label>
+		<input type="radio" name="tabnew3" id="tab6" checked>
+		<label class="z08" for="tab6">Preview</label>
+		<section class="tabnew3">
+			<pre>
+				<nav class="sidebar light w15">
+					<a>Link 1</a>
+					<a>Link 2</a>
+					<a>Link 3</a>
+				</nav>
+		  </pre>
+		</section>
+	</nav>
+</section>
+
+<a id="topbar"></a>
+<section>
+	<h2>Topbar</h2>
+	<nav class="tabs">
+		<input type="radio" name="tabnew4" id="tab7">
+		<label class="z08" for="tab7">Code</label>
+		<section class="tabnew4">
+			<code class="antiquewhite">
+				&lt;nav<span class="navajowhite"> class=</span>"topbar light gap2-"><br>
+				&emsp;&emsp;&lt;a<span class="navajowhite"> href="#"</span>&gt;Link 1&lt;/a&gt;<br>
+				&emsp;&emsp;&lt;a<span class="navajowhite"> href="#"</span>&gt;Link 2&lt;/a&gt;<br>
+				&emsp;&emsp;&lt;a<span class="navajowhite"> href="#"</span>&gt;Link 3&lt;/a&gt;<br>
+				&lt;/nav&gt;
+			</code>
+		</section>
+
+		<input type="radio" name="tabnew4" id="tab8" checked>
+		<label class="z08" for="tab8">Preview</label>
+		<section class="tabnew4">
+			<pre>
+				<nav class="topbar light gap2-">
+					<a>Link 1</a>
+					<a>Link 2</a>
+					<a>Link 3</a>
+				</nav>
+		  </pre>
+		</section>
+	</nav>
+</section>
+
+<a id="bottombar"></a>
+<section>
+	<h2>Bottombar</h2>
+	<nav class="tabs">
+		<input type="radio" name="tabnew5" id="tab9">
+		<label class="z08" for="tab9">Code</label>
+		<section class="tabnew5">
+			<code class="antiquewhite">
+				&lt;nav<span class="navajowhite"> class=</span>"bottombar light gap2-"><br>
+				&emsp;&emsp;&lt;a<span class="navajowhite"> href="#"</span>&gt;Link 1&lt;/a&gt;<br>
+				&emsp;&emsp;&lt;a<span class="navajowhite"> href="#"</span>&gt;Link 2&lt;/a&gt;<br>
+				&emsp;&emsp;&lt;a<span class="navajowhite"> href="#"</span>&gt;Link 3&lt;/a&gt;<br>
+				&lt;/nav&gt;
+			</code>
+		</section>
+
+		<input type="radio" name="tabnew5" id="tab10" checked>
+		<label class="z08" for="tab10">Preview</label>
+		<section class="tabnew5">
+			<pre>
+				<nav class="bottombar light gap2-">
+					<a>Link 1</a>
+					<a>Link 2</a>
+					<a>Link 3</a>
+				</nav>
+		  </pre>
+		</section>
+	</nav>
+</section>
+
+	<a id="tabs"></a>
+	<h2>Tabs</h2>
+	<nav class="tabs">
+		<input type="radio" name="tabnew10" id="tab11">
+		<label class="z08" for="tab11">Code</label>
+		<section class="tabnew10">
+			<code class="antiquewhite">
+				&lt;nav<span class="navajowhite"> class=</span>"tabs"&gt;<br>
+				&emsp;&emsp;&lt;input type="radio" name="tabnewdemo"<span class="navajowhite"> id=</span>"tab1" <span class="navajowhite">checked</span>&gt;<br>
+				&emsp;&emsp;&lt;label for="tab1"&gt;Tab 1&lt;/label&gt;<br>
+				&emsp;&emsp;&lt;section class="tabnewdemo"&gt;<br>
+				&emsp;&emsp;&emsp;&emsp;&lt;p&gt;Content from Tab 1&lt;/p&gt;<br>
+				&emsp;&emsp;&lt;/section&gt;<br>
+				<br>
+				&emsp;&emsp;&lt;input type="radio" name="tabnewdemo"<span class="navajowhite"> id=</span>"tab2"&gt;<br>
+				&emsp;&emsp;&lt;label for="tab2"&gt;Tab 2&lt;/label&gt;<br>
+				&emsp;&emsp;&lt;section class="tabnewdemo"&gt;<br>
+				&emsp;&emsp;&emsp;&emsp;&lt;p&gt;Content from Tab 2&lt;/p&gt;<br>
+				&emsp;&emsp;&lt;/section&gt;<br>
+				<br>
+				&emsp;&emsp;&lt;input type="radio" name="tabnewdemo"<span class="navajowhite"> id=</span>"tab3"&gt;<br>
+				&emsp;&emsp;&lt;label for="tab3"&gt;Tab 3&lt;/label&gt;<br>
+				&emsp;&emsp;&lt;section class="tabnewdemo"&gt;<br>
+				&emsp;&emsp;&emsp;&emsp;&lt;p&gt;Content from Tab 3&lt;/p&gt;<br>
+				&emsp;&emsp;&lt;/section&gt;<br>
+				&lt;/nav&gt;
+			</code>
+		</section>
+
+		<input type="radio" name="tabnew10" id="tab12" checked>
+		<label class="z08" for="tab12">Preview</label>
 		<section class="tabnew10">
 			<pre>
 				<nav class="tabs">

@@ -63,32 +63,26 @@ code.markup{
 .dark * { color: #fff }
 .light { background-color: #f1f1f1; color: #000}
 
-body * nav.topbar{
-    box-shadow: 0 2px 4px rgba(0,0,0, .5);
-    -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .5);
-    -moz-box-shadow: 0 2px 4px rgba(0,0,0, .5);
-}
-
-body * nav.topbar a.sel,
-body * nav.topbar a.focus,
-body * nav.topbar a:hover{
+nav.topbar a.sel,
+nav.topbar a.focus,
+nav.topbar a:hover{
     color: rgba(255,255,255, 0.8);
     box-shadow: 0px -5px 20px 0px rgba(0,0,0);
     text-shadow: 0 -21px 20px rgba(255,255,253, 0.5);
     border-radius: 5px;
 }
 
-body * nav small{
+nav small{
     color: rgba(0, 0, 0, 0.38);
     font-weight: bold;
 }
 
-body * nav.sidebar{
+nav.sidebar{
     border-right: 1px inset rgba(0,0,0, .07);
     border-left: 1px inset rgba(0,0,0, .07);
 }
 
-body * nav.pagination{
+nav.pagination{
     box-shadow: unset;
     -webkit-box-shadow: unset;
     -moz-box-shadow: unset;

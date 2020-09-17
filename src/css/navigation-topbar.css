@@ -3,7 +3,6 @@
     width: 100%;
     -ms-flex-align: center;
     align-items: center;
-    -ms-flex-direction: row;
     list-style: none;
     z-index: 20;
 }
@@ -29,6 +28,7 @@
     -ms-flex-align: center;
     align-items: center;
 }
+
 .bottombar a,
 .topbar a{ height: 100% }
 
