@@ -435,6 +435,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 .alert.banner{
     width: 100%;
+}
+
+.alert form{
+    justify-content: center;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
 }.cards figure,
 .cards div{
     border-radius: 3px;
@@ -697,6 +703,7 @@ button,
 .button{
     display: inline;
     cursor: pointer;
+    justify-content: center;
 }
 
 button.text,

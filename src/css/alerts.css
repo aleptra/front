@@ -11,3 +11,9 @@
 .alert.banner{
     width: 100%;
 }
+
+.alert form{
+    justify-content: center;
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+}

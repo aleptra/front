@@ -233,6 +233,17 @@ var core = function() {
 			alert(e.getAttribute("alert"));
 		if (e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"));
+		if (e.hasAttribute("include")) {
+			var target = e.getAttribute("include");
+			console.log(target);
+			client.get(globalUrl + target, function(response) {
+				if (response) {
+					e.innerHTML = response;
+					core.runCoreAttributesInElement(e);
+					core.runLibAttributesInElement(e);
+				}
+			});
+		}
 		if (e.hasAttribute("var") || e.hasAttribute("variable")) {
 			var attr = e.getAttribute("var") || e.getAttribute("variable");
 			var res = attr.split("=");
@@ -470,8 +481,9 @@ var dom = function() {
 
 	this.toggle = function(obj) {
 		var el = this.get(obj);
-		if (el.style.display == 'none') this.show(obj)
-		else this.hide(obj);
+		var di = el.style.display;
+		if (di == 'block' || di == '') this.hide(obj)
+		else this.show(obj);
 	}
 
 	this.focus = function(obj) {

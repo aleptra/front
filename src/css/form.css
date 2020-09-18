@@ -11,6 +11,7 @@ button,
 .button{
     display: inline;
     cursor: pointer;
+    justify-content: center;
 }
 
 button.text,
