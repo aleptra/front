@@ -470,9 +470,8 @@ var dom = function() {
 
 	this.toggle = function(obj) {
 		var el = this.get(obj);
-		var di = el.style.display;
-		if (di == 'block' || di == '') this.hide(obj)
-		else this.show(obj);
+		if (el.style.display == 'none') this.show(obj)
+		else this.hide(obj);
 	}
 
 	this.focus = function(obj) {
