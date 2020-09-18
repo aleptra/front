@@ -233,17 +233,6 @@ var core = function() {
 			alert(e.getAttribute("alert"));
 		if (e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"));
-		if (e.hasAttribute("include")) {
-			var target = e.getAttribute("include");
-			console.log(target);
-			client.get(globalUrl + target, function(response) {
-				if (response) {
-					e.innerHTML = response;
-					core.runCoreAttributesInElement(e);
-					core.runLibAttributesInElement(e);
-				}
-			});
-		}
 		if (e.hasAttribute("var") || e.hasAttribute("variable")) {
 			var attr = e.getAttribute("var") || e.getAttribute("variable");
 			var res = attr.split("=");

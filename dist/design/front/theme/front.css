@@ -63,9 +63,9 @@ code.markup{
 .dark * { color: #fff }
 .light { background-color: #f1f1f1; color: #000}
 
-nav.topbar a.sel,
-nav.topbar a.focus,
-nav.topbar a:hover{
+nav.topbar.shade a.sel,
+nav.topbar.shade a.focus,
+nav.topbar.shade a:hover{
     color: rgba(255,255,255, 0.8);
     box-shadow: 0px -5px 20px 0px rgba(0,0,0);
     text-shadow: 0 -21px 20px rgba(255,255,253, 0.5);
@@ -86,10 +86,6 @@ nav.pagination{
     box-shadow: unset;
     -webkit-box-shadow: unset;
     -moz-box-shadow: unset;
-}
-
-nav.tabs a:hover{
-    box-shadow: 1px 1px 1px white;
 }
 
 select,input,textarea,button{

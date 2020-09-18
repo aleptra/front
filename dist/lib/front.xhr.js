@@ -1,3 +1,19 @@
+libAttribute.push(
+	{'attr': 'include', 'func': 'include'}
+);
+
+
+function include(el){
+			var target = el.getAttribute("include");
+			client.get(globalUrl + target, function(response) {
+				if (response) {
+					el.innerHTML = response;
+					core.runCoreAttributesInElement(el);
+					core.runLibAttributesInElement(el);
+				}
+			});
+}
+
 /**
  * @param {string} target - Target DOM element.
  * @param {string or object} response - Response from XHR.
@@ -46,56 +62,6 @@ console.log("%c Do On Success (XHR Response): Target="+target+", Type="+doa, "ba
 		}
 
 	}
-
-	if (doa && doa[0][0] == 'remove') {
-		dom.remove(doa[0][1]);
-	}
-
-	if (doa && doa == 'remove') {
-		dom.remove(target);
-	}
-
-	if (doa && doa == 'clear') {
-		dom.value(target, '');
-		console.log('clear');
-	}
-
-	if (doa && doa == 'reset') {
-		dom.reset(target);
-	}
-
-	if (doa && doa[0][0] == 'content') {
-		dom.content(target, response);
-	}
-
-	if (doa && doa[0][0] == 'placeholder') {
-		dom.placeholder(target, response);
-	}
-
-	if (doa && doa[0][0] == 'value') {
-		dom.value(target, response);
-	}
-
-	if(doa && doa[0][0] == 'json') {
-		arr = getAttributes('json');
-
-		for (i = 0; i < arr.length; i++) {
-
-			var json = eval("obj." + arr[i][0]);
-			dom.placeholder(arr[i][1], json);
-
-		}
-
-	}
-
-	if (doa && doa[0][0] == 'redirect') {
-		self.location.href='/'+doa[0][1];
-	}
-
-}
-
-function hideLoader(obj) {
-	dom.class('popup-content', 'remove', 'loaderb');
 }
 
 var xhrQuick = function() {
@@ -206,7 +172,6 @@ function xhr(path, data, el, doa) {
 		if (response)
 			dom.class(target, "remove", "disabled");
 			dom.content(target, orgcontent);
-			doOnSuccess(target, response, doa);
 		});
 
 	}else{
@@ -214,12 +179,11 @@ function xhr(path, data, el, doa) {
 		if (response)
 			dom.class(target, "remove", "disabled");
 			dom.content(target, orgcontent);
-			doOnSuccess(target, response, doa);
 		});
 	}
 
 	return false;
 }
 
-var socket = new xhrQuick(),
-client = new xhrQuick();
+var socket = new xhrQuick();
+var client = new xhrQuick();

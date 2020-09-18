@@ -2,12 +2,16 @@ nav{
   word-break: break-all;
 }
 
-nav.guillemet * li:after{
+nav.guillemet * a:after{
   content: "\00a0\00a0 \00BB \00a0\00a0"
 }
 
-nav.pointer * li:after{
+nav.pointer * a:after{
   content: "\00a0\00a0 \276F \00a0\00a0"
+}
+
+nav.pipe a:after{
+  content: "\00a0\00a0 | \00a0\00a0"
 }
 
 /* Crumbs */
