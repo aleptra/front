@@ -4,14 +4,14 @@ libAttribute.push(
 
 
 function include(el){
-			var target = el.getAttribute("include");
-			client.get(globalUrl + target, function(response) {
-				if (response) {
-					el.innerHTML = response;
-					core.runCoreAttributesInElement(el);
-					core.runLibAttributesInElement(el);
-				}
-			});
+	var target = el.getAttribute("include");
+	client.get(globalUrl + target, function(response) {
+		if (response) {
+			el.innerHTML = response;
+			core.runCoreAttributesInElement(el);
+			core.runLibAttributesInElement(el);
+		}
+	});
 }
 
 /**
