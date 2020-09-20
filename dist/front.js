@@ -250,6 +250,13 @@ var core = function() {
 			e.innerHTML = e.innerHTML.toLowerCase();
 		if (e.hasAttribute("uppercase"))
 			e.innerHTML = e.innerHTML.toUpperCase();
+		if (e.hasAttribute("escape")) {
+			var escape = e.innerHTML;
+			var escaped = escape.replace(/[^]/g, function(e){
+				return"&#"+e.charCodeAt(0)+";" 
+			});
+			e.innerText = escaped;
+		}
 		if (e.hasAttribute("format")) {
 			var format = e.getAttribute("format");
 			var match = format.match(/\((.*)\)/gi);
