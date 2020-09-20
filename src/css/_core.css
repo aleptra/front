@@ -49,12 +49,14 @@ section,article,code,pre,samp,p{
 
 .f22{font-size: calc(2.2em + 2vw); line-height: 1.2}
 h1{font-size: calc(1.4em + 1.4vw); line-height: 1.4}
+h2,.f16{font-size: calc(1.1em + 1vw)}
+h3,.f13{ font-size: calc(1em + .9vw)}
+h4,.f12{ font-size: calc(.9em + .8vw)}
+h5,.f11{ font-size: calc(.8em + .7vw)}
+h6,.f1{ font-size: calc(.7em + .6vw)}
+
 .f2{ font-size: 200%; line-height: 2;}
-h2,.f16{font-size: calc(1em + 1vw)}
-h3,.f13{ font-size: calc(1.5em + 1.5vw)}
-h4,.f12{ font-size: 4vmax; line-height: 2.4}
-h5,.f11{ font-size: 3.5vmax; line-height: 2.5}
-h6,.f1{ font-size: 3vmax; line-height: 2.6}
+
 
 i,b,span,.di{ display: inline }
 b,strong{ font-weight: bold }
