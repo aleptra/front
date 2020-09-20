@@ -5,6 +5,7 @@
     align-items: center;
     list-style: none;
     z-index: 20;
+    overflow: hidden;
 }
 
 .bottombar *,
@@ -27,13 +28,16 @@
     -moz-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    max-height: 100%;
 }
 
+.bottombar figure,
 .bottombar a,
-.topbar a{ height: 100% }
+.topbar a,
+.topbar figure{ height: 100% }
 
-.bottombar img,
-.topbar img { max-height: 100% }
+.bottombar * img,
+.topbar * img{ max-height: 100% }
 
 .bottombar *.fr,
 .topbar *.fr{

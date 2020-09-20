@@ -47,13 +47,14 @@ section,article,code,pre,samp,p{
     height: inherit;
 }
 
-h1,.f22{ font-size: 220%; line-height: 1.1 !important}
-.f2{ font-size: 200%; line-height: 1 !important}
-h2,.f16{ font-size: 160%; line-height: 2.2 !important}
-h3,.f13{ font-size: 130%; line-height: 2.3}
-h4,.f12{ font-size: 120%; line-height: 2.4}
-h5,.f11{ font-size: 110%; line-height: 2.5}
-h6,.f1{ font-size: 100%; line-height: 2.6}
+.f22{font-size: calc(2.2em + 2vw); line-height: 1.2}
+h1{font-size: calc(1.4em + 1.4vw); line-height: 1.4}
+.f2{ font-size: 200%; line-height: 2;}
+h2,.f16{font-size: calc(1em + 1vw)}
+h3,.f13{ font-size: calc(1.5em + 1.5vw)}
+h4,.f12{ font-size: 4vmax; line-height: 2.4}
+h5,.f11{ font-size: 3.5vmax; line-height: 2.5}
+h6,.f1{ font-size: 3vmax; line-height: 2.6}
 
 i,b,span,.di{ display: inline }
 b,strong{ font-weight: bold }
@@ -71,9 +72,9 @@ body {
     display: flex;
     display: flexbox;
     display: box;
+    display: grid;
     display: -ms-grid;
     display: -moz-grid;
-    display: grid;
     height: 100%;
     min-height: 100%;
     width: 100%;
@@ -92,6 +93,10 @@ body {
     -ms-font-feature-settings: "kern";
     -webkit-font-feature-settings: "kern";
     -o-font-feature-settings: "kern";
+}
+
+body.nav{
+    grid-template-areas: "nav head head" "nav nav nav" "left middle right" "foot foot foot";
 }
 
 body>header {
@@ -115,6 +120,7 @@ body>aside {
     -ms-grid-row: 3;
     -ms-grid-column: 1;
     overflow: auto;
+    padding: 0;
 }
 
 body>main {
@@ -140,7 +146,7 @@ body>footer {
     -ms-grid-column-span: 3;
 }
 
-body > footer div{
+body>footer div{
     flex-basis: 0;
     flex-grow: 1;
     flex-basis: 0;
@@ -239,7 +245,9 @@ summary{
 .p3{ padding: 3rem }
 .p4{ padding: 4rem }
 .p5{ padding: 5rem }
+.p5p{ padding: 5% }
 .p10{ padding: 10rem }
+.p10p{ padding: 10% }
 .pl1{ padding-left: 1rem }
 .pr025, .pr025->*{ padding-right: .25rem }
 .pr05, .pr05->*{ padding-right: .5rem }
@@ -294,11 +302,14 @@ summary{
 
 [class*='z'] {
     line-height: inherit;
+    /*line-height: normal;*/
     width: auto;
 }
 
 .fww{ flex-wrap: wrap; -ms-flex-wrap: wrap }
 .fs1{ flex-shrink: 1; -ms-flex-negative: 1 }
+.fdc{ flex-direction: column; -ms-flex-direction: column}
+.fdr{ flex-direction: column; -ms-flex-direction: row}
 .flc{ 
     -webkit-box-pack: center;
     -moz-box-pack: center;
@@ -328,7 +339,20 @@ summary{
 .icon192{ font-size: 192px }
 .icon256{ font-size: 256px }
 
+.test- a{
+    flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+.test- a + img ~ .test a{
+    flex-direction: inherit;
+    -ms-flex-direction: inherit;
+}
+
 /* Screen Sized: XXS, XS, SM, MD, LG, XL, XXL, XXXL */
+
+.wxxs{ max-width: 220px }
+.pauto{ padding: 3rem }
 
 body [class*='_dn'], body [class*='_du']{display: none}
 
@@ -396,10 +420,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 480px) {
     body .md_du{display: inherit}
+    body .pauto{padding: 2rem}
 }
 
 @media only screen and (max-width: 360px) {
     body .sm_du{display: inherit}
+    body .pauto{padding: 1.5rem}
 }
 
 @media only screen and (max-width: 300px) {
@@ -783,6 +809,7 @@ button.icon,
     align-items: center;
     list-style: none;
     z-index: 20;
+    overflow: hidden;
 }
 
 .bottombar *,
@@ -805,13 +832,16 @@ button.icon,
     -moz-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    max-height: 100%;
 }
 
+.bottombar figure,
 .bottombar a,
-.topbar a{ height: 100% }
+.topbar a,
+.topbar figure{ height: 100% }
 
-.bottombar img,
-.topbar img { max-height: 100% }
+.bottombar * img,
+.topbar * img{ max-height: 100% }
 
 .bottombar *.fr,
 .topbar *.fr{

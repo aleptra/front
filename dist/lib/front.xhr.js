@@ -1,51 +1,15 @@
-/**
- * @param {string} target - Target DOM element.
- * @param {string or object} response - Response from XHR.
- * @param {string} doa - Do the action with the target.
- */
-function doOnSuccess(target, response, doa) {
+libAttribute.push(
+	{'attr': 'include', 'func': 'include'}
+);
 
-	var obj = '';
-
-	if(response) {
-    try {
-			obj = JSON.parse(response)
-    }catch(e) {
-    	//console.log(e);
-    }
-	}
-
-console.log("%c Do On Success (XHR Response): Target="+target+", Type="+doa, "background: yellow; color: black");
-
-	hideLoader(target);
-
-	arr = getAttributes('onsuccess');
-
-	for (i = 0; i < arr.length; i++) {
-		var str = arr[i][0];
-		var firstchar = str.substring(0,1);
-
-		if (firstchar == "*") { //global call
-			str = str.substring(1); // remove char
-		}
-
- 		var values = str.split(") ");
-		var valueAction = values[1];
-
-		console.log(str);
-
-		var value = values[0].split(":");
-		var value1 = value[0].substr(1);
-		var value2 = value[1];
-
-		var object = getObject(obj, value1); //returns from xhr
-
-		if (object) {
-			if ((value2.length > 0 && value2 == object) || value2.length == 0)
-					setTimeout(valueAction, 1);
-		}
-
-	}
+function include(el){
+	var target = el.getAttribute("include");
+	client.get(globalUrl + target, function(response) {
+		if (response)
+			el.innerHTML = response;
+			core.runCoreAttributesInElement(el);
+			core.runLibAttributesInElement(el);
+	});
 }
 
 var xhrQuick = function() {
@@ -108,12 +72,6 @@ var xhrQuick = function() {
   }
 }
 
-/**
- * @param {string} path - Path to XHR Controller (see xhr.php).
- * @param {string or objects} data - If data is passed use client.post.
- * @param {string} el - Target DOM Element.
- * @param {string} doa - Pass arguments to DoOnSuccess function.
- */
 function xhr(path, data, el, doa) {
 
 	var doa = (doa) ? null : doa;
@@ -126,8 +84,6 @@ function xhr(path, data, el, doa) {
 		data.push(post);
 		//console.log("dataRaw", dom.value('q'));
 	}
-
-//console.log("dataRaw", dom.value('q'));
 
 	var url = '/?xhr='+path;
 	var code = 503;

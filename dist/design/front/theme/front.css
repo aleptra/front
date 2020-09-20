@@ -177,3 +177,7 @@ button:hover, .button:hover{
     opacity: .85;
     box-shadow: 0px 3px 10px 1px rgba(0, 0, 0, 0.2)
 }
+
+button:focus, .button:focus{
+    opacity: 1;
+}

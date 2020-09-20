@@ -5,6 +5,12 @@
             "isAsync": true,
             "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
             "event": "onFileChange"
+        },
+        {
+            "match": "\\.js*",
+            "isAsync": true,
+            "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
+            "event": "onFileChange"
         }
     ]
 }

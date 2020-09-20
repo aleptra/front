@@ -53,6 +53,9 @@ document.onclick=function(e) {
 };
 
 document.addEventListener('DOMContentLoaded', function()  {
+	/*document.registerElement('template');
+	document.registerElement('main');
+*/
 	front = document.getElementsByTagName("*");
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
@@ -80,18 +83,17 @@ document.addEventListener('DOMContentLoaded', function()  {
 });
 
 window.addEventListener('load', function() {
-		core.runFrontAttributes();
-		if (!dom.exists("base", "tag")) dom.create("base", ["href=/"], "head")
-		if (typeof onLoad == 'function') onLoad()
+	core.runFrontAttributes();
+	if (!dom.exists("base", "tag")) dom.create("base", ["href=/"], "head")
+	if (typeof onLoad == 'function') onLoad()
 		
-		var redirectTemp = app.storage("redirectTemp");
+	var redirectTemp = app.storage("redirectTemp");
 
-		if(redirectTemp) {
-			app.storage("redirectTemp", null);
-			nav(redirectTemp);
-		}
+	if(redirectTemp) {
+		app.storage("redirectTemp", null);
+		nav(redirectTemp);
+	}
 });
-
 
 window.addEventListener("hashchange", function() {
 //alert('change');
@@ -233,17 +235,6 @@ var core = function() {
 			alert(e.getAttribute("alert"));
 		if (e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"));
-		if (e.hasAttribute("include")) {
-			var target = e.getAttribute("include");
-			console.log(target);
-			client.get(globalUrl + target, function(response) {
-				if (response) {
-					e.innerHTML = response;
-					core.runCoreAttributesInElement(e);
-					core.runLibAttributesInElement(e);
-				}
-			});
-		}
 		if (e.hasAttribute("var") || e.hasAttribute("variable")) {
 			var attr = e.getAttribute("var") || e.getAttribute("variable");
 			var res = attr.split("=");

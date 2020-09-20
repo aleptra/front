@@ -15,16 +15,16 @@
     <header>
         <nav class="topbar dark shade h4_5 gap2-" selective="true">
             <button class="xl_du rounded h0 f2" onclick="dom.toggle('aside?tag=0')">≡</button>
-            <a class="b0" href="./" target="_top" href2="./home.html" key="0"><img src="assets/img/logo.png"></a>
-            <a href="./documentation.html" key="1">Documentation</a>
-            <a href="./icons.html" key="2">Icons</a>
-            <a href="./examples.html" key="3">Examples</a>
+            <figure><a class="b0" href="./" target="_top" href2="./home.html" key="0"><img src="assets/img/logo.png"></a></figure>
+            <a href="./documentation.html" key="1"><i class="icon">●</i>Documentation</a>
+            <a href="./icons.html" key="2"><i class="icon">●</i>Icons</a>
+            <a href="./examples.html" key="3"><i class="icon">●</i>Examples</a>
         </nav>
     </header>
 
     <nav></nav>
     <aside class="xl_dn"></aside>
-    <main class="p3" include="home.html"></main>
+    <main class="pauto" include="home.html"></main>
     <aside class="lg_dn"></aside>
     <footer>
         <div eventlistener="offline" eventaction="dom.create('div', ['id=offline', 'className=alert pf b1 l1 bcred white snack', 'innerHTML=<i class=icon>⚠</i> Connection lost...'], 'footer')"></div>
