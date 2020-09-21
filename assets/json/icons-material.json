@@ -82,6 +82,18 @@
             "name": "tv",
             "html_entity": "&#128250;",
             "html_entity_2": "&#x1F4FA;"
+        },
+        {
+            "title": "Bookmark",
+            "name": "bookmark, turned_in",
+            "html_entity": "&#128278;",
+            "html_entity_2": "&#x1F516;"
+        },
+        {
+            "title": "Book",
+            "name": "book",
+            "html_entity": "&#128366;",
+            "html_entity_2": "&#x1F516;"
         }
     ]
  }

@@ -341,14 +341,9 @@ summary{
 .icon192{ font-size: 192px }
 .icon256{ font-size: 256px }
 
-.test- a{
+.test- > a{
     flex-direction: column;
     -ms-flex-direction: column;
-}
-
-.test- a + img ~ .test a{
-    flex-direction: inherit;
-    -ms-flex-direction: inherit;
 }
 
 /* Screen Sized: XXS, XS, SM, MD, LG, XL, XXL, XXXL */
