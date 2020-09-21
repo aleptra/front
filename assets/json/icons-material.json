@@ -48,7 +48,7 @@
             "html_entity_2": ""
         },
         {
-            "title": "Disabled Hourglass",
+            "title": "(?) Disabled Hourglass",
             "name": "hourglass_disabled",
             "html_entity": "&#8987;",
             "html_entity_2": ""
@@ -76,6 +76,13 @@
             "name": "hourglass_full",
             "html_entity": "&#10711;",
             "html_entity_2": ""
+        },
+        {
+            "title": "Electric Light Bulb",
+            "name": "emoji_objects",
+            "html_entity": "&#128161;",
+            "html_entity_2": "&#x1F4A1;",
+            "keywords": "bulb"
         },
         {
             "title": "Television",
