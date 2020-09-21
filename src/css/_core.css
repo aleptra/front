@@ -346,6 +346,10 @@ summary{
     -ms-flex-direction: column;
 }
 
+.test-> a .icon{
+    padding-right: unset;
+}
+
 /* Screen Sized: XXS, XS, SM, MD, LG, XL, XXL, XXXL */
 
 .wxxs{ max-width: 220px }
