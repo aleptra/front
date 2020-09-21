@@ -29,6 +29,7 @@
     -ms-flex-align: center;
     align-items: center;
     max-height: 100%;
+    line-height: normal;
 }
 
 .bottombar figure,
