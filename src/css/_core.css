@@ -349,6 +349,7 @@ summary{
 
 .test-> a .icon{
     padding-right: unset;
+    font-size: initial;
 }
 
 /* Screen Sized: XXS, XS, SM, MD, LG, XL, XXL, XXXL */
@@ -418,6 +419,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
         padding: unset;
         width: unset;
     }
+
+    nav.topbar a{ font-size: 80% };
 }
 
 @media only screen and (max-width: 480px) {
@@ -428,7 +431,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 @media only screen and (max-width: 360px) {
     body .sm_du{display: inherit}
     body .pauto{padding: 1.5rem}
-    nav.topbar a{ font-size: 80% };
+    nav.topbar a{ font-size: 0}
 }
 
 @media only screen and (max-width: 300px) {
