@@ -1,5 +1,11 @@
 .grid{
     width: 100%;
+    margin: 0 auto;
+}
+
+
+.grid.w80w{
+    max-width: 80vmax;
 }
 
 .grid [class*='w'] {

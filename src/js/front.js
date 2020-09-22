@@ -53,9 +53,6 @@ document.onclick=function(e) {
 };
 
 document.addEventListener('DOMContentLoaded', function()  {
-	/*document.registerElement('template');
-	document.registerElement('main');
-*/
 	front = document.getElementsByTagName("*");
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
@@ -215,6 +212,8 @@ var core = function() {
 		}
 		if (e.tagName == "TEMPLATE") {
 
+			var test = dom.get("template?tag")
+			console.dir(test.childNodes);
 			var fragments = core.toArray(dom.get("template?tag").content.children);
 			var sorted = core.sortArray(fragments, "tagName");
 			var array = core.tagArray(sorted);

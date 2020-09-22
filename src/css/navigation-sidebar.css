@@ -1,7 +1,7 @@
 .sidebar{
     flex-direction: column;
     -ms-flex-direction: column;
-    overflow: scroll;
+    overflow: auto;
     align-self: stretch;
 }
 

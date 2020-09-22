@@ -234,13 +234,14 @@ summary{
 .h15 { height: 15rem }
 .h20 { height: 20rem }
 .h100 { height: 100% }
+.hm100 { min-height: 100% }
 .p1vw { padding: 1vw}
 .p5vw { padding: 5vw}
 .p10vw { padding: 10vw}
 .p15vw { padding: 15vw}
-.p5vh { padding: 5vh}
-.p10vh { padding: 10vh}
-.p15vh { padding: 15vh}
+.p5v { padding: 5vhmin}
+.p10v { padding: 10vmin}
+.p15v { padding: 15vmin}
 .p025, .p025->*{ padding: .25rem }
 .p05{ padding: .5rem }
 .p1, .p1->*{ padding: 1rem }
@@ -750,6 +751,12 @@ button.icon,
     float: left;
 }.grid{
     width: 100%;
+    margin: 0 auto;
+}
+
+
+.grid.w80w{
+    max-width: 80vmax;
 }
 
 .grid [class*='w'] {
@@ -758,7 +765,7 @@ button.icon,
 }.sidebar{
     flex-direction: column;
     -ms-flex-direction: column;
-    overflow: scroll;
+    overflow: auto;
     align-self: stretch;
 }
 
