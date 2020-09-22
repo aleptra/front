@@ -49,6 +49,7 @@ section,article,code,pre,samp,p{
 }
 
 .f22{font-size: calc(2.2em + 2vw); line-height: 1.2}
+.f20{font-size: calc(2em + 1.8vw); line-height: 1}
 h1{font-size: calc(1.4em + 1.4vw); line-height: 1.4}
 h2,.f16{font-size: calc(1.1em + 1vw)}
 h3,.f13{ font-size: calc(1em + .9vw)}
@@ -188,7 +189,11 @@ summary{
 .dark a:focus, .dark a:hover { color: #fff }
 .light, .light- * { background-color: #f7f7f7 !important; color: #111 !important }
 .lightdark, .lightdark- * { background-color: lightgray!important; color: #222 !important }
-
+.light01{background-color: (255,255,255,.1)}
+.light02{background-color: (255,255,255,.2)}
+.light03{background-color: (255,255,255,.3)}
+.light04{background-color: (255,255,255,.4)}
+.light05{background-color: (255,255,255,.5)}
 .glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
 .inset->*:hover, .inset{ box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .1), 0px 0px 3px 0px rgba(0,0,0, .1) }
 .shade->*:hover, .shade{
@@ -418,7 +423,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
     .grid > * {
         padding: unset;
-        width: unset;
+        width: 100%;
     }
 
     nav.topbar a{ font-size: 80% };
