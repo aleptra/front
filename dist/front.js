@@ -714,9 +714,9 @@ var dom = function() {
 	
 	this.scrollInto = function(el,bool) {
 		var target = this.get(el);
-		if(target)
-			target.scrollIntoView()
-		else if (bool)
+		if (!bool)
+			target.scrollIntoView();
+		else
 			target.scrollTop = bool;
 	}
 
