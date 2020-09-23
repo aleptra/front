@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', function()  {
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
 
-	app.storage("domain", url);
+	app.storage("host", url);
 	app.storage("startUrl", baseUrl);
 	
 	if(redirectWithLayout()) {
-		app.redirect(baseUrl);
+		app.redirect(url+app.storage("redirectTemp"));
 	}else{
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
 		if (currentScript.hasAttribute("lib")) {
