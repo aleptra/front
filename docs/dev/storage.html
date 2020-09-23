@@ -1,0 +1,37 @@
+<script src="../../dist/front.js" title="DOM" template="true"></script>
+
+<template>
+    <aside index="0"></aside>
+    <aside index="1">
+        <nav class="sidebar w11">
+            <h5 class="p1 mt1">DOM</h5>
+            <ul>
+                <li><a href="#">Create</a></li>
+                <li><a href="#">Remove</a></li>
+                <li><a href="#">Update</a></li>
+                <li><a href="#">Get</a></li>
+                <li><a href="#">Set</a></li>
+            </ul>
+        </nav>
+    </aside>
+</template>
+
+<h1>Storage</h1>
+Storage for applications to store data.
+<section>
+
+    <h2>Add</h2>
+    <code class="markup navajowhite">
+        <span class="white">app.storage</span>(<span class="gold">'key'</span>, <span class="gold">'value'</span>)
+    </code>
+
+    <h2 class="mt1">Get</h2>
+    <code class="markup navajowhite">
+        <span class="white">app.storage</span>(<span class="gold">'key'</span>)
+    </code>
+
+    <h2 class="mt1">Remove</h2>
+    <code class="markup navajowhite">
+        <span class="white">app.storage</span>(<span class="gold">'key', null</span>)
+    </code>
+</section>
