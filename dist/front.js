@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function()  {
 	app.storage("startUrl", baseUrl);
 	
 	if(redirectWithLayout()) {
-		app.redirect("/");
+		app.redirect(baseUrl);
 	}else{
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
 		if (currentScript.hasAttribute("lib")) {
