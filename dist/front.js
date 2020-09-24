@@ -418,16 +418,14 @@ var app = function() {
 	}
 
 	this.storage = function(key, value) {
-		if (key && value) {
-			store.setItem(key, value);
-		}else if(key && value == null) {
-			store.removeItem(key, value);
-		}else if(key == null && !value) {
+		if (key && value)
+			store.setItem(key, value)
+		else if(key && value === null)
+			store.removeItem(key, value)
+		else if(key == null && !value)
 			store.clear()
-		}else{
-			console.log("get");
-			store.getItem(key);
-		}
+		else if(key && value === undefined)
+			return store.getItem(key)
 	}
 	
 	this.isLocalDev = function() {
