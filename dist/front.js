@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function()  {
 	app.storage("startUrl", baseUrl);
 	
 	if(redirectWithLayout()) {
-		//app.redirect(baseUrl);
+		app.redirect(baseUrl);
 	}else{
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
 		if (currentScript.hasAttribute("lib")) {
@@ -86,10 +86,10 @@ window.addEventListener('load', function() {
 		
 	var redirectTemp = app.storage("redirectTemp");
 
-	if(redirectTemp) {
+	/*if(redirectTemp) {
 		app.storage("redirectTemp", null);
 		nav(redirectTemp);
-	}
+	}*/
 });
 
 window.addEventListener("hashchange", function() {
