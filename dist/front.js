@@ -152,7 +152,6 @@ function set(type, param, value){
 function redirectWithLayout() {
     for (i = 0; i < front.length; i++) {
 		if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
-			alert(front[i].getAttribute("title"));
 			dom.hide("html?tag");
 			app.storage("redirectTemp", app.getPathUrl(currentUrl).substr(1));
 			return true;
