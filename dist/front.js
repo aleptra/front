@@ -75,14 +75,9 @@ document.addEventListener('DOMContentLoaded', function()  {
 		}
 		load = true;
 	}
-
-	require("app.js");
 });
 
 window.addEventListener('load', function() {
-
-	if (typeof onLoad == 'function') onLoad()
-
 	if (load) {
 		core.runFrontAttributes();
 		//if (!dom.exists("base", "tag")) dom.create("base", ["href=/"], "head")
