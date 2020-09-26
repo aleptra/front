@@ -1,6 +1,7 @@
 var front;
 var frontVariables = [];
 var libAttribute = [];
+var load = false;
 
 var urlDelimiter = '/';
 var elementDivider = /[?=]/;
@@ -56,17 +57,15 @@ document.addEventListener('DOMContentLoaded', function()  {
 	front = document.getElementsByTagName("*");
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
-	currentScript = document.currentScript || document.scripts[document.scripts.length -1];
+	currentScript = document.querySelector('script[src*="front.js"]');
 	title = document.title;
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
-
+	
 	app.storage("host", url);
 	app.storage("startUrl", baseUrl);
-	
-	if(redirectWithLayout()) {
-		app.redirect(baseUrl);
-	}else{
+
+	if(!app.hasTemplateLayout()) {
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
 		if (currentScript.hasAttribute("lib")) {
 			var libs = currentScript.getAttribute("lib").split(";");
@@ -74,22 +73,28 @@ document.addEventListener('DOMContentLoaded', function()  {
 				require(libs[lib]);
 			}
 		}
-		require("app.js");
+		load = true;
 	}
 
+	require("app.js");
 });
 
 window.addEventListener('load', function() {
-	core.runFrontAttributes();
-	if (!dom.exists("base", "tag")) dom.create("base", ["href=/"], "head")
-	if (typeof onLoad == 'function') onLoad()
-		
-	var redirectTemp = app.storage("redirectTemp");
 
-	/*if(redirectTemp) {
-		app.storage("redirectTemp", null);
-		nav(redirectTemp);
-	}*/
+	if (typeof onLoad == 'function') onLoad()
+
+	if (load) {
+		core.runFrontAttributes();
+		//if (!dom.exists("base", "tag")) dom.create("base", ["href=/"], "head")
+	}else{
+
+		var redirectTemp = app.storage("redirectTemp");
+
+		if(redirectTemp) {
+			app.storage("redirectTemp", null);
+		//	nav(redirectTemp);
+		}
+	}
 });
 
 window.addEventListener("hashchange", function() {
@@ -149,16 +154,6 @@ function set(type, param, value){
 	dom.set(type, param, value);
 }
 
-function redirectWithLayout() {
-    for (i = 0; i < front.length; i++) {
-		if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
-			dom.hide("html?tag");
-			app.storage("redirectTemp", app.getPathUrl(currentUrl).substr(1));
-			return true;
-		}
-	}
-}
-
 function getParentTag(element, tag) {
 	while (element !== null) {
 		if (element.tagName && element.tagName.toLowerCase() === tag) {
@@ -213,15 +208,23 @@ var core = function() {
 		if (e.tagName == "TEMPLATE") {
 
 			var test = dom.get("template?tag")
-			console.dir(test.childNodes);
+			//console.dir(test.childNodes);
 			var fragments = core.toArray(dom.get("template?tag").content.children);
 			var sorted = core.sortArray(fragments, "tagName");
 			var array = core.tagArray(sorted);
 
+
 			for(i=0; i < array.length; i++) {
 				var el = array[i].tagName+"?tag="+array[i].tagIndex;
+				//console.dir(el);
+				//console.log(array[i]);
 				var index = array[i].getAttribute("index");
-				if (!index || array[i].tagIndex == index) dom.content(el, array[i].innerHTML);
+				console.dir(array[i]);
+
+				if (array[i].tagIndex == index) {
+					console.dir("update" + array[i].tagIndex)
+					dom.content(el, array[i].innerHTML);
+				}
 			}
 		}
 		if (e.hasAttribute("resizable"))
@@ -366,18 +369,24 @@ var core = function() {
 
 	this.tagArray = function(array) {
 		var current = null;
-			var u = 0;
-			for(j=0; j < array.length; j++) {
-				
+		var u = 0;
+		for(j=0; j < array.length; j++) {
+			
+			attr = array[j].getAttribute('index');
+			if (attr) {
+				u = attr;
+			}else{
 				if (current != array[j].tagName) {
 					current = array[j].tagName;
 					u = 0;
 				}else{
 					u++;
 				}
+			}
 
-				array[j].tagIndex = u;
+			array[j].tagIndex = u;
 		}
+	
 		return array;
 	}
 
@@ -391,19 +400,27 @@ var core = function() {
 var app = function() {
 
 	var store = localStorage;
+	var baseStartUrl;
 
 	this.setBaseUrl = function(dir) {
 		newBaseUrl = baseUrl.split(urlDelimiter);
 		newBaseUrl[3] = dir + urlDelimiter + newBaseUrl[3];
 		baseUrl = newBaseUrl.join(urlDelimiter);
 		console.log("BaseUrl changed: "+baseUrl);
-		dom.update(["tag", "base"], ["setAttribute", "href", "/"+dir+"/"]);
+	}
+
+	this.setBaseUrl2 = function(dir){
+		dom.update("base?tag", ["setAttribute", "href", dir]);
 	}
 
 	this.getBaseUrl = function(url) {
 		str = url.split(urlDelimiter);
 		str.pop();
 		return str.join(urlDelimiter) + urlDelimiter;
+	}
+
+	this.getBaseStartUrl = function() {
+		return baseStartUrl;
 	}
 
 	this.setFrontBaseUrl = function(dir) {
@@ -438,6 +455,44 @@ var app = function() {
 	this.redirect = function(url) {
 		top.location.href = url;
 	}
+
+	this.hasTemplateLayout = function() {
+		var isLocalDev = app.isLocalDev();
+		
+		for (i = 0; i < front.length; i++) {
+			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
+				var main = dom.get("body?tag").innerHTML;
+				dom.remove("body?tag");
+				dom.hide("html?tag");
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+				  if (this.readyState == 4 && this.status == 200)
+				  //dom.rebuild(this.responseText);
+				  dom.content("html?tag", this.responseText);
+				  dom.content("main?tag", main);
+				  dom.show("html?tag");
+					  //console.log();
+				};
+				xhttp.open("GET", "index.html", true);
+				xhttp.send();
+				//dom.remove("html?tag");
+				//app.storage("redirectTemp", app.getPathUrl(currentUrl).substr(1));
+				return true;
+			}
+			if(front[i].tagName == "BASE") {
+				var attr = front[i].getAttribute("env").split(";");
+				for(a in attr){
+					env = attr[a].split(":");
+					
+					if (env[0] == "local" && isLocalDev) {
+						app.setBaseUrl2(env[1]);
+					}else if (env[1] == "prod" && !isLocalDev){
+						app.setBaseUrl2(env[1]);
+					}
+				}
+			}
+		}
+	}
 }
 
 var dom = function() {
@@ -447,6 +502,9 @@ var dom = function() {
 	this.get = function(obj) {
 		var res = obj.split(elementDivider);
 		if (res[1] === "tag"){
+			if (res[0] == "base") {
+				console.dir(document.getElementsByTagName(res[0]));
+			}
 			var index = (res[2]) ? res[2] : 0;
 			return document.getElementsByTagName(res[0])[index];
 		}else if (res[1] === "name"){
@@ -458,7 +516,7 @@ var dom = function() {
 
 	this.exists = function(obj) {
 		var el = this.get(obj);
-		if (typeof(el) != 'undefined' && el != null)
+		if (typeof(el) !== 'undefined' && el != null)
 			return true;
 		else
 			return false;
@@ -493,15 +551,9 @@ var dom = function() {
 
 	this.content = function(obj, content) {
 		var el = this.get(obj);
-		if (el && content) {
+		if (el && (content || content === ""))
 			el.innerHTML = content;
-		}else{
-			try {
-				return el.innerHTML;
-			}catch(err){
-				return false;
-			}
-		}
+		else return el.innerHTML;
 	}
 
 	this.source = function(obj, source) {
@@ -623,9 +675,10 @@ var dom = function() {
 	}
 	
 	this.update = function(el, arr) {
-		var el = this.get(el[1]+"?tag");
+		var el = this.get(el);
+		//console.dir(el);
 		var props = "el."+arr[0]+"('"+arr[1]+"', '"+arr[2]+"')";
-		eval(props);
+		if (el) eval(props);
 	}
 
 	this.create = function(el, arr, parent) {
@@ -639,6 +692,13 @@ var dom = function() {
 			document.getElementsByTagName(parent)[0].appendChild(el);
 		else
 			document.body.appendChild(el);
+	}
+
+	this.rebuild = function(html) {
+
+document.write(html);
+
+//		document.body.appendChild(el);
 	}
 
 	this.clone = function(el, parent, copies, variables) {
