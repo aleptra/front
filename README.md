@@ -31,6 +31,12 @@ The file watcher must run the command ```make``` so that source CSS can be rebui
             "isAsync": true,
             "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
             "event": "onFileChange"
+        },
+        {
+            "match": "\\.js*",
+            "isAsync": true,
+            "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
+            "event": "onFileChange"
         }
     ]
 }

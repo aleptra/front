@@ -80,15 +80,9 @@ document.addEventListener('DOMContentLoaded', function()  {
 window.addEventListener('load', function() {
 	if (load) {
 		core.runFrontAttributes();
-		//if (!dom.exists("base", "tag")) dom.create("base", ["href=/"], "head")
 	}else{
 
 		var redirectTemp = app.storage("redirectTemp");
-
-		if(redirectTemp) {
-			app.storage("redirectTemp", null);
-		//	nav(redirectTemp);
-		}
 	}
 });
 
