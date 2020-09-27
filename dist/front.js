@@ -391,7 +391,7 @@ var app = function() {
 
 	this.setBaseUrl2 = function(dir){
 		dom.update("base?tag", ["setAttribute", "href", dir]);
-		console.log("Base URL changed to: "+baseUrl);
+		console.log("Base URL changed: "+baseUrl);
 	}
 
 	this.getBaseUrl = function(url) {
