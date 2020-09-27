@@ -462,7 +462,7 @@ var app = function() {
 				for(a in attr){
 					env = attr[a].split(":");
 					console.log(isLocalDev);
-					console.log(env[1]);
+					console.log(env[0]+" "+env[1]);
 
 					if (env[0] == "local" && isLocalDev) {
 						app.setBaseUrl2(env[1]);
