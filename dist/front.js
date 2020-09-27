@@ -461,6 +461,7 @@ var app = function() {
 				var attr = front[i].getAttribute("env").split(";");
 				for(a in attr){
 					env = attr[a].split(":");
+					console.log(isLocalDev);
 					
 					if (env[0] == "local" && isLocalDev) {
 						app.setBaseUrl2(env[1]);
