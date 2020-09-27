@@ -462,14 +462,10 @@ var app = function() {
 				var attr = front[i].getAttribute("env").split(";");
 				for(a in attr){
 					env = attr[a].split(":");
-					console.log(isLocalDev);
-					console.log(env[0]+" "+env[1]);
-
-					if (env[0] == "local" && isLocalDev) {
+					if (env[0] == "local" && isLocalDev)
 						app.setBaseUrl2(env[1]);
-					}else if (env[1] == "prod" && !isLocalDev){
+					else if(env[0] == "prod" && !isLocalDev)
 						app.setBaseUrl2(env[1]);
-					}
 				}
 			}
 		}
