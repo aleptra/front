@@ -199,18 +199,12 @@ var core = function() {
 			var sorted = core.sortArray(fragments, "tagName");
 			var array = core.tagArray(sorted);
 
-
 			for(i=0; i < array.length; i++) {
 				var el = array[i].tagName+"?tag="+array[i].tagIndex;
-				//console.dir(el);
-				//console.log(array[i]);
 				var index = array[i].getAttribute("index");
-				console.dir(array[i]);
 
-				if (array[i].tagIndex == index) {
-					console.dir("update" + array[i].tagIndex)
+				if (array[i].tagIndex == index)
 					dom.content(el, array[i].innerHTML);
-				}
 			}
 		}
 		if (e.hasAttribute("resizable"))
