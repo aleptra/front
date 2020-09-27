@@ -467,6 +467,7 @@ var app = function() {
 					if (env[0] == "local" && isLocalDev) {
 						app.setBaseUrl2(env[1]);
 					}else if (env[1] == "prod" && !isLocalDev){
+						console.log('set prod');
 						app.setBaseUrl2(env[1]);
 					}
 				}
