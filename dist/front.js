@@ -80,15 +80,6 @@ document.addEventListener('DOMContentLoaded', function()  {
 window.addEventListener('load', function() {
 	if (load) {
 		core.runFrontAttributes();
-		//if (!dom.exists("base", "tag")) dom.create("base", ["href=/"], "head")
-	}else{
-
-		var redirectTemp = app.storage("redirectTemp");
-
-		if(redirectTemp) {
-			app.storage("redirectTemp", null);
-		//	nav(redirectTemp);
-		}
 	}
 });
 
@@ -470,8 +461,6 @@ var app = function() {
 				};
 				xhttp.open("GET", "index.html", true);
 				xhttp.send();
-				//dom.remove("html?tag");
-				//app.storage("redirectTemp", app.getPathUrl(currentUrl).substr(1));
 				return true;
 			}
 			if(front[i].tagName == "BASE") {
@@ -497,9 +486,6 @@ var dom = function() {
 	this.get = function(obj) {
 		var res = obj.split(elementDivider);
 		if (res[1] === "tag"){
-			if (res[0] == "base") {
-				console.dir(document.getElementsByTagName(res[0]));
-			}
 			var index = (res[2]) ? res[2] : 0;
 			return document.getElementsByTagName(res[0])[index];
 		}else if (res[1] === "name"){
