@@ -43,7 +43,7 @@ var xhrQuick = function() {
 
 		request.onload = function() {
 			//console.log("%c API (GET): "+this.responseText, "background: green; color: white");
-    	callback(this.responseText);
+    		callback(this.responseText);
 		};
 
 		request.onerror = function() {

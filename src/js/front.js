@@ -58,14 +58,13 @@ document.addEventListener('DOMContentLoaded', function()  {
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
 	currentScript = document.querySelector('script[src*="front.js"]');
-	title = document.title;
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
 	
 	app.storage("host", url);
 	app.storage("startUrl", baseUrl);
 
-	if(!app.hasTemplateLayout()) {
+	if(!core.hasTemplateLayout()){
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
 		if (currentScript.hasAttribute("lib")) {
 			var libs = currentScript.getAttribute("lib").split(";");
@@ -73,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function()  {
 				require(libs[lib]);
 			}
 		}
+
 		load = true;
 	}
 });
@@ -170,7 +170,48 @@ var core = function() {
 		}
 	}
 
+	this.hasTemplateLayout = function() {
+		for (i = 0; i < front.length; i++) {
+			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
+
+				var html = dom.get("html?tag=0");
+				var script = dom.get("script?tag=0");
+				script.removeAttribute("src");
+				script.removeAttribute("template");
+				document.documentElement.remove();
+
+				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
+				
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						var response = this.responseText;  		
+						response = response.replace(/<main(.*) include="(.*)">/g, '<main$1>'+main);
+						document.open();
+						document.write(response);
+						document.close();
+					}
+				};
+				xhttp.open("GET", app.getBaseUrl(currentScript.src)+"index.html", true);
+				xhttp.send();
+
+				return true;
+			}
+		}
+	};
+
 	this.runCoreAttributes = function(e){
+		if(e.tagName == "BASE") {
+			var isLocalDev = app.isLocalDev();
+			var attr = e.getAttribute("env").split(";");
+			for(a in attr){
+				env = attr[a].split(":");
+				if (env[0] == "local" && isLocalDev)
+					app.setBaseUrl(env[1]);
+				else if(env[0] == "prod" && !isLocalDev)
+					app.setBaseUrl(env[1]);
+			}
+		}
 		if (e.hasAttribute("title") && e.tagName == "SCRIPT") {
 			var value = e.getAttribute("title");
 			document.title = (value) ? value : title;
@@ -192,14 +233,11 @@ var core = function() {
 			});
 		}
 		if (e.tagName == "TEMPLATE") {
-
-			var test = dom.get("template?tag")
-			//console.dir(test.childNodes);
-			var fragments = core.toArray(dom.get("template?tag").content.children);
+			var fragments = core.toArray(dom.getChildren("template?tag"));
 			var sorted = core.sortArray(fragments, "tagName");
 			var array = core.tagArray(sorted);
 
-			for(i=0; i < array.length; i++) {
+			for (var i in array){
 				var el = array[i].tagName+"?tag="+array[i].tagIndex;
 				var index = array[i].getAttribute("index");
 
@@ -278,6 +316,7 @@ var core = function() {
 	this.runCoreAttributesInElement = function(e) {
 		var e = (typeof e === 'string') ? dom.get(e) : e;
 		els = e.getElementsByTagName("*");
+		console.dir(els);
 		for (i = 0; i < els.length; i++) {
 			core.runCoreAttributes(els[i]);
 		}
@@ -382,14 +421,7 @@ var app = function() {
 	var store = localStorage;
 	var baseStartUrl;
 
-	this.setBaseUrl = function(dir) {
-		newBaseUrl = baseUrl.split(urlDelimiter);
-		newBaseUrl[3] = dir + urlDelimiter + newBaseUrl[3];
-		baseUrl = newBaseUrl.join(urlDelimiter);
-		console.log("BaseUrl changed: "+baseUrl);
-	}
-
-	this.setBaseUrl2 = function(dir){
+	this.setBaseUrl = function(dir){
 		dom.update("base?tag", ["setAttribute", "href", dir]);
 		console.log("Base URL changed: "+baseUrl);
 	}
@@ -437,39 +469,6 @@ var app = function() {
 		top.location.href = url;
 	}
 
-	this.hasTemplateLayout = function() {
-		var isLocalDev = app.isLocalDev();
-		
-		for (i = 0; i < front.length; i++) {
-			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
-				var main = dom.get("body?tag").innerHTML;
-				dom.remove("body?tag");
-				dom.hide("html?tag");
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-				  if (this.readyState == 4 && this.status == 200)
-				  //dom.rebuild(this.responseText);
-				  dom.content("html?tag", this.responseText);
-				  dom.content("main?tag", main);
-				  dom.show("html?tag");
-					  //console.log();
-				};
-				xhttp.open("GET", "index.html", true);
-				xhttp.send();
-				return true;
-			}
-			if(front[i].tagName == "BASE") {
-				var attr = front[i].getAttribute("env").split(";");
-				for(a in attr){
-					env = attr[a].split(":");
-					if (env[0] == "local" && isLocalDev)
-						app.setBaseUrl2(env[1]);
-					else if(env[0] == "prod" && !isLocalDev)
-						app.setBaseUrl2(env[1]);
-				}
-			}
-		}
-	}
 }
 
 var dom = function() {
@@ -668,13 +667,6 @@ var dom = function() {
 			document.body.appendChild(el);
 	}
 
-	this.rebuild = function(html) {
-
-document.write(html);
-
-//		document.body.appendChild(el);
-	}
-
 	this.clone = function(el, parent, copies, variables) {
 		var cln = el.cloneNode(true);
 	
@@ -782,7 +774,31 @@ document.write(html);
 		}
 	  
 		return nodeArray;
-	  }
+	}
+
+	this.getChildren = function(el) {
+		var el = this.get(el);
+		if(typeof(el['content']) !== 'undefined')
+			return el.content.children;
+		else if(typeof(el['children']) !== 'undefined')
+			return el.children;
+		else
+			var i = 0, node, nodes = el.childNodes, children = [];
+			while (node = nodes[i++]) {
+				if (node.nodeType === 1) { children.push(node); }
+			}
+			return children;
+	}
+
+	this.removeTags = function(str, tags) {
+		var rtags = "";
+		for(i in tags){
+			rtags += "<\\/?"+tags[i]+ "[^>]*>|";
+		}
+		var re = new RegExp(rtags,'gi');
+		str = str.replace(re, '')
+		return str;
+	}
 	
 	return false;
 }
