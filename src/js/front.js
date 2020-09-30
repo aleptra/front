@@ -65,6 +65,9 @@ document.addEventListener('DOMContentLoaded', function()  {
 	app.storage("startUrl", baseUrl);
 
 	if(!core.hasTemplateLayout()){
+		
+		console.log(baseUrl);
+
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
 		if (currentScript.hasAttribute("lib")) {
 			var libs = currentScript.getAttribute("lib").split(";");
@@ -192,7 +195,7 @@ var core = function() {
 						document.close();
 					}
 				};
-				xhttp.open("GET", app.getBaseUrl(currentScript.src)+"index.html", true);
+				xhttp.open("GET", baseUrl+"index.html", true);
 				xhttp.send();
 
 				return true;
