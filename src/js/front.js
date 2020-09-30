@@ -58,6 +58,8 @@ document.addEventListener('DOMContentLoaded', function()  {
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
 	currentScript = document.querySelector('script[src*="front.js"]');
+	currentScriptUrl = currentScript.getAttribute("src");
+
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
 	
@@ -65,10 +67,9 @@ document.addEventListener('DOMContentLoaded', function()  {
 	app.storage("startUrl", baseUrl);
 
 	if(!core.hasTemplateLayout()){
-		
-		console.log(baseUrl);
 
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
+
 		if (currentScript.hasAttribute("lib")) {
 			var libs = currentScript.getAttribute("lib").split(";");
 			for(lib in libs){
@@ -177,6 +178,9 @@ var core = function() {
 		for (i = 0; i < front.length; i++) {
 			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
 
+				var count = currentScriptUrl.split("./").length;
+				var url = currentUrl.split("/").slice(0, -count).join("/");
+
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
 				script.removeAttribute("src");
@@ -195,7 +199,7 @@ var core = function() {
 						document.close();
 					}
 				};
-				xhttp.open("GET", baseUrl+"index.html", true);
+				xhttp.open("GET", url+"/index.html", true);
 				xhttp.send();
 
 				return true;
