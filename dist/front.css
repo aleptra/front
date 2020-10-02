@@ -261,6 +261,9 @@ summary{
 .pr025, .pr025->*{ padding-right: .25rem }
 .pr05, .pr05->*{ padding-right: .5rem }
 .pr1{ padding-right: 1rem }
+.pr2{ padding-right: 2rem }
+.pr3{ padding-right: 3rem }
+.pr4{ padding-right: 4rem }
 .pr5{ padding-right: 5rem }
 .pr6{ padding-right: 6rem }
 .pr10{ padding-right: 10rem }
@@ -584,7 +587,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 .darkolivegreen{color:#556b2f}
 .olivedrab{color:#6b8e23}
 
-/* cyan */
+/* Cyan */
 .lightcyan{color:#e0ffff}
 .cyan,.aqua{color:#00ffff}
 .aquamarine{color:#7fffd4}
@@ -598,7 +601,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 .darkcyan{color:#008b8b}
 .teal{color:#008080}
 
-/* blue */
+/* Blue */
 .powderblue{color:#b0e0e6}
 .lightblue{color:#add8e6}
 .lightskyblue{color:#87cefa}
@@ -674,7 +677,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 .darkslategray{color:#2f4f4f}
 .black{color:#000}
 
-/* brown */
+/* Brown */
 .cornsilk{color:#fff8dc}
 .blanchedalmond{color:#ffebcd}
 .bisque{color:#ffe4c4}

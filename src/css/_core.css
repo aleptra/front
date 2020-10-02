@@ -261,6 +261,9 @@ summary{
 .pr025, .pr025->*{ padding-right: .25rem }
 .pr05, .pr05->*{ padding-right: .5rem }
 .pr1{ padding-right: 1rem }
+.pr2{ padding-right: 2rem }
+.pr3{ padding-right: 3rem }
+.pr4{ padding-right: 4rem }
 .pr5{ padding-right: 5rem }
 .pr6{ padding-right: 6rem }
 .pr10{ padding-right: 10rem }
