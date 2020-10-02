@@ -60,6 +60,11 @@ document.addEventListener('DOMContentLoaded', function()  {
 	currentScript = document.querySelector('script[src*="front.js"]');
 	currentScriptUrl = currentScript.getAttribute("src");
 
+	var count = currentScriptUrl.split("./").length;
+	var url = currentUrl.split("/").slice(0, -count).join("/");
+
+	console.log("new url: "+ url);
+
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
 
@@ -181,6 +186,7 @@ var core = function() {
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
 				console.log("test: "+url);
+
 				script.removeAttribute("src");
 				script.removeAttribute("template");
 				document.documentElement.remove();
