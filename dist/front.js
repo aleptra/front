@@ -180,6 +180,7 @@ var core = function() {
 
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
+				console.log("test: "+url);
 				script.removeAttribute("src");
 				script.removeAttribute("template");
 				document.documentElement.remove();
