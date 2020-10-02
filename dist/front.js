@@ -190,13 +190,13 @@ var core = function() {
 				xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
 						var response = this.responseText;
-						
+						//var env = app.setupEnvironment()[1];
 						/*response = response.replace(/<link(.*) href="(.*)">/gi, function(match, submatch1, submatch2){
 							^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$
         					return '<link href="'+submatch2+'">'});
 	*/
 						//'<link$1 href="'++'$2">');
-						response = response.replace(/<base(.*)>/gi, '<base$1 href="/">');
+						//response = response.replace(/<base(.*)>/gi, '<base$1 href="/s">');
 						response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
 						
 						document.open();
