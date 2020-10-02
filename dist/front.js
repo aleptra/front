@@ -445,10 +445,10 @@ var app = function() {
 			env = attr[a].split(":");
 			if (env[0] == "local" && isLocalDev){
 				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				console.log("Running environment: localhost "+env[1]);
+				console.log("Running environment: localhost "+env[0]);
 				return env;
 			}else if(env[0] == "prod" && !isLocalDev){
-				dom.update("base?tag", ["setAttribute", "href", env[0]]);
+				dom.update("base?tag", ["setAttribute", "href", env[1]]);
 				console.log("Running environment: production "+env[0]);
 				return env;
 			}
