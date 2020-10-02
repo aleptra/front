@@ -438,6 +438,7 @@ var app = function() {
 
 	this.setupEnvironment = function() {
 		var isLocalDev = this.isLocalDev();
+		alert(isLocalDev);
 		var el = dom.get("base?tag");
 		var attr = el.getAttribute("env").split(";");
 		var env;
