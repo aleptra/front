@@ -60,10 +60,7 @@ document.addEventListener('DOMContentLoaded', function()  {
 	currentScript = document.querySelector('script[src*="front.js"]');
 	currentScriptUrl = currentScript.getAttribute("src");
 
-	var count = currentScriptUrl.split("./").length;
-	var url = currentUrl.split("/").slice(0, -count).join("/");
-
-	console.log("new url: "+ url);
+	console.log("nej"+app.getNewUrl());
 
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
@@ -71,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function()  {
 	if(!core.hasTemplateLayout()){
 
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
-
+		console.log("wee "+currentScriptUrl);
 		if (currentScript.hasAttribute("lib")) {
 			var libs = currentScript.getAttribute("lib").split(";");
 			for(lib in libs){
@@ -119,7 +116,10 @@ function require(src) {
 
   	asset.onload = function () {
 		console.log("Loaded: "+ src);
-  	};
+	};
+	
+	console.log(src);
+	
 
 	head.appendChild(asset);
   	//firstScript.parentNode.insertBefore(js, firstScript);
@@ -185,7 +185,6 @@ var core = function() {
 
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
-				console.log("test: "+url);
 
 				script.removeAttribute("src");
 				script.removeAttribute("template");
@@ -197,13 +196,7 @@ var core = function() {
 				xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
 						var response = this.responseText;
-						//var env = app.setupEnvironment()[1];
-						/*response = response.replace(/<link(.*) href="(.*)">/gi, function(match, submatch1, submatch2){
-							^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$
-        					return '<link href="'+submatch2+'">'});
-	*/
-						//'<link$1 href="'++'$2">');
-						//response = response.replace(/<base(.*)>/gi, '<base$1 href="/s">');
+						response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
 						response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
 						
 						document.open();
@@ -441,6 +434,11 @@ var app = function() {
 		str = url.split(urlDelimiter);
 		str.pop();
 		return str.join(urlDelimiter) + urlDelimiter;
+	}
+
+	this.getNewUrl = function(){
+		var count = currentScriptUrl.split("./").length;
+		return currentUrl.split("/").slice(0, -count).join("/");
 	}
 
 	this.setupEnvironment = function() {
