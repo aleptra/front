@@ -2,7 +2,7 @@ libAttribute.push(
 {'attr': 'navigate', 'func': 'nav'}
 );
 
-var globalUrl = baseUrl;
+var globalUrl = app.setupEnvironment()[1];
 var navTargetEl = "main?tag";
 var hash = location.hash;
 
@@ -23,8 +23,6 @@ function nav(path, el, push) {
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = path.split("#");
-	console.log(anchor[1]);
-	console.dir(target);
 	client.addHeader("Layout", "none");
 	client.addHeader("Path", path);
 	client.addHeader("Cache-Control", "must-revalidate");

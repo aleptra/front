@@ -62,9 +62,6 @@ document.addEventListener('DOMContentLoaded', function()  {
 
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
-	
-	app.storage("host", url);
-	app.storage("startUrl", baseUrl);
 
 	if(!core.hasTemplateLayout()){
 
@@ -192,8 +189,16 @@ var core = function() {
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
-						var response = this.responseText;  		
-						response = response.replace(/<main(.*) include="(.*)">/g, '<main$1>'+main);
+						var response = this.responseText;
+						
+						/*response = response.replace(/<link(.*) href="(.*)">/gi, function(match, submatch1, submatch2){
+							^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$
+        					return '<link href="'+submatch2+'">'});
+	*/
+						//'<link$1 href="'++'$2">');
+						response = response.replace(/<base(.*)>/gi, '<base$1 href="/">');
+						response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
+						
 						document.open();
 						document.write(response);
 						document.close();
@@ -209,15 +214,8 @@ var core = function() {
 
 	this.runCoreAttributes = function(e){
 		if(e.tagName == "BASE") {
-			var isLocalDev = app.isLocalDev();
-			var attr = e.getAttribute("env").split(";");
-			for(a in attr){
-				env = attr[a].split(":");
-				if (env[0] == "local" && isLocalDev)
-					app.setBaseUrl(env[1]);
-				else if(env[0] == "prod" && !isLocalDev)
-					app.setBaseUrl(env[1]);
-			}
+			console.log("run");
+			app.setupEnvironment(e);
 		}
 		if (e.hasAttribute("title") && e.tagName == "SCRIPT") {
 			var value = e.getAttribute("title");
@@ -421,6 +419,10 @@ var core = function() {
 		[].push.apply(arr, obj);
 		return arr;
 	}
+
+	this.toDOM = function(str){
+		return new DOMParser().parseFromString(str, "text/xml");
+	}
 }
 
 var app = function() {
@@ -428,15 +430,29 @@ var app = function() {
 	var store = localStorage;
 	var baseStartUrl;
 
-	this.setBaseUrl = function(dir){
-		dom.update("base?tag", ["setAttribute", "href", dir]);
-		console.log("Base URL changed: "+baseUrl);
-	}
-
 	this.getBaseUrl = function(url) {
 		str = url.split(urlDelimiter);
 		str.pop();
 		return str.join(urlDelimiter) + urlDelimiter;
+	}
+
+	this.setupEnvironment = function() {
+		var isLocalDev = this.isLocalDev();
+		var el = dom.get("base?tag");
+		var attr = el.getAttribute("env").split(";");
+		var env;
+		for(a in attr){
+			env = attr[a].split(":");
+			if (env[0] == "local" && isLocalDev){
+				dom.update("base?tag", ["setAttribute", "href", env[1]]);
+				console.log("Running environment: localhost "+env[1]);
+				return env;
+			}else if(env[0] == "prod" && !isLocalDev){
+				dom.update("base?tag", ["setAttribute", "href", env[0]]);
+				console.log("Running environment: production "+env[0]);
+				return env;
+			}
+		}
 	}
 
 	this.getBaseStartUrl = function() {
