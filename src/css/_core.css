@@ -289,10 +289,11 @@ nav[class*='gap'] > :last-child { margin-right: initial }
 [class*='gap'] > :first-child { margin-left: 0 }
 [class*='gap'] > :last-child { margin-right: 0 }
 
-.br03->*{ border-radius: .3rem }
-.br04->*{ border-radius: .4rem }
-.br05->*{ border-radius: .5rem }
-.br50 { border-radius: 50% }
+.br0,.br0->*{ border-radius: 0}
+.br03,.br03->*{ border-radius: .3rem }
+.br04,.br04->*{ border-radius: .4rem }
+.br05,.br05->*{ border-radius: .5rem }
+.br50,.br50->* { border-radius: 50% }
 
 .zi10{ z-index: 10}
 .zi50{ z-index: 50}
@@ -336,6 +337,19 @@ nav[class*='gap'] > :last-child { margin-right: initial }
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+}
+
+ul.list{
+    list-style: initial;
+    margin: initial;
+    padding: 0 0 0 40px;
+    flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+ul.list li{
+    display: list-item;
+    width: 100%;
 }
 
 [class*='icon'] { 
