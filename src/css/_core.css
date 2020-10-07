@@ -23,6 +23,7 @@
     -webkit-tap-highlight-color: transparent;
     -ms-flex-direction: row;
     flex-direction: row;
+    color: inherit;
 }
 
 html {
@@ -58,7 +59,6 @@ h5,.f11{ font-size: calc(.8em + .7vw)}
 h6,.f1{ font-size: calc(.7em + .6vw)}
 
 .f2{ font-size: 200%; line-height: 2;}
-
 
 i,b,span,.di{ display: inline }
 b,strong{ font-weight: bold }
@@ -223,60 +223,6 @@ summary{
 .w15, .w15- * { width: 15rem }
 .w25, .w25- * { width: 25rem }
 
-.wh1 { width: 1rem; height: 1rem }
-.wh2 { width: 2rem; height: 2rem }
-.wh3 { width: 3rem; height: 3rem }
-.h1 { height: 1rem }
-.h2 { height: 2rem }
-.h3 { height: 3rem }
-.mh3 { max-height: 3rem }
-.h3_5 { height: 3.5rem }
-.h4 { height: 4rem }
-.h4_5 { height: 4.5rem }
-.h5 { height: 5rem }
-.h10 { height: 10rem }
-.h12 { height: 12rem }
-.h15 { height: 15rem }
-.h20 { height: 20rem }
-.h100 { height: 100% }
-.hm100 { min-height: 100% }
-.p1vw { padding: 1vw}
-.p5vw { padding: 5vw}
-.p10vw { padding: 10vw}
-.p15vw { padding: 15vw}
-.p5v { padding: 5vhmin}
-.p10v { padding: 10vmin}
-.p15v { padding: 15vmin}
-.p025, .p025->*{ padding: .25rem }
-.p05{ padding: .5rem }
-.p1, .p1->*{ padding: 1rem }
-.p2{ padding: 2rem }
-.p3{ padding: 3rem }
-.p4{ padding: 4rem }
-.p5{ padding: 5rem }
-.p5p{ padding: 5% }
-.p10{ padding: 10rem }
-.p10p{ padding: 10% }
-.pl1{ padding-left: 1rem }
-.pr025, .pr025->*{ padding-right: .25rem }
-.pr05, .pr05->*{ padding-right: .5rem }
-.pr1{ padding-right: 1rem }
-.pr2{ padding-right: 2rem }
-.pr3{ padding-right: 3rem }
-.pr4{ padding-right: 4rem }
-.pr5{ padding-right: 5rem }
-.pr6{ padding-right: 6rem }
-.pr10{ padding-right: 10rem }
-.pt05{ padding-top: .5rem }
-.pt1{ padding-top: 1rem }
-.pt105{ padding-top: 1.5rem }
-.pt2{ padding-top: 2rem }
-.m05, .m05- *{ margin: .5rem }
-.mt1, .mt1- *{ margin-top: 1rem }
-.mt2, .mt2- *{ margin-top: 2rem }
-.mt3, .mt3- *{ margin-top: 3rem }
-.m1, .m1- *{ margin: 1rem }
-
 .gap05->*{ margin: .25rem .25rem .25rem 0 }
 .gap1->*{ margin: .5rem .5rem .5rem 0 }
 .gap105->*{ margin: .75rem .75rem .75rem 0 }
@@ -288,12 +234,6 @@ nav[class*='gap'] > :last-child { margin-right: initial }
 
 [class*='gap'] > :first-child { margin-left: 0 }
 [class*='gap'] > :last-child { margin-right: 0 }
-
-.br0,.br0->*{ border-radius: 0}
-.br03,.br03->*{ border-radius: .3rem }
-.br04,.br04->*{ border-radius: .4rem }
-.br05,.br05->*{ border-radius: .5rem }
-.br50,.br50->* { border-radius: 50% }
 
 .zi10{ z-index: 10}
 .zi50{ z-index: 50}
@@ -376,94 +316,4 @@ ul.list li{
 .test-> a .icon{
     padding-right: unset;
     font-size: initial;
-}
-
-/* Screen Sized: XXS, XS, SM, MD, LG, XL, XXL, XXXL */
-
-.wxxs{ max-width: 220px }
-.pauto{ padding: 3rem }
-
-body [class*='_dn'], body [class*='_du']{display: none}
-
-/*Min*/
-@media only screen and (min-width: 1440px) {
-    body .xxxl_dn{display: inherit}
-}
-
-@media only screen and (min-width: 1280px) {
-    body .xxl_dn{display: inherit}
-}
-
-@media only screen and (min-width: 960px) {
-    body .xl_dn{display: inherit}
-}
-
-@media only screen and (min-width: 600px) {
-    body .lg_dn{display: inherit}
-}
-
-@media only screen and (min-width: 480px) {
-    body .md_dn{display: inherit}
-}
-
-@media only screen and (min-width: 360px) {
-    body .sm_dn{display: inherit}
-}
-
-@media only screen and (min-width: 300px) {
-    body .xs_dn{display: inherit}
-}
-
-@media only screen and (min-width: 220px) {
-    body .xxs_dn{display: inherit}
-}
-
-
-
-/*Max*/
-@media only screen and (max-width: 1440px) {
-    body .xxxl_du{display: inherit}
-}
-
-@media only screen and (max-width: 1280px) {
-    body .xxl_du{display: inherit}
-}
-
-@media only screen and (max-width: 960px) {
-    body .xl_du{display: inherit}
-}
-
-@media only screen and (max-width: 600px) {
-    body .lg_du{display: inherit}
-
-    .grid {
-        flex-direction: column;
-        -ms-flex-direction: column;
-    }
-
-    .grid > * {
-        padding: unset;
-        width: 100%;
-    }
-
-    nav.topbar a{ font-size: 80% };
-}
-
-@media only screen and (max-width: 480px) {
-    body .md_du{display: inherit}
-    body .pauto{padding: 2rem}
-}
-
-@media only screen and (max-width: 360px) {
-    body .sm_du{display: inherit}
-    body .pauto{padding: 1.5rem}
-    nav.topbar a{ font-size: 0}
-}
-
-@media only screen and (max-width: 300px) {
-    body .xs_du{display: inherit}
-}
-
-@media only screen and (max-width: 220px) {
-    body .xxs_du{display: inherit}
 }

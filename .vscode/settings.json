@@ -12,5 +12,6 @@
             "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
             "event": "onFileChange"
         }
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }
