@@ -845,7 +845,7 @@ nav.tabs input[type="radio"]:checked + label + [class^="tabnew"] {
 .mediumvioletred{color:#c71585}
 
 /* White */
-.white,.white- *{color:#fff}
+.white,.white- *, .swhite- *.sel{color:#fff}
 .snow{color:#fffafa}
 .honeydew{color:#f0fff0}
 .mintcream{color:#f5fffa}
