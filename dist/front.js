@@ -423,6 +423,16 @@ var core = function() {
 	this.toDOM = function(str){
 		return new DOMParser().parseFromString(str, "text/xml");
 	}
+
+	this.toObject = function(str){
+		obj={};
+    	var KeyVal = str.split(",");
+    	for (i in KeyVal) {
+    		KeyVal[i] = KeyVal[i].split(":");
+    		obj[KeyVal[i][0]]=KeyVal[i][1];
+		}
+		return obj;
+	}
 }
 
 var app = function() {
