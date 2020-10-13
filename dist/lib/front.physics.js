@@ -5,9 +5,8 @@ libAttribute.push(
 var slideIndex = 1;
 function slide(e){
     
-    var a = { athing: "quack", dohickey: 3 };
     params = e.getAttribute("slide").toObject();
-console.dir(params);
+    console.dir(params);
     //console.log(obj['domain']);
 
 
