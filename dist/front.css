@@ -39,7 +39,7 @@ img,ul,ol{ border: 0; padding: 0 }
 
 hr{ margin-bottom: 1rem;}
 
-head,head *,script,style,template{
+head,head *,script,style,template,.d0{
     display: none!important;
 }
 
@@ -181,14 +181,22 @@ summary{
 .pf{ position: fixed; flex: unset; z-index: 10}
 .pa{ position: absolute }
 .t0{ top: 0 }
+.t05{ top: .5rem }
+.t1{ top: 1rem }
 .t2{ top: 2rem }
+.t3{ top: 3rem }
 .l0{ left: 0}
+.l05{ left: .5rem}
 .l1{ left: 1rem}
+.l2{ left: 2rem}
+.l3{ left: 3rem}
 .r0{ right: 0}
+.r05{ right: .5rem}
 .r1{ right: 1rem}
 .r2{ right: 2rem}
 .r3{ right: 3rem}
 .b0{ bottom: 0}
+.b05{ bottom: .5rem}
 .b1{ bottom: 1rem}
 .b2{ bottom: 2rem}
 .b3{ bottom: 3rem}

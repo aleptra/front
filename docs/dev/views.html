@@ -76,10 +76,13 @@
         <input type="radio" name="tabnew2" id="tab3">
         <label class="z08" for="tab3">Code</label>
         <section class="tabnew2">
-            <code class="antiquewhite">
-                &lt;div<span class="navajowhite"> class=</span>"alert dialog"&gt;<br>
-                &emsp;&emsp;&lt;i<span class="navajowhite"> class=</span>"icon"&gt;⚠&lt;/i&gt; Connection lost...<br>
-                &lt;/div&gt;
+            <code class="antiquewhite" onmouseover="dom.show('test')" onmouseout="dom.hide('test')">
+                <span id="sourceSlider">
+                    &lt;nav<span class="navajowhite"> class=</span>"alert dialog"&gt;<br>
+                    &emsp;&emsp;&lt;i<span class="navajowhite"> class=</span>"icon"&gt;⚠&lt;/i&gt; Connection lost...<br>
+                    &lt;/nav&gt;
+                </span>
+                <span id="test" class="d0 pa r0 t05 white"><a onclick="dom.copyText('sourceSlider')" class="icon">&#128209;</a></span>
             </code>
         </section>
 
@@ -116,6 +119,24 @@
             </pre>
         </section>
     </nav>
+
+    <table class="mt1">
+        <caption class="tal">
+            <img src="assets/img/icon_black.svg" class="di" height="24">Front attributes
+        </caption>
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody class="z09">
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
 <h2>Grid</h2>

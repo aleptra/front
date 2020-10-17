@@ -30,16 +30,34 @@
             "html_entity_2": ""
         },
         {
-            "title": "Eighth Note",
-            "name": "audiotrack, music_note",
-            "html_entity": "&#9834;",
-            "html_entity_2": ""
-        },
-        {
             "title": "Black Star",
             "name": "grade, star_rate",
             "html_entity": "&#9733;",
             "html_entity_2": ""
+        },
+        {
+            "title": "White Heart Suit",
+            "name": "favourite_border",
+            "html_entity": "&#9825;",
+            "html_entity_2": "&#x2661;"
+        },
+        {
+            "title": "Black Heart Suit",
+            "name": "favourite",
+            "html_entity": "&#9829;",
+            "html_entity_2": "&#x2665;"
+        },
+        {
+            "title": "Anchor",
+            "name": "anchor",
+            "html_entity": "&#9875;",
+            "html_entity_2": "&#x2693;"
+        },
+        {
+            "title": "Gear",
+            "name": "settings",
+            "html_entity": "&#9881;",
+            "html_entity_2": "&#x2699;"
         },
         {
             "title": "Warning Sign",
@@ -101,6 +119,18 @@
             "name": "book",
             "html_entity": "&#128366;",
             "html_entity_2": "&#x1F516;"
+        },
+        {
+            "title": "Clipboard",
+            "name": "content_paste",
+            "html_entity": "&#128203;",
+            "html_entity_2": "&#x1F4CB;"
+        },
+        {
+            "title": "Bookmark Tabs",
+            "name": "bookmarks",
+            "html_entity": "&#128209;",
+            "html_entity_2": "&#x1F4D1;"
         }
     ]
  }
