@@ -38,11 +38,13 @@ document.onclick=function(e) {
 	var el = getParentTag(clicked, "a");
 	if (el !== null) {
 		var elHref = el.getAttribute("href");
-		
 		var elTarget = el.getAttribute("target");
 		if(el.hasAttribute("window")) {
 			dom.create("div", ["href=/"], "head")
 			alert('hej');
+			return false;
+		}else if(elHref.substring(0,1) === "#") {
+			location.hash = elHref;
 			return false;
 		}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
 			console.log('Click with Ajax: '+ elHref);
