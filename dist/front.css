@@ -400,18 +400,18 @@ ul.list li{
   background: rgba(255,255,255,.9);
   visibility: hidden;
   opacity: 0;
-  /* "delay" the visibility transition */
   -webkit-transition: opacity .5s, visibility 0s linear .5s;
   transition: opacity .5s, visibility 0s linear .5s;
   z-index: 1;
 }
+
 .popup:target {
   visibility: visible;
   opacity: 1;
-  /* cancel visibility transition delay */
   -webkit-transition-delay: 0s;
   transition-delay: 0s;
 }
+
 .popup-close {
   position: absolute;
   padding: 10px;
@@ -422,19 +422,15 @@ ul.list li{
   transform: translate(-50%,-50%);
   background: rgba(255,255,255,.9);
 }
+
 .popup .close {
   position: absolute;
   right: 5px;
   top: 5px;
-  padding: 5px;
-  color: #000;
   transition: color .3s;
   font-size: 2em;
-  line-height: .6em;
   font-weight: bold;
-}
-.popup .close:hover {
-  color: #00E5EE;
+  z-index: 10;
 }
 
 .close-popup {
@@ -447,14 +443,13 @@ ul.list li{
   bottom: 0;
   opacity: 0;
   visibility: hidden;
-  /* "delay" the visibility transition */
   -webkit-transition: opacity .5s, visibility 0s linear .5s;
   transition: opacity .5s, visibility 0s linear .5s;
 }
+
 .popup:target + .close-popup{  
   opacity: 1;
   visibility: visible;
-  /* cancel visibility transition delay */
   -webkit-transition-delay: 0s;
   transition-delay: 0s;
 }.dropdown {

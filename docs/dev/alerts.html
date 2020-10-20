@@ -43,7 +43,7 @@
             <pre>
                 <div class="alert">
                     Do you want to continue?
-                    <form class="gap105-">
+                    <form class="gap105-" onsubmit="return false">
                         <button>Yes</button>
                         <button>No</button>
                     </form>
@@ -120,15 +120,13 @@
         <label class="z08" for="tabmodal2">Preview</label>
         <section class="tabnewmodal">
             <pre>
-                <div class="alert banner">
-                    <a href="#popup1" class="button">Open modal</a>
-                    <div id="popup1" class="popup" draggable="true">
-                        <a href="#" class="close">&times;</a>
-                        <h2>Wohooo</h2>
-                        <p>This is content!<br><br><br></p>
-                    </div>
-                    <a href="#" class="close-popup" target="_self"></a>
+                <a href="#popup1" class="button">Open modal</a>
+                <div id="popup1" class="popup" draggable="true">
+                    <a href="#" class="close">&times;</a>
+                    <h2>Modal</h2>
+                    <p>This is the content!<br><br><br></p>
                 </div>
+                <a href="#" class="close-popup" target="_self"></a>
             </pre>
         </section>
     </nav>
