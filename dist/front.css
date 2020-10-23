@@ -5,8 +5,6 @@
     padding: 0;
     box-sizing: border-box;
     outline: none!important;
-    z-index: 0;
-    position: relative;
 }
 
 * {
@@ -57,10 +55,9 @@ h3,.f13{ font-size: calc(1em + .9vw)}
 h4,.f12{ font-size: calc(.9em + .8vw)}
 h5,.f11{ font-size: calc(.8em + .7vw)}
 h6,.f1{ font-size: calc(.7em + .6vw)}
-
 .f2{ font-size: 200%; line-height: 2;}
 
-i,b,span,.di{ display: inline }
+i,b,span,.di,h1,h2,h3,h4,h5,h6{ display: inline }
 b,strong{ font-weight: bold }
 
 table{display:table;border-collapse: collapse;table-layout: fixed;text-align: left;}
@@ -102,6 +99,7 @@ body {
     -ms-font-feature-settings: "kern";
     -webkit-font-feature-settings: "kern";
     -o-font-feature-settings: "kern";
+    position:relative;
 }
 
 body.nav{
@@ -389,69 +387,70 @@ ul.list li{
 .box figure figcaption,
 .card figure figcaption{
     padding-top: 1rem;
-}.popup {
+}.modal {
   position: fixed;
   padding: 10px;
-  max-width: 500px;
-  border-radius: 10px;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  background: rgba(255,255,255,.9);
+  background: #fff;
   visibility: hidden;
   opacity: 0;
   -webkit-transition: opacity .5s, visibility 0s linear .5s;
   transition: opacity .5s, visibility 0s linear .5s;
+  box-shadow: 0 2px 4px rgba(0,0,0, .5);
+  -webkit-box-shadow: 0 2px 4px #00000080;
+  -moz-box-shadow: 0 2px 4px rgba(0,0,0, .5);
   z-index: 1;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-radius: .5rem;
+  z-index: 100;
 }
 
-.popup:target {
+.modal:target {
   visibility: visible;
   opacity: 1;
   -webkit-transition-delay: 0s;
   transition-delay: 0s;
 }
 
-.popup-close {
+.modal .close {
   position: absolute;
-  padding: 10px;
-  max-width: 500px;
-  border-radius: 10px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  background: rgba(255,255,255,.9);
-}
-
-.popup .close {
-  position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 1rem;
+  top: 1rem;
   transition: color .3s;
   font-size: 2em;
   font-weight: bold;
   z-index: 10;
 }
 
-.close-popup {
+.modal:target + .backdrop {
   background: rgba(0,0,0,.7);
   cursor: default;
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0;
-  visibility: hidden;
+  opacity: 1;
   -webkit-transition: opacity .5s, visibility 0s linear .5s;
   transition: opacity .5s, visibility 0s linear .5s;
+  width: 100%;
+  height: 100%;
+  display: block;
+  content: "";
+  z-index: 50;
 }
 
-.popup:target + .close-popup{  
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition-delay: 0s;
-  transition-delay: 0s;
+body.disabled:after {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  content: "";
+  z-index: 100;
 }.dropdown {
   position: relative;
   display: inline-block;
@@ -674,6 +673,7 @@ summary {
     text-align: center;
   }nav{
   word-break: break-all;
+  position: relative;
 }
 
 nav.guillemet * a:after{

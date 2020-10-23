@@ -1,5 +1,6 @@
 nav{
   word-break: break-all;
+  position: relative;
 }
 
 nav.guillemet * a:after{
