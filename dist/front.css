@@ -389,7 +389,7 @@ ul.list li{
     padding-top: 1rem;
 }.modal {
   position: fixed;
-  padding: 10px;
+  padding: 1.5rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
@@ -418,7 +418,7 @@ ul.list li{
 .modal .close {
   position: absolute;
   right: 1rem;
-  top: 1rem;
+  top: 0;
   transition: color .3s;
   font-size: 2em;
   font-weight: bold;
