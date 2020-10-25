@@ -21,17 +21,60 @@
     </ol>
 </nav>
 
-<section name="A">
-    <h2>Forms elements</h2>
+<section id="fields">
+    <h2>Fields</h2>
+    <nav class="tabs">
+      <input type="radio" name="tabnew1" id="tab1">
+      <label class="z08" for="tab1">Code</label>
+      <section class="tabnew1">
+        <code class="antiquewhite">
+          &lt;button&gt;<span class="azure">Button</span>&lt;/button&gt;<br>
+          &lt;button&gt;&lt;i<span class="navajowhite"> class=</span><span class="white">"icon"</span>&gt;<span class="azure">&#9733</span>&lt;/i><span class="azure">Button</span>&lt;/button&gt;
+        </code>
+      </section>
 
-    <h3>Input fields</h3>
-        <input type="text" placeholder="Label">
-        <input class="outlined" type="text" placeholder="Label">
-        <input type="text" placeholder="Label">
-        <input class="outlined" type="text" placeholder="Label">
+      <input type="radio" name="tabnew1" id="tab2" checked>
+      <label class="z08" for="tab2">Preview</label>
+      <section class="tabnew1">
+        <pre>
+            <div class="box cards gap1- br05- w15- tac">
+                <input type="text" placeholder="Label">
+                <input class="outlined" type="text" placeholder="Label">
+            </div>
+        </pre>
+      </section>  
+    </nav>
+</section>
 
-    <h3>Select list</h2>
-        <select>
-            <option>All</option>
-        </select><br>
+<section id="selects">
+    <h2>Selects</h2>
+    <nav class="tabs">
+      <input type="radio" name="tabnew2" id="tab3">
+      <label class="z08" for="tab3">Code</label>
+      <section class="tabnew2">
+        <code class="antiquewhite">
+          &lt;button&gt;<span class="azure">Button</span>&lt;/button&gt;<br>
+          &lt;button&gt;&lt;i<span class="navajowhite"> class=</span><span class="white">"icon"</span>&gt;<span class="azure">&#9733</span>&lt;/i><span class="azure">Button</span>&lt;/button&gt;
+        </code>
+      </section>
+
+      <input type="radio" name="tabnew2" id="tab4" checked>
+      <label class="z08" for="tab4">Preview</label>
+      <section class="tabnew2">
+        <pre>
+            <div class="box cards gap1- br05- w15- tac">
+                <select>
+                    <option>All</option>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                </select>
+                <select class="outlined">
+                    <option>All</option>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                </select>
+            </div>
+        </pre>
+      </section>
+    </nav>
 </section>
