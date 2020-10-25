@@ -55,9 +55,10 @@ h3,.f13{ font-size: calc(1em + .9vw)}
 h4,.f12{ font-size: calc(.9em + .8vw)}
 h5,.f11{ font-size: calc(.8em + .7vw)}
 h6,.f1{ font-size: calc(.7em + .6vw)}
-.f2{ font-size: 200%; line-height: 2;}
+.f2{ font-size: 200%; line-height: 2}
 
-i,b,span,.di,h1,h2,h3,h4,h5,h6{ display: inline }
+h1,h2,h3,h4,h5,h6{ display: block }
+i,b,span,.di{ display: inline }
 b,strong{ font-weight: bold }
 
 table{display:table;border-collapse: collapse;table-layout: fixed;text-align: left;}
