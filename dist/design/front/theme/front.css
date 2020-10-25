@@ -98,6 +98,13 @@ select,input,textarea,button{
     border-radius: .25rem .25rem 0 0;
     text-indent: 1rem;
     transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-direction: unset !important;
+    -ms-flex-direction: unset !important;
+}
+
+textarea{
+    padding: 1rem;
+    text-indent: unset;
 }
 
 select:hover,

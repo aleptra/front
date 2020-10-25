@@ -219,24 +219,31 @@ summary{
 .border->*:hover{ box-shadow: 1px 1px 1px 1px rgba(0,0,0, .1) }
 .zoom->*:hover{zoom: 1.01};  
 
-.tal { text-align: left }
-.tar { text-align: right }
+.tal{ text-align: left }
+.tar{ text-align: right }
 .tac{ text-align: center }
 
-.ttu { text-transform: uppercase }
+.ttu{ text-transform: uppercase }
 
-.w0 { width: auto !important }
-.w100 { width: 100% }
-.w75 { width: 75% }
-.w50 { width: 50% }
-.w40 { width: 40% }
-.w33 { width: 33% }
+.w0{ width: auto !important }
+.w100{ width: 100% }
+.w75{ width: 75% }
+.w50{ width: 50% }
+.w40{ width: 40% }
+.w33{ width: 33% }
 
 .w10, .w10- * { width: 10rem }
 .w11, .w11- * { width: 11rem }
 .w14, .w14- * { width: 14rem }
 .w15, .w15- * { width: 15rem }
 .w25, .w25- * { width: 25rem }
+
+.h25{height: 25%}
+.h50{height: 50%}
+.h5r{height: 5rem}
+.h10r{height: 10rem}
+.h25r{height: 25rem}
+.h50r{height: 50rem}
 
 .gap05->*{ margin: .25rem .25rem .25rem 0 }
 .gap1->*{ margin: .5rem .5rem .5rem 0 }
