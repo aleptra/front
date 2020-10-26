@@ -41,13 +41,7 @@
         <label class="z08" for="tab21">Preview</label>
         <section class="tabnew20">
             <pre>
-                <div class="alert">
-                    Do you want to continue?
-                    <form class="gap105-" onsubmit="return false">
-                        <button>Yes</button>
-                        <button>No</button>
-                    </form>
-                </div>
+
             </pre>
         </section>
     </nav>
@@ -120,13 +114,24 @@
         <label class="z08" for="tabmodal2">Preview</label>
         <section class="tabnewmodal">
             <pre>
-                <a href="#popup1" class="button">Open modal</a>
+                <a href="#popup1" class="button">Open normal modal</a>
                 <div id="popup1" class="modal w50" draggable="true">
                     <a href="#" class="close">&times;</a>
                     <h2>Modal</h2>
                     <p>This is the content!<br><br><br></p>
                 </div>
                 <a href="#" class="backdrop" target="_self"></a>
+
+                <a href="#popup2" class="button">Open confirm modal</a>
+                <div id="popup2" class="modal alert">
+                    Do you want to continue?
+                    <form class="gap105-" onsubmit="return false">
+                        <button>Yes</button>
+                        <button>No</button>
+                    </form>
+                </div>
+                <a href="#" class="backdrop" target="_self"></a>
+
             </pre>
         </section>
     </nav>
