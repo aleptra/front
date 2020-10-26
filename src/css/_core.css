@@ -33,7 +33,7 @@ html {
     color: #111;
 }
 
-img,ul,ol{ border: 0; padding: 0 }
+img,ul,ol,fieldset{ border: 0; padding: 0 }
 
 hr{ margin-bottom: 1rem;}
 
@@ -238,6 +238,7 @@ summary{
 .w14, .w14- * { width: 14rem }
 .w15, .w15- * { width: 15rem }
 .w25, .w25- * { width: 25rem }
+.w50r, .w50r- * { width: 50rem }
 
 .h25{height: 25%}
 .h50{height: 50%}

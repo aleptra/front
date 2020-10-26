@@ -8,6 +8,10 @@ input,select,textarea,button,
     font-size: inherit;
 }
 
+select{
+    height: 3rem;
+}
+
 button,
 .button{
     display: inline;
