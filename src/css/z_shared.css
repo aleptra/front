@@ -1,3 +1,18 @@
+.glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
+.inset->*:hover, .inset{ box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .1), 0px 0px 3px 0px rgba(0,0,0, .1) }
+.shade->*:hover, .shade{
+    box-shadow: 0 2px 4px rgba(0,0,0, .5);
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .5);
+    -moz-box-shadow: 0 2px 4px rgba(0,0,0, .5)
+}
+.shade1->*:hover, .shade1{
+    box-shadow: 0 2px 4px rgba(0,0,0, .1);
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .1);
+    -moz-box-shadow: 0 2px 4px rgba(0,0,0, .1)
+}
+.border->*:hover{ box-shadow: 1px 1px 1px 1px rgba(0,0,0, .1) }
+.zoom->*:hover{zoom: 1.01};  
+
 .black, .black- >* { background-color: #000; color: #fff; }
 .bcwhite, .bcwhite- *{ background-color: #fff }
 .bcblack, .bcblack- *{ background-color: #000 }
