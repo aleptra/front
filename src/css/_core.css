@@ -47,6 +47,11 @@ section,article,code,pre,samp,p{
     height: inherit;
 }
 
+section{
+    display: table;
+    width: 100%;
+}
+
 .f22{font-size: calc(2.2em + 2vw); line-height: 1.2}
 .f20{font-size: calc(2em + 1.8vw); line-height: 1}
 h1{font-size: calc(1.4em + 1.4vw); line-height: 1.4}
@@ -245,6 +250,14 @@ summary{
 /* .gap2->*{ margin: 1rem 1rem 1rem 1rem } */
 .gap3->*{ margin: 2rem 2rem 2rem 2rem }
 
+.gaph05->*{ margin-bottom: .25rem}
+.gaph1->*{ margin-bottom: .5rem}
+.gaph105->*{ margin-bottom: .75rem}
+.gaph2->*{ margin-bottom: 1rem}
+.gaph205->*{ margin-bottom: 1.5rem}
+.gapr1->*{margin-right: .5rem}
+.gapr10->*{margin-right: 5rem}
+
 nav[class*='gap'] > :last-child { margin-right: initial }
 
 [class*='gap'] > :first-child { margin-left: 0 }
@@ -322,6 +335,7 @@ ul.list li{
 .icon128{ font-size: 128px }
 .icon192{ font-size: 192px }
 .icon256{ font-size: 256px }
+.icon512{ font-size: 512px }
 
 .test- > a{
     flex-direction: column;
