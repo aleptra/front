@@ -1,7 +1,12 @@
 nav.slider {
     display: flex;
+    display: -ms-flexbox;
     flex-wrap: wrap;
     -ms-flex-wrap: wrap;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
 nav.slider figure img{
@@ -17,10 +22,10 @@ nav.slider figure img{
 }
   
 nav.slider label {
-    display: flex;
     cursor: pointer;
     color: #444;
     z-index: 1;
+    height: 0;
 }
   
 nav.slider label:active{

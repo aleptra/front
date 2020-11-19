@@ -219,6 +219,7 @@ summary{
 .tal{ text-align: left }
 .tar{ text-align: right }
 .tac{ text-align: center }
+.fr{margin-left: auto}
 
 .ttu{ text-transform: uppercase }
 
