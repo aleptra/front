@@ -742,13 +742,14 @@ nav.tabs.full > label{
 nav.tabs > label {
   order: 0;
   display: block;
-  padding: .4rem 1.5rem;
+  padding: .5rem 1.5rem;
   border: 1px solid #ddd;
   border-bottom-width: 0;
   border-right-width: 0;
   cursor: pointer;
   background-color: #eeeeee;
-  color: #444
+  color: #444;
+  font-size: 92%;
 }
 
 nav.tabs > label:active{
