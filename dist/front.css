@@ -811,7 +811,7 @@ nav.slider label {
 }
   
 nav.slider label:active{
-    color: #fff;
+    color: #000;
 }
 
 nav.slider [class^="slidernew"] {
@@ -826,7 +826,7 @@ nav.slider input[type="radio"] {
 }
   
 nav.slider input[type="radio"]:checked + label {
-    color: #000;
+    color: #fff;
     z-index: 1;
 }
   
