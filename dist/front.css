@@ -1,8 +1,3 @@
-:root {
-    --pauto: 3rem;
-    --pauto480: 2rem;
-}
-
 *,
 *:before,
 *:after {
@@ -1185,7 +1180,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 480px) {
     body .md_du{display: inherit}
-    body .pauto{padding: var(--pauto480);}
+    body .pauto{padding: 2rem}
 }
 
 @media only screen and (max-width: 360px) {
