@@ -52,7 +52,7 @@ code{
 }
 
 .f22{font-size: calc(2.2em + 2vw); line-height: 1.2}
-.f20{font-size: calc(2em + 1.8vw); line-height: 1}
+.f20{font-size: calc(2em + 1.8vw); line-height: 1.2}
 h1{font-size: calc(1.4em + 1.4vw); line-height: 1.4}
 h2,.f16{font-size: calc(1.1em + 1vw)}
 h3,.f13{ font-size: calc(1em + .9vw)}
