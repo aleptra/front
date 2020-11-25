@@ -1,3 +1,8 @@
+:root {
+    --pauto: 3rem;
+    --pauto480: 2rem;
+}
+
 *,
 *:before,
 *:after {
@@ -14,7 +19,6 @@
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-    word-wrap: break-word;
     white-space: normal;
     font-weight: normal;
     -webkit-tap-highlight-color: transparent;
@@ -47,9 +51,9 @@ section,article,code,pre,samp,p{
     height: inherit;
 }
 
-section{
-    display: table;
-    width: 100%;
+code{
+    overflow: auto;
+    word-wrap: normal !important;
 }
 
 .f22{font-size: calc(2.2em + 2vw); line-height: 1.2}
@@ -794,8 +798,7 @@ nav.tabs > input[type="radio"]:checked + label + [class^="tabnew"] {
     -ms-flex-wrap: wrap;
     -ms-flex-pack: center;
     justify-content: center;
-    height: 100%;
-    width: 100%;
+    height: inherit;
 }
 
 nav.slider figure img{
@@ -815,6 +818,8 @@ nav.slider label {
     color: #444;
     z-index: 1;
     height: 0;
+    align-self: flex-end;
+    -ms-flex-align: end;
 }
   
 nav.slider label:active{
@@ -1062,6 +1067,8 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .h2 { height: 2rem }
 .h3 { height: 3rem }
 .mh3 { max-height: 3rem }
+.mh5 { max-height: 5rem }
+.mh10 { max-height: 10rem }
 .h3_5 { height: 3.5rem }
 .h4 { height: 4rem }
 .h4_5 { height: 4.5rem }
@@ -1178,7 +1185,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 480px) {
     body .md_du{display: inherit}
-    body .pauto{padding: 2rem}
+    body .pauto{padding: var(--pauto480);}
 }
 
 @media only screen and (max-width: 360px) {

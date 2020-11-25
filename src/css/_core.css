@@ -1,3 +1,8 @@
+:root {
+    --pauto: 3rem;
+    --pauto480: 2rem;
+}
+
 *,
 *:before,
 *:after {
@@ -14,7 +19,6 @@
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-    word-wrap: break-word;
     white-space: normal;
     font-weight: normal;
     -webkit-tap-highlight-color: transparent;
@@ -47,9 +51,9 @@ section,article,code,pre,samp,p{
     height: inherit;
 }
 
-section{
-    display: table;
-    width: 100%;
+code{
+    overflow: auto;
+    word-wrap: normal !important;
 }
 
 .f22{font-size: calc(2.2em + 2vw); line-height: 1.2}

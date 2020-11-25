@@ -5,8 +5,7 @@ nav.slider {
     -ms-flex-wrap: wrap;
     -ms-flex-pack: center;
     justify-content: center;
-    height: 100%;
-    width: 100%;
+    height: inherit;
 }
 
 nav.slider figure img{
@@ -26,6 +25,8 @@ nav.slider label {
     color: #444;
     z-index: 1;
     height: 0;
+    align-self: flex-end;
+    -ms-flex-align: end;
 }
   
 nav.slider label:active{
