@@ -217,15 +217,8 @@
 .wh3 { width: 3rem; height: 3rem }
 .h1 { height: 1rem }
 .h2 { height: 2rem }
+.h2_5 { height: 2.5rem }
 .h3 { height: 3rem }
-.mh3 { max-height: 3rem }
-.mh5 { max-height: 5rem }
-.mh10 { max-height: 10rem }
-.mh50p { max-height: 50% }
-.mh60p { max-height: 60% }
-.mh70p { max-height: 70% }
-.mh80p { max-height: 80% }
-.mh90p { max-height: 90% }
 .h3_5 { height: 3.5rem }
 .h4 { height: 4rem }
 .h4_5 { height: 4.5rem }
@@ -236,6 +229,14 @@
 .h20 { height: 20rem }
 .h100 { height: 100% }
 .hm100 { min-height: 100% }
+.mh3 { max-height: 3rem }
+.mh5 { max-height: 5rem }
+.mh10 { max-height: 10rem }
+.mh50p { max-height: 50% }
+.mh60p { max-height: 60% }
+.mh70p { max-height: 70% }
+.mh80p { max-height: 80% }
+.mh90p { max-height: 90% }
 .p1vw { padding: 1vw}
 .p5vw { padding: 5vw}
 .p10vw { padding: 10vw}
