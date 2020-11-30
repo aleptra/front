@@ -236,6 +236,10 @@ summary{
 .w25, .w25- * { width: 25rem }
 .w50r, .w50r- * { width: 50rem }
 
+.mw10, .mw10- * { max-width: 10rem }
+.mw15, .mw15- * { max-width: 15rem }
+.mw20, .mw20- * { max-width: 20rem }
+
 .h25{height: 25%}
 .h50{height: 50%}
 .h5r{height: 5rem}
@@ -744,7 +748,7 @@ nav.tabs > label {
   padding: .5rem 1.5rem;
   border: 1px solid #ddd;
   border-bottom-width: 0;
-  border-right-width: 0;
+  border-left-width: 0;
   cursor: pointer;
   background-color: #eeeeee;
   color: #444;
@@ -755,8 +759,9 @@ nav.tabs > label:active{
   background-color: #fff;
 }
 
-nav.tabs > label:last-of-type{
-  border-right-width: thin;
+nav.tabs > label:first-child,
+nav.tabs > label.fr:last-of-type{
+  border-left-width: thin;
 }
 
 nav.tabs > [class^="tabnew"] {

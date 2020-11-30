@@ -236,6 +236,10 @@ summary{
 .w25, .w25- * { width: 25rem }
 .w50r, .w50r- * { width: 50rem }
 
+.mw10, .mw10- * { max-width: 10rem }
+.mw15, .mw15- * { max-width: 15rem }
+.mw20, .mw20- * { max-width: 20rem }
+
 .h25{height: 25%}
 .h50{height: 50%}
 .h5r{height: 5rem}
