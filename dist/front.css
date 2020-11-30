@@ -1073,6 +1073,11 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .mh3 { max-height: 3rem }
 .mh5 { max-height: 5rem }
 .mh10 { max-height: 10rem }
+.mh50p { max-height: 50% }
+.mh60p { max-height: 60% }
+.mh70p { max-height: 70% }
+.mh80p { max-height: 80% }
+.mh90p { max-height: 90% }
 .h3_5 { height: 3.5rem }
 .h4 { height: 4rem }
 .h4_5 { height: 4.5rem }
