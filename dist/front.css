@@ -224,8 +224,13 @@ summary{
 
 .w0{ width: auto !important }
 .w100{ width: 100% }
+.w90{ width: 90% }
+.w80{ width: 80% }
 .w75{ width: 75% }
+.w65{ width: 65% }
+.w60{ width: 60% }
 .w50{ width: 50% }
+.w45{ width: 45% }
 .w40{ width: 40% }
 .w33{ width: 33% }
 
@@ -1048,6 +1053,23 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .linen{color:#faf0e6}
 .lavenderblush{color:#fff0f5}
 .mistyrose{color:#ffe4e1}
+
+.bcsnow{background-color:#fffafa}
+.bchoneydew{background-color:#f0fff0}
+.bcmintcream{background-color:#f5fffa}
+.bcazure{background-color:#f0ffff}
+.bcaliceblue{background-color:#f0f8ff}
+.bcghostwhite{background-color:#f8f8ff}
+.bcwhitesmoke{background-color:#f5f5f5}
+.bcseashell{background-color:#fff5ee}
+.bcbeige{background-color:#f5f5dc}
+.bcoldlace{background-color:#fdf5e6}
+.bcfloralwhite{background-color:#fffaf0}
+.bcivory{background-color:#fffff0}
+.bcantiquewhite{background-color:#faebd7}
+.bclinen{background-color:#faf0e6}
+.bclavenderblush{background-color:#fff0f5}
+.bcmistyrose{background-color:#ffe4e1}
 
 /* Gray */
 .gainsboro{color:#dcdcdc}
