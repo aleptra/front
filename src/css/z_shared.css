@@ -48,6 +48,13 @@
 .orange{color:#ffA500}
 .darkorange{color:#ff8c00}
 
+.bccoral{background-color:#ff7f50}
+.bctomato{background-color:#ff6347}
+.bcorangered{background-color:#ff4500}
+.bcgold{background-color:#ffd700}
+.bcorange{background-color:#ffA500}
+.bcdarkorange{background-color:#ff8c00}
+
 /* Yellow */
 .lightyellow{color:#ffffe0}
 .lemonchiffon{color:#fffacd}
@@ -91,6 +98,26 @@
 .olive{color:#808000}
 .darkolivegreen{color:#556b2f}
 .olivedrab{color:#6b8e23}
+
+.bclawngreen{background-color:#7cfc00}
+.bcchartreuse{background-color:#7fff00}
+.bclimegreen{background-color:#32cd32}
+.bclime{background-color:#00ff00}
+.bcforestgreen{background-color:#228b22}
+.bcgreen{background-color:#008000}
+.bcdarkgreen{background-color:#006400}
+.bcgreenyellow{background-color:#Adff2f}
+.bcyellowgreen{background-color:#9Acd32}
+.bcspringgreen{background-color:#00ff7f}
+.bcmediumspringgreen{background-color:#00fA9A}
+.bclightgreen{background-color:#90ee90}
+.bcpalegreen{background-color:#98fb98}
+.bcdarkseagreen{background-color:#8fbc8f}
+.bcmediumseagreen{background-color:#3cb371}
+.bcseagreen{background-color:#2e8b57}
+.bcolive{background-color:#808000}
+.bcdarkolivegreen{background-color:#556b2f}
+.bcolivedrab{background-color:#6b8e23}
 
 /* Cyan */
 .lightcyan{color:#e0ffff}
