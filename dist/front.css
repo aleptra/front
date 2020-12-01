@@ -867,8 +867,11 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
     -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .1);
     -moz-box-shadow: 0 2px 4px rgba(0,0,0, .1)
 }
+.tshade025{text-shadow: 1px 1px 1px rgba(0,0,0, .25);}
+.tshade05{text-shadow: 1px 1px 1px rgba(0,0,0, 0.5);}
+
 .border->*:hover{ box-shadow: 1px 1px 1px 1px rgba(0,0,0, .1) }
-.zoom->*:hover{zoom: 1.01};  
+.zoom->*:hover{zoom: 1.01};
 
 .black, .black- >* { background-color: #000; color: #fff; }
 .bcwhite, .bcwhite- *{ background-color: #fff }
