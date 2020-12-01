@@ -97,3 +97,12 @@ nav.tabs > input[type="radio"]:checked + label + [class^="tabnew"] {
   color:#000;
   overflow: scroll;
 }
+
+nav.tabs.accordions{
+  flex-direction: row;
+  -ms-flex-direction: row;
+}
+
+nav.tabs.accordions > [class^="tabnew"]{
+  order: unset;
+}

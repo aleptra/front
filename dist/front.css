@@ -800,6 +800,15 @@ nav.tabs > input[type="radio"]:checked + label + [class^="tabnew"] {
   background-color:#ffffff;
   color:#000;
   overflow: scroll;
+}
+
+nav.tabs.accordations{
+  flex-direction: row;
+  -ms-flex-direction: row;
+}
+
+nav.tabs.accordations > [class^="tabnew"]{
+  order: unset;
 }nav.slider {
     display: flex;
     display: -ms-flexbox;
