@@ -802,12 +802,12 @@ nav.tabs > input[type="radio"]:checked + label + [class^="tabnew"] {
   overflow: scroll;
 }
 
-nav.tabs.accordations{
+nav.tabs.accordions{
   flex-direction: row;
   -ms-flex-direction: row;
 }
 
-nav.tabs.accordations > [class^="tabnew"]{
+nav.tabs.accordions > [class^="tabnew"]{
   order: unset;
 }nav.slider {
     display: flex;
