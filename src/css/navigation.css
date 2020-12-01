@@ -99,8 +99,8 @@ nav.tabs > input[type="radio"]:checked + label + [class^="tabnew"] {
 }
 
 nav.tabs.accordions{
-  flex-direction: row;
-  -ms-flex-direction: row;
+  flex-direction: column;
+  -ms-flex-direction: column;
 }
 
 nav.tabs.accordions > [class^="tabnew"]{
