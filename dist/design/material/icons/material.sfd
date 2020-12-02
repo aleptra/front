@@ -22,7 +22,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
 CreationTime: 1595553504
-ModificationTime: 1602851303
+ModificationTime: 1606848656
 OS2TypoAscent: 0
 OS2TypoAOffset: 1
 OS2TypoDescent: 0
@@ -36,6 +36,7 @@ HheadAscent: 0
 HheadAOffset: 1
 HheadDescent: 0
 HheadDOffset: 1
+OS2Vendor: 'PfEd'
 DEI: 91125
 Encoding: UnicodeFull
 UnicodeInterp: none
@@ -43,8 +44,8 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 9861 19 7
-BeginChars: 1114112 25
+WinInfo: 8925 21 6
+BeginChars: 1114112 26
 
 StartChar: Euro
 Encoding: 8364 8364 0
@@ -526,7 +527,7 @@ SplineSet
  208.75 637.5 245.833007812 675 291.666992188 675 c 2
  708.333007812 675 l 2
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: u1F56E
@@ -553,7 +554,7 @@ SplineSet
  458.333007812 633.333007812 l 1
  250 633.333007812 l 1
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: u1F4A1
@@ -602,7 +603,7 @@ SplineSet
  521 217 l 1
  521 325 l 1
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: u1F4CB
@@ -640,7 +641,7 @@ SplineSet
  208.333007812 -33.3330078125 l 1
  791.666992188 -33.3330078125 l 1
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: heart
@@ -660,7 +661,7 @@ SplineSet
  916.666992188 288.333007812 775 160 560.416992188 -35 c 2
  500 -89.5830078125 l 1
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: uni2661
@@ -691,7 +692,7 @@ SplineSet
  500 22.9169921875 l 1
  504.166992188 27.0830078125 l 2
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: uni2693
@@ -733,7 +734,7 @@ SplineSet
  522.916992188 550 541.666992188 568.75 541.666992188 591.666992188 c 0xf4
  541.666992188 614.583007812 522.916992188 633.333007812 500 633.333007812 c 0
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: u1F4D1
@@ -762,7 +763,7 @@ SplineSet
  125 554.166992188 162.5 591.666992188 208.333007812 591.666992188 c 2
  625 591.666992188 l 2
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: uni2699
@@ -816,6 +817,36 @@ SplineSet
  650 382.5 582.5 450 500 450 c 0
  417.5 450 350 382.5 350 300 c 0
  350 217.5 417.5 150 500 150 c 0
+EndSplineSet
+EndChar
+
+StartChar: house
+Encoding: 8962 8962 25
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+791.666992188 412.5 m 1
+ 916.666992188 300 l 1
+ 791.666992188 300 l 1
+ 791.666992188 -33.3330078125 l 1
+ 583.333007812 -33.3330078125 l 1
+ 583.333007812 216.666992188 l 1
+ 416.666992188 216.666992188 l 1
+ 416.666992188 -33.3330078125 l 1
+ 208.333007812 -33.3330078125 l 1
+ 208.333007812 300 l 1
+ 83.3330078125 300 l 1
+ 500 675 l 1
+ 666.666992188 525 l 1
+ 666.666992188 633.333007812 l 1
+ 791.666992188 633.333007812 l 1
+ 791.666992188 412.5 l 1
+416.666992188 383.333007812 m 1
+ 583.333007812 383.333007812 l 1
+ 583.333007812 429.166992188 545.833007812 466.666992188 500 466.666992188 c 0
+ 454.166992188 466.666992188 416.666992188 429.166992188 416.666992188 383.333007812 c 1
 EndSplineSet
 EndChar
 EndChars

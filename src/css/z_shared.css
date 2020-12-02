@@ -273,12 +273,15 @@
 .h10 { height: 10rem }
 .h12 { height: 12rem }
 .h15 { height: 15rem }
+.h15p { height: 15% }
 .h20 { height: 20rem }
-.h100 { height: 100% }
-.hm100 { min-height: 100% }
+.h100,.h100p { height: 100% }
+.hm100,.hm100p { min-height: 100% }
 .mh3 { max-height: 3rem }
 .mh5 { max-height: 5rem }
 .mh10 { max-height: 10rem }
+.mh15p { max-height: 15% }
+.mh30p { max-height: 30% }
 .mh50p { max-height: 50% }
 .mh60p { max-height: 60% }
 .mh70p { max-height: 70% }
