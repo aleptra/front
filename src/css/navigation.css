@@ -53,7 +53,7 @@ nav.tabs > label {
   padding: .5rem 1.5rem;
   border: 1px solid #ddd;
   border-bottom-width: 0;
-  border-left-width: 0;
+  border-left-width: thin;
   cursor: pointer;
   background-color: #eeeeee;
   color: #444;
@@ -64,10 +64,7 @@ nav.tabs > label:active{
   background-color: #fff;
 }
 
-nav.tabs > label:first-child,
-nav.tabs > label.fr:last-of-type{
-  border-left-width: thin;
-}
+
 
 nav.tabs > [class^="tabnew"] {
   order: 1;
