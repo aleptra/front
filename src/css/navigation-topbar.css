@@ -38,7 +38,7 @@
 .topbar figure{ height: 100% }
 
 .bottombar * img,
-.topbar * img{ max-height: 100% }
+.topbar * img{ max-width: 100% }
 
 .bottombar *.fr,
 .topbar *.fr{
