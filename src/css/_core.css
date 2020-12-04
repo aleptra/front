@@ -233,7 +233,9 @@ summary{
 .w50{ width: 50% }
 .w45{ width: 45% }
 .w40{ width: 40% }
+.w35{ width: 35% }
 .w33{ width: 33% }
+.w25{ width: 25% }
 
 .w10, .w10- * { width: 10rem }
 .w11, .w11- * { width: 11rem }
