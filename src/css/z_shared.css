@@ -20,6 +20,8 @@
 .bcwhite, .bcwhite- *{ background-color: #fff }
 .bcblack, .bcblack- *{ background-color: #000 }
 
+.tdu, .tdu->*{text-decoration:underline}
+
 /*https://www.rapidtables.com/web/color/html-color-codes.html*/
 
 /* Red */
