@@ -14,6 +14,7 @@ compress: default
 	cat ${OUTPUT_CSS} | tr -d "\t\n" | tr -s "[:blank:]" " " > ${OUTPUT_CSS_MINI}
 
 git:
+	make
 	git add . && git commit -m "Experimental" && git push
 serve:
 	python -m SimpleHTTPServer 8000
