@@ -43,7 +43,7 @@ document.onclick=function(e) {
 			dom.create("div", ["href=/"], "head")
 			alert('hej');
 			return false;
-		}else if(elHref.substring(0,1) === "#") {
+		}else if(elHref && elHref.substring(0,1) === "#") {
 			location.hash = elHref;
 			return false;
 		}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
