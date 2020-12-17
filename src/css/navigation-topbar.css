@@ -5,7 +5,6 @@
     align-items: center;
     list-style: none;
     z-index: 20;
-    overflow: hidden;
 }
 
 .bottombar *,
