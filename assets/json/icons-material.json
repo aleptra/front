@@ -49,13 +49,13 @@
         },
         {
             "title": "White Heart Suit",
-            "name": "favourite_border",
+            "name": "favorite_border",
             "html_entity": "&#9825;",
             "html_entity_2": "&#x2661;"
         },
         {
             "title": "Black Heart Suit",
-            "name": "favourite",
+            "name": "favorite",
             "html_entity": "&#9829;",
             "html_entity_2": "&#x2665;"
         },
