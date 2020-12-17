@@ -22,7 +22,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
 CreationTime: 1595553504
-ModificationTime: 1606941557
+ModificationTime: 1608167844
 OS2TypoAscent: 0
 OS2TypoAOffset: 1
 OS2TypoDescent: 0
@@ -36,6 +36,7 @@ HheadAscent: 0
 HheadAOffset: 1
 HheadDescent: 0
 HheadDOffset: 1
+OS2Vendor: 'PfEd'
 MarkAttachClasses: 1
 DEI: 91125
 Encoding: UnicodeFull
@@ -44,7 +45,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 128247 21 6
+WinInfo: 8778 21 6
 BeginPrivate: 5
 BlueValues 33 [-46 -12 430 439 662 675 682 685]
 OtherBlues 11 [-260 -228]
@@ -52,7 +53,7 @@ BlueFuzz 1 1
 BlueScale 8 0.029411
 BlueShift 1 7
 EndPrivate
-BeginChars: 1114112 27
+BeginChars: 1114112 28
 
 StartChar: Euro
 Encoding: 8364 8364 0
@@ -826,7 +827,7 @@ SplineSet
  417.5 450 350 382.5 350 300 c 0
  350 217.5 417.5 150 500 150 c 0
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: house
@@ -858,7 +859,7 @@ SplineSet
  583.333007812 429.166992188 545.833007812 466.666992188 500 466.666992188 c 0
  454.166992188 466.666992188 416.666992188 429.166992188 416.666992188 383.333007812 c 1
 EndSplineSet
-Validated: 524289
+Validated: 1
 EndChar
 
 StartChar: u1F517
@@ -898,7 +899,32 @@ SplineSet
  541.666992188 508.333007812 l 1
  708.333007812 508.333007812 l 2
 EndSplineSet
-Validated: 524289
+Validated: 1
+EndChar
+
+StartChar: equivalence
+Encoding: 8801 8801 27
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+125 50 m 1
+ 125 133.333007812 l 1
+ 875 133.333007812 l 1
+ 875 50 l 1
+ 125 50 l 1
+125 258.333007812 m 1
+ 125 341.666992188 l 1
+ 875 341.666992188 l 1
+ 875 258.333007812 l 1
+ 125 258.333007812 l 1
+125 550 m 1
+ 875 550 l 1
+ 875 466.666992188 l 1
+ 125 466.666992188 l 1
+ 125 550 l 1
+EndSplineSet
 EndChar
 EndChars
 EndSplineFont
