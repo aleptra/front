@@ -138,6 +138,18 @@
             "html_entity_2": "&#x1F4A1;"
         },
         {
+            "title": "Thumbs Up Sign",
+            "name": "thumb_up",
+            "html_entity": "&#128077;",
+            "html_entity_2": "&#x1F44D;"
+        },
+        {
+            "title": "Thumbs Down Sign",
+            "name": "thumb_down",
+            "html_entity": "&#128078;",
+            "html_entity_2": "&#x1F44E;"
+        },
+        {
             "title": "Electric Light Bulb",
             "name": "emoji_objects",
             "html_entity": "&#128161;",
@@ -204,6 +216,12 @@
             "name": "build",
             "html_entity": "&#128295;",
             "html_entity_2": "&#x1F527;"
+        },
+        {
+            "title": "Toilet",
+            "name": "wc",
+            "html_entity": "&#128701;",
+            "html_entity_2": "&#x1F6BD;"
         },
         {
             "title": "Hammer and Wrench",
