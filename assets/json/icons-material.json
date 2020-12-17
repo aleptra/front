@@ -149,6 +149,19 @@
             "name": "link",
             "html_entity": "&#128279;",
             "html_entity_2": "&#x1F517;"
+        },
+        {
+            "title": "Wrench",
+            "name": "build",
+            "html_entity": "&#128295;",
+            "html_entity_2": "&#x1F527;"
+        },
+        {
+            "title": "Hammer and Wrench",
+            "name": "construction",
+            "html_entity": "&#128736;",
+            "html_entity_2": "&#x1F6E0;"
         }
+
     ]
  }
