@@ -133,6 +133,13 @@
             "keywords": "bulb, lamp, example"
         },
         {
+            "title": "E-Mail Symbol",
+            "name": "mail, email",
+            "html_entity": "&#128231;",
+            "html_entity_2": "&#x1F4E7;",
+            "keywords": "mail, email"
+        },
+        {
             "title": "Television",
             "name": "tv",
             "html_entity": "&#128250;",
