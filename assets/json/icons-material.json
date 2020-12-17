@@ -7,6 +7,12 @@
             "html_entity_2": "&#x20AC;"
         },
         {
+            "title": "Combining Enclosing Circle Backslash",
+            "name": "not_interested",
+            "html_entity": "&#8416;",
+            "html_entity_2": "&#x20e0;"
+        },
+        {
             "title": "Identical To",
             "name": "menu",
             "html_entity": "&#8801;",
@@ -23,6 +29,12 @@
             "name": "-",
             "html_entity": "&#9632;",
             "html_entity_2": ""
+        },
+        {
+            "title": "Power Symbol",
+            "name": "power_settings_new",
+            "html_entity": "&#9211;",
+            "html_entity_2": "&#x23FB;"
         },
         {
             "title": "Black Up-Pointing Triangle",
@@ -108,6 +120,12 @@
             "html_entity_2": ""
         },
         {
+            "title": "Microphone",
+            "name": "mic",
+            "html_entity": "&#127908;",
+            "html_entity_2": "&#x1F4A1;"
+        },
+        {
             "title": "Electric Light Bulb",
             "name": "emoji_objects",
             "html_entity": "&#128161;",
@@ -143,6 +161,18 @@
             "name": "bookmarks",
             "html_entity": "&#128209;",
             "html_entity_2": "&#x1F4D1;"
+        },
+        {
+            "title": "Speaker with Cancellation Stroke",
+            "name": "volume_off",
+            "html_entity": "&#128263;",
+            "html_entity_2": "&#x1F507;"
+        },
+        {
+            "title": "Speaker",
+            "name": "speaker",
+            "html_entity": "&#128264;",
+            "html_entity_2": "&#x1F508;"
         },
         {
             "title": "Link Symbol",
