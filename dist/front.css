@@ -612,7 +612,6 @@ button.icon,
 .topbar * {
     align-items: center;
     -ms-flex-pack: center;
-    overflow: hidden;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
