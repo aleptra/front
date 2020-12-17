@@ -108,6 +108,18 @@
             "html_entity_2": ""
         },
         {
+            "title": "Cross Mark",
+            "name": "close",
+            "html_entity": "&#10060",
+            "html_entity_2": "&#x274C;"
+        },
+        {
+            "title": "Negative Squared Cross Mark",
+            "name": "cancel",
+            "html_entity": "&#10062;",
+            "html_entity_2": "&#x274E;"
+        },
+        {
             "title": "White Hourglass",
             "name": "hourglass_empty",
             "html_entity": "&#10710;",
