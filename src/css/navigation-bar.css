@@ -40,5 +40,5 @@
 
 .bottombar *.fr,
 .topbar *.fr{
-    margin-left: auto;
+    margin-left: auto!important;
 }

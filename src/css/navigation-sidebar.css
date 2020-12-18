@@ -3,6 +3,7 @@
     -ms-flex-direction: column;
     overflow: auto;
     align-self: stretch;
+    height: 100%;
 }
 
 .sidebar > *{
@@ -37,8 +38,11 @@
     font-size: 87%;
 }
 
-.sidebar ul{
-    padding: 0;
+.sidebar ul li *{
+    -ms-flex-direction: row;
+    flex-direction: row;
+    align-items: center;
+    -ms-flex-pack: center;
 }
 
 .sidebar summary:hover,

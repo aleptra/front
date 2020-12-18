@@ -259,10 +259,10 @@ summary{
 .h25r{height: 25rem}
 .h50r{height: 50rem}
 
-.gap05->*{ margin: .25rem .25rem .25rem 0 }
-.gap1->*{ margin: .5rem .5rem .5rem 0 }
-.gap105->*{ margin: .75rem .75rem .75rem 0 }
-.gap2->*{ margin-left: 1rem; margin-right: 1rem; margin-top: 1rem; margin-bottom: 1rem; }
+.gap05->*{ margin-left: .25rem;margin-right: .25rem }
+.gap1->*{ margin-left: .5rem;margin-right: .5rem }
+.gap105->*{ margin-left: .75rem;margin-right: .75rem }
+.gap2->*{ margin-left: 1rem;margin-right: 1rem }
 /* .gap2->*{ margin: 1rem 1rem 1rem 1rem } */
 .gap3->*{ margin: 2rem 2rem 2rem 2rem }
 
@@ -274,10 +274,8 @@ summary{
 .gapr1->*{margin-right: .5rem}
 .gapr10->*{margin-right: 5rem}
 
-[class*='gap'] > :first-child {margin-left: 0}
+[class*='gap'] > :first-child {margin-left: 0; margin-right:0}
 [class*='gap'] > :last-child {margin-right: 0}
-nav[class*='gap'] > :first-child{margin-left: 1rem}
-nav[class*='gap'] > :last-child {margin-right: initial}
 
 .zi10{ z-index: 10}
 .zi50{ z-index: 50}
@@ -340,6 +338,7 @@ ul.list li{
     font-style: normal;
     color: inherit;
     line-height: normal;
+    width: unset!important;
 }
 
 .icon16{ font-size: 16px }

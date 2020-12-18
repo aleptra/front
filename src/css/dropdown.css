@@ -13,6 +13,6 @@
   z-index: 1;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
+.dropdown button:focus .dropdown-content {
+  display: unset;
 }

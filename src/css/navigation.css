@@ -1,3 +1,7 @@
+nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
+nav[class*='gap'] > :last-child {margin-right: initial}
+nav[class*='gap'] figure {margin:0}
+
 /* Global */
 nav{
   word-break: break-all;
@@ -36,6 +40,10 @@ nav.pagination > span a{
 nav.pagination a:hover{
 	background-color: rgba(0,0,0, .1);
 }
+
+nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
+nav[class*='gap'] > :last-child {margin-right: initial}
+nav[class*='gap'] figure {margin:0}
 
 /* Tabs */
 

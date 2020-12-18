@@ -297,6 +297,7 @@
 .p5v { padding: 5vhmin}
 .p10v { padding: 10vmin}
 .p15v { padding: 15vmin}
+.p0 {padding: 0}
 .p025, .p025->*{ padding: .25rem }
 .p05{ padding: .5rem }
 .p1, .p1->*{ padding: 1rem }

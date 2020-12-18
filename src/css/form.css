@@ -1,5 +1,8 @@
-input,select,textarea,button,
-.button {
+form{
+
+}
+
+input,select,textarea,button,.button {
     min-height: 2rem;
     flex: none;
     position: relative;
@@ -13,21 +16,18 @@ select{
     height: 3rem;
 }
 
-button,
-.button{
+button,.button{
     display: inline;
     cursor: pointer;
     justify-content: center;
 }
 
-button.text,
-.button.text{
+button.text,.button.text{
     background-color: transparent;
     color: var(--dark);
 }
 
-button.icon,
-.button.icon{
+button.icon,.button.icon{
     font-size: 130%;
     float: left;
 }

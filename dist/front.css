@@ -259,10 +259,10 @@ summary{
 .h25r{height: 25rem}
 .h50r{height: 50rem}
 
-.gap05->*{ margin: .25rem .25rem .25rem 0 }
-.gap1->*{ margin: .5rem .5rem .5rem 0 }
-.gap105->*{ margin: .75rem .75rem .75rem 0 }
-.gap2->*{ margin-left: 1rem; margin-right: 1rem; margin-top: 1rem; margin-bottom: 1rem; }
+.gap05->*{ margin-left: .25rem;margin-right: .25rem }
+.gap1->*{ margin-left: .5rem;margin-right: .5rem }
+.gap105->*{ margin-left: .75rem;margin-right: .75rem }
+.gap2->*{ margin-left: 1rem;margin-right: 1rem }
 /* .gap2->*{ margin: 1rem 1rem 1rem 1rem } */
 .gap3->*{ margin: 2rem 2rem 2rem 2rem }
 
@@ -274,10 +274,8 @@ summary{
 .gapr1->*{margin-right: .5rem}
 .gapr10->*{margin-right: 5rem}
 
-[class*='gap'] > :first-child {margin-left: 0}
+[class*='gap'] > :first-child {margin-left: 0; margin-right:0}
 [class*='gap'] > :last-child {margin-right: 0}
-nav[class*='gap'] > :first-child{margin-left: 1rem}
-nav[class*='gap'] > :last-child {margin-right: initial}
 
 .zi10{ z-index: 10}
 .zi50{ z-index: 50}
@@ -340,6 +338,7 @@ ul.list li{
     font-style: normal;
     color: inherit;
     line-height: normal;
+    width: unset!important;
 }
 
 .icon16{ font-size: 16px }
@@ -588,12 +587,13 @@ button.icon,.button.icon{
 
 .bottombar *.fr,
 .topbar *.fr{
-    margin-left: auto;
+    margin-left: auto!important;
 }.sidebar{
     flex-direction: column;
     -ms-flex-direction: column;
     overflow: auto;
     align-self: stretch;
+    height: 100%;
 }
 
 .sidebar > *{
@@ -628,8 +628,11 @@ button.icon,.button.icon{
     font-size: 87%;
 }
 
-.sidebar ul{
-    padding: 0;
+.sidebar ul li *{
+    -ms-flex-direction: row;
+    flex-direction: row;
+    align-items: center;
+    -ms-flex-pack: center;
 }
 
 .sidebar summary:hover,
@@ -706,7 +709,11 @@ summary {
     display: inline-block;
     width: 1.6rem;
     text-align: center;
-  }/* Global */
+  }nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
+nav[class*='gap'] > :last-child {margin-right: initial}
+nav[class*='gap'] figure {margin:0}
+
+/* Global */
 nav{
   word-break: break-all;
   position: relative;
@@ -744,6 +751,10 @@ nav.pagination > span a{
 nav.pagination a:hover{
 	background-color: rgba(0,0,0, .1);
 }
+
+nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
+nav[class*='gap'] > :last-child {margin-right: initial}
+nav[class*='gap'] figure {margin:0}
 
 /* Tabs */
 
@@ -1164,6 +1175,7 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .p5v { padding: 5vhmin}
 .p10v { padding: 10vmin}
 .p15v { padding: 15vmin}
+.p0 {padding: 0}
 .p025, .p025->*{ padding: .25rem }
 .p05{ padding: .5rem }
 .p1, .p1->*{ padding: 1rem }
