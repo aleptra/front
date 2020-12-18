@@ -163,6 +163,12 @@
             "html_entity_2": "&#x1F4A1;"
         },
         {
+            "title": "Label",
+            "name": "label",
+            "html_entity": "&#127991;",
+            "html_entity_2": "&#x1F3F7;"
+        },
+        {
             "title": "Beach with Umbrella",
             "name": "beach_access",
             "html_entity": "&#127958;",
@@ -202,6 +208,12 @@
             "html_entity_2": "&#x1F4FA;"
         },
         {
+            "title": "Left-Pointing Magnifying Glass",
+            "name": "search",
+            "html_entity": "&#128269;",
+            "html_entity_2": "&#x1F50D;"
+        },
+        {
             "title": "Look",
             "name": "lock",
             "html_entity": "&#128274;",
@@ -238,6 +250,12 @@
             "html_entity_2": "&#x1F4D1;"
         },
         {
+            "title": "Radio",
+            "name": "radio",
+            "html_entity": "&#128251;",
+            "html_entity_2": "&#x1F4FB;"
+        },
+        {
             "title": "Speaker with Cancellation Stroke",
             "name": "volume_off",
             "html_entity": "&#128263;",
@@ -254,6 +272,12 @@
             "name": "link",
             "html_entity": "&#128279;",
             "html_entity_2": "&#x1F517;"
+        },
+        {
+            "title": "Radio Button",
+            "name": "radio_button_checked",
+            "html_entity": "&#128280;",
+            "html_entity_2": "&#x1F518;"
         },
         {
             "title": "Wrench",
