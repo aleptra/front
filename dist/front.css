@@ -1187,6 +1187,12 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .p10{ padding: 10rem }
 .p10p{ padding: 10% }
 .pl1{ padding-left: 1rem }
+.pl2{ padding-left: 2rem }
+.pl3{ padding-left: 3rem }
+.pl4{ padding-left: 4rem }
+.pl5{ padding-left: 5rem }
+.pl6{ padding-left: 6rem }
+.pl10{ padding-left: 10rem }
 .pr025, .pr025->*{ padding-right: .25rem }
 .pr05, .pr05->*{ padding-right: .5rem }
 .pr1{ padding-right: 1rem }
