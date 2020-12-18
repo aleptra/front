@@ -1,3 +1,4 @@
+/* Global */
 nav{
   word-break: break-all;
   position: relative;
@@ -22,6 +23,7 @@ nav.pipe a:after{
 }
 
 /* Pagination */
+
 nav.pagination a{
 	padding: .25em .5em;
 }
@@ -63,8 +65,6 @@ nav.tabs > label {
 nav.tabs > label:active{
   background-color: #fff;
 }
-
-
 
 nav.tabs > [class^="tabnew"] {
   order: 1;
