@@ -1,6 +1,13 @@
 {
     "icons":[
         {
+            "title": "Dollar Sign",
+            "name": "attach_money",
+            "html_entity": "&#36;",
+            "html_entity_2": "&#x24;",
+            "keywords": "dollar, money, cash"
+        },        
+        {
             "title": "Euro Sign",
             "name": "euro, euro_symbol",
             "html_entity": "&#8364;",
@@ -16,6 +23,12 @@
             "title": "Identical To",
             "name": "menu",
             "html_entity": "&#8801;",
+            "html_entity_2": "&#x2261;"
+        },
+        {
+            "title": "Eject Symbol",
+            "name": "eject",
+            "html_entity": "&#9167;",
             "html_entity_2": "&#x2261;"
         },
         {
@@ -54,10 +67,22 @@
             "html_entity_2": ""
         },
         {
+            "title": "Umbrella",
+            "name": "umbrella",
+            "html_entity": "&#9730;",
+            "html_entity_2": "&#x2602;"
+        },
+        {
             "title": "Black Star",
             "name": "grade, star_rate",
             "html_entity": "&#9733;",
-            "html_entity_2": ""
+            "html_entity_2": "&#x2605;"
+        },
+        {
+            "title": "Cloud",
+            "name": "cloud",
+            "html_entity": "&#9729;",
+            "html_entity_2": "&#x2601;"
         },
         {
             "title": "White Heart Suit",
@@ -138,6 +163,13 @@
             "html_entity_2": "&#x1F4A1;"
         },
         {
+            "title": "Beach with Umbrella",
+            "name": "beach_access",
+            "html_entity": "&#127958;",
+            "html_entity_2": "&#x1F3D6;",
+            "keywords": "umbrella"
+        },
+        {
             "title": "Thumbs Up Sign",
             "name": "thumb_up",
             "html_entity": "&#128077;",
@@ -168,6 +200,18 @@
             "name": "tv",
             "html_entity": "&#128250;",
             "html_entity_2": "&#x1F4FA;"
+        },
+        {
+            "title": "Look",
+            "name": "lock",
+            "html_entity": "&#128274;",
+            "html_entity_2": "&#x1F512;"
+        },
+        {
+            "title": "Open Lock",
+            "name": "lock_open",
+            "html_entity": "&#128275;",
+            "html_entity_2": "&#x1F513;"
         },
         {
             "title": "Bookmark",
@@ -216,6 +260,18 @@
             "name": "build",
             "html_entity": "&#128295;",
             "html_entity_2": "&#x1F527;"
+        },
+        {
+            "title": "Folder",
+            "name": "folder",
+            "html_entity": "&#128448;",
+            "html_entity_2": "&#x1F5C0;"
+        },
+        {
+            "title": "Open Folder",
+            "name": "folder_open",
+            "html_entity": "&#128449;",
+            "html_entity_2": "&#x1F5C1;"
         },
         {
             "title": "Toilet",
