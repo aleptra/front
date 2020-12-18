@@ -274,10 +274,10 @@ summary{
 .gapr1->*{margin-right: .5rem}
 .gapr10->*{margin-right: 5rem}
 
-nav[class*='gap'] > :last-child { margin-right: initial }
-
-[class*='gap'] > :first-child { margin-left: 0 }
-[class*='gap'] > :last-child { margin-right: 0 }
+[class*='gap'] > :first-child {margin-left: 0}
+[class*='gap'] > :last-child {margin-right: 0}
+nav[class*='gap'] > :first-child{margin-left: 1rem}
+nav[class*='gap'] > :last-child {margin-right: initial}
 
 .zi10{ z-index: 10}
 .zi50{ z-index: 50}
@@ -496,10 +496,13 @@ body.disabled:after {
   z-index: 1;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}input,select,textarea,button,
-.button {
+.dropdown button:focus .dropdown-content {
+  display: unset;
+}form{
+
+}
+
+input,select,textarea,button,.button {
     min-height: 2rem;
     flex: none;
     position: relative;
@@ -513,21 +516,18 @@ select{
     height: 3rem;
 }
 
-button,
-.button{
+button,.button{
     display: inline;
     cursor: pointer;
     justify-content: center;
 }
 
-button.text,
-.button.text{
+button.text,.button.text{
     background-color: transparent;
     color: var(--dark);
 }
 
-button.icon,
-.button.icon{
+button.icon,.button.icon{
     font-size: 130%;
     float: left;
 }.grid{
@@ -546,6 +546,49 @@ button.icon,
 .grid [class*='w'] {
     flex-direction: column;
     -ms-flex-direction: column;
+}.bottombar,
+.topbar{
+    width: 100%;
+    -ms-flex-align: center;
+    align-items: center;
+    list-style: none;
+    z-index: 20;
+}
+
+.bottombar *,
+.topbar * {
+    align-items: center;
+    -ms-flex-pack: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    max-height: 100%;
+    line-height: normal;
+}
+
+.bottombar figure,
+.bottombar a,
+.topbar a,
+.topbar figure{ height: 100% }
+
+.bottombar * img,
+.topbar * img{ max-width: 100% }
+
+.bottombar *.fr,
+.topbar *.fr{
+    margin-left: auto;
 }.sidebar{
     flex-direction: column;
     -ms-flex-direction: column;
@@ -599,49 +642,6 @@ button.icon,
 .sidebar hr{
     border: 0;
     border-bottom: 1px solid rgba(0,0,0, 0.07);
-}.bottombar,
-.topbar{
-    width: 100%;
-    -ms-flex-align: center;
-    align-items: center;
-    list-style: none;
-    z-index: 20;
-}
-
-.bottombar *,
-.topbar * {
-    align-items: center;
-    -ms-flex-pack: center;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -moz-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -moz-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    max-height: 100%;
-    line-height: normal;
-}
-
-.bottombar figure,
-.bottombar a,
-.topbar a,
-.topbar figure{ height: 100% }
-
-.bottombar * img,
-.topbar * img{ max-width: 100% }
-
-.bottombar *.fr,
-.topbar *.fr{
-    margin-left: auto;
 }
 summary {
     display: block;
@@ -706,7 +706,8 @@ summary {
     display: inline-block;
     width: 1.6rem;
     text-align: center;
-  }nav{
+  }/* Global */
+nav{
   word-break: break-all;
   position: relative;
 }
@@ -730,6 +731,7 @@ nav.pipe a:after{
 }
 
 /* Pagination */
+
 nav.pagination a{
 	padding: .25em .5em;
 }
@@ -771,8 +773,6 @@ nav.tabs > label {
 nav.tabs > label:active{
   background-color: #fff;
 }
-
-
 
 nav.tabs > [class^="tabnew"] {
   order: 1;
