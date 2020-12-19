@@ -48,6 +48,7 @@ document.onclick=function(e) {
 			return false;
 		}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
 			console.log('Click with Ajax: '+ elHref);
+			if(window.location.hash) location.hash = "";
 			return nav(elHref);
 		}else{
 			console.log('Click');
