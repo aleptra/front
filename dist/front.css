@@ -470,6 +470,13 @@ ul.list li{
   z-index: 50;
 }
 
+.modal.menu{
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+
 body.disabled:after {
   position: fixed;
   top: 0;
