@@ -61,9 +61,6 @@ document.addEventListener('DOMContentLoaded', function()  {
 	currentUrl = window.location.href;
 	currentScript = document.querySelector('script[src*="front.js"]');
 	currentScriptUrl = currentScript.getAttribute("src");
-
-	console.log("nej"+app.getNewUrl());
-
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
 
