@@ -40,7 +40,7 @@ head,head *,script,style,template,.d0{
     display: none!important;
 }
 
-section,article,code,pre,samp,p{
+section,article,code,pre,samp,form,p{
     display: block;
     font-family: inherit;
     height: inherit;
