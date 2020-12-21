@@ -901,6 +901,17 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 
 .tdu, .tdu->*{text-decoration:underline}
 
+.flc0{
+    -webkit-box-pack: unset;
+    -moz-box-pack: unset;
+    -ms-flex-pack: unset;
+    -webkit-justify-content: unset;
+    -webkit-box-align: unset;
+    -moz-box-align: unset;
+    -ms-flex-align: unset;
+}
+
+
 /*https://www.rapidtables.com/web/color/html-color-codes.html*/
 
 /* Red */
