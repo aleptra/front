@@ -15,6 +15,7 @@ var referrerUrl;
 var baseUrl;
 
 document.onkeyup=function(e) {
+	if( e.target.nodeName == "INPUT" || e.target.nodeName == "TEXTAREA" || e.target.isContentEditable) return;
 	var key = String.fromCharCode(e.keyCode);
 	for (i = 0; i < front.length; i++) {
 		if (front[i].hasAttribute("key"))

@@ -534,7 +534,7 @@ form .group .input-control {
     padding: 4px;
     margin-top: -4px;
 }
-
+  
 @media (max-width: 768px) {
     form .group {
       flex-direction: column;
