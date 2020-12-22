@@ -18,3 +18,6 @@ git:
 	git add . && git commit -m "Experimental" && git push
 serve:
 	python -m SimpleHTTPServer 8000
+
+watch:
+	@fswatch -r -1 ./src/ | xargs -0 -n 1 -I {} echo "File {} changed" && make && make watch
