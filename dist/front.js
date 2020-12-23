@@ -187,7 +187,7 @@ var core = function() {
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
 
-				console.log("Url: "+app.getBaseUrl(url));
+				console.log("Url: "+url);
 				console.log("Count: "+count);
 				console.log("CurrentScript: " + currentScriptUrl)
 
