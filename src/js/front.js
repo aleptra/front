@@ -201,6 +201,7 @@ var core = function() {
 						response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
 						console.log("Url: "+app.getBaseUrl(url));
 						console.log("Count: "+count);
+						console.log("CurrentScript: " + currentScriptUrl)
 						document.open();
 						document.write(response);
 						document.close();
