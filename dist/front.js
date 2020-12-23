@@ -181,8 +181,8 @@ var core = function() {
 		for (i = 0; i < front.length; i++) {
 			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
 
-				var count = currentScriptUrl.split("./").length;
-				var url = currentUrl.split("/").slice(0, -count).join("/");
+				var count = currentScriptUrl.split("/").length;
+				var url = currentScriptUrl.split("/").slice(0, -count).join("/");
 
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
