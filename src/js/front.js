@@ -187,6 +187,10 @@ var core = function() {
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
 
+				console.log("Url: "+app.getBaseUrl(url));
+				console.log("Count: "+count);
+				console.log("CurrentScript: " + currentScriptUrl)
+
 				script.removeAttribute("src");
 				script.removeAttribute("template");
 				document.documentElement.remove();
@@ -199,9 +203,6 @@ var core = function() {
 						var response = this.responseText;
 						response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
 						response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
-						console.log("Url: "+app.getBaseUrl(url));
-						console.log("Count: "+count);
-						console.log("CurrentScript: " + currentScriptUrl)
 						document.open();
 						document.write(response);
 						document.close();
