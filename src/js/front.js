@@ -199,7 +199,8 @@ var core = function() {
 						var response = this.responseText;
 						response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
 						response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
-						console.log(app.getBaseUrl(url));
+						console.log("Url: "+app.getBaseUrl(url));
+						console.log("Count: "+count);
 						document.open();
 						document.write(response);
 						document.close();
