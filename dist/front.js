@@ -180,8 +180,9 @@ var core = function() {
 	this.hasTemplateLayout = function() {
 		for (i = 0; i < front.length; i++) {
 			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
+				var template = front[i].getAttribute("template");
 
-				var count = currentScriptUrl.split("./").length;
+				var count = currentScriptUrl.split("./").length + (template.match(/..\//g) || []).length;
 				var url = currentUrl.split("/").slice(0, -count).join("/");
 
 				var html = dom.get("html?tag=0");
