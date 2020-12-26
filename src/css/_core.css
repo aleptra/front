@@ -36,7 +36,7 @@ img,ul,ol,fieldset{ border: 0; padding: 0 }
 
 hr{ margin-bottom: 1rem;}
 
-head,head *,script,style,template,.d0{
+head,head *,meta,title,script,link,style,template,.d0{
     display: none!important;
 }
 
