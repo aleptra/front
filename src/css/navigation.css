@@ -74,7 +74,7 @@ nav.tabs > label:active{
   background-color: #fff;
 }
 
-nav.tabs > [class^="tabnew"] {
+nav.tabs > section {
   order: 1;
   flex-grow: 1;
   width: 100%;
@@ -96,7 +96,7 @@ nav.tabs > input[type="radio"]:checked + label {
   z-index: 1;
 }
 
-nav.tabs > input[type="radio"]:checked + label + [class^="tabnew"] {
+nav.tabs > input[type="radio"]:checked + label + section {
   display: block;
   background-color:#ffffff;
   color:#000;
@@ -108,6 +108,6 @@ nav.tabs.accordions{
   -ms-flex-direction: column;
 }
 
-nav.tabs.accordions > [class^="tabnew"]{
+nav.tabs.accordions > section{
   order: unset;
 }
