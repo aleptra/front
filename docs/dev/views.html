@@ -1,4 +1,4 @@
-<script src="../../dist/front.js" title="Views" template="true"></script>
+<script src="../../dist/front.js" title="Views" template></script>
 
 <template>
 	<aside index="1">
@@ -28,18 +28,18 @@
 <section id="cards">
     <h2>Cards</h2>
     <nav class="tabs">
-      <input type="radio" name="tabnew" id="tab1">
+      <input type="radio" name="panel1" id="tab1">
       <label class="z09" for="tab1">Code</label>
-      <section class="tabnew">
+      <section>
         <code class="antiquewhite">
           &lt;button&gt;<span class="azure">Button</span>&lt;/button&gt;<br>
-          &lt;button&gt;&lt;i<span class="navajowhite"> class=</span><span class="white">"icon"</span>&gt;<span class="azure">&#9733</span>&lt;/i><span class="azure">Button</span>&lt;/button&gt;
+          &lt;button&gt;&lt;i <span class="navajowhite">class=</span><span class="white">"icon"</span>&gt;<span class="azure">&#9733</span>&lt;/i><span class="azure">Button</span>&lt;/button&gt;
         </code>
       </section>
 
-      <input type="radio" name="tabnew" id="tab2" checked>
+      <input type="radio" name="panel1" id="tab2" checked>
       <label class="z09" for="tab2">Preview</label>
-      <section class="tabnew">
+      <section>
         <pre>
             <div class="box cards gap1- br05- w15- light- tac">
 
@@ -72,9 +72,9 @@
 <section id="slider">
     <h2>Slider</h2>
     <nav class="tabs">
-        <input type="radio" name="tabnew2" id="tab3">
+        <input type="radio" name="panel3" id="tab3">
         <label class="z09" for="tab3">Code</label>
-        <section class="tabnew2">
+        <section>
             <code class="antiquewhite" onmouseover="dom.show('test')" onmouseout="dom.hide('test')">
                 <span id="sourceSlider">
                     &lt;nav<span class="navajowhite"> class=</span>"slider"&gt;<br>
@@ -85,9 +85,9 @@
             </code>
         </section>
 
-        <input type="radio" name="tabnew2" id="tab4" checked>
+        <input type="radio" name="panel3" id="tab4" checked>
         <label class="z09" for="tab4">Preview</label>
-        <section class="tabnew2">
+        <section>
             <pre class="h20">
                 <nav class="slider gap05-">
                     <input type="radio" name="slidernewdemo" id="sliderdemo1" checked>
