@@ -6,13 +6,6 @@
             "html_entity": "&#36;",
             "html_entity_2": "&#x24;",
             "keywords": "dollar, money, cash"
-        },
-        {
-            "title": "Dollar Sign",
-            "name": "attach_money",
-            "html_entity": "&#36;",
-            "html_entity_2": "&#x24;",
-            "keywords": "dollar, money, cash"
         },     
         {
             "title": "Copyright Sign",
@@ -297,6 +290,12 @@
             "name": "build",
             "html_entity": "&#128295;",
             "html_entity_2": "&#x1F527;"
+        },
+        {
+            "title": "Printer",
+            "name": "printer,local_printshop",
+            "html_entity": "&#128424;",
+            "html_entity_2": "&#x1F5A8;"
         },
         {
             "title": "Folder",
