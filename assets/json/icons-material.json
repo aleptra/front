@@ -50,6 +50,12 @@
             "html_entity_2": "&#x23FB;"
         },
         {
+            "title": "Circled Latin Small Letter F",
+            "name": "facebook",
+            "html_entity": "&#9429;",
+            "html_entity_2": "&#x24D5;"
+        },
+        {
             "title": "Black Up-Pointing Triangle",
             "name": "-",
             "html_entity": "&#9650;"
