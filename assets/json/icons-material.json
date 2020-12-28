@@ -6,12 +6,19 @@
             "html_entity": "&#36;",
             "html_entity_2": "&#x24;",
             "keywords": "dollar, money, cash"
-        },        
+        },
         {
-            "title": "Euro Sign",
-            "name": "euro, euro_symbol",
-            "html_entity": "&#8364;",
-            "html_entity_2": "&#x20AC;"
+            "title": "Dollar Sign",
+            "name": "attach_money",
+            "html_entity": "&#36;",
+            "html_entity_2": "&#x24;",
+            "keywords": "dollar, money, cash"
+        },     
+        {
+            "title": "Copyright Sign",
+            "name": "copyright",
+            "html_entity": "&#169;",
+            "html_entity_2": "&#xA9;"
         },
         {
             "title": "Combining Enclosing Circle Backslash",
@@ -314,6 +321,20 @@
             "name": "construction",
             "html_entity": "&#128736;",
             "html_entity_2": "&#x1F6E0;"
+        },
+        {
+            "title": "Airplane Departure",
+            "name": "flight_takeoff",
+            "html_entity": "&#128747;",
+            "html_entity_2": "&#x1F6EB;",
+            "keywords": "airplane"
+        },
+        {
+            "title": "Airplane Arriving",
+            "name": "flight_land",
+            "html_entity": "&#128748;",
+            "html_entity_2": "&#x1F6EC;",
+            "keywords": "airplane"
         }
 
     ]
