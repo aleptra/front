@@ -477,6 +477,16 @@ ul.list li{
 	width: 100%;
 }
 
+.modal.menu section{
+	width: 100%;
+}
+
+.modal.menu section * {
+	height: unset;
+	display: inherit;
+	width: 100%;
+}
+
 body.disabled:after {
   position: fixed;
   top: 0;
