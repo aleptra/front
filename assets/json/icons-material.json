@@ -256,6 +256,13 @@
             "html_entity_2": "&#x1F4D1;"
         },
         {
+            "title": "Telephone Receiver",
+            "name": "call,phone,local_phone",
+            "html_entity": "&#128222;",
+            "html_entity_2": "&#x1F4DE;",
+            "keywords": "tele"
+        },
+        {
             "title": "Radio",
             "name": "radio",
             "html_entity": "&#128251;",
