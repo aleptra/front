@@ -263,6 +263,20 @@
             "keywords": "tele"
         },
         {
+            "title": "Mobile Phone",
+            "name": "smartphone",
+            "html_entity": "&#128241;",
+            "html_entity_2": "&#x1F4F1;",
+            "keywords": "phone,tele"
+        },
+        {
+            "title": "No Mobile Phones",
+            "name": "no_cell",
+            "html_entity": "&#128245;",
+            "html_entity_2": "&#x1F4F5;",
+            "keywords": "phone,tele"
+        },
+        {
             "title": "Radio",
             "name": "radio",
             "html_entity": "&#128251;",
