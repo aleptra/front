@@ -20,6 +20,10 @@ nav.pipe a:after{
   content: "\00a0\00a0 | \00a0\00a0"
 }
 
+nav.afr a:after {
+  float: right;
+}
+
 /* Crumbs */
 
 .crumbs * li:last-child:after{
