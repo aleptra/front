@@ -8,11 +8,11 @@ nav{
   position: relative;
 }
 
-nav.guillemet * a:after{
+nav.guillemet * a:after, nav.guillemet a:after{
   content: "\00a0\00a0 \00BB \00a0\00a0"
 }
 
-nav.pointer * a:after{
+nav.pointer * a:after, nav.pointer a:after{
   content: "\00a0\00a0 \276F \00a0\00a0"
 }
 
