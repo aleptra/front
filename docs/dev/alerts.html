@@ -6,8 +6,9 @@
         <nav class="sidebar w11">
             <h5 class="p1 mt1">Alerts</h5>
             <ul>
-                <li><a href="#dialog">Dialog</a></li>
+                <li><a href="#message">Message</a></li>
                 <li><a href="#snack">Snack</a></li>
+                <li><a href="#modal">Modal</a></li>
                 <li><a href="#banner">Banner</a></li>
             </ul>
         </nav>
@@ -31,8 +32,8 @@
         <label class="z09" for="tab1">Code</label>
         <section>
             <code class="antiquewhite">
-                &lt;div <span class="navajowhite">class=</span>"alert dialog"&gt;<br>
-                &emsp;&emsp;&lt;i <span class="navajowhite">class=</span>"icon"&gt;⚠&lt;/i&gt; Connection lost...<br>
+                &lt;div <span class="navajowhite">class=</span>"alert"&gt;<br>
+                &emsp;&emsp;This is a message!<br>
                 &lt;/div&gt;
             </code>
         </section>
@@ -57,7 +58,7 @@
         <section>
             <code class="antiquewhite">
                 &lt;div <span class="navajowhite">class=</span>"alert dialog"&gt;<br>
-                &emsp;&emsp;&lt;i <span class="navajowhite">class=</span>"icon"&gt;⚠&lt;/i&gt; This is a message!<br>
+                &emsp;&emsp;&lt;i <span class="navajowhite">class=</span>"icon"&gt;⚠&lt;/i&gt; This is a snack!<br>
                 &lt;/div&gt;
             </code>
         </section>
@@ -67,7 +68,7 @@
         <section>
             <pre>
                 <div class="alert snack dark">
-                    <i class="icon">⚠</i> Connection lost...
+                    <i class="icon">⚠</i> This is a snack!
                 </div>
             </pre>
         </section>
@@ -104,9 +105,9 @@
                 <a href="#popup2" class="button">Open confirm modal</a>
                 <div id="popup2" class="modal alert">
                     Do you want to continue?
-                    <form class="gap105-" onsubmit="return false">
+                    <form class="gap105- mt1" onsubmit="return false">
                         <a href="docs/dev/alerts.html" class="button">Yes</a>
-                        <button>No</button>
+                        <a href="#" class="button">No</a>
                     </form>
                 </div>
                 <a href="#" class="backdrop" target="_self"></a>
@@ -124,7 +125,7 @@
         <section>
             <code class="antiquewhite">
                 &lt;div <span class="navajowhite">class=</span>"alert banner"&gt;<br>
-                &emsp;&emsp;&lt;i <span class="navajowhite">class=</span>"icon"&gt;⚠&lt;/i&gt; Connection lost...<br>
+                &emsp;&emsp;This is a banner message!<br>
                 &lt;/div&gt;
             </code>
         </section>
