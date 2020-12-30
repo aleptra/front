@@ -51,6 +51,8 @@ code{
     word-wrap: normal !important;
 }
 
+form{display: flex; display:-ms-flexbox}
+
 .fs22{font-size: calc(2.2em + 2vw); line-height: 1.125}
 .fs20{font-size: calc(2em + 1.8vw); line-height: 1.2}
 h1{font-size: calc(1.4em + 1.4vw); line-height: 1.4}
