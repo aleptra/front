@@ -40,7 +40,7 @@ head,head *,meta,title,script,link,style,template,.d0{
     display: none!important;
 }
 
-section,article,code,pre,samp,form,p{
+section,article,code,pre,samp,p{
     display: block;
     font-family: inherit;
     height: inherit;
@@ -50,9 +50,6 @@ code{
     overflow: auto;
     word-wrap: normal !important;
 }
-
-form{display: flex; display:-ms-flexbox}
-
 .fs22{font-size: calc(2.2em + 2vw); line-height: 1.125}
 .fs20{font-size: calc(2em + 1.8vw); line-height: 1.2}
 h1{font-size: calc(1.4em + 1.4vw); line-height: 1.4}
