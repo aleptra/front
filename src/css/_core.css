@@ -76,7 +76,7 @@ td,th{display: table-cell;padding:.5rem;}
 th{font-weight: bold; border-bottom: solid 1px rgba(0,0,0, .2)}
 details summary{cursor:pointer}
 
-body {
+body, .grid {
     display: inline-block;
     display: table;
     display: flex;
@@ -118,7 +118,7 @@ body>header {
     z-index: 10;
 }
 
-body>nav {
+body>nav, .nav {
     grid-area: nav;
     -ms-grid-row: 2;
     -ms-grid-column: 1;
@@ -126,7 +126,7 @@ body>nav {
     z-index: 10;
 }
 
-body>aside {
+body>aside, .aside {
     grid-area: left;
     -ms-grid-row: 3;
     -ms-grid-column: 1;
@@ -134,7 +134,7 @@ body>aside {
     padding: 0;
 }
 
-body>main {
+body>main, .main {
     grid-area: middle;
     -ms-grid-row: 3;
     -ms-grid-column: 2;
@@ -147,7 +147,7 @@ body main > a{
     text-decoration: underline;
 }
 
-body>main+aside {
+body>main+aside, .grid .aside+.aside {
     grid-area: right;
     -ms-grid-row: 3;
     -ms-grid-column: 3;

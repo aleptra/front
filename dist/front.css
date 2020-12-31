@@ -76,7 +76,7 @@ td,th{display: table-cell;padding:.5rem;}
 th{font-weight: bold; border-bottom: solid 1px rgba(0,0,0, .2)}
 details summary{cursor:pointer}
 
-body {
+body, .grid {
     display: inline-block;
     display: table;
     display: flex;
@@ -118,7 +118,7 @@ body>header {
     z-index: 10;
 }
 
-body>nav {
+body>nav, .nav {
     grid-area: nav;
     -ms-grid-row: 2;
     -ms-grid-column: 1;
@@ -126,7 +126,7 @@ body>nav {
     z-index: 10;
 }
 
-body>aside {
+body>aside, .aside {
     grid-area: left;
     -ms-grid-row: 3;
     -ms-grid-column: 1;
@@ -134,7 +134,7 @@ body>aside {
     padding: 0;
 }
 
-body>main {
+body>main, .main {
     grid-area: middle;
     -ms-grid-row: 3;
     -ms-grid-column: 2;
@@ -147,7 +147,7 @@ body main > a{
     text-decoration: underline;
 }
 
-body>main+aside {
+body>main+aside, .grid .aside+.aside {
     grid-area: right;
     -ms-grid-row: 3;
     -ms-grid-column: 3;
@@ -596,21 +596,15 @@ button.text,.button.text{
 button.icon,.button.icon{
     font-size: 130%;
     float: left;
-}.grid{
-    width: 100%;
-    min-height: auto;
-    margin: 0 auto;
-    max-height: 100%;
 }
+.grid{min-width: 0; margin: 0 auto; min-height: 0}
 
+.grid *{
+    display: inline-block;
+}
 
 .grid.w80w{
     max-width: 80vw;
-}
-
-.grid [class*='w'] {
-    flex-direction: column;
-    -ms-flex-direction: column;
 }.bottombar,
 .topbar{
     width: 100%;
@@ -1155,6 +1149,15 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .lavenderblush{color:#fff0f5}
 .mistyrose{color:#ffe4e1}
 
+.bcwhite01{background-color: rgba(255,255,255, .1)}
+.bcwhite02{background-color: rgba(255,255,255, .2)}
+.bcwhite03{background-color: rgba(255,255,255, .3)}
+.bcwhite04{background-color: rgba(255,255,255, .4)}
+.bcwhite05{background-color: rgba(255,255,255, .5)}
+.bcwhite06{background-color: rgba(255,255,255, .6)}
+.bcwhite07{background-color: rgba(255,255,255, .7)}
+.bcwhite08{background-color: rgba(255,255,255, .8)}
+.bcwhite09{background-color: rgba(255,255,255, .9)}
 .bcsnow{background-color:#fffafa}
 .bchoneydew{background-color:#f0fff0}
 .bcmintcream{background-color:#f5fffa}
@@ -1230,7 +1233,7 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .h15 { height: 15rem }
 .h15p { height: 15% }
 .h20 { height: 20rem }
-.h100,.h100p { height: 100% }
+.h100,.h100p { flex: 0 0 100%;-ms-flex: 1 0 100%; }
 .h100vh { height: 100vh }
 .hm100,.hm100p { min-height: 100% }
 .mh3 { max-height: 3rem }
@@ -1351,13 +1354,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_du{display: in herit}
 
     .grid {
-        flex-direction: column;
-        -ms-flex-direction: column;
-    }
-
-    .grid > * {
-        padding: unset;
-        width: 100%;
+        grid-template-areas: "head head head" "nav nav nav" "left left left" "middle middle middle" "right right right" "foot foot foot";
+        max-width: unset;
     }
 
     nav.topbar > a{ font-size: 80% };

@@ -1,16 +1,10 @@
-.grid{
-    width: 100%;
-    min-height: auto;
-    margin: 0 auto;
-    max-height: 100%;
-}
 
+.grid{min-width: 0; margin: 0 auto; min-height: 0}
+
+.grid *{
+    display: inline-block;
+}
 
 .grid.w80w{
     max-width: 80vw;
-}
-
-.grid [class*='w'] {
-    flex-direction: column;
-    -ms-flex-direction: column;
 }
