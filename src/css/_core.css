@@ -42,7 +42,7 @@ head,head *,meta,title,script,link,style,template,.d0{
 
 h1,h2,h3,h4,h5,h6,
 section,article,code,pre,samp,p,form{
-    display: block !important;
+    display: block;
     font-family: inherit;
     height: inherit;
 }
