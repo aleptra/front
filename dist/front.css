@@ -32,15 +32,13 @@ html {
     color: #111;
 }
 
+head,head *,meta,title,script,link,style,template,.d0{ display: none!important }
 img,ul,ol,fieldset{ border: 0; padding: 0 }
 
-hr{ margin-bottom: 1rem;}
+h1,h2,h3,h4,h5,h6{ display: block }
 
-head,head *,meta,title,script,link,style,template,.d0{
-    display: none!important;
-}
+hr{ margin-bottom: 1rem}
 
-h1,h2,h3,h4,h5,h6,
 section,article,code,pre,samp,p,form{
     display: block;
     font-family: inherit;
