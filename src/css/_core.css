@@ -40,8 +40,9 @@ head,head *,meta,title,script,link,style,template,.d0{
     display: none!important;
 }
 
+h1,h2,h3,h4,h5,h6,
 section,article,code,pre,samp,p,form{
-    display: block;
+    display: block !important;
     font-family: inherit;
     height: inherit;
 }
@@ -50,6 +51,7 @@ code{
     overflow: auto;
     word-wrap: normal !important;
 }
+
 .fs22{font-size: calc(2.2em + 2vw); line-height: 1.125}
 .fs20{font-size: calc(2em + 1.8vw); line-height: 1.2}
 h1{font-size: calc(1.4em + 1.4vw); line-height: 1.4}
@@ -60,8 +62,7 @@ h5,.fs11{ font-size: calc(.8em + .7vw)}
 h6,.fs1{ font-size: calc(.7em + .6vw)}
 .fs2{ font-size: 200%; line-height: 2}
 
-h1,h2,h3,h4,h5,h6{ display: block }
-a,i,b,span,.di{ display: inline-flex; display: -ms-inline-flexbox }
+a,i,b,span,.di{ display: inline-flex!important; display: -ms-inline-flexbox!important }
 b,strong{ font-weight: bold }
 
 table{display:table;border-collapse: collapse;table-layout: fixed;text-align: left;}
