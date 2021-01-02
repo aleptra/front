@@ -60,7 +60,7 @@ h5,.fs11{ font-size: calc(.8em + .7vw)}
 h6,.fs1{ font-size: calc(.7em + .6vw)}
 .fs2{ font-size: 200%; line-height: 2}
 
-a,i,b,span,.di{ display: inline-flex!important; display: -ms-inline-flexbox!important }
+a,i,b,span,.di{ display: inline-flex; display: -ms-inline-flexbox }
 b,strong{ font-weight: bold }
 
 table{display:table;border-collapse: collapse;table-layout: fixed;text-align: left;}
@@ -1294,7 +1294,7 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .mt3, .mt3- *{ margin-top: 3rem }
 .m1, .m1- *{ margin: 1rem }
 
-body [class*='_dn'], body [class*='_du']{display: none}
+* [class*='_dn'], * [class*='_du']{display: none}
 
 /*Min*/
 @media only screen and (min-width: 1440px) {
