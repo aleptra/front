@@ -103,6 +103,18 @@
             "html_entity_2": "&#x2665;"
         },
         {
+            "title": "White Flag",
+            "name": "outlined_flag, emoji_flags",
+            "html_entity": "&#9872;",
+            "html_entity_2": "&#x2690;"
+        },
+        {
+            "title": "Black Flag",
+            "name": "flag, assistant_photo",
+            "html_entity": "&#9873;",
+            "html_entity_2": "&#x2691;"
+        },
+        {
             "title": "Anchor",
             "name": "anchor",
             "html_entity": "&#9875;",
@@ -137,6 +149,12 @@
             "name": "hourglass_top",
             "html_entity": "&#9203;",
             "html_entity_2": ""
+        },
+        {
+            "title": "Flag In Hole",
+            "name": "golf_course",
+            "html_entity": "&#9971;",
+            "html_entity_2": "&#x26F3;"
         },
         {
             "title": "Cross Mark",
