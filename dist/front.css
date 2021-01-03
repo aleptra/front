@@ -1303,7 +1303,7 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .mt3, .mt3- *{ margin-top: 3rem }
 .m1, .m1- *{ margin: 1rem }
 
-[class*='_dn'], [class*='_du']{display: none}
+body [class*='_dn'], body [class*='_du']{display: none}
 
 /*Min*/
 
