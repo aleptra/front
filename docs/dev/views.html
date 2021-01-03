@@ -41,28 +41,15 @@
       <label class="z09" for="tab2">Preview</label>
       <section>
         <pre>
-            <div class="box cards gap1- br05- w15- light- tac">
+            <div variable="i=1" iterate="9;i++" class="box cards gap1- br05- light- fdc- tac">
 
                 <figure>
                     <img src="/assets/img/icon_black_regular.svg">
-                    <figcaption>Caption</figcaption>
-                    <small>Small texteuro_symbol</small>
-                    <p>Description</p>
+                    <figcaption><var>i</var></figcaption>
+                    <small><var>i</var></small>
+                    <p><var>i</var></p>
                 </figure>
-
-                <figure>
-                    <img src="/assets/img/icon_black_regular.svg">
-                    <figcaption>Caption</figcaption>
-                    <small>Small texteuro_symbol</small>
-                    <p>Description</p>
-                </figure>
-
-                <figure>
-                    <img src="/assets/img/icon_black_regular.svg">
-                    <figcaption>Caption</figcaption>
-                    <small>Small texteuro_symbol</small>
-                    <p>Description</p>
-                </figure>
+                
             </div>
         </pre>
       </section>  
@@ -91,7 +78,7 @@
             <pre class="h20">
                 <nav class="slider gap05-">
                     <input type="radio" name="slidernewdemo" id="sliderdemo1" checked>
-                    <label for="sliderdemo1" class="z20">&#9679;</label>
+                    <label for="sliderdemo1" class="z20 footer">&#9679;</label>
                     <section class="slidernewdemo">
                         <figure>
                             <img src="/assets/img/slide1.jpg">
@@ -99,7 +86,7 @@
                     </section>
             
                     <input type="radio" name="slidernewdemo" id="sliderdemo2">
-                    <label for="sliderdemo2" class="z20">&#9679;</label>
+                    <label for="sliderdemo2" class="z20 footer">&#9679;</label>
                     <section class="slidernewdemo">
                         <figure>
                             <img src="/assets/img/slide2.jpg">
@@ -107,11 +94,11 @@
                     </section>
 
                     <input type="radio" name="slidernewdemo" id="sliderdemo3">
-                    <label for="sliderdemo3" class="z20">&#9679;</label>
+                    <label for="sliderdemo3" class="z20 footer">&#9679;</label>
                     <section class="slidernewdemo">
                         <figure>
                             <img src="/assets/img/slide3.jpg">
-                            <figcaption>-30°</figcaption>
+                           <!--<figcaption>-30°</figcaption>-->
                         </figure>
                     </section>
                 </nav>

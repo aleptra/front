@@ -1,4 +1,4 @@
-nav.slider {
+/*nav.slider {
     display: flex;
     display: -ms-flexbox;
     flex-wrap: wrap;
@@ -6,6 +6,10 @@ nav.slider {
     -ms-flex-pack: center;
     justify-content: center;
     height: inherit;
+}*/
+
+nav.slider{
+    grid-template-rows : repeat (4 , 1fr );
 }
 
 nav.slider figure img{
@@ -24,9 +28,6 @@ nav.slider label {
     cursor: pointer;
     color: #444;
     z-index: 1;
-    height: 0;
-    align-self: flex-end;
-    -ms-flex-align: end;
 }
   
 nav.slider label:active{

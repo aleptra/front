@@ -361,40 +361,47 @@
 * [class*='_dn'], * [class*='_du']{display: none}
 
 /*Min*/
-@media only screen and (min-width: 1440px) {
-    body .xxxl_dn{display: inherit}
+
+@media only screen and (min-width: 220px) {
+    body .xxs_dn{display: inherit}
 }
 
-@media only screen and (min-width: 1280px) {
-    body .xxl_dn{display: inherit}
-}
 
-@media only screen and (min-width: 960px) {
-    body .xl_dn{display: inherit}
-}
-
-@media only screen and (min-width: 740px) {
-    body .lg_dn{display: inherit}
-}
-
-@media only screen and (min-width: 600px) {
-    body .md_dn{display: inherit}
-}
-
-@media only screen and (min-width: 480px) {
-    body .xm_dn{display: inherit}
+@media only screen and (min-width: 300px) {
+    body .xs_dn{display: inherit}
 }
 
 @media only screen and (min-width: 360px) {
     body .sm_dn{display: inherit}
 }
 
-@media only screen and (min-width: 300px) {
-    body .xs_dn{display: inherit}
+@media only screen and (min-width: 480px) {
+    body .xm_dn{display: inherit}
 }
 
-@media only screen and (min-width: 220px) {
-    body .xxs_dn{display: inherit}
+@media only screen and (min-width: 600px) {
+    body .md_dn{display: inherit}
+    .cards { grid-template-columns: auto auto}
+}
+
+@media only screen and (min-width: 740px) {
+    body .lg_dn{display: inherit}
+    .cards { grid-template-columns: auto auto auto}
+}
+
+@media only screen and (min-width: 960px) {
+    body .xl_dn{display: inherit}
+    .cards { grid-template-columns: auto auto auto auto}
+}
+
+@media only screen and (min-width: 1280px) {
+    body .xxl_dn{display: inherit}
+    .cards { grid-template-columns: auto auto auto auto auto}
+}
+
+@media only screen and (min-width: 1440px) {
+    body .xxxl_dn{display: inherit}
+    .cards { grid-template-columns: auto auto auto auto auto auto}
 }
 
 /*Max*/
@@ -415,7 +422,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-    body .md_du{display: in herit}
+    body .md_du{display: inherit}
 
     .grid {
         grid-template-areas: "head head head" "nav nav nav" "left left left" "middle middle middle" "right right right" "foot foot foot";
