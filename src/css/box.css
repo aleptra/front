@@ -23,4 +23,4 @@
     padding-top: 1rem;
 }
 
-.cards { display: grid; grid-template-columns: auto; width: 0}
+.cards { display: grid; grid-template-columns: 100%;}

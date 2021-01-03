@@ -381,27 +381,27 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 600px) {
     body .md_dn{display: inherit}
-    .cards { grid-template-columns: auto auto}
+    .cards { grid-template-columns: 1fr 1fr}
 }
 
 @media only screen and (min-width: 740px) {
     body .lg_dn{display: inherit}
-    .cards { grid-template-columns: auto auto auto}
+    .cards { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 960px) {
     body .xl_dn{display: inherit}
-    .cards { grid-template-columns: auto auto auto auto}
+    .cards { grid-template-columns: 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 1280px) {
     body .xxl_dn{display: inherit}
-    .cards { grid-template-columns: auto auto auto auto auto}
+    .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 1440px) {
     body .xxxl_dn{display: inherit}
-    .cards { grid-template-columns: auto auto auto auto auto auto}
+    .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
 }
 
 /*Max*/
