@@ -1205,6 +1205,15 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .lightslategray{color:#778899}
 .slategray{color:#708090}
 .darkslategray{color:#2f4f4f}
+.bcblack01{background-color: rgba(0,0,0, .1)}
+.bcblack02{background-color: rgba(0,0,0, .2)}
+.bcblack03{background-color: rgba(0,0,0, .3)}
+.bcblack04{background-color: rgba(0,0,0, .4)}
+.bcblack05{background-color: rgba(0,0,0, .5)}
+.bcblack06{background-color: rgba(0,0,0, .6)}
+.bcblack07{background-color: rgba(0,0,0, .7)}
+.bcblack08{background-color: rgba(0,0,0, .8)}
+.bcblack09{background-color: rgba(0,0,0, .9)}
 .black{color:#000}
 
 /* Brown */
