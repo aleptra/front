@@ -181,11 +181,21 @@ summary{
 
 .pf{ position: fixed; flex: unset; z-index: 10}
 .pa{ position: absolute }
+.t05{ top: -5rem }
+.t04{ top: -4rem }
+.t03{ top: -3rem }
+.t02{ top: -2rem }
+.t01{ top: -1rem }
 .t0{ top: 0 }
 .t05{ top: .5rem }
 .t1{ top: 1rem }
 .t2{ top: 2rem }
 .t3{ top: 3rem }
+.l05{ left: -5rem}
+.l04{ left: -4rem}
+.l03{ left: -3rem}
+.l01{ left: -2rem}
+.l01{ left: -1rem}
 .l0{ left: 0}
 .l05{ left: .5rem}
 .l1{ left: 1rem}
