@@ -281,6 +281,11 @@ summary{
 [class*='gap'] > :first-child {margin-left: 0; margin-right:0}
 [class*='gap'] > :last-child {margin-right: 0}
 
+.zi05{ z-index: -5}
+.zi04{ z-index: -4}
+.zi03{ z-index: -3}
+.zi02{ z-index: -2}
+.zi01{ z-index: -1}
 .zi0{ z-index: 0}
 .zi1{ z-index: 1}
 .zi2{ z-index: 2}
