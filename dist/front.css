@@ -264,6 +264,12 @@ summary{
 .mw20, .mw20- * { max-width: 20rem }
 .mw25, .mw25- * { max-width: 25rem }
 
+
+.mw70p, .mw70p- * { max-width: 70% }
+.mw75p, .mw75p- * { max-width: 75% }
+.mw80p, .mw80p- * { max-width: 80% }
+.mw90p, .mw90p- * { max-width: 90% }
+
 .h25{height: 25%}
 .h50{height: 50%}
 .h60{height: 60%}
