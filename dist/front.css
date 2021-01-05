@@ -1325,13 +1325,13 @@ nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
 .p10v { padding: 10vmin}
 .p15v { padding: 15vmin}
 .p0 {padding: 0}
-.p025, .p025->*{ padding: .25rem }
-.p05{ padding: .5rem }
-.p1, .p1->*{ padding: 1rem }
-.p2{ padding: 2rem }
-.p3{ padding: 3rem }
-.p4{ padding: 4rem }
-.p5{ padding: 5rem }
+.p025,.p025->*{ padding: .25rem }
+.p05,.p05->*{ padding: .5rem }
+.p1,.p1->*{ padding: 1rem }
+.p2,.p2->*{ padding: 2rem }
+.p3,.p3->*{ padding: 3rem }
+.p4,.p4->*{ padding: 4rem }
+.p5,.p5->*{ padding: 5rem }
 .p5p{ padding: 5% }
 .p10{ padding: 10rem }
 .p10p{ padding: 10% }
