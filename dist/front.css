@@ -294,6 +294,17 @@ summary{
 .gapr1->*{margin-right: .5rem}
 .gapr10->*{margin-right: 5rem}
 
+.gut1->*,.gap1>*{ margin-right: .5rem; margin-bottom: .5rem;}
+.gut2->*,.gap2>*{ margin-right: .75rem; margin-bottom: .75rem;}
+.gut3->*,.gap3>*{ margin-right: 1rem; margin-bottom: 1rem;}
+.gut4->*,.gap4>*{ margin-right: 1.125rem; margin-bottom: 1.125rem;}
+.gut5->*,.gap5>*{ margin-right: 1.150rem; margin-bottom: 1.150rem;}
+.gut6->*,.gap6>*{ margin-right: 1.175rem; margin-bottom: 1.175rem;}
+.gut7->*,.gap7>*{ margin-right: 2rem; margin-bottom: 2rem;}
+.gut8->*,.gap8>*{ margin-right: 3rem; margin-bottom: 3rem;}
+.gut9->*,.gap9>*{ margin-right: 4rem; margin-bottom: 4rem;}
+.gut10->*,.gap10>*{ margin-right: 5rem; margin-bottom: 5rem;}
+
 [class*='gap'] > :first-child {margin-left: 0; margin-right:0}
 [class*='gap'] > :last-child {margin-right: 0}
 
@@ -925,7 +936,7 @@ nav.tabs.accordions > section{
 }*/
 
 nav.slider{
-    grid-template-rows : repeat (4 , 1fr );
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 nav.slider figure img{
@@ -944,6 +955,7 @@ nav.slider label {
     cursor: pointer;
     color: #444;
     z-index: 1;
+    grid-area: auto;
 }
   
 nav.slider label:active{
@@ -1362,27 +1374,28 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 600px) {
     body .md_dn{display: inherit}
-    .cards { grid-template-columns: 1fr 1fr}
+    .cards { grid-template-columns: auto auto}
 }
 
 @media only screen and (min-width: 740px) {
     body .lg_dn{display: inherit}
-    .cards { grid-template-columns: 1fr 1fr 1fr}
+    .cards { grid-template-columns: auto auto auto}
 }
 
 @media only screen and (min-width: 960px) {
     body .xl_dn{display: inherit}
-    .cards { grid-template-columns: 1fr 1fr 1fr 1fr}
+    .cards { grid-template-columns: auto auto auto auto}
 }
 
 @media only screen and (min-width: 1280px) {
     body .xxl_dn{display: inherit}
-    .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    .cards { grid-template-columns: auto auto auto auto auto}
 }
 
 @media only screen and (min-width: 1440px) {
     body .xxxl_dn{display: inherit}
-    .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+    .cards { grid-template-columns: auto auto auto auto auto auto}
+    .cards>*:nth-child(6n){ margin-right: 0}
 }
 
 /*Max*/
@@ -1390,16 +1403,32 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xxxl_du{display: inherit}
 }
 
+@media only screen and (max-width: 1439px) and (min-width: 1280px) {
+    .cards>*:nth-child(5n){ margin-right: 0}
+}
+
 @media only screen and (max-width: 1280px) {
     body .xxl_du{display: inherit}
+}
+
+@media only screen and (max-width: 1279px) and (min-width: 960px) {
+    .cards>*:nth-child(4n){ margin-right: 0}
 }
 
 @media only screen and (max-width: 960px) {
     body .xl_du{display: inherit}
 }
 
+@media only screen and (max-width: 959px) and (min-width: 740px) {
+    .cards>*:nth-child(3n){ margin-right: 0}
+}
+
 @media only screen and (max-width: 740px) {
     body .lg_du{display: inherit}
+}
+
+@media only screen and (max-width: 739px) and (min-width: 600px) {
+    .cards>*:nth-child(2n){ margin-right: 0}
 }
 
 @media only screen and (max-width: 600px) {
@@ -1411,6 +1440,10 @@ body [class*='_dn'], body [class*='_du']{display: none}
     }
 
     nav.topbar > a{ font-size: 80% };
+}
+
+@media only screen and (max-width: 599px) {
+    .cards>*:nth-child(1n){ margin-right: 0}
 }
 
 @media only screen and (max-width: 480px) {

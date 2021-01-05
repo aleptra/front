@@ -9,7 +9,7 @@
 }*/
 
 nav.slider{
-    grid-template-rows : repeat (4 , 1fr );
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 nav.slider figure img{
@@ -28,6 +28,7 @@ nav.slider label {
     cursor: pointer;
     color: #444;
     z-index: 1;
+    grid-area: auto;
 }
   
 nav.slider label:active{

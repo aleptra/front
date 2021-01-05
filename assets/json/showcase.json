@@ -14,6 +14,20 @@
             "screenshot": "https://screenshotapi.net/api/v1/screenshot?token=BIG7HNCZNW3YS8GU7K96VIUWKHF9WST3&url=www.aramean.institute&output=image",
             "url": "https://www.aramean.institute",
             "type": "Institute"
+        },
+        {
+            "id": 3,
+            "title": "Aramean Center",
+            "screenshot": "https://screenshotapi.net/api/v1/screenshot?token=BIG7HNCZNW3YS8GU7K96VIUWKHF9WST3&url=www.aramean.center&output=image",
+            "url": "https://www.aramean.center",
+            "type": "Organization"
+        },
+        {
+            "id": 2,
+            "title": "Josef Gabrielsson",
+            "screenshot": "https://screenshotapi.net/api/v1/screenshot?token=BIG7HNCZNW3YS8GU7K96VIUWKHF9WST3&url=www.josef.st&output=image",
+            "url": "https://www.josef.st",
+            "type": "Personal"
         }
     ]
 }
