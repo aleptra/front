@@ -16,6 +16,14 @@
 .border->*:hover{ box-shadow: 1px 1px 1px 1px rgba(0,0,0, .1) }
 .zoom->*:hover{zoom: 1.01};
 
+.shade0->*, .shade0{
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+.cp50{ clip-path: circle(50%)}
+
 .black, .black- >* { background-color: #000; color: #fff; }
 .bcwhite, .bcwhite- *{ background-color: #fff }
 .bcblack, .bcblack- *{ background-color: #000 }
@@ -365,7 +373,11 @@
 .mt1, .mt1- *{ margin-top: 1rem }
 .mt2, .mt2- *{ margin-top: 2rem }
 .mt3, .mt3- *{ margin-top: 3rem }
-.m1, .m1- *{ margin: 1rem }
+.m2, .m2-> *{margin: 2rem}
+.m1, .m1-> *{ margin: 1rem }
+.m025, .m025-> *{margin: .25rem}
+.m05, .m05-> *{margin: .5rem}
+.m075, .m075-> *{margin: .75rem}
 
 body [class*='_dn'], body [class*='_du']{display: none}
 
