@@ -12,6 +12,30 @@
             "name": "copyright",
             "html_entity": "&#169;",
             "html_entity_2": "&#xA9;"
+        },     
+        {
+            "title": "Modifier Letter Left Arrowhead",
+            "name": "keyboard_arrow_left, navigate_before, chevron_left",
+            "html_entity": "&#706;",
+            "html_entity_2": "&#x2C2"
+        },     
+        {
+            "title": "Modifier Letter Right Arrowhead",
+            "name": "keyboard_arrow_right, navigate_after, chevron_right",
+            "html_entity": "&#707;",
+            "html_entity_2": "&#x2C3"
+        },
+        {
+            "title": "Modifier Letter Up Arrowhead",
+            "name": "keyboard_arrow_up, expand_less",
+            "html_entity": "&#708;",
+            "html_entity_2": "&#x2C4"
+        },
+        {
+            "title": "Modifier Letter Down Arrowhead",
+            "name": "keyboard_arrow_down, expand_more",
+            "html_entity": "&#709;",
+            "html_entity_2": "&#x2C5"
         },
         {
             "title": "Combining Enclosing Circle Backslash",
