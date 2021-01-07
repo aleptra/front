@@ -326,7 +326,6 @@ var core = function() {
 	this.runCoreAttributesInElement = function(e) {
 		var e = (typeof e === 'string') ? dom.get(e) : e;
 		els = e.getElementsByTagName("*");
-		console.dir(els);
 		for (i = 0; i < els.length; i++) {
 			core.runCoreAttributes(els[i]);
 		}
