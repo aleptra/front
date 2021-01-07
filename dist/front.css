@@ -20,6 +20,7 @@
     -ms-flex-direction: row;
     flex-direction: row;
     color: inherit;
+    z-index: 0;
 }
 
 html {
@@ -75,7 +76,7 @@ td,th{display: table-cell;padding:.5rem;}
 th{font-weight: bold; border-bottom: solid 1px rgba(0,0,0, .2)}
 details summary{cursor:pointer}
 
-body, .grid, nav.slider {
+body, .grid {
     display: inline-block;
     display: table;
     display: flex;
@@ -396,6 +397,7 @@ ul.list li{
     color: inherit;
     line-height: normal;
     width: unset!important;
+    z-index: inherit;
 }
 
 .icon16{ font-size: 16px }
@@ -946,15 +948,39 @@ nav.tabs.accordions > section{
 }*/
 
 nav.slider{
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: stretch;
+    height: 100%;
+    overflow: hidden;
+}
+
+nav.slider *{
+    position:relative;
+}
+
+nav.slider aside, nav.slider div{
+    flex: 2;
+    -ms-flex: 2;
+    z-index: 2;
+}
+
+nav.slider aside *, nav.slider div *{
+    margin: auto 0;
+    z-index: 2;
+}
+nav.slider aside *, nav.slider div:last-child *{
+    margin: auto 0 auto auto
 }
 
 nav.slider figure img{
     max-width: 100%;
+    width: 100%;
+    z-index: 0;
+    display: unset;
+    float: left;
 }
 
-.nav.slider figure{
-    position: relative;
+.nav.slider section figure{
+    position: absolute;
 }
 
 .nav.slider figure figcaption{
@@ -965,15 +991,21 @@ nav.slider label {
     cursor: pointer;
     color: #444;
     z-index: 1;
-    grid-area: auto;
+    position:relative;
+    display: block;
+}
+
+nav.slider.dc label {
+    margin: auto 0 0;
 }
   
 nav.slider label:active{
     color: #000;
 }
 
-nav.slider [class^="slidernew"] {
+nav.slider section {
     position: absolute;
+    left: 0;
     width: 100%;
     display: none;
     margin: 0;
@@ -987,11 +1019,10 @@ nav.slider input[type="radio"]:checked + label {
     color: #fff;
     z-index: 1;
 }
-  
-nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
-    display: block;
+
+nav.slider input[type="radio"]:checked + label + section {
+    display: inherit;
     color:#000;
-    overflow: scroll;
 }.glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
 .inset->*:hover, .inset{ box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .1), 0px 0px 3px 0px rgba(0,0,0, .1) }
 .shade_h->*:hover, .shade{

@@ -9,15 +9,39 @@
 }*/
 
 nav.slider{
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: stretch;
+    height: 100%;
+    overflow: hidden;
+}
+
+nav.slider *{
+    position:relative;
+}
+
+nav.slider aside, nav.slider div{
+    flex: 2;
+    -ms-flex: 2;
+    z-index: 2;
+}
+
+nav.slider aside *, nav.slider div *{
+    margin: auto 0;
+    z-index: 2;
+}
+nav.slider aside *, nav.slider div:last-child *{
+    margin: auto 0 auto auto
 }
 
 nav.slider figure img{
     max-width: 100%;
+    width: 100%;
+    z-index: 0;
+    display: unset;
+    float: left;
 }
 
-.nav.slider figure{
-    position: relative;
+.nav.slider section figure{
+    position: absolute;
 }
 
 .nav.slider figure figcaption{
@@ -28,15 +52,21 @@ nav.slider label {
     cursor: pointer;
     color: #444;
     z-index: 1;
-    grid-area: auto;
+    position:relative;
+    display: block;
+}
+
+nav.slider.dc label {
+    margin: auto 0 0;
 }
   
 nav.slider label:active{
     color: #000;
 }
 
-nav.slider [class^="slidernew"] {
+nav.slider section {
     position: absolute;
+    left: 0;
     width: 100%;
     display: none;
     margin: 0;
@@ -50,9 +80,8 @@ nav.slider input[type="radio"]:checked + label {
     color: #fff;
     z-index: 1;
 }
-  
-nav.slider input[type="radio"]:checked + label + [class^="slidernew"] {
-    display: block;
+
+nav.slider input[type="radio"]:checked + label + section {
+    display: inherit;
     color:#000;
-    overflow: scroll;
 }
