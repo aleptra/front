@@ -38,7 +38,10 @@ img,ul,ol,fieldset{ border: 0; padding: 0 }
 
 h1,h2,h3,h4,h5,h6{ display: block }
 
-hr{ margin-bottom: 1rem}
+hr{ margin-bottom: 1rem;
+    height: 1px;
+    border: none
+}
 
 section,article,code,pre,samp,p,form{
     display: block;
