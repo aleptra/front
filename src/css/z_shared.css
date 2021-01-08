@@ -195,6 +195,22 @@
 .purple{color:#800080}
 .indigo{color:#4b0082}
 
+.bclavender{background-color:#e6e6fa}
+.bcthistle{background-color:#d8bfd8}
+.bcplum{background-color:#dda0dd}
+.bcviolet{background-color:#ee82ee}
+.bcorchid{background-color:#da70d6}
+.bcfuchsia{background-color:#ff00ff}
+.bcmagenta{background-color:#ff00ff}
+.bcmediumorchid{background-color:#ba55d3}
+.bcmediumpurple{background-color:#9370db}
+.bcblueviolet{background-color:#8a2be2}
+.bcdarkviolet{background-color:#9400d3}
+.bcdarkorchid{background-color:#9932cc}
+.bcdarkmagenta{background-color:#8b008b}
+.bcpurple{background-color:#800080}
+.bcindigo{background-color:#4b0082}
+
 /* Pink */
 .pink{color:#ffc0cb}
 .lightpink{color:#ffb6c1}
@@ -202,6 +218,13 @@
 .deeppink{color:#ff1493}
 .palevioletred{color:#db7093}
 .mediumvioletred{color:#c71585}
+
+.bcpink{background-color:#ffc0cb}
+.bclightpink{background-color:#ffb6c1}
+.bchotpink{background-color:#ff69b4}
+.bcdeeppink{background-color:#ff1493}
+.bcpalevioletred{background-color:#db7093}
+.bcmediumvioletred{background-color:#c71585}
 
 /* White */
 .white,.white- *, .swhite- *.sel{color:#fff}
@@ -258,6 +281,18 @@
 .lightslategray{color:#778899}
 .slategray{color:#708090}
 .darkslategray{color:#2f4f4f}
+.black{color:#000}
+
+.bcgainsboro{background-color:#dcdcdc}
+.bclightgray{background-color:#d3d3d3}
+.bcsilver{background-color:#c0c0c0}
+.bcdarkgray{background-color:#a9a9a9}
+.bcgray{background-color:#808080}
+.bcdimgray{background-color:#696969}
+.bclightslategray{background-color:#778899}
+.bcslategray{background-color:#708090}
+.bcdarkslategray{background-color:#2f4f4f}
+
 .bcblack01{background-color: rgba(0,0,0, .1)}
 .bcblack02{background-color: rgba(0,0,0, .2)}
 .bcblack03{background-color: rgba(0,0,0, .3)}
@@ -267,7 +302,6 @@
 .bcblack07{background-color: rgba(0,0,0, .7)}
 .bcblack08{background-color: rgba(0,0,0, .8)}
 .bcblack09{background-color: rgba(0,0,0, .9)}
-.black{color:#000}
 
 /* Brown */
 .cornsilk{color:#fff8dc}
