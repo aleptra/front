@@ -30,6 +30,7 @@ nav.slider article{
     left: 50%; 
     transform: translate(-50%, -50%);
     height: auto;
+    z-index: 2;
 }
 
 nav.slider aside *, nav.slider div *{
