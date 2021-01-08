@@ -1,21 +1,8 @@
-/*nav.slider {
-    display: flex;
-    display: -ms-flexbox;
-    flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    -ms-flex-pack: center;
+nav.slider {
     justify-content: center;
-    height: inherit;
-}*/
-
-nav.slider{
     align-items: stretch;
     height: 100%;
     overflow: hidden;
-}
-
-nav.slider *{
-    position:relative;
 }
 
 nav.slider aside, nav.slider div{
@@ -24,45 +11,39 @@ nav.slider aside, nav.slider div{
     z-index: 2;
 }
 
-nav.slider article{
+nav.slider section{
     position: absolute;
+    z-index: 2;
+}
+
+nav.slider article{
+    position: inherit;
     top: 50%;  
     left: 50%; 
     transform: translate(-50%, -50%);
     height: auto;
-    z-index: 2;
+    z-index: inherit;
 }
 
-nav.slider aside *, nav.slider div *{
-    margin: auto 0;
-    z-index: 2;
-}
-nav.slider aside *, nav.slider div:last-child *{
-    margin: auto 0 auto auto
-}
-
-nav.slider figure img{
-    max-width: 100%;
-    width: 100%;
-    z-index: 0;
-    display: unset;
-    float: left;
-}
-
-.nav.slider section figure{
+nav.slider .sl, nav.slider .sr{
     position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    z-index: 3;
 }
 
-.nav.slider figure figcaption{
-    position: absolute;
+nav.slider .sr{
+    left: unset;
+    right: 0;
 }
-  
+
 nav.slider label {
-    cursor: pointer;
-    color: rgba(0,0,0, .5);
-    z-index: 1;
     position:relative;
     display: block;
+    cursor: pointer;
+    color: rgba(0,0,0, .5);
+    z-index: 3;
 }
 
 nav.slider.dc label {
@@ -74,11 +55,8 @@ nav.slider label:active{
 }
 
 nav.slider section {
-    position: absolute;
-    left: 0;
     width: 100%;
     display: none;
-    margin: 0;
 }
   
 nav.slider input[type="radio"] {
@@ -87,7 +65,6 @@ nav.slider input[type="radio"] {
   
 nav.slider input[type="radio"]:checked + label {
     color: #fff;
-    z-index: 1;
 }
 
 nav.slider input[type="radio"]:checked + label + section {
