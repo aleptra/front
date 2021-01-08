@@ -1000,7 +1000,7 @@ nav.slider figure img{
   
 nav.slider label {
     cursor: pointer;
-    color: #444;
+    color: rgba(0,0,0, .5);
     z-index: 1;
     position:relative;
     display: block;
