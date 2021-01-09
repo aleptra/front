@@ -418,7 +418,11 @@
 .m05, .m05-> *{margin: .5rem}
 .m075, .m075-> *{margin: .75rem}
 
+body [class*='wc_'] {margin: 0 auto}
 body [class*='_dn'], body [class*='_du']{display: none}
+
+.wc_xl{max-width: 960px}
+.wc_xxl{max-width: 1280px}
 
 /*Min*/
 
