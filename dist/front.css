@@ -1424,6 +1424,10 @@ nav.slider input[type="radio"]:checked + label + section {
 .mt1, .mt1- *{ margin-top: 1rem }
 .mt2, .mt2- *{ margin-top: 2rem }
 .mt3, .mt3- *{ margin-top: 3rem }
+.mb0, .mb0- *{ margin-bottom: 0 }
+.mb1, .mb1- *{ margin-bottom: 1rem }
+.mb2, .mb2- *{ margin-bottom: 2rem }
+.mb3, .mb3- *{ margin-bottom: 3rem }
 .m2, .m2-> *{margin: 2rem}
 .m1, .m1-> *{ margin: 1rem }
 .m025, .m025-> *{margin: .25rem}
