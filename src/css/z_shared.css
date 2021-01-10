@@ -423,6 +423,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 .wc_xl{max-width: 960px}
 .wc_xxl{max-width: 1280px}
+.wc_xxxl{max-width: 1440px}
 
 /*Min*/
 

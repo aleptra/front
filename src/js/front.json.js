@@ -68,6 +68,10 @@ function json(el) {
             var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : '';
             var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : '';
 
+            els[i].outerHTML = els[i].outerHTML.replace(/{{ jsonget:(.*?) }}/gi, function(e,$1) {
+                return json[j][$1]
+            });
+
             if (jsonset) {
                 var res = jsonset.split(":");
                 var value = jsonbefore + json[j][res[0]] + jsonafter;
