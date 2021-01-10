@@ -20,7 +20,6 @@
     -ms-flex-direction: row;
     flex-direction: row;
     color: inherit;
-    z-index: 0;
 }
 
 html {
