@@ -724,7 +724,7 @@ var dom = function() {
 
 			for(var j=0; j < copies; j++) {
 			
-				if (variables) {			
+				if (variables) {
 					elVarHtml = elHtml.replace(/<var>(.*)<\/var>|{{ (.*?) }}/gi, increment);
 					html += elVarHtml;
 				}else{
