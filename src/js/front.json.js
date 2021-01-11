@@ -67,7 +67,7 @@ function json(el) {
             var jsonset = els[i].getAttribute("jsonset");
             var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : '';
             var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : '';
-
+            
             els[i].outerHTML = els[i].outerHTML.replace(/{{ jsonget:(.*?) }}/gi, function(e,$1) {
                 return json[j][$1]
             });
@@ -86,7 +86,7 @@ function json(el) {
                 else if(type == "a")
                     els[i].href = value;
                 else
-                    els[i].innerHTML = value;
+                    els[i].innerHTML = value.replace(/<[^>]+>/g, '');
             }
         }
 
