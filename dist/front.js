@@ -219,7 +219,6 @@ var core = function() {
 
 	this.runCoreAttributes = function(e){
 		if(e.tagName == "BASE") {
-			console.log("run");
 			app.setupEnvironment(e);
 		}
 		if (e.hasAttribute("title") && e.tagName == "SCRIPT") {
