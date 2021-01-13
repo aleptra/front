@@ -57,6 +57,9 @@ code{
 
 .fs22{font-size: calc(2.2em + 2vw); line-height: 1.125}
 .fs20{font-size: calc(2em + 1.8vw); line-height: 1.2}
+.fs19{font-size: calc(1.9em + 1.7vw); line-height: 1.2}
+.fs18{font-size: calc(1.8em + 1.7vw); line-height: 1.2}
+.fs17{font-size: calc(1.7em + 1.7vw); line-height: 1.2}
 h1{font-size: calc(1.4em + 1.4vw); line-height: 1.4}
 h2,.fs16{font-size: calc(1.1em + 1vw)}
 h3,.fs13{ font-size: calc(1em + .9vw)}
