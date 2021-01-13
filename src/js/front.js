@@ -258,7 +258,7 @@ var core = function() {
 			e.style.resize = "both";
 		if (e.hasAttribute("fixed"))
 			e.style.position = "fixed";
-		if (e.hasAttribute("hide"))
+		if (e.hasAttribute("hide") || e.hasAttribute("skip"))
 			e.style.display = "none";
 		if (e.hasAttribute("alert"))
 			alert(e.getAttribute("alert"));
