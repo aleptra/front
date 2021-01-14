@@ -320,6 +320,13 @@ var core = function() {
 				return poll;
 			  }(), interval);
 		}
+		if(e.hasAttribute("if")) {
+			var val = e.getAttribute("if");
+			var term = val.split(";");
+			if (term[0] == term[1]) {
+				e.setAttribute(term[2], "");
+			}
+		}
 	}
 
 	this.runCoreAttributesInElement = function(e) {
