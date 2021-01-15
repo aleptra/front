@@ -528,6 +528,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 @media only screen and (max-width: 360px) {
     body .sm_du{display: inherit}
     body .pauto{padding: 1.5rem}
+    body .crumbs{display:none}
 }
 
 @media only screen and (max-width: 300px) {
