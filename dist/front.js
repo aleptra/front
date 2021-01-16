@@ -194,7 +194,8 @@ var core = function() {
 
 				script.removeAttribute("src");
 				script.removeAttribute("template");
-				//document.documentElement.remove();
+				var del = document.documentElement;
+				del.parentNode.removeChild(del);
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
 				
