@@ -283,9 +283,10 @@ var core = function() {
 		if (e.hasAttribute("escape")) {
 			var escape = e.innerHTML;
 			var escaped = escape.replace(/[^]/g, function(e){
-				return"&#"+e.charCodeAt(0)+";" 
+				return"&#"+e.charCodeAt(0)+";"
 			});
-			e.innerText = escaped;
+			
+			e.innerText = escaped.replace("&#55357;", "").replace("&#55356;", "");
 		}
 		if (e.hasAttribute("format")) {
 			var format = e.getAttribute("format");
