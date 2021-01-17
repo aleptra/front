@@ -255,8 +255,10 @@ summary{
 .w33,.w33p{ width: 33% }
 .w25,.w25p{ width: 25% }
 
+.w5r, .w5r- * { width: 5rem }
 .w10, .w10- * { width: 10rem }
 .w11, .w11- * { width: 11rem }
+.w12r, .w12r- * { width: 12rem }
 .w14, .w14- * { width: 14rem }
 .w15, .w15- * { width: 15rem }
 .w25, .w25- * { width: 25rem }
