@@ -150,10 +150,6 @@ body>main, .main {
     -ms-flex-direction: column;
 }
 
-body main > a{
-    text-decoration: underline;
-}
-
 body>main+aside, .grid .aside+.aside {
     grid-area: right;
     -ms-grid-row: 3;
@@ -237,6 +233,7 @@ summary{
 .tar{ text-align: right }
 .tac{ text-align: center }
 .fr{margin-left: auto}
+table.fr{float:right}
 
 .ttu{ text-transform: uppercase }
 
@@ -1031,6 +1028,11 @@ nav.slider input[type="radio"]:checked + label + section {
     box-shadow: 0 2px 4px rgba(0,0,0, .1);
     -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .1);
     -moz-box-shadow: 0 2px 4px rgba(0,0,0, .1)
+}
+.shade1r{
+    box-shadow: 4px 0px 4px 0px rgba(0,0,0, .1);
+    -webkit-box-shadow: 4px 0px 4px 0px rgba(0,0,0, .1);
+    -moz-box-shadow: 4px 0px 4px 0px rgba(0,0,0, .1)
 }
 .tshade025{text-shadow: 1px 1px 1px rgba(0,0,0, .25)}
 .tshade05{text-shadow: 1px 1px 1px rgba(0,0,0, 0.5)}

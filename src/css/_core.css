@@ -150,10 +150,6 @@ body>main, .main {
     -ms-flex-direction: column;
 }
 
-body main > a{
-    text-decoration: underline;
-}
-
 body>main+aside, .grid .aside+.aside {
     grid-area: right;
     -ms-grid-row: 3;
@@ -237,6 +233,7 @@ summary{
 .tar{ text-align: right }
 .tac{ text-align: center }
 .fr{margin-left: auto}
+table.fr{float:right}
 
 .ttu{ text-transform: uppercase }
 
