@@ -112,6 +112,10 @@ nav.tabs.accordions{
   -ms-flex-direction: column;
 }
 
+nav.tabs.accordions > label{
+  padding: 1rem;
+}
+
 nav.tabs.accordions > section{
   order: unset;
 }
