@@ -282,7 +282,10 @@ var core = function() {
 			test = attr.replace(/{{ (.*?) }}/gi, "$1");
 			var test2 = test.split(";");
 			console.log(test2);
-			e.content = eval(test2[1]);
+			try{
+				e.content = eval(test2[1]);
+			}catch{}
+			
 		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
