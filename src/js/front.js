@@ -272,6 +272,18 @@ var core = function() {
 		}
 		if (e.tagName == "VAR")
 			e.innerHTML = frontVariables[e.innerHTML.toLowerCase()];
+		if (e.hasAttribute("property") && e.hasAttribute("content")) {
+			
+			var attr = e.getAttribute("content");
+			//var increment = attr.split(";");
+			//attr.innerText = ""
+
+			//var increment = (variables) ? el.getAttribute("variable").split(";")[1] : 0;
+			test = attr.replace(/{{ (.*?) }}/gi, "$1");
+			var test2 = test.split(";");
+			console.log(test2);
+			e.content = eval(test2[1]);
+		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
 		if (e.hasAttribute("trim"))
