@@ -24,5 +24,5 @@ function globalizePreload(){
 
 function globalize(e){
     var value = e.getAttribute("globalize");
-    e.innerHTML = trans[value];
+    if (trans[value]) e.innerHTML = (trans[value]);
 }
