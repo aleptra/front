@@ -19,7 +19,7 @@ if (core.getParams()['lang']) {
 
 function globalizePreload(){
     var lang = app.storage("lang");
-    trans = JSON.parse(app.storage(lang));
+    trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : '';
 }
 
 function globalize(e){
