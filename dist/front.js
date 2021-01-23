@@ -1,6 +1,7 @@
 var front;
 var frontVariables = [];
 var libAttribute = [];
+var libPreload = [];
 var load = false;
 
 var urlDelimiter = '/';
@@ -83,12 +84,12 @@ document.addEventListener('DOMContentLoaded', function()  {
 
 window.addEventListener('load', function() {
 	if (load) {
+		core.runLibPreloads();
 		core.runFrontAttributes();
 	}
 });
 
 window.addEventListener("hashchange", function() {
-//alert('change');
 	return false;
 }, false);
 
@@ -169,6 +170,12 @@ function getObject(obj, name) {
 }
 
 var core = function() {
+	this.runLibPreloads = function() {
+		for (i = 0; i < libPreload.length; i++) {
+			if (libPreload[i].func)
+				window[libPreload[i].func]();
+		}
+	}
 
 	this.runFrontAttributes = function() {
 		for (i = 0; i < front.length; i++) {
@@ -281,7 +288,6 @@ var core = function() {
 			//var increment = (variables) ? el.getAttribute("variable").split(";")[1] : 0;
 			test = attr.replace(/{{ (.*?) }}/gi, "$1");
 			var test2 = test.split(";");
-			console.log(test2);
 			try{
 				e.content = eval(test2[1]);
 			}catch{}
@@ -397,7 +403,7 @@ var core = function() {
 	  }
 
 	this.getParams = function (url) {
-        var url = (url) ? url : window.location.href;
+		var url = (url) ? url : window.location.href;
 	    var params = {};
 	    var parser = document.createElement('a');
 	    parser.href = url;
