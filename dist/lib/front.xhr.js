@@ -27,8 +27,8 @@ var xhrQuick = function() {
 		return decodeURI(escape(request.getResponseHeader(header)));
 	}
 
-	this.get = function(url, callback) {
-		request.open("GET", url, true);
+	this.get = function(url, callback, async = true) {
+		request.open("GET", url, async);
 
 		if (credentials) {
 			request.withCredentials = true;
