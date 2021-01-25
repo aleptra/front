@@ -6,7 +6,14 @@
             "html_entity": "&#36;",
             "html_entity_2": "&#x24;",
             "keywords": "dollar, money, cash"
-        },     
+        },
+        {
+            "title": "Question Mark",
+            "name": "help",
+            "html_entity": "&#63;",
+            "html_entity_2": "&#x3F;",
+            "keywords": "question"
+        },
         {
             "title": "Copyright Sign",
             "name": "copyright",
