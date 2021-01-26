@@ -9,6 +9,7 @@ libPreload.push(
 var trans = "";
 
 function globalizePreload(){
+    
     if (core.getParams()['lang']) {
         var file = core.getParams()['lang'];
         client.get(globalUrl + "assets/json/globalize/" + file + ".json", function(response) {
@@ -18,6 +19,9 @@ function globalizePreload(){
                 var lang = app.storage("lang");
                 trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : '';
         }, false);
+    }else if (app.storage("lang")) {
+        var lang = app.storage("lang");
+        trans = JSON.parse(app.storage(lang));
     }
 }
 
