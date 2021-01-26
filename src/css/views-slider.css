@@ -2,6 +2,7 @@ nav.slider {
     justify-content: center;
     align-items: stretch;
     height: 100%;
+    min-height: 100%;
     overflow: hidden;
 }
 
