@@ -839,6 +839,11 @@ nav{
   position: relative;
 }
 
+nav.tabs > input[type="radio"],
+.togglebar{
+  display: none;
+}
+
 nav.guillemet * a:after, nav.guillemet a:after{
   content: "\00a0\00a0 \00BB \00a0\00a0"
 }
@@ -919,10 +924,6 @@ nav.tabs > section {
   border: 1px solid #ddd;
 }
 
-nav.tabs > input[type="radio"] {
-  display: none;
-}
-
 nav.tabs > input[type="radio"]:checked + label {
   background-color:#fff;
   color: #000;
@@ -949,6 +950,14 @@ nav.tabs.accordions > label{
 
 nav.tabs.accordions > section{
   order: unset;
+}
+
+.toggleable {
+  display: inherit;
+}
+
+#togglebar:checked ~ *.toggleable {
+  display: none;
 }nav.slider {
     justify-content: center;
     align-items: stretch;
