@@ -61,15 +61,11 @@ nav.slider section {
     display: none;
 }
   
-nav.slider input[type="radio"] {
-    display: none;
-}
-  
 nav.slider input[type="radio"]:checked + label {
     color: #fff;
 }
 
 nav.slider input[type="radio"]:checked + label + section {
-    display: inherit;
+    display: inherit !important;
     color:#000;
 }

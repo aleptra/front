@@ -839,11 +839,6 @@ nav{
   position: relative;
 }
 
-nav.tabs > input[type="radio"],
-.togglebar{
-  display: none;
-}
-
 nav.guillemet * a:after, nav.guillemet a:after{
   content: "\00a0\00a0 \00BB \00a0\00a0"
 }
@@ -952,12 +947,12 @@ nav.tabs.accordions > section{
   order: unset;
 }
 
-.toggleable {
-  display: inherit;
+* .toggleable {
+  display: none;
 }
 
-#togglebar:checked ~ *.toggleable {
-  display: none;
+#togglebar:checked ~ * .toggleable {
+  display: inherit;
 }nav.slider {
     justify-content: center;
     align-items: stretch;
@@ -1021,16 +1016,12 @@ nav.slider section {
     display: none;
 }
   
-nav.slider input[type="radio"] {
-    display: none;
-}
-  
 nav.slider input[type="radio"]:checked + label {
     color: #fff;
 }
 
 nav.slider input[type="radio"]:checked + label + section {
-    display: inherit;
+    display: inherit !important;
     color:#000;
 }.glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
 .inset->*:hover, .inset{ box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .1), 0px 0px 3px 0px rgba(0,0,0, .1) }
@@ -1576,4 +1567,10 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 220px) {
     body .xxs_du{display: inherit}
+}
+
+nav.tabs > input[type="radio"],
+nav.slider input[type="radio"],
+.togglebar{
+  display: none;
 }

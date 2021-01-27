@@ -8,11 +8,6 @@ nav{
   position: relative;
 }
 
-nav.tabs > input[type="radio"],
-.togglebar{
-  display: none;
-}
-
 nav.guillemet * a:after, nav.guillemet a:after{
   content: "\00a0\00a0 \00BB \00a0\00a0"
 }
@@ -121,10 +116,10 @@ nav.tabs.accordions > section{
   order: unset;
 }
 
-.toggleable {
-  display: inherit;
+* .toggleable {
+  display: none;
 }
 
-#togglebar:checked ~ *.toggleable {
-  display: none;
+#togglebar:checked ~ * .toggleable {
+  display: inherit;
 }

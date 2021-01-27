@@ -543,3 +543,9 @@ body [class*='_dn'], body [class*='_du']{display: none}
 @media only screen and (max-width: 220px) {
     body .xxs_du{display: inherit}
 }
+
+nav.tabs > input[type="radio"],
+nav.slider input[type="radio"],
+.togglebar{
+  display: none;
+}
