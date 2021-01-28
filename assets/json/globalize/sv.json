@@ -4,5 +4,6 @@
     "title1_sub": "Släpp lös kraften i Markup Language med <b>FAML</b> i enkla eller avancerade lösningar. <b>Front</b> hjälper till att skapa vackra, snabba och responsiva layouter för alla enheter på nolltid.",
     "title2": "Hastighet och prestanda",
     "download": "Ladda ner",
-    "documentation": "Dokumentation"
+    "documentation": "Dokumentation",
+    "notice_usage": "Not recommended for production use"
 }
