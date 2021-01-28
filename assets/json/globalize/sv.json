@@ -1,5 +1,8 @@
 {
+    "get_started": "Kom igång",
     "title1": "Bygg kraftfulla applikationer med Front!",
     "title1_sub": "Släpp lös kraften i Markup Language med <b>FAML</b> i enkla eller avancerade lösningar. <b>Front</b> hjälper till att skapa vackra, snabba och responsiva layouter för alla enheter på nolltid.",
-    "title2": "Hastighet och prestanda"
+    "title2": "Hastighet och prestanda",
+    "download": "Ladda ner",
+    "documentation": "Dokumentation"
 }
