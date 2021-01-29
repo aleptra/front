@@ -10,16 +10,24 @@ var trans = "";
 
 function globalizePreload(){
     
-    if (core.getParams()['lang']) {
-        var file = core.getParams()['lang'];
-        client.get(globalUrl + "assets/json/globalize/" + file + ".json", function(response) {
-            if (response)
-                app.storage("lang", file)
-                app.storage(file, response)
+    var q = core.getParams()['lang'];
+
+    if (q) {
+        
+        if (q === "") {
+            alert('hej');
+        }
+
+        client.get(globalUrl + "assets/json/globalize/" + q + ".json", function(response) {
+            if (core.isJson(response)) {
+                app.storage("lang", q)
+                app.storage(q, response)
                 var lang = app.storage("lang");
                 trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : '';
+            }
         }, false);
     }else if (app.storage("lang")) {
+        alert('hej');
         var lang = app.storage("lang");
         trans = JSON.parse(app.storage(lang));
     }

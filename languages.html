@@ -1,0 +1,21 @@
+<script src="dist/front.js" title="Languages" onload="dom.class('body?tag', 'remove', 'bg')" template="true"></script>
+
+<template>
+    <aside index="0"></aside>
+    <aside index="1"></aside>
+</template>
+
+<article>
+<h1 globalize="languages">Languages</h1>
+<p globalize="languages_text">The documentation is available in the following languages:</p>
+<section class="mt2">
+    <div class="box cards gut5- br05- bcwhite- zoom- tac" json="true" iterate="languages" datasource="assets/json/languages.json">
+        <a href="?lang={{ jsonget:code }}" target="_top">
+            <figure jsonset="id" class="pb1">
+                <figcaption jsonget="name"></figcaption>
+                <small jsonget="type" hide></small>
+            </figure>
+        </a>
+    </div>
+</section>
+</article>

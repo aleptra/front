@@ -212,6 +212,13 @@
             "html_entity_2": ""
         },
         {
+            "title": "Globe with Meridians",
+            "name": "language",
+            "html_entity": "&#127760;",
+            "html_entity_2": "&#x1F310;",
+            "keywords": "world"
+        },
+        {
             "title": "Microphone",
             "name": "mic",
             "html_entity": "&#127908;",

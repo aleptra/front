@@ -1,0 +1,20 @@
+{
+    "languages":[
+        {
+            "id": 1,
+            "name": "English",
+            "code": "en"
+
+        },
+        {
+            "id": 2,
+            "name": "Svenska",
+            "code": "sv"
+        },
+        {
+            "id": 3,
+            "name": "ܐܪܡܝܐ",
+            "code": "arc"
+        }
+    ]
+}
