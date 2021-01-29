@@ -11,13 +11,7 @@ var trans = "";
 function globalizePreload(){
     
     var q = core.getParams()['lang'];
-
     if (q) {
-        
-        if (q === "") {
-            alert('hej');
-        }
-
         client.get(globalUrl + "assets/json/globalize/" + q + ".json", function(response) {
             if (core.isJson(response)) {
                 app.storage("lang", q)
@@ -26,8 +20,9 @@ function globalizePreload(){
                 trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : '';
             }
         }, false);
+    }else if (q == "") {
+        app.storage("lang", null)
     }else if (app.storage("lang")) {
-        alert('hej');
         var lang = app.storage("lang");
         trans = JSON.parse(app.storage(lang));
     }

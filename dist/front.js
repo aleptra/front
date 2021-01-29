@@ -411,8 +411,9 @@ var core = function() {
 	    var vars = query.split('&');
         
         for (var i = 0; i < vars.length; i++) {
-		    var pair = vars[i].split('=');
-		    params[pair[0]] = decodeURIComponent(pair[1]);
+			var pair = vars[i].split('=');
+			if (!pair[1]) pair[1] = "";
+		    params[pair[0]] = decodeURIComponent(pair[1] + "");
         }
         
 		return params;
