@@ -9,8 +9,11 @@ libPreload.push(
 var trans = "";
 
 function globalizePreload(){
-    
-    var q = core.getParams()['lang'];
+    globalizeChangeLanguage(core.getParams()['lang']);
+}
+
+
+function globalizeChangeLanguage(q){
     if (q) {
         client.get(globalUrl + "assets/json/globalize/" + q + ".json", function(response) {
             if (core.isJson(response)) {

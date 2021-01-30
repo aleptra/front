@@ -91,10 +91,10 @@ select,input,textarea,button{
     font-size: 100%;
     letter-spacing: .009375em;
     border-radius: .25rem .25rem 0 0;
-    text-indent: 1rem;
     transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     flex-direction: unset !important;
     -ms-flex-direction: unset !important;
+    padding: 0 1rem 0 1rem;
 }
 
 textarea{
