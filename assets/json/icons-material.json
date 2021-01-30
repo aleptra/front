@@ -158,6 +158,12 @@
             "html_entity_2": "&#x2699;"
         },
         {
+            "title": "Black Scissors",
+            "name": "content_cut",
+            "html_entity": "&#9986;",
+            "html_entity_2": "&#x2702;"
+        },
+        {
             "title": "Warning Sign",
             "name": "report_problem, warning",
             "html_entity": "&#9888;",
