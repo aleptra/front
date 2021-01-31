@@ -549,8 +549,8 @@ ul.list li{
 }
 
 .modal.menu section{
-  width: 100vw;
-  height: 100vh;
+  width: inherit;
+  height: inherit;
   overflow: scroll;
 }
 
