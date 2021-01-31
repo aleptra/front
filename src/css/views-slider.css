@@ -13,8 +13,10 @@ nav.slider aside, nav.slider div{
 }
 
 nav.slider section{
+    display: none;
     position: absolute;
-    height: inherit;
+    height: 100%;
+    width: 100%;
     z-index: 2;
 }
 
@@ -54,11 +56,6 @@ nav.slider.dc label {
   
 nav.slider label:active{
     color: #000;
-}
-
-nav.slider section {
-    width: 100%;
-    display: none;
 }
   
 nav.slider input[type="radio"]:checked + label {
