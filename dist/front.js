@@ -381,6 +381,12 @@ var core = function() {
 			}
 		}
 	}
+	
+	this.rerunLibAttributes = function(attr){
+		for (i = 0; i < front.length; i++)
+			if(front[i].getAttribute(attr))
+				window[attr](front[i]);
+	}
 
 	this.runIteration = function(element, start, stop){
 		var attribute = element.getAttribute("iterate").split(";");

@@ -29,6 +29,8 @@ function globalizeChangeLanguage(q){
         var lang = app.storage("lang");
         trans = JSON.parse(app.storage(lang));
     }
+
+    core.rerunLibAttributes("globalize");
 }
 
 function globalize(e){
