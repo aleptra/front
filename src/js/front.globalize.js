@@ -35,5 +35,5 @@ function globalizeChangeLanguage(q){
 
 function globalize(e){
     var value = e.getAttribute("globalize");
-    if (trans['translations'][value]) e.innerHTML = trans['translations'][value];
+    if (trans['translations'] && trans['translations'][value]) e.innerHTML = trans['translations'][value];
 }
