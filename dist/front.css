@@ -1020,6 +1020,7 @@ nav.slider input[type="radio"]:checked + label {
 nav.slider input[type="radio"]:checked + label + section {
     display: inherit !important;
     color:#000;
+    margin: inherit;
 }.glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
 .inset->*:hover, .inset{ box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .1), 0px 0px 3px 0px rgba(0,0,0, .1) }
 .shade_h->*:hover, .shade{

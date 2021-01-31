@@ -65,4 +65,5 @@ nav.slider input[type="radio"]:checked + label {
 nav.slider input[type="radio"]:checked + label + section {
     display: inherit !important;
     color:#000;
+    margin: inherit;
 }
