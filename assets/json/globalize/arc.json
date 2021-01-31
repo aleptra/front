@@ -1,6 +1,12 @@
 {
-    "contact_us": "ܡܘܛܝܐ",
-    "documentation": "ܐܒܙܪܘܬ݂ܐ",
-    "icons": "ܝܩܢ",
-    "languages": "ܠܫܢܐ"
+    "name": "Swedish",
+    "nativeName": "Svenska",
+    "code": "sv",
+    "translations":
+        {
+            "contact_us": "ܡܘܛܝܐ",
+            "documentation": "ܐܒܙܪܘܬ݂ܐ",
+            "icons": "ܝܩܢ",
+            "languages": "ܠܫܢܐ"
+        }
 }

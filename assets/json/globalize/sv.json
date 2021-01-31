@@ -1,14 +1,20 @@
 {
-    "icons": "Ikoner",
-    "icons_text": "Front erbjuder en mängd populära ikonuppsättningar.",
-    "development": "Utveckling",
-    "get_started": "Kom igång",
-    "title1": "Bygg kraftfulla applikationer med Front!",
-    "title1_sub": "Släpp lös kraften i Markup Language med <b>FAML</b> i enkla eller avancerade lösningar. <b>Front</b> hjälper till att skapa vackra, snabba och responsiva layouter för alla enheter på nolltid.",
-    "title2": "Hastighet och prestanda",
-    "download": "Ladda ner",
-    "documentation": "Dokumentation",
-    "notice_usage": "Rekommenderas inte för produktions användning",
-    "languages": "Språk",
-    "languages_text": "Dokumentationen finns tillgängligt på följande språk:"
+    "name": "Swedish",
+    "nativeName": "Svenska",
+    "code": "sv",
+    "translations":
+        {
+            "icons": "Ikoner",
+            "icons_text": "Front erbjuder en mängd populära ikonuppsättningar.",
+            "development": "Utveckling",
+            "get_started": "Kom igång",
+            "title1": "Bygg kraftfulla applikationer med Front!",
+            "title1_sub": "Släpp lös kraften i Markup Language med <b>FAML</b> i enkla eller avancerade lösningar. <b>Front</b> hjälper till att skapa vackra, snabba och responsiva layouter för alla enheter på nolltid.",
+            "title2": "Hastighet och prestanda",
+            "download": "Ladda ner",
+            "documentation": "Dokumentation",
+            "notice_usage": "Rekommenderas inte för produktions användning",
+            "languages": "Språk",
+            "languages_text": "Dokumentationen finns tillgängligt på följande språk:"
+        }
 }
