@@ -452,27 +452,27 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 600px) {
     body .md_dn{display: inherit}
-    .cards { grid-template-columns: 50% 50%}
+    .cards { grid-template-columns: auto auto}
 }
 
 @media only screen and (min-width: 740px) {
     body .lg_dn{display: inherit}
-    .cards { grid-template-columns: 33.3333% 33.3333% 33.3333%}
+    .cards { grid-template-columns: auto auto auto}
 }
 
 @media only screen and (min-width: 960px) {
     body .xl_dn{display: inherit}
-    .cards { grid-template-columns: 25% 25% 25% 25%}
+    .cards { grid-template-columns: auto auto auto auto}
 }
 
 @media only screen and (min-width: 1280px) {
     body .xxl_dn{display: inherit}
-    .cards { grid-template-columns: 20% 20% 20% 20% 20%}
+    .cards { grid-template-columns: auto auto auto auto auto}
 }
 
 @media only screen and (min-width: 1440px) {
     body .xxxl_dn{display: inherit}
-    .cards { grid-template-columns: 16.6666% 16.6666% 16.6666% 16.6666% 16.6666% 16.6666%}
+    .cards { grid-template-columns: auto auto auto auto auto auto}
     .cards>*:nth-child(6n){ margin-right: 0}
 }
 
