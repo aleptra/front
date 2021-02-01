@@ -27,4 +27,15 @@
     padding-top: 1rem;
 }
 
-.cards { display: grid; grid-template-columns: 100%;}
+.cards { display: grid; grid-template-columns: 100%}
+
+.cards[class*='gut1']{margin-right: -.5rem}
+.cards[class*='gut2']{margin-right: -.75rem}
+.cards[class*='gut3']{margin-right: -1rem}
+.cards[class*='gut4']{margin-right: -1.125rem}
+.cards[class*='gut5']{margin-right: -1.150rem}
+.cards[class*='gut6']{margin-right: -1.175rem}
+.cards[class*='gut7']{margin-right: -2rem}
+.cards[class*='gut8']{margin-right: -3rem}
+.cards[class*='gut9']{margin-right: -4rem}
+.cards[class*='gut10']{margin-right: -5rem}
