@@ -23,17 +23,28 @@ function globalizeChangeLanguage(q){
                 trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : '';
             }
         }, false);
+        core.rerunLibAttributes("globalize");
     }else if (q == "") {
         app.storage("lang", null)
     }else if (app.storage("lang")) {
         var lang = app.storage("lang");
         trans = JSON.parse(app.storage(lang));
     }
-
-    core.rerunLibAttributes("globalize");
 }
 
 function globalize(e){
     var value = e.getAttribute("globalize");
-    if (trans['translations'] && trans['translations'][value]) e.innerHTML = trans['translations'][value];
+    
+    if (trans['translations'] && trans['translations'][value]){
+        var children = e.childElementCount;
+        if (children > 0) {
+            console.dir(e);
+            /*while(children)*/
+                if (e.nodeType == 3) {
+                    console.log('s');
+                }
+        }else{
+            e.textContent = trans['translations'][value];
+        }
+    }
 }
