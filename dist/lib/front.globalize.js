@@ -37,7 +37,8 @@ function globalize(e){
     
     if (trans['translations'] && trans['translations'][value]){
         var children = e.childElementCount;
-        if (children > 0) {
+        var name = e.localName;
+        if (children > 0 && (name == "a" || name == "button")) {
             var child = e.firstChild;
             while (child) {
                 if (child.nodeType == 3) {
@@ -47,7 +48,7 @@ function globalize(e){
                 child = child.nextSibling;
             }
         }else{
-            e.textContent = trans['translations'][value];
+            e.innerHTML = trans['translations'][value];
         }
     }
 }
