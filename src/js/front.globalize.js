@@ -38,11 +38,14 @@ function globalize(e){
     if (trans['translations'] && trans['translations'][value]){
         var children = e.childElementCount;
         if (children > 0) {
-            console.dir(e);
-            /*while(children)*/
-                if (e.nodeType == 3) {
-                    console.log('s');
+            var child = e.firstChild;
+            while (child) {
+                if (child.nodeType == 3) {
+                    child.data = trans['translations'][value];;
+                    break;
                 }
+                child = child.nextSibling;
+            }
         }else{
             e.textContent = trans['translations'][value];
         }
