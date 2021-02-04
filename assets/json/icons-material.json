@@ -87,6 +87,12 @@
             "html_entity_2": "&#x24D5;"
         },
         {
+            "title": "Circled Latin Small Letter T",
+            "name": "twitter",
+            "html_entity": "&#9443;",
+            "html_entity_2": "&#x24E3;"
+        },
+        {
             "title": "Black Up-Pointing Triangle",
             "name": "-",
             "html_entity": "&#9650;"
