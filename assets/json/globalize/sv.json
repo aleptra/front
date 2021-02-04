@@ -5,6 +5,9 @@
     "translations":
         {
             "button": "Knapp",
+            "buttons": "Knappar",
+            "code": "Kod",
+            "components": "Komponenter",
             "development": "Utveckling",
             "get_started": "Kom igång",
             "icons": "Ikoner",
@@ -17,6 +20,11 @@
             "notice_usage": "Rekommenderas inte för produktions användning",
             "languages": "Språk",
             "languages_text": "Dokumentationen finns tillgängligt på följande språk:",
-            "preview": "Förhandsgranska"
+            "positioned": "Positionerad",
+            "preview": "Förhandsgranska",
+            "regular": "Vanlig",
+            "rounded": "Avrundad",
+            "text": "Text",
+            "ui_components": "UI Komponenter"
         }
 }

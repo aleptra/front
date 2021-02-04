@@ -5,11 +5,11 @@
 		<nav class="sidebar w11">
 			<h5 class="p1 mt1" globalize="buttons">Buttons</h5>
 			<ul>
-        <li><a href="#regular">Regular</a></li>
-        <li><a href="#rounded">Rounded</a></li>
-        <li><a href="#outlined">Outlined</a></li>
-        <li><a href="#text">Text</a></li>
-        <li><a href="#positioned">Positioned</a></li>
+        <li><a href="#regular" globalize="regular">Regular</a></li>
+        <li><a href="#rounded" globalize="rounded">Rounded</a></li>
+        <li><a href="#outlined" globalize="outlined">Outlined</a></li>
+        <li><a href="#text" globalize="text">Text</a></li>
+        <li><a href="#positioned" globalize="positioned">Positioned</a></li>
 			</ul>
 		</nav>
 	</aside>
@@ -19,8 +19,8 @@
 <nav class="crumbs pointer pt05">
     <ol>
         <li><a href="#" globalize="documentation">Documentation</a></li>
-        <li><a>Development</a></li>
-        <li><a>Components</a></li>
+        <li><a globalize="development">Development</a></li>
+        <li><a globalize="components">Components</a></li>
         <li globalize="buttons">Buttons</li>
     </ol>
 </nav>
@@ -29,10 +29,10 @@
     <h2 globalize="buttons">Buttons</h2>
     <p>Buttons are clickable buttons and accessible by the user to take actions.</p>
 
-    <h4 class="mt1">Regular</h4>
+    <h4 class="mt1" globalize="regular">Regular</h4>
     <nav class="tabs">
       <input type="radio" name="panel1" id="tab1">
-      <label class="z09" for="tab1">Code</label>
+      <label class="z09" for="tab1" globalize="code">Code</label>
       <section>
         <code class="antiquewhite">
           &lt;button&gt;<span class="azure">Button</span>&lt;/button&gt;<br>
@@ -46,16 +46,16 @@
         <pre>
           <div class="gap1-">
               <button globalize="button">Button</button>
-              <button><i class="icon">&#9733</i>Button</button>
+              <button globalize="button"><i class="icon">&#9733</i>Button</button>
           </div>
         </pre>
       </section>  
     </nav>
 
-    <h4 class="mt1">Rounded</h4>
+    <h4 class="mt1" globalize="rounded">Rounded</h4>
     <nav class="tabs">
       <input type="radio" name="panel2" id="tab7">
-      <label class="z09" for="tab7">Code</label>
+      <label class="z09" for="tab7" globalize="code">Code</label>
       <section>
         <code class="antiquewhite">
           &lt;button <span class="navajowhite">class=</span>"rounded"&gt;<span class="azure">Button</span>&lt;/button&gt;<br>
@@ -75,10 +75,10 @@
       </section>
     </nav>
     
-    <h4 class="mt1">Outlined</h4>
+    <h4 class="mt1" globalize="outlined">Outlined</h4>
     <nav class="tabs">
       <input type="radio" name="panel3" id="tab3">
-      <label class="z09" for="tab3">Code</label>
+      <label class="z09" for="tab3" globalize="code">Code</label>
       <section>
         <code class="antiquewhite">
           &lt;button <span class="navajowhite">class=</span>"outlined"&gt;<span class="azure">Button</span>&lt;/button&gt;<br>
@@ -91,17 +91,17 @@
       <section>
         <pre>
           <div class="gap1-">
-              <button class="outlined">Button</button>
-              <button class="outlined"><i class="icon">&#9733</i>Button</button>
+              <button class="outlined" globalize="button">Button</button>
+              <button class="outlined" globalize="button"><i class="icon">&#9733</i>Button</button>
           </div>
         </pre>
       </section>  
     </nav>
 
-    <h4 class="mt1">Text</h4>
+    <h4 class="mt1" globalize="text">Text</h4>
     <nav class="tabs">
       <input type="radio" name="panel4" id="tab5">
-      <label class="z09" for="tab5">Code</label>
+      <label class="z09" for="tab5" globalize="code">Code</label>
       <section>
         <code class="antiquewhite">
           &lt;button <span class="navajowhite">class=</span>"text"&gt;<span class="azure">Button</span>&lt;/button&gt;<br>
@@ -110,7 +110,7 @@
       </section>
 
       <input type="radio" name="panel4" id="tab6" checked>
-      <label class="z09" for="tab6">Preview</label>
+      <label class="z09" for="tab6" globalize="preview">Preview</label>
       <section>
         <pre>
           <div class="gap1-">
@@ -121,10 +121,10 @@
       </section>  
     </nav>
 
-    <h4 class="mt1">Positioned</h4>
+    <h4 class="mt1" globalize="positioned">Positioned</h4>
     <nav class="tabs">
       <input type="radio" name="panel5" id="tab9">
-      <label class="z09" for="tab9">Code</label>
+      <label class="z09" for="tab9" globalize="code">Code</label>
       <section>
         <code class="antiquewhite">
           &lt;button <span class="navajowhite">class=</span>"positioned b3 r1"&gt;&lt;i <span class="navajowhite">class=</span><span class="white">"icon"</span>&gt;<span class="azure">&#9733</span>&lt;/i>&lt;/button&gt;<br>
@@ -133,7 +133,7 @@
       </section>
 
       <input type="radio" name="panel5" id="tab10" checked>
-      <label class="z09" for="tab10">Preview</label>
+      <label class="z09" for="tab10" globalize="preview">Preview</label>
       <section class="h12">
         <pre>
           <button class="positioned b3 r1"><i class="icon16">&#9733</i></button>
