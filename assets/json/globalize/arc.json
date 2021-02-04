@@ -4,6 +4,8 @@
     "code": "sv",
     "translations":
         {
+            "button": "ܙܕܦܬܐ",
+            "buttons": "ܙܕܦܬܐ",
             "contact_us": "ܡܘܛܝܐ",
             "documentation": "ܐܒܙܪܘܬ݂ܐ",
             "icons": "ܝܩܢ",
