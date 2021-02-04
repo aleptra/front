@@ -29,7 +29,6 @@ function nav(path, el, push) {
 
 	client.get(globalUrl + path, function(response) {
 		if (response) {
-			navPush(client.getResponseHeader("title"), path);
 			dom.content(target, response);
 			dom.class(target, "reset", "spaLoader");
 			if (anchor[1]){
@@ -43,6 +42,7 @@ function nav(path, el, push) {
 			}
 			core.runCoreAttributesInElement(target);
 			core.runLibAttributesInElement(target);
+			navPush(dom.get("title?tag").textContent, path);
 		}
 	});
 

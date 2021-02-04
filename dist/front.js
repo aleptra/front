@@ -261,6 +261,7 @@ var core = function() {
 				if (array[i].tagIndex == index)
 					dom.content(el, array[i].innerHTML);
 			}
+			core.runLibAttributesInElement(el);
 		}
 		if (e.hasAttribute("resizable"))
 			e.style.resize = "both";
