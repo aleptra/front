@@ -7,6 +7,7 @@ libPreload.push(
 );
 
 var trans = "";
+var taglang = dom.get("html?tag");
 
 function globalizePreload(){
     globalizeChangeLanguage(core.getParams()['lang']);
@@ -22,13 +23,19 @@ function globalizeChangeLanguage(q){
                 trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : '';
             }
         }, false);
+        globalizeChangeMetaLanguage(q);
         core.rerunLibAttributes("globalize");
     }else if (q == "") {
         app.storage("lang", null)
     }else if (app.storage("lang")) {
         var lang = app.storage("lang");
         trans = JSON.parse(app.storage(lang));
+        globalizeChangeMetaLanguage(lang);
     }
+}
+
+function globalizeChangeMetaLanguage(lang){
+    taglang.lang = lang;
 }
 
 function globalize(e){
