@@ -38,17 +38,21 @@ function globalize(e){
     if (trans['translations'] && trans['translations'][value]){
         var children = e.childElementCount;
         var name = e.localName;
+        var globalized = trans['translations'][value];
+
         if (children > 0 && (name == "a" || name == "button")) {
             var child = e.firstChild;
             while (child) {
                 if (child.nodeType == 3) {
-                    child.data = trans['translations'][value];;
+                    child.data = globalized;
                     break;
                 }
                 child = child.nextSibling;
             }
+        }else if (name == "textarea" || name == "input"){
+            e.placeholder = globalized;
         }else{
-            e.innerHTML = trans['translations'][value];
+            e.innerHTML = globalized;
         }
     }
 }

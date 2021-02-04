@@ -49,7 +49,7 @@ function globalize(e){
                 }
                 child = child.nextSibling;
             }
-        }else if(name == "textarea"){
+        }else if (name == "textarea" || name == "input"){
             e.placeholder = globalized;
         }else{
             e.innerHTML = globalized;
