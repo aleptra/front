@@ -1197,6 +1197,19 @@ nav.slider input[type="radio"]:checked + label + section {
 .darkcyan{color:#008b8b}
 .teal{color:#008080}
 
+.bclightcyan{background-color:#e0ffff}
+.bccyan,.bcaqua{background-color:#00ffff}
+.bcaquamarine{background-color:#7fffd4}
+.bcmediumaquamarine{background-color:#66cdaa}
+.bcpaleturquoise{background-color:#afeeee}
+.bcturquoise{background-color:#40e0d0}
+.bcmediumturquoise{background-color:#48d1cc}
+.bcdarkturquoise{background-color:#00ced1}
+.bclightseagreen{background-color:#20b2aa}
+.bccadetblue{background-color:#5f9ea0}
+.bcdarkcyan{background-color:#008b8b}
+.bcteal{background-color:#008080}
+
 /* Blue */
 .powderblue{color:#b0e0e6}
 .lightblue{color:#add8e6}
@@ -1216,6 +1229,25 @@ nav.slider input[type="radio"]:checked + label + section {
 .mediumslateblue{color:#7b68ee}
 .slateblue{color:#6a5acd}
 .darkslateblue{color:#483d8b}
+
+.bcpowderblue{background-color:#b0e0e6}
+.bclightblue{background-color:#add8e6}
+.bclightskyblue{background-color:#87cefa}
+.bcskyblue{background-color:#87ceeb}
+.bcdeepskyblue{background-color:#00bfff}
+.bclightsteelblue{background-color:#b0c4de}
+.bcdodgerblue{background-color:#1e90ff}
+.bccornflowerblue{background-color:#6495ed}
+.bcsteelblue{background-color:#4682b4}
+.bcroyalblue{background-color:#4169e1}
+.bcblue{background-color:#0000ff}
+.bcmediumblue{background-color:#0000cd}
+.bcdarkblue{background-color:#00008b}
+.bcnavy{background-color:#000080}
+.bcmidnightblue{background-color:#191970}
+.bcmediumslateblue{background-color:#7b68ee}
+.bcslateblue{background-color:#6a5acd}
+.bcdarkslateblue{background-color:#483d8b}
 
 /* Purple */
 .lavender{color:#e6e6fa}
@@ -1359,6 +1391,23 @@ nav.slider input[type="radio"]:checked + label + section {
 .sienna{color:#a0522d}
 .brown{color:#a52a2a}
 .maroon{color:#800000}
+
+.bccornsilk{background-color:#fff8dc}
+.bcblanchedalmond{background-color:#ffebcd}
+.bcbisque{background-color:#ffe4c4}
+.bcnavajowhite{background-color:#ffdead}
+.bcwheat{background-color:#f5deb3}
+.bcburlywood{background-color:#deb887}
+.bctan{background-color:#d2b48c}
+.bcrosybrown{background-color:#bc8f8f}
+.bcsandybrown{background-color:#f4a460}
+.bcgoldenrod{background-color:#daa520}
+.bcperu{background-color:#cd853f}
+.bcchocolate{background-color:#d2691e}
+.bcsaddlebrown{background-color:#8b4513}
+.bcsienna{background-color:#a0522d}
+.bcbrown{background-color:#a52a2a}
+.bcmaroon{background-color:#800000}
 
 .br0,.br0->*{ border-radius: 0}
 .br03,.br03->*{ border-radius: .3rem }
