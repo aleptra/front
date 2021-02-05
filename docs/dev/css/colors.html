@@ -1,0 +1,27 @@
+<script src="../../../dist/front.js" title="Colors" template="true"></script>
+
+<h1 globalize="colors">Colors</h1>
+
+<section id="crumbs">
+    <table class="mt1">
+        <caption class="tal">
+            <img src="assets/img/icon_black.svg" class="di" height="24">Front class attributes
+        </caption>
+        <thead>
+            <tr>
+                <th globalize="color">Color</th>
+                <th globalize="background_color">Background Color</th>
+                <th globalize="hex">Hex</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="z09" json="true" iterate="colors" datasource="../../../assets/json/colors.json">
+            <tr>
+                <td jsonget="color"></td>
+                <td jsonget="background"></td>
+                <td jsonget="hex"></td>
+                <td class="{{ jsonget:background }} w5r"></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
