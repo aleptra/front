@@ -7,7 +7,7 @@ libPreload.push(
 );
 
 var trans = "";
-var taglang = dom.get("html?tag");
+var htmlattr = dom.get("html?tag");
 
 function globalizePreload(){
     globalizeChangeLanguage(core.getParams()['lang']);
@@ -36,11 +36,13 @@ function globalizeChangeLanguage(q){
 }
 
 function globalizeChangeMetaLanguage(lang){
-    taglang.lang = lang;
+    htmlattr.lang = lang;
 }
 
 function globalizeChangeMetaDir(dir){
-    taglang.dir = dir;
+    htmlattr.dir = dir;
+    htmlattr.classList.remove("ltr","rtl");
+    htmlattr.classList.add(dir);
 }
 
 function globalize(e){
