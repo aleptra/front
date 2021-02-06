@@ -53,6 +53,7 @@ code{
     overflow: auto;
     word-wrap: normal !important;
     word-break: normal;
+    direction: ltr;
 }
 
 .fs22{font-size: calc(2.2em + 2vw); line-height: 1.125}
