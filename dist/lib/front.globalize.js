@@ -22,16 +22,16 @@ function globalizeChangeLanguage(q){
                 var lang = app.storage("lang");
                 trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : '';
                 globalizeChangeMetaDir(trans['direction']);
+                globalizeChangeMetaLanguage(q);
+                core.rerunLibAttributes("globalize");
             }
         }, false);
-        globalizeChangeMetaLanguage(q);
-        core.rerunLibAttributes("globalize");
     }else if (q == "") {
-        app.storage("lang", null)
+        app.storage("lang", null);
     }else if (app.storage("lang")) {
         var lang = app.storage("lang");
         trans = JSON.parse(app.storage(lang));
-        globalizeChangeMetaLanguage(trans['direction']);
+        globalizeChangeMetaDir(trans['direction']);
     }
 }
 
