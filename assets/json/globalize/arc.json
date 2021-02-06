@@ -2,6 +2,7 @@
     "name": "Swedish",
     "nativeName": "Svenska",
     "code": "sv",
+    "direction": "rtl",
     "translations":
         {
             "button": "ܙܕܦܬܐ",

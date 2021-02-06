@@ -1,0 +1,25 @@
+<script src="../../dist/front.js" title="JSON" template="true"></script>
+
+<h1>JSON</h1>
+
+<h2>Iterate</h2>
+<nav class="tabs">
+    <input type="radio" name="panel4" id="tab7" checked>
+    <label class="z09" for="tab7">Code</label>
+    <section>
+        <code class="antiquewhite">
+            &lt;div <span class="navajowhite">iterate=</span>"topbar light gap2-"><br>
+            &emsp;&emsp;&lt;a <span class="navajowhite">href=</span>"#"&gt;Link 1&lt;/a&gt;<br>
+            &lt;/div&gt;
+        </code>
+    </section>
+    <input type="radio" name="panel4" id="tab8">
+    <label class="z09" for="tab8" globalize="run">Run</label>
+    <section>
+        <pre>
+            <div iterate="true" json="true" datasource="https://jsonplaceholder.typicode.com/todos">
+                <b jsonget="title"></b>
+            </div>
+      </pre>
+    </section>
+</nav>

@@ -21,6 +21,7 @@ function globalizeChangeLanguage(q){
                 app.storage(q, response)
                 var lang = app.storage("lang");
                 trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : '';
+                globalizeChangeMetaDir(trans['direction']);
             }
         }, false);
         globalizeChangeMetaLanguage(q);
@@ -30,12 +31,16 @@ function globalizeChangeLanguage(q){
     }else if (app.storage("lang")) {
         var lang = app.storage("lang");
         trans = JSON.parse(app.storage(lang));
-        globalizeChangeMetaLanguage(lang);
+        globalizeChangeMetaLanguage(trans['direction']);
     }
 }
 
 function globalizeChangeMetaLanguage(lang){
     taglang.lang = lang;
+}
+
+function globalizeChangeMetaDir(dir){
+    taglang.dir = dir;
 }
 
 function globalize(e){
