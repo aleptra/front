@@ -111,6 +111,7 @@ body, .grid {
     -webkit-font-feature-settings: "kern";
     -o-font-feature-settings: "kern";
     position:relative;
+    counter-reset: section;
 }
 
 body.nav{

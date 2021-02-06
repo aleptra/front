@@ -111,6 +111,7 @@ body, .grid {
     -webkit-font-feature-settings: "kern";
     -o-font-feature-settings: "kern";
     position:relative;
+    counter-reset: section;
 }
 
 body.nav{
@@ -435,6 +436,10 @@ ul.list li{
     right: 1.5rem;
     transform: scaleX(1.9);
     font-size: 90%;
+}
+.rtl .sidebar summary:after {
+    right: unset;
+    left: 1.5rem;
 }
 
 .sidebar details[open] summary:after,

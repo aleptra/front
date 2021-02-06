@@ -9,6 +9,10 @@ summary::-webkit-details-marker {
     transform: scaleX(1.9);
     font-size: 90%;
 }
+.rtl .sidebar summary:after {
+    right: unset;
+    left: 1.5rem;
+}
 
 .sidebar details[open] summary:after,
 .sidebar details[open] details[open] summary:after {
