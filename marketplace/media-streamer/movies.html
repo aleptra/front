@@ -1,0 +1,17 @@
+<script src="../../dist/front.js" title="Movies" template="../"></script>
+
+<section id="popular">
+    <div id="popular-movies" class="box cards gap05- black- tac glow-" iterate="results" json="true" datasource="https://api.themoviedb.org/3/movie/popular?api_key=342c7c6976e9730798bc4bfbb2786cf7&language=en-US&page=1" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
+        <a href="movie.html" window="dialog">
+            <figure jsonset="id">
+                <img jsonget="poster_path" jsonbefore="https://image.tmdb.org/t/p/w220_and_h330_face" src="">
+                <figcaption class="z09" jsonget="title" slice="0,21"></figcaption>
+                <small class="z09" jsonget="release_date" format="date(Y)"></small>
+            </figure>
+        </a>
+    </div>
+</section>
+
+<nav class="pagination mt1 p1 p1- flc" selective="true" variable="page=1" iterate="10;page++">
+    <a bind="popular-movies.datasource" onclick="set('query', 'page', '{{ page }}')" key="{{ page }}"><var>page</var></a>
+</nav>

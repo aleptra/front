@@ -42,11 +42,15 @@ hr{ margin-bottom: 1rem;
     border: none
 }
 
-section,article,code,pre,samp,p,form{
+section,article,code,pre,samp,p,form,div{
     display: block;
     font-family: inherit;
     height: inherit;
     word-break: break-word;
+}
+
+div{
+    height: unset;
 }
 
 code{
@@ -471,6 +475,10 @@ ul.list li{
     word-break: break-word;
     box-sizing: content-box;
     -webkit-box-sizing: content-box;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
 }
 
 /*.box, * .card{

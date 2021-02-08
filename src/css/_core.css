@@ -42,11 +42,15 @@ hr{ margin-bottom: 1rem;
     border: none
 }
 
-section,article,code,pre,samp,p,form{
+section,article,code,pre,samp,p,form,div{
     display: block;
     font-family: inherit;
     height: inherit;
     word-break: break-word;
+}
+
+div{
+    height: unset;
 }
 
 code{
