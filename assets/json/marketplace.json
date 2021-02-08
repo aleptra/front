@@ -1,0 +1,12 @@
+{
+    "market":[
+        {
+            "id": 1,
+            "title": "Media Streamer",
+            "screenshot": "https://screenshotapi.net/api/v1/screenshot?token=BIG7HNCZNW3YS8GU7K96VIUWKHF9WST3&url=www.inggreen.co&output=image",
+            "url": "https://www.inggreen.co",
+            "type": "Consulting firm",
+            "cost": "0"
+        }
+    ]
+}
