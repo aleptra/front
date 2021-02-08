@@ -411,6 +411,12 @@
             "html_entity_2": "&#x1F6BD;"
         },
         {
+            "title": "Shopping Trolley",
+            "name": "shopping_cart",
+            "html_entity": "&#128722;",
+            "html_entity_2": "&#x1F6D2;"
+        },
+        {
             "title": "Hammer and Wrench",
             "name": "construction",
             "html_entity": "&#128736;",
