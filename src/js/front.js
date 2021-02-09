@@ -291,7 +291,7 @@ var core = function() {
 			var test2 = test.split(";");
 			try{
 				e.content = eval(test2[1]);
-			}catch{}
+			}catch(err){}
 			
 		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
@@ -475,7 +475,7 @@ var core = function() {
 		try {
 			JSON.parse(str);
 			return true;
-		} catch (e) {
+		}catch(err){
 			return false;
 		}
 	}
