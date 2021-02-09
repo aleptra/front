@@ -17,8 +17,13 @@
       <label class="z09" for="tab1" globalize="code">Code</label>
       <section>
         <code class="antiquewhite">
-          &lt;button&gt;<span class="azure">Button</span>&lt;/button&gt;<br>
-          &lt;button&gt;&lt;i <span class="navajowhite">class=</span><span class="white">"icon"</span>&gt;<span class="azure">&#9733</span>&lt;/i><span class="azure">Button</span>&lt;/button&gt;
+          &lt;div <span class="navajowhite">variable=</span><span class="white">"i=1"</span> <span class="navajowhite">iterate=</span><span class="white">"10;i++"&gt;</span><br>
+          &emsp;&emsp;&lt;div&gt;<br>
+          &emsp;&emsp;&emsp;&emsp;&lt;small&gt;<span class="white">Value {{ i }} as template syntax&lt;</span>/small&gt;<br>
+          &emsp;&emsp;&emsp;&emsp;&lt;p&gt;<span class="white">Value &lt;var&gt;i&lt;/var&gt; as element</span>&lt;/p&gt;<br>
+          &emsp;&emsp;&lt;/div&gt;<br>
+          &emsp;&emsp;&lt;hr&gt;<br>
+          &lt;/div&gt;
         </code>
       </section>
 
@@ -26,11 +31,12 @@
       <label class="z09" for="tab2" globalize="preview">Preview</label>
       <section class="h20">
         <pre>
-            <div variable="i=1" iterate="10;i++" class="fdr-">
-                    <div>
-                    <small>{{ i }} as template syntax</small>
-                    <p>"<var>i</var>" as element</p>
-                </div>                
+            <div variable="i=1" iterate="10;i++">
+              <div>
+                <small>Value {{ i }} as template syntax</small>
+                <p>Value <var>i</var> as element</p>
+              </div>
+              <hr>
             </div>
         </pre>
       </section>  
