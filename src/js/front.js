@@ -304,7 +304,14 @@ var core = function() {
 			e.innerHTML = e.innerHTML.toUpperCase();
 		if (e.hasAttribute("escape")) {
 			var escape = e.innerHTML;
-			e.innerText = "&#"+ escape.codePointAt(0);
+			var code = escape.charCodeAt(0);
+
+			if (0xD800 <= code && code <= 0xDBFF) {
+				low = escape.charCodeAt(1);
+				code = ((code- 0xD800) * 0x400) + (low - 0xDC00) + 0x10000;
+			}
+
+			e.innerText = "&#"+ code;
 		}
 		if (e.hasAttribute("format")) {
 			var format = e.getAttribute("format");
