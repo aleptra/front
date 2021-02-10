@@ -4,7 +4,7 @@
             "id": 1,
             "title": "Media Streamer",
             "screenshot": "",
-            "url": "/marketplace/media-streamer",
+            "url": "./marketplace/media-streamer",
             "type": "Consulting firm",
             "cost": "0"
         }
