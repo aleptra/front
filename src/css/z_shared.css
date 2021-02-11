@@ -221,8 +221,7 @@
 .plum{color:#dda0dd}
 .violet{color:#ee82ee}
 .orchid{color:#da70d6}
-.fuchsia{color:#ff00ff}
-.magenta{color:#ff00ff}
+.fuchsia,.magent{color:#ff00ff}
 .mediumorchid{color:#ba55d3}
 .mediumpurple{color:#9370db}
 .blueviolet{color:#8a2be2}
@@ -237,8 +236,7 @@
 .bcplum{background-color:#dda0dd}
 .bcviolet{background-color:#ee82ee}
 .bcorchid{background-color:#da70d6}
-.bcfuchsia{background-color:#ff00ff}
-.bcmagenta{background-color:#ff00ff}
+.bcfuchsia,.bcmagenta{background-color:#ff00ff}
 .bcmediumorchid{background-color:#ba55d3}
 .bcmediumpurple{background-color:#9370db}
 .bcblueviolet{background-color:#8a2be2}

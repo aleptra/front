@@ -222,6 +222,256 @@
             "color": "olivedrab",
             "background": "bcolivedrab",
             "hex": "#6b8e23"
+        },
+        {
+            "color": "lightcyan",
+            "background": "bclightcyan",
+            "hex": "#e0ffff"
+        },
+        {
+            "color": "cyan, aqua",
+            "background": "bccyan",
+            "hex": "#00ffff"
+        },
+        {
+            "color": "aquamarine",
+            "background": "bcaquamarine",
+            "hex": "#7fffd4"
+        },
+        {
+            "color": "mediumaquamarine",
+            "background": "bcmediumaquamarine",
+            "hex": "#66cdaa"
+        },
+        {
+            "color": "paleturquoise",
+            "background": "bcpaleturquoise",
+            "hex": "#afeeee"
+        },
+        {
+            "color": "turquoise",
+            "background": "bcturquoise",
+            "hex": "#40e0d0"
+        },
+        {
+            "color": "mediumturquoise",
+            "background": "bcmediumturquoise",
+            "hex": "#48d1cc"
+        },
+        {
+            "color": "darkturquoise",
+            "background": "bcdarkturquoise",
+            "hex": "#00ced1"
+        },
+        {
+            "color": "lightseagreen",
+            "background": "bclightseagreen",
+            "hex": "#20b2aa"
+        },
+        {
+            "color": "cadetblue",
+            "background": "bccadetblue",
+            "hex": "#5f9ea0"
+        },
+        {
+            "color": "darkcyan",
+            "background": "bcdarkcyan",
+            "hex": "#008b8b"
+        },
+        {
+            "color": "teal",
+            "background": "bcteal",
+            "hex": "#008080"
+        },
+        {
+            "color": "powderblue",
+            "background": "bcpowderblue",
+            "hex": "#b0e0e6"
+        },
+        {
+            "color": "lightblue",
+            "background": "bclightblue",
+            "hex": "#add8e6"
+        },
+        {
+            "color": "lightskyblue",
+            "background": "bclightskyblue",
+            "hex": "#87cefa"
+        },
+        {
+            "color": "skyblue",
+            "background": "bcskyblue",
+            "hex": "#87ceeb"
+        },
+        {
+            "color": "deepskyblue",
+            "background": "bcdeepskyblue",
+            "hex": "#00bfff"
+        },
+        {
+            "color": "lightsteelblue",
+            "background": "bclightsteelblue",
+            "hex": "#b0c4de"
+        },
+        {
+            "color": "dodgerblue",
+            "background": "bcdodgerblue",
+            "hex": "#1e90ff"
+        },
+        {
+            "color": "cornflowerblue",
+            "background": "bccornflowerblue",
+            "hex": "#6495ed"
+        },
+        {
+            "color": "steelblue",
+            "background": "bcsteelblue",
+            "hex": "#4682b4"
+        },
+        {
+            "color": "royalblue",
+            "background": "bcroyalblue",
+            "hex": "#4169e1"
+        },
+        {
+            "color": "blue",
+            "background": "bcblue",
+            "hex": "#0000ff"
+        },
+        {
+            "color": "mediumblue",
+            "background": "bcmediumblue",
+            "hex": "#0000cd"
+        },
+        {
+            "color": "darkblue",
+            "background": "bcdarkblue",
+            "hex": "#00008b"
+        },
+        {
+            "color": "navy",
+            "background": "bcnavy",
+            "hex": "#000080"
+        },
+        {
+            "color": "midnightblue",
+            "background": "bcmidnightblue",
+            "hex": "#191970"
+        },
+        {
+            "color": "mediumslateblue",
+            "background": "bcmediumslateblue",
+            "hex": "#7b68ee"
+        },
+        {
+            "color": "slateblue",
+            "background": "bcslateblue",
+            "hex": "#6a5acd"
+        },
+        {
+            "color": "darkslateblue",
+            "background": "bcdarkslateblue",
+            "hex": "#483d8b"
+        },
+        {
+            "color": "lavender",
+            "background": "bclavender",
+            "hex": "#e6e6fa"
+        },
+        {
+            "color": "thistle",
+            "background": "bcthistle",
+            "hex": "#d8bfd8"
+        },
+        {
+            "color": "plum",
+            "background": "bcplum",
+            "hex": "#dda0dd"
+        },
+        {
+            "color": "violet",
+            "background": "bcviolet",
+            "hex": "#ee82ee"
+        },
+        {
+            "color": "orchid",
+            "background": "bcorchid",
+            "hex": "#da70d6"
+        },
+        {
+            "color": "magenta, fuchsia",
+            "background": "bcmagenta",
+            "hex": "#ff00ff"
+        },
+        {
+            "color": "mediumorchid",
+            "background": "bcmediumorchid",
+            "hex": "#ba55d3"
+        },
+        {
+            "color": "mediumpurple",
+            "background": "bcmediumpurple",
+            "hex": "#9370db"
+        },
+        {
+            "color": "blueviolet",
+            "background": "bcblueviolet",
+            "hex": "#8a2be2"
+        },
+        {
+            "color": "darkviolet",
+            "background": "bcdarkviolet",
+            "hex": "#9400d3"
+        },
+        {
+            "color": "darkorchid",
+            "background": "bcdarkorchid",
+            "hex": "#9932cc"
+        },
+        {
+            "color": "darkmagenta",
+            "background": "bcdarkmagenta",
+            "hex": "#8b008b"
+        },
+        {
+            "color": "purple",
+            "background": "bcpurple",
+            "hex": "#800080"
+        },
+        {
+            "color": "indigo",
+            "background": "bcindigo",
+            "hex": "#4b0082"
+        },
+        {
+            "color": "pink",
+            "background": "bcpink",
+            "hex": "#ffc0cb"
+        },
+        {
+            "color": "lightpink",
+            "background": "bclightpink",
+            "hex": "#ffb6c1"
+        },
+        {
+            "color": "hotpink",
+            "background": "bchotpink",
+            "hex": "#ff69b4"
+        },
+        {
+            "color": "deeppink",
+            "background": "bcdeeppink",
+            "hex": "#ff1493"
+        },
+        {
+            "color": "palevioletred",
+            "background": "bcpalevioletred",
+            "hex": "#db7093"
+        },
+        {
+            "color": "mediumvioletred",
+            "background": "bcmediumvioletred",
+            "hex": "#c71585"
         }
     ]
 }
