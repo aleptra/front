@@ -473,5 +473,222 @@
             "background": "bcmediumvioletred",
             "hex": "#c71585"
         }
+
+        ,
+        {
+            "color": "white",
+            "background": "bcwhite",
+            "hex": "#ffffff"
+        },
+        {
+            "color": "snow",
+            "background": "bcsnow",
+            "hex": "#fffafa"
+        },
+        {
+            "color": "honeydew",
+            "background": "bchoneydew",
+            "hex": "#f0fff0"
+        },
+        {
+            "color": "mintcream",
+            "background": "bcmintcream",
+            "hex": "#f5fffa"
+        },
+        {
+            "color": "azure",
+            "background": "bcazure",
+            "hex": "#f0ffff"
+        },
+        {
+            "color": "aliceblue",
+            "background": "bcaliceblue",
+            "hex": "#f0f8ff"
+        },
+        {
+            "color": "ghostwhite",
+            "background": "bcghostwhite",
+            "hex": "#f8f8ff"
+        },
+        {
+            "color": "whitesmoke",
+            "background": "bcwhitesmoke",
+            "hex": "#f5f5f5"
+        },
+        {
+            "color": "seashell",
+            "background": "bcseashell",
+            "hex": "#fff5ee"
+        },
+        {
+            "color": "beige",
+            "background": "bcbeige",
+            "hex": "#f5f5dc"
+        },
+        {
+            "color": "oldlace",
+            "background": "bcoldlace",
+            "hex": "#fdf5e6"
+        },
+        {
+            "color": "floralwhite",
+            "background": "bcfloralwhite",
+            "hex": "#fffaf0"
+        },
+        {
+            "color": "ivory",
+            "background": "bcivory",
+            "hex": "#fffff0"
+        },
+        {
+            "color": "antiquewhite",
+            "background": "bcantiquewhite",
+            "hex": "#faebd7"
+        },
+        {
+            "color": "linen",
+            "background": "bclinen",
+            "hex": "#faf0e6"
+        },
+        {
+            "color": "lavenderblush",
+            "background": "bclavenderblush",
+            "hex": "#fff0f5"
+        },
+        {
+            "color": "mistyrose",
+            "background": "bcmistyrose",
+            "hex": "#ffe4e1"
+        },
+        {
+            "color": "gainsboro",
+            "background": "bcgainsboro",
+            "hex": "#dcdcdc"
+        },
+        {
+            "color": "lightgray",
+            "background": "bclightgray",
+            "hex": "#d3d3d3"
+        },
+        {
+            "color": "silver",
+            "background": "bcsilver",
+            "hex": "#c0c0c0"
+        },
+        {
+            "color": "darkgray",
+            "background": "bcdarkgray",
+            "hex": "#a9a9a9"
+        },
+        {
+            "color": "gray",
+            "background": "bcgray",
+            "hex": "#808080"
+        },
+        {
+            "color": "dimgray",
+            "background": "bcdimgray",
+            "hex": "#696969"
+        },
+        {
+            "color": "lightslategray",
+            "background": "bclightslategray",
+            "hex": "#778899"
+        },
+        {
+            "color": "slategray",
+            "background": "bcslategray",
+            "hex": "#708090"
+        },
+        {
+            "color": "darkslategray",
+            "background": "bcdarkslategray",
+            "hex": "#2f4f4f"
+        },
+        {
+            "color": "black",
+            "background": "bcblack",
+            "hex": "#000000"
+        },
+        {
+            "color": "cornsilk",
+            "background": "bccornsilk",
+            "hex": "#fff8dc"
+        },
+        {
+            "color": "blanchedalmond",
+            "background": "bcblanchedalmond",
+            "hex": "#ffebcd"
+        },
+        {
+            "color": "bisque",
+            "background": "bcbisque",
+            "hex": "#ffe4c4"
+        },
+        {
+            "color": "navajowhite",
+            "background": "bcnavajowhite",
+            "hex": "#ffdead"
+        },
+        {
+            "color": "wheat",
+            "background": "bcwheat",
+            "hex": "#f5deb3"
+        },
+        {
+            "color": "burlywood",
+            "background": "bcburlywood",
+            "hex": "#deb887"
+        },
+        {
+            "color": "tang",
+            "background": "bctan",
+            "hex": "#d2b48c"
+        },
+        {
+            "color": "rosybrown",
+            "background": "bcrosybrown",
+            "hex": "#bc8f8f"
+        },
+        {
+            "color": "sandybrown",
+            "background": "bcsandybrown",
+            "hex": "#f4a460"
+        },
+        {
+            "color": "goldenrod",
+            "background": "bcgoldenrod",
+            "hex": "#daa520"
+        },
+        {
+            "color": "peru",
+            "background": "bcperu",
+            "hex": "#cd853f"
+        },
+        {
+            "color": "chocolate",
+            "background": "bcchocolate",
+            "hex": "#d2691e"
+        },
+        {
+            "color": "saddlebrown",
+            "background": "bcsaddlebrown",
+            "hex": "#8b4513"
+        },
+        {
+            "color": "sienna",
+            "background": "bcsienna",
+            "hex": "#a0522d"
+        },
+        {
+            "color": "brown",
+            "background": "bcbrown",
+            "hex": "#a52a2a"
+        },
+        {
+            "color": "maroon",
+            "background": "bcmaroon",
+            "hex": "#800000"
+        }
     ]
 }
