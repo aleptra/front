@@ -47,13 +47,14 @@ function globalizeChangeMetaDir(dir){
 
 function globalize(e){
     var value = e.getAttribute("globalize");
-    
+    e.innerHTML = e.innerHTML.trim();
+
     if (trans['translations'] && trans['translations'][value]){
         var children = e.childElementCount;
         var name = e.localName;
         var globalized = trans['translations'][value];
 
-        if (children > 0 && (name == "a" || name == "button")) {
+        if (children > 0 && (name == "a" || name == "button" || name == "caption")) {
             var child = e.firstChild;
             while (child) {
                 if (child.nodeType == 3) {
