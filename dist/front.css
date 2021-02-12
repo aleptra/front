@@ -60,6 +60,14 @@ code{
     direction: ltr;
 }
 
+dialog, .modal{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+}
+
 .fs22{font-size: calc(2.2em + 2vw); line-height: 1.125}
 .fs20{font-size: calc(2em + 1.8vw); line-height: 1.2}
 .fs19{font-size: calc(1.9em + 1.7vw); line-height: 1.2}
