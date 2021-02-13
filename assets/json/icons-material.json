@@ -75,16 +75,29 @@
             "html_entity_2": "&#x2261;"
         },
         {
-            "title": "Eject Symbol",
-            "name": "eject",
-            "html_entity": "&#9167;",
-            "html_entity_2": "&#x2261;"
-        },
-        {
             "title": "House",
             "name": "house",
             "html_entity": "&#8962;",
             "html_entity_2": "&#x2302;"
+        },
+        {
+            "title": "Erase to the Left",
+            "name": "backspace",
+            "html_entity": "&#9003;",
+            "html_entity_2": "&#x232B;",
+            "keywords": "delete, remove"
+        },
+        {
+            "title": "Hourglass",
+            "name": "hourglass_bottom",
+            "html_entity": "&#8987;",
+            "html_entity_2": ""
+        },
+        {
+            "title": "Eject Symbol",
+            "name": "eject",
+            "html_entity": "&#9167;",
+            "html_entity_2": "&#x2261;"
         },
         {
             "title": "Black Square",
@@ -210,18 +223,6 @@
             "title": "Warning Sign",
             "name": "report_problem, warning",
             "html_entity": "&#9888;",
-            "html_entity_2": ""
-        },
-        {
-            "title": "(?) Disabled Hourglass",
-            "name": "hourglass_disabled",
-            "html_entity": "&#8987;",
-            "html_entity_2": ""
-        },
-        {
-            "title": "Hourglass",
-            "name": "hourglass_bottom",
-            "html_entity": "&#8987;",
             "html_entity_2": ""
         },
         {
