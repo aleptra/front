@@ -55,9 +55,29 @@ Global Event Attributes
         <span class="white">dom.get</span>(<span class="gold">'body?tag'</span>)
     </code>
 
-    <h3 id="click" class="mt1">Click</h5>
-    <code class="markup navajowhite">
-        <span class="white">dom.click</span>(<span class="gold">'elementID'</span>)
-    </code>
+</section>
 
+<section id="click">
+    <h3>Click</h2>
+    <p>The click function triggers elements.</p>
+    <nav class="tabs mt1">
+      <input type="radio" name="panel1" id="tab1" checked>
+      <label class="z09" for="tab1" globalize="code">Code</label>
+      <section>
+        <code class="antiquewhite">
+            <span class="white">dom.click</span>(<span class="gold">'elementID'</span>)
+        </code>
+      </section>
+
+      <input type="radio" name="panel1" id="tab2">
+      <label class="z09" for="tab2" globalize="test">Test</label>
+      <section>
+        <pre>
+            <div class="mb2">
+                <a onclick="dom.click('button1')">Click here to trigger "Button 1"</a>
+            </div>
+            <button onclick="alert('hello world!')" id="button1">Button 1</button>
+        </pre>
+      </section>
+    </nav>
 </section>
