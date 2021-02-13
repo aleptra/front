@@ -274,6 +274,12 @@
             "html_entity_2": ""
         },
         {
+            "title": "Fullwidth Equals Sign",
+            "name": "drag_handle",
+            "html_entity": "&#65309;",
+            "html_entity_2": "&#xFF1D;"
+        },
+        {
             "title": "Globe with Meridians",
             "name": "language",
             "html_entity": "&#127760;",
