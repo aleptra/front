@@ -3,13 +3,12 @@
 <template>
     <aside index="1">
         <nav class="sidebar w11">
-            <h5 class="p1 mt1">DOM</h5>
+            <h5 class="p1 mt1">Storage</h5>
             <ul>
-                <li><a href="#create">Create</a></li>
-                <li><a href="#remove">Remove</a></li>
-                <li><a href="#update">Update</a></li>
+                <li><a href="#add">Add</a></li>
                 <li><a href="#get">Get</a></li>
-                <li><a href="#set">Set</a></li>
+                <li><a href="#remove">Remove</a></li>
+                <li><a href="#clear">Clear</a></li>
             </ul>
         </nav>
     </aside>
@@ -19,22 +18,22 @@
 Storage for applications to store and manipulate data.
 <section>
 
-    <h2>Add</h2>
+    <h2 id="add">Add</h2>
     <code class="markup navajowhite">
         <span class="white">app.storage</span>(<span class="gold">'key'</span>, <span class="gold">'value'</span>)
     </code>
 
-    <h2 class="mt1">Get</h2>
+    <h2 id="get" class="mt1">Get</h2>
     <code class="markup navajowhite">
         <span class="white">app.storage</span>(<span class="gold">'key'</span>)
     </code>
 
-    <h2 class="mt1">Remove</h2>
+    <h2 id="remove" class="mt1">Remove</h2>
     <code class="markup navajowhite">
         <span class="white">app.storage</span>(<span class="gold">'key', null</span>)
     </code>
 
-    <h2 class="mt1">Clear</h2>
+    <h2 id="clear" class="mt1">Clear</h2>
     <code class="markup navajowhite">
         <span class="white">app.storage</span>(<span class="gold">null</span>)
     </code>
