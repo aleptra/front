@@ -177,6 +177,18 @@
             "html_entity_2": "&#x2699;"
         },
         {
+            "title": "Soccer Ball",
+            "name": "sports_soccer",
+            "html_entity": "&#9917;",
+            "html_entity_2": "&#x26BD;"
+        },
+        {
+            "title": "Baseball",
+            "name": "sports_baseball",
+            "html_entity": "&#9918;",
+            "html_entity_2": "&#x26BE;"
+        },
+        {
             "title": "Black Scissors",
             "name": "content_cut",
             "html_entity": "&#9986;",
@@ -248,6 +260,12 @@
             "name": "mic",
             "html_entity": "&#127908;",
             "html_entity_2": "&#x1F4A1;"
+        },
+        {
+            "title": "Basketball and Hoop",
+            "name": "sports_basketball",
+            "html_entity": "&#127936;",
+            "html_entity_2": "&#x1F3C0;"
         },
         {
             "title": "Label",
