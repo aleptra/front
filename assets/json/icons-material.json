@@ -110,6 +110,13 @@
             "html_entity_2": ""
         },
         {
+            "title": "Black Right-Pointing Pointer",
+            "name": "play_arrow",
+            "html_entity": "&#9658;",
+            "html_entity_2": "&#x25BA;",
+            "keywords": "run"
+        },
+        {
             "title": "Black Circle",
             "name": "lens",
             "html_entity": "&#9679;",
