@@ -324,6 +324,12 @@
             "keywords": "umbrella"
         },
         {
+            "title": "Eye",
+            "name": "remove_red_eye",
+            "html_entity": "&#128065;",
+            "html_entity_2": "&#x1F441;"
+        },
+        {
             "title": "Thumbs Up Sign",
             "name": "thumb_up",
             "html_entity": "&#128077;",
