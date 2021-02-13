@@ -51,6 +51,12 @@
             "html_entity_2": "&#x1BE4;"
         },
         {
+            "title": "Horizontal Ellipsis",
+            "name": "more_horiz",
+            "html_entity": "&#8230;",
+            "html_entity_2": "&#x2026;"
+        },
+        {
             "title": "Euro Sign",
             "name": "euro_symbol",
             "html_entity": "&#8364;",
@@ -278,6 +284,12 @@
             "name": "drag_handle",
             "html_entity": "&#65309;",
             "html_entity_2": "&#xFF1D;"
+        },
+        {
+            "title": "Presentation Form For Vertical Horizontal Ellipsis",
+            "name": "more_vert",
+            "html_entity": "&#65049;",
+            "html_entity_2": "&#xFE19;"
         },
         {
             "title": "Globe with Meridians",
