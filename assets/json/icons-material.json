@@ -45,6 +45,12 @@
             "html_entity_2": "&#x2C5"
         },
         {
+            "title": "Batak Letter I",
+            "name": "wifi",
+            "html_entity": "&#7140;",
+            "html_entity_2": "&#x1BE4;"
+        },
+        {
             "title": "Euro Sign",
             "name": "euro_symbol",
             "html_entity": "&#8364;",
@@ -55,6 +61,12 @@
             "name": "not_interested",
             "html_entity": "&#8416;",
             "html_entity_2": "&#x20e0;"
+        },
+        {
+            "title": "Infinity",
+            "name": "all_inclusive",
+            "html_entity": "&#8734;",
+            "html_entity_2": "&#x221E;"
         },
         {
             "title": "Identical To",
