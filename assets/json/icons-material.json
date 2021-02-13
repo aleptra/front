@@ -81,6 +81,12 @@
             "html_entity_2": "&#x2302;"
         },
         {
+            "title": "Hourglass",
+            "name": "hourglass_bottom",
+            "html_entity": "&#8987;",
+            "html_entity_2": ""
+        },
+        {
             "title": "Erase to the Left",
             "name": "backspace",
             "html_entity": "&#9003;",
@@ -88,10 +94,16 @@
             "keywords": "delete, remove"
         },
         {
-            "title": "Hourglass",
-            "name": "hourglass_bottom",
-            "html_entity": "&#8987;",
-            "html_entity_2": ""
+            "title": "APL Functional Symbol Quad Leftwards Arrow",
+            "name": "login",
+            "html_entity": "&#9031;",
+            "html_entity_2": "&#x2347;"
+        },
+        {
+            "title": "APL Functional Symbol Quad Rightwards Arrow",
+            "name": "logout",
+            "html_entity": "&#9032;",
+            "html_entity_2": "&#x2348;"
         },
         {
             "title": "Eject Symbol",
