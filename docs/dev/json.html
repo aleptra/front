@@ -1,25 +1,35 @@
 <script src="../../dist/front.js" title="JSON" template="true"></script>
 
 <h1>JSON</h1>
+<nav class="crumbs pointer pt05 mb2">
+    <ol>
+        <li><a href="/projects/front/" globalize="documentation">Documentation</a></li>
+        <li><a globalize="development">Development</a></li>
+        <li><a>Markup</a></li>
+        <li globalize="json">JSON</li>
+    </ol>
+</nav>
 
+<article>
 <h2>Iterate</h2>
 <nav class="tabs">
     <input type="radio" name="panel4" id="tab7" checked>
     <label class="z09" for="tab7">Code</label>
     <section>
         <code class="antiquewhite">
-            &lt;div <span class="navajowhite">iterate=</span>"topbar light gap2-"><br>
-            &emsp;&emsp;&lt;a <span class="navajowhite">href=</span>"#"&gt;Link 1&lt;/a&gt;<br>
-            &lt;/div&gt;
+            &lt;table <span class="navajowhite">iterate=</span>"true" json="true" datasource="https://jsonplaceholder.typicode.com/todos"><br>
+            &emsp;&emsp;&lt;tr <span class="navajowhite">jsonget=</span>"title"&gt;&lt;/tr&gt;<br>
+            &lt;/table&gt;
         </code>
     </section>
     <input type="radio" name="panel4" id="tab8">
-    <label class="z09" for="tab8" globalize="run">Run</label>
+    <label class="z09" for="tab8" globalize="run"><i class="icon">&#9658</i>Run</label>
     <section>
         <pre>
-            <div iterate="true" json="true" datasource="https://jsonplaceholder.typicode.com/todos">
-                <b jsonget="title"></b>
-            </div>
+            <table iterate="true" json="true" datasource="https://jsonplaceholder.typicode.com/todos">
+                <tr jsonget="title"></tr>
+            </table>
       </pre>
     </section>
 </nav>
+</article>
