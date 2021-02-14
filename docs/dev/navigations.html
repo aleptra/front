@@ -49,7 +49,7 @@
 		<label class="z09" for="tab2">Preview</label>
 		<section>
 			<pre>
-				<nav class="crumbs pointer pt05">
+				<nav class="crumbs pointer pt05" bindclass="1" id="run2">
 					<ol>
 						<li><a>Home</a></li>
 						<li><a>Page</a></li>
@@ -59,9 +59,43 @@
 		  </pre>
 		</section>
 	</nav>
+
+	<table class="mt1">
+		<caption class="tal">
+			<img src="./assets/img/icon_black.svg" class="di" height="24" globalize="front_class_attributes">Front class attributes
+		</caption>
+		<thead>
+			<tr>
+				<th globalize="class">Class</th>
+				<th class="tac" globalize="character">Character</th>
+				<th globalize="description">Description</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody class="z09">
+			<tr>
+				<td>pointer</td>
+				<td class="tac">&#10095;</td>
+				<td>Use pointers as delimiter.</td>
+				<td class="tar"><button class="z07" onclick="_.click('tab2');_.class('run2','toggle','pointer')"><i class="icon">&#9658</i>Run</button</td>
+			</tr>
+			<tr>
+				<td>guillemet</td>
+				<td class="tac">&#187;</td>
+				<td>Use guillemets as delimiter.</td>
+				<td><button class="z07" onclick="_.click('tab2');_.class('run2','toggle','guillemet')"><i class="icon">&#9658</i>Run</button</td>
+			</tr>
+			<tr>
+				<td>pipe</td>
+				<td class="tac">&#124;</td>
+				<td>Use pipes as delimiter.</td>
+				<td><button class="z07" onclick="_.click('tab2');_.class('run2','toggle','pipe')"><i class="icon">&#9658</i>Run</button</td>
+			</tr>
+		</tbody>
+	</table>
 </section>
 
-<section id="pagination">
+<section id="pagination" class="mt3">
 	<h2>Pagination</h2>
 	<p>Paginations are quick navigations that help users to navigate in discrete pages.</p>
 	
@@ -100,7 +134,7 @@
 	</nav>
 </section>
 
-<section id="sidebar">
+<section id="sidebar" class="mt3">
 	<h2>Sidebar</h2>
 	<nav class="tabs">
 		<input type="radio" name="panel3" id="tab5">
@@ -129,7 +163,7 @@
 	</nav>
 </section>
 
-<section id="topbar">
+<section id="topbar" class="mt3">
 	<h2>Topbar</h2>
 	<nav class="tabs">
 		<input type="radio" name="panel4" id="tab7">
@@ -158,7 +192,7 @@
 	</nav>
 </section>
 
-<section id="bottombar">
+<section id="bottombar" class="mt3">
 	<h2>Bottombar</h2>
 	<nav class="tabs">
 		<input type="radio" name="panel5" id="tab9">
@@ -187,7 +221,7 @@
 	</nav>
 </section>
 
-<section id="tabs">
+<section id="tabs" class="mt3">
 	<h2 class="mt1">Tabs</h2>
 	<nav class="tabs">
 		<input type="radio" name="panel6" id="tab11">
@@ -245,7 +279,7 @@
 
 	<table class="mt1">
         <caption class="tal">
-            <img src="assets/img/icon_black.svg" class="di" height="24">Front class attributes
+            <img src="./assets/img/icon_black.svg" class="di" height="24">Front class attributes
         </caption>
         <thead>
             <tr>
