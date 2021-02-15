@@ -485,6 +485,12 @@
             "html_entity_2": "&#x1F6BD;"
         },
         {
+            "title": "Circled Information Source",
+            "name": "info",
+            "html_entity": "&#128712;",
+            "html_entity_2": "&#x1f6c8;"
+        },
+        {
             "title": "Shopping Trolley",
             "name": "shopping_cart",
             "html_entity": "&#128722;",
