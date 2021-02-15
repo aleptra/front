@@ -886,3 +886,4 @@ var dom = function() {
 var core = new core();
 var app = new app();
 var dom = new dom();
+var _ = dom;
