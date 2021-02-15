@@ -330,6 +330,10 @@ var core = function() {
 			var decode = e.getAttribute("decode");
 			e.innerHTML = '';
 		}
+		if (e.hasAttribute("delimiter")){
+			var delimiter = e.getAttribute("delimiter");
+			document.styleSheets[0].insertRule("nav.delimiter * a:after {content: '\\00a0 \\00a0"+delimiter+"\\00a0 \\00a0' !important}",0);
+		}
 		if (e.hasAttribute("slice")) {
 			var slice = e.getAttribute("slice").replace(/\s+/g, '');
 			var res = slice.split(",");
