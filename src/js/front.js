@@ -683,37 +683,26 @@ var dom = function() {
 
 		try {
 			var classVal = el.getAttribute("class");
-		}catch(err){
-			return false;
-		}
+			var bclass = el.getAttribute("bindclass");
 
-		if (oldClass == '') { oldClass = classVal; }
-		if (el) {
-			if (action == 'add' || action == 'set' || action == 'toggle') {
-
-				el.className = '';
-
-				if (classname instanceof Array) {
-					classname.map(function(item) {
-	    				el.classList.add(item);
-					})
-				}else{
-					el.classList.add(classname);
-				}
-
-				if (action == 'toggle') {
-					if (classVal !== oldClass) {
-						el.className = oldClass;
-					}
-				}
-
+			if (action == 'add') {
+				el.classList.add(classname);
 			}else if (action == 'remove') {
 				el.classList.remove(classname);
+			}else if (action == 'toggle') {
+				el.classList.toggle(classname);
+			}else if (action == 'update') {
+				var bname = el.classList.item(bclass);
+				console.log(bname);
+				el.className = el.className.replace(bname, classname);
 			}else if(action == 'reset') {
 				el.classList.remove(classname);
 				el.offsetWidth = el.offsetWidth; // fix
 				el.classList.add(classname);
 			}
+
+		}catch(err){
+			return false;
 		}
 	}
 
