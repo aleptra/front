@@ -266,6 +266,10 @@ table.fr{float:right}
 .w33,.w33p{ width: 33% }
 .w25,.w25p{ width: 25% }
 
+.w1r, .w1r- * { width: 1rem }
+.w2r, .w2r- * { width: 2rem }
+.w3r, .w3r- * { width: 3rem }
+.w4r, .w4r- * { width: 4rem }
 .w5r, .w5r- * { width: 5rem }
 .w10, .w10- * { width: 10rem }
 .w11, .w11- * { width: 11rem }
