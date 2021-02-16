@@ -311,7 +311,7 @@ var core = function() {
 				code = ((code- 0xD800) * 0x400) + (low - 0xDC00) + 0x10000;
 			}
 
-			e.innerText = "&#"+ code;
+			e.innerText = "&#"+ code + ";";
 		}
 		if (e.hasAttribute("format")) {
 			var format = e.getAttribute("format");
