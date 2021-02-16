@@ -44,6 +44,7 @@
     -webkit-box-align: unset;
     -moz-box-align: unset;
     -ms-flex-align: unset;
+    justify-content: unset;
 }
 
 
@@ -69,6 +70,16 @@
 .bcfirebrick{background-color:#b22222}
 .bcred{background-color:#ff0000}
 .bcdarkred{background-color:#8b0000}
+
+.boclightsalmon{border-color:#ffa07a}
+.bocsalmon{border-color:#fa8072}
+.bocdarksalmon{border-color:#e9967A}
+.boclightcoral{border-color:#f08080}
+.bocindianred{border-color:#cd5c5c}
+.boccrimson{border-color:#dc143c}
+.bocfirebrick{border-color:#b22222}
+.bocred{border-color:#ff0000}
+.bocdarkred{border-color:#8b0000}
 
 /* Orange */
 .coral{color:#ff7f50}
@@ -470,6 +481,16 @@
 .m025, .m025-> *{margin: .25rem}
 .m05, .m05-> *{margin: .5rem}
 .m075, .m075-> *{margin: .75rem}
+
+.bos0{border-style: none}
+.bos1{border-style: outset}
+.bos2{border-style: inset}
+.bos3{border-style: dashed}
+.bos4{border-style: dot}
+.bos5{border-style: double}
+.bos6{border-style: groove}
+.bos7{border-style: ridge}
+.bos8{border-style: solid}
 
 body [class*='wc_'] {margin: 0 auto}
 body [class*='_dn'], body [class*='_du']{display: none}

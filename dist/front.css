@@ -1099,6 +1099,7 @@ nav.slider input[type="radio"]:checked + label + section {
     -webkit-box-align: unset;
     -moz-box-align: unset;
     -ms-flex-align: unset;
+    justify-content: unset;
 }
 
 
