@@ -136,6 +136,12 @@
             "html_entity_2": "&#x23F0;"
         },
         {
+            "title": "Timer Clock",
+            "name": "timer",
+            "html_entity": "&#9202;",
+            "html_entity_2": "&#x23F2;"
+        },
+        {
             "title": "Power Symbol",
             "name": "power_settings_new",
             "html_entity": "&#9211;",
@@ -489,6 +495,12 @@
             "name": "folder_open",
             "html_entity": "&#128449;",
             "html_entity_2": "&#x1F5C1;"
+        },
+        {
+            "title": "Wastebasket",
+            "name": "delete",
+            "html_entity": "&#128465;",
+            "html_entity_2": "&#x1F5D1;"
         },
         {
             "title": "Toilet",
