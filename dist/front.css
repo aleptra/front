@@ -135,8 +135,6 @@ body>header, .header {
     grid-area: head;
     -ms-grid-row: 1;
     -ms-grid-column: 1;
-    grid-row: 1;
-    grid-column: 1;
     -ms-grid-column-span: 3;
     z-index: 10;
 }
@@ -145,8 +143,6 @@ body>nav, .nav {
     grid-area: nav;
     -ms-grid-row: 2;
     -ms-grid-column: 1;
-    grid-row: 2;
-    grid-column: 1;
     -ms-grid-column-span: 3;
     z-index: 10;
 }
@@ -155,8 +151,6 @@ body>aside, .aside {
     grid-area: left;
     -ms-grid-row: 3;
     -ms-grid-column: 1;
-    grid-row: 3;
-    grid-column: 1;
     overflow: auto;
     padding: 0;
 }
@@ -165,8 +159,6 @@ body>main, .main {
     grid-area: middle;
     -ms-grid-row: 3;
     -ms-grid-column: 2;
-    grid-row: 3;
-    grid-column: 2;
     overflow: auto;
     flex-direction: column;
     -ms-flex-direction: column;
@@ -176,8 +168,6 @@ body>main+aside, .grid .aside+.aside {
     grid-area: right;
     -ms-grid-row: 3;
     -ms-grid-column: 3;
-    grid-row: 3;
-    grid-column: 3;
     overflow: auto;
 }
 
@@ -185,8 +175,6 @@ body>footer, .footer {
     grid-area: foot;
     -ms-grid-row: 4;
     -ms-grid-column: 1;
-    grid-row: 4;
-    grid-column: 1;
     -ms-grid-column-span: 3;
 }
 
@@ -1137,6 +1125,16 @@ nav.slider input[type="radio"]:checked + label + section {
 .bcred{background-color:#ff0000}
 .bcdarkred{background-color:#8b0000}
 
+.boclightsalmon{border-color:#ffa07a}
+.bocsalmon{border-color:#fa8072}
+.bocdarksalmon{border-color:#e9967A}
+.boclightcoral{border-color:#f08080}
+.bocindianred{border-color:#cd5c5c}
+.boccrimson{border-color:#dc143c}
+.bocfirebrick{border-color:#b22222}
+.bocred{border-color:#ff0000}
+.bocdarkred{border-color:#8b0000}
+
 /* Orange */
 .coral{color:#ff7f50}
 .tomato{color:#ff6347}
@@ -1537,6 +1535,16 @@ nav.slider input[type="radio"]:checked + label + section {
 .m025, .m025-> *{margin: .25rem}
 .m05, .m05-> *{margin: .5rem}
 .m075, .m075-> *{margin: .75rem}
+
+.bos0{border-style: none}
+.bos1{border-style: outset}
+.bos2{border-style: inset}
+.bos3{border-style: dashed}
+.bos4{border-style: dot}
+.bos5{border-style: double}
+.bos6{border-style: groove}
+.bos7{border-style: ridge}
+.bos8{border-style: solid}
 
 body [class*='wc_'] {margin: 0 auto}
 body [class*='_dn'], body [class*='_du']{display: none}
