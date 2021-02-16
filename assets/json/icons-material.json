@@ -93,6 +93,12 @@
             "html_entity_2": ""
         },
         {
+            "title": "Watch",
+            "name": "watch",
+            "html_entity": "&#8986;",
+            "html_entity_2": "&#x231A;"
+        },
+        {
             "title": "Erase to the Left",
             "name": "backspace",
             "html_entity": "&#9003;",
@@ -122,6 +128,12 @@
             "name": "-",
             "html_entity": "&#9632;",
             "html_entity_2": ""
+        },
+        {
+            "title": "Alarm Clock",
+            "name": "alarm",
+            "html_entity": "&#9200;",
+            "html_entity_2": "&#x23F0;"
         },
         {
             "title": "Power Symbol",
