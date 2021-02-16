@@ -220,6 +220,20 @@
             "html_entity_2": "&#x263E;"
         },
         {
+            "title": "Female Sign",
+            "name": "female",
+            "html_entity": "&#9792;",
+            "html_entity_2": "&#x2640;",
+            "keywords": "sex, girl, woman"
+        },
+        {
+            "title": "Male Sign",
+            "name": "male",
+            "html_entity": "&#9794;",
+            "html_entity_2": "&#x2642;",
+            "keywords": "sex, boy, man"
+        },
+        {
             "title": "White Heart Suit",
             "name": "favorite_border",
             "html_entity": "&#9825;",
@@ -339,6 +353,12 @@
             "name": "lunch_dining",
             "html_entity": "&#127828;",
             "html_entity_2": "&#x1F354;"
+        },
+        {
+            "title": "Slice of Pizza",
+            "name": "local_pizza",
+            "html_entity": "&#127829;",
+            "html_entity_2": "&#x1F355;"
         },
         {
             "title": "Soft Ice Cream",
@@ -591,6 +611,12 @@
             "name": "room_service",
             "html_entity": "&#128718;",
             "html_entity_2": "&#x1F6CE;"
+        },
+        {
+            "title": "Bed",
+            "name": "bed",
+            "html_entity": "&#128719;",
+            "html_entity_2": "&#x1F6CF;"
         },
         {
             "title": "Shopping Trolley",
