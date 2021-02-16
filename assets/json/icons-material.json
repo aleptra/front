@@ -131,7 +131,7 @@
         },
         {
             "title": "Alarm Clock",
-            "name": "alarm",
+            "name": "alarm, access_alarms",
             "html_entity": "&#9200;",
             "html_entity_2": "&#x23F0;"
         },
