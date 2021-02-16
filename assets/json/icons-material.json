@@ -367,6 +367,12 @@
             "html_entity_2": "&#x2708;"
         },
         {
+            "title": "Check",
+            "name": "check, done",
+            "html_entity": "&#10003;",
+            "html_entity_2": "&#x2713;"
+        },        
+        {
             "title": "Cross Mark",
             "name": "close",
             "html_entity": "&#10060",
@@ -401,6 +407,12 @@
             "name": "more_vert",
             "html_entity": "&#65049;",
             "html_entity_2": "&#xFE19;"
+        },
+        {
+            "title": "Water Wave",
+            "name": "waves",
+            "html_entity": "&#127754;",
+            "html_entity_2": "&#x1F30A;"
         },
         {
             "title": "Globe with Meridians",
@@ -674,6 +686,12 @@
             "html_entity_2": "&#x1F686;"
         },
         {
+            "title": "Oncoming Taxi",
+            "name": "local_taxi",
+            "html_entity": "&#128662;",
+            "html_entity_2": "&#x1F696;"
+        },
+        {
             "title": "Vertical Traffic Light",
             "name": "traffic",
             "html_entity": "&#128678;",
@@ -728,6 +746,12 @@
             "html_entity": "&#128748;",
             "html_entity_2": "&#x1F6EC;",
             "keywords": "airplane"
+        },
+        {
+            "title": "Compass",
+            "name": "explore",
+            "html_entity": "&#129517;",
+            "html_entity_2": "&#x1F9ED;"
         }
 
     ]
