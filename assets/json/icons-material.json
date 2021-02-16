@@ -69,6 +69,12 @@
             "html_entity_2": "&#x20e0;"
         },
         {
+            "title": "Rightwards Arrow Over Leftwards Arrow",
+            "name": "sync_alt",
+            "html_entity": "&#8644;",
+            "html_entity_2": "&#x21C4;"
+        },
+        {
             "title": "Infinity",
             "name": "all_inclusive",
             "html_entity": "&#8734;",
@@ -142,6 +148,12 @@
             "html_entity_2": "&#x23F2;"
         },
         {
+            "title": "Hourglass with Flowing Sand",
+            "name": "hourglass_top",
+            "html_entity": "&#9203;",
+            "html_entity_2": ""
+        },
+        {
             "title": "Power Symbol",
             "name": "power_settings_new",
             "html_entity": "&#9211;",
@@ -197,7 +209,7 @@
         },
         {
             "title": "Cloud",
-            "name": "cloud",
+            "name": "cloud, wb_cloudy",
             "html_entity": "&#9729;",
             "html_entity_2": "&#x2601;"
         },
@@ -238,6 +250,12 @@
             "html_entity_2": "&#x2699;"
         },
         {
+            "title": "Warning Sign",
+            "name": "report_problem, warning",
+            "html_entity": "&#9888;",
+            "html_entity_2": ""
+        },
+        {
             "title": "Soccer Ball",
             "name": "sports_soccer",
             "html_entity": "&#9917;",
@@ -256,22 +274,16 @@
             "html_entity_2": "&#x2702;"
         },
         {
-            "title": "Warning Sign",
-            "name": "report_problem, warning",
-            "html_entity": "&#9888;",
-            "html_entity_2": ""
-        },
-        {
-            "title": "Hourglass with Flowing Sand",
-            "name": "hourglass_top",
-            "html_entity": "&#9203;",
-            "html_entity_2": ""
-        },
-        {
             "title": "Flag In Hole",
             "name": "golf_course",
             "html_entity": "&#9971;",
             "html_entity_2": "&#x26F3;"
+        },
+        {
+            "title": "Airplane",
+            "name": "flight, local_airport, airplanemode_active",
+            "html_entity": "&#9992;",
+            "html_entity_2": "&#x2708;"
         },
         {
             "title": "Cross Mark",
@@ -405,7 +417,7 @@
         },
         {
             "title": "Book",
-            "name": "book",
+            "name": "book, class",
             "html_entity": "&#128366;",
             "html_entity_2": "&#x1F516;"
         },
@@ -414,6 +426,12 @@
             "name": "content_paste",
             "html_entity": "&#128203;",
             "html_entity_2": "&#x1F4CB;"
+        },
+        {
+            "title": "Paperclip",
+            "name": "attach_file",
+            "html_entity": "&#128206;",
+            "html_entity_2": "&#x1F4CE;"
         },
         {
             "title": "Bookmark Tabs",
@@ -513,6 +531,12 @@
             "name": "info",
             "html_entity": "&#128712;",
             "html_entity_2": "&#x1f6c8;"
+        },
+        {
+            "title": "Bellhop Bell",
+            "name": "room_service",
+            "html_entity": "&#128718;",
+            "html_entity_2": "&#x1F6CE;"
         },
         {
             "title": "Shopping Trolley",
