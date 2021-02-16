@@ -335,6 +335,18 @@
             "keywords": "world"
         },
         {
+            "title": "Hamburger",
+            "name": "lunch_dining",
+            "html_entity": "&#127828;",
+            "html_entity_2": "&#x1F354;"
+        },
+        {
+            "title": "Soft Ice Cream",
+            "name": "icecream",
+            "html_entity": "&#127846;",
+            "html_entity_2": "&#x1F366;"
+        },
+        {
             "title": "Microphone",
             "name": "mic",
             "html_entity": "&#127908;",
@@ -422,6 +434,18 @@
             "html_entity_2": "&#x1F513;"
         },
         {
+            "title": "Bell",
+            "name": "notifications",
+            "html_entity": "&#128276;",
+            "html_entity_2": "&#x1F514;"
+        },
+        {
+            "title": "Bell with Cancellation Stroke",
+            "name": "notifications_off",
+            "html_entity": "&#128277;",
+            "html_entity_2": "&#x1F515;"
+        },
+        {
             "title": "Bookmark",
             "name": "bookmark, turned_in",
             "html_entity": "&#128278;",
@@ -501,6 +525,12 @@
             "name": "build",
             "html_entity": "&#128295;",
             "html_entity_2": "&#x1F527;"
+        },
+        {
+            "title": "Ringing Bell",
+            "name": "notifications_active",
+            "html_entity": "&#128365;",
+            "html_entity_2": "&#x1F56D;"
         },
         {
             "title": "Book",
