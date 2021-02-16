@@ -69,6 +69,54 @@
             "html_entity_2": "&#x20e0;"
         },
         {
+            "title": "Leftwards Arrow",
+            "name": "west",
+            "html_entity": "&#8592;",
+            "html_entity_2": "&#x2190;"
+        },
+        {
+            "title": "Upwards Arrow",
+            "name": "north",
+            "html_entity": "&#8593;",
+            "html_entity_2": "&#x2191;"
+        },
+        {
+            "title": "Rightwards Arrow",
+            "name": "east",
+            "html_entity": "&#8594;",
+            "html_entity_2": "&#x2192;"
+        },
+        {
+            "title": "Downwards Arrow",
+            "name": "south",
+            "html_entity": "&#8595;",
+            "html_entity_2": "&#x2193;"
+        },
+        {
+            "title": "North West Arrow",
+            "name": "north_west",
+            "html_entity": "&#8598;",
+            "html_entity_2": "&#x2196;"
+        },
+        {
+            "title": "North East Arrow",
+            "name": "north_east",
+            "html_entity": "&#8599;",
+            "html_entity_2": "&#x2197;"
+        },
+        {
+            "title": "South East Arrow",
+            "name": "south_east",
+            "html_entity": "&#8600;",
+            "html_entity_2": "&#x2198;"
+        },
+        {
+            "title": "South West Arrow",
+            "name": "south_west",
+            "html_entity": "&#8601;",
+            "html_entity_2": "&#x2199;"
+        },
+        {
             "title": "Rightwards Arrow Over Leftwards Arrow",
             "name": "sync_alt",
             "html_entity": "&#8644;",
@@ -85,6 +133,12 @@
             "name": "menu",
             "html_entity": "&#8801;",
             "html_entity_2": "&#x2261;"
+        },
+        {
+            "title": "Strictly Equivalent To",
+            "name": "reorder",
+            "html_entity": "&#8803;",
+            "html_entity_2": "&#x2263;"
         },
         {
             "title": "House",
@@ -276,6 +330,13 @@
             "html_entity_2": ""
         },
         {
+            "title": "Male with Stroke and Male and Female Sign",
+            "name": "transgender",
+            "html_entity": "&#9895;",
+            "html_entity_2": "&#x26A7;",
+            "keywords": "sex"
+        },
+        {
             "title": "Soccer Ball",
             "name": "sports_soccer",
             "html_entity": "&#9917;",
@@ -377,6 +438,30 @@
             "name": "sports_basketball",
             "html_entity": "&#127936;",
             "html_entity_2": "&#x1F3C0;"
+        },
+        {
+            "title": "American Football",
+            "name": "sports_football",
+            "html_entity": "&#127944;",
+            "html_entity_2": "&#x1F3C8;"
+        },
+        {
+            "title": "Rugby Football",
+            "name": "sports_rugby",
+            "html_entity": "&#127945;",
+            "html_entity_2": "&#x1F3C9;"
+        },
+        {
+            "title": "Cricket Bat and Ball",
+            "name": "sports_cricket",
+            "html_entity": "&#127951;",
+            "html_entity_2": "&#x1F3CF;"
+        },
+        {
+            "title": "Volleyball",
+            "name": "sports_volleyball",
+            "html_entity": "&#127952;",
+            "html_entity_2": "&#x1F3D0;"
         },
         {
             "title": "Label",
