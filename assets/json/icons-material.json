@@ -196,6 +196,12 @@
             "html_entity_2": ""
         },
         {
+            "title": "Cloud",
+            "name": "cloud, wb_cloudy",
+            "html_entity": "&#9729;",
+            "html_entity_2": "&#x2601;"
+        },
+        {
             "title": "Umbrella",
             "name": "umbrella",
             "html_entity": "&#9730;",
@@ -208,10 +214,10 @@
             "html_entity_2": "&#x2605;"
         },
         {
-            "title": "Cloud",
-            "name": "cloud, wb_cloudy",
-            "html_entity": "&#9729;",
-            "html_entity_2": "&#x2601;"
+            "title": "Last Quarter Moon",
+            "name": "nightlight",
+            "html_entity": "&#9790;",
+            "html_entity_2": "&#x263E;"
         },
         {
             "title": "White Heart Suit",
@@ -355,7 +361,7 @@
         },
         {
             "title": "Eye",
-            "name": "remove_red_eye",
+            "name": "visibility, remove_red_eye",
             "html_entity": "&#128065;",
             "html_entity_2": "&#x1F441;"
         },
@@ -377,6 +383,12 @@
             "html_entity": "&#128161;",
             "html_entity_2": "&#x1F4A1;",
             "keywords": "bulb, lamp, example"
+        },
+        {
+            "title": "Personal Computer",
+            "name": "computer, laptop",
+            "html_entity": "&#128187;",
+            "html_entity_2": "&#x1F4BB;"
         },
         {
             "title": "E-Mail Symbol",
@@ -413,12 +425,6 @@
             "title": "Bookmark",
             "name": "bookmark, turned_in",
             "html_entity": "&#128278;",
-            "html_entity_2": "&#x1F516;"
-        },
-        {
-            "title": "Book",
-            "name": "book, class",
-            "html_entity": "&#128366;",
             "html_entity_2": "&#x1F516;"
         },
         {
@@ -497,6 +503,12 @@
             "html_entity_2": "&#x1F527;"
         },
         {
+            "title": "Book",
+            "name": "book, class",
+            "html_entity": "&#128366;",
+            "html_entity_2": "&#x1F516;"
+        },
+        {
             "title": "Printer",
             "name": "printer,local_printshop",
             "html_entity": "&#128424;",
@@ -519,6 +531,18 @@
             "name": "delete",
             "html_entity": "&#128465;",
             "html_entity_2": "&#x1F5D1;"
+        },
+        {
+            "title": "Train",
+            "name": "delete",
+            "html_entity": "&#128646;",
+            "html_entity_2": "&#x1F686;"
+        },
+        {
+            "title": "Vertical Traffic Light",
+            "name": "traffic",
+            "html_entity": "&#128678;",
+            "html_entity_2": "&#x1F6A6;"
         },
         {
             "title": "Toilet",
