@@ -183,6 +183,12 @@
             "html_entity_2": "&#x231A;"
         },
         {
+            "title": "Keyboard",
+            "name": "keyboard",
+            "html_entity": "&#9000;",
+            "html_entity_2": "&#x2328;"
+        },
+        {
             "title": "Erase to the Left",
             "name": "backspace",
             "html_entity": "&#9003;",
