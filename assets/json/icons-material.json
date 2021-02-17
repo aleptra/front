@@ -123,6 +123,18 @@
             "html_entity_2": "&#x2199;"
         },
         {
+            "title": "Upwards Arrow from Bar",
+            "name": "upload, file_upload",
+            "html_entity": "&#8613;",
+            "html_entity_2": "&#x21A5;"
+        },
+        {
+            "title": "Downwards Arrow from Bar",
+            "name": "download, file_download, get_app",
+            "html_entity": "&#8615;",
+            "html_entity_2": "&#x21A7;"
+        },
+        {
             "title": "Rightwards Arrow Over Leftwards Arrow",
             "name": "sync_alt",
             "html_entity": "&#8644;",
