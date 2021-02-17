@@ -15,6 +15,12 @@
             "keywords": "question"
         },
         {
+            "title": "Commercial At",
+            "name": "alternate_email",
+            "html_entity": "&#64;",
+            "html_entity_2": "&#x40;"
+        },
+        {
             "title": "Copyright Sign",
             "name": "copyright",
             "html_entity": "&#169;",
@@ -678,7 +684,7 @@
         },
         {
             "title": "Link Symbol",
-            "name": "link",
+            "name": "link, insert_link",
             "html_entity": "&#128279;",
             "html_entity_2": "&#x1F517;"
         },
@@ -833,6 +839,12 @@
             "name": "arrow_drop_down",
             "html_entity": "&#129171;",
             "html_entity_2": "&#x1F893;"
+        },
+        {
+            "title": "Microbe",
+            "name": "coronavirus",
+            "html_entity": "&#129440;",
+            "html_entity_2": "&#x1F9A0;"
         },
         {
             "title": "Jigsaw Puzzle Piece",
