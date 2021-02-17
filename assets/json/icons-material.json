@@ -428,6 +428,13 @@
             "keywords": "world"
         },
         {
+            "title": "Thermometer",
+            "name": "thermostat",
+            "html_entity": "&#127777;",
+            "html_entity_2": "&#x1F321;",
+            "keywords": "celcius, fahrenheit"
+        },
+        {
             "title": "Hamburger",
             "name": "lunch_dining",
             "html_entity": "&#127828;",
@@ -525,6 +532,13 @@
             "html_entity": "&#128161;",
             "html_entity_2": "&#x1F4A1;",
             "keywords": "bulb, lamp, example"
+        },
+        {
+            "title": "Credit Card",
+            "name": "credit_card",
+            "html_entity": "&#128179;",
+            "html_entity_2": "&#x1F4B3;",
+            "keywords": "visa, mastercard, maestro, amex"
         },
         {
             "title": "Personal Computer",
@@ -753,6 +767,12 @@
             "html_entity_2": "&#x1F6E0;"
         },
         {
+            "title": "Shield",
+            "name": "construction",
+            "html_entity": "&#128737;",
+            "html_entity_2": "&#x1F6E1;"
+        },
+        {
             "title": "Airplane Departure",
             "name": "flight_takeoff",
             "html_entity": "&#128747;",
@@ -789,6 +809,12 @@
             "name": "arrow_drop_down",
             "html_entity": "&#129171;",
             "html_entity_2": "&#x1F893;"
+        },
+        {
+            "title": "Jigsaw Puzzle Piece",
+            "name": "extension",
+            "html_entity": "&#129513;",
+            "html_entity_2": "&#x1F9E9;"
         },
         {
             "title": "Compass",
