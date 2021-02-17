@@ -300,6 +300,12 @@
             "html_entity_2": "&#x2665;"
         },
         {
+            "title": "Eighth Note",
+            "name": "audiotrack, music_note",
+            "html_entity": "&#9834;",
+            "html_entity_2": "&#x266A;"
+        },
+        {
             "title": "White Flag",
             "name": "outlined_flag, emoji_flags",
             "html_entity": "&#9872;",
@@ -544,6 +550,12 @@
             "name": "search",
             "html_entity": "&#128269;",
             "html_entity_2": "&#x1F50D;"
+        },
+        {
+            "title": "Key",
+            "name": "vpn_key",
+            "html_entity": "&#128273;",
+            "html_entity_2": "&#x1F511;"
         },
         {
             "title": "Look",
