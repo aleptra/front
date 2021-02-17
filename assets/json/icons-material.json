@@ -748,6 +748,30 @@
             "keywords": "airplane"
         },
         {
+            "title": "Leftwards Triangle Arrowhead",
+            "name": "arrow_left",
+            "html_entity": "&#129168;",
+            "html_entity_2": "&#x1F890;"
+        },
+        {
+            "title": "Upwards Triangle Arrowhead",
+            "name": "arrow_drop_up",
+            "html_entity": "&#129169;",
+            "html_entity_2": "&#x1F891;"
+        },
+        {
+            "title": "Rightwards Triangle Arrowhead",
+            "name": "arrow_right",
+            "html_entity": "&#129170;",
+            "html_entity_2": "&#x1F892;"
+        },
+        {
+            "title": "Downwards Triangle Arrowhead",
+            "name": "arrow_drop_down",
+            "html_entity": "&#129171;",
+            "html_entity_2": "&#x1F893;"
+        },
+        {
             "title": "Compass",
             "name": "explore",
             "html_entity": "&#129517;",
