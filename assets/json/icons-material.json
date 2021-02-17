@@ -19,7 +19,13 @@
             "name": "copyright",
             "html_entity": "&#169;",
             "html_entity_2": "&#xA9;"
-        },     
+        },
+        {
+            "title": "Right-Pointing Double Angle Quotation Mark",
+            "name": "double_arrow",
+            "html_entity": "&#187;",
+            "html_entity_2": "&#xBB;"
+        }, 
         {
             "title": "Modifier Letter Left Arrowhead",
             "name": "keyboard_arrow_left, navigate_before, chevron_left",
@@ -535,7 +541,7 @@
         },
         {
             "title": "Credit Card",
-            "name": "credit_card",
+            "name": "credit_card, payment",
             "html_entity": "&#128179;",
             "html_entity_2": "&#x1F4B3;",
             "keywords": "visa, mastercard, maestro, amex"
@@ -717,6 +723,12 @@
             "name": "delete",
             "html_entity": "&#128646;",
             "html_entity_2": "&#x1F686;"
+        },
+        {
+            "title": "Tram",
+            "name": "tram",
+            "html_entity": "&#128650;",
+            "html_entity_2": "&#x1F68A;"
         },
         {
             "title": "Oncoming Taxi",
