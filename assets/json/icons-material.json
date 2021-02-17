@@ -446,6 +446,13 @@
             "html_entity_2": "&#x1F4A1;"
         },
         {
+            "title": "Game Die",
+            "name": "casino",
+            "html_entity": "&#127922;",
+            "html_entity_2": "&#x1F3B2;",
+            "keywords": "dice"
+        },
+        {
             "title": "Basketball and Hoop",
             "name": "sports_basketball",
             "html_entity": "&#127936;",
@@ -776,6 +783,12 @@
             "name": "explore",
             "html_entity": "&#129517;",
             "html_entity_2": "&#x1F9ED;"
+        },
+        {
+            "title": "Fire Extinguisher",
+            "name": "fire_extinguisher",
+            "html_entity": "&#129519;",
+            "html_entity_2": "&#x1F9EF;"
         }
 
     ]
