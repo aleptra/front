@@ -465,6 +465,12 @@
             "keywords": "celcius, fahrenheit"
         },
         {
+            "title": "Evergreen Tree",
+            "name": "park",
+            "html_entity": "&#127794;",
+            "html_entity_2": "&#x1F332;"
+        },
+        {
             "title": "Hamburger",
             "name": "lunch_dining",
             "html_entity": "&#127828;",
@@ -575,6 +581,12 @@
             "name": "computer, laptop",
             "html_entity": "&#128187;",
             "html_entity_2": "&#x1F4BB;"
+        },
+        {
+            "title": "Briefcase",
+            "name": "work",
+            "html_entity": "&#128188;",
+            "html_entity_2": "&#x1F4BC;"
         },
         {
             "title": "E-Mail Symbol",
@@ -705,6 +717,12 @@
             "name": "build",
             "html_entity": "&#128295;",
             "html_entity_2": "&#x1F527;"
+        },
+        {
+            "title": "Clock Face Four Oclock",
+            "name": "query_builder, schedule, access_time",
+            "html_entity": "&#128339;",
+            "html_entity_2": "&#x1F553;"
         },
         {
             "title": "Ringing Bell",
