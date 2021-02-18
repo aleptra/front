@@ -166,7 +166,7 @@
         },
         {
             "title": "Circled Plus",
-            "name": "add_circle_outline",
+            "name": "add_circle_outline, control_point",
             "html_entity": "&#8853;",
             "html_entity_2": "&#x2295;"
         },
@@ -390,6 +390,12 @@
             "html_entity_2": ""
         },
         {
+            "title": "High Voltage Sign",
+            "name": "bolt",
+            "html_entity": "&#9889;",
+            "html_entity_2": "&#x26A1;"
+        },
+        {
             "title": "Male with Stroke and Male and Female Sign",
             "name": "transgender",
             "html_entity": "&#9895;",
@@ -541,6 +547,12 @@
             "name": "mic",
             "html_entity": "&#127908;",
             "html_entity_2": "&#x1F4A1;"
+        },
+        {
+            "title": "Convenience Store",
+            "name": "store",
+            "html_entity": "&#127978;",
+            "html_entity_2": "&#x1F3EA;"
         },
         {
             "title": "Artist Palette",
