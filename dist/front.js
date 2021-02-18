@@ -58,7 +58,16 @@ document.onclick=function(e) {
 	}
 };
 
-document.addEventListener('DOMContentLoaded', function()  {
+document.addEventListener('click', function(e) {
+	var clicked = (e.target) ? e.target : e.srcElement;
+	var val = clicked.parentNode.getAttribute("onclick");
+	if (val) {
+		core.runFunction("dom."+val, clicked.parentNode);
+	}
+	e.stopPropagation();
+},false);
+
+document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
@@ -222,6 +231,10 @@ var core = function() {
 
 				return true;
 			}
+		}
+
+		this.runFunction = function(fnc, arg){
+			eval(fnc)(arg);
 		}
 	};
 
@@ -806,17 +819,29 @@ var dom = function() {
 	}*/
 	
 	this.copyText = function(el) {
-		var el = this.get(el);
-		if(document.selection) {
-			var range = document.body.createTextRange();
-			range.moveToElementText(el);
-			range.select().createTextRange();
-		}else if(window.getSelection) {
-			var range = document.createRange();
-			range.selectNode(el);
-			window.getSelection().addRange(range);
-		}
-		document.execCommand("copy");
+		
+		var el = (core.isString(el)) ? this.get(el) : el;
+		el = dom.getElementsByAttribute("bindcopy", el.children);
+		var text = el[0].innerText;
+		
+    	if (window.clipboardData && window.clipboardData.setData) {
+        	return clipboardData.setData("Text", text); 
+    	}else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        	var textarea = document.createElement("textarea");
+        	textarea.textContent = text;
+        	textarea.style.position = "fixed";
+        	document.body.appendChild(textarea);
+        	textarea.select();
+        	try {
+            	return document.execCommand("copy");
+        	}catch(ex) {
+            	console.warn("Copy to clipboard failed.", ex);
+            	return false;
+        	}finally {
+            	document.body.removeChild(textarea);
+				alert(text+" copied!");
+        	}
+    	}
 	}
 	
 	this.resize = function(el, value) {
@@ -853,14 +878,13 @@ var dom = function() {
 	}
 
 	this.getElementsByAttribute = function(attribute, context) {
-		var i = 0, node = null, nodeArray = [];
-		var select = (context) ? context : front;
+		var i = 0, node = null, nodes = [], select = (context) ? context : front;
 
 		while (node = select[i++]) {
-		  if (node.hasAttribute(attribute)) nodeArray.push(node);
+		  if (node.hasAttribute(attribute)) nodes.push(node);
 		}
-	  
-		return nodeArray;
+
+		return nodes;
 	}
 
 	this.getChildren = function(el) {
