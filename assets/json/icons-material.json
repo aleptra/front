@@ -165,6 +165,18 @@
             "html_entity_2": "&#x2263;"
         },
         {
+            "title": "Circled Plus",
+            "name": "add_circle_outline",
+            "html_entity": "&#8853;",
+            "html_entity_2": "&#x2295;"
+        },
+        {
+            "title": "Circled Minus",
+            "name": "remove_circle_outline",
+            "html_entity": "&#8854;",
+            "html_entity_2": "&#x2296;"
+        },
+        {
             "title": "House",
             "name": "house",
             "html_entity": "&#8962;",
@@ -202,6 +214,12 @@
             "html_entity_2": "&#x2347;"
         },
         {
+            "title": "APL Functional Symbol Circle Backslash",
+            "name": "hide_source",
+            "html_entity": "&#9033;",
+            "html_entity_2": "&#x2349;"
+        },
+        {
             "title": "APL Functional Symbol Quad Rightwards Arrow",
             "name": "logout",
             "html_entity": "&#9032;",
@@ -218,6 +236,12 @@
             "name": "-",
             "html_entity": "&#9632;",
             "html_entity_2": ""
+        },
+        {
+            "title": "Black Small Square",
+            "name": "stop",
+            "html_entity": "&#9642;",
+            "html_entity_2": "&#x25AA;"
         },
         {
             "title": "Alarm Clock",
@@ -275,7 +299,7 @@
         },
         {
             "title": "Black Circle",
-            "name": "lens",
+            "name": "fiber_manual_record",
             "html_entity": "&#9679;",
             "html_entity_2": ""
         },
@@ -373,6 +397,12 @@
             "keywords": "sex"
         },
         {
+            "title": "Medium Black Circle",
+            "name": "lens, stop_circle",
+            "html_entity": "&#9899;",
+            "html_entity_2": "&#x26AB;"
+        },
+        {
             "title": "Soccer Ball",
             "name": "sports_soccer",
             "html_entity": "&#9917;",
@@ -413,7 +443,13 @@
             "name": "check, done",
             "html_entity": "&#10003;",
             "html_entity_2": "&#x2713;"
-        },        
+        },
+        {
+            "title": "Circled White Star",
+            "name": "stars",
+            "html_entity": "&#10026;",
+            "html_entity_2": "&#x272A;"
+        },     
         {
             "title": "Cross Mark",
             "name": "close",
@@ -449,6 +485,12 @@
             "name": "more_vert",
             "html_entity": "&#65049;",
             "html_entity_2": "&#xFE19;"
+        },
+        {
+            "title": "Siddham Section Mark with Circles and Rays",
+            "name": "stream",
+            "html_entity": "&#71125;",
+            "html_entity_2": "&#x115D5;"
         },
         {
             "title": "Water Wave",
@@ -501,6 +543,12 @@
             "html_entity_2": "&#x1F4A1;"
         },
         {
+            "title": "Artist Palette",
+            "name": "palette",
+            "html_entity": "&#127912;",
+            "html_entity_2": "&#x1F3A8;"
+        },
+        {
             "title": "Game Die",
             "name": "casino",
             "html_entity": "&#127922;",
@@ -549,6 +597,12 @@
             "html_entity": "&#127958;",
             "html_entity_2": "&#x1F3D6;",
             "keywords": "umbrella"
+        },
+        {
+            "title": "Pig",
+            "name": "savings",
+            "html_entity": "&#128022;",
+            "html_entity_2": "&#x1F416;"
         },
         {
             "title": "Eye",
