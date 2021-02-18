@@ -490,6 +490,10 @@ var core = function() {
 			return false;
 		}
 	}
+
+	this.isString = function(obj){
+		return Object.prototype.toString.call(obj) === "[object String]"
+	}
 }
 
 var app = function() {
@@ -849,11 +853,10 @@ var dom = function() {
 	}
 
 	this.getElementsByAttribute = function(attribute, context) {
-		var nodeArray = [];
-		var iterator = 0;
-		var node = null;
-	  
-		while (node = front[iterator++]) {
+		var i = 0, node = null, nodeArray = [];
+		var select = (context) ? context : front;
+
+		while (node = select[i++]) {
 		  if (node.hasAttribute(attribute)) nodeArray.push(node);
 		}
 	  
