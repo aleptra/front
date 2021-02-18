@@ -403,6 +403,12 @@
             "html_entity_2": "&#x2708;"
         },
         {
+            "title": "Raised Hand",
+            "name": "pan_tool",
+            "html_entity": "&#9995;",
+            "html_entity_2": "&#x270B;"
+        },
+        {
             "title": "Check",
             "name": "check, done",
             "html_entity": "&#10003;",
