@@ -65,6 +65,7 @@ document.addEventListener('click', function(e) {
 		core.runFunction("dom."+val, clicked.parentNode);
 	}
 	e.stopPropagation();
+	return false;
 },false);
 
 document.addEventListener('DOMContentLoaded', function() {

@@ -10,10 +10,10 @@
 <p globalize="languages_text">The documentation is available in the following languages:</p>
 <section class="mt2">
     <div class="box cards gut5- br05- bcwhite- zoom- tac" json="true" iterate="languages" datasource="assets/json/languages.json">
-        <a href="?lang={{ jsonget:code }}" target="_top">
+        <a onclick="globalizeChangeLanguage('{{ jsonget:code }}')">
             <figure jsonset="id" class="pb1">
                 <figcaption jsonget="name"></figcaption>
-                <small jsonget="type" hide></small>
+                <small class="di">Translated: <span class="green">{{ jsonget:translated }}%</span></small>
             </figure>
         </a>
     </div>
