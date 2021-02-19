@@ -80,12 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	if(!core.hasTemplateLayout()){
 
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
-		console.log("wee "+currentScriptUrl);
 		if (currentScript.hasAttribute("lib")) {
 			var libs = currentScript.getAttribute("lib").split(";");
-			for(lib in libs){
+			for(lib in libs)
 				require(libs[lib]);
-			}
 		}
 
 		load = true;
@@ -121,17 +119,14 @@ function require(src) {
 	}
 
 	var head = dom.get("head?tag"),
-		asset = document.createElement(el);
-		asset.src = src;
-		asset.href = src;
-		asset.rel = "stylesheet";
-
+	asset = document.createElement(el);
+	asset.src = src;
+	asset.href = src;
+	asset.rel = "stylesheet";
+	asset.async = false;
   	asset.onload = function () {
 		console.log("Loaded: "+ src);
 	};
-	
-	console.log(src);
-	
 
 	head.appendChild(asset);
   	//firstScript.parentNode.insertBefore(js, firstScript);
