@@ -63,10 +63,10 @@ document.addEventListener('click', function(e) {
 	var val = clicked.parentNode.getAttribute("onclick");
 	if (val) {
 		core.runFunction("dom."+val, clicked.parentNode);
+		e.stopPropagation();
 	}
-	e.stopPropagation();
 	return false;
-},false);
+},true);
 
 document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
