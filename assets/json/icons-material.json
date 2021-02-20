@@ -68,6 +68,7 @@
             "html_entity": "&#8230;",
             "html_entity_2": "&#x2026;"
         },
+        
         {
             "title": "Euro Sign",
             "name": "euro_symbol",
@@ -178,7 +179,7 @@
         },
         {
             "title": "House",
-            "name": "house",
+            "name": "home",
             "html_entity": "&#8962;",
             "html_entity_2": "&#x2302;"
         },
