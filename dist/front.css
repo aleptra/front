@@ -1628,6 +1628,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 740px) {
     body .lg_du{display: inherit}
+    .cards.lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 739px) and (min-width: 600px) {
@@ -1653,6 +1654,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_du{display: inherit}
     body .pauto{padding: 2rem}
     nav.topbar > a{ font-size: 0}
+    .cards.xm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 360px) {
@@ -1660,11 +1662,13 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .pauto{padding: 1.5rem}
     body .crumbs{display:none}
     .cards.sm_gtc2 { grid-template-columns: 1fr 1fr}
+    .cards.sm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 300px) {
     body .xs_du{display: inherit}
     .cards.xs_gtc2 { grid-template-columns: 1fr 1fr}
+    .cards.xs_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 220px) {
