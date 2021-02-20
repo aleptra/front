@@ -482,6 +482,18 @@
             "html_entity_2": "&#x274E;"
         },
         {
+            "title": "South East Arrow Crossing North East Arrow",
+            "name": "shuffle",
+            "html_entity": "&#10541;",
+            "html_entity_2": "&#x292D;"
+        },
+        {
+            "title": "North East Arrow Crossing South East Arrow",
+            "name": "shuffle_on",
+            "html_entity": "&#10542;",
+            "html_entity_2": "&#x292E;"
+        },
+        {
             "title": "White Hourglass",
             "name": "hourglass_empty",
             "html_entity": "&#10710;",
@@ -628,6 +640,12 @@
             "name": "savings",
             "html_entity": "&#128022;",
             "html_entity_2": "&#x1F416;"
+        },
+        {
+            "title": "Lady Beetle",
+            "name": "pest_control",
+            "html_entity": "&#128030;",
+            "html_entity_2": "&#x1F41E;"
         },
         {
             "title": "Eye",
