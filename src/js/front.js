@@ -860,7 +860,7 @@ var dom = function() {
             	return false;
         	}finally {
             	document.body.removeChild(textarea);
-				alert("Copy!");
+				alert(text+" copied!");
         	}
     	}
 	}
