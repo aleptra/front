@@ -62,12 +62,11 @@
 
 	<table class="mt1">
 		<caption class="tal">
-			<img src="./assets/img/icon_black.svg" class="di" height="24" globalize="front_class_attributes">Front class attributes
+			<img src="./assets/img/icon_black.svg" class="di" height="24" globalize="front_class_attributes">Class Attributes
 		</caption>
 		<thead>
 			<tr>
-				<th globalize="class">Class</th>
-				<th class="tac" globalize="character">Character</th>
+				<th globalize="class">CSS</th>
 				<th globalize="description">Description</th>
 				<th></th>
 			</tr>
@@ -75,21 +74,45 @@
 		<tbody class="z09">
 			<tr>
 				<td>pointer</td>
-				<td class="tac">&#10095;</td>
-				<td>Use pointers as delimiter.</td>
+				<td>Use &#10095; as delimiter.</td>
 				<td class="tar"><button class="z07" onclick="_.click('tab2');_.class('run2','update','pointer')"><i class="icon">&#9658</i>Run</button</td>
 			</tr>
 			<tr>
 				<td>guillemet</td>
-				<td class="tac">&#187;</td>
-				<td>Use guillemets as delimiter.</td>
+				<td>Use &#187; as delimiter.</td>
 				<td><button class="z07" onclick="_.click('tab2');_.class('run2','update','guillemet')"><i class="icon">&#9658</i>Run</button</td>
 			</tr>
 			<tr>
 				<td>pipe</td>
-				<td class="tac">&#124;</td>
-				<td>Use pipes as delimiter.</td>
+				<td>Use &#124; as delimiter.</td>
 				<td><button class="z07" onclick="_.click('tab2');_.class('run2','update','pipe')"><i class="icon">&#9658</i>Run</button</td>
+			</tr>
+			<tr>
+				<td>delimiter</td>
+				<td>Configure for a custom delimiter.</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table class="mt1">
+		<caption class="tal">
+			<img src="./assets/img/icon_black.svg" class="di" height="24" globalize="front_class_attributes">Front Custom Attributes
+		</caption>
+		<thead>
+			<tr>
+				<th globalize="attribute">Attribute</th>
+				<th class="tac" globalize="character">Value</th>
+				<th globalize="description">Description</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody class="z09">
+			<tr>
+				<td>delimiter</td>
+				<td class="tac"><input type="text" class="w3r" maxlength="2"></td>
+				<td>Use custom delimiter.</td>
+				<td><button class="z07" onclick="_.click('tab2');_.class('run2','update','delimiter')"><i class="icon">&#9658</i>Run</button</td>
 			</tr>
 		</tbody>
 	</table>

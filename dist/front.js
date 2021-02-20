@@ -192,17 +192,15 @@ var core = function() {
 	this.hasTemplateLayout = function() {
 		for (i = 0; i < front.length; i++) {
 			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
-				var template = front[i].getAttribute("template");
-
-				var count = currentScriptUrl.split("./").length + (template.match(/..\//g) || []).length;
+				var template = front[i].getAttribute("template").split(";");
+				var template1 = template[0] ? 'index' : '';
+				var template2 = template[1] ? template[1] : false;
+		
+				var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length;
 				var url = currentUrl.split("/").slice(0, -count).join("/");
 
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
-
-				console.log("Url: "+url);
-				console.log("Count: "+count);
-				console.log("CurrentScript: " + currentScriptUrl)
 
 				script.removeAttribute("src");
 				script.removeAttribute("template");
@@ -210,21 +208,49 @@ var core = function() {
 				del.parentNode.removeChild(del);
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
-				
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						var response = this.responseText;
-						response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
-						response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
-						document.open();
-						document.write(response);
-						document.close();
-					}
-				};
-				xhttp.open("GET", url+"/index.html", true);
-				xhttp.send();
 
+				function checkPage(callback) {
+					var xhr = new XMLHttpRequest(),
+						method = "GET",
+						xurl = url+"/"+template2+".html";
+
+					xhr.open(method, xurl, true);
+					xhr.onreadystatechange = function () {
+						if (xhr.readyState !== XMLHttpRequest.DONE) { return; }
+					  		if (xhr.status === 200) {
+						  		var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
+								return getTemplate1(response[1]);
+					  		}
+						xhr.open(method, xurl, true);
+						xhr.send();
+					}
+					xhr.send();
+				  }
+	
+				function getTemplate1(response2) {
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+							var response = this.responseText;
+							response += response2;
+							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
+							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
+
+							document.open();
+							document.write(response);
+							document.close();
+						}
+					}
+
+					xhttp.open("GET", url+"/"+template1+".html", true);
+					xhttp.send();
+				}
+				  
+				  if (template2)
+				  	checkPage(getTemplate1);
+				  else
+				  	getTemplate1("");
+			
 				return true;
 			}
 		}
@@ -270,7 +296,6 @@ var core = function() {
 				if (array[i].tagIndex == index)
 					dom.content(el, array[i].innerHTML);
 			}
-			core.runLibAttributesInElement(el);
 		}
 		if (e.hasAttribute("resizable"))
 			e.style.resize = "both";
@@ -835,7 +860,7 @@ var dom = function() {
             	return false;
         	}finally {
             	document.body.removeChild(textarea);
-				alert(text+" copied!");
+				alert("Copy!");
         	}
     	}
 	}
