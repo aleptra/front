@@ -1659,10 +1659,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .sm_du{display: inherit}
     body .pauto{padding: 1.5rem}
     body .crumbs{display:none}
+    .cards.sm_gtc2 { grid-template-columns: 1fr 1fr}
 }
 
 @media only screen and (max-width: 300px) {
     body .xs_du{display: inherit}
+    .cards.xs_gtc2 { grid-template-columns: 1fr 1fr}
 }
 
 @media only screen and (max-width: 220px) {
