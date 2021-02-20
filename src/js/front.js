@@ -209,7 +209,7 @@ var core = function() {
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
 
-				function checkPage(callback) {
+				function getTemplate2(callback) {
 					var xhr = new XMLHttpRequest(),
 						method = "GET",
 						xurl = url+"/"+template2+".html";
@@ -247,7 +247,7 @@ var core = function() {
 				}
 				  
 				  if (template2)
-				  	checkPage(getTemplate1);
+				  	getTemplate2(getTemplate1);
 				  else
 				  	getTemplate1("");
 			
