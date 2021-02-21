@@ -125,7 +125,7 @@
         },
         {
             "title": "North East Arrow",
-            "name": "north_east",
+            "name": "north_east, call_made",
             "html_entity": "&#8599;",
             "html_entity_2": "&#x2197;"
         },
@@ -137,7 +137,7 @@
         },
         {
             "title": "South West Arrow",
-            "name": "south_west",
+            "name": "south_west, call_split, call_received",
             "html_entity": "&#8601;",
             "html_entity_2": "&#x2199;"
         },
@@ -158,6 +158,12 @@
             "name": "sync_alt",
             "html_entity": "&#8644;",
             "html_entity_2": "&#x21C4;"
+        },
+        {
+            "title": "Rightwards Arrow to Bar",
+            "name": "keyboard_tab",
+            "html_entity": "&#8677;",
+            "html_entity_2": "&#x21E5;"
         },
         {
             "title": "Minus Sign",
@@ -249,6 +255,18 @@
             "name": "eject",
             "html_entity": "&#9167;",
             "html_entity_2": "&#x2261;"
+        },
+        {
+            "title": "Black Right-Pointing Double Triangle",
+            "name": "fast_forward",
+            "html_entity": "&#9193;",
+            "html_entity_2": "&#x23E9;"
+        },
+        {
+            "title": "Black Left-Pointing Double Triangle",
+            "name": "fast_rewind",
+            "html_entity": "&#9194;",
+            "html_entity_2": "&#x23EA;"
         },
         {
             "title": "Black Square",
@@ -379,6 +397,12 @@
             "html_entity_2": "&#x266A;"
         },
         {
+            "title": "Wheelchair Symbol",
+            "name": "accessible_forward",
+            "html_entity": "&#9855;",
+            "html_entity_2": "&#x267F;"
+        },
+        {
             "title": "White Flag",
             "name": "outlined_flag, emoji_flags",
             "html_entity": "&#9872;",
@@ -476,8 +500,14 @@
             "html_entity_2": "&#x272A;"
         },     
         {
+            "title": "Snowflake",
+            "name": "ac_unit",
+            "html_entity": "&#10052",
+            "html_entity_2": "&#x2744;"
+        },     
+        {
             "title": "Cross Mark",
-            "name": "close",
+            "name": "close, clear",
             "html_entity": "&#10060",
             "html_entity_2": "&#x274C;"
         },
@@ -536,6 +566,13 @@
             "html_entity_2": "&#x1F30A;"
         },
         {
+            "title": "Earth Globe Americas",
+            "name": "public",
+            "html_entity": "&#127758;",
+            "html_entity_2": "&#x1F30E;",
+            "keywords": "world"
+        },
+        {
             "title": "Globe with Meridians",
             "name": "language",
             "html_entity": "&#127760;",
@@ -574,10 +611,22 @@
             "html_entity_2": "&#x1F366;"
         },
         {
+            "title": "Ferris Wheel",
+            "name": "attractions",
+            "html_entity": "&#127905;",
+            "html_entity_2": "&#x1F3A1;"
+        },
+        {
             "title": "Microphone",
             "name": "mic",
             "html_entity": "&#127908;",
             "html_entity_2": "&#x1F4A1;"
+        },
+        {
+            "title": "Video Game",
+            "name": "sports_esports",
+            "html_entity": "&#127918;",
+            "html_entity_2": "&#x1F3AE;"
         },
         {
             "title": "Convenience Store",
@@ -711,10 +760,23 @@
             "keywords": "mail, email"
         },
         {
+            "title": "Closed Mailbox with Raised Flag",
+            "name": "markunread_mailbox",
+            "html_entity": "&#128235;",
+            "html_entity_2": "&#x1F4EB;",
+            "keywords": "mail, email"
+        },
+        {
             "title": "Television",
             "name": "tv",
             "html_entity": "&#128250;",
             "html_entity_2": "&#x1F4FA;"
+        },
+        {
+            "title": "Electric Plug",
+            "name": "power",
+            "html_entity": "&#128268;",
+            "html_entity_2": "&#x1F50C;"
         },
         {
             "title": "Left-Pointing Magnifying Glass",
@@ -850,6 +912,12 @@
             "name": "book, class",
             "html_entity": "&#128366;",
             "html_entity_2": "&#x1F516;"
+        },
+        {
+            "title": "Lower Left Ballpoint Pen",
+            "name": "edit, create, mode, mode_edit, mode_edit_outline",
+            "html_entity": "&#128394;",
+            "html_entity_2": "&#x1F58A;"
         },
         {
             "title": "Lower Left Paintbrush",
@@ -992,6 +1060,12 @@
             "html_entity_2": "&#x1F9A0;"
         },
         {
+            "title": "Manual Wheelchair",
+            "name": "accessible",
+            "html_entity": "&#129469;",
+            "html_entity_2": "&#x1F9BD;"
+        },
+        {
             "title": "Jigsaw Puzzle Piece",
             "name": "extension",
             "html_entity": "&#129513;",
@@ -1008,6 +1082,12 @@
             "name": "fire_extinguisher",
             "html_entity": "&#129519;",
             "html_entity_2": "&#x1F9EF;"
+        },
+        {
+            "title": "Luggage",
+            "name": "luggage",
+            "html_entity": "&#129523;",
+            "html_entity_2": "&#x1F9F3;"
         },
         {
             "title": "Beetle Emoji",

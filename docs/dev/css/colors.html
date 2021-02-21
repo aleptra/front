@@ -3,7 +3,7 @@
 <h1 globalize="colors">Colors</h1>
 
 <section id="crumbs">
-    <table class="mt1">
+    <table class="mt1 w100p">
         <caption class="tal">
             <img src="assets/img/icon_black.svg" class="di" height="24"><span globalize="front_class_attributes">Front class attributes</span>
         </caption>
@@ -12,7 +12,7 @@
                 <th globalize="color">Color</th>
                 <th globalize="background_color">Background Color</th>
                 <th globalize="hex">Hex</th>
-                <th></th>
+                <th class="w5r"></th>
             </tr>
         </thead>
         <tbody class="z09" json="true" iterate="colors" datasource="./assets/json/colors.json">
@@ -20,7 +20,7 @@
                 <td jsonget="color"></td>
                 <td jsonget="background"></td>
                 <td jsonget="hex"></td>
-                <td class="{{ jsonget:background }} w5r"></td>
+                <td class="{{ jsonget:background }}"></td>
             </tr>
         </tbody>
     </table>
