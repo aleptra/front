@@ -33,6 +33,12 @@
             "html_entity_2": "&#xA9;"
         },
         {
+            "title": "Left-Pointing Double Angle Quotation Mark",
+            "name": "-",
+            "html_entity": "&#171;",
+            "html_entity_2": "&#xAB;"
+        },
+        {
             "title": "Right-Pointing Double Angle Quotation Mark",
             "name": "double_arrow",
             "html_entity": "&#187;",
