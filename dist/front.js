@@ -528,6 +528,10 @@ var core = function() {
 	this.isString = function(obj){
 		return Object.prototype.toString.call(obj) === "[object String]"
 	}
+
+	this.isObject = function(obj){
+		return (typeof obj === "object" && !Array.isArray(obj) && obj !== null);
+	}
 }
 
 var app = function() {
@@ -909,7 +913,7 @@ var dom = function() {
 	}
 
 	this.getChildren = function(el) {
-		var el = this.get(el);
+		var el = core.isObject(el) ? el : this.get(el);
 		if(typeof(el['content']) !== 'undefined')
 			return el.content.children;
 		else if(typeof(el['children']) !== 'undefined')
