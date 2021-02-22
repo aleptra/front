@@ -906,7 +906,7 @@
         },
         {
             "title": "Video Camera",
-            "name": "video_cam",
+            "name": "videocam",
             "html_entity": "&#128249;",
             "html_entity_2": "&#x1F4F9;"
         },
