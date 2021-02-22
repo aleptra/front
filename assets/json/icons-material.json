@@ -487,6 +487,12 @@
             "html_entity_2": "&#x2699;"
         },
         {
+            "title": "Outlined White Star",
+            "name": "star_outline, star_border",
+            "html_entity": "&#9885;",
+            "html_entity_2": "&#x269D;"
+        },
+        {
             "title": "Warning Sign",
             "name": "report_problem, warning",
             "html_entity": "&#9888;",
@@ -615,10 +621,10 @@
             "html_entity_2": ""
         },
         {
-            "title": "White Small Star",
-            "name": "hourglass_full",
-            "html_entity": "&#11090;",
-            "html_entity_2": "&#x2B52;"
+            "title": "Star with Left Half Black",
+            "name": "star_half",
+            "html_entity": "&#11242;",
+            "html_entity_2": "&#x2BEA;"
         },
         {
             "title": "Presentation Form For Vertical Horizontal Ellipsis",
