@@ -1638,6 +1638,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 600px) {
     body .md_du{display: inherit}
+    body .pauto{padding: 2.5rem}
 
     .grid {
         grid-template-areas: "head head head" "nav nav nav" "left left left" "middle middle middle" "right right right" "foot foot foot";

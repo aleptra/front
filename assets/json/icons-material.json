@@ -690,6 +690,13 @@
             "keywords": "celcius, fahrenheit"
         },
         {
+            "title": "Bento Box",
+            "name": "bento",
+            "html_entity": "&#127857;",
+            "html_entity_2": "&#x1F371;",
+            "keywords": "sushi, rice, salmon"
+        },
+        {
             "title": "Evergreen Tree",
             "name": "park",
             "html_entity": "&#127794;",
