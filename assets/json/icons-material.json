@@ -899,6 +899,18 @@
             "keywords": "mail, email"
         },
         {
+            "title": "Camera",
+            "name": "photo_camera, camera_alt",
+            "html_entity": "&#128247;",
+            "html_entity_2": "&#x1F4F7;"
+        },
+        {
+            "title": "Video Camera",
+            "name": "video_cam",
+            "html_entity": "&#128249;",
+            "html_entity_2": "&#x1F4F9;"
+        },
+        {
             "title": "Television",
             "name": "tv",
             "html_entity": "&#128250;",
