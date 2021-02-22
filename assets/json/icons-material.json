@@ -744,6 +744,12 @@
             "html_entity_2": "&#x1F3C4;"
         },
         {
+            "title": "Swimmer",
+            "name": "pool",
+            "html_entity": "&#127946;",
+            "html_entity_2": "&#x1F3CA;"
+        },
+        {
             "title": "Convenience Store",
             "name": "store",
             "html_entity": "&#127978;",
