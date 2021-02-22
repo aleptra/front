@@ -257,7 +257,7 @@
         },
         {
             "title": "Circled Division Slash",
-            "name": "block, do_not_disturb_alt",
+            "name": "block, do_not_disturb_alt, do_disturb",
             "html_entity": "&#8856;",
             "html_entity_2": "&#x2298;"
         },
@@ -558,7 +558,14 @@
             "name": "stars",
             "html_entity": "&#10026;",
             "html_entity_2": "&#x272A;"
-        },     
+        },
+        {
+            "title": "Open Centre Teardrop-Spoked Asterisk",
+            "name": "filter_vintage",
+            "html_entity": "&#10044;",
+            "html_entity_2": "&#x273C;",
+            "keywords": "flower, plant, green"
+        },  
         {
             "title": "Snowflake",
             "name": "ac_unit",
@@ -720,7 +727,7 @@
         },
         {
             "title": "Artist Palette",
-            "name": "palette",
+            "name": "palette, color_lens",
             "html_entity": "&#127912;",
             "html_entity_2": "&#x1F3A8;"
         },
