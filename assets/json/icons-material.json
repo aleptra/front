@@ -94,6 +94,18 @@
             "html_entity_2": "&#x1BE4;"
         },
         {
+            "title": "Modifier Letter Capital E",
+            "name": "e_mobiledata",
+            "html_entity": "&#7473;",
+            "html_entity_2": "&#x1D31;"
+        },
+        {
+            "title": "Modifier Letter Capital G",
+            "name": "g_mobiledata",
+            "html_entity": "&#7475;",
+            "html_entity_2": "&#x1D33;"
+        },
+        {
             "title": "Horizontal Ellipsis",
             "name": "more_horiz",
             "html_entity": "&#8230;",
@@ -837,13 +849,6 @@
             "html_entity_2": "&#x1F4CD;"
         },
         {
-            "title": "E-Mail Symbol",
-            "name": "mail, email",
-            "html_entity": "&#128231;",
-            "html_entity_2": "&#x1F4E7;",
-            "keywords": "mail, email"
-        },
-        {
             "title": "Closed Mailbox with Raised Flag",
             "name": "markunread_mailbox",
             "html_entity": "&#128235;",
@@ -936,6 +941,12 @@
             "keywords": "tele"
         },
         {
+            "title": "E-Mail Symbol",
+            "name": "email, mail, markunread, local_post_office",
+            "html_entity": "&#128231;",
+            "html_entity_2": "&#x1F4E7;"
+        },
+        {
             "title": "Mobile Phone",
             "name": "smartphone",
             "html_entity": "&#128241;",
@@ -985,6 +996,12 @@
             "name": "radio_button_checked",
             "html_entity": "&#128280;",
             "html_entity_2": "&#x1F518;"
+        },
+        {
+            "title": "Fire",
+            "name": "whatshot",
+            "html_entity": "&#128293;",
+            "html_entity_2": "&#x1F525;"
         },
         {
             "title": "Wrench",
