@@ -621,6 +621,18 @@
             "html_entity_2": "&#x274E;"
         },
         {
+            "title": "Anticlockwise Gapped Circle Arrow",
+            "name": "rotate_left",
+            "html_entity": "&#10226;",
+            "html_entity_2": "&#x27F2;"
+        },
+        {
+            "title": "Clockwise Gapped Circle Arrow",
+            "name": "rotate_right",
+            "html_entity": "&#10227;",
+            "html_entity_2": "&#x27F3;"
+        },
+        {
             "title": "North East and South West Arrow",
             "name": "open_in_full",
             "html_entity": "&#10530;",
