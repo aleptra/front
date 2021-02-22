@@ -106,6 +106,12 @@
             "html_entity_2": "&#x1D33;"
         },
         {
+            "title": "Modifier Letter Capital H",
+            "name": "h_mobiledata",
+            "html_entity": "&#7476;",
+            "html_entity_2": "&#x1D34;"
+        },
+        {
             "title": "Horizontal Ellipsis",
             "name": "more_horiz",
             "html_entity": "&#8230;",
@@ -501,7 +507,7 @@
         },
         {
             "title": "Medium Black Circle",
-            "name": "lens, stop_circle, brightness_1",
+            "name": "lens, circle, stop_circle, brightness_1",
             "html_entity": "&#9899;",
             "html_entity_2": "&#x26AB;"
         },
