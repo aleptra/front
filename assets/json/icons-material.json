@@ -1144,6 +1144,12 @@
             "html_entity_2": "&#x1F5A8;"
         },
         {
+            "title": "Document with Text and Picture",
+            "name": "article",
+            "html_entity": "&#128442;",
+            "html_entity_2": "&#x1F5BA;"
+        },
+        {
             "title": "Folder",
             "name": "folder",
             "html_entity": "&#128448;",
@@ -1162,10 +1168,22 @@
             "html_entity_2": "&#x1F5C8;"
         },
         {
+            "title": "Note Page",
+            "name": "text_snippet",
+            "html_entity": "&#128457;",
+            "html_entity_2": "&#x1F5C9;"
+        },
+        {
             "title": "Wastebasket",
             "name": "delete",
             "html_entity": "&#128465;",
             "html_entity_2": "&#x1F5D1;"
+        },
+        {
+            "title": "Document",
+            "name": "description",
+            "html_entity": "&#128462;",
+            "html_entity_2": "&#x1F5CE;"
         },
         {
             "title": "Train",
