@@ -1,6 +1,13 @@
 {
     "icons":[
         {
+            "title": "Number Sign",
+            "name": "tag, grid_3x3",
+            "html_entity": "&#35;",
+            "html_entity_2": "&#x23;",
+            "keywords": "hash"
+        },
+        {
             "title": "Dollar Sign",
             "name": "attach_money",
             "html_entity": "&#36;",
@@ -69,6 +76,18 @@
             "html_entity_2": "&#x2C5"
         },
         {
+            "title": "Canadian Syllabics Po",
+            "name": "arrow_forward_ios",
+            "html_entity": "&#5171;",
+            "html_entity_2": "&#x1433;"
+        },
+        {
+            "title": "Canadian Syllabics Pa",
+            "name": "arrow_back_ios, arrow_back_ios_new",
+            "html_entity": "&#5176;",
+            "html_entity_2": "&#x1438;"
+        },
+        {
             "title": "Batak Letter I",
             "name": "wifi",
             "html_entity": "&#7140;",
@@ -80,7 +99,6 @@
             "html_entity": "&#8230;",
             "html_entity_2": "&#x2026;"
         },
-        
         {
             "title": "Euro Sign",
             "name": "euro_symbol",
@@ -116,6 +134,12 @@
             "name": "south",
             "html_entity": "&#8595;",
             "html_entity_2": "&#x2193;"
+        },
+        {
+            "title": "Up Down Arrow",
+            "name": "height",
+            "html_entity": "&#8597;",
+            "html_entity_2": "&#x2195;"
         },
         {
             "title": "North West Arrow",
@@ -155,15 +179,27 @@
         },
         {
             "title": "Rightwards Arrow Over Leftwards Arrow",
-            "name": "sync_alt",
+            "name": "sync_alt, swap_horiz",
             "html_entity": "&#8644;",
             "html_entity_2": "&#x21C4;"
+        },
+        {
+            "title": "Upwards Arrow Leftwards of Downwards Arrow",
+            "name": "swap_vert, import_export",
+            "html_entity": "&#8645;",
+            "html_entity_2": "&#x21C5;"
         },
         {
             "title": "Rightwards Arrow to Bar",
             "name": "keyboard_tab",
             "html_entity": "&#8677;",
             "html_entity_2": "&#x21E5;"
+        },
+        {
+            "title": "N-Ary Summation",
+            "name": "functions",
+            "html_entity": "&#8721;",
+            "html_entity_2": "&#x2211;"
         },
         {
             "title": "Minus Sign",
@@ -200,6 +236,12 @@
             "name": "remove_circle_outline",
             "html_entity": "&#8854;",
             "html_entity_2": "&#x2296;"
+        },
+        {
+            "title": "Circled Division Slash",
+            "name": "block, do_not_disturb_alt",
+            "html_entity": "&#8856;",
+            "html_entity_2": "&#x2298;"
         },
         {
             "title": "House",
@@ -354,7 +396,7 @@
         },
         {
             "title": "Black Star",
-            "name": "grade, star_rate",
+            "name": "star_rate",
             "html_entity": "&#9733;",
             "html_entity_2": "&#x2605;"
         },
@@ -447,7 +489,7 @@
         },
         {
             "title": "Medium Black Circle",
-            "name": "lens, stop_circle",
+            "name": "lens, stop_circle, brightness_1",
             "html_entity": "&#9899;",
             "html_entity_2": "&#x26AB;"
         },
@@ -518,6 +560,12 @@
             "html_entity_2": "&#x274E;"
         },
         {
+            "title": "North East and South West Arrow",
+            "name": "open_in_full",
+            "html_entity": "&#10530;",
+            "html_entity_2": "&#x2922;"
+        },
+        {
             "title": "South East Arrow Crossing North East Arrow",
             "name": "shuffle",
             "html_entity": "&#10541;",
@@ -542,16 +590,28 @@
             "html_entity_2": ""
         },
         {
-            "title": "Fullwidth Equals Sign",
-            "name": "drag_handle",
-            "html_entity": "&#65309;",
-            "html_entity_2": "&#xFF1D;"
+            "title": "White Small Star",
+            "name": "hourglass_full",
+            "html_entity": "&#11090;",
+            "html_entity_2": "&#x2B52;"
         },
         {
             "title": "Presentation Form For Vertical Horizontal Ellipsis",
             "name": "more_vert",
             "html_entity": "&#65049;",
             "html_entity_2": "&#xFE19;"
+        },
+        {
+            "title": "Fullwidth Equals Sign",
+            "name": "drag_handle",
+            "html_entity": "&#65309;",
+            "html_entity_2": "&#xFF1D;"
+        },
+        {
+            "title": "Fullwidth Latin Capital Letter B",
+            "name": "format_bold",
+            "html_entity": "&#65314;",
+            "html_entity_2": "&#xFF22;"
         },
         {
             "title": "Siddham Section Mark with Circles and Rays",
@@ -611,6 +671,12 @@
             "html_entity_2": "&#x1F366;"
         },
         {
+            "title": "Military Medal",
+            "name": "military_tech",
+            "html_entity": "&#127894;",
+            "html_entity_2": "&#x1F396;"
+        },
+        {
             "title": "Ferris Wheel",
             "name": "attractions",
             "html_entity": "&#127905;",
@@ -652,6 +718,12 @@
             "name": "sports_basketball",
             "html_entity": "&#127936;",
             "html_entity_2": "&#x1F3C0;"
+        },
+        {
+            "title": "Snowboarder",
+            "name": "snowboarding",
+            "html_entity": "&#127938;",
+            "html_entity_2": "&#x1F3C2;"
         },
         {
             "title": "American Football",
@@ -753,6 +825,18 @@
             "html_entity_2": "&#x1F4BE;"
         },
         {
+            "title": "Pushpin",
+            "name": "push_pin",
+            "html_entity": "&#128204;",
+            "html_entity_2": "&#x1F4CC;"
+        },
+        {
+            "title": "Round Pushpin",
+            "name": "location_on, room, place",
+            "html_entity": "&#128205;",
+            "html_entity_2": "&#x1F4CD;"
+        },
+        {
             "title": "E-Mail Symbol",
             "name": "mail, email",
             "html_entity": "&#128231;",
@@ -771,6 +855,12 @@
             "name": "tv",
             "html_entity": "&#128250;",
             "html_entity_2": "&#x1F4FA;"
+        },
+        {
+            "title": "Anticlockwise Downwards and Upwards Open Circle Arrows",
+            "name": "cached",
+            "html_entity": "&#128260;",
+            "html_entity_2": "&#x1F504;"
         },
         {
             "title": "Electric Plug",
@@ -850,14 +940,21 @@
             "name": "smartphone",
             "html_entity": "&#128241;",
             "html_entity_2": "&#x1F4F1;",
-            "keywords": "phone,tele"
+            "keywords": "tele"
+        },
+        {
+            "title": "Vibration Mode",
+            "name": "vibration",
+            "html_entity": "&#128243;",
+            "html_entity_2": "&#x1F4F3;",
+            "keywords": "tele, phone, mobile"
         },
         {
             "title": "No Mobile Phones",
             "name": "no_cell",
             "html_entity": "&#128245;",
             "html_entity_2": "&#x1F4F5;",
-            "keywords": "phone,tele"
+            "keywords": "tele"
         },
         {
             "title": "Radio",
@@ -1028,6 +1125,36 @@
             "html_entity": "&#128748;",
             "html_entity_2": "&#x1F6EC;",
             "keywords": "airplane"
+        },
+        {
+            "title": "Rightwards Heavy Arrow",
+            "name": "forward",
+            "html_entity": "&#129094;",
+            "html_entity_2": "&#x1F846;"
+        },
+        {
+            "title": "Wide-Headed Leftwards Light Barb Arrow",
+            "name": "arrow_back",
+            "html_entity": "&#129120;",
+            "html_entity_2": "&#x1F860;"
+        },
+        {
+            "title": "Wide-Headed Upwards Light Barb Arrow",
+            "name": "arrow_upwards",
+            "html_entity": "&#129121;",
+            "html_entity_2": "&#x1F861;"
+        },
+        {
+            "title": "Wide-Headed Rightwards Light Barb Arrow",
+            "name": "arrow_forward",
+            "html_entity": "&#129122;",
+            "html_entity_2": "&#x1F862;"
+        },
+        {
+            "title": "Wide-Headed Downwards Light Barb Arrow",
+            "name": "arrow_downward",
+            "html_entity": "&#129123;",
+            "html_entity_2": "&#x1F863;"
         },
         {
             "title": "Leftwards Triangle Arrowhead",
