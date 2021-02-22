@@ -232,6 +232,12 @@
             "html_entity_2": "&#x2212;"
         },
         {
+            "title": "Minus-or-Plus Sign",
+            "name": "exposure",
+            "html_entity": "&#8723;",
+            "html_entity_2": "&#x2213;"
+        },
+        {
             "title": "Infinity",
             "name": "all_inclusive",
             "html_entity": "&#8734;",
@@ -730,6 +736,12 @@
             "name": "sports_esports",
             "html_entity": "&#127918;",
             "html_entity_2": "&#x1F3AE;"
+        },
+        {
+            "title": "Surfer",
+            "name": "surfing",
+            "html_entity": "&#127940;",
+            "html_entity_2": "&#x1F3C4;"
         },
         {
             "title": "Convenience Store",
