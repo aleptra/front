@@ -184,6 +184,18 @@
             "html_entity_2": "&#x2198;"
         },
         {
+            "title": "Anticlockwise Top Semicircle Arrow",
+            "name": "undo",
+            "html_entity": "&#8630;",
+            "html_entity_2": "&#x21B6;"
+        },
+        {
+            "title": "Clockwise Top Semicircle Arrow",
+            "name": "redo",
+            "html_entity": "&#8631;",
+            "html_entity_2": "&#x21B7;"
+        },
+        {
             "title": "South West Arrow",
             "name": "south_west, call_split, call_received",
             "html_entity": "&#8601;",
@@ -554,6 +566,12 @@
             "html_entity_2": "&#x26F3;"
         },
         {
+            "title": "Ice Skate",
+            "name": "ice_skating",
+            "html_entity": "&#9976;",
+            "html_entity_2": "&#x26F8;"
+        },
+        {
             "title": "Airplane",
             "name": "flight, local_airport, airplanemode_active",
             "html_entity": "&#9992;",
@@ -757,6 +775,12 @@
             "html_entity_2": "&#x1F3CA;"
         },
         {
+            "title": "Automated Teller Machine",
+            "name": "atm",
+            "html_entity": "&#127975;",
+            "html_entity_2": "&#x1F3E7;"
+        },
+        {
             "title": "Convenience Store",
             "name": "store",
             "html_entity": "&#127978;",
@@ -930,6 +954,24 @@
             "html_entity_2": "&#x1F504;"
         },
         {
+            "title": "Speaker",
+            "name": "volume_mute",
+            "html_entity": "&#128264;",
+            "html_entity_2": "&#x1F508;"
+        },
+        {
+            "title": "Speaker with One Sound Wave",
+            "name": "volume_down",
+            "html_entity": "&#128265;",
+            "html_entity_2": "&#x1F509;"
+        },
+        {
+            "title": "Speaker with Three Sound Waves",
+            "name": "volume_up",
+            "html_entity": "&#128266;",
+            "html_entity_2": "&#x1F50A;"
+        },
+        {
             "title": "Electric Plug",
             "name": "power",
             "html_entity": "&#128268;",
@@ -1042,12 +1084,6 @@
             "html_entity_2": "&#x1F507;"
         },
         {
-            "title": "Speaker",
-            "name": "speaker",
-            "html_entity": "&#128264;",
-            "html_entity_2": "&#x1F508;"
-        },
-        {
             "title": "Link Symbol",
             "name": "link, insert_link",
             "html_entity": "&#128279;",
@@ -1118,6 +1154,12 @@
             "name": "folder_open",
             "html_entity": "&#128449;",
             "html_entity_2": "&#x1F5C1;"
+        },
+        {
+            "title": "Note",
+            "name": "note",
+            "html_entity": "&#128456;",
+            "html_entity_2": "&#x1F5C8;"
         },
         {
             "title": "Wastebasket",
