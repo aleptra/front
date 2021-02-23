@@ -46,6 +46,12 @@
             "html_entity_2": "&#xAB;"
         },
         {
+            "title": "Plus-Minus Sign",
+            "name": "iso",
+            "html_entity": "&#177;",
+            "html_entity_2": "&#xB1;"
+        },
+        {
             "title": "Right-Pointing Double Angle Quotation Mark",
             "name": "double_arrow",
             "html_entity": "&#187;",
@@ -566,6 +572,12 @@
             "html_entity_2": "&#x26F3;"
         },
         {
+            "title": "Sailboat",
+            "name": "sailing",
+            "html_entity": "&#9973;",
+            "html_entity_2": "&#x26F5;"
+        },
+        {
             "title": "Ice Skate",
             "name": "ice_skating",
             "html_entity": "&#9976;",
@@ -691,6 +703,12 @@
             "name": "stream",
             "html_entity": "&#71125;",
             "html_entity_2": "&#x115D5;"
+        },
+        {
+            "title": "Tetragram For Centre",
+            "name": "view_headline",
+            "html_entity": "&#119558;",
+            "html_entity_2": "&#x1D306;"
         },
         {
             "title": "Water Wave",
@@ -1220,6 +1238,18 @@
             "name": "traffic",
             "html_entity": "&#128678;",
             "html_entity_2": "&#x1F6A6;"
+        },
+        {
+            "title": "Smoking Symbol",
+            "name": "smoking_rooms",
+            "html_entity": "&#128684;",
+            "html_entity_2": "&#x1F6AC;"
+        },
+        {
+            "title": "No Smoking Symbol",
+            "name": "smoke_free",
+            "html_entity": "&#128685;",
+            "html_entity_2": "&#x1F6AD;"
         },
         {
             "title": "Toilet",
