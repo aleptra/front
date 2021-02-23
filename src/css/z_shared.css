@@ -626,3 +626,18 @@ nav.slider input[type="radio"],
 .togglebar{
   display: none;
 }
+
+.w1r, .w1r- * { width: 1rem }
+.w2r, .w2r- * { width: 2rem }
+.w3r, .w3r- * { width: 3rem }
+.w4r, .w4r- * { width: 4rem }
+.w5r, .w5r- * { width: 5rem }
+.w10r, .w10, .w10- * { width: 10rem }
+.w11r, .w11, .w11- * { width: 11rem }
+.w12r, .w12r- * { width: 12rem }
+.w13r, .w13, .w13- * { width: 13rem }
+.w14r, .w14, .w14- * { width: 14rem }
+.w15r, .w15, .w15- * { width: 15rem }
+.w20r, .w20r- * { width: 20rem }
+.w25r, .w25, .w25- * { width: 25rem }
+.w50r, .w50r, .w50r- * { width: 50rem }

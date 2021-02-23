@@ -4,6 +4,7 @@
     overflow: auto;
     align-self: stretch;
     height: 100%;
+    width: 100%;
 }
 
 .sidebar > *{
