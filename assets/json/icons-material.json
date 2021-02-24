@@ -817,6 +817,12 @@
             "html_entity_2": "&#x1F3C4;"
         },
         {
+            "title": "Trophy",
+            "name": "emoji_events",
+            "html_entity": "&#127942;",
+            "html_entity_2": "&#x1F3C6;"
+        },
+        {
             "title": "Swimmer",
             "name": "pool",
             "html_entity": "&#127946;",
