@@ -190,6 +190,12 @@
             "html_entity_2": "&#x2198;"
         },
         {
+            "title": "Upwards Arrow with Tip Rightwards",
+            "name": "shortcut",
+            "html_entity": "&#8625;",
+            "html_entity_2": "&#x21B1;"
+        },
+        {
             "title": "Anticlockwise Top Semicircle Arrow",
             "name": "undo",
             "html_entity": "&#8630;",
@@ -675,6 +681,18 @@
             "html_entity_2": ""
         },
         {
+            "title": "Leftwards Triangle-Headed Arrow To Bar",
+            "name": "first_page",
+            "html_entity": "&#11120;",
+            "html_entity_2": "&#x2B70;"
+        },
+        {
+            "title": "Rightwards Triangle-Headed Arrow To Bar",
+            "name": "last_page",
+            "html_entity": "&#11122;",
+            "html_entity_2": "&#x2B72;"
+        },
+        {
             "title": "Star with Left Half Black",
             "name": "star_half",
             "html_entity": "&#11242;",
@@ -1138,10 +1156,28 @@
             "html_entity_2": "&#x1F527;"
         },
         {
+            "title": "Microscope",
+            "name": "biotech",
+            "html_entity": "&#128300;",
+            "html_entity_2": "&#x1F52C;"
+        },
+        {
             "title": "Clock Face Four Oclock",
             "name": "query_builder, schedule, access_time",
             "html_entity": "&#128339;",
             "html_entity_2": "&#x1F553;"
+        },
+        {
+            "title": "Handball",
+            "name": "sports_handball",
+            "html_entity": "&#129342;",
+            "html_entity_2": "&#x1F93E;"
+        },
+        {
+            "title": "Bullhorn with Sound Waves",
+            "name": "campaign",
+            "html_entity": "&#128364;",
+            "html_entity_2": "&#x1F56C;"
         },
         {
             "title": "Ringing Bell",
@@ -1258,6 +1294,24 @@
             "html_entity_2": "&#x1F6BD;"
         },
         {
+            "title": "Shower",
+            "name": "shower",
+            "html_entity": "&#128703;",
+            "html_entity_2": "&#x1F6BF;"
+        },
+        {
+            "title": "Bath",
+            "name": "bathtub",
+            "html_entity": "&#128704;",
+            "html_entity_2": "&#x1F6C0;"
+        },
+        {
+            "title": "Bathtub",
+            "name": "hot_tub",
+            "html_entity": "&#128705;",
+            "html_entity_2": "&#x1F6C1;"
+        },
+        {
             "title": "Circled Information Source",
             "name": "info",
             "html_entity": "&#128712;",
@@ -1306,6 +1360,12 @@
             "html_entity": "&#128748;",
             "html_entity_2": "&#x1F6EC;",
             "keywords": "airplane"
+        },
+        {
+            "title": "Sled",
+            "name": "sledding",
+            "html_entity": "&#128759;",
+            "html_entity_2": "&#x1F6F7;"
         },
         {
             "title": "Rightwards Heavy Arrow",
@@ -1398,7 +1458,13 @@
             "html_entity_2": "&#x1F9F3;"
         },
         {
-            "title": "Beetle Emoji",
+            "title": "Window",
+            "name": "window",
+            "html_entity": "&#129695;",
+            "html_entity_2": "&#x1FA9F;"
+        },
+        {
+            "title": "Beetle",
             "name": "bug_report",
             "html_entity": "&#129714;",
             "html_entity_2": "&#x1FAB2;"
