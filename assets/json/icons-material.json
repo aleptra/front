@@ -1458,6 +1458,12 @@
             "html_entity_2": "&#x1F9F3;"
         },
         {
+            "title": "Magic Wand",
+            "name": "auto_fix_high",
+            "html_entity": "&#129668;",
+            "html_entity_2": "&#x1FA84"
+        },
+        {
             "title": "Window",
             "name": "window",
             "html_entity": "&#129695;",
