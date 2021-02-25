@@ -298,12 +298,12 @@ table.fr{float:right}
 .h25r{height: 25rem}
 .h50r{height: 50rem}
 
-.gap05->*,.gap05-->* *{ margin-left: .25rem;margin-right: .25rem }
-.gap1->*,.gap1-->* *{ margin-left: .5rem;margin-right: .5rem }
-.gap105->*,.gap105-->* *{ margin-left: .75rem;margin-right: .75rem }
-.gap2->*,.gap2-->* *{ margin-left: 1rem;margin-right: 1rem }
+.gap05->*{ margin-left: .25rem;margin-right: .25rem }
+.gap1->*{ margin-left: .5rem;margin-right: .5rem }
+.gap105->*{ margin-left: .75rem;margin-right: .75rem }
+.gap2->*{ margin-left: 1rem;margin-right: 1rem }
 /* .gap2->*{ margin: 1rem 1rem 1rem 1rem } */
-.gap3->*,.gap3-->* *{ margin: 2rem 2rem 2rem 2rem }
+.gap3->*{ margin: 2rem 2rem 2rem 2rem }
 
 .gaph05->*{ margin-bottom: .25rem}
 .gaph1->*{ margin-bottom: .5rem}
@@ -324,7 +324,7 @@ table.fr{float:right}
 .gut9->*,.gap9>*{ margin-right: 4rem; margin-bottom: 4rem;}
 .gut10->*,.gap10>*{ margin-right: 5rem; margin-bottom: 5rem;}
 
-/*[class*='gap'] > :first-child {margin-left: 0; margin-right:0}*/
+[class*='gap'] > :first-child {margin-left: 0; margin-right:0}
 [class*='gap'] > :last-child {margin-right: 0}
 
 .zi05{ z-index: -5}
@@ -366,7 +366,7 @@ table.fr{float:right}
 
 .fww{ flex-wrap: wrap; -ms-flex-wrap: wrap }
 .fn1{ flex-shrink: 1; -ms-flex-negative: 1 }
-.fdc, .fdc->*, .fdc--> * *{ flex-direction: column; -ms-flex-direction: column}
+.fdc, .fdc->*{ flex-direction: column; -ms-flex-direction: column}
 .fdr, .fdr->*{ flex-direction: row; -ms-flex-direction: row}
 .flc, .flc->*{
     -webkit-box-pack: center;
@@ -422,7 +422,16 @@ ul.list li{
 .icon192{ font-size: 192px }
 .icon256{ font-size: 256px }
 .icon512{ font-size: 512px }
-summary::-webkit-details-marker {
+
+.test- > a{
+    flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+.test-> a .icon{
+    padding-right: unset;
+    font-size: initial;
+}summary::-webkit-details-marker {
     display: none
 }
 
@@ -441,8 +450,7 @@ summary::-webkit-details-marker {
 .sidebar details[open] summary:after,
 .sidebar details[open] details[open] summary:after {
     content: "\02C4";
-}
-.alert{
+}.alert{
     border-radius: .5rem;
     display: inline-block;
     padding: 1rem 1.2rem;
@@ -460,8 +468,7 @@ summary::-webkit-details-marker {
     justify-content: center;
     display: -ms-flexbox;
     -ms-flex-pack: center;
-}
-.cards figure,
+}.cards figure,
 .cards div{
     border-radius: 3px;
     box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .05), 0px 0px 3px 0px rgba(0,0,0, .1);
@@ -500,8 +507,7 @@ summary::-webkit-details-marker {
 .cards[class*='gut7']{margin-right: -2rem}
 .cards[class*='gut8']{margin-right: -3rem}
 .cards[class*='gut9']{margin-right: -4rem}
-.cards[class*='gut10']{margin-right: -5rem}
-.modal {
+.cards[class*='gut10']{margin-right: -5rem}.modal {
   position: fixed;
   padding: 1.5rem;
   top: 50%;
@@ -584,8 +590,7 @@ body.disabled:after {
   display: block;
   content: "";
   z-index: 100;
-}
-.dropdown {
+}.dropdown {
   position: relative;
   display: inline-block;
 }
@@ -602,8 +607,7 @@ body.disabled:after {
 
 .dropdown button:focus .dropdown-content {
   display: unset;
-}
-form .group {
+}form .group {
     flex-direction: row;
     -ms-flex-direction: row;
 }
@@ -711,27 +715,19 @@ button.icon,.button.icon{
     align-items: center;
     max-height: 100%;
     line-height: normal;
-    float: left;
 }
 
 .bottombar figure,
 .bottombar a,
-.topbar section,
 .topbar a,
-.topbar figure{ height: 100%; display: inherit}
+.topbar figure{ height: 100% }
 
 .bottombar * img,
 .topbar * img{ max-width: 100% }
-.topbar section{ flex:2; margin-top: initial; }
 
 .bottombar *.fr,
 .topbar *.fr{
     margin-left: auto!important;
-}
-
-.topbar section [class*='icon'], .bottombar section [class*='icon']{
-    padding-right: unset;
-    font-size: initial;
 }.sidebar{
     flex-direction: column;
     -ms-flex-direction: column;
@@ -792,77 +788,69 @@ button.icon,.button.icon{
     border-bottom: 1px solid rgba(0,0,0, 0.07);
 }
 summary {
-  display: block;
-  cursor: pointer;
-  outline: 0; 
-}
+    display: block;
+    cursor: pointer;
+    outline: 0; 
+  }
   
-summary::-webkit-details-marker {
-  display: none;
-}  
+  summary::-webkit-details-marker {
+      display: none;
+    }  
   
-.tree-nav__item {
-  display: block;
-  white-space: nowrap;
-  position: relative;
-}
-
-.tree-nav__item.is-expandable::before {
-  border-left: 1px solid #333;
-  content: '';
-  height: 100%;
-  left: 0.8rem;
-  position: absolute;
-  top: 2.4rem;
-  height: calc(100% - 2.4rem);
-}
-
-.tree-nav__item .tree-nav__item {
-  margin-left: 2.4rem;
-}
-
-.tree-nav__item.is-expandable[open] > .tree-nav__item-title::before {
-  font-family: "ionicons";
-  transform: rotate(90deg);
-}
-
-.tree-nav__item.is-expandable > .tree-nav__item-title {
-  padding-left: 2.4rem;
-}
-
-.tree-nav__item.is-expandable > .tree-nav__item-title::before {
-  position: absolute;
-  will-change: transform;
-  transition: transform 300ms ease;
-  font-family: "ionicons";
-  content: "\f125";
-  left: 0;
-  display: inline-block;
-  width: 1.6rem;
-  text-align: center;
-}
+  .tree-nav__item {
+    display: block;
+    white-space: nowrap;
+    position: relative;
+  }
+  .tree-nav__item.is-expandable::before {
+    border-left: 1px solid #333;
+    content: "";
+    height: 100%;
+    left: 0.8rem;
+    position: absolute;
+    top: 2.4rem;
+    height: calc(100% - 2.4rem);
+  }
+  .tree-nav__item .tree-nav__item {
+    margin-left: 2.4rem;
+  }
+  .tree-nav__item.is-expandable[open] > .tree-nav__item-title::before {
+    font-family: "ionicons";
+    transform: rotate(90deg);
+  }
+  .tree-nav__item.is-expandable > .tree-nav__item-title {
+    padding-left: 2.4rem;
+  }
+  .tree-nav__item.is-expandable > .tree-nav__item-title::before {
+    position: absolute;
+    will-change: transform;
+    transition: transform 300ms ease;
+    font-family: "ionicons";
+    content: "\f125";
+    left: 0;
+    display: inline-block;
+    width: 1.6rem;
+    text-align: center;
+  }
   
-.tree-nav__item-title {
-  cursor: pointer;
-  display: block;
-}
-
-.tree-nav__item-title .icon {
-  display: inline;
-  padding-left: 1.6rem;
-  margin-right: 0.8rem;
-  position: relative;
-}
-
-.tree-nav__item-title .icon::before {
-  top: 0;
-  position: absolute;
-  left: 0;
-  display: inline-block;
-  width: 1.6rem;
-  text-align: center;
-}
-nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
+  .tree-nav__item-title {
+    cursor: pointer;
+    display: block;
+  }
+  .tree-nav__item-title .icon {
+    display: inline;
+    padding-left: 1.6rem;
+    margin-right: 0.8rem;
+    position: relative;
+  }
+  .tree-nav__item-title .icon::before {
+    top: 0;
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    width: 1.6rem;
+    text-align: center;
+  }nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
 nav[class*='gap'] > :last-child {margin-right: initial}
 nav[class*='gap'] figure {margin:0}
 
@@ -986,8 +974,7 @@ nav.tabs.accordions > section{
 
 #togglebar:checked ~ * .toggleable {
   display: inherit;
-}
-nav.slider {
+}nav.slider {
     justify-content: center;
     align-items: stretch;
     height: 100%;
@@ -1055,8 +1042,7 @@ nav.slider input[type="radio"]:checked + label + section {
     display: inherit !important;
     color:#000;
     margin: inherit;
-}
-.glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
+}.glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
 .inset->*:hover, .inset{ box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .1), 0px 0px 3px 0px rgba(0,0,0, .1) }
 .shade_h->*:hover, .shade{
     box-shadow: 0 2px 4px rgba(0,0,0, .5);
@@ -1579,8 +1565,6 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 600px) {
     body .md_dn{display: inherit}
-    body .lg_pl5 { padding-left: 5rem }
-    body .lg_pl6 { padding-left: 6rem }
     .cards { grid-template-columns: 1fr 1fr}
 }
 
@@ -1632,14 +1616,10 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 740px) {
     body .lg_du{display: inherit}
+    body .lg_gan{ grid-area: nav; display: inherit }
     body .lg_w100p { width: 100% }
-    body .lg_h3{height: 3rem}
-    body .lg_h4{height: 4rem}
-    body .lg_h5{height: 5rem}
-    body .lg_h10{height: 10rem}
-    body .lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
-    body .lg_gan { grid-area: nav; width: 100%; z-index: 11 }
-    body .lg_gam { grid-area: middle; z-index: 11 }
+    .cards.lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    .lg_gan .sidebar{ width: 100% }
 }
 
 @media only screen and (max-width: 739px) and (min-width: 600px) {
@@ -1650,12 +1630,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_du{display: inherit}
     body .pauto{padding: 2.5rem}
 
-    body .grid {
+    .grid {
         grid-template-areas: "head head head" "nav nav nav" "left left left" "middle middle middle" "right right right" "foot foot foot";
         max-width: unset;
     }
 
-    nav.topbar * a{ font-size: 70% };
+    nav.topbar > a{ font-size: 80% };
 }
 
 @media only screen and (max-width: 599px) {
@@ -1665,13 +1645,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
 @media only screen and (max-width: 480px) {
     body .xm_du{display: inherit}
     body .pauto{padding: 2rem}
-    nav.topbar * a{ font-size: 0}
-    .topbar section [class*='icon'], .bottombar section [class*='icon']{
-        padding-right: unset;
-        font-size: initial;
-    }
+    nav.topbar > a{ font-size: 0}
     .cards.xm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
-    body .lg_gah { grid-area: head; z-index: 11 }
 }
 
 @media only screen and (max-width: 360px) {

@@ -22,25 +22,17 @@
     align-items: center;
     max-height: 100%;
     line-height: normal;
-    float: left;
 }
 
 .bottombar figure,
 .bottombar a,
-.topbar section,
 .topbar a,
-.topbar figure{ height: 100%; display: inherit}
+.topbar figure{ height: 100% }
 
 .bottombar * img,
 .topbar * img{ max-width: 100% }
-.topbar section{ flex:2; margin-top: initial; }
 
 .bottombar *.fr,
 .topbar *.fr{
     margin-left: auto!important;
-}
-
-.topbar section [class*='icon'], .bottombar section [class*='icon']{
-    padding-right: unset;
-    font-size: initial;
 }
