@@ -421,7 +421,8 @@ ul.list li{
 .icon128{ font-size: 128px }
 .icon192{ font-size: 192px }
 .icon256{ font-size: 256px }
-.icon512{ font-size: 512px }summary::-webkit-details-marker {
+.icon512{ font-size: 512px }
+summary::-webkit-details-marker {
     display: none
 }
 
@@ -440,7 +441,8 @@ ul.list li{
 .sidebar details[open] summary:after,
 .sidebar details[open] details[open] summary:after {
     content: "\02C4";
-}.alert{
+}
+.alert{
     border-radius: .5rem;
     display: inline-block;
     padding: 1rem 1.2rem;
@@ -458,7 +460,8 @@ ul.list li{
     justify-content: center;
     display: -ms-flexbox;
     -ms-flex-pack: center;
-}.cards figure,
+}
+.cards figure,
 .cards div{
     border-radius: 3px;
     box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .05), 0px 0px 3px 0px rgba(0,0,0, .1);
@@ -497,7 +500,8 @@ ul.list li{
 .cards[class*='gut7']{margin-right: -2rem}
 .cards[class*='gut8']{margin-right: -3rem}
 .cards[class*='gut9']{margin-right: -4rem}
-.cards[class*='gut10']{margin-right: -5rem}.modal {
+.cards[class*='gut10']{margin-right: -5rem}
+.modal {
   position: fixed;
   padding: 1.5rem;
   top: 50%;
@@ -580,7 +584,8 @@ body.disabled:after {
   display: block;
   content: "";
   z-index: 100;
-}.dropdown {
+}
+.dropdown {
   position: relative;
   display: inline-block;
 }
@@ -597,7 +602,8 @@ body.disabled:after {
 
 .dropdown button:focus .dropdown-content {
   display: unset;
-}form .group {
+}
+form .group {
     flex-direction: row;
     -ms-flex-direction: row;
 }
@@ -786,69 +792,77 @@ button.icon,.button.icon{
     border-bottom: 1px solid rgba(0,0,0, 0.07);
 }
 summary {
-    display: block;
-    cursor: pointer;
-    outline: 0; 
-  }
+  display: block;
+  cursor: pointer;
+  outline: 0; 
+}
   
-  summary::-webkit-details-marker {
-      display: none;
-    }  
+summary::-webkit-details-marker {
+  display: none;
+}  
   
-  .tree-nav__item {
-    display: block;
-    white-space: nowrap;
-    position: relative;
-  }
-  .tree-nav__item.is-expandable::before {
-    border-left: 1px solid #333;
-    content: "";
-    height: 100%;
-    left: 0.8rem;
-    position: absolute;
-    top: 2.4rem;
-    height: calc(100% - 2.4rem);
-  }
-  .tree-nav__item .tree-nav__item {
-    margin-left: 2.4rem;
-  }
-  .tree-nav__item.is-expandable[open] > .tree-nav__item-title::before {
-    font-family: "ionicons";
-    transform: rotate(90deg);
-  }
-  .tree-nav__item.is-expandable > .tree-nav__item-title {
-    padding-left: 2.4rem;
-  }
-  .tree-nav__item.is-expandable > .tree-nav__item-title::before {
-    position: absolute;
-    will-change: transform;
-    transition: transform 300ms ease;
-    font-family: "ionicons";
-    content: "\f125";
-    left: 0;
-    display: inline-block;
-    width: 1.6rem;
-    text-align: center;
-  }
+.tree-nav__item {
+  display: block;
+  white-space: nowrap;
+  position: relative;
+}
+
+.tree-nav__item.is-expandable::before {
+  border-left: 1px solid #333;
+  content: '';
+  height: 100%;
+  left: 0.8rem;
+  position: absolute;
+  top: 2.4rem;
+  height: calc(100% - 2.4rem);
+}
+
+.tree-nav__item .tree-nav__item {
+  margin-left: 2.4rem;
+}
+
+.tree-nav__item.is-expandable[open] > .tree-nav__item-title::before {
+  font-family: "ionicons";
+  transform: rotate(90deg);
+}
+
+.tree-nav__item.is-expandable > .tree-nav__item-title {
+  padding-left: 2.4rem;
+}
+
+.tree-nav__item.is-expandable > .tree-nav__item-title::before {
+  position: absolute;
+  will-change: transform;
+  transition: transform 300ms ease;
+  font-family: "ionicons";
+  content: "\f125";
+  left: 0;
+  display: inline-block;
+  width: 1.6rem;
+  text-align: center;
+}
   
-  .tree-nav__item-title {
-    cursor: pointer;
-    display: block;
-  }
-  .tree-nav__item-title .icon {
-    display: inline;
-    padding-left: 1.6rem;
-    margin-right: 0.8rem;
-    position: relative;
-  }
-  .tree-nav__item-title .icon::before {
-    top: 0;
-    position: absolute;
-    left: 0;
-    display: inline-block;
-    width: 1.6rem;
-    text-align: center;
-  }nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
+.tree-nav__item-title {
+  cursor: pointer;
+  display: block;
+}
+
+.tree-nav__item-title .icon {
+  display: inline;
+  padding-left: 1.6rem;
+  margin-right: 0.8rem;
+  position: relative;
+}
+
+.tree-nav__item-title .icon::before {
+  top: 0;
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  width: 1.6rem;
+  text-align: center;
+}
+nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
 nav[class*='gap'] > :last-child {margin-right: initial}
 nav[class*='gap'] figure {margin:0}
 
@@ -972,7 +986,8 @@ nav.tabs.accordions > section{
 
 #togglebar:checked ~ * .toggleable {
   display: inherit;
-}nav.slider {
+}
+nav.slider {
     justify-content: center;
     align-items: stretch;
     height: 100%;
@@ -1040,7 +1055,8 @@ nav.slider input[type="radio"]:checked + label + section {
     display: inherit !important;
     color:#000;
     margin: inherit;
-}.glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
+}
+.glow->*:hover{ box-shadow: 1px 1px 10px #fff, 0px 1px 10px #fff }
 .inset->*:hover, .inset{ box-shadow: 0px 2px 1px -1px rgba(0,0,0, .1), 0px 1px 1px 0px rgba(0,0,0, .1), 0px 0px 3px 0px rgba(0,0,0, .1) }
 .shade_h->*:hover, .shade{
     box-shadow: 0 2px 4px rgba(0,0,0, .5);
