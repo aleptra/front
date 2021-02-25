@@ -298,12 +298,12 @@ table.fr{float:right}
 .h25r{height: 25rem}
 .h50r{height: 50rem}
 
-.gap05->*{ margin-left: .25rem;margin-right: .25rem }
-.gap1->*{ margin-left: .5rem;margin-right: .5rem }
-.gap105->*{ margin-left: .75rem;margin-right: .75rem }
-.gap2->*{ margin-left: 1rem;margin-right: 1rem }
+.gap05->*,.gap05-->* *{ margin-left: .25rem;margin-right: .25rem }
+.gap1->*,.gap1-->* *{ margin-left: .5rem;margin-right: .5rem }
+.gap105->*,.gap105-->* *{ margin-left: .75rem;margin-right: .75rem }
+.gap2->*,.gap2-->* *{ margin-left: 1rem;margin-right: 1rem }
 /* .gap2->*{ margin: 1rem 1rem 1rem 1rem } */
-.gap3->*{ margin: 2rem 2rem 2rem 2rem }
+.gap3->*,.gap3-->* *{ margin: 2rem 2rem 2rem 2rem }
 
 .gaph05->*{ margin-bottom: .25rem}
 .gaph1->*{ margin-bottom: .5rem}
@@ -324,7 +324,7 @@ table.fr{float:right}
 .gut9->*,.gap9>*{ margin-right: 4rem; margin-bottom: 4rem;}
 .gut10->*,.gap10>*{ margin-right: 5rem; margin-bottom: 5rem;}
 
-[class*='gap'] > :first-child {margin-left: 0; margin-right:0}
+/*[class*='gap'] > :first-child {margin-left: 0; margin-right:0}*/
 [class*='gap'] > :last-child {margin-right: 0}
 
 .zi05{ z-index: -5}
@@ -366,7 +366,7 @@ table.fr{float:right}
 
 .fww{ flex-wrap: wrap; -ms-flex-wrap: wrap }
 .fn1{ flex-shrink: 1; -ms-flex-negative: 1 }
-.fdc, .fdc->*{ flex-direction: column; -ms-flex-direction: column}
+.fdc, .fdc->*, .fdc--> * *{ flex-direction: column; -ms-flex-direction: column}
 .fdr, .fdr->*{ flex-direction: row; -ms-flex-direction: row}
 .flc, .flc->*{
     -webkit-box-pack: center;
@@ -421,17 +421,7 @@ ul.list li{
 .icon128{ font-size: 128px }
 .icon192{ font-size: 192px }
 .icon256{ font-size: 256px }
-.icon512{ font-size: 512px }
-
-.test- > a{
-    flex-direction: column;
-    -ms-flex-direction: column;
-}
-
-.test-> a .icon{
-    padding-right: unset;
-    font-size: initial;
-}summary::-webkit-details-marker {
+.icon512{ font-size: 512px }summary::-webkit-details-marker {
     display: none
 }
 
@@ -715,19 +705,27 @@ button.icon,.button.icon{
     align-items: center;
     max-height: 100%;
     line-height: normal;
+    float: left;
 }
 
 .bottombar figure,
 .bottombar a,
+.topbar section,
 .topbar a,
-.topbar figure{ height: 100% }
+.topbar figure{ height: 100%; display: inherit}
 
 .bottombar * img,
 .topbar * img{ max-width: 100% }
+.topbar section{ flex:2; margin-top: initial; }
 
 .bottombar *.fr,
 .topbar *.fr{
     margin-left: auto!important;
+}
+
+.topbar section [class*='icon'], .bottombar section [class*='icon']{
+    padding-right: unset;
+    font-size: initial;
 }.sidebar{
     flex-direction: column;
     -ms-flex-direction: column;
@@ -1565,6 +1563,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 600px) {
     body .md_dn{display: inherit}
+    body .lg_pl5 { padding-left: 5rem }
+    body .lg_pl6 { padding-left: 6rem }
     .cards { grid-template-columns: 1fr 1fr}
 }
 
@@ -1616,10 +1616,14 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 740px) {
     body .lg_du{display: inherit}
-    body .lg_gan{ grid-area: nav; display: inherit }
     body .lg_w100p { width: 100% }
-    .cards.lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
-    .lg_gan .sidebar{ width: 100% }
+    body .lg_h3{height: 3rem}
+    body .lg_h4{height: 4rem}
+    body .lg_h5{height: 5rem}
+    body .lg_h10{height: 10rem}
+    body .lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .lg_gan { grid-area: nav; width: 100%; z-index: 11 }
+    body .lg_gam { grid-area: middle; z-index: 11 }
 }
 
 @media only screen and (max-width: 739px) and (min-width: 600px) {
@@ -1630,12 +1634,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_du{display: inherit}
     body .pauto{padding: 2.5rem}
 
-    .grid {
+    body .grid {
         grid-template-areas: "head head head" "nav nav nav" "left left left" "middle middle middle" "right right right" "foot foot foot";
         max-width: unset;
     }
 
-    nav.topbar > a{ font-size: 80% };
+    nav.topbar * a{ font-size: 70% };
 }
 
 @media only screen and (max-width: 599px) {
@@ -1645,8 +1649,13 @@ body [class*='_dn'], body [class*='_du']{display: none}
 @media only screen and (max-width: 480px) {
     body .xm_du{display: inherit}
     body .pauto{padding: 2rem}
-    nav.topbar > a{ font-size: 0}
+    nav.topbar * a{ font-size: 0}
+    .topbar section [class*='icon'], .bottombar section [class*='icon']{
+        padding-right: unset;
+        font-size: initial;
+    }
     .cards.xm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .lg_gah { grid-area: head; z-index: 11 }
 }
 
 @media only screen and (max-width: 360px) {
