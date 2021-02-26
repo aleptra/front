@@ -1565,16 +1565,30 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 600px) {
     body .md_dn{display: inherit}
+    body .md_pl3 { padding-left: 3rem }
+    body .md_pl4 { padding-left: 4rem }
+    body .md_pl5 { padding-left: 5rem }
+    body .md_pl6 { padding-left: 6rem }
     .cards { grid-template-columns: 1fr 1fr}
 }
 
 @media only screen and (min-width: 740px) {
     body .lg_dn{display: inherit}
+    body .lg_pl2 { padding-left: 2rem }
+    body .lg_pl3 { padding-left: 3rem }  
+    body .lg_pl4 { padding-left: 4rem }
+    body .lg_pl5 { padding-left: 5rem }
+    body .lg_pl6 { padding-left: 6rem }
     .cards { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 960px) {
     body .xl_dn{display: inherit}
+    body .xl_pl2 { padding-left: 2rem }
+    body .xl_pl3 { padding-left: 3rem }
+    body .xl_pl4 { padding-left: 4rem }
+    body .xl_pl5 { padding-left: 5rem }
+    body .xl_pl6 { padding-left: 6rem }
     .cards { grid-template-columns: 1fr 1fr 1fr 1fr}
 }
 
@@ -1616,10 +1630,14 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 740px) {
     body .lg_du{display: inherit}
-    body .lg_gan{ grid-area: nav; display: inherit }
     body .lg_w100p { width: 100% }
-    .cards.lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
-    .lg_gan .sidebar{ width: 100% }
+    body .lg_h3{height: 3rem}
+    body .lg_h4{height: 4rem}
+    body .lg_h5{height: 5rem}
+    body .lg_h10{height: 10rem}
+    body .lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .lg_gan { grid-area: nav; width: 100%; z-index: 11 }
+    body .lg_gam { grid-area: middle; z-index: 11 }
 }
 
 @media only screen and (max-width: 739px) and (min-width: 600px) {

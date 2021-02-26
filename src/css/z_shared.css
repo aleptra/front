@@ -521,18 +521,30 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 600px) {
     body .md_dn{display: inherit}
-    body .lg_pl5 { padding-left: 5rem }
-    body .lg_pl6 { padding-left: 6rem }
+    body .md_pl3 { padding-left: 3rem }
+    body .md_pl4 { padding-left: 4rem }
+    body .md_pl5 { padding-left: 5rem }
+    body .md_pl6 { padding-left: 6rem }
     .cards { grid-template-columns: 1fr 1fr}
 }
 
 @media only screen and (min-width: 740px) {
     body .lg_dn{display: inherit}
+    body .lg_pl2 { padding-left: 2rem }
+    body .lg_pl3 { padding-left: 3rem }  
+    body .lg_pl4 { padding-left: 4rem }
+    body .lg_pl5 { padding-left: 5rem }
+    body .lg_pl6 { padding-left: 6rem }
     .cards { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 960px) {
     body .xl_dn{display: inherit}
+    body .xl_pl2 { padding-left: 2rem }
+    body .xl_pl3 { padding-left: 3rem }
+    body .xl_pl4 { padding-left: 4rem }
+    body .xl_pl5 { padding-left: 5rem }
+    body .xl_pl6 { padding-left: 6rem }
     .cards { grid-template-columns: 1fr 1fr 1fr 1fr}
 }
 
