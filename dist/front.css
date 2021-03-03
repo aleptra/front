@@ -1553,54 +1553,110 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 300px) {
     body .xs_dn{display: inherit}
+    body .xs_gtc2 { grid-template-columns: 1fr 1fr}
+    body .xs_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .xs_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 360px) {
     body .sm_dn{display: inherit}
+    body .sm_gtc1 { grid-template-columns: 1fr}
+    body .sm_gtc2 { grid-template-columns: 1fr 1fr}
+    body .sm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .sm_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .sm_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .sm_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 480px) {
     body .xm_dn{display: inherit}
+    body .xm_gtc1 { grid-template-columns: 1fr}
+    body .xm_gtc2 { grid-template-columns: 1fr 1fr}
+    body .xm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .xm_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .xm_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .xm_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 600px) {
+    .cards { grid-template-columns: 1fr 1fr}
+
     body .md_dn{display: inherit}
     body .md_pl3 { padding-left: 3rem }
     body .md_pl4 { padding-left: 4rem }
     body .md_pl5 { padding-left: 5rem }
     body .md_pl6 { padding-left: 6rem }
-    .cards { grid-template-columns: 1fr 1fr}
+    body .md_gtc1 { grid-template-columns: 1fr}
+    body .md_gtc2 { grid-template-columns: 1fr 1fr}
+    body .md_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .md_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .md_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .md_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 740px) {
+    .cards { grid-template-columns: 1fr 1fr 1fr}
+    
     body .lg_dn{display: inherit}
     body .lg_pl2 { padding-left: 2rem }
     body .lg_pl3 { padding-left: 3rem }  
     body .lg_pl4 { padding-left: 4rem }
     body .lg_pl5 { padding-left: 5rem }
     body .lg_pl6 { padding-left: 6rem }
-    .cards { grid-template-columns: 1fr 1fr 1fr}
+    body .lg_gtc2 { grid-template-columns: 1fr 1fr}
+    body .lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .lg_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .lg_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .lg_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+    body .lg_w10r{ width: 10rem}
+    body .lg_w15r{ width: 15rem}
+    body .lg_w20r{ width: 20rem}
+    body .lg_w25r{ width: 25rem}
+    body .lg_w30r{ width: 30rem}
+    body .lg_w40r{ width: 40rem}
 }
 
 @media only screen and (min-width: 960px) {
+    .cards { grid-template-columns: 1fr 1fr 1fr 1fr}
+
     body .xl_dn{display: inherit}
     body .xl_pl2 { padding-left: 2rem }
     body .xl_pl3 { padding-left: 3rem }
     body .xl_pl4 { padding-left: 4rem }
     body .xl_pl5 { padding-left: 5rem }
     body .xl_pl6 { padding-left: 6rem }
-    .cards { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .xl_gtc2 { grid-template-columns: 1fr 1fr}
+    body .xl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .xl_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .xl_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .xl_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 1280px) {
-    body .xxl_dn{display: inherit}
     .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .xxl_dn{display: inherit}
+    body .xxl_gtc2 { grid-template-columns: 1fr 1fr}
+    body .xxl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .xxl_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .xxl_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .xxl_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 1440px) {
-    body .xxxl_dn{display: inherit}
     .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
-    .cards>*:nth-child(6n){ margin-right: 0}
+
+    body .xxxl_dn{display: inherit}
+    body .xxxl_gtc2 { grid-template-columns: 1fr 1fr}
+    body .xxxl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .xxxl_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .xxxl_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .xxxl_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+    body .xxxl_w10r{ width: 10rem}
+    body .xxxl_w15r{ width: 15rem}
+    body .xxxl_w20r{ width: 20rem}
+    body .xxxl_w25r{ width: 25rem}
+    body .xxxl_w30r{ width: 30rem}
+    body .xxxl_w40r{ width: 40rem}
 }
 
 /*Max*/
@@ -1614,20 +1670,18 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 1280px) {
     body .xxl_du{display: inherit}
-    body .xxl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 1279px) and (min-width: 960px) {
-    /*.cards>*:nth-child(4n){ margin-right: 0}*/
+    
 }
 
 @media only screen and (max-width: 960px) {
     body .xl_du{display: inherit}
-    body .xl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 959px) and (min-width: 740px) {
-    /*.cards>*:nth-child(3n){ margin-right: 0}*/
+    
 }
 
 @media only screen and (max-width: 740px) {
@@ -1637,56 +1691,43 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_h4{height: 4rem}
     body .lg_h5{height: 5rem}
     body .lg_h10{height: 10rem}
-    body .lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
-    body .lg_gtc2 { grid-template-columns: 1fr 1fr}
     body .lg_gan { grid-area: nav; width: 100%; z-index: 11 }
     body .lg_gam { grid-area: middle; z-index: 11 }
 }
 
 @media only screen and (max-width: 739px) and (min-width: 600px) {
-    /*.cards>*:nth-child(2n){ margin-right: 0}*/
+    
 }
 
 @media only screen and (max-width: 600px) {
     body .md_du{display: inherit}
     body .pauto{padding: 2.5rem}
 
-    .grid {
-        grid-template-areas: "head head head" "nav nav nav" "left left left" "middle middle middle" "right right right" "foot foot foot";
-        max-width: unset;
-    }
-
     nav.topbar > a{ font-size: 80% };
 }
 
 @media only screen and (max-width: 599px) {
-    /*.cards>*:nth-child(1n){ margin-right: 0}*/
+
 }
 
 @media only screen and (max-width: 480px) {
     body .xm_du{display: inherit}
     body .pauto{padding: 2rem}
     nav.topbar > a{ font-size: 0}
-    body .xm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 360px) {
     body .sm_du{display: inherit}
     body .pauto{padding: 1.5rem}
     body .crumbs{display:none}
-    body .sm_gtc2 { grid-template-columns: 1fr 1fr}
-    body .sm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 300px) {
     body .xs_du{display: inherit}
-    body .xs_gtc2 { grid-template-columns: 1fr 1fr}
-    body .xs_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 220px) {
     body .xxs_du{display: inherit}
-    body .xxs_gtc1 { grid-template-columns: 1fr}
 }
 
 nav.tabs > input[type="radio"],
