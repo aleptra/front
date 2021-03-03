@@ -1614,6 +1614,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 1280px) {
     body .xxl_du{display: inherit}
+    body .xxl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 1279px) and (min-width: 960px) {
@@ -1622,6 +1623,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 960px) {
     body .xl_du{display: inherit}
+    body .xl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 959px) and (min-width: 740px) {
@@ -1636,6 +1638,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_h5{height: 5rem}
     body .lg_h10{height: 10rem}
     body .lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .lg_gtc2 { grid-template-columns: 1fr 1fr}
     body .lg_gan { grid-area: nav; width: 100%; z-index: 11 }
     body .lg_gam { grid-area: middle; z-index: 11 }
 }
@@ -1664,25 +1667,26 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_du{display: inherit}
     body .pauto{padding: 2rem}
     nav.topbar > a{ font-size: 0}
-    .cards.xm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .xm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 360px) {
     body .sm_du{display: inherit}
     body .pauto{padding: 1.5rem}
     body .crumbs{display:none}
-    .cards.sm_gtc2 { grid-template-columns: 1fr 1fr}
-    .cards.sm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .sm_gtc2 { grid-template-columns: 1fr 1fr}
+    body .sm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 300px) {
     body .xs_du{display: inherit}
-    .cards.xs_gtc2 { grid-template-columns: 1fr 1fr}
-    .cards.xs_gtc3 { grid-template-columns: 1fr 1fr 1fr}
+    body .xs_gtc2 { grid-template-columns: 1fr 1fr}
+    body .xs_gtc3 { grid-template-columns: 1fr 1fr 1fr}
 }
 
 @media only screen and (max-width: 220px) {
     body .xxs_du{display: inherit}
+    body .xxs_gtc1 { grid-template-columns: 1fr}
 }
 
 nav.tabs > input[type="radio"],
