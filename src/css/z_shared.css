@@ -509,9 +509,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 300px) {
     body .xs_dn{display: inherit}
+    body .xs_gtc1 { grid-template-columns: 1fr}
     body .xs_gtc2 { grid-template-columns: 1fr 1fr}
     body .xs_gtc3 { grid-template-columns: 1fr 1fr 1fr}
     body .xs_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .xs_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .xs_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 360px) {
@@ -559,6 +562,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_pl4 { padding-left: 4rem }
     body .lg_pl5 { padding-left: 5rem }
     body .lg_pl6 { padding-left: 6rem }
+    body .lg_gtc1 { grid-template-columns: 1fr}
     body .lg_gtc2 { grid-template-columns: 1fr 1fr}
     body .lg_gtc3 { grid-template-columns: 1fr 1fr 1fr}
     body .lg_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
@@ -581,6 +585,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xl_pl4 { padding-left: 4rem }
     body .xl_pl5 { padding-left: 5rem }
     body .xl_pl6 { padding-left: 6rem }
+    body .xl_gtc1 { grid-template-columns: 1fr}
     body .xl_gtc2 { grid-template-columns: 1fr 1fr}
     body .xl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
     body .xl_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
@@ -591,6 +596,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 @media only screen and (min-width: 1280px) {
     .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
     body .xxl_dn{display: inherit}
+    body .xxl_gtc1 { grid-template-columns: 1fr}
     body .xxl_gtc2 { grid-template-columns: 1fr 1fr}
     body .xxl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
     body .xxl_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
@@ -602,6 +608,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
 
     body .xxxl_dn{display: inherit}
+    body .xxxl_gtc1 { grid-template-columns: 1fr}
     body .xxxl_gtc2 { grid-template-columns: 1fr 1fr}
     body .xxxl_gtc3 { grid-template-columns: 1fr 1fr 1fr}
     body .xxxl_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
