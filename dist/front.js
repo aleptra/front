@@ -208,7 +208,6 @@ var core = function() {
 				del.parentNode.removeChild(del);
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
-				console.log(main);
 				var response;
 
 				function stripScripts(s) {
@@ -250,7 +249,7 @@ var core = function() {
 					}
 					
 					console.log(url+"/"+template1+".html");
-					
+
 					xhttp.open("GET", url+"/"+template1+".html", true);
 					xhttp.send();
 				}
