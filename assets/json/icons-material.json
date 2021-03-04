@@ -202,6 +202,18 @@
             "html_entity_2": "&#x21B1;"
         },
         {
+            "title": "Downwards Arrow with Tip Leftwards",
+            "name": "subdirectory_arrow_left",
+            "html_entity": "&#8626;",
+            "html_entity_2": "&#x21B2;"
+        },
+        {
+            "title": "Downwards Arrow with Tip Rightwards",
+            "name": "subdirectory_arrow_right",
+            "html_entity": "&#8627;",
+            "html_entity_2": "&#x21B3;"
+        },
+        {
             "title": "Anticlockwise Top Semicircle Arrow",
             "name": "undo",
             "html_entity": "&#8630;",
@@ -347,16 +359,16 @@
             "html_entity_2": "&#x2347;"
         },
         {
-            "title": "APL Functional Symbol Circle Backslash",
-            "name": "hide_source",
-            "html_entity": "&#9033;",
-            "html_entity_2": "&#x2349;"
-        },
-        {
             "title": "APL Functional Symbol Quad Rightwards Arrow",
             "name": "logout",
             "html_entity": "&#9032;",
             "html_entity_2": "&#x2348;"
+        },
+        {
+            "title": "APL Functional Symbol Circle Backslash",
+            "name": "hide_source",
+            "html_entity": "&#9033;",
+            "html_entity_2": "&#x2349;"
         },
         {
             "title": "Eject Symbol",
@@ -766,6 +778,13 @@
             "html_entity": "&#127777;",
             "html_entity_2": "&#x1F321;",
             "keywords": "celcius, fahrenheit"
+        },
+        {
+            "title": "Cooked Rice",
+            "name": "rice_bowl",
+            "html_entity": "&#127834;",
+            "html_entity_2": "&#x1F35A;",
+            "keywords": "congee"
         },
         {
             "title": "Bento Box",
