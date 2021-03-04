@@ -219,7 +219,7 @@ var core = function() {
 								return getTemplate1(response[1]);
 					  		}
 					}
-					xhr.open("GET", url+"/"+template2+".html", false);
+					xhr.open("GET", url+"/"+template2+".html", true);
 					xhr.send();
 				  }
 	
@@ -239,14 +239,14 @@ var core = function() {
 						document.close();
 					}
 
-					xhttp.open("GET", url+"/"+template1+".html", false);
+					xhttp.open("GET", url+"/"+template1+".html", true);
 					xhttp.send();
 				}
 				  
 				if (template2){
 					getTemplate2(getTemplate1);
 				}else{
-					getTemplate1("");
+					getTemplate1();
 				}
 
 				return true;
