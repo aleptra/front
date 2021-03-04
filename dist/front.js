@@ -248,7 +248,9 @@ var core = function() {
 							document.close();
 						}
 					}
-
+					
+					console.log(url+"/"+template1+".html");
+					
 					xhttp.open("GET", url+"/"+template1+".html", true);
 					xhttp.send();
 				}
