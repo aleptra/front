@@ -82,6 +82,12 @@
             "html_entity_2": "&#x2C5"
         },
         {
+            "title": "Syriac Three Dots Above",
+            "name": "workspaces",
+            "html_entity": "&#1861;",
+            "html_entity_2": "&#x745;"
+        },
+        {
             "title": "Canadian Syllabics Po",
             "name": "arrow_forward_ios",
             "html_entity": "&#5171;",
@@ -266,6 +272,12 @@
             "name": "all_inclusive",
             "html_entity": "&#8734;",
             "html_entity_2": "&#x221E;"
+        },
+        {
+            "title": "Triple Tilde",
+            "name": "water",
+            "html_entity": "&#8779;",
+            "html_entity_2": "&#x224B;"
         },
         {
             "title": "Identical To",
@@ -1274,6 +1286,12 @@
             "name": "local_taxi",
             "html_entity": "&#128662;",
             "html_entity_2": "&#x1F696;"
+        },
+        {
+            "title": "Rowboat",
+            "name": "rowing",
+            "html_entity": "&#128675;",
+            "html_entity_2": "&#x1F6A3;"
         },
         {
             "title": "Vertical Traffic Light",
