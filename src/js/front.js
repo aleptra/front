@@ -193,10 +193,10 @@ var core = function() {
 		for (i = 0; i < front.length; i++) {
 			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
 				var template = front[i].getAttribute("template").split(";");
-				var template1 = template[0] ? 'index' : '';
-				var template2 = template[1] ? template[1] : false;
+					template1 = template[0] ? 'index' : '';
+					template2 = template[1] ? template[1] : false;
 		
-				var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length;
+				var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length
 				var url = currentUrl.split("/").slice(0, -count).join("/");
 
 				var html = dom.get("html?tag=0");
@@ -208,7 +208,6 @@ var core = function() {
 				del.parentNode.removeChild(del);
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
-				console.log(main);
 				var response;
 
 				function getTemplate2(callback) {
@@ -216,7 +215,7 @@ var core = function() {
 					xhr.onreadystatechange = function () {
 						if (this.readyState == 4 && this.status == 200) {
 						  	response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
-							getTemplate1(response[1]);
+							return getTemplate1(response[1]);
 					  	}
 					}
 					
@@ -231,13 +230,12 @@ var core = function() {
 							response = this.responseText + response2;
 							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
-						}
-					}
 
-					xhttp.onloadend = function() {
-						document.open('text/html');
+
+						document.open();
 						document.write(response);
 						document.close();
+						}
 					}
 
 					xhttp.open("GET", url+"/"+template1+".html", true);
