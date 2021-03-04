@@ -640,7 +640,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     
 }
 
-@media only screen and (max-width: 740px) {
+@media only screen and (max-width: 739px) {
     body .lg_du{display: inherit}
     body .lg_w100p { width: 100% }
     body .lg_h3{height: 3rem}
