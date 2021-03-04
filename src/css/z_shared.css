@@ -642,7 +642,10 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 739px) {
     body .lg_du{display: inherit}
-    body .lg_w100p { width: 100% }
+    body .lg_w70p, body .lg_w70p- * { width: 70% }
+    body .lg_w90p, body .lg_w90p- * { width: 80% }
+    body .lg_w90p, body .lg_w90p- * { width: 90% }
+    body .lg_w100p, body .lg_w100p- * { width: 100% }
     body .lg_h3{height: 3rem}
     body .lg_h4{height: 4rem}
     body .lg_h5{height: 5rem}
