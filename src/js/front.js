@@ -219,7 +219,7 @@ var core = function() {
 								return getTemplate1(response[1]);
 					  		}
 					}
-					xhr.open("GET", url+"/"+template2+".html", true);
+					xhr.open("GET", url+"/"+template2+".html", false);
 					xhr.send();
 				  }
 	
@@ -239,7 +239,7 @@ var core = function() {
 						document.close();
 					}
 
-					xhttp.open("GET", url+"/"+template1+".html", true);
+					xhttp.open("GET", url+"/"+template1+".html", false);
 					xhttp.send();
 				}
 				  
