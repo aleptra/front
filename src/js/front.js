@@ -213,11 +213,10 @@ var core = function() {
 				function getTemplate2(callback) {
 					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function () {
-						if (xhr.readyState !== XMLHttpRequest.DONE) { return; }
-					  		if (xhr.status === 200) {
-						  		response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
-								return getTemplate1(response[1]);
-					  		}
+						if (this.readyState == 4 && this.status == 200) {
+						  	response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
+							return getTemplate1(response[1]);
+					  	}
 					}
 					xhr.open("GET", url+"/"+template2+".html", true);
 					xhr.send();
@@ -246,7 +245,7 @@ var core = function() {
 				if (template2){
 					getTemplate2(getTemplate1);
 				}else{
-					getTemplate1();
+					getTemplate1("");
 				}
 
 				return true;
