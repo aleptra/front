@@ -193,10 +193,10 @@ var core = function() {
 		for (i = 0; i < front.length; i++) {
 			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
 				var template = front[i].getAttribute("template").split(";");
-					template1 = template[0] ? 'index' : '';
-					template2 = template[1] ? template[1] : false;
+				var template1 = template[0] ? 'index' : '';
+				var template2 = template[1] ? template[1] : false;
 		
-				var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length
+				var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length;
 				var url = currentUrl.split("/").slice(0, -count).join("/");
 
 				var html = dom.get("html?tag=0");
@@ -208,20 +208,32 @@ var core = function() {
 				del.parentNode.removeChild(del);
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
+				console.log(main);
 				var response;
 
-				function getTemplate2(callback) {
+				function stripScripts(s) {
+					var div = document.createElement('div');
+					div.innerHTML = s;
+					var scripts = div.getElementsByTagName('script');
+					var i = scripts.length;
+					while (i--) {
+					  scripts[i].parentNode.removeChild(scripts[i]);
+					}
+					return div.innerHTML;
+				  }
+
+				function getTemplate2() {
 					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function () {
 						if (this.readyState == 4 && this.status == 200) {
 						  	response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
-							return getTemplate1(response[1]);
+							getTemplate1(response[1]);
 					  	}
 					}
 					
 					xhr.open("GET", url+"/"+template2+".html", true);
 					xhr.send();
-				  }
+				}
 	
 				function getTemplate1(response2) {
 					var xhttp = new XMLHttpRequest();
@@ -230,11 +242,10 @@ var core = function() {
 							response = this.responseText + response2;
 							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
-
-
-						document.open();
-						document.write(response);
-						document.close();
+							
+							document.open();
+							document.write(stripScripts(response));
+							document.close();
 						}
 					}
 
