@@ -208,6 +208,7 @@ var core = function() {
 				del.parentNode.removeChild(del);
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
+				var response;
 
 				function getTemplate2(callback) {
 					var xhr = new XMLHttpRequest(),
@@ -218,7 +219,7 @@ var core = function() {
 					xhr.onreadystatechange = function () {
 						if (xhr.readyState !== XMLHttpRequest.DONE) { return; }
 					  		if (xhr.status === 200) {
-						  		var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
+						  		response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
 								return getTemplate1(response[1]);
 					  		}
 						xhr.open(method, xurl, true);
@@ -231,26 +232,28 @@ var core = function() {
 					var xhttp = new XMLHttpRequest();
 					xhttp.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
-							var response = this.responseText;
-							response += response2;
+							response = this.responseText + response2;
 							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
-
-							document.open();
-							document.write(response);
-							document.close();
 						}
+					}
+
+					xhttp.onloadend = function() {
+						document.open();
+						document.write(response);
+						document.close();
 					}
 
 					xhttp.open("GET", url+"/"+template1+".html", true);
 					xhttp.send();
 				}
 				  
-				  if (template2)
-				  	getTemplate2(getTemplate1);
-				  else
-				  	getTemplate1("");
-			
+				if (template2){
+					getTemplate2(getTemplate1);
+				}else{
+					getTemplate1("");
+				}
+
 				return true;
 			}
 		}
