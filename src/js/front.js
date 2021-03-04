@@ -123,7 +123,7 @@ function require(src) {
 	asset.src = src;
 	asset.href = src;
 	asset.rel = "stylesheet";
-	asset.async = false;
+	asset.async = true;
   	asset.onload = function () {
 		console.log("Loaded: "+ src);
 	};
@@ -208,6 +208,7 @@ var core = function() {
 				del.parentNode.removeChild(del);
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
+				console.log(main);
 				var response;
 
 				function getTemplate2(callback) {
@@ -215,9 +216,10 @@ var core = function() {
 					xhr.onreadystatechange = function () {
 						if (this.readyState == 4 && this.status == 200) {
 						  	response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
-							return getTemplate1(response[1]);
+							getTemplate1(response[1]);
 					  	}
 					}
+					
 					xhr.open("GET", url+"/"+template2+".html", true);
 					xhr.send();
 				  }
@@ -233,7 +235,7 @@ var core = function() {
 					}
 
 					xhttp.onloadend = function() {
-						document.open();
+						document.open('text/html');
 						document.write(response);
 						document.close();
 					}
