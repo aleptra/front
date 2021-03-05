@@ -199,7 +199,7 @@ var core = function() {
 				var tUrl = currentScriptUrl.split("./");
 
 				var count1 = tUrl.length + (template1.match(/..\//g) || []).length;
-				var url1 = ttUrl.slice(0, -count1).join("/");
+				var url1 = tUrl.slice(0, -count1).join("/");
 
 				var count2 = tUrl.length + (template2.match(/..\//g) || []).length;
 				var url2 = tUrl.slice(0, -count2).join("/");
