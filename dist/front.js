@@ -219,9 +219,8 @@ var core = function() {
 						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
 							return getTemplate1(response[1]);
 					  	}
-						xhr.open("GET", url+"/"+template2+".html", true);
-						xhr.send();
 					}
+					xhr.open("GET", url+"/"+template2+".html", true);
 					xhr.send();
 				  }
 	
