@@ -232,7 +232,7 @@ var core = function() {
 					xhr.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
 							response = this.responseText + response2;
-							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
+							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url1+'/">');
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
 							
 							document.open();
