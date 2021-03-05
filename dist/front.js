@@ -224,7 +224,7 @@ var core = function() {
 					  	}
 					}
 					
-					xhr.open("GET", url1+"/"+template2+".html", true);
+					xhr.open("GET", url1+"/"+template2+".html", false);
 					xhr.send();
 				}
 	
@@ -244,7 +244,7 @@ var core = function() {
 					
 					console.log(url+"/"+template1+".html");
 
-					xhttp.open("GET", url2+"/"+template1+".html", true);
+					xhttp.open("GET", url2+"/"+template1+".html", false);
 					xhttp.send();
 				}
 				  
