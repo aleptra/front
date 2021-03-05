@@ -213,7 +213,7 @@ var core = function() {
 				function getTemplate2() {
 					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function () {
-					  	if (xhr.status === 200) {
+					  	if (this.readyState == 4 && this.status == 200) {
 						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
 							getTemplate1(response);
 					  	}
@@ -247,73 +247,7 @@ var core = function() {
 
 				return true;
 			}
-	}
-
-	this.hasTemplateLayout2 = function() {
-		for (i = 0; i < front.length; i++) {
-			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
-				var template = front[i].getAttribute("template").split(";"),
-					template1 = template[0].match(/..\//g) ? template[0] : "index",
-					template2 = template[1] ? template[1] : '';
-				
-				//var tUrl = currentScriptUrl.split("./");
-
-				var count1 = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length,
-					count2 = currentScriptUrl.split("./").length + (template2.match(/..\//g) || []).length,
-					url1 = currentScriptUrl.split("./").slice(0, -count1).join("/"),
-					url2 = currentScriptUrl.split("./").slice(0, -count2).join("/");
-
-				var del = document.documentElement,
-					html = dom.get("html?tag=0"),
-					script = dom.get("script?tag=0");
-
-				script.removeAttribute("src");
-				script.removeAttribute("template");
-				del.parentNode.removeChild(del);
-
-				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
-				var response;
-
-				function getTemplate2() {
-					var xhr = new XMLHttpRequest();
-					xhr.onreadystatechange = function () {
-						if (this.readyState == 4 && this.status == 200) {
-						  	response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
-							getTemplate1(response[1]);
-					  	}
-					}
-					xhr.open("GET", url2+template2+".html", true);
-					xhr.send();
-				}
-	
-				function getTemplate1(response2) {
-					var xhr = new XMLHttpRequest();
-					xhr.onreadystatechange = function() {
-						if (this.readyState == 4 && this.status == 200) {
-							response = this.responseText + response2;
-							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
-							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
-							
-							document.open();
-							document.write(response);
-							document.close();
-						}
-					}
-
-					xhr.open("GET", url1+template1+".html", true);
-					xhr.send();
-				}
-				  
-				if (template2){
-					getTemplate2(getTemplate1);
-				}else{
-					getTemplate1("");
-				}
-
-				return true;
-			}
 		}
-	}
 
 		this.runFunction = function(fnc, arg){
 			eval(fnc)(arg);
