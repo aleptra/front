@@ -222,7 +222,7 @@ var core = function() {
 							getTemplate1(response[1]);
 					  	}
 					}
-					xhr.open("GET", url2+"/"+template2+".html", true);
+					xhr.open("GET", url2+template2+".html", true);
 					xhr.send();
 				}
 	
@@ -240,7 +240,7 @@ var core = function() {
 						}
 					}
 
-					xhr.open("GET", url1+"/"+template1+".html", true);
+					xhr.open("GET", url1+template1+".html", true);
 					xhr.send();
 				}
 				  
