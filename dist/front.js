@@ -213,18 +213,13 @@ var core = function() {
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
 
 				function getTemplate2() {
-					var xhr = new XMLHttpRequest(),
-						method = "GET",
-						xurl = url+"/"+template2+".html";
-
-					xhr.open(method, xurl, true);
+					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function () {
-						if (xhr.readyState !== XMLHttpRequest.DONE) { return; }
-					  		if (xhr.status === 200) {
-						  		var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
-								return getTemplate1(response[1]);
-					  		}
-						xhr.open(method, xurl, true);
+					  	if (xhr.status === 200) {
+						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
+							return getTemplate1(response[1]);
+					  	}
+						xhr.open("GET", url+"/"+template2+".html", true);
 						xhr.send();
 					}
 					xhr.send();
@@ -234,8 +229,7 @@ var core = function() {
 					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
-							var response = this.responseText;
-							response += response2;
+							response = this.responseText + response2;
 							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
 
@@ -244,7 +238,6 @@ var core = function() {
 							document.close();
 						}
 					}
-
 					xhr.open("GET", url+"/"+template1+".html", true);
 					xhr.send();
 				}
