@@ -195,8 +195,11 @@ var core = function() {
 				var template = front[i].getAttribute("template").split(";");
 				var template1 = template[0] ? 'index' : '';
 				var template2 = template[1] ? template[1] : false;
-		
-				var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length;
+				if (currentScriptUrl.indexOf("http") >= 0){
+					var count = (template1.match(/..\//g) || []).length;
+				}else{
+					var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length;
+				}
 				var url = currentUrl.split("/").slice(0, -count).join("/");
 
 				var html = dom.get("html?tag=0");
