@@ -195,6 +195,7 @@ var core = function() {
 				var template = front[i].getAttribute("template").split(";");
 				var template1 = template[0] === "true" ? 'index' : template[0];
 				var template2 = template[1] ? template[1] : false;
+				
 				if (currentScriptUrl.indexOf("http") >= 0){
 					var count = currentUrl.split("./").length + (template1.match(/..\//g) || []).length;
 				}else{
@@ -217,7 +218,7 @@ var core = function() {
 					xhr.onreadystatechange = function () {
 					  	if (xhr.status === 200) {
 						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
-							return getTemplate1(response[1]);
+							return getTemplate1(response);
 					  	}
 					}
 					xhr.open("GET", url+"/"+template2+".html", true);
