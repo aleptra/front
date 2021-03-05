@@ -228,8 +228,8 @@ var core = function() {
 				  }
 	
 				function getTemplate1(response2) {
-					var xhttp = new XMLHttpRequest();
-					xhttp.onreadystatechange = function() {
+					var xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
 							var response = this.responseText;
 							response += response2;
@@ -242,8 +242,8 @@ var core = function() {
 						}
 					}
 
-					xhttp.open("GET", url+"/"+template1+".html", true);
-					xhttp.send();
+					xhr.open("GET", url+"/"+template1+".html", true);
+					xhr.send();
 				}
 				  
 				  if (template2)
