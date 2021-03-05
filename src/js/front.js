@@ -196,7 +196,7 @@ var core = function() {
 				var template1 = template[0] ? 'index' : '';
 				var template2 = template[1] ? template[1] : false;
 				if (currentScriptUrl.indexOf("http") >= 0){
-					var count = (template1.match(/..\//g) || []).length;
+					var count = currentUrl.split("./").length + (template1.match(/..\//g) || []).length;
 				}else{
 					var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length;
 				}
