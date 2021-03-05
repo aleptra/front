@@ -192,24 +192,23 @@ var core = function() {
 	this.hasTemplateLayout = function() {
 		for (i = 0; i < front.length; i++) {
 			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
-				var template = front[i].getAttribute("template").split(";");
-				var template1 = template[0].match(/..\//g) ? template[0] : "index";
-				var template2 = template[1] ? template[1] : '';
+				var template = front[i].getAttribute("template").split(";"),
+					template1 = template[0].match(/..\//g) ? template[0] : "index",
+					template2 = template[1] ? template[1] : '';
 				
 				var tUrl = currentScriptUrl.split("./");
 
-				var count1 = tUrl.length + (template1.match(/..\//g) || []).length;
-				var url1 = tUrl.slice(0, -count1).join("/");
+				var count1 = tUrl.length + (template1.match(/..\//g) || []).length,
+					count2 = tUrl.length + (template2.match(/..\//g) || []).length,
+					url1 = tUrl.slice(0, -count1).join("/"),
+					url2 = tUrl.slice(0, -count2).join("/");
 
-				var count2 = tUrl.length + (template2.match(/..\//g) || []).length;
-				var url2 = tUrl.slice(0, -count2).join("/");
-
-				var html = dom.get("html?tag=0");
-				var script = dom.get("script?tag=0");
+				var del = document.documentElement,
+					html = dom.get("html?tag=0"),
+					script = dom.get("script?tag=0");
 
 				script.removeAttribute("src");
 				script.removeAttribute("template");
-				var del = document.documentElement;
 				del.parentNode.removeChild(del);
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
