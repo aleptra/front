@@ -218,7 +218,7 @@ var core = function() {
 				function getTemplate2() {
 					var xhr = new XMLHttpRequest(),
 						method = "GET",
-						xurl = url1+"/"+template2+".html";
+						xurl = url2+"/"+template2+".html";
 
 					xhr.open(method, xurl, true);
 
