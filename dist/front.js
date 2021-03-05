@@ -194,10 +194,15 @@ var core = function() {
 			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
 				var template = front[i].getAttribute("template").split(";");
 				var template1 = template[0].match(/..\//g) ? template[0] : "index";
-				var template2 = template[1] ? template[1] : false;
-		
-				var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length;
-				var url = currentUrl.split("/").slice(0, -count).join("/");
+				var template2 = template[1] ? template[1] : '';
+				
+				var tUrl = currentScriptUrl.split("./");
+
+				var count1 = tUrl.length + (template1.match(/..\//g) || []).length;
+				var url1 = ttUrl.slice(0, -count1).join("/");
+
+				var count2 = tUrl.length + (template2.match(/..\//g) || []).length;
+				var url2 = tUrl.slice(0, -count2).join("/");
 
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
@@ -230,7 +235,7 @@ var core = function() {
 					  	}
 					}
 					
-					xhr.open("GET", url+"/"+template2+".html", true);
+					xhr.open("GET", url1+"/"+template2+".html", true);
 					xhr.send();
 				}
 	
@@ -243,14 +248,14 @@ var core = function() {
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main);
 							
 							document.open();
-							document.write(stripScripts(response));
+							document.write(response);
 							document.close();
 						}
 					}
 					
 					console.log(url+"/"+template1+".html");
 
-					xhttp.open("GET", url+"/"+template1+".html", true);
+					xhttp.open("GET", url2+"/"+template1+".html", true);
 					xhttp.send();
 				}
 				  
