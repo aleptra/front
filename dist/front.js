@@ -193,7 +193,7 @@ var core = function() {
 		for (i = 0; i < front.length; i++) {
 			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
 				var template = front[i].getAttribute("template").split(";");
-				var template1 = template[0] ? 'index' : template[0];
+				var template1 = template[0].match(/..\//g) ? template[0] : "index";
 				var template2 = template[1] ? template[1] : false;
 		
 				var count = currentScriptUrl.split("./").length + (template1.match(/..\//g) || []).length;
