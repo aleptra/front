@@ -364,11 +364,11 @@ table.fr{float:right}
 [class*='gap'] > :first-child {margin-left: 0; margin-right:0}
 [class*='gap'] > :last-child {margin-right: 0}
 
-.fww{ flex-wrap: wrap; -ms-flex-wrap: wrap }
-.fn1{ flex-shrink: 1; -ms-flex-negative: 1 }
-.fdc, .fdc->*{ flex-direction: column; -ms-flex-direction: column}
-.fdr, .fdr->*{ flex-direction: row; -ms-flex-direction: row}
-.flc, .flc->*{
+body .fww{ flex-wrap: wrap; -ms-flex-wrap: wrap }
+body .fn1{ flex-shrink: 1; -ms-flex-negative: 1 }
+body .fdc, body .fdc->*{ flex-direction: column; -ms-flex-direction: column}
+body .fdr, body .fdr->*{ flex-direction: row; -ms-flex-direction: row}
+body .flc, body .flc->*{
     -webkit-box-pack: center;
     -moz-box-pack: center;
     -ms-flex-pack: center;

@@ -38,3 +38,14 @@
 .cards[class*='gut8']{margin-right: -3rem}
 .cards[class*='gut9']{margin-right: -4rem}
 .cards[class*='gut10']{margin-right: -5rem}
+
+.box.list{
+    grid-template-columns: unset;
+    display: flex;
+    flex-direction: column;
+}
+
+.box.list > *{
+    flex-direction: row;
+    -ms-flex-direction: row;
+}
