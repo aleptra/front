@@ -3,7 +3,6 @@
 
 .grid *{
     display: inline-block;
-    overflow: unset;
 }
 
 .grid.w80w{

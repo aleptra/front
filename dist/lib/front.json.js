@@ -34,7 +34,7 @@ function json(el) {
     var xhr = new XMLHttpRequest();
     xhr.el = clnEl;
     xhr.open("GET", url, true);
-    xhr.onloadstart = function () { }
+    xhr.onloadstart = function () { el.innerHTML = '<div class="loader"></div>'; }
     xhr.onprogress = function () { eval(onprogress) }
     xhr.onerror = function () { eval(onerror) }
     xhr.onload = function () {
