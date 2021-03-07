@@ -7,7 +7,6 @@ var jsonInitEl = [];
 var jsonIndex = 0;
 
 function json(el) {
-
     var e = event && (event.target || event.srcElement);
     
     if (e && e.attributes && e.attributes['bind']){
