@@ -290,7 +290,7 @@ table.fr{float:right}
 .ttu{ text-transform: uppercase }
 
 body .w0{ width: auto !important }
-body .w100, body.w100p{ width: 100% }
+body .w100, body .w100p{ width: 100% }
 body .w90, body .w90p{ width: 90% }
 body .w80, body .w80p{ width: 80% }
 body .w75, body .w75p{ width: 75% }
@@ -299,7 +299,7 @@ body .w65, body .w65p{ width: 65% }
 body .w60, body .w60p{ width: 60% }
 body .w50, body .w50p{ width: 50% }
 body .w45, body .w45p{ width: 45% }
-body .w40,body .w40p{ width: 40% }
+body .w40, body .w40p{ width: 40% }
 body .w35, body .w35p{ width: 35% }
 body .w33, body .w33p{ width: 33% }
 body .w25, body .w25p{ width: 25% }
@@ -315,10 +315,10 @@ body .mw20, body .mw20- * { max-width: 20rem }
 body .mw25, body .mw25- * { max-width: 25rem }
 
 
-body .mw70p, .mw70p- * { max-width: 70% }
-body .mw75p, .mw75p- * { max-width: 75% }
-body .mw80p, .mw80p- * { max-width: 80% }
-body .mw90p, .mw90p- * { max-width: 90% }
+body .mw70p, body .mw70p- * { max-width: 70% }
+body .mw75p, body .mw75p- * { max-width: 75% }
+body .mw80p, body .mw80p- * { max-width: 80% }
+body .mw90p, body .mw90p- * { max-width: 90% }
 
 body .h25{height: 25%}
 body .h50{height: 50%}
