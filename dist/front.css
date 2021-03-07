@@ -289,51 +289,51 @@ table.fr{float:right}
 
 .ttu{ text-transform: uppercase }
 
-.w0{ width: auto !important }
-.w100,.w100p{ width: 100% }
-.w90,.w90p{ width: 90% }
-.w80,.w80p{ width: 80% }
-.w75,.w75p{ width: 75% }
-.w70,.w70p{ width: 70% }
-.w65,.w65p{ width: 65% }
-.w60,.w60p{ width: 60% }
-.w50,.w50p{ width: 50% }
-.w45,.w45p{ width: 45% }
-.w40,.w40p{ width: 40% }
-.w35,.w35p{ width: 35% }
-.w33,.w33p{ width: 33% }
-.w25,.w25p{ width: 25% }
+body .w0{ width: auto !important }
+body .w100, body.w100p{ width: 100% }
+body .w90, body .w90p{ width: 90% }
+body .w80, body .w80p{ width: 80% }
+body .w75, body .w75p{ width: 75% }
+body .w70, body .w70p{ width: 70% }
+body .w65, body .w65p{ width: 65% }
+body .w60, body .w60p{ width: 60% }
+body .w50, body .w50p{ width: 50% }
+body .w45, body .w45p{ width: 45% }
+body .w40,body .w40p{ width: 40% }
+body .w35, body .w35p{ width: 35% }
+body .w33, body .w33p{ width: 33% }
+body .w25, body .w25p{ width: 25% }
 
-.miw10, .miw10- * { min-width: 10rem }
-.miw15, .miw15- * { min-width: 15rem }
-.miw20, .miw20- * { min-width: 20rem }
-.miw25, .miw25- * { min-width: 25rem }
+body .miw10, body .miw10- * { min-width: 10rem }
+body .miw15, body .miw15- * { min-width: 15rem }
+body .miw20, body .miw20- * { min-width: 20rem }
+body .miw25, body .miw25- * { min-width: 25rem }
 
-.mw10, .mw10- * { max-width: 10rem }
-.mw15, .mw15- * { max-width: 15rem }
-.mw20, .mw20- * { max-width: 20rem }
-.mw25, .mw25- * { max-width: 25rem }
+body .mw10, body .mw10- * { max-width: 10rem }
+body .mw15, body .mw15- * { max-width: 15rem }
+body .mw20, body .mw20- * { max-width: 20rem }
+body .mw25, body .mw25- * { max-width: 25rem }
 
 
-.mw70p, .mw70p- * { max-width: 70% }
-.mw75p, .mw75p- * { max-width: 75% }
-.mw80p, .mw80p- * { max-width: 80% }
-.mw90p, .mw90p- * { max-width: 90% }
+body .mw70p, .mw70p- * { max-width: 70% }
+body .mw75p, .mw75p- * { max-width: 75% }
+body .mw80p, .mw80p- * { max-width: 80% }
+body .mw90p, .mw90p- * { max-width: 90% }
 
-.h25{height: 25%}
-.h50{height: 50%}
-.h60{height: 60%}
-.h70{height: 70%}
-.h80{height: 80%}
-.h90{height: 90%}
-.h5r{height: 5rem}
-.h6r{height: 6rem}
-.h7r{height: 7rem}
-.h8r{height: 8rem}
-.h9r{height: 9rem}
-.h10r{height: 10rem}
-.h25r{height: 25rem}
-.h50r{height: 50rem}
+body .h25{height: 25%}
+body .h50{height: 50%}
+body .h60{height: 60%}
+body .h70{height: 70%}
+body .h80{height: 80%}
+body .h90{height: 90%}
+body .h5r{height: 5rem}
+body .h6r{height: 6rem}
+body .h7r{height: 7rem}
+body .h8r{height: 8rem}
+body .h9r{height: 9rem}
+body .h10r{height: 10rem}
+body .h25r{height: 25rem}
+body .h50r{height: 50rem}
 
 .gap05->*{ margin-left: .25rem;margin-right: .25rem }
 .gap1->*{ margin-left: .5rem;margin-right: .5rem }
@@ -380,16 +380,17 @@ body .flc, body .flc->*{
     -webkit-align-items: center;
     align-items: center;
 }
-.f1{flex: 1}
-.f2{flex: 2}
-.f3{flex: 3}
-.f4{flex: 4}
-.f5{flex: 5}
-.f6{flex: 6}
-.f7{flex: 7}
-.f8{flex: 8}
-.f9{flex: 9}
-.f10{flex: 10}
+
+body .f1{flex: 1}
+body .f2{flex: 2}
+body .f3{flex: 3}
+body .f4{flex: 4}
+body .f5{flex: 5}
+body .f6{flex: 6}
+body .f7{flex: 7}
+body .f8{flex: 8}
+body .f9{flex: 9}
+body .f10{flex: 10}
 
 ul.list{
     list-style: initial;
