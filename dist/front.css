@@ -1413,7 +1413,7 @@ body .bcblack08{background-color: rgba(0,0,0, .8)}
 body .bcblack09{background-color: rgba(0,0,0, .9)}
 
 /* Brown */
-.cornsilk{color:#fff8dc}
+body .cornsilk{color:#fff8dc}
 body .blanchedalmond{color:#ffebcd}
 body .bisque{color:#ffe4c4}
 body .navajowhite{color:#ffdead}
