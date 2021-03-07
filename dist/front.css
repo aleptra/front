@@ -1711,6 +1711,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 739px) {
     body .lg_du{display: inherit}
+    body .lg_w50p, body .lg_w50p- * { width: 50% }
+    body .lg_w60p, body .lg_w60p- * { width: 60% }
     body .lg_w70p, body .lg_w70p- * { width: 70% }
     body .lg_w90p, body .lg_w90p- * { width: 80% }
     body .lg_w90p, body .lg_w90p- * { width: 90% }
@@ -1746,6 +1748,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 360px) {
     body .sm_du{display: inherit}
+    body .sm_w50p, body .sm_w50p- * { width: 50% }
+    body .sm_w60p, body .sm_w60p- * { width: 60% }
+    body .sm_w70p, body .sm_w70p- * { width: 70% }
+    body .sm_w90p, body .sm_w90p- * { width: 80% }
+    body .sm_w90p, body .sm_w90p- * { width: 90% }
+    body .sm_w100p, body .sm_w100p- * { width: 100% }
     body .pauto{padding: 1.5rem}
     body .crumbs{display:none}
 }
