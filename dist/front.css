@@ -718,7 +718,7 @@ button.icon,.button.icon{
     font-size: 130%;
     float: left;
 }
-.grid{min-width: 0; margin: 0 auto; min-height: 0}
+.grid{min-width: 0; margin: 0 auto; min-height: 0; z-index:1}
 
 .grid *{
     display: inline-block;
@@ -1588,22 +1588,22 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 300px) {
     body .xs_dn{display: inherit}
-    body .xs_gtc1 { grid-template-columns: 1fr}
-    body .xs_gtc2 { grid-template-columns: 1fr 1fr}
-    body .xs_gtc3 { grid-template-columns: 1fr 1fr 1fr}
-    body .xs_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
-    body .xs_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
-    body .xs_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+    body .xs_gtc1 { grid-template-columns: 1fr;-ms-grid-columns: 1fr}
+    body .xs_gtc2 { grid-template-columns: 1fr 1fr;-ms-grid-columns: 1fr 1fr}
+    body .xs_gtc3 { grid-template-columns: 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr}
+    body .xs_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr}
+    body .xs_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .xs_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 360px) {
     body .sm_dn{display: inherit}
-    body .sm_gtc1 { grid-template-columns: 1fr}
-    body .sm_gtc2 { grid-template-columns: 1fr 1fr}
-    body .sm_gtc3 { grid-template-columns: 1fr 1fr 1fr}
-    body .sm_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
-    body .sm_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
-    body .sm_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    body .sm_gtc1 { grid-template-columns: 1fr;-ms-grid-columns: 1fr}
+    body .sm_gtc2 { grid-template-columns: 1fr 1fr;-ms-grid-columns: 1fr 1fr}
+    body .sm_gtc3 { grid-template-columns: 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr}
+    body .sm_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr}
+    body .sm_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr}
+    body .sm_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 480px) {
@@ -1614,10 +1614,26 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
     body .xm_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
     body .xm_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+    body .xm_z05, body .xm_z05- * { zoom: .5 }
+    body .xm_z06, body .xm_z06- * { zoom: .7 }
+    body .xm_z07, body .xm_z07- * { zoom: .7 }
+    body .xm_z08, body .xm_z08- * { zoom: .8 }
+    body .xm_z09, body .xm_z09- * { zoom: .9 }
+    body .xm_z1, body .xm_z1- * { zoom: 1 }
+    body .xm_z11, body .xm_z11- * { zoom: 1.1 }
+    body .xm_z12, body .xm_z12- * { zoom: 1.2 }
+    body .xm_z13, body .xm_z13- * { zoom: 1.3 }
+    body .xm_z14, body .xm_z14- * { zoom: 1.4 }
+    body .xm_z15, body .xm_z15- * { zoom: 1.5 !important }
+    body .xm_z16, body .xm_z16- * { zoom: 1.6 }
+    body .xm_z17, body .xm_z19- * { zoom: 1.7 }
+    body .xm_z18, body .xm_z18- * { zoom: 1.8 }
+    body .xm_z19, body .xm_z19- * { zoom: 1.9 }
+    body .xm_z20, body .xm_z20- * { zoom: 2 !important }
 }
 
 @media only screen and (min-width: 600px) {
-    .cards { grid-template-columns: 1fr 1fr}
+    .cards { grid-template-columns: 1fr 1fr;-ms-grid-columns: 1fr 1fr}
 
     body .md_dn{display: inherit}
     body .md_pl3 { padding-left: 3rem }
@@ -1627,13 +1643,13 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_gtc1 { grid-template-columns: 1fr}
     body .md_gtc2 { grid-template-columns: 1fr 1fr}
     body .md_gtc3 { grid-template-columns: 1fr 1fr 1fr}
-    body .md_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
+    body .md_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr}
     body .md_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
     body .md_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 740px) {
-    .cards { grid-template-columns: 1fr 1fr 1fr}
+    .cards { grid-template-columns: 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr}
     
     body .lg_dn{display: inherit}
     body .lg_pl2 { padding-left: 2rem }
@@ -1656,7 +1672,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 }
 
 @media only screen and (min-width: 960px) {
-    .cards { grid-template-columns: 1fr 1fr 1fr 1fr}
+    .cards { grid-template-columns: 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr}
 
     body .xl_dn{display: inherit}
     body .xl_pl2 { padding-left: 2rem }
@@ -1673,7 +1689,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 }
 
 @media only screen and (min-width: 1280px) {
-    .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
+    .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr 1fr}
     body .xxl_dn{display: inherit}
     body .xxl_gtc1 { grid-template-columns: 1fr}
     body .xxl_gtc2 { grid-template-columns: 1fr 1fr}

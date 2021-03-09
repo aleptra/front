@@ -1,5 +1,5 @@
 
-.grid{min-width: 0; margin: 0 auto; min-height: 0}
+.grid{min-width: 0; margin: 0 auto; min-height: 0; z-index:1}
 
 .grid *{
     display: inline-block;
