@@ -81,6 +81,10 @@ h5,.fs11{ font-size: calc(.8em + .7vw)}
 h6,.fs1{ font-size: calc(.7em + .6vw)}
 .fs2{ font-size: 200%; line-height: 2}
 
+.lh2{line-height: 2}
+.lh22{line-height: 2.2}
+.lh25{line-height: 2.5}
+
 a,i,b,span,select,input,textarea,button{ display: inline-flex; display: -ms-inline-flexbox }
 b,strong,.fwb{ font-weight: bold }
 .di{ display: inline }
@@ -302,6 +306,7 @@ body .w45, body .w45p{ width: 45% }
 body .w40, body .w40p{ width: 40% }
 body .w35, body .w35p{ width: 35% }
 body .w33, body .w33p{ width: 33% }
+body .w30, body .w30p{ width: 30% }    
 body .w25, body .w25p{ width: 25% }
 
 body .miw10, body .miw10- * { min-width: 10rem }
