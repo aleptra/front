@@ -20,7 +20,7 @@ nav.pipe a:after{
   content: "\00a0\00a0 | \00a0\00a0"
 }
 
-nav.afr a:after {
+nav.afr a:after, nav.fr {
   float: right;
 }
 

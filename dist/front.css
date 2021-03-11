@@ -7,7 +7,7 @@
     outline: none!important;
 }
 
-* {
+*, .df {
     display: inline-block;
     display: -webkit-box;
     display: -webkit-flex;
@@ -288,7 +288,7 @@ summary{
 .tal{ text-align: left }
 .tar{ text-align: right }
 .tac{ text-align: center }
-.fr{margin-left: auto}
+.fr{ float: right}
 table.fr{float:right}
 
 .ttu{ text-transform: uppercase }
@@ -912,7 +912,7 @@ nav.pipe a:after{
   content: "\00a0\00a0 | \00a0\00a0"
 }
 
-nav.afr a:after {
+nav.afr a:after, nav.fr {
   float: right;
 }
 
@@ -1473,6 +1473,12 @@ body .br0,body .br0->*{ border-radius: 0}
 body .br03,body .br03->*{ border-radius: .3rem }
 body .br04,body .br04->*{ border-radius: .4rem }
 body .br05,body .br05->*{ border-radius: .5rem }
+body .br075,body .br075->*{ border-radius: .75rem }
+body .br1,body .br1->*{ border-radius: 1rem }
+body .br2,body .br2->*{ border-radius: 2rem }
+body .br3,body .br3->*{ border-radius: 3rem }
+body .br4,body .br4->*{ border-radius: 4rem }
+body .br5,body .br5->*{ border-radius: 5rem }
 body .br50,body .br50->* { border-radius: 50% }
 
 /* Screen Sized: XXS, XS, SM, MD, LG, XL, XXL, XXXL */

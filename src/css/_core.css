@@ -7,7 +7,7 @@
     outline: none!important;
 }
 
-* {
+*, .df {
     display: inline-block;
     display: -webkit-box;
     display: -webkit-flex;
@@ -288,7 +288,7 @@ summary{
 .tal{ text-align: left }
 .tar{ text-align: right }
 .tac{ text-align: center }
-.fr{margin-left: auto}
+.fr{ float: right}
 table.fr{float:right}
 
 .ttu{ text-transform: uppercase }
