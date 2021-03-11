@@ -723,7 +723,7 @@ button.icon,.button.icon{
     font-size: 130%;
     float: left;
 }
-.grid{min-width: 0; margin: 0 auto; min-height: 0; z-index:1}
+.grid{min-width: 0; margin: 0 auto; min-height: auto; z-index:1}
 
 .grid *{
     display: inline-block;
