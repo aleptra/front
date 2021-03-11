@@ -755,3 +755,7 @@ nav.slider input[type="radio"],
 .w20r, .w20r- * { width: 20rem }
 .w25r, .w25, .w25- * { width: 25rem }
 .w50r, .w50r, .w50r- * { width: 50rem }
+
+.m1rn{ margin: -1rem }
+.m2rn{ margin: -2rem }
+.m3rn{ margin: -3rem }
