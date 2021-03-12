@@ -401,6 +401,7 @@ body .br50,body .br50->* { border-radius: 50% }
 
 .wxxs{ max-width: 220px }
 .pauto{ padding: 3rem }
+.mnauto{ margin: -3rem }
 .pauto1w{ padding: 3rem 1rem }
 
 .wh1 { width: 1rem; height: 1rem }
@@ -695,6 +696,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 @media only screen and (max-width: 600px) {
     body .md_du{display: inherit}
     body .pauto{padding: 2.5rem}
+    body .mnauto{margin: -2.5rem}
 
     nav.topbar > a{ font-size: 80% };
 }
@@ -709,6 +711,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_tar{text-align: right}
     body .xm_tac{text-align: center}
     body .pauto{padding: 2rem}
+    body .mnauto{margin: -2rem}
     nav.topbar > a{ font-size: 0}
 }
 
@@ -724,6 +727,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .sm_tar{text-align: right}
     body .sm_tac{text-align: center}
     body .pauto{padding: 1.5rem}
+    body .mnauto{margin: -1.5rem}
     body .crumbs{display:none}
 }
 
