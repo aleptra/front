@@ -402,6 +402,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .wxxs{ max-width: 220px }
 .pauto{ padding: 3rem }
 .mnauto{ margin: -3rem }
+.mnauto.h100{flex: 0 0 calc(100% + 6rem)};
 .pauto1w{ padding: 3rem 1rem }
 
 .wh1 { width: 1rem; height: 1rem }
@@ -498,6 +499,11 @@ body .bos5{border-style: double}
 body .bos6{border-style: groove}
 body .bos7{border-style: ridge}
 body .bos8{border-style: solid}
+body .bw1{border-width: 1px}
+body .bw2{border-width: 2px}
+body .bw3{border-width: 3px}
+body .bw4{border-width: 4px}
+body .bw5{border-width: 5px}
 
 body [class*='wc_'] {margin: 0 auto}
 body [class*='_dn'], body [class*='_du']{display: none}
@@ -697,6 +703,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_du{display: inherit}
     body .pauto{padding: 2.5rem}
     body .mnauto{margin: -2.5rem}
+    body .mnauto.h100{flex: 0 0 calc(100% + 5rem)};
 
     nav.topbar > a{ font-size: 80% };
 }
@@ -712,6 +719,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_tac{text-align: center}
     body .pauto{padding: 2rem}
     body .mnauto{margin: -2rem}
+    body .mnauto.h100{flex: 0 0 calc(100% + 4rem)};
     nav.topbar > a{ font-size: 0}
 }
 
@@ -728,6 +736,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .sm_tac{text-align: center}
     body .pauto{padding: 1.5rem}
     body .mnauto{margin: -1.5rem}
+    body .mnauto.h100{flex: 0 0 calc(100% + 3rem)};
     body .crumbs{display:none}
 }
 
