@@ -214,7 +214,7 @@ var core = function() {
 					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function () {
 					  	if (this.readyState == 4 && this.status == 200) {
-						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/);
+						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm);
 							getTemplate1(response);
 					  	}
 					}
