@@ -716,7 +716,7 @@ button,.button{
 
 button.text,.button.text{
     background-color: transparent;
-    color: var(--dark);
+    color: #000;
 }
 
 button.icon,.button.icon{
@@ -1115,7 +1115,7 @@ body .shade0->*, .shade0{
 body .cp50{ clip-path: circle(50%)}
 
 body .black, body .black- >* { background-color: #000; color: #fff; }
-body .bcwhite, body .bcwhite- *{ background-color: #fff }
+body .bcwhite, body .bcwhite- *, body .bcwhite_h:hover { background-color: #fff }
 body .bcblack, body .bcblack- *{ background-color: #000 }
 
 body .tdu, body .tdu->*{text-decoration:underline}
@@ -1357,7 +1357,7 @@ body .bcpalevioletred{background-color:#db7093}
 body .bcmediumvioletred{background-color:#c71585}
 
 /* White */
-body .white,.white- *, body .swhite- *.sel{color:#fff}
+body .white, body .white- *, body .swhite- *.sel, body .white_h:hover{color:#fff}
 body .snow{color:#fffafa}
 body .honeydew{color:#f0fff0}
 body .mintcream{color:#f5fffa}
@@ -1412,7 +1412,7 @@ body .dimgray{color:#696969}
 body .lightslategray{color:#778899}
 body .slategray{color:#708090}
 body .darkslategray{color:#2f4f4f}
-body .black{color:#000}
+body .black, body .black_h:hover{color:#000}
 
 body .bcgainsboro{background-color:#dcdcdc}
 body .bclightgray{background-color:#d3d3d3}
