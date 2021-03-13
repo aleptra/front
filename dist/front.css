@@ -1785,11 +1785,16 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 600px) {
     body .md_du{display: inherit}
+    body .md_fs100 a{ font-size: 100% }
+    body .md_fs90 a{ font-size: 90% }
+    body .md_fs80 a{ font-size: 80% }
+    body .md_fs70 a{ font-size: 70% }
+    body .md_fs60 a{ font-size: 60% }
+    body .md_fs50 a{ font-size: 50% }
+    body .md_fs0 a{ font-size: 0 }
     body .pauto{padding: 2.5rem}
     body .mnauto{margin: -2.5rem}
-    body .mnauto.h100{flex: 0 0 calc(100% + 5rem)};
-
-    nav.topbar > a{ font-size: 80% };
+    body .mnauto.h100{flex: 0 0 calc(100% + 5rem)}
 }
 
 @media only screen and (max-width: 599px) {
@@ -1803,8 +1808,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_tac{text-align: center}
     body .pauto{padding: 2rem}
     body .mnauto{margin: -2rem}
-    body .mnauto.h100{flex: 0 0 calc(100% + 4rem)};
-    nav.topbar > a{ font-size: 0}
+    body .mnauto.h100{flex: 0 0 calc(100% + 4rem)}
+    body nav.topbar > a{ font-size: 0}
 }
 
 @media only screen and (max-width: 360px) {
@@ -1820,7 +1825,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .sm_tac{text-align: center}
     body .pauto{padding: 1.5rem}
     body .mnauto{margin: -1.5rem}
-    body .mnauto.h100{flex: 0 0 calc(100% + 3rem)};
+    body .mnauto.h100{flex: 0 0 calc(100% + 3rem)}
     body .crumbs{display:none}
 }
 
