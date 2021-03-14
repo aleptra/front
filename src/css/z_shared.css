@@ -421,6 +421,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .h15 { height: 15rem }
 .h15p { height: 15% }
 .h20 { height: 20rem }
+.h50,.h50p { flex: 0 0 50%;-ms-flex: 1 0 50%; }
 .h100,.h100p { flex: 0 0 100%;-ms-flex: 1 0 100%; }
 .h100vh { height: 100vh }
 .hm100,.hm100p { min-height: 100% }
@@ -747,10 +748,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 300px) {
     body .xs_du{display: inherit}
+    body .xs_w100{width: 100%}
 }
 
 @media only screen and (max-width: 220px) {
     body .xxs_du{display: inherit}
+    body .xxs_w100{width: 100%}
 }
 
 nav.tabs > input[type="radio"],
