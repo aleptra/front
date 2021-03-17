@@ -514,6 +514,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
 .wc_xxl{max-width: 1280px}
 .wc_xxxl{max-width: 1440px}
 
+.w80w{ max-width: 80vw}
+
 /*Min*/
 
 @media only screen and (min-width: 220px) {
@@ -694,6 +696,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_h10{height: 10rem}
     body .lg_gan { grid-area: nav!important; width: 100%; z-index: 11 }
     body .lg_gam { grid-area: middle!important; z-index: 11 }
+    body .lg_fdr {flex-direction: row; -ms-flex-direction: row}
+    body .lg_fdc {flex-direction: column; -ms-flex-direction: column}
 }
 
 @media only screen and (max-width: 739px) and (min-width: 600px) {
