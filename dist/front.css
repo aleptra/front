@@ -344,8 +344,7 @@ body .h50r{height: 50rem}
 .gap1->*{ margin-left: .5rem;margin-right: .5rem }
 .gap105->*{ margin-left: .75rem;margin-right: .75rem }
 .gap2->*{ margin-left: 1rem;margin-right: 1rem }
-/* .gap2->*{ margin: 1rem 1rem 1rem 1rem } */
-.gap3->*{ margin: 2rem 2rem 2rem 2rem }
+.gap3->*{ margin-left: 2rem; margin-right: 2rem }
 
 .gaph05->*{ margin-bottom: .25rem}
 .gaph1->*{ margin-bottom: .5rem}
@@ -725,12 +724,12 @@ button.icon,.button.icon{
 }
 .grid{min-width: 0; margin: 0 auto; min-height: auto; z-index:1}
 
-.grid *{
-    display: inline-block;
+.grid .aside{
+    overflow: unset;
 }
 
-.grid.w80w{
-    max-width: 80vw;
+.grid *{
+    display: inline-block;
 }.bottombar,
 .topbar{
     width: 100%;
