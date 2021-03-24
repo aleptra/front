@@ -660,11 +660,14 @@ body [class*='_dn'], body [class*='_du']{display: none}
 }
 
 @media only screen and (max-width: 1439px) and (min-width: 1280px) {
-    /*.cards>*:nth-child(5n){ margin-right: 0}*/
+
 }
 
 @media only screen and (max-width: 1280px) {
     body .xxl_du{display: inherit}
+    body .xxl_pauto05r{padding: .5rem}
+    body .xxl_pauto1r{padding: 1rem}
+    body .xxl_pauto2r{padding: 2rem}
 }
 
 @media only screen and (max-width: 1279px) and (min-width: 960px) {
