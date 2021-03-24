@@ -745,6 +745,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_tal{text-align: left}
     body .xm_tar{text-align: right}
     body .xm_tac{text-align: center}
+    body .xm_p0{padding: 0}
     body .xm_pauto05r{padding: .5rem}
     body .xm_pauto1r{padding: 1rem}
     body .xm_pauto2r{padding: 2rem}
@@ -766,6 +767,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .sm_tal{text-align: left}
     body .sm_tar{text-align: right}
     body .sm_tac{text-align: center}
+    body .sm_p0{padding: 0}
     body .sm_pauto05r{padding: .5rem}
     body .sm_pauto1r{padding: 1rem}
     body .sm_pauto2r{padding: 2rem}
