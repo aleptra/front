@@ -652,11 +652,17 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xxxl_w25r{ width: 25rem}
     body .xxxl_w30r{ width: 30rem}
     body .xxxl_w40r{ width: 40rem}
+    body .xxxl_p05r{padding: .5rem}
+    body .xxxl_p1r{padding: 1rem}
+    body .xxxl_p2r{padding: 2rem}
 }
 
 /*Max*/
 @media only screen and (max-width: 1440px) {
     body .xxxl_du{display: inherit}
+    body .xxxl_p05r{padding: .5rem}
+    body .xxxl_p1r{padding: 1rem}
+    body .xxxl_p2r{padding: 2rem}
 }
 
 @media only screen and (max-width: 1439px) and (min-width: 1280px) {
@@ -665,6 +671,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 1280px) {
     body .xxl_du{display: inherit}
+    body .xxl_p0{padding: 0}
     body .xxl_p05r{padding: .5rem}
     body .xxl_p1r{padding: 1rem}
     body .xxl_p2r{padding: 2rem}
@@ -676,6 +683,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 960px) {
     body .xl_du{display: inherit}
+    body .xl_p0{padding: 0}
     body .xl_p05r{padding: .5rem}
     body .xl_p1r{padding: 1rem}
     body .xl_p2r{padding: 2rem}
@@ -704,6 +712,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_gam { grid-area: middle!important; z-index: 11 }
     body .lg_fdr {flex-direction: row; -ms-flex-direction: row}
     body .lg_fdc {flex-direction: column; -ms-flex-direction: column}
+    body .lg_p0{padding: 0}
     body .lg_p05r{padding: .5rem}
     body .lg_p1r{padding: 1rem}
     body .lg_p2r{padding: 2rem}
@@ -726,6 +735,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_fs60 a{ font-size: 60% }
     body .md_fs50 a{ font-size: 50% }
     body .md_fs0 a{ font-size: 0 }
+    body .md_p0{padding: 0}
     body .md_p05r{padding: .5rem}
     body .md_p1r{padding: 1rem}
     body .md_p2r{padding: 2rem}
@@ -753,11 +763,11 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 360px) {
     body .pauto{padding: 1.5rem}
-    body .sm_du{display: inherit}
     body .mnauto{margin: -1.5rem}
     body .mnauto.h100{flex: 0 0 calc(100% + 3rem)}
     body .crumbs{display:none}
 
+    body .sm_du{display: inherit}
     body .sm_w50p, body .sm_w50p- * { width: 50% }
     body .sm_w60p, body .sm_w60p- * { width: 60% }
     body .sm_w70p, body .sm_w70p- * { width: 70% }
