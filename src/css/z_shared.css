@@ -673,6 +673,9 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 960px) {
     body .xl_du{display: inherit}
+    body .xl_pauto05r{padding: .5rem}
+    body .xl_pauto1r{padding: 1rem}
+    body .xl_pauto2r{padding: 2rem}
 }
 
 @media only screen and (max-width: 959px) and (min-width: 740px) {
@@ -698,6 +701,9 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_gam { grid-area: middle!important; z-index: 11 }
     body .lg_fdr {flex-direction: row; -ms-flex-direction: row}
     body .lg_fdc {flex-direction: column; -ms-flex-direction: column}
+    body .lg_pauto05r{padding: .5rem}
+    body .lg_pauto1r{padding: 1rem}
+    body .lg_pauto2r{padding: 2rem}
 }
 
 @media only screen and (max-width: 739px) and (min-width: 600px) {
@@ -705,6 +711,10 @@ body [class*='_dn'], body [class*='_du']{display: none}
 }
 
 @media only screen and (max-width: 600px) {
+    body .pauto{padding: 2.5rem}
+    body .mnauto{margin: -2.5rem}
+    body .mnauto.h100{flex: 0 0 calc(100% + 5rem)}
+
     body .md_du{display: inherit}
     body .md_fs100 a{ font-size: 100% }
     body .md_fs90 a{ font-size: 90% }
@@ -713,9 +723,9 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_fs60 a{ font-size: 60% }
     body .md_fs50 a{ font-size: 50% }
     body .md_fs0 a{ font-size: 0 }
-    body .pauto{padding: 2.5rem}
-    body .mnauto{margin: -2.5rem}
-    body .mnauto.h100{flex: 0 0 calc(100% + 5rem)}
+    body .md_pauto05r{padding: .5rem}
+    body .md_pauto1r{padding: 1rem}
+    body .md_pauto2r{padding: 2rem}
 }
 
 @media only screen and (max-width: 599px) {
@@ -723,18 +733,27 @@ body [class*='_dn'], body [class*='_du']{display: none}
 }
 
 @media only screen and (max-width: 480px) {
+    body .pauto{padding: 2rem}
+    body nav.topbar > a{ font-size: 0}
+    body .mnauto{margin: -2rem}
+    body .mnauto.h100{flex: 0 0 calc(100% + 4rem)}
+
     body .xm_du{display: inherit}
     body .xm_tal{text-align: left}
     body .xm_tar{text-align: right}
     body .xm_tac{text-align: center}
-    body .pauto{padding: 2rem}
-    body .mnauto{margin: -2rem}
-    body .mnauto.h100{flex: 0 0 calc(100% + 4rem)}
-    body nav.topbar > a{ font-size: 0}
+    body .xm_pauto05r{padding: .5rem}
+    body .xm_pauto1r{padding: 1rem}
+    body .xm_pauto2r{padding: 2rem}
 }
 
 @media only screen and (max-width: 360px) {
+    body .pauto{padding: 1.5rem}
     body .sm_du{display: inherit}
+    body .mnauto{margin: -1.5rem}
+    body .mnauto.h100{flex: 0 0 calc(100% + 3rem)}
+    body .crumbs{display:none}
+
     body .sm_w50p, body .sm_w50p- * { width: 50% }
     body .sm_w60p, body .sm_w60p- * { width: 60% }
     body .sm_w70p, body .sm_w70p- * { width: 70% }
@@ -744,20 +763,27 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .sm_tal{text-align: left}
     body .sm_tar{text-align: right}
     body .sm_tac{text-align: center}
-    body .pauto{padding: 1.5rem}
-    body .mnauto{margin: -1.5rem}
-    body .mnauto.h100{flex: 0 0 calc(100% + 3rem)}
-    body .crumbs{display:none}
+    body .sm_pauto05r{padding: .5rem}
+    body .sm_pauto1r{padding: 1rem}
+    body .sm_pauto2r{padding: 2rem}
 }
 
 @media only screen and (max-width: 300px) {
     body .xs_du{display: inherit}
     body .xs_w100{width: 100%}
+    body .xs_p0{padding: 0}
+    body .xs_pauto05r{padding: .5rem}
+    body .xs_pauto1r{padding: 1rem}
+    body .xs_pauto2r{padding: 2rem}
 }
 
 @media only screen and (max-width: 220px) {
     body .xxs_du{display: inherit}
     body .xxs_w100{width: 100%}
+    body .xxs_p0{padding: 0}
+    body .xxs_pauto05r{padding: .5rem}
+    body .xxs_pauto1r{padding: 1rem}
+    body .xxs_pauto2r{padding: 2rem}
 }
 
 nav.tabs > input[type="radio"],
