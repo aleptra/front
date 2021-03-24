@@ -698,7 +698,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_w50p, body .lg_w50p- * { width: 50% }
     body .lg_w60p, body .lg_w60p- * { width: 60% }
     body .lg_w70p, body .lg_w70p- * { width: 70% }
-    body .lg_w90p, body .lg_w90p- * { width: 80% }
+    body .lg_w80p, body .lg_w80p- * { width: 80% }
     body .lg_w90p, body .lg_w90p- * { width: 90% }
     body .lg_w100p, body .lg_w100p- * { width: 100% }
     body .lg_tal{text-align: left}
@@ -731,7 +731,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_w50p, body .md_w50p- * { width: 50% }
     body .md_w60p, body .md_w60p- * { width: 60% }
     body .md_w70p, body .md_w70p- * { width: 70% }
-    body .md_w90p, body .md_w90p- * { width: 80% }
+    body .md_w80p, body .md_w80p- * { width: 80% }
     body .md_w90p, body .md_w90p- * { width: 90% }
     body .md_w100p, body .md_w100p- * { width: 100% }
     body .md_fs100 a{ font-size: 100% }
@@ -761,7 +761,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_w50p, body .xm_w50p- * { width: 50% }
     body .xm_w60p, body .xm_w60p- * { width: 60% }
     body .xm_w70p, body .xm_w70p- * { width: 70% }
-    body .xm_w90p, body .xm_w90p- * { width: 80% }
+    body .xm_w80p, body .xm_w80p- * { width: 80% }
     body .xm_w90p, body .xm_w90p- * { width: 90% }
     body .xm_w100p, body .xm_w100p- * { width: 100% }
     body .xm_tal{text-align: left}
@@ -783,7 +783,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .sm_w50p, body .sm_w50p- * { width: 50% }
     body .sm_w60p, body .sm_w60p- * { width: 60% }
     body .sm_w70p, body .sm_w70p- * { width: 70% }
-    body .sm_w90p, body .sm_w90p- * { width: 80% }
+    body .sm_w80p, body .sm_w80p- * { width: 80% }
     body .sm_w90p, body .sm_w90p- * { width: 90% }
     body .sm_w100p, body .sm_w100p- * { width: 100% }
     body .sm_tal{text-align: left}
