@@ -28,7 +28,7 @@ body .shade0->*, .shade0{
     -moz-box-shadow: none;
 }
 
-body .cp50{ clip-path: circle(50%)}
+body .cp50{ clip-path: circle(50%); -ms-flex: inherit; flex: inherit}
 
 body .black, body .black- >* { background-color: #000; color: #fff; }
 body .bcwhite, body .bcwhite- *, body .bcwhite_h:hover { background-color: #fff }
@@ -713,6 +713,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_fdr {flex-direction: row; -ms-flex-direction: row}
     body .lg_fdc {flex-direction: column; -ms-flex-direction: column}
     body .lg_p0{padding: 0}
+    body .lg_m0{margin: 0}
     body .lg_p05r{padding: .5rem}
     body .lg_p1r{padding: 1rem}
     body .lg_p2r{padding: 2rem}
