@@ -294,20 +294,20 @@ table.fr{float:right}
 .ttu{ text-transform: uppercase }
 
 body .w0{ width: auto !important }
-body .w100, body .w100p{ width: 100% }
-body .w90, body .w90p{ width: 90% }
-body .w80, body .w80p{ width: 80% }
-body .w75, body .w75p{ width: 75% }
-body .w70, body .w70p{ width: 70% }
-body .w65, body .w65p{ width: 65% }
-body .w60, body .w60p{ width: 60% }
-body .w50, body .w50p{ width: 50% }
-body .w45, body .w45p{ width: 45% }
-body .w40, body .w40p{ width: 40% }
-body .w35, body .w35p{ width: 35% }
-body .w33, body .w33p{ width: 33% }
-body .w30, body .w30p{ width: 30% }    
-body .w25, body .w25p{ width: 25% }
+body .w100, body .w100p{ width: 100%; -ms-flex: 100%; flex: 100% }
+body .w90, body .w90p{ width: 90%; -ms-flex: 90%; flex: 90% }
+body .w80, body .w80p{ width: 80%; -ms-flex: 80%; flex: 80% }
+body .w75, body .w75p{ width: 75%; -ms-flex: 75%; flex: 75% }
+body .w70, body .w70p{ width: 70%; -ms-flex: 70%; flex: 70% }
+body .w65, body .w65p{ width: 65%; -ms-flex: 65%; flex: 65% }
+body .w60, body .w60p{ width: 60%; -ms-flex: 60%; flex: 60% }
+body .w50, body .w50p{ width: 50%; -ms-flex: 50%; flex: 50% }
+body .w45, body .w45p{ width: 45%; -ms-flex: 45%; flex: 45% }
+body .w40, body .w40p{ width: 40%; -ms-flex: 40%; flex: 40% }
+body .w35, body .w35p{ width: 35%; -ms-flex: 35%; flex: 35% }
+body .w33, body .w33p{ width: 33%; -ms-flex: 33%; flex: 33% }
+body .w30, body .w30p{ width: 30%; -ms-flex: 30%; flex: 30% }    
+body .w25, body .w25p{ width: 25%; -ms-flex: 25%; flex: 25% }
 
 body .miw10, body .miw10- * { min-width: 10rem }
 body .miw15, body .miw15- * { min-width: 15rem }
@@ -730,7 +730,46 @@ button.icon,.button.icon{
 
 .grid *{
     display: inline-block;
-}.bottombar,
+}
+
+
+
+.col-group.gap-05{ margin-left: -.5em }
+.col-group.gap-05 > *{ padding-left: .5em }
+.col-group.gap-1{ margin-left: -1em }
+.col-group.gap-1 > *{ padding-left: 1em }
+.col-group.gap-2{ margin-left: -2em }
+.col-group.gap-2 > *{ padding-left: 2em }
+
+.col-group {
+	letter-spacing: -1em;
+	display: block;
+}
+
+.col-group > * {
+	letter-spacing: normal;
+	display: inline-block;
+	position: relative;
+	/*vertical-align: top; */
+	box-sizing: border-box;
+  }
+  
+  .col1of1  { float: none }
+  .col1of2  { width: 50% }
+  .col1of3  { width: 33.33333% }
+  .col2of3  { width: 66.66666% }
+  .col1of4  { width: 25% }
+  .col3of4  { width: 75% }
+  .col1of5  { width: 20% }
+  .col2of5  { width: 40% }
+  .col3of5  { width: 60% }
+  .col4of5  { width: 80% }
+  .col1of6  { width: 16.6666% }
+  .col5of6  { width: 83.3333% }
+  .col1of12 { width: 8.33333% }
+  .col5of12 { width: 41.6666% }
+  .col7of12 { width: 58.3333% }
+  .col11of12{ width: 91.6666% }.bottombar,
 .topbar{
     width: 100%;
     -ms-flex-align: center;
@@ -1778,12 +1817,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 739px) {
     body .lg_du{display: inherit}
-    body .lg_w50p, body .lg_w50p- * { width: 50% }
-    body .lg_w60p, body .lg_w60p- * { width: 60% }
-    body .lg_w70p, body .lg_w70p- * { width: 70% }
-    body .lg_w80p, body .lg_w80p- * { width: 80% }
-    body .lg_w90p, body .lg_w90p- * { width: 90% }
-    body .lg_w100p, body .lg_w100p- * { width: 100% }
+    body .lg_w50p, body .lg_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
+    body .lg_w60p, body .lg_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
+    body .lg_w70p, body .lg_w70p- * { width: 70%; -ms-flex: 70%; flex: 70% }
+    body .lg_w80p, body .lg_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
+    body .lg_w90p, body .lg_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
+    body .lg_w100p, body .lg_w100p- * { width: 100%; -ms-flex: 100%; flex: 100%}
     body .lg_tal{text-align: left}
     body .lg_tar{text-align: right}
     body .lg_tac{text-align: center}
@@ -1811,12 +1850,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .mnauto.h100{flex: 0 0 calc(100% + 5rem)}
 
     body .md_du{display: inherit}
-    body .md_w50p, body .md_w50p- * { width: 50% }
-    body .md_w60p, body .md_w60p- * { width: 60% }
-    body .md_w70p, body .md_w70p- * { width: 70% }
-    body .md_w80p, body .md_w80p- * { width: 80% }
-    body .md_w90p, body .md_w90p- * { width: 90% }
-    body .md_w100p, body .md_w100p- * { width: 100% }
+    body .md_w50p, body .md_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
+    body .md_w60p, body .md_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
+    body .md_w70p, body .md_w70p- * { width: 70%; -ms-flex: 70%; flex: 70% }
+    body .md_w80p, body .md_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
+    body .md_w90p, body .md_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
+    body .md_w100p, body .md_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
     body .md_fs100 a{ font-size: 100% }
     body .md_fs90 a{ font-size: 90% }
     body .md_fs80 a{ font-size: 80% }
@@ -1841,12 +1880,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .mnauto.h100{flex: 0 0 calc(100% + 4rem)}
 
     body .xm_du{display: inherit}
-    body .xm_w50p, body .xm_w50p- * { width: 50% }
-    body .xm_w60p, body .xm_w60p- * { width: 60% }
-    body .xm_w70p, body .xm_w70p- * { width: 70% }
-    body .xm_w80p, body .xm_w80p- * { width: 80% }
-    body .xm_w90p, body .xm_w90p- * { width: 90% }
-    body .xm_w100p, body .xm_w100p- * { width: 100% }
+    body .xm_w50p, body .xm_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
+    body .xm_w60p, body .xm_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
+    body .xm_w70p, body .xm_w70p- * { width: 70%; -ms-flex: 70%; flex: 70% }
+    body .xm_w80p, body .xm_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
+    body .xm_w90p, body .xm_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
+    body .xm_w100p, body .xm_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
     body .xm_tal{text-align: left}
     body .xm_tar{text-align: right}
     body .xm_tac{text-align: center}
@@ -1863,12 +1902,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .crumbs{display:none}
 
     body .sm_du{display: inherit}
-    body .sm_w50p, body .sm_w50p- * { width: 50% }
-    body .sm_w60p, body .sm_w60p- * { width: 60% }
-    body .sm_w70p, body .sm_w70p- * { width: 70% }
-    body .sm_w80p, body .sm_w80p- * { width: 80% }
-    body .sm_w90p, body .sm_w90p- * { width: 90% }
-    body .sm_w100p, body .sm_w100p- * { width: 100% }
+    body .sm_w50p, body .sm_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
+    body .sm_w60p, body .sm_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
+    body .sm_w70p, body .sm_w70p- * { width: 70%; -ms-flex: 70%; flex: 70% }
+    body .sm_w80p, body .sm_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
+    body .sm_w90p, body .sm_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
+    body .sm_w100p, body .sm_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
     body .sm_tal{text-align: left}
     body .sm_tar{text-align: right}
     body .sm_tac{text-align: center}

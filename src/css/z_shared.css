@@ -695,12 +695,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 739px) {
     body .lg_du{display: inherit}
-    body .lg_w50p, body .lg_w50p- * { width: 50% }
-    body .lg_w60p, body .lg_w60p- * { width: 60% }
-    body .lg_w70p, body .lg_w70p- * { width: 70% }
-    body .lg_w80p, body .lg_w80p- * { width: 80% }
-    body .lg_w90p, body .lg_w90p- * { width: 90% }
-    body .lg_w100p, body .lg_w100p- * { width: 100% }
+    body .lg_w50p, body .lg_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
+    body .lg_w60p, body .lg_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
+    body .lg_w70p, body .lg_w70p- * { width: 70%; -ms-flex: 70%; flex: 70% }
+    body .lg_w80p, body .lg_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
+    body .lg_w90p, body .lg_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
+    body .lg_w100p, body .lg_w100p- * { width: 100%; -ms-flex: 100%; flex: 100%}
     body .lg_tal{text-align: left}
     body .lg_tar{text-align: right}
     body .lg_tac{text-align: center}
@@ -728,12 +728,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .mnauto.h100{flex: 0 0 calc(100% + 5rem)}
 
     body .md_du{display: inherit}
-    body .md_w50p, body .md_w50p- * { width: 50% }
-    body .md_w60p, body .md_w60p- * { width: 60% }
-    body .md_w70p, body .md_w70p- * { width: 70% }
-    body .md_w80p, body .md_w80p- * { width: 80% }
-    body .md_w90p, body .md_w90p- * { width: 90% }
-    body .md_w100p, body .md_w100p- * { width: 100% }
+    body .md_w50p, body .md_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
+    body .md_w60p, body .md_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
+    body .md_w70p, body .md_w70p- * { width: 70%; -ms-flex: 70%; flex: 70% }
+    body .md_w80p, body .md_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
+    body .md_w90p, body .md_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
+    body .md_w100p, body .md_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
     body .md_fs100 a{ font-size: 100% }
     body .md_fs90 a{ font-size: 90% }
     body .md_fs80 a{ font-size: 80% }
@@ -758,12 +758,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .mnauto.h100{flex: 0 0 calc(100% + 4rem)}
 
     body .xm_du{display: inherit}
-    body .xm_w50p, body .xm_w50p- * { width: 50% }
-    body .xm_w60p, body .xm_w60p- * { width: 60% }
-    body .xm_w70p, body .xm_w70p- * { width: 70% }
-    body .xm_w80p, body .xm_w80p- * { width: 80% }
-    body .xm_w90p, body .xm_w90p- * { width: 90% }
-    body .xm_w100p, body .xm_w100p- * { width: 100% }
+    body .xm_w50p, body .xm_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
+    body .xm_w60p, body .xm_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
+    body .xm_w70p, body .xm_w70p- * { width: 70%; -ms-flex: 70%; flex: 70% }
+    body .xm_w80p, body .xm_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
+    body .xm_w90p, body .xm_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
+    body .xm_w100p, body .xm_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
     body .xm_tal{text-align: left}
     body .xm_tar{text-align: right}
     body .xm_tac{text-align: center}
@@ -780,12 +780,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .crumbs{display:none}
 
     body .sm_du{display: inherit}
-    body .sm_w50p, body .sm_w50p- * { width: 50% }
-    body .sm_w60p, body .sm_w60p- * { width: 60% }
-    body .sm_w70p, body .sm_w70p- * { width: 70% }
-    body .sm_w80p, body .sm_w80p- * { width: 80% }
-    body .sm_w90p, body .sm_w90p- * { width: 90% }
-    body .sm_w100p, body .sm_w100p- * { width: 100% }
+    body .sm_w50p, body .sm_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
+    body .sm_w60p, body .sm_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
+    body .sm_w70p, body .sm_w70p- * { width: 70%; -ms-flex: 70%; flex: 70% }
+    body .sm_w80p, body .sm_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
+    body .sm_w90p, body .sm_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
+    body .sm_w100p, body .sm_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
     body .sm_tal{text-align: left}
     body .sm_tar{text-align: right}
     body .sm_tac{text-align: center}
