@@ -475,6 +475,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .pb1{ padding-bottom: 1rem }
 .pb105{ padding-bottom: 1.5rem }
 .pb2{ padding-bottom: 2rem }
+.pb3{ padding-bottom: 3rem }
 .mt0, .mt0- *{ margin-top: 0 }
 .m05, .m05- *{ margin: .5rem }
 .mt1, .mt1- *{ margin-top: 1rem }
