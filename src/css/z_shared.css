@@ -290,7 +290,7 @@ body .linen{color:#faf0e6}
 body .lavenderblush{color:#fff0f5}
 body .mistyrose{color:#ffe4e1}
 
-body .bcwhite, body .bcwhite- *, body .bcwhite_h:hover { background-color: #fff }
+body .bcwhite, body .bcwhite-> *, body .bcwhite_h:hover { background-color: #fff }
 body .bcwhite01{background-color: rgba(255,255,255, .1)}
 body .bcwhite02{background-color: rgba(255,255,255, .2)}
 body .bcwhite03{background-color: rgba(255,255,255, .3)}
