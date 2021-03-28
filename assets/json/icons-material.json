@@ -322,6 +322,12 @@
             "html_entity_2": "&#x2298;"
         },
         {
+            "title": "Circled Dot Operator",
+            "name": "mode_standby",
+            "html_entity": "&#8857;",
+            "html_entity_2": "&#x2299;"
+        },
+        {
             "title": "House",
             "name": "home",
             "html_entity": "&#8962;",
@@ -1245,6 +1251,12 @@
             "name": "printer,local_printshop",
             "html_entity": "&#128424;",
             "html_entity_2": "&#x1F5A8;"
+        },
+        {
+            "title": "Screen",
+            "name": "monitor",
+            "html_entity": "&#128437;",
+            "html_entity_2": "&#x1F5B5;"
         },
         {
             "title": "Document with Text and Picture",
