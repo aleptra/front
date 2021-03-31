@@ -3,6 +3,7 @@ var frontVariables = [];
 var libAttribute = [];
 var libPreload = [];
 var load = false;
+var loadTemplate = false;
 
 var urlDelimiter = '/';
 var elementDivider = /[?=]/;
@@ -87,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		load = true;
+		loadTemplate = false;
 	}
 });
 
@@ -202,7 +204,6 @@ var core = function() {
 
 				var html = dom.get("html?tag=0");
 				var script = dom.get("script?tag=0");
-
 				script.removeAttribute("src");
 				script.removeAttribute("template");
 				var del = document.documentElement;
@@ -229,7 +230,6 @@ var core = function() {
 							response = this.responseText;
 							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">');
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main+response2);
-
 							document.open();
 							document.write(response);
 							document.close();
@@ -278,18 +278,21 @@ var core = function() {
 				eval(action);
 			});
 		}
-		if (e.tagName == "TEMPLATE") {
+		if (e.tagName == "TEMPLATE" && !loadTemplate) {
 			var fragments = core.toArray(dom.getChildren("template?tag"));
 			var sorted = core.sortArray(fragments, "tagName");
-			var array = core.tagArray(sorted);
-
+			var array = core.tagArray(sorted);	
+			
 			for (var i in array){
 				var el = array[i].tagName+"?tag="+array[i].tagIndex;
 				var index = array[i].getAttribute("index");
 
-				if (array[i].tagIndex == index)
+				if (array[i].tagIndex == index) {
 					dom.content(el, array[i].innerHTML);
+				}
 			}
+
+			loadTemplate = true;
 		}
 		if (e.hasAttribute("resizable"))
 			e.style.resize = "both";

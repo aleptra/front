@@ -37,15 +37,24 @@ function nav(path, el, push) {
 				//alert(anchor[1]);
 				dom.scrollInto(anchor[1]);
 			}else{
-				console.dir(dom.get(target));
+				//console.dir(dom.get(target));
 				dom.scrollInto(target, true);
 			}
+
+			var array = dom.getChildren("template?tag");
+			for (var i = 0; i < array.length; i++){
+				core.runCoreAttributesInElement(array[i]);
+				core.runLibAttributesInElement(array[i]);
+			}
+
 			core.runCoreAttributesInElement(target);
 			core.runLibAttributesInElement(target);
+
 			navPush(dom.get("title?tag").textContent, path);
 		}
 	});
-
+	
+	loadTemplate = false;
 	return false;
 }
 
