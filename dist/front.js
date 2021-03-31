@@ -911,7 +911,9 @@ var dom = function() {
 
 	this.getChildren = function(el) {
 		var el = core.isObject(el) ? el : this.get(el);
-		if(typeof(el['content']) !== 'undefined')
+		if (!el)
+			return false;
+		else if(typeof(el['content']) !== 'undefined')
 			return el.content.children;
 		else if(typeof(el['children']) !== 'undefined')
 			return el.children;
