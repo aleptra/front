@@ -1171,6 +1171,8 @@ body .flc0{
 
 /*https://www.rapidtables.com/web/color/html-color-codes.html*/
 
+body .bg0 {background-color: unset}
+
 /* Red */
 body .lightsalmon{color:#ffa07a}
 body .salmon{color:#fa8072}
@@ -1709,6 +1711,22 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr}
     body .md_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
     body .md_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+    body .md_z05, body .md_z05- * { zoom: .5 }
+    body .md_z06, body .md_z06- * { zoom: .7 }
+    body .md_z07, body .md_z07- * { zoom: .7 }
+    body .md_z08, body .md_z08- * { zoom: .8 }
+    body .md_z09, body .md_z09- * { zoom: .9 }
+    body .md_z1, body .md_z1- * { zoom: 1 }
+    body .md_z11, body .md_z11- * { zoom: 1.1 }
+    body .md_z12, body .md_z12- * { zoom: 1.2 }
+    body .md_z13, body .md_z13- * { zoom: 1.3 }
+    body .md_z14, body .md_z14- * { zoom: 1.4 }
+    body .md_z15, body .md_z15- * { zoom: 1.5 !important }
+    body .md_z16, body .md_z16- * { zoom: 1.6 }
+    body .md_z17, body .md_z19- * { zoom: 1.7 }
+    body .md_z18, body .md_z18- * { zoom: 1.8 }
+    body .md_z19, body .md_z19- * { zoom: 1.9 }
+    body .md_z20, body .md_z20- * { zoom: 2 !important }
 }
 
 @media only screen and (min-width: 740px) {
@@ -1732,6 +1750,22 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_w25r{ width: 25rem}
     body .lg_w30r{ width: 30rem}
     body .lg_w40r{ width: 40rem}
+    body .lg_z05, body .lg_z05- * { zoom: .5 }
+    body .lg_z06, body .lg_z06- * { zoom: .7 }
+    body .lg_z07, body .lg_z07- * { zoom: .7 }
+    body .lg_z08, body .lg_z08- * { zoom: .8 }
+    body .lg_z09, body .lg_z09- * { zoom: .9 }
+    body .lg_z1, body .lg_z1- * { zoom: 1 }
+    body .lg_z11, body .lg_z11- * { zoom: 1.1 }
+    body .lg_z12, body .lg_z12- * { zoom: 1.2 }
+    body .lg_z13, body .lg_z13- * { zoom: 1.3 }
+    body .lg_z14, body .lg_z14- * { zoom: 1.4 }
+    body .lg_z15, body .lg_z15- * { zoom: 1.5 !important }
+    body .lg_z16, body .lg_z16- * { zoom: 1.6 }
+    body .lg_z17, body .lg_z19- * { zoom: 1.7 }
+    body .lg_z18, body .lg_z18- * { zoom: 1.8 }
+    body .lg_z19, body .lg_z19- * { zoom: 1.9 }
+    body .lg_z20, body .lg_z20- * { zoom: 2 !important }
 }
 
 @media only screen and (min-width: 960px) {
@@ -1862,13 +1896,13 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_w80p, body .md_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
     body .md_w90p, body .md_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
     body .md_w100p, body .md_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
-    body .md_fs100 a{ font-size: 100% }
-    body .md_fs90 a{ font-size: 90% }
-    body .md_fs80 a{ font-size: 80% }
-    body .md_fs70 a{ font-size: 70% }
-    body .md_fs60 a{ font-size: 60% }
-    body .md_fs50 a{ font-size: 50% }
-    body .md_fs0 a{ font-size: 0 }
+    body .md_fs100, body .md_fs100 a{ font-size: 100% }
+    body .md_fs90 a, body .md_fs90{ font-size: 90% }
+    body .md_fs80 a, body .md_fs80 a{ font-size: 80% }
+    body .md_fs70 a, body .md_fs70 a{ font-size: 70% }
+    body .md_fs60 a, body .md_fs60{ font-size: 60% }
+    body .md_fs50 a, body .md_fs50 a{ font-size: 50% }
+    body .md_fs0 a, body .md_fs0{ font-size: 0 }
     body .md_p0{padding: 0}
     body .md_p05r{padding: .5rem}
     body .md_p1r{padding: 1rem}
@@ -1893,6 +1927,13 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_w80p, body .xm_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
     body .xm_w90p, body .xm_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
     body .xm_w100p, body .xm_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
+    body .xm_fs100, body .xm_fs100 a{ font-size: 100% }
+    body .xm_fs90 a, body .xm_fs90{ font-size: 90% }
+    body .xm_fs80 a, body .xm_fs80 a{ font-size: 80% }
+    body .xm_fs70 a, body .xm_fs70 a{ font-size: 70% }
+    body .xm_fs60 a, body .xm_fs60{ font-size: 60% }
+    body .xm_fs50 a, body .xm_fs50 a{ font-size: 50% }
+    body .xm_fs0 a, body .xm_fs0{ font-size: 0 }
     body .xm_tal{text-align: left}
     body .xm_tar{text-align: right}
     body .xm_tac{text-align: center}
