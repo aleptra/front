@@ -1574,6 +1574,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .p4,.p4->*{ padding: 4rem }
 .p5,.p5->*{ padding: 5rem }
 .p5p{ padding: 5% }
+.p10p{ padding: 10% }
 .p10{ padding: 10rem }
 .p10p{ padding: 10% }
 .pl1{ padding-left: 1rem }
@@ -1907,6 +1908,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_p05r{padding: .5rem}
     body .md_p1r{padding: 1rem}
     body .md_p2r{padding: 2rem}
+    body .md_p10p{padding: 10%}
     body .md_gap0->*{ margin-left: unset;margin-right: unset }
 }
 
@@ -1941,6 +1943,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_p05r{padding: .5rem}
     body .xm_p1r{padding: 1rem}
     body .xm_p2r{padding: 2rem}
+    body .xm_p10p{padding: 10%}
 }
 
 @media only screen and (max-width: 360px) {
@@ -1963,6 +1966,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .sm_p05r{padding: .5rem}
     body .sm_p1r{padding: 1rem}
     body .sm_p2r{padding: 2rem}
+    body .sm_p10p{padding: 10%}
 }
 
 @media only screen and (max-width: 300px) {
