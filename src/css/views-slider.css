@@ -6,6 +6,10 @@ nav.slider {
     overflow: hidden;
 }
 
+nav.slider figure img{
+    margin: auto;
+}
+
 nav.slider aside, nav.slider div{
     flex: 2;
     -ms-flex: 2;

@@ -1061,6 +1061,10 @@ nav.tabs.accordions > section{
     overflow: hidden;
 }
 
+nav.slider figure img{
+    margin: auto;
+}
+
 nav.slider aside, nav.slider div{
     flex: 2;
     -ms-flex: 2;
@@ -1563,7 +1567,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .p5vw { padding: 5vw}
 .p10vw { padding: 10vw}
 .p15vw { padding: 15vw}
-.p5v { padding: 5vhmin}
+.p5v { padding: 5vmin}
 .p10v { padding: 10vmin}
 .p15v { padding: 15vmin}
 .p0 {padding: 0}
