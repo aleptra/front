@@ -722,6 +722,13 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 960px) {
     body .xl_du{display: inherit}
+    body .xl_fs100 a, body .xl_fs100{ font-size: 100% }
+    body .xl_fs90 a, body .xl_fs90{ font-size: 90% }
+    body .xl_fs80 a, body .xl_fs80{ font-size: 80% }
+    body .xl_fs70 a, body .xl_fs70{ font-size: 70% }
+    body .xl_fs60 a, body .xl_fs60{ font-size: 60% }
+    body .xl_fs50 a, body .xl_fs50{ font-size: 50% }
+    body .xl_fs0 a, body .xl_fs0{ font-size: 0 }
     body .xl_p0{padding: 0}
     body .xl_p05r{padding: .5rem}
     body .xl_p1r{padding: 1rem}
@@ -740,6 +747,18 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_w80p, body .lg_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
     body .lg_w90p, body .lg_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
     body .lg_w100p, body .lg_w100p- * { width: 100%; -ms-flex: 100%; flex: 100%}
+    body .lg_fs100 a, body .lg_fs100{ font-size: 100% }
+    body .lg_fs90 a, body .lg_fs90{ font-size: 90% }
+    body .lg_fs80 a, body .lg_fs80{ font-size: 80% }
+    body .lg_fs70 a, body .lg_fs70{ font-size: 70% }
+    body .lg_fs60 a, body .lg_fs60{ font-size: 60% }
+    body .lg_fs50 a, body .lg_fs50{ font-size: 50% }
+    body .lg_fs0 a, body .lg_fs0{ font-size: 0 }
+    body .lg_o1n{ order: -1}
+    body .lg_o2n{ order: -2}
+    body .lg_o0{ order: 0}
+    body .lg_o1{ order: 1}
+    body .lg_o2{ order: 2}
     body .lg_tal{text-align: left}
     body .lg_tar{text-align: right}
     body .lg_tac{text-align: center}
@@ -775,12 +794,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_w80p, body .md_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
     body .md_w90p, body .md_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
     body .md_w100p, body .md_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
-    body .md_fs100, body .md_fs100 a{ font-size: 100% }
+    body .md_fs100 a, body .md_fs100{ font-size: 100% }
     body .md_fs90 a, body .md_fs90{ font-size: 90% }
-    body .md_fs80 a, body .md_fs80 a{ font-size: 80% }
-    body .md_fs70 a, body .md_fs70 a{ font-size: 70% }
+    body .md_fs80 a, body .md_fs80{ font-size: 80% }
+    body .md_fs70 a, body .md_fs70{ font-size: 70% }
     body .md_fs60 a, body .md_fs60{ font-size: 60% }
-    body .md_fs50 a, body .md_fs50 a{ font-size: 50% }
+    body .md_fs50 a, body .md_fs50{ font-size: 50% }
     body .md_fs0 a, body .md_fs0{ font-size: 0 }
     body .md_p0{padding: 0}
     body .md_p05r{padding: .5rem}
