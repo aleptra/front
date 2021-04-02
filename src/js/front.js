@@ -325,6 +325,14 @@ var core = function() {
 			}catch(err){}
 			
 		}
+		if (e.hasAttribute("metacontent")) {
+			var value = e.getAttribute("metacontent");
+			var els = document.getElementsByTagName("meta");
+			for(var i in els) {
+				if (typeof(els[i].name) != 'undefined' && els[i].name.toLowerCase() == value)
+				  e.innerHTML = els[i].content;
+			}
+		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
 		if (e.hasAttribute("trim"))
