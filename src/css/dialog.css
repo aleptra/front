@@ -63,6 +63,7 @@
   width: inherit;
   height: inherit;
   overflow: scroll;
+  margin-top: unset;
 }
 
 .modal.menu section * {

@@ -16,14 +16,35 @@
 <body class="bg">
     <input class="togglebar" type="checkbox" id="togglebar">
     <header>
-        <nav class="topbar dark shade h4_5 md_fs70 gap2- pr2 test- fs9 tac" selective="true">
-            <label class="button md_du" for="togglebar" id="togglebar" eventif=";hide"><i class="icon24">&#8801;</i></label>
+        <nav class="topbar dark shade h4_5 md_fs70 gap2- pr1 test- fs9 tac" selective="true">
+            <!--<label class="button md_du" for="togglebar" id="togglebar" eventif=";hide"><i class="icon24">&#8801;</i></label>-->
+            <a href="#menu" class="button md_du p0 shade1"><i class="icon32">≡</i></a>
             <figure><a class="b0" href="./" target="_top" href2="home.html" key="0"><img src="assets/img/logo.png"></a></figure>
-            <a href="documentation.html" key="1" globalize="documentation"><i class="icon">&#128366;</i>Documentation</a>
-            <a href="icons.html" key="2" globalize="icons"><i class="icon">●</i>Icons</a>
-            <a href="showcase.html" key="3"><i class="icon">&#128161;</i>Showcase</a>
-            <a href="marketplace" key="4" globalize="marketplace"><i class="icon">&#128722;</i>Marketplace</a>
+            <a class="md_dn" href="documentation.html" key="1" globalize="documentation"><i class="icon">&#128366;</i>Documentation</a>
+            <a class="md_dn" href="icons.html" key="2" globalize="icons"><i class="icon">●</i>Icons</a>
+            <a class="md_dn" href="showcase.html" key="3"><i class="icon">&#128161;</i>Showcase</a>
+            <a class="md_dn" href="marketplace" key="4" globalize="marketplace"><i class="icon">&#128722;</i>Marketplace</a>
             <a href="languages.html" class="fr" key="4" globalize="languages"><i class="icon">&#127760;</i>Languages</a>
+            
+            <div id="menu" class="modal bcblack menu br0">
+                <nav class="topbar flc0 shade h4_5 gap2- sblack-">
+                    <a href="#" class="button xl_du p0 shade1"><i class="icon32">&#10060;</i></a>
+                </nav>
+                <section>
+                    <nav class="sidebar pb2 w100 fs13 gaph2- pointer afr">
+                        <a href="documentation.html" key="1" globalize="documentation"><i class="icon">&#128366;</i>Documentation</a>
+                        <hr class="p0">
+                        <a href="icons.html" key="2" globalize="icons"><i class="icon">●</i>Icons</a>
+                        <hr class="p0">
+                        <a href="showcase.html" key="3"><i class="icon">&#128161;</i>Showcase</a>
+                        <hr class="p0">
+                        <a href="marketplace" key="4" globalize="marketplace"><i class="icon">&#128722;</i>Marketplace</a>
+                    </nav>
+                    <nav class="sidebar z08">
+                        Current version <b metacontent="version"></b>
+                    </nav>
+                </section>
+            </div>
         </nav>
     </header>
     <nav></nav>

@@ -1,4 +1,4 @@
-<script src="../dist/front.js" title="Marketplace" onload="dom.class('body?tag', 'remove', 'bg')" template="true" enum="marketplace"></script>
+<script src="../dist/front.js" title="Marketplace" onload="dom.class('body?tag', 'remove', 'bg')" template="true" enumsource="marketplace"></script>
 
 <template>
     <aside index="0"></aside>
@@ -9,11 +9,11 @@
 <h1 globalize="marketplace">Marketplace</h1>
 <p>Buy or sell items easily.</p>
 <section class="mt2">
-    <div class="box cards gut5- br05- bcwhite- zoom- tac" json="true" iterate="market" datasource="./assets/json/marketplace.json">
+    <div class="box cards gut5- br05- bcwhite- zoom-" json="true" iterate="market" datasource="./assets/json/marketplace.json">
         <a jsonget="url" target="_blank">
-            <figure jsonset="id" class="pb1">
-                <img class="w100" jsonget="screenshot">
-                <figcaption jsonget="title"></figcaption>
+            <figure jsonset="id" class="p1">
+                <img class="w50" jsonget="id" jsonbefore="../assets/img/marketplace/" jsonafter=".svg">
+                <figcaption class="fwb" jsonget="title"></figcaption>
                 <small jsonget="author"></small>
                 <small jsonget="cost" class="fr pr2"></small>
             </figure>
