@@ -1143,7 +1143,7 @@ body .tshade05{text-shadow: 1px 1px 1px rgba(0,0,0, 0.5)}
 body .tshade1{text-shadow: 1px 1px 1px rgba(0,0,0, 1)}
 
 body .border->*:hover{ box-shadow: 1px 1px 1px 1px rgba(0,0,0, .1) }
-body .zoom->*:hover{zoom: 1.01};
+body .zoom->*:hover{zoom: 1.01}
 
 body .shade0->*, .shade0{
     box-shadow: none;
@@ -1526,7 +1526,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .wxxs{ max-width: 220px }
 .pauto, .pauto-> *{ padding: 3rem }
 .mnauto{ margin: -3rem }
-.mnauto.h100{flex: 0 0 calc(100% + 6rem)};
+.mnauto.h100{flex: 0 0 calc(100% + 6rem)}
 .pauto1w{ padding: 3rem 1rem }
 
 .wh1 { width: 1rem; height: 1rem }
@@ -1625,7 +1625,7 @@ body .bos0{border-style: none}
 body .bos1{border-style: outset}
 body .bos2{border-style: inset}
 body .bos3{border-style: dashed}
-body .bos4{border-style: dot}
+body .bos4{border-style: dotted}
 body .bos5{border-style: double}
 body .bos6{border-style: groove}
 body .bos7{border-style: ridge}
