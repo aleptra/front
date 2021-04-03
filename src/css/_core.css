@@ -372,14 +372,14 @@ body .fdc, body .fdc->*{ flex-direction: column; -ms-flex-direction: column}
 body .fdr, body .fdr->*{ flex-direction: row; -ms-flex-direction: row}
 body .flc, body .flc->*{
     -webkit-box-pack: center;
-    -moz-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    -ms-flex-align: center;
     -webkit-align-items: center;
+    -webkit-justify-content: center;
+    -webkit-box-align: center;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+    justify-content: center;
     align-items: center;
 }
 

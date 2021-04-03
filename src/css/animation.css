@@ -17,3 +17,50 @@
     0% {transform: rotate(0deg)}
     100% {transform: rotate(360deg)}
 }
+
+@-webkit-keyframes slide {
+    100% {left: 0}
+}
+
+@keyframes slide {
+    100% {left: 0}
+}
+
+@keyframes fadein {
+    0% {opacity:0}
+    100% {opacity:1}
+}
+
+@keyframes pulsate {
+    0% {transform: scale(.95)}
+    20% {transform: scale(.97)}
+    30% {transform: scale(.95)}
+    40% {transform: scale(1)}
+    100% {transform: scale(.95)}
+}
+
+body .slidein{
+    transition: 1s;
+    left: 0;
+}
+
+body .fadein{
+    opacity: 0;
+    -webkit-transition: fadein ease 20s;
+    transition: fadein ease 20s;
+}
+
+body .slide{
+    -webkit-transition: slide 0.5s forwards;
+    transition: slide 0.5s forwards;
+}
+
+body .spin{
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+body .pulsate{
+    -webkit-animation: pulsate 1s linear infinite;
+    animation: pulsate 1s linear infinite;
+}
