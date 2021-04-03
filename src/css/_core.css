@@ -64,7 +64,6 @@ dialog, .modal{
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
-    display: -o-flex;
     display: flex;
 }
 
@@ -127,7 +126,6 @@ body, .grid {
     -moz-font-feature-settings: "kern=1";
     -ms-font-feature-settings: "kern";
     -webkit-font-feature-settings: "kern";
-    -o-font-feature-settings: "kern";
     position:relative;
     counter-reset: section;
 }
