@@ -481,6 +481,15 @@ ul.list li{
     animation: spin 1s linear infinite;
 }
 
+#navloader {
+    z-index: 50;
+}
+  
+#navprogress {
+    width: 1%;
+    height: 2px;
+}
+
 @-webkit-keyframes spin {
     0% {-webkit-transform: rotate(0deg)}
     100% {-webkit-transform: rotate(360deg)}
@@ -512,28 +521,28 @@ ul.list li{
     100% {transform: scale(.95)}
 }
 
-body .slidein{
+.slidein{
     transition: 1s;
     left: 0;
 }
 
-body .fadein{
+.fadein{
     opacity: 0;
     -webkit-transition: fadein ease 20s;
     transition: fadein ease 20s;
 }
 
-body .slide{
+.slide{
     -webkit-transition: slide 0.5s forwards;
     transition: slide 0.5s forwards;
 }
 
-body .spin{
+.spin{
     -webkit-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
 }
 
-body .pulsate{
+.pulsate{
     -webkit-animation: pulsate 1s linear infinite;
     animation: pulsate 1s linear infinite;
 }.cards > figure,
@@ -1939,7 +1948,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_gan { grid-area: nav!important; width: 100%; z-index: 11 }
     body .lg_gam { grid-area: middle!important; z-index: 11 }
     body .lg_fdr {flex-direction: row; -ms-flex-direction: row}
-    body .lg_fdc {flex-direction: column; -ms-flex-direction: column}
+    body .lg_fdc, body .lg_fdc-> * {flex-direction: column; -ms-flex-direction: column}
     body .lg_p0{padding: 0}
     body .lg_m0{margin: 0}
     body .lg_p05r{padding: .5rem}

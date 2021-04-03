@@ -5,8 +5,7 @@ libAttribute.push(
 var globalUrl = app.setupEnvironment()[1];
 var navTargetEl = "main?tag";
 var hash = location.hash;
-
-//alert(hash);
+var elprogress = dom.get("navprogress");
 
 window.addEventListener("popstate", function(e) {
 
@@ -19,7 +18,7 @@ window.addEventListener("popstate", function(e) {
 });
 
 function nav(path, el, push) {
-	
+	if (elprogress) navLoader();
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = path.split("#");
@@ -30,14 +29,10 @@ function nav(path, el, push) {
 	client.get(globalUrl + path, function(response) {
 		if (response) {
 			dom.content(target, response);
-			dom.class(target, "reset", "spaLoader");
+			
 			if (anchor[1]){
-				console.dir(dom.get(anchor[1]));
-
-				//alert(anchor[1]);
 				dom.scrollInto(anchor[1]);
 			}else{
-				//console.dir(dom.get(target));
 				dom.scrollInto(target, true);
 			}
 
@@ -53,7 +48,7 @@ function nav(path, el, push) {
 			navPush(dom.get("title?tag").textContent, path);
 		}
 	});
-	
+
 	loadTemplate = false;
 	return false;
 }
@@ -65,4 +60,24 @@ function navPush(title, url){
 	}else{
 		location.hash = "#!" + url;
 	}
+}
+
+var x = 0;
+function navLoader() {
+	_.show("navloader");
+	if (x == 0) {
+    	x = 1;
+    	var width = 1;
+    	var id = setInterval(frame, 1);
+    	function frame() {
+      		if (width >= 100){
+				_.hide("navloader");
+				clearInterval(id);
+        		x = 0;
+      		}else{
+        		width++;
+        		elprogress.style.width = width + "%";
+      		}
+    	}
+  	}
 }
