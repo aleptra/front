@@ -18,7 +18,6 @@ window.addEventListener("popstate", function(e) {
 });
 
 function nav(path, el, push) {
-	if (elprogress) navLoader();
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = path.split("#");
@@ -68,7 +67,7 @@ function navLoader() {
 	if (x == 0) {
     	x = 1;
     	var width = 1;
-    	var id = setInterval(frame, 1);
+    	var id = setInterval(frame, 0);
     	function frame() {
       		if (width >= 100){
 				_.hide("navloader");

@@ -48,6 +48,10 @@ var xhrQuick = function() {
     		callback(this.responseText);
 		};
 
+		request.onloadstart = function() {
+			if (elprogress) navLoader()
+		}
+
 		request.onerror = function() {
 			//callback("error");
 		}
