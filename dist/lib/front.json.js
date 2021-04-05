@@ -46,7 +46,7 @@ function json(el) {
     }
 
     xhr.onloadstart = function () { el.innerHTML = '<div class="loader"></div>'; }
-    xhr.onloadend = function () {headers.length = 0}
+    xhr.onloadend = function () {headers = ""}
     xhr.onprogress = function () { eval(onprogress) }
     xhr.onerror = function () { eval(onerror) }
     xhr.onload = function () {
