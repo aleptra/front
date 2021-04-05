@@ -6,6 +6,7 @@ var globalUrl = app.setupEnvironment()[1];
 var navTargetEl = "main?tag";
 var hash = location.hash;
 var elprogress = dom.get("navprogress");
+var x = 0;
 
 window.addEventListener("popstate", function(e){
 	if(window.location.hash.indexOf("#", 1))
@@ -60,7 +61,6 @@ function navPush(title, url){
 	}
 }
 
-var x = 0;
 function navLoader() {
 	_.show("navloader");
 	if (x == 0) {
