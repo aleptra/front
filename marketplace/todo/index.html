@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" cache="no">
+<head>
+    <title>To Do</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge;ie=10;chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base env="local:/marketplace/todo/;prod:/front/marketplace/todo/">
+    <link type="text/css" href="../../dist/front.css" rel="stylesheet">
+    <link type="text/css" href="../../dist/design/front/theme/front.css" rel="stylesheet">
+    <link type="text/css" href="assets/css/theme.css" rel="stylesheet">
+    <script src="../../dist/front.js" lib="xhr;popup;nav;json;"></script>
+</head>
+<body>
+
+    <header>
+        <nav class="topbar bcmediumseagreen white white- h4 gap2- shade1" selective="true">
+            <a class="b0" href="./" target="_top" key="0"><img src="https://3el.github.io/front/assets/img/logo.png"></a>
+            <form class="f2">
+                <input type="text" class="w100 white" placeholder="Search">
+            </form>
+        </nav>
+    </header>
+
+    <main class="light p1" include="tasks.html"></main>
+
+    <footer>
+        <div eventlistener="offline" eventaction="dom.create('div', ['id=offline', 'className=alert pf b1 l1 bcred white snack', 'innerHTML=<i class=icon>⚠</i> Connection lost...'], 'footer')"></div>
+        <div eventlistener="online" eventaction="dom.hide('offline')"></div>
+    </footer>
+</body>
+</html>

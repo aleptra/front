@@ -1,0 +1,17 @@
+<script src="../../dist/front.js" title="Tasks" template="../"></script>
+
+<section id="popular">
+    <div id="popular-movies" class="box cards list tac" iterate="true" json="true" datasource="https://nxsglpuwmlqladuxlmty.supabase.co/rest/v1/Tasks" dataheader="apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzYyNDkwNiwiZXhwIjoxOTMzMjAwOTA2fQ._-dA_LjamQizyEoNq2ZjUMkVe2vQPO7C_3Ba9SINXos ; 1:0" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
+        <a href="#" window="dialog">
+            <figure class="p1 bcwhite" jsonset="id">
+                <input type="checkbox">
+                <p class="f2" jsonget="task"></p>
+                <small class="z09" jsonget="release_date" format="date(Y)"></small>
+            </figure>
+        </a>
+    </div>
+</section>
+
+<nav class="pagination mt1 p1 p1- flc d0" selective="true" variable="page=1" iterate="10;page++">
+    <a bind="popular-movies.datasource" onclick="set('query', 'page', '{{ page }}')" key="{{ page }}"><var>page</var></a>
+</nav>

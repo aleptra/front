@@ -27,6 +27,7 @@ function json(el) {
 
     var iterate = el.getAttribute('iterate');
     var url = el.getAttribute('datasource');
+    var headers = el.getAttribute('dataheader');
     var onprogress = el.getAttribute('onprogress');
     var onerror = el.getAttribute('onerror');
     var ondone = el.getAttribute('ondone');
@@ -34,7 +35,18 @@ function json(el) {
     var xhr = new XMLHttpRequest();
     xhr.el = clnEl;
     xhr.open("GET", url, true);
+
+    if (headers) {
+        headers = headers.split(" ; ");
+
+        for (var i in headers) {
+            var header = headers[i].split(":");
+            xhr.setRequestHeader(header[0], header[1])
+        }
+    }
+
     xhr.onloadstart = function () { el.innerHTML = '<div class="loader"></div>'; }
+    xhr.onloadend = function () {headers.length = 0}
     xhr.onprogress = function () { eval(onprogress) }
     xhr.onerror = function () { eval(onerror) }
     xhr.onload = function () {
@@ -48,7 +60,6 @@ function json(el) {
         }
         
         el.innerHTML = xhr.el.innerHTML;
-
         var length = (iterate) ? json.length : iterate;
         core.runIteration(el, 0, length);
 

@@ -4,8 +4,19 @@
             "id": 1,
             "title": "Media Streamer",
             "screenshot": "",
+            "icon": "./marketplace/media-streamer/assets/img/icon.svg",
             "url": "./marketplace/media-streamer",
             "type": 0,
+            "author": "Front",
+            "cost": "0"
+        },
+        {
+            "id": 2,
+            "title": "To Do",
+            "screenshot": "",
+            "icon": "./marketplace/todo/assets/img/icon.svg",
+            "url": "./marketplace/todo",
+            "type": 1,
             "author": "Front",
             "cost": "0"
         }

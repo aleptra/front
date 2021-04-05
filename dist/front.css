@@ -761,6 +761,11 @@ select{
     height: 3rem;
 }
 
+input[type="checkbox"], input[type="checkbox"]:hover{
+    box-shadow: unset;
+    min-height: unset;
+}
+
 button,.button{
     display: inline;
     cursor: pointer;
