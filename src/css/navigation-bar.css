@@ -36,3 +36,8 @@
 .topbar *.fr{
     margin-left: auto!important;
 }
+
+.rtl .bottombar *.fr, .rtl .topbar *.fr{
+    margin-left: unset!important;
+    margin-right: auto!important;
+}

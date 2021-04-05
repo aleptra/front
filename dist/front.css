@@ -383,16 +383,16 @@ body .flc, body .flc->*{
     align-items: center;
 }
 
-body .f1{flex: 1}
-body .f2{flex: 2}
-body .f3{flex: 3}
-body .f4{flex: 4}
-body .f5{flex: 5}
-body .f6{flex: 6}
-body .f7{flex: 7}
-body .f8{flex: 8}
-body .f9{flex: 9}
-body .f10{flex: 10}
+.f1{flex: 1}
+.f2{flex: 2}
+.f3{flex: 3}
+.f4{flex: 4}
+.f5{flex: 5}
+.f6{flex: 6}
+.f7{flex: 7}
+.f8{flex: 8}
+.f9{flex: 9}
+.f10{flex: 10}
 
 ul.list{
     list-style: initial;
@@ -597,6 +597,7 @@ ul.list li{
     flex-direction: row;
     -ms-flex-direction: row;
     flex: 1;
+    -ms-flex: 1;
 }
 
 .box.list .fr{
@@ -859,6 +860,11 @@ button.icon,.button.icon{
 .bottombar *.fr,
 .topbar *.fr{
     margin-left: auto!important;
+}
+
+.rtl .bottombar *.fr, .rtl .topbar *.fr{
+    margin-left: unset!important;
+    margin-right: auto!important;
 }.sidebar{
     flex-direction: column;
     -ms-flex-direction: column;
