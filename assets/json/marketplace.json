@@ -19,6 +19,16 @@
             "type": 1,
             "author": "Front",
             "cost": "0"
+        },
+        {
+            "id": 3,
+            "title": "Chat",
+            "screenshot": "",
+            "icon": "./marketplace/chat/assets/img/icon.svg",
+            "url": "./marketplace/chat",
+            "type": 1,
+            "author": "Front",
+            "cost": "0"
         }
     ]
 }
