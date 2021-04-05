@@ -7,16 +7,16 @@ var navTargetEl = "main?tag";
 var hash = location.hash;
 var elprogress = dom.get("navprogress");
 
-window.addEventListener("popstate", function(e) {
+window.addEventListener("popstate", function(e){
 	if(window.location.hash.indexOf("#", 1))
-		return false;//alert('hej');
+		return false;
 	if (e.state)
 		nav(e.state.path.substr(1), navTargetEl, false);
 	else
 		self.location.href = globalUrl;
 });
 
-function nav(path, el, push) {
+function nav(path, el, push){
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = path.split("#");
@@ -24,8 +24,8 @@ function nav(path, el, push) {
 	client.addHeader("Path", path);
 	client.addHeader("Cache-Control", "must-revalidate");
 
-	client.get(globalUrl + path, function(response) {
-		if (response) {
+	client.get(globalUrl + path, function(response){
+		if (response){
 			dom.content(target, response);
 			
 			if (anchor[1]){
