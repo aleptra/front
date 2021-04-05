@@ -8,7 +8,6 @@ var hash = location.hash;
 var elprogress = dom.get("navprogress");
 
 window.addEventListener("popstate", function(e) {
-
 	if(window.location.hash.indexOf("#", 1))
 		return false;//alert('hej');
 	if (e.state)
