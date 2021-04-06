@@ -1,0 +1,35 @@
+<script src="../../../dist/front.js" title="Keycodes" template="true;"></script>
+
+<h1 globalize="colors">Keycodes</h1>
+<nav class="crumbs pointer pt05">
+    <ol>
+        <li><a href="#">Documentation</a></li>
+        <li><a>Development</a></li>
+        <li><a>Markup</a></li>
+        <li>Keycodes</li>
+    </ol>
+</nav>
+
+<section id="crumbs">
+    <table class="mt1 w100p">
+        <caption class="tal">
+            <img src="assets/img/icon_black.svg" class="di" height="24"><span globalize="front_class_attributes">Front class attributes</span>
+        </caption>
+        <thead>
+            <tr>
+                <th globalize="name">Name</th>
+                <th globalize="which" class="w5r">Which</th>
+                <th globalize="key">Key</th>
+                <th globalize="code">Code</th>
+            </tr>
+        </thead>
+        <tbody class="z09" json="true" iterate="true" datasource="./assets/json/keycodes.json">
+            <tr>
+                <td jsonget="name"></td>
+                <td jsonget="event_which"></td>
+                <td jsonget="event_key"></td>
+                <td jsonget="event_code"></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
