@@ -26,7 +26,7 @@ window.addEventListener("submit", function(e) {
     }
 
     xhr.send(payload);
-
+    e.reset();
     return false;
 });
 
