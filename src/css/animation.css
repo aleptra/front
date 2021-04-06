@@ -6,6 +6,7 @@
     height: 50px;
     -webkit-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
+    display: inline-table;
 }
 
 #navloader {
