@@ -46,7 +46,7 @@
     text-align: left;
 }
 
-.box.list *{
+.box.list > *{
     flex-direction: row;
     -ms-flex-direction: row;
     flex: 1;
