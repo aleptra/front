@@ -78,58 +78,5 @@ var xhrQuick = function() {
   }
 }
 
-function xhr(path, data, el, doa) {
-
-	var doa = (doa) ? null : doa;
-	var target = (el.id) ? el.id : el;
-	
-	if (data == 'xhrpost') {
-		xhrpost = getAttributes('xhrpost');
-		post = eval(xhrpost[0][0]);
-		data = [];
-		data.push(post);
-		//console.log("dataRaw", dom.value('q'));
-	}
-
-	var url = '/?xhr='+path;
-	var code = 503;
-
-	var orgcontent = dom.content(target);
-
-	if (orgcontent){
-		dom.class(target, "add", "disabled");
-		dom.content(target, "<img src='/img/loader.gif' style='filter: brightness(0) invert(1)'>");
-	}
-
-	if (data) {
-
-		for (var i in data) {
-			data[i] = encodeURIComponent(data[i]);
-		}
-
-		client.post(url, data, function(response) {
-
-			try {
-				code = JSON.parse(response).code;
-			}catch(err) {
-				console.log('Error: '+err);
-			}
-
-		if (response)
-			dom.class(target, "remove", "disabled");
-			dom.content(target, orgcontent);
-		});
-
-	}else{
-		client.get(url, function(response) {
-		if (response)
-			dom.class(target, "remove", "disabled");
-			dom.content(target, orgcontent);
-		});
-	}
-
-	return false;
-}
-
 var socket = new xhrQuick();
 var client = new xhrQuick();

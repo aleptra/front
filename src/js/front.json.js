@@ -2,6 +2,11 @@ libAttribute.push(
 {'attr': 'json', 'func': 'json'}
 );
 
+window.addEventListener("submit", function(e) {
+    /*e.preventDefault();
+    console.log(jsonSerialize(e));
+    return false;*/
+});
 
 var jsonInitEl = [];
 var jsonIndex = 0;
@@ -105,4 +110,16 @@ function json(el) {
         core.runCoreAttributesInElement(el);
     }
     xhr.send(null);
+}
+
+function jsonSerialize(e){
+    var inputs = e.target || e.srcElement;
+    formData = new FormData(inputs);
+    const pairs = {};
+
+    for (const [name, value] of formData) {
+        pairs[name] = value;
+    }
+
+    return JSON.stringify(pairs, null, 2);
 }
