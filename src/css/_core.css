@@ -22,6 +22,11 @@
     color: inherit;
 }
 
+  
+::-webkit-input-placeholder {color: rgba(255,255,255, .6)}
+:-ms-input-placeholder {color: rgba(255,255,255, .6)}
+::-moz-placeholder {color: rgba(255,255,255, .6)}
+  
 html {
     width: 100%;
     height: 100%;
