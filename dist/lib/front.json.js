@@ -3,9 +3,31 @@ libAttribute.push(
 );
 
 window.addEventListener("submit", function(e) {
-    /*e.preventDefault();
-    console.log(jsonSerialize(e));
-    return false;*/
+    e.preventDefault();
+
+    var e = e.target || e.srcElement;
+    payload = jsonSerialize(e);
+    console.dir(payload);
+
+    var url = e.getAttribute('datasource');
+    var headers = e.getAttribute('dataheader');
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    if (headers) {
+        headers = headers.split(" ; ");
+
+        for (var i in headers) {
+            var header = headers[i].split(":");
+            xhr.setRequestHeader(header[0], header[1])
+        }
+    }
+
+    xhr.send(payload);
+
+    return false;
 });
 
 var jsonInitEl = [];
@@ -112,8 +134,7 @@ function json(el) {
     xhr.send(null);
 }
 
-function jsonSerialize(e){
-    var inputs = e.target || e.srcElement;
+function jsonSerialize(inputs){
     formData = new FormData(inputs);
     const pairs = {};
 
