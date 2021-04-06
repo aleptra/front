@@ -480,6 +480,8 @@ ul.list li{
     -webkit-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
     display: inline-table;
+    flex: unset;
+    -ms-flex: unset;
 }
 
 #navloader {
@@ -1123,6 +1125,10 @@ nav.tabs.accordions > section{
     height: 100%;
     min-height: 100%;
     overflow: hidden;
+}
+
+nav.slider .loader{
+    position: absolute;
 }
 
 nav.slider figure img{

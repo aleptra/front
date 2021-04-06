@@ -6,6 +6,10 @@ nav.slider {
     overflow: hidden;
 }
 
+nav.slider .loader{
+    position: absolute;
+}
+
 nav.slider figure img{
     margin: auto;
 }
