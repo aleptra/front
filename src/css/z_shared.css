@@ -455,6 +455,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .p10p{ padding: 10% }
 .p10{ padding: 10rem }
 .p10p{ padding: 10% }
+.pl05{ padding-left: .5rem }
 .pl1{ padding-left: 1rem }
 .pl2{ padding-left: 2rem }
 .pl3{ padding-left: 3rem }
