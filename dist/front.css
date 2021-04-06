@@ -1224,7 +1224,7 @@ body .tshade1{text-shadow: 1px 1px 1px rgba(0,0,0, 1)}
 body .border->*:hover{ box-shadow: 1px 1px 1px 1px rgba(0,0,0, .1) }
 body .zoom->*:hover{zoom: 1.01}
 
-body .shade0->*, .shade0{
+body .shade0->*, body .shade0, body .bs0{
     box-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
