@@ -390,11 +390,20 @@ var core = function() {
 				return poll;
 			  }(), interval);
 		}
-		if(e.hasAttribute("if")) {
+		if(e.hasAttribute("if")){
 			var val = e.getAttribute("if");
-			var term = val.split(";");
-			if (term[0] == term[1]) {
-				e.setAttribute(term[2], "");
+			var ifnot = (val.substr(0,1) == "!") ? true : false;
+			val = val.replace(/!/g, "");
+
+			if (val.substr(0,2) !== "{{"){
+			
+				var term = val.split(";");
+				var action = term[2].split(/:(.*)/);
+				
+				if (!ifnot && term[0] == term[1])
+					e.setAttribute(action[0], action[1]);
+				if (ifnot && term[0].length > 0)
+					e.setAttribute(action[0], action[1]);
 			}
 		}
 	}
