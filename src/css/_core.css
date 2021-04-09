@@ -22,7 +22,6 @@
     color: inherit;
 }
 
-  
 ::-webkit-input-placeholder {color: rgba(255,255,255, .6)}
 :-ms-input-placeholder {color: rgba(255,255,255, .6)}
 ::-moz-placeholder {color: rgba(255,255,255, .6)}
@@ -242,40 +241,41 @@ summary{
     width: auto;
 }
 
-.pf{ position: fixed; flex: unset; z-index: 10}
-.pa{ position: absolute }
-.t05{ top: -5rem }
-.t04{ top: -4rem }
-.t03{ top: -3rem }
-.t02{ top: -2rem }
-.t01{ top: -1rem }
-.t0{ top: 0 }
-.t05{ top: .5rem }
-.t1{ top: 1rem }
-.t2{ top: 2rem }
-.t3{ top: 3rem }
-.l015{ left: -15rem}
-.l010{ left: -10rem}
-.l05{ left: -5rem}
-.l04{ left: -4rem}
-.l03{ left: -3rem}
-.l02{ left: -2rem}
-.l01{ left: -1rem}
-.l0{ left: 0}
-.l05{ left: .5rem}
-.l1{ left: 1rem}
-.l2{ left: 2rem}
-.l3{ left: 3rem}
-.r0{ right: 0}
-.r05{ right: .5rem}
-.r1{ right: 1rem}
-.r2{ right: 2rem}
-.r3{ right: 3rem}
-.b0{ bottom: 0}
-.b05{ bottom: .5rem}
-.b1{ bottom: 1rem}
-.b2{ bottom: 2rem}
-.b3{ bottom: 3rem}
+.pf{position: fixed;flex: unset;z-index: 10}
+.pa{position: absolute}
+.pr{position:relative}
+.t05{top: -5rem}
+.t04{top: -4rem}
+.t03{top: -3rem}
+.t02{top: -2rem}
+.t01{top: -1rem}
+.t0{top: 0}
+.t05{top: .5rem}
+.t1{top: 1rem}
+.t2{top: 2rem}
+.t3{top: 3rem}
+.l015{left: -15rem}
+.l010{left: -10rem}
+.l05{left: -5rem}
+.l04{left: -4rem}
+.l03{left: -3rem}
+.l02{left: -2rem}
+.l01{left: -1rem}
+.l0{left: 0}
+.l05{left: .5rem}
+.l1{left: 1rem}
+.l2{left: 2rem}
+.l3{left: 3rem}
+.r0{right: 0}
+.r05{right: .5rem}
+.r1{right: 1rem}
+.r2{right: 2rem}
+.r3{right: 3rem}
+.b0{bottom: 0}
+.b05{bottom: .5rem}
+.b1{bottom: 1rem}
+.b2{bottom: 2rem}
+.b3{bottom: 3rem}
 
 .dark { background-color: #212121; color: #fff }
 .dark * { color: #fff }
