@@ -3,7 +3,7 @@
         {
             "id": 1,
             "title": "IngGreen",
-            "screenshot": "https://screenshotapi.net/api/v1/screenshot?token=BIG7HNCZNW3YS8GU7K96VIUWKHF9WST3&url=www.inggreen.co&output=image",
+            "screenshot": "assets/img/screenshot_inggreen.png",
             "url": "https://www.inggreen.co",
             "type": "Consulting firm"
 
@@ -11,21 +11,21 @@
         {
             "id": 2,
             "title": "Aramean Institute",
-            "screenshot": "https://screenshotapi.net/api/v1/screenshot?token=BIG7HNCZNW3YS8GU7K96VIUWKHF9WST3&url=www.aramean.institute&output=image",
+            "screenshot": "assets/img/screenshot_aramean_institute.png",
             "url": "https://www.aramean.institute",
             "type": "Institute"
         },
         {
             "id": 3,
             "title": "Aramean Center",
-            "screenshot": "https://screenshotapi.net/api/v1/screenshot?token=BIG7HNCZNW3YS8GU7K96VIUWKHF9WST3&url=www.aramean.center&output=image",
+            "screenshot": "",
             "url": "https://www.aramean.center",
             "type": "Organization"
         },
         {
             "id": 4,
             "title": "Josef Gabrielsson",
-            "screenshot": "https://screenshotapi.net/api/v1/screenshot?token=BIG7HNCZNW3YS8GU7K96VIUWKHF9WST3&url=www.josef.st&output=image",
+            "screenshot": "assets/img/screenshot_josef.png",
             "url": "https://www.josef.st",
             "type": "Personal"
         }

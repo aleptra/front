@@ -8,11 +8,14 @@
 <article>
 <h1>Showcase</h1>
 <p>Customers using Front to power up their applications.</p>
-<section class="mt2">
-    <div class="box cards gut5- br05- bcwhite- zoom- tac" json="true" iterate="examples" datasource="assets/json/showcase.json">
+<section class="mt3">
+    <div class="box cards gut5- bcwhite- bs0- tac" json="true" iterate="examples" datasource="assets/json/showcase.json">
         <a jsonget="url" target="_blank">
-            <figure jsonset="id" class="pb1">
-                <img class="w100" jsonget="screenshot">
+            <figure jsonset="id" class="pb1 w100 shade0">
+                <div class="pr">
+                    <img class="w100" src="dist/design/front/images/laptop.svg">
+                    <img class="w80 pa flc" jsonget="screenshot">
+                </div>
                 <figcaption jsonget="title"></figcaption>
                 <small jsonget="type"></small>
             </figure>
