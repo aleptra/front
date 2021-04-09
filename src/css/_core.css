@@ -295,6 +295,8 @@ summary{
 table.fr{float:right}
 
 .ttu{ text-transform: uppercase }
+.ofa{overflow: auto}
+.oa{overflow: none}
 
 body .w0{ width: auto !important }
 body .w100, body .w100p{ width: 100%; -ms-flex: 100%; flex: 100% }
@@ -386,6 +388,11 @@ body .flc, body .flc->*{
     -ms-flex-align: center;
     justify-content: center;
     align-items: center;
+}
+body .pa.flc, body .pr.flc{
+    top: 50%;  
+    left: 50%; 
+    transform: translate(-50%, -50%);
 }
 
 .f1{flex: 1}
