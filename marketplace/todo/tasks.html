@@ -4,8 +4,8 @@
     <div id="todo-tasks" class="box cards list br0-" iterate="true" json="true" datasource="https://nxsglpuwmlqladuxlmty.supabase.co/rest/v1/tasks" dataheader="apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzYyNDkwNiwiZXhwIjoxOTMzMjAwOTA2fQ._-dA_LjamQizyEoNq2ZjUMkVe2vQPO7C_3Ba9SINXos ; 1:0" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
        <!-- <a href="#" window="dialog">-->
             <figure class="p1 bcwhite" jsonset="id">
-                <input type="checkbox" if="{{ jsonget:done }};true;checked">
-                <p class="f2" jsonget="task" filteron="true" contenteditable="true"></p>
+                <input class="f0" type="checkbox" if="{{ jsonget:done }};true;checked">
+                <p class="f2 pl1" jsonget="task" filteron="true" contenteditable="true"></p>
             </figure>
         <!--</a>-->
     </div>
