@@ -29,6 +29,16 @@
             "type": 1,
             "author": "Front",
             "cost": "0"
+        },
+        {
+            "id": 4,
+            "title": "Note",
+            "screenshot": "",
+            "icon": "./marketplace/note/assets/img/icon.svg",
+            "url": "./marketplace/note",
+            "type": 1,
+            "author": "Front",
+            "cost": "0"
         }
     ]
 }
