@@ -4,10 +4,10 @@
     <div id="chat-posts" class="box cards list bcwhite- gut2-" iterate="true" json="true" datasource="{{ storage:api.chat.endpoint }}" dataheader="{{ storage:api.chat.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
         <figure class="p1 fdc" jsonset="id">
             <div>
-                <p>Guest</p>
+                <p>#{{ jsonget:id }}</p>
                 <small class="gray" jsonget="timestamp" format="date(H:i:s)"></small>
             </div>
-            <p class="f2" jsonget="post" filteron="true" key="13" keyaction="alert('hej')"></p>
+            <p class="f2" jsonget="post" filteron="true" key="13" keyaction=""></p>
         </figure>
     </div>
 </section>
