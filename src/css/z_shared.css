@@ -60,7 +60,7 @@ body .f10,.box *.f10{flex: 10}
 
 /*https://www.rapidtables.com/web/color/html-color-codes.html*/
 
-body .bg0 {background-color: unset}
+body .bc0, body .bc0_h:hover {background-color: unset}
 
 /* Red */
 body .lightsalmon{color:#ffa07a}
