@@ -22,11 +22,9 @@
     </header>
 
     <main class="light p1">
-        <section id="note" storage="api">
-            <div id="note-post" class="box cards list bcwhite-" iterate="true" json="true" datasource="{{ storage:api.note.endpoint }}" dataheader="{{ storage:api.note.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
-                <figure class="p1 fdc" jsonset="id">
-                    <textarea class="w100 h100">{{ jsonget:note }}</textarea>
-                </figure>
+        <section class="h100" id="note" storage="api">
+            <div id="note-post" class="box cards list bcwhite- hm100" iterate="true" json="true" datasource="{{ storage:api.note.endpoint }}" dataheader="{{ storage:api.note.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+                <textarea class="w100 h100">{{ jsonget:note }}</textarea>
             </div>
         </section>
         
