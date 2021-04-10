@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" cache="no">
 <head>
-    <title>Chat</title>
+    <title>Note</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge;ie=10;chrome=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,6 +33,10 @@
                 </figure>
             </div>
         </section>
+        
+        <nav class="pagination mt1 p1 p1- flc d0" selective="true" variable="page=1" iterate="10;page++">
+            <a bind="popular-movies.datasource" onclick="set('query', 'page', '{{ page }}')" key="{{ page }}"><var>page</var></a>
+        </nav>
     </main>
 
     <footer>

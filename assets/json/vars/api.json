@@ -7,6 +7,10 @@
         "chat": {
             "endpoint": "https://querlspbhylhljdpvbpm.supabase.co/rest/v1/posts",
             "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzY0NTM0NSwiZXhwIjoxOTMzMjIxMzQ1fQ.pG5ihvVIIwh-xbRHF7H2UWExGNxcQmvsQFrp-BJ_UlQ"
+        },
+        "note": {
+            "endpoint": "https://lmaxhwqfjsphltrhlewl.supabase.co/rest/v1/notes",
+            "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxODA3Mzg3MSwiZXhwIjoxOTMzNjQ5ODcxfQ.NFnRf6sJq1nhbGUD8eTvliQiOLbYNHQ2GFgYcaQ3Mmw"
         }
     }
 }

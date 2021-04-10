@@ -17,10 +17,11 @@ function include(el){
 function store(el){
 	var attr = el.getAttribute("store").split(";")
 	for(storefile in attr)
+		var file = attr[storefile].split(":");
 		var sclient = new xhrQuick();
-		sclient.get(globalUrl + "assets/json/" + attr[storefile] + ".json", function(response){
+		sclient.get(globalUrl + file[0] + ".json", function(response){
 			if (response)
-				app.storage(attr[storefile], response)
+				app.storage(file[1], response)
 		});
 }
 
