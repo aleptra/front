@@ -1,12 +1,14 @@
 <script src="../../dist/front.js" template="../"></script>
 
-<section id="chat">
-    <div id="chat-posts" class="box cards list gut2-" iterate="true" json="true" datasource="https://querlspbhylhljdpvbpm.supabase.co/rest/v1/posts" dataheader="apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzY0NTM0NSwiZXhwIjoxOTMzMjIxMzQ1fQ.pG5ihvVIIwh-xbRHF7H2UWExGNxcQmvsQFrp-BJ_UlQ ; 1:0" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
-       <!-- <a href="#" window="dialog">-->
-            <figure class="p1 bcwhite" jsonset="id">
-                <p class="f2" jsonget="post" filteron="true" key="13" keyaction="alert('hej')"></p>
-            </figure>
-        <!--</a>-->
+<section id="chat" storage="vars/api">
+    <div id="chat-posts" class="box cards list bcwhite- gut2-" iterate="true" json="true" datasource="{{ storage:api.chat.endpoint }}" dataheader="{{ storage:api.chat.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+        <figure class="p1 fdc" jsonset="id">
+            <div>
+                <p>Guest</p>
+                <small class="gray" jsonget="timestamp" format="date(H:i:s)"></small>
+            </div>
+            <p class="f2" jsonget="post" filteron="true" key="13" keyaction="alert('hej')"></p>
+        </figure>
     </div>
 </section>
 

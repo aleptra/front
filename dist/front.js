@@ -304,6 +304,15 @@ var core = function() {
 			alert(e.getAttribute("alert"));
 		if (e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"));
+		if (e.hasAttribute("storage")){
+			var attr = e.getAttribute("storage");
+			var elHtml = e.innerHTML;
+			e.innerHTML = elHtml.replace(/<var>(.*)<\/var>|{{(.*?)}}/ig, function(x){
+				var data = JSON.parse(app.storage(attr));
+				var variable = x.replace(/{{(.+):(.+)(.*)(.+)}}/ig, "$2");
+				return eval("data."+variable);
+			});
+		}
 		if (e.hasAttribute("var") || e.hasAttribute("variable")) {
 			var attr = e.getAttribute("var") || e.getAttribute("variable");
 			var res = attr.split("=");

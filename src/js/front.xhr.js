@@ -1,5 +1,6 @@
 libAttribute.push(
-	{'attr': 'include', 'func': 'include'}
+	{'attr': 'include', 'func': 'include'},
+	{'attr': 'store', 'func': 'store'}
 );
 
 function include(el){
@@ -11,6 +12,16 @@ function include(el){
 			core.runLibAttributesInElement(el);
 		}
 	});
+}
+
+function store(el){
+	var attr = el.getAttribute("store").split(";")
+	for(storefile in attr)
+		var sclient = new xhrQuick();
+		sclient.get(globalUrl + "assets/json/" + attr[storefile] + ".json", function(response){
+			if (response)
+				app.storage(attr[storefile], response)
+		});
 }
 
 var xhrQuick = function() {
@@ -46,7 +57,7 @@ var xhrQuick = function() {
 		request.onload = function() {
 			//console.log("%c API (GET): "+this.responseText, "background: green; color: white");
     		callback(this.responseText);
-		};
+		}
 
 		request.onloadstart = function() {
 			if (elprogress) navLoader()
@@ -61,7 +72,7 @@ var xhrQuick = function() {
 		};
 
 		request.send(null);
-  }
+  };
 
   this.post = function(url, data, callback) {
 

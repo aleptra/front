@@ -88,7 +88,7 @@ h6,.fs1{ font-size: calc(.7em + .6vw)}
 .lh22{line-height: 2.2}
 .lh25{line-height: 2.5}
 
-a,i,b,span,select,input,textarea,button{ display: inline-flex; display: -ms-inline-flexbox }
+a,i,b,span,select,input,textarea,button,.button{ display: inline-flex; display: -ms-inline-flexbox; }
 b,strong,.fwb{ font-weight: bold }
 .di{ display: inline }
 
