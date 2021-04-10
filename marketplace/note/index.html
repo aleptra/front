@@ -25,7 +25,7 @@
         <section id="note" storage="api">
             <div id="note-post" class="box cards list bcwhite-" iterate="true" json="true" datasource="{{ storage:api.note.endpoint }}" dataheader="{{ storage:api.note.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
                 <figure class="p1 fdc" jsonset="id">
-                    <textarea class="w100">{{ jsonget:note }}</textarea>
+                    <textarea class="w100 h100">{{ jsonget:note }}</textarea>
                 </figure>
             </div>
         </section>
@@ -36,12 +36,6 @@
     </main>
 
     <footer>
-        <nav class="bottombar p05 w100">
-            <form method="post" datasource="https://querlspbhylhljdpvbpm.supabase.co/rest/v1/posts" dataheader="apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzY0NTM0NSwiZXhwIjoxOTMzMjIxMzQ1fQ.pG5ihvVIIwh-xbRHF7H2UWExGNxcQmvsQFrp-BJ_UlQ ; 1:0" class="w100">
-                <input name="post" type="text" class="w100" placeholder="Message" autocomplete="off">
-                <input name="name" type="hidden" value="">
-            </form>
-        </nav>
         <div eventlistener="offline" eventaction="dom.create('div', ['id=offline', 'className=alert pf b1 l1 bcred white snack', 'innerHTML=<i class=icon>⚠</i> Connection lost...'], 'footer')"></div>
         <div eventlistener="online" eventaction="dom.hide('offline')"></div>
     </footer>
