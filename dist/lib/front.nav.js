@@ -5,8 +5,6 @@ libAttribute.push(
 var globalUrl = app.setupEnvironment()[1];
 var navTargetEl = "main?tag";
 var hash = location.hash;
-var elprogress = dom.get("navprogress");
-var x = 0;
 
 window.addEventListener("popstate", function(e){
 	if(window.location.hash.indexOf("#", 1))
@@ -59,23 +57,4 @@ function navPush(title, url){
 	}else{
 		location.hash = "#!" + url;
 	}
-}
-
-function navLoader() {
-	_.show("navloader");
-	if (x == 0) {
-    	x = 1;
-    	var width = 1;
-    	var id = setInterval(frame, 0);
-    	function frame() {
-      		if (width >= 100){
-				_.hide("navloader");
-				clearInterval(id);
-        		x = 0;
-      		}else{
-        		width++;
-        		elprogress.style.width = width + "%";
-      		}
-    	}
-  	}
 }

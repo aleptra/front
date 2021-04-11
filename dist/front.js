@@ -4,6 +4,7 @@ var libAttribute = [];
 var libPreload = [];
 var load = false;
 var loadTemplate = false;
+var xhrProgress;
 
 var urlDelimiter = '/';
 var elementDivider = /[?=]/;
@@ -77,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	currentScriptUrl = currentScript.getAttribute("src");
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
+	xhrProgress = dom.get("navprogress");
 
 	if (currentScript.hasAttribute("store")) {
 		var attr = currentScript.getAttribute("store").split(";")
@@ -989,6 +991,7 @@ var xhr = function() {
 	var headers = [];
 	var credentials = false;
 	var responseHeaders;
+	var x = 0;
 
 	this.addHeader = function(header, value) {
 		headers.push([header, value]);
@@ -1019,7 +1022,24 @@ var xhr = function() {
 		}
 
 		request.onloadstart = function() {
-			if (elprogress) navLoader()
+			if (xhrProgress) {
+				_.show("navloader");
+				if (x == 0) {
+					x = 1;
+					var width = 1;
+					var id = setInterval(frame, 0);
+					function frame() {
+						if (width >= 100){
+							_.hide("navloader");
+							clearInterval(id);
+							x = 0;
+					  	}else{
+							width++;
+							xhrProgress.style.width = width + "%";
+					  	}
+					}
+				}
+			}
 		}
 
 		request.onerror = function() {
