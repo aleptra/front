@@ -316,9 +316,8 @@ var core = function() {
 				var el = array[i].tagName+"?tag="+array[i].tagIndex;
 				var index = array[i].getAttribute("index");
 
-				if (array[i].tagIndex == index) {
+				if (array[i].tagIndex == index)
 					dom.content(el, array[i].innerHTML);
-				}
 			}
 
 			loadTemplate = true;
