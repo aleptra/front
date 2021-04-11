@@ -9,6 +9,7 @@ var xhrProgress;
 var urlDelimiter = '/';
 var elementDivider = /[?=]/;
 var bindDivider = '.';
+var varDivider = ':';
 
 var url;
 var title;
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	if (currentScript.hasAttribute("store")) {
 		var attr = currentScript.getAttribute("store").split(";")
 		for(storefile in attr)
-			var file = attr[storefile].split(":");
+			var file = attr[storefile].split(varDivider);
 			var sclient = new xhr();
 			sclient.get(baseUrl + file[0] + ".json", function(response){
 				if (response)
@@ -336,11 +337,15 @@ var core = function() {
 			eval(e.getAttribute("onload"));
 		if (e.hasAttribute("var") || e.hasAttribute("variable")) {
 			var attr = e.getAttribute("var") || e.getAttribute("variable");
-			var res = attr.split("=");
+			var res = attr.split(varDivider);
+			console.log(res[0].toLowerCase());
 			frontVariables[res[0].toLowerCase()] = res[1];
 		}
-		if (e.tagName == "VAR")
+		if (e.tagName == "VAR"){
+		console.dir(e);
+		alert('hej');
 			e.innerHTML = frontVariables[e.innerHTML.toLowerCase()];
+		}
 		if (e.hasAttribute("property") && e.hasAttribute("content")) {
 			
 			var attr = e.getAttribute("content");
@@ -363,6 +368,13 @@ var core = function() {
 				  e.innerHTML = els[i].content;
 			}
 		}
+		/*if (e.hasAttribute("bind")) {
+			var value = e.getAttribute("bind");
+			
+			var target = dom.get(value);
+
+			console.log(target.outerHTML);
+		}*/
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
 		if (e.hasAttribute("trim"))
@@ -836,7 +848,7 @@ var dom = function() {
 			var elHtml = el.innerHTML;
 
 			var html = "";
-			var increment = (variables) ? el.getAttribute("variable").split("=")[1] : 0;
+			var increment = (variables) ? el.getAttribute("variable").split(":")[1] : 0;
 
 			for(var j=0; j < copies; j++) {
 			

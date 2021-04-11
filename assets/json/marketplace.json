@@ -2,10 +2,10 @@
     "market":[
         {
             "id": 1,
-            "title": "Media Streamer",
+            "title": "Stream",
             "screenshot": "",
-            "icon": "./marketplace/media-streamer/assets/img/icon.svg",
-            "url": "./marketplace/media-streamer",
+            "icon": "./marketplace/stream/assets/img/icon.svg",
+            "url": "./marketplace/stream",
             "type": 0,
             "author": "Front",
             "cost": "0"

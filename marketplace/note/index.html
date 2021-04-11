@@ -23,14 +23,12 @@
 
     <main class="light p1">
         <section class="h100" id="note" storage="api">
-            <div id="note-post" class="box cards list hm100" iterate="true" json="true" datasource="{{ storage:api.note.endpoint }}" dataheader="{{ storage:api.note.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
-                <textarea class="f1 bc0_h h100" jsonget="note"></textarea>
+            <div var="{{ id }}" id="note-post" class="box cards list hm100" iterate="true" json="true" datapush="10000" datasource="{{ storage:api.note.endpoint }}?id=eq.1" dataheader="{{ storage:api.note.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+                <textarea class="f1 bc0_h h100" jsonget="note" push></textarea>
+                <input type="hidden" var="id:note-post" name="id" value="1">
+                <var>id</var> {{ id }}
             </div>
         </section>
-        
-        <nav class="pagination mt1 p1 p1- flc d0" selective="true" variable="page=1" iterate="10;page++">
-            <a bind="popular-movies.datasource" onclick="set('query', 'page', '{{ page }}')" key="{{ page }}"><var>page</var></a>
-        </nav>
     </main>
 
     <footer>
