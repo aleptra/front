@@ -280,9 +280,9 @@ var core = function() {
 		if (e.hasAttribute("storage")){
 			var attr = e.getAttribute("storage");
 			var elHtml = e.innerHTML;
-			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/ig, function(x){
+			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/gi, function(x){
 				var data = JSON.parse(app.storage(attr));
-				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/ig, "$2");
+				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2");
 				return eval("data."+variable);
 			});
 		}
@@ -348,7 +348,7 @@ var core = function() {
 			//attr.innerText = ""
 
 			//var increment = (variables) ? el.getAttribute("variable").split(";")[1] : 0;
-			test = attr.replace(/{{ (.*?) }}/gi, "$1");
+			test = attr.replace(/{{ (.*?) }}/ig, "$1");
 			var test2 = test.split(";");
 			try{
 				e.content = eval(test2[1]);

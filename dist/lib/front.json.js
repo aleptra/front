@@ -93,7 +93,7 @@ function json(el) {
             var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : '';
             var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : '';
             
-            els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/ig, function(e,$out) {
+            els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out) {
                 return json[j][$out]
             });
 
