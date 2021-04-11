@@ -280,7 +280,7 @@ var core = function() {
 		if (e.hasAttribute("storage")){
 			var attr = e.getAttribute("storage");
 			var elHtml = e.innerHTML;
-			e.innerHTML = elHtml.replace(/{{ storage:(.*?) }}/ig, function(x){
+			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/ig, function(x){
 				var data = JSON.parse(app.storage(attr));
 				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/ig, "$2");
 				return eval("data."+variable);
