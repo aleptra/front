@@ -5,9 +5,15 @@
 <style type="text/css">
 	.st0{fill:#4B0082;}
 	.st1{fill:#FFFFFF;}
+	.st2{fill:none;stroke:#4B0082;stroke-width:0.5;stroke-miterlimit:10;}
 </style>
 <title>1</title>
 <path class="st0" d="M3.6,0h18.8c2,0,3.6,1.6,3.6,3.6l0,0v18.8c0,2-1.6,3.6-3.6,3.6l0,0H3.6c-2,0-3.6-1.6-3.6-3.6l0,0V3.6
 	C0,1.6,1.6,0,3.6,0L3.6,0z"/>
-<rect x="7.5" y="6.6" class="st1" width="10.8" height="13.2"/>
+<rect x="7.5" y="6.2" class="st1" width="10.9" height="13.6"/>
+<line class="st2" x1="8.4" y1="13" x2="17.6" y2="13"/>
+<line class="st2" x1="8.4" y1="11" x2="17.6" y2="11"/>
+<line class="st2" x1="8.4" y1="15" x2="17.6" y2="15"/>
+<line class="st2" x1="8.4" y1="9" x2="17.6" y2="9"/>
+<line class="st2" x1="8.4" y1="17" x2="17.6" y2="17"/>
 </svg>
