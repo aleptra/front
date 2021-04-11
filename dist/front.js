@@ -408,18 +408,6 @@ var core = function() {
 			var res = slice.split(",");
 			e.innerHTML = e.innerHTML.slice(res[0],res[1]);
 		}
-		if(e.hasAttribute("poll")){
-			var attr = e.getAttribute("poll");
-			var interval = (attr > 1000) ? attr : 1000;
-			
-			//setTimeout(console.log('hej'), 2000);
-			setInterval(function poll() {
-				console.log(e);
-				json(e);
-				core.runCoreAttributesInElement(e);
-				return poll;
-			  }(), interval);
-		}
 		if(e.hasAttribute("if")){
 			var val = e.getAttribute("if");
 			var ifnot = (val.substr(0,1) == "!") ? true : false;

@@ -1,5 +1,7 @@
 libAttribute.push(
-{'attr': 'json', 'func': 'json'}
+{'attr': 'json', 'func': 'json'},
+{'attr': 'datapull', 'func': 'dataPull'},
+{'attr': 'datapush', 'func': 'dataPush'},
 );
 
 window.addEventListener("submit", function(e) {
@@ -9,23 +11,8 @@ window.addEventListener("submit", function(e) {
     payload = jsonSerialize(e);
     console.dir(payload);
 
-    var url = e.getAttribute('datasource');
-    var headers = e.getAttribute('dataheader');
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    jsonPost(payload, e);
 
-    if (headers) {
-        headers = headers.split(" ; ");
-
-        for (var i in headers) {
-            var header = headers[i].split(":");
-            xhr.setRequestHeader(header[0], header[1])
-        }
-    }
-
-    xhr.send(payload);
     e.reset();
     return false;
 });
@@ -106,8 +93,8 @@ function json(el) {
             var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : '';
             var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : '';
             
-            els[i].outerHTML = els[i].outerHTML.replace(/{{ jsonget:(.*?) (.*?)}}/gi, function(e,$1) {
-                return json[j][$1]
+            els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out) {
+                return json[j][$out]
             });
 
             if (jsonset) {
@@ -143,4 +130,42 @@ function jsonSerialize(inputs){
     }
 
     return JSON.stringify(pairs, null, 2);
+}
+
+function jsonPost(payload, e){
+    var url = e.getAttribute('datasource');
+    var headers = e.getAttribute('dataheader');
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    if (headers) {
+        headers = headers.split(" ; ");
+
+        for (var i in headers) {
+            var header = headers[i].split(":");
+            xhr.setRequestHeader(header[0], header[1])
+        }
+    }
+
+    xhr.send(payload);
+}
+
+function dataPush(el){
+    var attr = el.getAttribute("datapush"),
+        interval = (attr < 1000) ? 1500 : attr,
+        count = 0;
+
+    setInterval(function() {
+        console.log("Push: " + count);
+        //json(el);
+        //core.runCoreAttributesInElement(e);
+        //return poll;
+        count++;
+    },interval);
+}
+
+function dataPull(){
+    
 }
