@@ -13,8 +13,8 @@
             "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxODA3Mzg3MSwiZXhwIjoxOTMzNjQ5ODcxfQ.NFnRf6sJq1nhbGUD8eTvliQiOLbYNHQ2GFgYcaQ3Mmw"
         },
         "stream": {
-            "endpoint": "https://lmaxhwqfjsphltrhlewl.supabase.co/rest/v1/notes",
-            "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxODA3Mzg3MSwiZXhwIjoxOTMzNjQ5ODcxfQ.NFnRf6sJq1nhbGUD8eTvliQiOLbYNHQ2GFgYcaQ3Mmw"
+            "endpoint": "https://api.themoviedb.org/3/",
+            "api_key": "api_key=342c7c6976e9730798bc4bfbb2786cf7"
         },
         "crypto": {
             "endpoint": "https://api.lunarcrush.com/v2?key=kj5y1p7y4satuby8mpv1&data="
