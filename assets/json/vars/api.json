@@ -11,6 +11,13 @@
         "note": {
             "endpoint": "https://lmaxhwqfjsphltrhlewl.supabase.co/rest/v1/notes",
             "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxODA3Mzg3MSwiZXhwIjoxOTMzNjQ5ODcxfQ.NFnRf6sJq1nhbGUD8eTvliQiOLbYNHQ2GFgYcaQ3Mmw"
+        },
+        "stream": {
+            "endpoint": "https://lmaxhwqfjsphltrhlewl.supabase.co/rest/v1/notes",
+            "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxODA3Mzg3MSwiZXhwIjoxOTMzNjQ5ODcxfQ.NFnRf6sJq1nhbGUD8eTvliQiOLbYNHQ2GFgYcaQ3Mmw"
+        },
+        "crypto": {
+            "endpoint": "https://api.lunarcrush.com/v2?key=kj5y1p7y4satuby8mpv1&data="
         }
     }
 }

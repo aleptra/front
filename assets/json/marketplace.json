@@ -39,6 +39,16 @@
             "type": 1,
             "author": "Front",
             "cost": "0"
+        },
+        {
+            "id": 5,
+            "title": "Crypto",
+            "screenshot": "",
+            "icon": "./marketplace/crypto/assets/img/icon.svg",
+            "url": "./marketplace/crypto",
+            "type": 1,
+            "author": "Front",
+            "cost": "0"
         }
     ]
 }
