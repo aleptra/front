@@ -1,0 +1,14 @@
+<script src="../../dist/front.js" title="Markets" template="../"></script>
+
+<section id="crypto" storage="api">
+    <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.crypto.endpoint }}market&limit=300" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+        <figure class="p1 fdc" jsonset="id">
+            <div>
+                <p class="fwb" jsonget="n"></p>
+                <small class="gray" jsonget="s" filteron="true"></small>
+            </div>
+            <p class="f1 tar green" jsonget="p"></p>
+            <p class="fwb d0" jsonget="n" filteron="true"></p>
+        </figure>
+    </div>
+</section>
