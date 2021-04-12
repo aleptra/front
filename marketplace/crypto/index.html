@@ -13,17 +13,19 @@
 <body>
 
     <header>
-        <nav class="topbar bcgold white white- h4 gap2- shade1" selective="true">
+        <nav class="topbar bcgold black h4 pr2 gap2- shade1" selective="true">
             <a class="pl1" href="./" target="_top" key="0"><img class="h60" src="https://3el.github.io/front/favicon.ico"></a>
             <form class="f2">
                 <input type="text" class="w100 white bs0" placeholder="Search" onkeyup="filter()">
             </form>
+            <a href="./markets.html"><i class="icon32">&#9679;</i> Markets</a>
+            <a href="./favorites.html"><i class="icon32">&#9829;</i> Favorites</a>
         </nav>
     </header>
 
     <main class="light p1">
         <section id="crypto" storage="api">
-            <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.crypto.endpoint }}market" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+            <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.crypto.endpoint }}market&limit=50&sort=mc&desc=true" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
                 <figure class="p1 fdc" jsonset="id">
                     <div>
                         <p class="fwb" jsonget="n"></p>
@@ -37,12 +39,6 @@
     </main>
 
     <footer>
-        <nav class="bottombar p05 w100">
-            <form method="post" datasource="https://querlspbhylhljdpvbpm.supabase.co/rest/v1/posts" dataheader="apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzY0NTM0NSwiZXhwIjoxOTMzMjIxMzQ1fQ.pG5ihvVIIwh-xbRHF7H2UWExGNxcQmvsQFrp-BJ_UlQ ; 1:0" class="w100">
-                <input name="post" type="text" class="w100" placeholder="Message" autocomplete="off">
-                <input name="name" type="hidden" value="">
-            </form>
-        </nav>
         <div eventlistener="offline" eventaction="dom.create('div', ['id=offline', 'className=alert pf b1 l1 bcred white snack', 'innerHTML=<i class=icon>⚠</i> Connection lost...'], 'footer')"></div>
         <div eventlistener="online" eventaction="dom.hide('offline')"></div>
     </footer>
