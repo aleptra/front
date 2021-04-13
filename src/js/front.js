@@ -294,6 +294,10 @@ var core = function() {
 			var value = e.getAttribute("title");
 			document.title = (value) ? value : title;
 		}
+		if (e.tagName == "TITLE") {
+			var value = e.text;
+			document.title = (value) ? value : title;
+		}
 		if (e.hasAttribute("cache")){
 			var value = e.getAttribute("cache");
 			if (value == "no"){
@@ -475,10 +479,10 @@ var core = function() {
 	}
 
 	this.runIteration = function(element, start, stop){
+		element.orginalHtml = element.innerHTML;
 		var attribute = element.getAttribute("iterate").split(";");
 		var start = (start) ? start : 0;
 		var stop = (stop) ? stop : attribute[0];
-
 		dom.clone(element, "inside", (stop-start), attribute[1]);
 	}
 
