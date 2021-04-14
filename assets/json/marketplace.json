@@ -3,6 +3,7 @@
         {
             "id": 1,
             "title": "Stream",
+            "version": "0.1",
             "screenshot": "",
             "icon": "./marketplace/app/stream/assets/img/icon.svg",
             "url": "./marketplace/app/stream",
@@ -13,6 +14,7 @@
         {
             "id": 2,
             "title": "To Do",
+            "version": "0.1",
             "screenshot": "",
             "icon": "./marketplace/app/todo/assets/img/icon.svg",
             "url": "./marketplace/app/todo",
@@ -23,6 +25,7 @@
         {
             "id": 3,
             "title": "Chat",
+            "version": "0.1",
             "screenshot": "",
             "icon": "./marketplace/app/chat/assets/img/icon.svg",
             "url": "./marketplace/app/chat",
@@ -33,6 +36,7 @@
         {
             "id": 4,
             "title": "Note",
+            "version": "0.1",
             "screenshot": "",
             "icon": "./marketplace/app/note/assets/img/icon.svg",
             "url": "./marketplace/app/note",
@@ -43,11 +47,23 @@
         {
             "id": 5,
             "title": "Crypto",
+            "version": "0.1",
             "screenshot": "",
             "icon": "./marketplace/app/crypto/assets/img/icon.svg",
             "url": "./marketplace/app/crypto",
             "type": 1,
             "author": "Front",
+            "cost": "0"
+        },
+        {
+            "id": 6,
+            "title": "Beautify",
+            "version": "1.0",
+            "screenshot": "",
+            "icon": "./assets/img/icon_plugin.svg",
+            "url": "",
+            "type": 2,
+            "author": "Josef Gabrielsson",
             "cost": "0"
         }
     ]
