@@ -18,6 +18,9 @@ var currentScriptUrl;
 var referrerUrl;
 var baseUrl;
 
+var folderLib = "lib";
+var folderPlug = "plug";
+
 document.onkeyup=function(e) {
 	if( e.target.nodeName == "INPUT" || e.target.nodeName == "TEXTAREA" || e.target.isContentEditable) return;
 	var key = String.fromCharCode(e.keyCode);
@@ -95,10 +98,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	if(!core.hasTemplateLayout()){
 
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
-		if (currentScript.hasAttribute("lib")) {
-			var libs = currentScript.getAttribute("lib").split(";");
+		if (currentScript.hasAttribute(folderLib)) {
+			var libs = currentScript.getAttribute(folderLib).split(";");
 			for(lib in libs)
-				require(libs[lib]);
+				require(libs[lib], folderLib);
+		}
+		if (currentScript.hasAttribute(folderPlug)) {
+			var plugs = currentScript.getAttribute(folderPlug).split(";");
+			for(plug in plugs)
+				require(plugs[plug], folderPlug);
 		}
 
 		load = true;
@@ -117,7 +125,7 @@ window.addEventListener("hashchange", function() {
 	return false;
 }, false);
 
-function require(src) {
+function require(src, folder) {
 	var el;
 
 	if (src.indexOf("http") >= 0) {
@@ -130,7 +138,8 @@ function require(src) {
 		src = src;
 		el = "link";
 	}else{
-		src = currentScriptUrl + "lib"+urlDelimiter+"front."+src+".js";
+		file = (folder == "plug") ? src+"/"+src : src;
+		src = currentScriptUrl + folder+urlDelimiter+file+".js";
 		el = "script";
 	}
 

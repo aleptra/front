@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge;ie=10;chrome=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base env="local:/marketplace/note/;prod:/front/marketplace/note/">
-    <link type="text/css" href="../../dist/front.css" rel="stylesheet">
-    <link type="text/css" href="../../dist/design/front/theme/front.css" rel="stylesheet">
-    <script src="../../dist/front.js" lib="popup;nav;json;filter" store="../../assets/json/vars/api:api"></script>
+    <base env="local:/marketplace/app/note/;prod:/front/marketplace/app/note/">
+    <link type="text/css" href="../../../dist/front.css" rel="stylesheet">
+    <link type="text/css" href="../../../dist/design/front/theme/front.css" rel="stylesheet">
+    <script src="../../../dist/front.js" lib="popup;nav;json;filter" store="../../../assets/json/vars/api:api"></script>
 </head>
 <body>
 
@@ -23,10 +23,10 @@
 
     <main class="light p1">
         <section class="h100" id="note" storage="api">
-            <div var="{{ id }}" id="note-post" class="box cards list hm100" iterate="true" json="true" datapush="10000" datasource="{{ storage:api.note.endpoint }}?id=eq.1" dataheader="{{ storage:api.note.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+            <div aaa="{{ id }} {{ id }} {{ id }}" id="note-post" class="box cards list hm100" iterate="true" json="true" datapush="10000" datasource="{{ storage:api.note.endpoint }}" dataheader="{{ storage:api.note.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
                 <textarea class="f1 bc0_h h100" jsonget="note" push></textarea>
-                <input type="hidden" var="id:note-post" name="id" value="1">
-                <var>id</var> {{ id }}
+                <input type="hidden" bind="1" var="id:note-post" name="id" value="1">
+                <!--<var>id</var> {{ id }}-->
             </div>
         </section>
     </main>

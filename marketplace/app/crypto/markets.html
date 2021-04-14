@@ -1,4 +1,4 @@
-<script src="../../dist/front.js" title="Markets" template="../"></script>
+<script src="../../../dist/front.js" title="Markets" template="../"></script>
 
 <section id="crypto" storage="api">
     <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.crypto.endpoint }}market&limit=300" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
