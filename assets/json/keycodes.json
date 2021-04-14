@@ -1,0 +1,766 @@
+
+[
+    {
+      "name": "backspace",
+      "event_which": 8,
+      "event_key": "Backspace",
+      "event_code": "Backspace",
+      "notes": ""
+    },
+    {
+      "name": "tab",
+      "event_which": 9,
+      "event_key": "Tab",
+      "event_code": "Tab",
+      "notes": ""
+    },
+    {
+      "name": "enter",
+      "event_which": 13,
+      "event_key": "Enter",
+      "event_code": "Enter",
+      "notes": ""
+    },
+    {
+      "name": "shift(left)",
+      "event_which": 16,
+      "event_key": "Shift",
+      "event_code": "ShiftLeft",
+      "notes": "event.shiftKey is true"
+    },
+    {
+      "name": "shift(right)",
+      "event_which": 16,
+      "event_key": "Shift",
+      "event_code": "ShiftRight",
+      "notes": "event.shiftKey is true"
+    },
+    {
+      "name": "ctrl(left)",
+      "event_which": 17,
+      "event_key": "Control",
+      "event_code": "ControlLeft",
+      "notes": "event.ctrlKey is true"
+    },
+    {
+      "name": "ctrl(right)",
+      "event_which": 17,
+      "event_key": "Control",
+      "event_code": "ControlRight",
+      "notes": "event.ctrlKey is true"
+    },
+    {
+      "name": "alt(left)",
+      "event_which": 18,
+      "event_key": "Alt",
+      "event_code": "AltLeft",
+      "notes": "event.altKey is true"
+    },
+    {
+      "name": "alt(right)",
+      "event_which": 18,
+      "event_key": "Alt",
+      "event_code": "AltRight",
+      "notes": "event.altKey is true"
+    },
+    {
+      "name": "pause/break",
+      "event_which": 19,
+      "event_key": "Pause",
+      "event_code": "Pause",
+      "notes": ""
+    },
+    {
+      "name": "caps lock",
+      "event_which": 20,
+      "event_key": "CapsLock",
+      "event_code": "CapsLock",
+      "notes": ""
+    },
+    {
+      "name": "escape",
+      "event_which": 27,
+      "event_key": "Escape",
+      "event_code": "Escape",
+      "notes": ""
+    },
+    {
+      "name": "space",
+      "event_which": 32,
+      "event_key": "",
+      "event_code": "Space",
+      "notes": "The event_key value is a single space."
+    },
+    {
+      "name": "page up",
+      "event_which": 33,
+      "event_key": "PageUp",
+      "event_code": "PageUp",
+      "notes": ""
+    },
+    {
+      "name": "page down",
+      "event_which": 34,
+      "event_key": "PageDown",
+      "event_code": "PageDown",
+      "notes": ""
+    },
+    {
+      "name": "end",
+      "event_which": 35,
+      "event_key": "End",
+      "event_code": "End",
+      "notes": ""
+    },
+    {
+      "name": "home",
+      "event_which": 36,
+      "event_key": "Home",
+      "event_code": "Home",
+      "notes": ""
+    },
+    {
+      "name": "left arrow",
+      "event_which": 37,
+      "event_key": "ArrowLeft",
+      "event_code": "ArrowLeft",
+      "notes": ""
+    },
+    {
+      "name": "up arrow",
+      "event_which": 38,
+      "event_key": "ArrowUp",
+      "event_code": "ArrowUp",
+      "notes": ""
+    },
+    {
+      "name": "right arrow",
+      "event_which": 39,
+      "event_key": "ArrowRight",
+      "event_code": "ArrowRight",
+      "notes": ""
+    },
+    {
+      "name": "down arrow",
+      "event_which": 40,
+      "event_key": "ArrowDown",
+      "event_code": "ArrowDown",
+      "notes": ""
+    },
+    {
+      "name": "print screen",
+      "event_which": 44,
+      "event_key": "PrintScreen",
+      "event_code": "PrintScreen",
+      "notes": ""
+    },
+    {
+      "name": "insert",
+      "event_which": 45,
+      "event_key": "Insert",
+      "event_code": "Insert",
+      "notes": ""
+    },
+    {
+      "name": "delete",
+      "event_which": 46,
+      "event_key": "Delete",
+      "event_code": "Delete",
+      "notes": ""
+    },
+    {
+      "name": "0",
+      "event_which": 48,
+      "event_key": "0",
+      "event_code": "Digit0",
+      "notes": ""
+    },
+    {
+      "name": "1",
+      "event_which": 49,
+      "event_key": "1",
+      "event_code": "Digit1",
+      "notes": ""
+    },
+    {
+      "name": "2",
+      "event_which": 50,
+      "event_key": "2",
+      "event_code": "Digit2",
+      "notes": ""
+    },
+    {
+      "name": "3",
+      "event_which": 51,
+      "event_key": "3",
+      "event_code": "Digit3",
+      "notes": ""
+    },
+    {
+      "name": "4",
+      "event_which": 52,
+      "event_key": "4",
+      "event_code": "Digit4",
+      "notes": ""
+    },
+    {
+      "name": "5",
+      "event_which": 53,
+      "event_key": "5",
+      "event_code": "Digit5",
+      "notes": ""
+    },
+    {
+      "name": "6",
+      "event_which": 54,
+      "event_key": "6",
+      "event_code": "Digit6",
+      "notes": ""
+    },
+    {
+      "name": "7",
+      "event_which": 55,
+      "event_key": "7",
+      "event_code": "Digit7",
+      "notes": ""
+    },
+    {
+      "name": "8",
+      "event_which": 56,
+      "event_key": "8",
+      "event_code": "Digit8",
+      "notes": ""
+    },
+    {
+      "name": "9",
+      "event_which": 57,
+      "event_key": "9",
+      "event_code": "Digit9",
+      "notes": ""
+    },
+    {
+      "name": "a",
+      "event_which": 65,
+      "event_key": "a",
+      "event_code": "KeyA",
+      "notes": ""
+    },
+    {
+      "name": "b",
+      "event_which": 66,
+      "event_key": "b",
+      "event_code": "KeyB",
+      "notes": ""
+    },
+    {
+      "name": "c",
+      "event_which": 67,
+      "event_key": "c",
+      "event_code": "KeyC",
+      "notes": ""
+    },
+    {
+      "name": "d",
+      "event_which": 68,
+      "event_key": "d",
+      "event_code": "KeyD",
+      "notes": ""
+    },
+    {
+      "name": "e",
+      "event_which": 69,
+      "event_key": "e",
+      "event_code": "KeyE",
+      "notes": ""
+    },
+    {
+      "name": "f",
+      "event_which": 70,
+      "event_key": "f",
+      "event_code": "KeyF",
+      "notes": ""
+    },
+    {
+      "name": "g",
+      "event_which": 71,
+      "event_key": "g",
+      "event_code": "KeyG",
+      "notes": ""
+    },
+    {
+      "name": "h",
+      "event_which": 72,
+      "event_key": "h",
+      "event_code": "KeyH",
+      "notes": ""
+    },
+    {
+      "name": "i",
+      "event_which": 73,
+      "event_key": "i",
+      "event_code": "KeyI",
+      "notes": ""
+    },
+    {
+      "name": "j",
+      "event_which": 74,
+      "event_key": "j",
+      "event_code": "KeyJ",
+      "notes": ""
+    },
+    {
+      "name": "k",
+      "event_which": 75,
+      "event_key": "k",
+      "event_code": "KeyK",
+      "notes": ""
+    },
+    {
+      "name": "l",
+      "event_which": 76,
+      "event_key": "l",
+      "event_code": "KeyL",
+      "notes": ""
+    },
+    {
+      "name": "m",
+      "event_which": 77,
+      "event_key": "m",
+      "event_code": "KeyM",
+      "notes": ""
+    },
+    {
+      "name": "n",
+      "event_which": 78,
+      "event_key": "n",
+      "event_code": "KeyN",
+      "notes": ""
+    },
+    {
+      "name": "o",
+      "event_which": 79,
+      "event_key": "o",
+      "event_code": "KeyO",
+      "notes": ""
+    },
+    {
+      "name": "p",
+      "event_which": 80,
+      "event_key": "p",
+      "event_code": "KeyP",
+      "notes": ""
+    },
+    {
+      "name": "q",
+      "event_which": 81,
+      "event_key": "q",
+      "event_code": "KeyQ",
+      "notes": ""
+    },
+    {
+      "name": "r",
+      "event_which": 82,
+      "event_key": "r",
+      "event_code": "KeyR",
+      "notes": ""
+    },
+    {
+      "name": "s",
+      "event_which": 83,
+      "event_key": "s",
+      "event_code": "KeyS",
+      "notes": ""
+    },
+    {
+      "name": "t",
+      "event_which": 84,
+      "event_key": "t",
+      "event_code": "KeyT",
+      "notes": ""
+    },
+    {
+      "name": "u",
+      "event_which": 85,
+      "event_key": "u",
+      "event_code": "KeyU",
+      "notes": ""
+    },
+    {
+      "name": "v",
+      "event_which": 86,
+      "event_key": "v",
+      "event_code": "KeyV",
+      "notes": ""
+    },
+    {
+      "name": "w",
+      "event_which": 87,
+      "event_key": "w",
+      "event_code": "KeyW",
+      "notes": ""
+    },
+    {
+      "name": "x",
+      "event_which": 88,
+      "event_key": "x",
+      "event_code": "KeyX",
+      "notes": ""
+    },
+    {
+      "name": "y",
+      "event_which": 89,
+      "event_key": "y",
+      "event_code": "KeyY",
+      "notes": ""
+    },
+    {
+      "name": "z",
+      "event_which": 90,
+      "event_key": "z",
+      "event_code": "KeyZ",
+      "notes": ""
+    },
+    {
+      "name": "left window key",
+      "event_which": 91,
+      "event_key": "Meta",
+      "event_code": "MetaLeft",
+      "notes": "event.metaKey is true"
+    },
+    {
+      "name": "right window key",
+      "event_which": 92,
+      "event_key": "Meta",
+      "event_code": "MetaRight",
+      "notes": "event.metaKey is true"
+    },
+    {
+      "name": "select key (Context Menu)",
+      "event_which": 93,
+      "event_key": "ContextMenu",
+      "event_code": "ContextMenu",
+      "notes": ""
+    },
+    {
+      "name": "numpad 0",
+      "event_which": 96,
+      "event_key": "0",
+      "event_code": "Numpad0",
+      "notes": ""
+    },
+    {
+      "name": "numpad 1",
+      "event_which": 97,
+      "event_key": "1",
+      "event_code": "Numpad1",
+      "notes": ""
+    },
+    {
+      "name": "numpad 2",
+      "event_which": 98,
+      "event_key": "2",
+      "event_code": "Numpad2",
+      "notes": ""
+    },
+    {
+      "name": "numpad 3",
+      "event_which": 99,
+      "event_key": "3",
+      "event_code": "Numpad3",
+      "notes": ""
+    },
+    {
+      "name": "numpad 4",
+      "event_which": 100,
+      "event_key": "4",
+      "event_code": "Numpad4",
+      "notes": ""
+    },
+    {
+      "name": "numpad 5",
+      "event_which": 101,
+      "event_key": "5",
+      "event_code": "Numpad5",
+      "notes": ""
+    },
+    {
+      "name": "numpad 6",
+      "event_which": 102,
+      "event_key": "6",
+      "event_code": "Numpad6",
+      "notes": ""
+    },
+    {
+      "name": "numpad 7",
+      "event_which": 103,
+      "event_key": "7",
+      "event_code": "Numpad7",
+      "notes": ""
+    },
+    {
+      "name": "numpad 8",
+      "event_which": 104,
+      "event_key": "8",
+      "event_code": "Numpad8",
+      "notes": ""
+    },
+    {
+      "name": "numpad 9",
+      "event_which": 105,
+      "event_key": "9",
+      "event_code": "Numpad9",
+      "notes": ""
+    },
+    {
+      "name": "multiply",
+      "event_which": 106,
+      "event_key": "*",
+      "event_code": "NumpadMultiply",
+      "notes": ""
+    },
+    {
+      "name": "add",
+      "event_which": 107,
+      "event_key": "+",
+      "event_code": "NumpadAdd",
+      "notes": ""
+    },
+    {
+      "name": "subtract",
+      "event_which": 109,
+      "event_key": "-",
+      "event_code": "NumpadSubtract",
+      "notes": ""
+    },
+    {
+      "name": "decimal point",
+      "event_which": 110,
+      "event_key": ".",
+      "event_code": "NumpadDecimal",
+      "notes": ""
+    },
+    {
+      "name": "divide",
+      "event_which": 111,
+      "event_key": "/",
+      "event_code": "NumpadDivide",
+      "notes": ""
+    },
+    {
+      "name": "f1",
+      "event_which": 112,
+      "event_key": "F1",
+      "event_code": "F1",
+      "notes": ""
+    },
+    {
+      "name": "f2",
+      "event_which": 113,
+      "event_key": "F2",
+      "event_code": "F2",
+      "notes": ""
+    },
+    {
+      "name": "f3",
+      "event_which": 114,
+      "event_key": "F3",
+      "event_code": "F3",
+      "notes": ""
+    },
+    {
+      "name": "f4",
+      "event_which": 115,
+      "event_key": "F4",
+      "event_code": "F4",
+      "notes": ""
+    },
+    {
+      "name": "f5",
+      "event_which": 116,
+      "event_key": "F5",
+      "event_code": "F5",
+      "notes": ""
+    },
+    {
+      "name": "f6",
+      "event_which": 117,
+      "event_key": "F6",
+      "event_code": "F6",
+      "notes": ""
+    },
+    {
+      "name": "f7",
+      "event_which": 118,
+      "event_key": "F7",
+      "event_code": "F7",
+      "notes": ""
+    },
+    {
+      "name": "f8",
+      "event_which": 119,
+      "event_key": "F8",
+      "event_code": "F8",
+      "notes": ""
+    },
+    {
+      "name": "f9",
+      "event_which": 120,
+      "event_key": "F9",
+      "event_code": "F9",
+      "notes": ""
+    },
+    {
+      "name": "f10",
+      "event_which": 121,
+      "event_key": "F10",
+      "event_code": "F10",
+      "notes": ""
+    },
+    {
+      "name": "f11",
+      "event_which": 122,
+      "event_key": "F11",
+      "event_code": "F11",
+      "notes": ""
+    },
+    {
+      "name": "f12",
+      "event_which": 123,
+      "event_key": "F12",
+      "event_code": "F12",
+      "notes": ""
+    },
+    {
+      "name": "num lock",
+      "event_which": 144,
+      "event_key": "NumLock",
+      "event_code": "NumLock",
+      "notes": ""
+    },
+    {
+      "name": "scroll lock",
+      "event_which": 145,
+      "event_key": "ScrollLock",
+      "event_code": "ScrollLock",
+      "notes": ""
+    },
+    {
+      "name": "audio volume mute",
+      "event_which": 173,
+      "event_key": "AudioVolumeMute",
+      "event_code": "",
+      "notes": "⚠️ The event_which value is 181 in Firefox. Also FF provides the code value as, VolumeMute"
+    },
+    {
+      "name": "audio volume down",
+      "event_which": 174,
+      "event_key": "AudioVolumeDown",
+      "event_code": "",
+      "notes": "⚠️ The event_which value is 182 in Firefox. Also FF provides the code value as, VolumeDown"
+    },
+    {
+      "name": "audio volume up",
+      "event_which": 175,
+      "event_key": "AudioVolumeUp",
+      "event_code": "",
+      "notes": "⚠️ The event_which value is 183 in Firefox. Also FF provides the code value as, VolumeUp"
+    },
+    {
+      "name": "media player",
+      "event_which": 181,
+      "event_key": "LaunchMediaPlayer",
+      "event_code": "",
+      "notes": "⚠️ The ️event_which value is 0(no value) in Firefox. Also FF provides the code value as, MediaSelect"
+    },
+    {
+      "name": "launch application 1",
+      "event_which": 182,
+      "event_key": "LaunchApplication1",
+      "event_code": "",
+      "notes": "⚠️ The ️event_which value is 0(no value) in Firefox. Also FF provides the code value as, LaunchApp1"
+    },
+    {
+      "name": "launch application 2",
+      "event_which": 183,
+      "event_key": "LaunchApplication2",
+      "event_code": "",
+      "notes": "⚠️ The ️event_which value is 0(no value) in Firefox. Also FF provides the code value as, LaunchApp2"
+    },
+    {
+      "name": "semi-colon",
+      "event_which": 186,
+      "event_key": ";",
+      "event_code": "Semicolon",
+      "notes": "⚠️ The event_which value is 59 in Firefox"
+    },
+    {
+      "name": "equal sign",
+      "event_which": 187,
+      "event_key": "=",
+      "event_code": "Equal",
+      "notes": "⚠️ The event_which value is 61 in Firefox"
+    },
+    {
+      "name": "comma",
+      "event_which": 188,
+      "event_key": ",",
+      "event_code": "Comma",
+      "notes": ""
+    },
+    {
+      "name": "dash",
+      "event_which": 189,
+      "event_key": "-",
+      "event_code": "Minus",
+      "notes": "⚠️ The event_which value is 173 in Firefox"
+    },
+    {
+      "name": "period",
+      "event_which": 190,
+      "event_key": ".",
+      "event_code": "Period",
+      "notes": ""
+    },
+    {
+      "name": "forward slash",
+      "event_which": 191,
+      "event_key": "/",
+      "event_code": "Slash",
+      "notes": ""
+    },
+    {
+      "name": "Backquote/Grave accent",
+      "event_which": 192,
+      "event_key": "`",
+      "event_code": "Backquote",
+      "notes": ""
+    },
+    {
+      "name": "open bracket",
+      "event_which": 219,
+      "event_key": "[",
+      "event_code": "BracketLeft",
+      "notes": ""
+    },
+    {
+      "name": "back slash",
+      "event_which": 220,
+      "event_key": "\\",
+      "event_code": "Backslash",
+      "notes": ""
+    },
+    {
+      "name": "close bracket",
+      "event_which": 221,
+      "event_key": "]",
+      "event_code": "BracketRight",
+      "notes": ""
+    },
+    {
+      "name": "single quote",
+      "event_which": 222,
+      "event_key": "'",
+      "event_code": "Quote",
+      "notes": ""
+    }
+]
