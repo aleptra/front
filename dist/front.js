@@ -342,12 +342,9 @@ var core = function() {
 		if (e.hasAttribute("var") || e.hasAttribute("variable")) {
 			var attr = e.getAttribute("var") || e.getAttribute("variable");
 			var res = attr.split(varDivider);
-			console.log(res[0].toLowerCase());
 			frontVariables[res[0].toLowerCase()] = res[1];
 		}
 		if (e.tagName == "VAR"){
-		console.dir(e);
-		alert('hej');
 			e.innerHTML = frontVariables[e.innerHTML.toLowerCase()];
 		}
 		if (e.hasAttribute("property") && e.hasAttribute("content")) {
@@ -372,13 +369,13 @@ var core = function() {
 				  e.innerHTML = els[i].content;
 			}
 		}
-		/*if (e.hasAttribute("bind")) {
-			var value = e.getAttribute("bind");
-			
+		if (e.hasAttribute("bind2")) {
+			var value = e.getAttribute("bind2");
 			var target = dom.get(value);
-
-			console.log(target.outerHTML);
-		}*/
+			var el = target.outerHTML.replace(/{{\s*(.*?)\s*}}/gi, "1");
+			target.outerHTML = el;
+			console.log(el);
+		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
 		if (e.hasAttribute("trim"))
@@ -440,6 +437,13 @@ var core = function() {
 					e.setAttribute(action[0], action[1]);
 			}
 		}
+		if(e.hasAttribute("content") && e.tagName !== "META") {
+			var val = e.getAttribute("content");
+			e.innerHTML = dom.nl2br(dom.escape(front.namedItem(val).innerHTML).trim());
+		}
+		if(e.tagName == "CODE") {
+			//this.runCoreAttributesInElement(e);
+		}
 	}
 
 	this.runCoreAttributesInElement = function(e) {
@@ -479,11 +483,9 @@ var core = function() {
 	}
 
 	this.runIteration = function(element, start, stop){
-		element.orginalHtml = element.innerHTML;
 		var attribute = element.getAttribute("iterate").split(";");
 		var start = (start) ? start : 0;
 		var stop = (stop) ? stop : attribute[0];
-
 		dom.clone(element, "inside", (stop-start), attribute[1]);
 	}
 
@@ -497,7 +499,7 @@ var core = function() {
 		  return (offset > 0 ? '-' : '') + match.toLowerCase();
 		}
 		return uri.replace(new RegExp("([?&]"+key+"(?=[=&#]|$)[^#&]*|(?=#|$))"), "&"+key+"="+encodeURIComponent(value)).replace(/^([^?&]+)&/, "$1?", upperToHyphenLower);
-	  }
+	}
 
 	this.getParams = function (url) {
 		var url = (url) ? url : window.location.href;
@@ -872,6 +874,15 @@ var dom = function() {
 		}else{
 			document.body.appendChild(cln)
 		}
+	}
+
+	this.escape = function(text){
+		return text.replace(/[\u0000-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u00FF]/g,
+			  c => '&#' + ('000' + c.charCodeAt(0)).substr(-4, 4) + ';');
+	}
+
+	this.nl2br = function(text){
+		return text.replace(/(?:\r\n|\r|\n)/g, '<br />');
 	}
 
 	/*this.insert = function (obj, create, html = '', pos = 1) {
