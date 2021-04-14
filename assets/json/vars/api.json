@@ -18,6 +18,10 @@
         },
         "crypto": {
             "endpoint": "https://api.lunarcrush.com/v2?key=kj5y1p7y4satuby8mpv1&data="
+        },
+        "corona": {
+            "endpoint": "https://worldometers.p.rapidapi.com/api/coronavirus/",
+            "headers": "x-rapidapi-key:6e42f7ba0emsh3db78a609ae11c5p129260jsn599357a14709;x-rapidapi-host:worldometers.p.rapidapi.com;useQueryString:true"
         }
     }
 }
