@@ -57,7 +57,8 @@
         },
         {
             "id": 6,
-            "title": "Beautify",
+            "title": "Formatify",
+            "description": "Beautify or uglify code.",
             "version": "1.0",
             "screenshot": "",
             "icon": "./assets/img/icon_plugin.svg",

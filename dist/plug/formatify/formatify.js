@@ -1,8 +1,8 @@
 libAttribute.push(
-    {'attr': 'filter', 'func': 'beautify'}
+    {'attr': 'formatify', 'func': 'formatify'}
 );
 
-function format(el) {
+function formatify(el) {
     var tab = "\t",
         result = "",
         indent = "";
