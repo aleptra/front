@@ -62,7 +62,6 @@ code{
     word-wrap: normal !important;
     word-break: normal;
     direction: ltr;
-    white-space: pre-wrap;
 }
 
 dialog, .modal{
@@ -104,6 +103,7 @@ tfoot{display:table-footer-group}
 td,th{display: table-cell;padding:.5rem;}
 th{font-weight: bold; border-bottom: solid 1px rgba(0,0,0, .2)}
 details summary{cursor:pointer}
+.wsp{white-space: pre-wrap}
 
 body, .grid {
     display: inline-block;
