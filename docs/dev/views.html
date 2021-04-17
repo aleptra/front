@@ -28,26 +28,23 @@
 <section id="cards">
     <h2>Cards</h2>
     <nav class="tabs">
-      <input type="radio" name="panel1" id="tab1">
+      <input type="radio" name="panel1" id="tab1" checked>
       <label class="z09" for="tab1">Code</label>
       <section>
-        <code class="antiquewhite" content="source">  
-        </code>
+        <code class="antiquewhite" content="source1:true" formatify="true"></code>
       </section>
 
-      <input type="radio" name="panel1" id="tab2" checked>
+      <input type="radio" name="panel1" id="tab2">
       <label class="z09" for="tab2">Preview</label>
       <section>
-        <pre id="source">
+        <pre id="source1">
             <div variable="i:1" iterate="10;i++" class="box cards gut1- br05- light- fdc- tac">
-
                 <figure>
                     <img src="assets/img/icon_black_regular.svg">
                     <figcaption>Card <var>i</var></figcaption>
                     <small><var>i</var></small>
                     <p><var>i</var></p>
                 </figure>
-                
             </div>
         </pre>
       </section>  
@@ -60,27 +57,20 @@
         <input type="radio" name="panel3" id="tab3">
         <label class="z09" for="tab3">Code</label>
         <section>
-            <code class="antiquewhite" onmouseover="dom.show('test')" onmouseout="dom.hide('test')">
-                <span id="sourceSlider">
-                    &lt;nav<span class="navajowhite"> class=</span>"slider"&gt;<br>
-                    &emsp;&emsp;&lt;input<span class="navajowhite"> type=</span>"radio" <span class="navajowhite"> checked</span>&gt;<br>
-                    &lt;/nav&gt;
-                </span>
-                <span id="test" class="d0 pa r0 t05 white"><a onclick="dom.copyText('sourceSlider')" class="icon">&#128209;</a></span>
-            </code>
+            <code class="antiquewhite" content="source2:true" formatify="true"></code>
         </section>
 
         <input type="radio" name="panel3" id="tab4" checked>
         <label class="z09" for="tab4">Preview</label>
         <section>
-            <pre class="h20">
+            <pre id="source2" class="h20">
                 <nav class="slider dc fs2 gap05-">
-                    <div class="sl"><i class="icon64">&#706;</i></div>
+                    <div class="sl d0"><i class="icon64">&#706;</i></div>
                     <input type="radio" name="slidernewdemo" id="sliderdemo1" checked>
                     <label for="sliderdemo1" class="footer icon24">&#9679;</label>
                     <section class="slidernewdemo">
                         <figure>
-                            <img src="assets/img/slide1.jpg">
+                            <img src="./assets/img/slide1.jpg">
                         </figure>
                     </section>
             
@@ -88,7 +78,7 @@
                     <label for="sliderdemo2" class="footer icon24">&#9679;</label>
                     <section class="slidernewdemo">
                         <figure>
-                            <img src="assets/img/slide2.jpg">
+                            <img src="./assets/img/slide2.jpg">
                         </figure>
                     </section>
 
@@ -96,11 +86,11 @@
                     <label for="sliderdemo3" class="footer icon24">&#9679;</label>
                     <section class="slidernewdemo">
                         <figure>
-                            <img src="assets/img/slide3.jpg">
+                            <img src="./assets/img/slide3.jpg">
                            <!--<figcaption>-30°</figcaption>-->
                         </figure>
                     </section>
-                    <div class="sr"><i class="icon64">&#707;</i></div>
+                    <div class="sr d0"><i class="icon64">&#707;</i></div>
                 </nav>
             </pre>
         </section>

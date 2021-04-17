@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			sclient.get(baseUrl + file[0] + ".json", function(response){
 				if (response)
 					app.storage(file[1], response)
-			});
+			}, false);
 	}
 
 	if(!core.hasTemplateLayout()){
@@ -447,8 +447,9 @@ var core = function() {
 			}
 		}
 		if(e.hasAttribute("content") && e.tagName !== "META") {
-			var val = e.getAttribute("content");
-			e.innerHTML = dom.nl2br(dom.escape(front.namedItem(val).innerHTML).trim());
+			var val = e.getAttribute("content").split(":");
+			var set = (val[1] == 'false') ? dom.escape(front.namedItem(val[0]).innerHTML) : front.namedItem(val[0]).innerHTML;
+			e.innerHTML = set;
 		}
 		if(e.tagName == "CODE") {
 			//this.runCoreAttributesInElement(e);
@@ -596,8 +597,6 @@ var core = function() {
 }
 
 var app = function() {
-
-	var store = localStorage;
 	var baseStartUrl;
 
 	this.getBaseUrl = function(url) {
@@ -647,13 +646,13 @@ var app = function() {
 
 	this.storage = function(key, value) {
 		if (key && value)
-			store.setItem(key, value)
+			localStorage.setItem(key, value)
 		else if(key && value === null)
-			store.removeItem(key, value)
+			localStorage.removeItem(key, value)
 		else if(key == null && !value)
-			store.clear()
+			localStorage.clear()
 		else if(key && value === undefined)
-			return store.getItem(key)
+			return localStorage.getItem(key)
 	}
 	
 	this.isLocalDev = function() {
@@ -887,12 +886,17 @@ var dom = function() {
 	}
 
 	this.escape = function(text){
-		return text.replace(/[\u0000-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u00FF]/g,
-			  c => '&#' + ('000' + c.charCodeAt(0)).substr(-4, 4) + ';');
+		return text.replace(/[\u0009\u0000-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u00FF]/g, function(x) {
+			return '&#' + ('000' + x.charCodeAt(0)).substr(-4, 4) + ';'
+		});
+	}
+
+	this.unescape = function(el){
+		return front.namedItem(el).innerHTML;
 	}
 
 	this.nl2br = function(text){
-		return text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		return text.replace(/(?:\r\n|\r|\n)/g, '<br>');
 	}
 
 	/*this.insert = function (obj, create, html = '', pos = 1) {
