@@ -902,6 +902,10 @@ var dom = function() {
 		return text.replace(/(?:\r\n|\r|\n)/g, '<br>');
 	}
 
+	this.insertAt = function(text, index, string){
+		return text.substr(0, index) + string + text.substr(index);
+  	}
+
 	/*this.insert = function (obj, create, html = '', pos = 1) {
 		var node = document.createElement(create[0]);
 		node.id = create[1];
