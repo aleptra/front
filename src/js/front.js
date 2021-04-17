@@ -448,7 +448,8 @@ var core = function() {
 		}
 		if(e.hasAttribute("content") && e.tagName !== "META") {
 			var val = e.getAttribute("content").split(":");
-			var set = (val[1] == 'false') ? dom.escape(front.namedItem(val[0]).innerHTML) : front.namedItem(val[0]).innerHTML;
+			var content = front.namedItem(val[0]).innerHTML;
+			var set = (val[1] == 'false') ? dom.escape(content) : content;
 			e.innerHTML = set;
 		}
 		if(e.tagName == "CODE") {
@@ -891,8 +892,10 @@ var dom = function() {
 		});
 	}
 
-	this.unescape = function(el){
-		return front.namedItem(el).innerHTML;
+	this.unescape = function(text) {
+		var el = document.createElement('textarea');
+		el.innerHTML = text;
+		return el.value;
 	}
 
 	this.nl2br = function(text){

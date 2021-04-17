@@ -5,9 +5,9 @@ libAttribute.push(
 function formatify(el) {
 
     var target = el;
-    el = target.innerHTML.trim();
+    el = _.unescape(target.innerHTML.trim());
 
-    var tab = "     ",
+    var tab = "    ",
     result = "",
     indent = "";
 
