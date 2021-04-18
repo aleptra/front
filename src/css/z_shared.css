@@ -15,9 +15,9 @@ body .shade1r{
     -webkit-box-shadow: 4px 0px 4px 0px rgba(0,0,0, .1);
     -moz-box-shadow: 4px 0px 4px 0px rgba(0,0,0, .1)
 }
-body .tshade025{text-shadow: 1px 1px 1px rgba(0,0,0, .25)}
-body .tshade05{text-shadow: 1px 1px 1px rgba(0,0,0, 0.5)}
-body .tshade1{text-shadow: 1px 1px 1px rgba(0,0,0, 1)}
+body .tshade025, body .ts025{text-shadow: 1px 1px 1px rgba(0,0,0, .25)}
+body .tshade05, body .ts05{text-shadow: 1px 1px 1px rgba(0,0,0, 0.5)}
+body .tshade1, body .ts1{text-shadow: 1px 1px 1px rgba(0,0,0, 1)}
 
 body .border->*:hover{ box-shadow: 1px 1px 1px 1px rgba(0,0,0, .1) }
 body .zoom->*:hover{zoom: 1.01}
