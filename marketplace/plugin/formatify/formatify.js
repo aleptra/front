@@ -1,6 +1,10 @@
-/* 
-Author: Josef Gabrielsson
-Version: 1.0.1
+/*
+    Author: Josef Gabrielsson
+    Version: 1.0.2
+    
+    Escape chars:
+    =  &#0061;    <  &#0060;    >  &#0062;
+    "  &#0034;    '  &#0039;    /  &#0047;
 */
 
 libAttribute.push(
@@ -22,8 +26,8 @@ function formatify(el) {
         }
 
         result += indent + '<' + element + '>\r\n';
-
-        if (element.match( /^<?\w[^>]*[^\/]$/ ) && !element.startsWith("input") && !element.startsWith("img"))
+        console.log(element);
+        if (element.match( /^<?\w[^>]*[^\/]$/ ) && !element.startsWith("input") && !element.startsWith("img") && !element.startsWith("hr"))
             indent += tab;
     });
 
@@ -47,7 +51,6 @@ function formatify_colorize(text, attr){
     text = text.replace(/(\w+&#0062;|&#0060;\w+|&#0060;&#0047;\w+)/ig, function(x){
         var pos = (x.substr(0, 14) == "&#0060;&#0047;") ? 14 : 7;
         var x = dom.insertAt(x, pos, '<span class="'+color[0]+'">');
-        console.log(x);
         return x+'</span>';
     });
 
@@ -71,15 +74,6 @@ function formatify_colorize(text, attr){
     /*text = text.replace(/<.+&#0033;&#0045;&#0045;(.*?)&#0045;&#0045;.+>/ig, function(x,y){
         return '<span class="'+color[4]+'">&#0060!-- '+y+' --&#0062;</span>';
     });*/
-
-    /*
-        = -> &#0061;
-        < -> &#0060;
-        > -> &#0062;
-        " -> &#0034;
-        ' -> &#0039;
-        / -> &#0047;
-    */
 
     return text;
 }
