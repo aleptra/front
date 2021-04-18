@@ -22,22 +22,22 @@ Global Event Attributes
 
 <section>
     
-    <h3 class="mt1" id="create">Create</h3>
+    <h3 class="mt1" globalize="create" id="create">Create</h3>
     <code class="markup navajowhite">
         <span class="white">dom.create</span>(<span class="gold">'meta'</span>, <span class="gold">["httpEquiv=Cache-Control", "content=no-cache,no-store,must-revalidate"]</span>, <span class="gold">'head'</span>);
     </code>
 
-    <h3 class="mt1" id="remove">Remove</h3>
+    <h3 class="mt1" globalize="remove" id="remove">Remove</h3>
     <code class="markup navajowhite">
         <span class="white">dom.remove</span>(<span class="gold">'#body[0?tag=0?class=bg'</span>)
     </code>
 
-    <h3 class="mt1" id="add">Add</h3>
+    <h3 class="mt1" globalize="add" id="add">Add</h3>
     <code class="markup navajowhite">
         <span class="white">dom.class</span>(<span class="gold">'body?tag'</span>, <span class="gold">'add'</span>, <span class="gold">'bg'</span>)
     </code>
 
-    <h3 class="mt1" id="get">Get</h3>
+    <h3 class="mt1" globalize="get" id="get">Get</h3>
     <p>Get element by id, name or tag</p>
 
     <h5 class="mt1">ID</h5>
@@ -45,12 +45,12 @@ Global Event Attributes
         <span class="white">dom.get</span>(<span class="gold">'body'</span>)
     </code>
 
-    <h5 class="mt1">Name</h5>
+    <h5 class="mt1" globalize="name">Name</h5>
     <code class="markup navajowhite">
         <span class="white">dom.get</span>(<span class="gold">'body?name'</span>)
     </code>
 
-    <h5 class="mt1">Tag</h5>
+    <h5 class="mt1" globalize="tag">Tag</h5>
     <code class="markup navajowhite">
         <span class="white">dom.get</span>(<span class="gold">'body?tag'</span>)
     </code>
