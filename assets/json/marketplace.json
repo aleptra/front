@@ -66,6 +66,18 @@
             "type": 2,
             "author": "Josef Gabrielsson",
             "cost": "0"
+        },
+        {
+            "id": 7,
+            "title": "Gluer",
+            "description": "Join JSON objects.",
+            "version": "0.0.0",
+            "screenshot": "",
+            "icon": "./assets/img/icon_plugin.svg",
+            "url": "",
+            "type": 2,
+            "author": "Josef Gabrielsson",
+            "cost": "0"
         }
     ]
 }

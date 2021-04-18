@@ -1682,6 +1682,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .pr5{ padding-right: 5rem }
 .pr6{ padding-right: 6rem }
 .pr10{ padding-right: 10rem }
+.pt0{ padding-top: 0 }
 .pt05{ padding-top: .5rem }
 .pt1{ padding-top: 1rem }
 .pt105{ padding-top: 1.5rem }
@@ -1873,6 +1874,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xl_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
     body .xl_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
     body .xl_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+    body .xl_gtc7 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 1280px) {
@@ -1884,6 +1886,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xxl_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
     body .xxl_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
     body .xxl_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+    body .xxl_gtc7 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr}
 }
 
 @media only screen and (min-width: 1440px) {
@@ -1896,6 +1899,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xxxl_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr}
     body .xxxl_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr}
     body .xxxl_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
+    body .xxxl_gtc7 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr}
     body .xxxl_w10r{ width: 10rem}
     body .xxxl_w15r{ width: 15rem}
     body .xxxl_w20r{ width: 20rem}
