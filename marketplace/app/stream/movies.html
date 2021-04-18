@@ -1,5 +1,3 @@
-<script src="../../dist/front.js" template="../"></script>
-
 <section id="popular" storage="api">
     <div id="popular-movies" class="box cards xs_gtc2 xm_gtc2 md_gtc3 lg_gtc4 xl_gtc5 xxl_gtc6 gut2- black- tac glow-" iterate="results" json="true" datasource="{{ storage:api.stream.endpoint }}movie/popular?{{ storage:api.stream.api_key }}&language=en-US&page=1" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
         <a href="movie.html?id={{ jsonget:id }}">
