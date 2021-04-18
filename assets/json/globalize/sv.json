@@ -7,6 +7,7 @@
         {
             "animations": "Animationer",
             "background_color": "Bakgrundsfärg",
+            "breakpoints": "Brytpunkter",
             "button": "Knapp",
             "buttons": "Knappar",
             "category": "Category",
@@ -38,14 +39,21 @@
             "rounded": "Avrundad",
             "run_template": "Kör mall",
             "search": "Sök",
+            "storage": "Lagring",
             "style": "Stil",
             "styles": "Stilar",
+            "template": "Mall",
             "test": "Testa",
             "text": "Text",
             "title1": "Skapa kraftfulla applikationer med Front!",
             "title1_sub": "Släpp lös kraften i Markup Language med <b>FAML</b> i enkla eller avancerade lösningar. <b>Front</b> hjälper till att skapa vackra, snabba och responsiva layouter för alla enheter på nolltid.",
             "title2": "Hastighet och prestanda",
+            "typography": "Typografi",
+            "units": "Måttenheter",
             "ui_components": "UI Komponenter",
-            "views": "Vyer"
+            "variables": "Variabler",
+            "views": "Vyer",
+            "widget": "Widget",
+            "widgets": "Widgets"
         }
 }
