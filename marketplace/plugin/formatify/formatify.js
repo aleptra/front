@@ -1,16 +1,20 @@
+/* 
+Author: Josef Gabrielsson
+Version: 1.0.1
+*/
+
 libAttribute.push(
     {'attr': 'formatify', 'func': 'formatify'}
 );
 
 function formatify(el) {
     var attr = el.getAttribute("formatify").split(";");
-
     var target = el;
     el = _.unescape(target.innerHTML.trim());
 
     var tab = "\t",
-    result = "",
-    indent = "";
+        result = "",
+        indent = "";
 
     el.split(/>\s+<[^>\s<\/]{0}/).forEach(function(element) {
         if (element.match(/^\/\w/)) {
@@ -24,7 +28,6 @@ function formatify(el) {
     });
 
     result = _.escape(result.substring(1, result.length-3));
-
     result = formatify_colorize(result, attr);
 
     target.innerHTML = result;
@@ -77,8 +80,6 @@ function formatify_colorize(text, attr){
         ' -> &#0039;
         / -> &#0047;
     */
-
-    console.log(text);
 
     return text;
 }
