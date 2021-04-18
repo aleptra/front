@@ -16,18 +16,16 @@
     <input type="radio" name="panel4" id="tab7" checked>
     <label class="z09" for="tab7">Code</label>
     <section>
-        <code class="antiquewhite">
-            &lt;table <span class="navajowhite">iterate=</span>"true" <span class="navajowhite">json=</span>"true" <span class="navajowhite">datasource=</span>"https://jsonplaceholder.typicode.com/todos"><br>
-            &emsp;&emsp;&lt;tr <span class="navajowhite">jsonget=</span>"title"&gt;&lt;/tr&gt;<br>
-            &lt;/table&gt;
-        </code>
+        <code class="markup wsp lavender" content="source1:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
     </section>
     <input type="radio" name="panel4" id="tab8">
     <label class="z09" for="tab8" globalize="run"><i class="icon">&#9658</i>Run</label>
     <section>
-        <pre>
+        <pre id="source1">
             <table iterate="true" json="true" datasource="https://jsonplaceholder.typicode.com/todos">
-                <tr jsonget="title"></tr>
+                <tbody>
+                    <tr jsonget="title"></tr>
+                </tbody>
             </table>
       </pre>
     </section>
