@@ -1,8 +1,9 @@
 <script src="../../../dist/front.js" title="Markets" template="../"></script>
 
-<section id="crypto" storage="api">
+<section id="crypto" storage="api;cdn">
     <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.crypto.endpoint }}market&limit=300" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
         <figure class="p1 fdc" jsonset="id">
+            <img class="f0 pr1" src="{{ storage:cdn.crypto.url }}undefined.png">
             <div>
                 <p class="fwb" jsonget="n"></p>
                 <small class="gray" jsonget="s" filteron="true"></small>
