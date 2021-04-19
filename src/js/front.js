@@ -434,6 +434,10 @@ var core = function() {
 				.replace(/I/gi, ('0'+value.getMinutes()).substr(-2))
 				.replace(/S/gi, ('0'+value.getSeconds()).substr(-2))
 		}
+		if (e.hasAttribute("fixedpoint")) {
+			var val = e.getAttribute("fixedpoint");
+			e.innerHTML = parseFloat(e.innerHTML).toFixed(val);
+		}
 		if (e.hasAttribute("decode")) {
 			var decode = e.getAttribute("decode");
 			e.innerHTML = '';
@@ -442,11 +446,15 @@ var core = function() {
 			var delimiter = e.getAttribute("delimiter");
 			document.styleSheets[0].insertRule("nav.delimiter * a:after {content: '\\00a0 \\00a0"+delimiter+"\\00a0 \\00a0' !important}",0);
 		}
-		if (e.hasAttribute("slice")) {
+		if (e.hasAttribute("slice")){
 			var slice = e.getAttribute("slice").replace(/\s+/g, '');
 			var res = slice.split(",");
 			e.innerHTML = e.innerHTML.slice(res[0],res[1]);
 		}
+		if (e.hasAttribute("before"))
+			e.insertAdjacentText("afterbegin", e.getAttribute("before"));
+		if (e.hasAttribute("after"))
+			e.insertAdjacentText("afterend", e.getAttribute("after"));
 		if(e.hasAttribute("if")){
 			var val = e.getAttribute("if");
 			var ifnot = (val.substr(0,1) == "!") ? true : false;
