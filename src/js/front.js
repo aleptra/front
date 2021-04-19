@@ -86,13 +86,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	if (currentScript.hasAttribute("store")) {
 		var attr = currentScript.getAttribute("store").split(";")
-		for(storefile in attr)
+		for(storefile in attr) {
 			var file = attr[storefile].split(varDivider);
 			var sclient = new xhr();
 			sclient.get(baseUrl + file[0] + ".json", function(response){
 				if (response)
 					app.storage(file[1], response)
 			}, false);
+		}
 	}
 
 	if(!core.hasTemplateLayout()){
