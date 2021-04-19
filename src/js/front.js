@@ -89,9 +89,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		for(storefile in attr) {
 			var file = attr[storefile].split(varDivider);
 			var sclient = new xhr();
-			sclient.get(baseUrl + file[0] + ".json", function(response){
+			sclient.addHeader("storeName", file[1]);
+			sclient.get(baseUrl + file[0] + ".json", function(response, headers){
 				if (response)
-					app.storage(file[1], response)
+					app.storage(headers[0][1], response)
 			}, false);
 		}
 	}
@@ -171,10 +172,6 @@ function scrollTo(element, to, duration) {
 	console.log("Scroll: "+element+":"+to+":"+duration);
 }
 
-function redirect(url) {
-	app.redirect(url);
-}
-
 function set(type, param, value){
 	dom.set(type, param, value);
 }
@@ -198,6 +195,18 @@ function getObject(obj, name) {
 	}catch(err){
 		return false;
 	}
+}
+
+function mergeObject(target) {
+    for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+                target[key] = source[key];
+            }
+        }
+    }
+    return target;
 }
 
 var core = function() {
@@ -289,10 +298,17 @@ var core = function() {
 			});
 		}
 		if (e.hasAttribute("storage")){
-			var attr = e.getAttribute("storage");
+			var attr = e.getAttribute("storage").split(";");
+	
+			var strObject = "";
+			for(i in attr){
+				strObject += app.storage(attr[i]);
+			}
+			var mergedObject = core.mergeObject(strObject);
+
 			var elHtml = e.innerHTML;
 			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/gi, function(x){
-				var data = JSON.parse(app.storage(attr));
+				var data = JSON.parse(mergedObject);
 				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2");
 				return eval("data."+variable);
 			});
@@ -578,6 +594,10 @@ var core = function() {
     		obj[KeyVal[i][0]]=KeyVal[i][1];
 		}
 		return obj;
+	}
+
+	this.mergeObject = function(str){
+		return str.replace(/}([\s]|){\s+/gm, "\t,\n\t")
 	}
 
 	this.isJson = function(str) {
@@ -1025,11 +1045,10 @@ var dom = function() {
 
 var xhr = function() {
 
-	var request = new XMLHttpRequest();
-	var headers = [];
-	var credentials = false;
-	var responseHeaders;
-	var x = 0;
+	var request = new XMLHttpRequest(),
+		headers = [],
+		credentials = false,
+		x = 0;
 
 	this.addHeader = function(header, value) {
 		headers.push([header, value]);
@@ -1048,15 +1067,12 @@ var xhr = function() {
 		}
 
 		if (headers) {
-			for (var i in headers) {
+			for (var i in headers)
 				request.setRequestHeader(headers[i][0], headers[i][1]);
-			}
-			headers.length = 0; // clear header array after request
 		}
 
 		request.onload = function() {
-			//console.log("%c API (GET): "+this.responseText, "background: green; color: white");
-    		callback(this.responseText);
+			callback(this.responseText, headers);
 		}
 
 		request.onloadstart = function() {

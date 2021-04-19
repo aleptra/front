@@ -8,7 +8,7 @@
     <base env="local:/marketplace/app/crypto/;prod:/front/marketplace/app/crypto/">
     <link type="text/css" href="../../../dist/front.css" rel="stylesheet">
     <link type="text/css" href="../../../dist/design/front/theme/front.css" rel="stylesheet">
-    <script src="../../../dist/front.js" lib="popup;nav;json;filter" store="../../../assets/json/vars/api:api"></script>
+    <script src="../../../dist/front.js" lib="popup;nav;json;filter" store="../../../assets/json/vars/api:api;../../../assets/json/vars/cdn:cdn"></script>
 </head>
 <body>
 
@@ -24,9 +24,10 @@
     </header>
 
     <main class="light p1">
-        <section id="crypto" storage="api">
+        <section id="crypto" storage="api;cdn">
             <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.crypto.endpoint }}market&limit=50&sort=mc&desc=true" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
                 <figure class="p1 fdc" jsonset="id">
+                    <img class="f0 pr1" if="!{{ jsonget:n }};;src:{{ storage:cdn.crypto.url }}undefined.png" jsonget="thumbnail" class="w100" src="">
                     <div>
                         <p class="fwb" jsonget="n"></p>
                         <small class="gray" jsonget="s" filteron="true"></small>
