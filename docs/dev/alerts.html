@@ -4,12 +4,12 @@
 <template>
     <aside index="1">
         <nav class="sidebar w11">
-            <h5 class="p1 mt1">Alerts</h5>
+            <h5 class="p1 mt1" globalize="alerts">Alerts</h5>
             <ul>
-                <li><a href="#message">Message</a></li>
-                <li><a href="#snack">Snack</a></li>
-                <li><a href="#modal">Modal</a></li>
-                <li><a href="#banner">Banner</a></li>
+                <li><a href="#message" globalize="message">Message</a></li>
+                <li><a href="#snack" globalize="snack">Snack</a></li>
+                <li><a href="#modal" globalize="modal">Modal</a></li>
+                <li><a href="#banner" globalize="banner">Banner</a></li>
             </ul>
         </nav>
     </aside>
@@ -18,66 +18,62 @@
 <h1>Alerts</h1>
 <nav class="crumbs pointer pt05">
     <ol selective="main?id">
-        <li><a href="#">Documentation</a></li>
-        <li><a>Development</a></li>
-        <li><a>Components</a></li>
-        <li>Boxes</li>
+        <li><a href="#" globalize="documentation">Documentation</a></li>
+        <li><a globalize="development">Development</a></li>
+        <li><a globalize="widgets">Widgets</a></li>
+        <li globalize="alerts">Alerts</li>
     </ol>
 </nav>
 
 <section id="message">
-    <h2>Message</h2>
+    <h2 globalize="message">Message</h2>
     <nav class="tabs">
         <input type="radio" name="panel1" id="tab1" checked>
-        <label class="z09" for="tab1">Code</label>
+        <label class="z09" for="tab1" globalize="code">Code</label>
         <section>
             <code class="markup wsp lavender" content="source1:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
         </section>
 
         <input type="radio" name="panel1" id="tab2">
-        <label class="z09" for="tab2">Preview</label>
+        <label class="z09" for="tab2" globalize="preview">Preview</label>
         <section>
             <pre id="source1">
-                <div class="alert">
-                    This is a message!
-                </div>
+                <div class="alert">This is a message!</div>
             </pre>
         </section>
     </nav>
 </section>
 
 <section id="snack">
-    <h2>Snack</h2>
+    <h2 globalize="snack">Snack</h2>
     <nav class="tabs">
         <input type="radio" name="panel2" id="tab3" checked>
-        <label class="z09" for="tab3">Code</label>
+        <label class="z09" for="tab3" globalize="code">Code</label>
         <section>
             <code class="markup wsp lavender" content="source2:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
         </section>
 
         <input type="radio" name="panel2" id="tab4">
-        <label class="z09" for="tab4">Preview</label>
+        <label class="z09" for="tab4" globalize="preview">Preview</label>
         <section>
             <pre id="source2">
-                <div class="alert snack dark">
-                    <i class="icon">⚠</i> This is a snack!
-                </div>
+                <div class="alert snack dark"><i class="icon">⚠</i> This is a snack!</div>
             </pre>
         </section>
     </nav>
 </section>
 
 <section id="modal">
-    <h2>Modal</h2>
+    <h2 globalize="modal">Modal</h2>
     <nav class="tabs">
         <input type="radio" name="panel3" id="tabmodal1" checked>
-        <label class="z09" for="tabmodal1">Code</label>
+        <label class="z09" for="tabmodal1" globalize="code">Code</label>
         <section>
             <code class="markup wsp lavender" content="source3:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
         </section>
 
         <input type="radio" name="panel3" id="tabmodal2">
-        <label class="z09" for="tabmodal2">Preview</label>
+        <label class="z09" for="tabmodal2" globalize="preview">Preview</label>
         <section>
             <pre id="source3">
                 <!-- Example 1 -->
@@ -106,21 +102,19 @@
 </section>
 
 <section id="banner">
-    <h2>Banner</h2>
+    <h2 globalize="banner">Banner</h2>
     <nav class="tabs">
         <input type="radio" name="panel4" id="tab5" checked>
-        <label class="z09" for="tab5">Code</label>
+        <label class="z09" for="tab5" globalize="code">Code</label>
         <section>
             <code class="markup wsp lavender" content="source4:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
         </section>
 
         <input type="radio" name="panel4" id="tab6">
-        <label class="z09" for="tab6">Preview</label>
+        <label class="z09" for="tab6" globalize="preview">Preview</label>
         <section>
             <pre id="source4">
-                <div class="alert banner">
-                    This is a banner message!
-                </div>
+                <div class="alert banner">This is a banner message!</div>
             </pre>
         </section>
     </nav>
