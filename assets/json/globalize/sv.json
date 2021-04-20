@@ -7,6 +7,7 @@
         {
             "add": "Lägg till",
             "animations": "Animationer",
+            "attribute": "Attribut",
             "background_color": "Bakgrundsfärg",
             "breakpoints": "Brytpunkter",
             "button": "Knapp",
@@ -21,6 +22,7 @@
             "colors": "Färger",
             "components": "Komponenter",
             "conditional_statements": "Villkorssatser",
+            "description": "Beskrivning",
             "development": "Utveckling",
             "download": "Ladda ner",
             "documentation": "Dokumentation",
@@ -31,6 +33,7 @@
             "get_started": "Kom igång",
             "icons": "Ikoner",
             "icons_text": "Front erbjuder en mängd populära ikonuppsättningar.",
+            "key": "Tangent",
             "languages": "Språk",
             "languages_text": "Dokumentationen finns tillgängligt på följande språk:",
             "layout": "Layout",
