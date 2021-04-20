@@ -497,7 +497,6 @@ var core = function() {
 		for(k = 0; k < els.length; k++){
 			for (j = 0; j < libAttribute.length; j++){
 				if (els[k].hasAttribute(libAttribute[j].attr)) {
-					console.log(libAttribute[j]);
 					window[libAttribute[j].func](els[k]);
 				}
 			}
