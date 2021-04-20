@@ -26,7 +26,7 @@ function formatify(el) {
         }
 
         result += indent + '<' + element + '>\r\n';
-        if (element.match(/^<?\w[^>]*[^\/]$/) && !element.match(/^doctype|link|input|img|hr.*$/i))
+        if (element.match(/^<?\w[^>]*[^\/]$/) && !element.match(/^doctype|meta|base|link|input|img|hr.*$/i))
             indent += tab;
     });
 
