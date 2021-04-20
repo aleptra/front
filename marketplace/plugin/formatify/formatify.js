@@ -1,6 +1,6 @@
 /*
     Author: Josef Gabrielsson
-    Version: 1.0.3
+    Version: 1.0.4
     Comments:
     =   &#0061;     <  &#0060;      >  &#0062;
     "   &#0034;     '  &#0039;      /  &#0047;
@@ -26,14 +26,12 @@ function formatify(el) {
         }
 
         result += indent + '<' + element + '>\r\n';
-        if (element.match( /^<?\w[^>]*[^\/]$/ ) && !element.startsWith("input") && !element.startsWith("img") && !element.startsWith("hr"))
+        if (element.match(/^<?\w[^>]*[^\/]$/) && !element.match(/^doctype|link|input|img|hr.*$/i))
             indent += tab;
     });
 
     result = _.escape(result.substring(1, result.length-3));
-    result = formatify_colorize(result, attr);
-
-    target.innerHTML = result;
+    target.innerHTML = formatify_colorize(result, attr);
 }
 
 function formatify_colorize(text, attr){
