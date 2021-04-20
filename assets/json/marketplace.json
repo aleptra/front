@@ -78,6 +78,18 @@
             "type": 2,
             "author": "Josef Gabrielsson",
             "cost": "0"
+        },
+        {
+            "id": 8,
+            "title": "Infinitor",
+            "description": "Infinite Scrolling that automatically adds the next page.",
+            "version": "0.0.0",
+            "screenshot": "",
+            "icon": "./assets/img/icon_plugin.svg",
+            "url": "",
+            "type": 2,
+            "author": "Josef Gabrielsson",
+            "cost": "0"
         }
     ]
 }
