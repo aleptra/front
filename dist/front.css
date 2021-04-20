@@ -664,6 +664,7 @@ ul.list li{
 	margin: 0;
 	height: 100%;
   width: 100%;
+  font-size: initial;
 }
 
 .modal.menu section{
@@ -1673,6 +1674,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .pl5{ padding-left: 5rem }
 .pl6{ padding-left: 6rem }
 .pl10{ padding-left: 10rem }
+.pr0, .pr0->*{ padding-right: unset }
 .pr025, .pr025->*{ padding-right: .25rem }
 .pr05, .pr05->*{ padding-right: .5rem }
 .pr1{ padding-right: 1rem }
