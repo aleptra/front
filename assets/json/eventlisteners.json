@@ -2,10 +2,10 @@
 [
     {
         "name": "online",
-        "description": ""
+        "description": "Checking if the Internet connection is online."
     },
     {
         "name": "offline",
-        "description": ""
+        "description": "Checking if the Internet connection is offline."
     }
 ]
