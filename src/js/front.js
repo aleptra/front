@@ -1046,6 +1046,10 @@ var dom = function() {
 		str = str.replace(re, '')
 		return str;
 	}
+
+	this.removeAllTags = function(str){
+		return str.replace(/(<([^>]+)>)/ig, "");
+	}
 	
 	return false;
 }
