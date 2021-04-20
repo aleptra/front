@@ -69,6 +69,7 @@
 	height: unset;
 	display: inherit;
 	width: 100%;
+  font-size: initial;
 }
 
 body.disabled:after {
