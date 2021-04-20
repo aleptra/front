@@ -1,12 +1,12 @@
-<script src="../../../dist/front.js" title="Key Codes" template="true;../documentation"></script>
-
-<h1 globalize="key_codes">Key Codes</h1>
+<script src="../../../dist/front.js" template="true;../documentation"></script>
+<title globalize="eventlistener">Event Listeners</title>
+<h1 globalize="eventlistener">Event Listeners</h1>
 <nav class="crumbs pointer pt05">
     <ol>
         <li><a href="#" globalize="documentation">Documentation</a></li>
         <li><a globalize="development">Development</a></li>
         <li><a globalize="markup">Markup</a></li>
-        <li globalize="key_codes">Key Codes</li>
+        <li globalize="eventlistener">Event Listeners</li>
     </ol>
 </nav>
 
@@ -23,12 +23,11 @@
                 <th globalize="code" class="w4r">Code</th>
             </tr>
         </thead>
-        <tbody class="z09" json="true" iterate="true" datasource="./assets/json/keycodes.json">
+        <tbody class="z09" json="true" iterate="true" datasource="./assets/json/eventlisteners.json">
             <tr>
                 <td jsonget="name"></td>
                 <td jsonget="event_which"></td>
                 <td jsonget="event_key"></td>
-                <td jsonget="event_code"></td>
             </tr>
         </tbody>
     </table>
