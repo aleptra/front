@@ -8,7 +8,7 @@ Templates are reusable documents that can be included in pages.
 <section>
     <h2 globalize="load">Load</h2>
     <p>Templates will be loaded when template attribute is defined with a valid path.</p>
-    <code class="markup antiquewhite">
+    <code class="markup antiquewhite" formatify="colors:silver,cornsilk,navajowhite,slategray,green">
     &lt;script src="../../dist/front.js" title="Template" template="index;template2">&lt;/script&gt;
     </code>
     <div class="alert bcazure snack shade0 mt1">
@@ -20,16 +20,16 @@ Templates are reusable documents that can be included in pages.
 <section>
     <h2 globalize="run">Run</h2>
     <p>The template element will ovveride the starter layout template.</p>
-    <code class="markup antiquewhite">
-    &lt;template&gt;<br>
-    &emsp; &lt;header&gt;&lt;/header><br>
-    &emsp; &lt;nav&gt;&lt;/nav><br>
-    &emsp; &lt;aside <span class="navajowhite">index=</span><span class="white">"0"</span>&gt<br>
-    &emsp;&emsp;&lt;b&gt;<span class="white">Override content</span>&lt;/b&gt;<br>
-    &emsp; &lt;/aside><br>
-    &emsp; &lt;main&gt;&lt;/main&gt;<br>
-    &emsp; &lt;aside <span class="navajowhite">index=</span><span class="white">"1"</span>&gt;&lt;/aside&gt;<br>
-    &emsp; &lt;footer&gt;&lt;/footer&gt;<br>
+    <code class="markup antiquewhite" formatify="colors:silver,cornsilk,navajowhite,slategray,green;true">
+    &lt;template&gt;
+    &lt;header&gt;&lt;/header&gt;
+    &lt;nav&gt;&lt;/nav&gt;
+    &lt;aside index="0"&gt;
+    &lt;b&gt;Override content&lt;/b&gt;
+    &lt;/aside&gt;
+    &lt;main&gt;&lt;/main&gt;
+    &lt;aside index="1"&gt;&lt;/aside&gt;
+    &lt;footer&gt;&lt;/footer&gt;
     &lt;/template&gt;
     </code>
 </section>
