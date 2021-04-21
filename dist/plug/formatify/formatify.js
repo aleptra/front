@@ -31,6 +31,7 @@ function formatify(el) {
     });
 
     result = _.escape(result.substring(1, result.length-3));
+    if (attr[1]) result = result.replace(/&#0009;/ig, "&emsp;").replace(/&#0010;/ig, "<br>");;
     target.innerHTML = formatify_colorize(result, attr);
 }
 

@@ -62,7 +62,7 @@
             "version": "1.0.4",
             "screenshot": "",
             "icon": "./assets/img/icon_plugin.svg",
-            "url": "",
+            "url": "./marketplace/plugin/formatify",
             "type": 2,
             "author": "Josef Gabrielsson",
             "cost": "0"
