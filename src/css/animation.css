@@ -50,6 +50,16 @@
     40% {transform: scale(1)}
     100% {transform: scale(.95)}
 }
+  
+@keyframes blink{
+    from, to {color: transparent}
+    50% {color: white }
+}
+  
+@-moz-keyframes blink {
+    from, to {color: transparent}
+    50% {color: black}
+}
 
 .slidein{
     transition: 1s;
@@ -75,4 +85,9 @@
 .pulsate{
     -webkit-animation: pulsate 1s linear infinite;
     animation: pulsate 1s linear infinite;
+}
+
+.blink{
+    -webkit-animation: 1s blink step-end infinite;
+    animation: 1s blink step-end infinite;
 }
