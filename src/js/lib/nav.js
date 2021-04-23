@@ -7,19 +7,20 @@ var navTargetEl = "main?tag";
 var hash = location.hash;
 
 window.addEventListener("popstate", function(e){
-	if(window.location.hash.indexOf("#", 1))
+	if(location.href.indexOf('#') !== -1) {
 		return false;
-	if (e.state)
-		nav(e.state.path.substr(1), navTargetEl, false);
-	else
+	}else if (window.history && window.history.pushState) {
+		var href = e.target.location.pathname.substr(1);
+		return nav(href);
+	}else{ 
 		self.location.href = globalUrl;
+	}
 });
 
 function nav(path, el, push){
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = path.split("#");
-	client.addHeader("Layout", "none");
 	client.addHeader("Path", path);
 	client.addHeader("Cache-Control", "must-revalidate");
 
