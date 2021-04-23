@@ -10,7 +10,12 @@ window.addEventListener("popstate", function(e){
 	if(location.href.indexOf('#') !== -1) {
 		return false;
 	}else if (window.history && window.history.pushState) {
+		console.log(e.target);
+		
+		console.log(globalUrl);
+
 		var href = e.target.location.pathname.substr(1);
+		console.log(href);
 		return nav(href);
 	}else{ 
 		self.location.href = globalUrl;
