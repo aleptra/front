@@ -63,6 +63,7 @@
             "screenshot": "",
             "icon": "./assets/img/icon_plugin.svg",
             "url": "./marketplace/plugin/formatify",
+            "url_target": 0,
             "type": 2,
             "author": "Josef Gabrielsson",
             "cost": "0"
@@ -75,6 +76,7 @@
             "screenshot": "",
             "icon": "./assets/img/icon_plugin.svg",
             "url": "",
+            "url_target": 0,
             "type": 2,
             "author": "Josef Gabrielsson",
             "cost": "0"
@@ -87,6 +89,7 @@
             "screenshot": "",
             "icon": "./assets/img/icon_plugin.svg",
             "url": "",
+            "url_target": 0,
             "type": 2,
             "author": "Josef Gabrielsson",
             "cost": "0"
