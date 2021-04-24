@@ -10,9 +10,12 @@ window.addEventListener("popstate", function(e){
 	if(location.href.indexOf('#') !== -1) {
 		return false;
 	}else if (window.history && window.history.pushState) {
+		
 		console.log(e.target);
 		
 		console.log(globalUrl);
+
+		console.log(location.href);
 
 		var href = e.target.location.pathname.substr(1);
 		console.log(href);
@@ -59,7 +62,7 @@ function nav(path, el, push){
 function navPush(title, url){	
 	if (window.history && window.history.pushState) {
 		var stateObj = { path: globalUrl };
-		history.pushState(stateObj, title, globalUrl + url);
+		history.pushState(stateObj, title, url);
 	}else{
 		location.hash = "#!" + url;
 	}
