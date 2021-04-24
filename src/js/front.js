@@ -1084,6 +1084,7 @@ var xhr = function() {
 
 		request.onload = function() {
 			callback(this.responseText, headers);
+			headers.length = 0;
 		}
 
 		request.onloadstart = function() {
