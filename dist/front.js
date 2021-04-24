@@ -650,11 +650,11 @@ var app = function() {
 			env = attr[a].split(":");
 			if (env[0] == "local" && isLocalDev){
 				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				app.debug("Running environment: localhost "+env[0]);
+				app.debug("Running environment: localhost "+env[0], "blue", "yellow");
 				return env;
 			}else if(env[0] == "prod" && !isLocalDev){
 				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				app.debug("Running environment: production "+env[0], "green", "blue");
+				app.debug("Running environment: production "+env[0], "yellow", "green");
 				return env;
 			}
 		}
@@ -698,7 +698,7 @@ var app = function() {
 	}
 
 	this.debug = function(log, c, bc) {
-		if (debug === "true") console.log("%c"+log, "background:"+bc+";color:"+c)
+		if (debug === "true") console.log("%c"+log, "color:"+c+";background:"+bc)
 	}
 }
 
