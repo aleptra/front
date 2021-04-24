@@ -654,7 +654,7 @@ var app = function() {
 				return env;
 			}else if(env[0] == "prod" && !isLocalDev){
 				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				app.debug("Running environment: production "+env[0], "blue", "blue");
+				app.debug("Running environment: production "+env[0], "green", "blue");
 				return env;
 			}
 		}
