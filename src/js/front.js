@@ -77,6 +77,7 @@ document.addEventListener('click', function(e) {
 
 document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
+	debug = document.documentElement.getAttribute("debug");
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
 	currentScript = document.querySelector('script[src*="front.js"]');
@@ -653,7 +654,7 @@ var app = function() {
 				return env;
 			}else if(env[0] == "prod" && !isLocalDev){
 				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				app.debug("Running environment: production "+env[0]);
+				app.debug("Running environment: production "+env[0], blue, blue);
 				return env;
 			}
 		}
@@ -697,7 +698,7 @@ var app = function() {
 	}
 
 	this.debug = function(log, c, bc) {
-		if (debug) console.log(log, '+bc+', 'color: '+c);
+		if (debug === "true") console.log("%c"+log, "background:"+bc+";color:"+c)
 	}
 }
 
