@@ -5,6 +5,7 @@ var libPreload = [];
 var load = false;
 var loadTemplate = false;
 var xhrProgress;
+var debug = false;
 
 var urlDelimiter = '/';
 var elementDivider = /[?=]/;
@@ -55,11 +56,11 @@ document.onclick=function(e) {
 			location.hash = elHref;
 			return false;
 		}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
-			console.log('Click with Ajax: '+ elHref);
+			app.debug('Click with Ajax: '+ elHref);
 			if(window.location.hash) location.hash = "";
 			return nav(globalUrl + elHref);
 		}else{
-			console.log('Click');
+			app.debug('Click');
 		}
 	}
 };
@@ -152,7 +153,7 @@ function require(src, folder) {
 	asset.rel = "stylesheet";
 	asset.async = true;
   	asset.onload = function () {
-		console.log("Loaded: "+ src);
+		app.debug("Loaded: "+ src);
 	};
 
 	head.appendChild(asset);
@@ -169,7 +170,7 @@ function scrollTo(element, to, duration) {
     		scrollTo(element, to, duration - 2);
 		}, 10);
   
-	console.log("Scroll: "+element+":"+to+":"+duration);
+	app.debug("Scroll: "+element+":"+to+":"+duration);
 }
 
 function set(type, param, value){
@@ -400,7 +401,7 @@ var core = function() {
 			var target = dom.get(value);
 			var el = target.outerHTML.replace(/{{\s*(.*?)\s*}}/gi, "1");
 			target.outerHTML = el;
-			console.log(el);
+			app.debug(el);
 		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
@@ -531,8 +532,8 @@ var core = function() {
 
 	this.setParam = function(uri, key, value) {
 		function upperToHyphenLower(match, offset, string) {
-			console.log(match);
-		  return (offset > 0 ? '-' : '') + match.toLowerCase();
+			app.debug(match);
+			return (offset > 0 ? '-' : '') + match.toLowerCase();
 		}
 		return uri.replace(new RegExp("([?&]"+key+"(?=[=&#]|$)[^#&]*|(?=#|$))"), "&"+key+"="+encodeURIComponent(value)).replace(/^([^?&]+)&/, "$1?", upperToHyphenLower);
 	}
@@ -648,11 +649,11 @@ var app = function() {
 			env = attr[a].split(":");
 			if (env[0] == "local" && isLocalDev){
 				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				console.log("Running environment: localhost "+env[0]);
+				app.debug("Running environment: localhost "+env[0]);
 				return env;
 			}else if(env[0] == "prod" && !isLocalDev){
 				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				console.log("Running environment: production "+env[0]);
+				app.debug("Running environment: production "+env[0]);
 				return env;
 			}
 		}
@@ -666,7 +667,7 @@ var app = function() {
 		newBaseUrl = currentScriptUrl.split(urlDelimiter);
 		newBaseUrl[3] = dir + urlDelimiter + newBaseUrl[3];
 		currentScriptUrl = newBaseUrl.join(urlDelimiter);
-		console.log("FrontBaseUrl changed: "+currentScriptUrl);
+		app.debug("FrontBaseUrl changed: "+currentScriptUrl);
 	}
 	
 	this.getPathUrl = function(url){
@@ -695,6 +696,9 @@ var app = function() {
 		top.location.href = url;
 	}
 
+	this.debug = function(log, c, bc) {
+		if (debug) console.log(log, '+bc+', 'color: '+c);
+	}
 }
 
 var dom = function() {
@@ -828,7 +832,7 @@ var dom = function() {
 				el.classList.toggle(classname);
 			}else if (action == 'update') {
 				var bname = el.classList.item(bclass);
-				console.log(bname);
+				app.debug(bname);
 				el.className = el.className.replace(bname, classname);
 			}else if(action == 'reset') {
 				el.classList.remove(classname);
@@ -1126,10 +1130,10 @@ var xhr = function() {
 
 		request.onload = function() {
 			callback(this.responseText);
-			console.log("%c API (Response): "+this.responseText, "background: blue; color: yellow");
+			app.debug("%c API (Response): "+this.responseText, "background: blue; color: yellow");
 		}
 
-		console.log("%c API (POST): "+JSON.stringify(data), "background: green; color: white");
+		app.debug("%c API (POST): "+JSON.stringify(data), "background: green; color: white");
 		request.send(JSON.stringify(data));
   }
 }
