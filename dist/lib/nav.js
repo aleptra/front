@@ -10,29 +10,20 @@ window.addEventListener("popstate", function(e){
 	if(location.href.indexOf('#') !== -1) {
 		return false;
 	}else if (window.history && window.history.pushState) {
-		
-		console.log(e.target);
-		
-		console.log(globalUrl);
-
-		console.log(location.href);
-
-		var href = e.target.location.pathname.substr(1);
-		console.log(href);
+		var href = e.target.location.pathname;
 		return nav(href);
 	}else{ 
 		self.location.href = globalUrl;
 	}
 });
 
-function nav(path, el, push){
+function nav(path, el, basepath){
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = path.split("#");
 	client.addHeader("Path", path);
 	client.addHeader("Cache-Control", "must-revalidate");
-
-	client.get(globalUrl + path, function(response){
+	client.get(path, function(response){
 		if (response){
 			dom.content(target, response);
 			
