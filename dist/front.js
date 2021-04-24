@@ -654,7 +654,7 @@ var app = function() {
 				return env;
 			}else if(env[0] == "prod" && !isLocalDev){
 				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				app.debug("Running environment: production "+env[0], blue, blue);
+				app.debug("Running environment: production "+env[0], "blue", "blue");
 				return env;
 			}
 		}
@@ -1131,10 +1131,10 @@ var xhr = function() {
 
 		request.onload = function() {
 			callback(this.responseText);
-			app.debug("%c API (Response): "+this.responseText, "background: blue; color: yellow");
+			app.debug("%c API (Response): "+this.responseText, "blue", "yellow");
 		}
 
-		app.debug("%c API (POST): "+JSON.stringify(data), "background: green; color: white");
+		app.debug("%c API (POST): "+JSON.stringify(data), "green", "white");
 		request.send(JSON.stringify(data));
   }
 }
