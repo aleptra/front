@@ -5,12 +5,15 @@ libAttribute.push(
 var globalUrl = app.setupEnvironment()[1];
 var navTargetEl = "main?tag";
 var hash = location.hash;
+var pageHistory = [];
 
 window.addEventListener("popstate", function(e){
 	if(location.href.indexOf('#') !== -1) {
 		return false;
 	}else if (window.history && window.history.pushState) {
 		var href = e.target.location.pathname;
+		//console.log(href);
+		//console.log(e.state.path);
 		return nav(href);
 	}else{ 
 		self.location.href = globalUrl;
@@ -42,7 +45,7 @@ function nav(path, el, basepath){
 			core.runCoreAttributesInElement(target);
 			core.runLibAttributesInElement(target);
 
-			navPush(dom.get("title?tag").textContent, path);
+			navPush(path);
 		}
 	});
 
@@ -50,11 +53,20 @@ function nav(path, el, basepath){
 	return false;
 }
 
-function navPush(title, url){	
+function navPush(url){
+	var title = dom.get("title?tag").textContent;
+	var stateObj = { path: url };
+	var pageHistoryLast = pageHistory.length -1;
 	if (window.history && window.history.pushState) {
-		var stateObj = { path: globalUrl };
-		history.pushState(stateObj, title, url);
+		if (pageHistory[pageHistoryLast] !== url) {
+			history.pushState(stateObj, title, url);
+			pageHistory.push(url);
+		}
 	}else{
 		location.hash = "#!" + url;
 	}
+
+	for(i in pageHistory) {
+		console.log(pageHistory[i]);
+  	}
 }
