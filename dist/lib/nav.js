@@ -24,7 +24,7 @@ function nav(path, el){
 	var path = (globalUrl == path) ? startpage : path;
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
-	var anchor = path.split("#");
+	var anchor = (path) ? path.split("#") : '';
 	client.addHeader("Path", path);
 	client.addHeader("Cache-Control", "must-revalidate");
 	client.get(path, function(response){
