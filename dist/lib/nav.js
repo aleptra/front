@@ -20,7 +20,8 @@ window.addEventListener("popstate", function(e){
 	}
 });
 
-function nav(path, el, basepath){
+function nav(path, el){
+	var path = (globalUrl == path) ? startpage : path;
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = path.split("#");
@@ -65,8 +66,4 @@ function navPush(url){
 	}else{
 		location.hash = "#!" + url;
 	}
-
-	for(i in pageHistory) {
-		console.log(pageHistory[i]);
-  	}
 }

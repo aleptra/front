@@ -18,6 +18,7 @@ var currentUrl;
 var currentScriptUrl;
 var referrerUrl;
 var baseUrl;
+var html;
 
 var folderLib = "lib";
 var folderPlug = "plug";
@@ -77,7 +78,9 @@ document.addEventListener('click', function(e) {
 
 document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
-	debug = document.documentElement.getAttribute("debug");
+	html = document.documentElement;
+	debug = html.getAttribute("debug");
+	startpage = html.getAttribute("startpage");
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
 	currentScript = document.querySelector('script[src*="front.js"]');
