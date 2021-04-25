@@ -21,7 +21,7 @@ window.addEventListener("popstate", function(e){
 });
 
 function nav(path, el){
-	var path = (globalUrl == path || path === globalUrl+".") ? startpage : path;
+	var path = (globalUrl == path || path === globalUrl+"./") ? startpage : path;
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = (path) ? path.split("#") : '';
