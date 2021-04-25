@@ -21,6 +21,9 @@ window.addEventListener("popstate", function(e){
 });
 
 function nav(path, el){
+	app.debug(path, "red", "white");
+	app.debug(globalUrl, "red", "yellow")
+
 	var path = (globalUrl == path || path === globalUrl+"./") ? startpage : path;
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
