@@ -8,20 +8,20 @@ var hash = location.hash;
 var pageHistory = [];
 
 window.addEventListener("popstate", function(e){
-	if(location.href.indexOf('#') !== -1) {
+	if(location.href.indexOf('#') !== -1){
 		return false;
-	}else if (window.history && window.history.pushState) {
+	}else if (window.history && window.history.pushState){
 		var href = e.target.location.pathname;
 		//console.log(href);
 		//console.log(e.state.path);
 		return nav(href);
-	}else{ 
+	}else{
 		self.location.href = globalUrl;
 	}
 });
 
 function nav(path, el){
-	var path = (globalUrl == path) ? startpage : path;
+	var path = (globalUrl == path || path === globalUrl+".") ? startpage : path;
 	var target = (el === undefined) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = (path) ? path.split("#") : '';
