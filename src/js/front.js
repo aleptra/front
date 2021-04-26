@@ -59,7 +59,7 @@ document.onclick=function(e) {
 		}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
 			app.debug('Click with Ajax: '+ elHref);
 			if(window.location.hash) location.hash = "";
-			return nav(globalUrl + elHref);
+			return nav(globalUrl + elHref, false, true);
 		}else{
 			app.debug('Click');
 		}

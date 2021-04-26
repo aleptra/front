@@ -12,20 +12,15 @@ window.addEventListener("popstate", function(e){
 		return false;
 	}else if (window.history && window.history.pushState){
 		var href = e.target.location.pathname;
-		//console.log(href);
-		//console.log(e.state.path);
 		return nav(href);
 	}else{
 		self.location.href = globalUrl;
 	}
 });
 
-function nav(path, el){
-	app.debug(path, "red", "white");
-	app.debug(globalUrl, "red", "yellow")
-
+function nav(path, el, push){
 	var path = (globalUrl == path || path === globalUrl+"./") ? startpage : path;
-	var target = (el === undefined) ? navTargetEl : el;
+	var target = (el === undefined || el === false) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = (path) ? path.split("#") : '';
 	client.addHeader("Path", path);
@@ -49,7 +44,7 @@ function nav(path, el){
 			core.runCoreAttributesInElement(target);
 			core.runLibAttributesInElement(target);
 
-			navPush(path);
+			if (push) navPush(path);
 		}
 	});
 
