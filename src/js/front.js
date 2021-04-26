@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
 	html = document.documentElement;
 	debug = html.getAttribute("debug");
-	startpage = (html.hasAttribute("startpage") ? html.getAttribute("startpage") : startpage;
+	startpage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startpage;
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
 	currentScript = document.querySelector('script[src*="front.js"]');
