@@ -5,14 +5,14 @@ libAttribute.push(
 var globalUrl = app.setupEnvironment()[1];
 var navTargetEl = "main?tag";
 var hash = location.hash;
-var pageHistory = [];
+var historyStack = [];
 
 window.addEventListener("popstate", function(e){
 	if(location.href.indexOf('#') !== -1){
 		return false;
 	}else if (window.history && window.history.pushState){
 		var href = e.target.location.pathname;
-		return nav(href);
+		return nav(href, false, false);
 	}else{
 		self.location.href = globalUrl;
 	}
@@ -27,6 +27,7 @@ function nav(path, el, push){
 	client.addHeader("Cache-Control", "must-revalidate");
 	client.get(path, function(response){
 		if (response){
+			if (push || path == startpage) navPush(path);
 			dom.content(target, response);
 			
 			if (anchor[1]){
@@ -43,8 +44,6 @@ function nav(path, el, push){
 
 			core.runCoreAttributesInElement(target);
 			core.runLibAttributesInElement(target);
-
-			if (push) navPush(path);
 		}
 	});
 
@@ -53,15 +52,13 @@ function nav(path, el, push){
 }
 
 function navPush(url){
+	var url = url.replace(startpage, "./");
 	var title = dom.get("title?tag").textContent;
 	var stateObj = { path: url };
-	var pageHistoryLast = pageHistory.length -1;
-	if (window.history && window.history.pushState) {
-		if (pageHistory[pageHistoryLast] !== url) {
-			history.pushState(stateObj, title, url);
-			pageHistory.push(url);
-		}
-	}else{
-		location.hash = "#!" + url;
+	var historyStackLast = historyStack.length -1;
+
+	if (historyStack[historyStackLast] !== url) {
+		historyStack.push(url);
+		history.pushState(stateObj, title, url);
 	}
 }
