@@ -1078,6 +1078,13 @@ var xhr = function() {
 		return decodeURI(escape(request.getResponseHeader(header)));
 	}
 
+	this.resetProgress = function(){
+		if (xhrProgress) {
+			xhrProgress.style.width = "0%";
+			_.show("navloader")
+		}
+	}
+
 	this.get = function(url, callback, async) {
 		var async = async ? async : true;
 		request.open("GET", url, async);
@@ -1094,9 +1101,14 @@ var xhr = function() {
 		request.onload = function() {
 			callback(this.responseText, headers);
 			headers.length = 0;
+			client.resetProgress();
 		}
 
 		request.onloadstart = function() {
+			client.resetProgress();
+		}
+
+		request.onprogress = function(){
 			if (xhrProgress) {
 				_.show("navloader");
 				if (x == 0) {
