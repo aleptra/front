@@ -89,7 +89,7 @@ h6,.fs1{ font-size: calc(.7em + .6vw)}
 .lh25{line-height: 2.5}
 
 a,i,b,span,select,input,textarea,button,.button{ display: inline-flex; display: -ms-inline-flexbox; }
-b,strong,.fwb{ font-weight: bold }
+b,strong,.fwb, .fwb- *{ font-weight: bold }
 .di{ display: inline }
 
 table{display:table;border-collapse: collapse;table-layout: fixed;text-align: left;}
@@ -295,7 +295,7 @@ summary{
 .fr{ float: right}
 table.fr{float:right}
 
-.ttu{ text-transform: uppercase }
+.ttu, .ttu- *{text-transform: uppercase}
 .ofa{overflow: auto}
 .oa{overflow: none}
 
