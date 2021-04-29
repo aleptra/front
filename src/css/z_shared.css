@@ -341,6 +341,15 @@ body .lightslategray{color:#778899}
 body .slategray{color:#708090}
 body .darkslategray{color:#2f4f4f}
 body .black, body .black_h:hover{color:#000}
+body .black01{color: rgba(0,0,0,.1)}
+body .black02{color: rgba(0,0,0,.2)}
+body .black03{color: rgba(0,0,0,.3)}
+body .black04{color: rgba(0,0,0,.4)}
+body .black05{color: rgba(0,0,0,.5)}
+body .black06{color: rgba(0,0,0,.6)}
+body .black07{color: rgba(0,0,0,.7)}
+body .black08{color: rgba(0,0,0,.8)}
+body .black09{color: rgba(0,0,0,.9)}
 
 body .bcgainsboro{background-color:#dcdcdc}
 body .bclightgray{background-color:#d3d3d3}
