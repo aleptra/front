@@ -504,6 +504,7 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .pb3{ padding-bottom: 3rem }
 .mt0, .mt0- *{ margin-top: 0 }
 .m05, .m05- *{ margin: .5rem }
+.mt05, .mt05- *{margin-top:.5rem}
 .mt1, .mt1- *{ margin-top: 1rem }
 .mt2, .mt2- *{ margin-top: 2rem }
 .mt3, .mt3- *{ margin-top: 3rem }
