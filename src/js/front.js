@@ -486,6 +486,8 @@ var core = function() {
 		if(e.tagName == "CODE") {
 			//this.runCoreAttributesInElement(e);
 		}
+		if(e.hasAttribute("background"))
+			e.style.background = e.getAttribute("background")
 	}
 
 	this.runCoreAttributesInElement = function(e) {

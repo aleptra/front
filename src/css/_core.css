@@ -428,6 +428,8 @@ ul.list li{
 .icon256{ font-size: 256px }
 .icon512{ font-size: 512px }
 
+.bsc{background-size:cover}
+
 .test- > a{
     flex-direction: column;
     -ms-flex-direction: column;
