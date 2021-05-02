@@ -88,11 +88,11 @@ h6,.fs1{ font-size: calc(.7em + .6vw)}
 .lh22{line-height: 2.2}
 .lh25{line-height: 2.5}
 
-a,i,b,span,select,input,textarea,button,.button{ display: inline-flex; display: -ms-inline-flexbox; }
-b,strong,.fwb, .fwb- *{ font-weight: bold }
-.di{ display: inline }
+a,i,b,span,select,input,textarea,button,a.button{display: inline-flex;display: -ms-inline-flexbox}
+b,strong,.fwb, .fwb- *{font-weight: bold}
+.di{display: inline}
 
-table{display:table;border-collapse: collapse;table-layout: fixed;text-align: left;}
+table{display:table;border-collapse: collapse;table-layout: fixed;text-align: left}
 thead,.thead{ display: table-header-group}
 caption{display: table-caption;text-align:left;padding:.5em}
 caption.bottom{caption-side: bottom}
@@ -791,7 +791,6 @@ input[type="checkbox"], input[type="checkbox"]:hover{
 }
 
 button,.button{
-    display: inline;
     cursor: pointer;
     justify-content: center;
 }
