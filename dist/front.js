@@ -488,7 +488,7 @@ var core = function() {
 		}
 		if(e.hasAttribute("background")){
 			var val = e.getAttribute("background");
-			e.style.background = (val.indexOf(".")) ? "url('"+val+"')" : val
+			if (val.indexOf(".")) e.style.backgroundImage = "url('"+val+"')"; else e.style.backgroundColor = val
 		}
 	}
 
