@@ -64,7 +64,6 @@ input[type="checkbox"], input[type="checkbox"]:hover{
 }
 
 button,.button{
-    display: inline;
     cursor: pointer;
     justify-content: center;
 }

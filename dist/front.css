@@ -811,7 +811,7 @@ button.icon,.button.icon{
     overflow: unset;
 }
 
-.grid *{
+.grid > *{
     display: inline-block;
 }
 

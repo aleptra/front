@@ -163,9 +163,8 @@ button, .button{
     font-weight: 500;
     letter-spacing: .05em;
     padding: 0 1.25rem 0 1.25rem;
-    display: flex;
+    
     align-items: center;
-    float: left;
 }
 
 button *, .button *{
