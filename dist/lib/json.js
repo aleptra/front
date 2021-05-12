@@ -103,7 +103,19 @@ function json(el) {
                 els[i].setAttribute(res[1], value);
             }
             if (jsonget) {
-                var value = jsonbefore + json[j][jsonget] + jsonafter;
+                var isAssociative = (jsonget.indexOf(".") > 0) ? true : false;
+                var value = "";
+
+                if (isAssociative) {
+                    var split = jsonget.split(".");
+                    for(i in split){
+                        value += "['" + split[i] + "']";
+                    }
+                    value = eval("json[j]"+value);
+                }else{
+                    value = jsonbefore + json[j][jsonget] + jsonafter;
+                }
+
                 var type = els[i].localName;
                 
                 if (type == "img")
