@@ -136,7 +136,7 @@ body, .grid {
 }
 
 body.nav{
-    grid-template-areas: "nav head head" "nav nav nav" "left middle right" "foot foot foot";
+    grid-template-areas: "nav head head" "nav nav nav" "left middle right" "foot foot foot"
 }
 
 body>header, .header {
