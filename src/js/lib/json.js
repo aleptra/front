@@ -94,7 +94,7 @@ function json(el) {
             var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : '';
             
             els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out) {
-                return json[j][$out]
+                return jsonAssociate($out, json[j]);
             });
 
             if (jsonset) {
@@ -103,15 +103,9 @@ function json(el) {
                 els[i].setAttribute(res[1], value);
             }
             if (jsonget) {
-                var isAssociative = (jsonget.indexOf(".") > 0) ? true : false;
                 var value = "";
-
-                if (isAssociative) {
-                    var split = jsonget.split(".");
-                    for(i in split){
-                        value += "['" + split[i] + "']";
-                    }
-                    value = eval("json[j]"+value);
+                if (!jsonget) {
+                    value = jsonAssociate(jsonget, json[j]);
                 }else{
                     value = jsonbefore + json[j][jsonget] + jsonafter;
                 }
@@ -131,6 +125,20 @@ function json(el) {
         core.runCoreAttributesInElement(el);
     }
     xhr.send(null);
+}
+
+function jsonAssociate(jsonget, input){
+    var isAssociative = (jsonget.indexOf(".") > 0) ? true : false;
+    var value = "";
+    if (isAssociative) {
+        var split = jsonget.split(".");
+        for(i in split)
+            value += "['" + split[i] + "']";
+    }else{
+        return input;
+    }
+
+    return eval("input"+value);
 }
 
 function jsonSerialize(inputs){
