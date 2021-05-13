@@ -22,10 +22,14 @@
     color: inherit;
 }
 
-::-webkit-input-placeholder {color: rgba(255,255,255, .6)}
-:-ms-input-placeholder {color: rgba(255,255,255, .6)}
-::-moz-placeholder {color: rgba(255,255,255, .6)}
-  
+::placeholder{color: rgba(255,255,255,.6)}
+:-ms-input-placeholder{color: rgba(255,255,255,.6)}
+::-ms-input-placeholder{color: rgba(255,255,255,.6)}
+.phdark::placeholder{color: rgba(0,0,0,.2)}
+.phdark:-ms-input-placeholder{color: rgba(0,0,0,.2)}
+.phdark::-ms-input-placeholder{color: rgba(0,0,0,.2)}
+
+
 html {
     width: 100%;
     height: 100%;
