@@ -94,7 +94,7 @@ function json(el) {
             var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : '';
             
             els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out) {
-                return jsonAssociate($out, json[j]);
+                return jsonParse(json[j], $out);
             });
 
             if (jsonset) {
@@ -104,13 +104,9 @@ function json(el) {
             }
             if (jsonget) {
                 var value = "";
-                if (!jsonget) {
-                    value = jsonAssociate(jsonget, json[j]);
-                }else{
-                    value = jsonbefore + json[j][jsonget] + jsonafter;
-                }
-
                 var type = els[i].localName;
+
+                value = jsonbefore + jsonParse(json[j], jsonget) + jsonafter;
                 
                 if (type == "img")
                     els[i].src = value;
@@ -127,19 +123,20 @@ function json(el) {
     xhr.send(null);
 }
 
-function jsonAssociate(jsonget, input){
-    var isAssociative = (jsonget.indexOf(".") > 0) ? true : false;
+function jsonParse(input, json){
+    var isAssociative = (json.indexOf(".") > 0) ? true : false;
     var value = "";
     if (isAssociative) {
-        var split = jsonget.split(".");
-        for(i in split)
-            value += "['" + split[i] + "']";
-    }else{
-        return input;
+        var split = json.split(".");
+        for(i in split) {
+            value += "['" + split[i] + "']"
+        }
+        return eval("input"+value);
     }
 
-    return eval("input"+value);
+    return input[json];
 }
+
 
 function jsonSerialize(inputs){
     formData = new FormData(inputs);
