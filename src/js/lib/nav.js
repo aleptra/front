@@ -2,7 +2,7 @@ libAttribute.push(
 {'attr': 'navigate', 'func': 'nav'}
 );
 
-var globalUrl = app.setupEnvironment()[1];
+var globalUrl = app.getCurrentEnvironment()[1];
 var navTargetEl = "main?tag";
 var hash = location.hash;
 var historyStack = [];
