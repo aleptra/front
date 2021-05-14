@@ -1,4 +1,4 @@
-summary::-webkit-details-marker {
+summary::marker {
     display: none
 }
 
