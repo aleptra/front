@@ -294,6 +294,8 @@ var core = function() {
 	};
 
 	this.runCoreAttributes = function(e){
+		if(e.tagName == "BASE" && e.hasAttribute("env"))
+			app.setupEnvironment(e.getAttribute("env"))
 		if (e.hasAttribute("include")){
 			var attr = e.getAttribute("include");
 			client.get(globalUrl + attr, function(response) {
@@ -318,9 +320,6 @@ var core = function() {
 				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2");
 				return eval("data."+variable);
 			});
-		}
-		if(e.tagName == "BASE") {
-			app.setupEnvironment(e);
 		}
 		if (e.hasAttribute("title") && e.tagName == "SCRIPT") {
 			var value = e.getAttribute("title");
