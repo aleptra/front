@@ -666,7 +666,7 @@ var app = function() {
 
 		for(a in attr){
 			env = attr[a].split(":")
-			if (env[0] == "local" && isLocalDev)
+			if (isLocalDev)
 				return env
 			else if(env[0] == "prod" && !isLocalDev)
 				return env
