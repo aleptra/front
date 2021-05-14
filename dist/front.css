@@ -962,7 +962,7 @@ summary {
     outline: 0; 
   }
   
-  summary::-webkit-details-marker {
+  summary::marker {
       display: none;
     }  
   
