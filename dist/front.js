@@ -668,7 +668,7 @@ var app = function() {
 			env = attr[a].split(":")
 			if (isLocalDev)
 				return env
-			else if(env[0] == "prod" && !isLocalDev)
+			else if(!isLocalDev && env[0] == "prod")
 				return env
 		}
 	}
