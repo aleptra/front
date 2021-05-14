@@ -649,21 +649,27 @@ var app = function() {
 	}
 
 	this.setupEnvironment = function() {
-		var isLocalDev = this.isLocalDev();
-		var el = dom.get("base?tag");
-		var attr = el.getAttribute("env").split(";");
-		var env;
+		env = this.getCurrentEnvironment();
+		if (env[0] == "local"){
+			dom.update("base?tag", ["setAttribute", "href", env[1]])
+			app.debug("Running environment: "+env[0], "blue", "yellow")
+		}else if(env[0] == "prod"){
+			dom.update("base?tag", ["setAttribute", "href", env[1]])
+			app.debug("Running environment: "+env[0], "yellow", "green")
+		}
+	}
+
+	this.getCurrentEnvironment = function(val){
+		var el = dom.get("base?tag")
+		var isLocalDev = this.isLocalDev()
+		var attr = el.getAttribute("env").split(";")
+
 		for(a in attr){
-			env = attr[a].split(":");
-			if (env[0] == "local" && isLocalDev){
-				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				app.debug("Running environment: localhost "+env[0], "blue", "yellow");
-				return env;
-			}else if(env[0] == "prod" && !isLocalDev){
-				dom.update("base?tag", ["setAttribute", "href", env[1]]);
-				app.debug("Running environment: production "+env[0], "yellow", "green");
-				return env;
-			}
+			env = attr[a].split(":")
+			if (env[0] == "local" && isLocalDev)
+				return env
+			else if(env[0] == "prod" && !isLocalDev)
+				return env
 		}
 	}
 
