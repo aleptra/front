@@ -442,7 +442,7 @@ ul.list li{
 .test-> a .icon{
     padding-right: unset;
     font-size: initial;
-}summary::-webkit-details-marker {
+}summary::marker {
     display: none
 }
 
