@@ -91,12 +91,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	xhrProgress = dom.get("navprogress");
 
 	if (currentScript.hasAttribute("store")) {
+		globalUrl = app.getCurrentEnvironment()[1];
 		var attr = currentScript.getAttribute("store").split(";")
 		for(storefile in attr) {
 			var file = attr[storefile].split(varDivider);
 			var sclient = new xhr();
 			sclient.addHeader("storeName", file[1]);
-			sclient.get(baseUrl + file[0] + ".json", function(response, headers){
+			sclient.get(globalUrl + file[0] + ".json", function(response, headers){
 				if (response)
 					app.storage(headers[0][1], response)
 			}, false);
