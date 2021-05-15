@@ -626,13 +626,9 @@ var core = function() {
 		}
 	}
 
-	this.isString = function(obj){
-		return Object.prototype.toString.call(obj) === "[object String]"
-	}
-
-	this.isObject = function(obj){
-		return (typeof obj === "object" && !Array.isArray(obj) && obj !== null);
-	}
+	this.isString = function(obj){return Object.prototype.toString.call(obj) === "[object String]"}
+	this.isNumber = function(str){return /^\d+$/.test(str)}
+	this.isObject = function(obj){return (typeof obj === "object" && !Array.isArray(obj) && obj !== null)}
 }
 
 var app = function() {
