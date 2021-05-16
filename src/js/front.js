@@ -464,7 +464,7 @@ var core = function() {
 			e.innerHTML = e.innerHTML.slice(res[0],res[1]);
 		}
 		if (e.hasAttribute("beforebegin"))
-			e.insertAdjacentText("afterbegin", e.getAttribute("beforebegin"))
+			e.insertAdjacentText("beforebegin", e.getAttribute("beforebegin"))
 		if (e.hasAttribute("beforeend"))
 			e.insertAdjacentText("beforeend", e.getAttribute("beforeend"))
 		if (e.hasAttribute("afterend"))
