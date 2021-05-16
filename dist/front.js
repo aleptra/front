@@ -478,9 +478,9 @@ var core = function() {
 				var action = term[2].split(/:(.*)/);
 				
 				if (!ifnot && term[0] == term[1])
-					e.setAttribute(action[0], action[1]);
+					e.setAttribute(action[0], action[1])
 				if (ifnot && term[0].length > 0)
-					e.setAttribute(action[0], action[1]);
+					e.setAttribute(action[0], action[1])
 			}
 		}
 		if(e.hasAttribute("content") && e.tagName !== "META") {
