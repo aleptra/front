@@ -19,7 +19,7 @@
 Visual Studio Code is recommended for this project.
 
 ### Watcher
-A file watcher is recommended to be present and installed as an extension. The file watcher must run the command ```make``` for the CSS to be rebuilt.
+A file watcher is recommended to be present and installed as an extension and the file watcher must run the command ```make``` for the CSS to be rebuilt.
 
 #### File Watcher (settings.json)
 ```
