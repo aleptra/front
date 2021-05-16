@@ -463,10 +463,14 @@ var core = function() {
 			var res = slice.split(",");
 			e.innerHTML = e.innerHTML.slice(res[0],res[1]);
 		}
-		if (e.hasAttribute("before"))
-			e.insertAdjacentText("afterbegin", e.getAttribute("before"));
-		if (e.hasAttribute("after"))
-			e.insertAdjacentText("afterend", e.getAttribute("after"));
+		if (e.hasAttribute("beforebegin"))
+			e.insertAdjacentText("afterbegin", e.getAttribute("beforebegin"))
+		if (e.hasAttribute("beforeend"))
+			e.insertAdjacentText("beforeend", e.getAttribute("beforeend"))
+		if (e.hasAttribute("afterend"))
+			e.insertAdjacentText("afterend", e.getAttribute("afterend"))
+		if (e.hasAttribute("afterbegin"))
+			e.insertAdjacentText("afterbegin", e.getAttribute("afterbegin"))
 		if(e.hasAttribute("if")){
 			var val = e.getAttribute("if");
 			var ifnot = (val.substr(0,1) == "!") ? true : false;
