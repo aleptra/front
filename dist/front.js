@@ -474,8 +474,8 @@ var core = function() {
 
 			if (val.substr(0,2) !== "{{"){
 			
-				var term = val.split(";");
-				var action = term[2].split(/:(.*)/);
+				var term = val.split(";")
+				var action = term[2].split(/:(.*)/)
 				
 				if (!ifnot && term[0] == term[1])
 					e.setAttribute(action[0], action[1])
