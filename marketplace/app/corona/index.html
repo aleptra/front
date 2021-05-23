@@ -13,7 +13,7 @@
 <body>
 
     <header>
-        <nav class="topbar bcgold black h4 pr2 gap2- shade1" selective="true">
+        <nav class="topbar bcred black h4 pr2 gap2- shade1" selective="true">
             <a class="pl1" href="./" target="_top" key="0"><img class="h60" src="https://3el.github.io/front/favicon.ico"></a>
             <form class="f2">
                 <input type="text" class="w100 white bs0" placeholder="Search" onkeyup="filter()">
@@ -26,11 +26,12 @@
             <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.corona.endpoint }}all/" dataheader="{{ storage:api.corona.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
                 <figure class="p1 fdc" jsonset="id">
                     <div>
-                        <p class="fwb" jsonget="n"></p>
-                        <small class="gray" jsonget="s" filteron="true"></small>
+                        <p class="fwb" jsonget="Country" filteron="true"></p>
+                        <small class="orange" jsonget="New Cases" jsonbefore="New Cases: "></small>
+                        <small class="red" jsonget="New Deaths" jsonbefore="New Deaths: "></small>
+                        <small class="green" jsonget="New Recovered" jsonbefore="New Recovered: "></small>
                     </div>
-                    <p class="f1 tar green" jsonget="p"></p>
-                    <p class="fwb d0" jsonget="n" filteron="true"></p>
+                    <p class="f1 tar" jsonget="Total Cases"></p>
                 </figure>
             </div>
         </section>

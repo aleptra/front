@@ -51,10 +51,9 @@ function json(el) {
     xhr.open("GET", url, true);
 
     if (headers) {
-        headers = headers.split(" ; ");
-
+        headers = headers.split(";")
         for (var i in headers) {
-            var header = headers[i].split(":");
+            var header = headers[i].trim().split(":")
             xhr.setRequestHeader(header[0], header[1])
         }
     }
