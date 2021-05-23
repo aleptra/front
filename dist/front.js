@@ -707,7 +707,7 @@ var app = function() {
 	}
 	
 	this.isLocalDev = function() {
-		if (baseUrl.match(/localhost|[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}|::1|\.local|^$/gi))
+		if (baseUrl.match(/localhost|127.|[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}|::1|\.local|^$/gi))
 			return true
 		else
 			return false
