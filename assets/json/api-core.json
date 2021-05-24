@@ -1,13 +1,44 @@
 {
     "api":[
         {
-            "id": 1,
+            "attribute": "decode",
+            "description": ""
+        },
+        {
+            "attribute": "delimiter",
+            "description": ""
+        },
+        {
+            "attribute": "encode",
+            "description": ""
+        },
+        {
+            "attribute": "fixedpoint",
+            "description": ""
+        },
+        {
+            "attribute": "format",
+            "description": ""
+        },
+        {
+            "attribute": "afterbegin",
+            "description": ""
+        },
+        {
+            "attribute": "afterend",
+            "description": ""
+        },
+        {
             "attribute": "beforebegin",
             "description": ""
         },
         {
-            "id": 2,
             "attribute": "beforeend",
+            "description": ""
+        },
+        {
+            "id": 1,
+            "attribute": "slice",
             "description": ""
         }
     ]
