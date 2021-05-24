@@ -2,44 +2,54 @@
     "api":[
         {
             "attribute": "decode",
+            "parameters": "value",
             "description": ""
         },
         {
             "attribute": "delimiter",
+            "parameters": "value",
             "description": ""
         },
         {
             "attribute": "encode",
+            "parameters": "value",
             "description": ""
         },
         {
             "attribute": "fixedpoint",
+            "parameters": "value",
             "description": ""
         },
         {
             "attribute": "format",
+            "parameters": "date(), age",
             "description": ""
         },
         {
             "attribute": "afterbegin",
+            "parameters": "value",
             "description": ""
         },
         {
             "attribute": "afterend",
+            "parameters": "value",
             "description": ""
         },
         {
             "attribute": "beforebegin",
+            "parameters": "value",
             "description": ""
         },
         {
             "attribute": "beforeend",
+            "parameters": "value",
             "description": ""
         },
         {
             "id": 1,
             "attribute": "slice",
-            "description": ""
+            "parameters": "start, length",
+            "description": "The slice attribute cuts a portion of the string, starting at the specified index and extending for a given number of characters afterwards."
         }
     ]
 }
