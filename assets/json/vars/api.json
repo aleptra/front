@@ -12,6 +12,10 @@
             "endpoint": "https://lmaxhwqfjsphltrhlewl.supabase.co/rest/v1/notes",
             "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxODA3Mzg3MSwiZXhwIjoxOTMzNjQ5ODcxfQ.NFnRf6sJq1nhbGUD8eTvliQiOLbYNHQ2GFgYcaQ3Mmw"
         },
+        "dictionary": {
+            "endpoint": "https://fepmwokzjfhuyhyggktb.supabase.co/rest/v1/words",
+            "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMTc4OTE1OCwiZXhwIjoxOTM3MzY1MTU4fQ.AhcMTJs8FwpE-CL_TvxGyQuo8E4PUjHhQ_qOshlv6BU"
+        },
         "stream": {
             "endpoint": "https://api.themoviedb.org/3/",
             "api_key": "api_key=342c7c6976e9730798bc4bfbb2786cf7"

@@ -1,0 +1,14 @@
+{
+    "api":[
+        {
+            "id": 1,
+            "attribute": "beforebegin",
+            "description": ""
+        },
+        {
+            "id": 2,
+            "attribute": "beforeend",
+            "description": ""
+        }
+    ]
+}
