@@ -51,10 +51,24 @@
             "description": ""
         },
         {
-            "id": 1,
+            "attribute": "lowercase",
+            "parameters": "value",
+            "description": "The lowercase attribute converts a string to lowercase letters."
+        },
+        {
             "attribute": "slice",
             "parameters": "start, length",
             "description": "The slice attribute cuts a portion of the string, starting at the specified index and extending for a given number of characters afterwards."
+        },
+        {
+            "attribute": "trim",
+            "parameters": "value",
+            "description": "The trim attribute removes whitespace from both sides of a string."
+        },
+        {
+            "attribute": "uppercase",
+            "parameters": "value",
+            "description": "The uppercase attribute converts a string to uppercase letters."
         }
     ]
 }
