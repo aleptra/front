@@ -365,8 +365,6 @@ var core = function() {
 			e.style.resize = "both";
 		if (e.hasAttribute("fixed"))
 			e.style.position = "fixed";
-		if (e.hasAttribute("hide") || e.hasAttribute("skip"))
-			e.style.display = "none";
 		if (e.hasAttribute("alert"))
 			alert(e.getAttribute("alert"));
 		if (e.hasAttribute("onload"))
@@ -499,6 +497,8 @@ var core = function() {
 					e.setAttribute(action[0], action[1])
 			}
 		}
+		if (e.hasAttribute("hide") || e.hasAttribute("skip"))
+			e.style.display = "none"
 		if(e.hasAttribute("content") && e.tagName !== "META") {
 			var val = e.getAttribute("content").split(":");
 			var content = front.namedItem(val[0]).innerHTML;

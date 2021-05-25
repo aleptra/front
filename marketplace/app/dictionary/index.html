@@ -36,7 +36,7 @@
                
                     <figure class="p1 bcwhite">
                         <p class="f2 pl1" jsonget="word.eng" filteron="true" methodfocus="put"></p>
-                        <p class="tar">{{ jsonget:word.syr }} <a class="icon" onclick="responsiveVoice.speak('{{ jsonget:word.syr_lat }}', 'Arabic Female')">&#128264;</a></p>
+                        <p class="tar">{{ jsonget:word.syr }}<a class="icon pl1" if="{{ jsonget:word.syr_lat }};undefined;hide:true" onclick="responsiveVoice.speak('{{ jsonget:word.syr_lat }}', 'Arabic Female')">&#128264;</a></p>
                     </figure>
                
             </div>
