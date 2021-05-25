@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" cache="no">
+<head>
+    <title>Dictionary</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge;ie=10;chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base env="local:/marketplace/app/dictionary/;prod:/front/marketplace/app/dictionary/">
+    <link type="text/css" href="../../../dist/front.css" rel="stylesheet">
+    <link type="text/css" href="../../../dist/design/front/theme/front.css" rel="stylesheet">
+    <script src="../../../dist/front.js" lib="popup;nav;json;filter" store="../../../assets/json/vars/api:api"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=HoGHbU9L"></script>
+</head>
+<body>
+
+    <header>
+        <nav class="topbar bcpink white white- h4 gap2- shade1" selective="true">
+            <a class="pl1" href="./" target="_top" key="0"><img class="h60" src="https://3el.github.io/front/favicon.ico"></a>
+                <input type="text" class="white bs0" placeholder="Search" bind3="test">
+                <p><select><option>English -> Aramaic</option></select></p>
+        </nav>
+    </header>
+
+    <main class="light p1" id="test">
+
+        <section storage="api">
+            <div class="box cards list br0- flc-" iterate="true" json="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&word->>eng=like.{# test #}*" dataheader="{{ storage:api.dictionary.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+               <a href="#" window="dialog">
+                    <figure class="p1 bcwhite">
+                        <p class="f2 pl1" jsonget="word.eng" filteron="true" methodfocus="put"></p>
+                        <p class="tar">{{ jsonget:word.syr }} <i class="icon">&#128264;</i></p>
+                    </figure>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div eventlistener="offline" eventaction="dom.create('div', ['id=offline', 'className=alert pf b1 l1 bcred white snack', 'innerHTML=<i class=icon>⚠</i> Connection lost...'], 'footer')"></div>
+        <div eventlistener="online" eventaction="dom.hide('offline')"></div>
+    </footer>
+</body>
+</html>

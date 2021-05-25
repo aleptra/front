@@ -308,7 +308,7 @@ var core = function() {
 		}
 		if (e.hasAttribute("storage")){
 			var attr = e.getAttribute("storage").split(";");
-	
+
 			var strObject = "";
 			for(i in attr){
 				strObject += app.storage(attr[i]);
@@ -407,6 +407,18 @@ var core = function() {
 			var el = target.outerHTML.replace(/{{\s*(.*?)\s*}}/gi, "1");
 			target.outerHTML = el;
 			app.debug(el);
+		}
+		if (e.hasAttribute("bind3")) {
+			var value = e.getAttribute("bind3");
+			var orgEl = dom.get(value).outerHTML;
+
+			return e.addEventListener("change", function(e) {
+				var el = dom.get(value)
+				el.outerHTML = orgEl.replace(/{# test #}/gi, e.target.value)
+				var newEl = dom.get(value)
+				core.runCoreAttributesInElement(newEl)
+				core.runLibAttributesInElement(newEl)
+			});
 		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
