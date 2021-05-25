@@ -54,9 +54,15 @@
             "attribute": "format",
             "parameters": "date(), age",
             "description": ""
-        },        {
+        },
+        {
             "attribute": "hide",
             "parameters": "value",
+            "description": ""
+        },
+        {
+            "attribute": "iterate",
+            "parameters": "",
             "description": ""
         },
         {
