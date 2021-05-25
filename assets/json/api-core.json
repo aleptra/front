@@ -1,6 +1,11 @@
 {
     "api":[
         {
+            "attribute": "alert",
+            "parameters": "value",
+            "description": "The alert attribute displays an alert box with a specified message."
+        },
+        {
             "attribute": "decode",
             "parameters": "value",
             "description": ""
