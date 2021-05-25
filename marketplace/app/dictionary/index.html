@@ -25,12 +25,12 @@
 
         <section storage="api">
             <div class="box cards list br0- flc-" iterate="true" json="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&word->>eng=like.{# test #}*" dataheader="{{ storage:api.dictionary.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
-               <a href="#" window="dialog">
+               
                     <figure class="p1 bcwhite">
                         <p class="f2 pl1" jsonget="word.eng" filteron="true" methodfocus="put"></p>
-                        <p class="tar">{{ jsonget:word.syr }} <i class="icon">&#128264;</i></p>
+                        <p class="tar">{{ jsonget:word.syr }} <a class="icon" onclick="responsiveVoice.speak('{{ jsonget:word.syr_lat }}', 'Arabic Female')">&#128264;</a></p>
                     </figure>
-                </a>
+               
             </div>
         </section>
 
