@@ -1,9 +1,29 @@
 {
     "api":[
         {
+            "attribute": "afterbegin",
+            "parameters": "value",
+            "description": ""
+        },
+        {
+            "attribute": "afterend",
+            "parameters": "value",
+            "description": ""
+        },
+        {
             "attribute": "alert",
             "parameters": "value",
             "description": "The alert attribute displays an alert box with a specified message."
+        },
+        {
+            "attribute": "beforebegin",
+            "parameters": "value",
+            "description": ""
+        },
+        {
+            "attribute": "beforeend",
+            "parameters": "value",
+            "description": ""
         },
         {
             "attribute": "decode",
@@ -21,6 +41,11 @@
             "description": ""
         },
         {
+            "attribute": "fixed",
+            "parameters": "value",
+            "description": ""
+        },
+        {
             "attribute": "fixedpoint",
             "parameters": "value",
             "description": ""
@@ -29,24 +54,8 @@
             "attribute": "format",
             "parameters": "date(), age",
             "description": ""
-        },
-        {
-            "attribute": "afterbegin",
-            "parameters": "value",
-            "description": ""
-        },
-        {
-            "attribute": "afterend",
-            "parameters": "value",
-            "description": ""
-        },
-        {
-            "attribute": "beforebegin",
-            "parameters": "value",
-            "description": ""
-        },
-        {
-            "attribute": "beforeend",
+        },        {
+            "attribute": "hide",
             "parameters": "value",
             "description": ""
         },
