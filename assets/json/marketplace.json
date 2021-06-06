@@ -57,6 +57,28 @@
         },
         {
             "id": 6,
+            "title": "Corona",
+            "version": "0.1",
+            "screenshot": "",
+            "icon": "",
+            "url": "./marketplace/app/corona",
+            "type": 1,
+            "author": "Front",
+            "cost": "0"
+        },
+        {
+            "id": 7,
+            "title": "Dictionary",
+            "version": "0.1",
+            "screenshot": "",
+            "icon": "",
+            "url": "./marketplace/app/dictionary",
+            "type": 1,
+            "author": "Front",
+            "cost": "0"
+        },
+        {
+            "id": 8,
             "title": "Formatify",
             "description": "Beautify or uglify code.",
             "version": "1.0.4",
@@ -69,7 +91,7 @@
             "cost": "0"
         },
         {
-            "id": 7,
+            "id": 9,
             "title": "Gluer",
             "description": "Join JSON objects.",
             "version": "0.0.0",
@@ -82,7 +104,7 @@
             "cost": "0"
         },
         {
-            "id": 8,
+            "id": 10,
             "title": "Infinitor",
             "description": "Infinite Scrolling that automatically adds the next page.",
             "version": "0.0.0",
