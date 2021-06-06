@@ -25,12 +25,15 @@ var folderLib = "lib";
 var folderPlug = "plug";
 
 document.onkeyup=function(e) {
-	if( e.target.nodeName == "INPUT" || e.target.nodeName == "TEXTAREA" || e.target.isContentEditable) return false;
-	var key = String.fromCharCode(e.keyCode);
+	if(e.target.nodeName == "INPUT" || e.target.nodeName == "TEXTAREA" || e.target.isContentEditable){
+		return false
+	}else{
+		var key = String.fromCharCode(e.keyCode)
 	for (i = 0; i < front.length; i++) {
 		if (front[i].hasAttribute("key"))
 			if (front[i].getAttribute("key") == key)
-				alert(key);
+					alert(key)
+		}
 	}
 }
 
