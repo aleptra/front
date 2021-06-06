@@ -24,62 +24,6 @@ var startpage = 'home.html';
 var folderLib = "lib";
 var folderPlug = "plug";
 
-document.onkeyup=function(e) {
-	if(e.target.nodeName == "INPUT" || e.target.nodeName == "TEXTAREA" || e.target.isContentEditable){
-		return false
-	}else{
-		var key = String.fromCharCode(e.keyCode)
-	for (i = 0; i < front.length; i++) {
-		if (front[i].hasAttribute("key"))
-			if (front[i].getAttribute("key") == key)
-					alert(key)
-		}
-	}
-}
-
-document.onclick=function(e) {
-	var clicked = (e.target) ? e.target : e.srcElement;
-
-	if (clicked.parentNode.getAttribute("selective")) {
-		
-		for(j=0; j < clicked.parentNode.childElementCount; j++) {
-			clicked.parentNode.children[j].classList.remove("sel");
-		}
-
-		clicked.classList.add("sel");
-	}
-
-	var el = getParentTag(clicked, "a");
-	if (el !== null) {
-		var elHref = el.getAttribute("href");
-		var elTarget = el.getAttribute("target");
-		if(el.hasAttribute("window")) {
-			dom.create("div", ["href=/"], "head")
-			alert('hej');
-			return false;
-		}else if(elHref && elHref.substring(0,1) === "#") {
-			location.hash = elHref;
-			return false;
-		}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
-			app.debug('Click with Ajax: '+ elHref);
-			if(window.location.hash) location.hash = "";
-			return nav(globalUrl + elHref, false, true);
-		}else{
-			app.debug('Click');
-		}
-	}
-};
-
-document.addEventListener('click', function(e) {
-	var clicked = (e.target) ? e.target : e.srcElement;
-	var val = clicked.parentNode.getAttribute("onclick");
-	if (val) {
-		core.runFunction("dom."+val, clicked.parentNode);
-		e.stopPropagation();
-	}
-	return false;
-},true);
-
 document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
 	html = document.documentElement;
@@ -124,6 +68,59 @@ document.addEventListener('DOMContentLoaded', function() {
 		load = true;
 		loadTemplate = false;
 	}
+
+	document.onkeyup=function(e) {
+		if(e.target.nodeName == "INPUT" || e.target.nodeName == "TEXTAREA" || e.target.isContentEditable) return false
+		var key = String.fromCharCode(e.keyCode)
+			for (i = 0; i < front.length; i++) {
+				if (front[i].hasAttribute("key"))
+					if (front[i].getAttribute("key") == key)
+						alert(key)
+		}
+	}
+
+	document.onclick=function(e) {
+		var clicked = (e.target) ? e.target : e.srcElement;
+	
+		if (clicked.parentNode.getAttribute("selective")) {
+			
+			for(j=0; j < clicked.parentNode.childElementCount; j++) {
+				clicked.parentNode.children[j].classList.remove("sel");
+			}
+	
+			clicked.classList.add("sel");
+		}
+	
+		var el = getParentTag(clicked, "a");
+		if (el !== null) {
+			var elHref = el.getAttribute("href");
+			var elTarget = el.getAttribute("target");
+			if(el.hasAttribute("window")) {
+				dom.create("div", ["href=/"], "head")
+				alert('hej');
+				return false;
+			}else if(elHref && elHref.substring(0,1) === "#") {
+				location.hash = elHref;
+				return false;
+			}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
+				app.debug('Click with Ajax: '+ elHref);
+				if(window.location.hash) location.hash = "";
+				return nav(globalUrl + elHref, false, true);
+			}else{
+				app.debug('Click');
+			}
+		}
+	};
+	
+	document.addEventListener('click', function(e) {
+		var clicked = (e.target) ? e.target : e.srcElement;
+		var val = clicked.parentNode.getAttribute("onclick");
+		if (val) {
+			core.runFunction("dom."+val, clicked.parentNode);
+			e.stopPropagation();
+		}
+		return false;
+	},true);
 });
 
 window.addEventListener('load', function() {
