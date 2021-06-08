@@ -408,15 +408,25 @@ var core = function() {
 		}
 		if (e.hasAttribute("bind3")) {
 			var value = e.getAttribute("bind3");
-			var orgEl = dom.get(value).outerHTML;
+			var org = dom.get(value);
+			var orgEl = org.outerHTML;
+
+			if (org.getAttribute("include")) {
+				var changed
+				org.addEventListener('DOMNodeInserted', function(e){
+					if(!changed)
+						orgEl = dom.get(value).outerHTML
+						changed = true
+				})
+			}
 
 			return e.addEventListener("change", function(e) {
 				var el = dom.get(value)
-				el.outerHTML = orgEl.replace(/{# test #}/gi, e.target.value)
+				el.outerHTML = orgEl.replace(/{# test #}/gi, e.target.value);
 				var newEl = dom.get(value)
 				core.runCoreAttributesInElement(newEl)
 				core.runLibAttributesInElement(newEl)
-			});
+			})
 		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
