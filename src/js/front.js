@@ -1114,7 +1114,7 @@ var xhr = function() {
 	}
 
 	this.get = function(url, callback, async) {
-		var async = async ? async : true;
+		var async = (async === false) ? false : true;
 		request.open("GET", url, async);
 
 		if (credentials) {
