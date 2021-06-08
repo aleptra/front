@@ -297,15 +297,8 @@ var core = function() {
 	this.runCoreAttributes = function(e){
 		if(e.tagName == "BASE" && e.hasAttribute("env"))
 			app.setupEnvironment(e.getAttribute("env"))
-		if (e.hasAttribute("include")){
-			var attr = e.getAttribute("include");
-			client.get(globalUrl + attr, function(response) {
-			if (response)
-				e.innerHTML = response;
-				core.runCoreAttributesInElement(e);
-				core.runLibAttributesInElement(e);
-			});
-		}
+		if (e.hasAttribute("include"))
+			core.includeFile(e)
 		if (e.hasAttribute("storage")){
 			var attr = e.getAttribute("storage").split(";");
 
@@ -566,6 +559,16 @@ var core = function() {
 		var start = (start) ? start : 0;
 		var stop = (stop) ? stop : attribute[0];
 		dom.clone(element, "inside", (stop-start), attribute[1]);
+	}
+
+	this.includeFile = function(e){
+		var attr = e.getAttribute("include");
+		client.get(globalUrl + attr, function(response) {
+		if (response)
+			e.innerHTML = response;
+			core.runCoreAttributesInElement(e);
+			core.runLibAttributesInElement(e);
+		});
 	}
 
 	this.setParam2 = function(uri, key, value) {
