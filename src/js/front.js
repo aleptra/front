@@ -562,12 +562,12 @@ var core = function() {
 	}
 
 	this.includeFile = function(e){
-		var attr = e.getAttribute("include");
+		var attr = e.getAttribute("include")
 		client.get(globalUrl + attr, function(response) {
 		if (response)
-			e.innerHTML = response;
-			core.runCoreAttributesInElement(e);
-			core.runLibAttributesInElement(e);
+			e.innerHTML = response
+			core.runCoreAttributesInElement(e)
+			core.runLibAttributesInElement(e)
 		});
 	}
 
