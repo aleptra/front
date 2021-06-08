@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" cache="no">
+<html lang="en" cache="no" debug="true">
 <head>
     <title>Dictionary</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge;ie=10;chrome=1">
@@ -29,20 +29,7 @@
         </nav>
     </header>
 
-    <main class="light p1" id="test">
-
-        <section storage="api">
-            <div class="box cards list br0- flc-" iterate="true" json="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&word->>eng=like.{# test #}*" dataheader="{{ storage:api.dictionary.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
-               
-                    <figure class="p1 bcwhite">
-                        <p class="f2 pl1" jsonget="word.eng" filteron="true" methodfocus="put"></p>
-                        <p class="tar">{{ jsonget:word.syr }}<a class="icon pl1" if="{{ jsonget:word.syr_lat }};undefined;hide:true" onclick="responsiveVoice.speak('{{ jsonget:word.syr_lat }}', 'Arabic Female', {rate: .8})">&#128264;</a></p>
-                    </figure>
-               
-            </div>
-        </section>
-
-    </main>
+    <main class="light p1" id="test" include="home.html"></main>
 
     <footer>
         <div eventlistener="offline" eventaction="dom.create('div', ['id=offline', 'className=alert pf b1 l1 bcred white snack', 'innerHTML=<i class=icon>⚠</i> Connection lost...'], 'footer')"></div>
