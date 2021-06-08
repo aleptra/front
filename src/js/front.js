@@ -422,7 +422,8 @@ var core = function() {
 
 			return e.addEventListener("change", function(e) {
 				var el = dom.get(value)
-				el.outerHTML = orgEl.replace(/{# test #}/gi, e.target.value);
+				var re = new RegExp('{# '+value+' #}' ,'gi')
+				el.outerHTML = orgEl.replace(re, e.target.value)
 				var newEl = dom.get(value)
 				core.runCoreAttributesInElement(newEl)
 				core.runLibAttributesInElement(newEl)
