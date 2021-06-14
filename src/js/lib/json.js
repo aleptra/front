@@ -5,20 +5,20 @@ libAttribute.push(
 );
 
 window.addEventListener("submit", function(e) {
-    e.preventDefault();
+    e.preventDefault()
 
-    var e = e.target || e.srcElement;
-    payload = jsonSerialize(e);
-    console.dir(payload);
+    var e = e.target || e.srcElement
+    payload = jsonSerialize(e)
+    console.dir(payload)
 
-    jsonPost(payload, e);
+    jsonPost(payload, e)
 
-    e.reset();
-    return false;
+    e.reset()
+    return false
 });
 
-var jsonInitEl = [];
-var jsonIndex = 0;
+var jsonInitEl = []
+var jsonIndex = 0
 
 function json(el) {
 
@@ -28,15 +28,15 @@ function json(el) {
         attrBind = e.getAttribute("bind").split(".");
         bindEl = dom.get(attrBind[0]);
         clnEl = jsonInitEl[bindEl.getAttribute("jsonindex")];
-        dom.scrollInto(attrBind[0], false);
+        dom.scrollInto(attrBind[0], false)
     }else{
-        var attr = document.createAttribute("jsonindex");
-        attr.value = jsonIndex;
-        el.setAttributeNode(attr);
+        var attr = document.createAttribute("jsonindex")
+        attr.value = jsonIndex
+        el.setAttributeNode(attr)
 
-        clnEl = el.cloneNode(true);
-        jsonInitEl.push(clnEl);
-        jsonIndex++;
+        clnEl = el.cloneNode(true)
+        jsonInitEl.push(clnEl)
+        jsonIndex++
     }
 
     var iterate = el.getAttribute('iterate');
@@ -46,9 +46,9 @@ function json(el) {
     var onerror = el.getAttribute('onerror');
     var ondone = el.getAttribute('ondone');
 
-    var xhr = new XMLHttpRequest();
-    xhr.el = clnEl;
-    xhr.open("GET", url, true);
+    var xhr = new XMLHttpRequest()
+    xhr.el = clnEl
+    xhr.open("GET", url, true)
 
     if (headers) {
         headers = headers.split(";")
@@ -58,84 +58,100 @@ function json(el) {
         }
     }
 
-    xhr.onloadstart = function () { el.innerHTML = '<div class="loader"></div>'; }
+    xhr.onloadstart = function () { el.innerHTML = '<div class="loader"></div>' }
     xhr.onloadend = function () {headers = ""}
     xhr.onprogress = function () { eval(onprogress) }
     xhr.onerror = function () { eval(onerror) }
     xhr.onload = function () {
-        var data = xhr.responseText;
-        var json = JSON.parse(data);
+        var data = xhr.responseText
+        var json = JSON.parse(data)
 
         if (iterate === "true") {
-            json = json;
+            json = json
         }else{
-            json = eval("json."+iterate);
+            json = eval("json."+iterate)
         }
         
-        el.innerHTML = xhr.el.innerHTML;
-        var length = (iterate) ? json.length : iterate;
-        core.runIteration(el, 0, length);
+        el.innerHTML = xhr.el.innerHTML
+        var length = (iterate) ? json.length : iterate
+        core.runIteration(el, 0, length)
 
-        els = el.getElementsByTagName("*");
-        elBreak = xhr.el.getElementsByTagName("*").length;
+        els = el.getElementsByTagName("*")
+        elBreak = xhr.el.getElementsByTagName("*").length
 
         var j = -1;
         
         for (i = 0; i < els.length; i++) {
             
             if (i % elBreak == 0) {
-                j++;
+                j++
             }
 
-            var jsonget = els[i].getAttribute("jsonget");
-            var jsonset = els[i].getAttribute("jsonset");
-            var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : '';
-            var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : '';
+            var jsonmod = els[i].getAttribute("jsonmod")
+            var jsonget = els[i].getAttribute("jsonget")
+            var jsonset = els[i].getAttribute("jsonset")
+            var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : ''
+            var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : ''
             
             els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out) {
-                return jsonParse(json[j], $out);
+                return jsonParse(json[j], $out)
             });
 
             if (jsonset) {
-                var res = jsonset.split(":");
-                var value = jsonbefore + json[j][res[0]] + jsonafter;
-                els[i].setAttribute(res[1], value);
+                var res = jsonset.split(":")
+                var value = jsonbefore + json[j][res[0]] + jsonafter
+                els[i].setAttribute(res[1], value)
             }
             if (jsonget) {
-                var value = "";
-                var type = els[i].localName;
+                var value = ""
+                var type = els[i].localName
 
-                value = jsonbefore + jsonParse(json[j], jsonget) + jsonafter;
-                
+                value = jsonbefore + jsonParse(json[j], jsonget) + jsonafter
+
                 if (type == "img")
-                    els[i].src = value;
+                    els[i].src = value
                 else if(type == "a")
-                    els[i].href = value;
+                    els[i].href = value
                 else
-                    els[i].innerHTML = value.replace(/<[^>]+>/g, '');
+                    els[i].innerHTML = value.replace(/<[^>]+>/g, '')
             }
         }
 
-        eval(ondone);
-        core.runCoreAttributesInElement(el);
+        eval(ondone)
+        core.runCoreAttributesInElement(el)
     }
-    xhr.send(null);
+    xhr.send(null)
 }
 
 function jsonParse(input, json){
+    var isMod = (json.indexOf(">") > 0) ? true : false;
     var isAssociative = (json.indexOf(".") > 0) ? true : false;
     var value = "";
+    var orgJson = json;
+
+    if (isMod) json = json[0]
+
     if (isAssociative) {
         var split = json.split(".");
         for(i in split) {
             value += "['" + split[i] + "']"
         }
-        return eval("input"+value);
+        return jsonMod(eval("input"+value), isMod, orgJson)
     }
 
-    return input[json];
+    return jsonMod(input[json], isMod, orgJson)
 }
 
+function jsonMod(input, isMod, orgJson){
+    if (isMod) {
+        var mod = orgJson.trim().split(" > ")
+        mod.shift()
+        
+        for(i in mod) 
+            input = eval("core."+mod[i]+"('"+input+"')");
+    }
+    return input
+}
 
 function jsonSerialize(inputs){
     formData = new FormData(inputs);
