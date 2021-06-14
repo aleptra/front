@@ -600,6 +600,9 @@ var core = function() {
 		return params;
 	};
 	
+	this.toLower = function(str){return str.toLowerCase()}
+	this.toUpper = function(str){return str.toUpperCase()}
+	
 	this.sortArray = function(array, propertyName){
 		return array.sort(function(a, b){
 			return a[propertyName].charCodeAt(0) - b[propertyName].charCodeAt(0);
