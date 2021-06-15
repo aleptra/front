@@ -1,4 +1,4 @@
-<h1>Categories</h1>
+<h1>All words</h1>
 <section storage="api">
     <div class="box cards br0- flc-" iterate="true" json="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&word->>eng=like.*" dataheader="{{ storage:api.dictionary.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
         <figure class="p1 bcwhite">
