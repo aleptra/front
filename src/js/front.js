@@ -413,13 +413,14 @@ var core = function() {
 				})
 			}
 
-			return e.addEventListener("change", function(e) {
-				var el = dom.get(value)
-				var re = new RegExp('{# '+value+' #}' ,'gi')
-				el.outerHTML = orgEl.replace(re, e.target.value)
-				var newEl = dom.get(value)
-				core.runCoreAttributesInElement(newEl)
-				core.runLibAttributesInElement(newEl)
+			return e.addEventListener("change", function(input) {
+				if(e.hasAttribute("bindinclude")) {
+					core.includeBindFile(e, input.target.value)
+				}else{
+					var newEl = core.bindInput(value, orgEl, input);
+					core.runCoreAttributesInElement(newEl)
+					core.runLibAttributesInElement(newEl)
+				}
 			})
 		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
@@ -562,13 +563,41 @@ var core = function() {
 	}
 
 	this.includeFile = function(e){
-		var attr = e.getAttribute("include")
-		client.get(globalUrl + attr, function(response) {
+		var file = e.getAttribute("include")
+		app.debug("Include file: "+file, "green")
+		client.get(globalUrl + file, function(response) {
 		if (response)
 			e.innerHTML = response
 			core.runCoreAttributesInElement(e)
 			core.runLibAttributesInElement(e)
 		});
+
+		e.removeAttribute("include")
+	}
+
+	this.includeBindFile = function(e, input){
+		var file = e.getAttribute("bindinclude")
+		var target = e.getAttribute("bind3");
+
+		app.debug("Include (bind) file: "+file, "green")
+		client.get(globalUrl + file, function(response) {
+			if (response) {
+				el = dom.get(target)
+				el.innerHTML = response
+				el.removeAttribute("include")
+				var newEl = core.bindInput(target, el.outerHTML, input)
+				core.runCoreAttributesInElement(newEl)
+				core.runLibAttributesInElement(newEl)
+			}
+		});
+	}
+
+	this.bindInput = function(value, orgEl, input){
+		var el = dom.get(value);
+		var re = new RegExp('{# ' + value + ' #}', 'gi');
+		el.outerHTML = orgEl.replace(re, input);
+		var newEl = dom.get(value);
+		return newEl;
 	}
 
 	this.setParam2 = function(uri, key, value) {
@@ -599,11 +628,11 @@ var core = function() {
         
 		return params;
 	};
-	
+
 	this.toLower = function(str){return str.toLowerCase()}
 	this.toUpper = function(str){return str.toUpperCase()}
 	this.replace = function(str, val1, val2){return str.replace(new RegExp(val1, "gi"), val2)}
-	
+
 	this.sortArray = function(array, propertyName){
 		return array.sort(function(a, b){
 			return a[propertyName].charCodeAt(0) - b[propertyName].charCodeAt(0);

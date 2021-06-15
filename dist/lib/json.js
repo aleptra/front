@@ -191,7 +191,7 @@ function jsonPost(payload, e){
         }
     }
 
-    xhr.send(payload);
+    if (payload.length > 2) xhr.send(payload);
 }
 
 function dataPush(el){
