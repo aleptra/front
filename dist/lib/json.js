@@ -146,9 +146,19 @@ function jsonMod(input, isMod, orgJson){
     if (isMod) {
         var mod = orgJson.trim().split(" > ")
         mod.shift()
-        
-        for(i in mod) 
-            input = eval("core."+mod[i]+"('"+input+"')");
+        var re = /'(.?)'/gi
+
+        for(i in mod) {
+            var arg = (mod[i].indexOf(")") > 0) ? true : false;
+            
+            if(arg){
+                var func = "core."+mod[i]
+                func = func.replace("(", "('"+input+"',")
+                input = eval(func)
+            }else{
+                input = eval("core."+mod[i]+"('"+input+"')")
+            }
+        }
     }
     return input
 }

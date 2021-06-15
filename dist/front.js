@@ -602,6 +602,7 @@ var core = function() {
 	
 	this.toLower = function(str){return str.toLowerCase()}
 	this.toUpper = function(str){return str.toUpperCase()}
+	this.replace = function(str, val1, val2){return str.replace(new RegExp(val1, "gi"), val2)}
 	
 	this.sortArray = function(array, propertyName){
 		return array.sort(function(a, b){
