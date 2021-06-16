@@ -75,7 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			for (i = 0; i < front.length; i++) {
 				if (front[i].hasAttribute("key"))
 					if (front[i].getAttribute("key") == key)
-						alert(key)
+						var action = front[i].getAttribute("keyaction")
+						eval("front[i]."+action)
 		}
 	}
 
