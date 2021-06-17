@@ -4,7 +4,7 @@ libAttribute.push(
 {'attr': 'datapush', 'func': 'dataPush'},
 );
 
-window.addEventListener("submit", function(e) {
+window.addEventListener("submit", function(e){
     e.preventDefault()
 
     var e = e.target || e.srcElement
@@ -15,20 +15,20 @@ window.addEventListener("submit", function(e) {
 
     e.reset()
     return false
-});
+})
 
 var jsonInitEl = []
 var jsonIndex = 0
 
-function json(el) {
-    var target = el.getAttribute("json");
-    var el = (target === "true") ? el : dom.get(target)
-    var e = event && (event.target || event.srcElement);
+function json(aEl) {
+    var target = aEl.getAttribute("json")
+    var el = (target === "true") ? aEl : dom.get(target)
+    var e = event && (event.target || event.srcElement)
     
     if (e && e.attributes && e.attributes['bind']){
-        attrBind = e.getAttribute("bind").split(".");
+        attrBind = e.getAttribute("bind").split(".")
         bindEl = dom.get(attrBind[0]);
-        clnEl = jsonInitEl[bindEl.getAttribute("jsonindex")];
+        clnEl = jsonInitEl[bindEl.getAttribute("jsonindex")]
         dom.scrollInto(attrBind[0], false)
     }else{
         var attr = document.createAttribute("jsonindex")
@@ -40,15 +40,16 @@ function json(el) {
         jsonIndex++
     }
 
-    var iterate = el.getAttribute('iterate');
-    var url = el.getAttribute('datasource');
-    var headers = el.getAttribute('dataheader');
-    var onprogress = el.getAttribute('onprogress');
-    var onerror = el.getAttribute('onerror');
-    var ondone = el.getAttribute('ondone');
+    var iterate = el.getAttribute('iterate')
+    var url = el.getAttribute('datasource')
+    var headers = el.getAttribute('dataheader')
+    var onprogress = el.getAttribute('onprogress')
+    var onerror = el.getAttribute('onerror')
+    var ondone = el.getAttribute('ondone')
 
     var xhr = new XMLHttpRequest()
     xhr.el = clnEl
+    xhr.aEl = aEl
     xhr.open("GET", url, true)
 
     if (headers) {
@@ -58,12 +59,22 @@ function json(el) {
             xhr.setRequestHeader(header[0], header[1])
         }
     }
+    
+    xhr.onloadstart = function(){ el.innerHTML = '<div class="loader"></div>' }
+    xhr.onloadend = function(){headers = ""}
+    xhr.onprogress = function(){eval(onprogress)}
+    xhr.onerror = function(){ eval(onerror) }
+    xhr.onload = function(){
+        var responseHeaders = xhr.getAllResponseHeaders()
+        var arr = responseHeaders.trim().split(/[\r\n]+/)
+        var responseHeader = {}
+        arr.forEach(function(line){
+            var parts = line.split(': ')
+            var header = parts.shift()
+            var value = parts.join(': ')
+            responseHeader[header] = value
+        })
 
-    xhr.onloadstart = function () { el.innerHTML = '<div class="loader"></div>' }
-    xhr.onloadend = function () {headers = ""}
-    xhr.onprogress = function () { eval(onprogress) }
-    xhr.onerror = function () { eval(onerror) }
-    xhr.onload = function () {
         var data = xhr.responseText
         var json = JSON.parse(data)
         json = (iterate === "true") ? json : eval("json."+iterate)
@@ -115,6 +126,10 @@ function json(el) {
 
         eval(ondone)
         core.runCoreAttributesInElement(el)
+    
+        aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function(e,out) {
+            return jsonMod(responseHeader[out])
+        });
     }
     xhr.send(null)
 }
