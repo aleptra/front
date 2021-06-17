@@ -2001,7 +2001,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .lg_fs70 a, body .lg_fs70{ font-size: 70% }
     body .lg_fs60 a, body .lg_fs60{ font-size: 60% }
     body .lg_fs50 a, body .lg_fs50{ font-size: 50% }
-    body .lg_fs0 a, body .lg_fs0{ font-size: 0 }
+    body .lg_fs0 a, body .lg_fs0- > a, body .lg_fs0{ font-size: 0 }
     body .lg_o1n{ order: -1}
     body .lg_o2n{ order: -2}
     body .lg_o0{ order: 0}
@@ -2048,7 +2048,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .md_fs70 a, body .md_fs70{ font-size: 70% }
     body .md_fs60 a, body .md_fs60{ font-size: 60% }
     body .md_fs50 a, body .md_fs50{ font-size: 50% }
-    body .md_fs0 a, body .md_fs0{ font-size: 0 }
+    body .md_fs0 a, body .md_fs0- > a, body .md_fs0{ font-size: 0 }
     body .md_p0{padding: 0}
     body .md_p05r{padding: .5rem}
     body .md_p1r{padding: 1rem}
