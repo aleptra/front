@@ -75,7 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			for (i = 0; i < front.length; i++) {
 				if (front[i].hasAttribute("key"))
 					if (front[i].getAttribute("key") == key)
-						alert(key)
+						var action = front[i].getAttribute("keyaction")
+						eval("front[i]."+action)
 		}
 	}
 
@@ -401,6 +402,7 @@ var core = function() {
 		}
 		if (e.hasAttribute("bind3")) {
 			var value = e.getAttribute("bind3");
+			var type = e.localName;
 			var org = dom.get(value);
 			var orgEl = org.outerHTML;
 
@@ -413,15 +415,18 @@ var core = function() {
 				})
 			}
 
-			return e.addEventListener("change", function(input) {
-				if(e.hasAttribute("bindinclude")) {
-					core.includeBindFile(e, input.target.value)
-				}else{
-					var newEl = core.bindInput(value, orgEl, input);
-					core.runCoreAttributesInElement(newEl)
-					core.runLibAttributesInElement(newEl)
-				}
-			})
+			if (type == "input")
+				e.addEventListener("change", function(input) {
+					if(e.hasAttribute("bindinclude")) {
+						core.includeBindFile(e, input.target.value)
+					}else{
+						core.bindInput(value, orgEl, input)
+					}
+				})
+			else if (type == "select")
+				console.log("select")
+			else
+				console.log(value)
 		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
