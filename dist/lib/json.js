@@ -66,12 +66,7 @@ function json(el) {
     xhr.onload = function () {
         var data = xhr.responseText
         var json = JSON.parse(data)
-
-        if (iterate === "true") {
-            json = json
-        }else{
-            json = eval("json."+iterate)
-        }
+        json = (iterate === "true") ? json : eval("json."+iterate)
         
         el.innerHTML = xhr.el.innerHTML
         var length = (iterate) ? json.length : iterate
