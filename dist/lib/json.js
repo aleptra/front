@@ -21,7 +21,8 @@ var jsonInitEl = []
 var jsonIndex = 0
 
 function json(el) {
-
+    var target = el.getAttribute("json");
+    var el = (target === "true") ? el : dom.get(target)
     var e = event && (event.target || event.srcElement);
     
     if (e && e.attributes && e.attributes['bind']){
