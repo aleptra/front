@@ -681,6 +681,7 @@ ul.list li{
 }
 
 .modal.menu{
+  display: initial;
 	padding: 0;
 	margin: 0;
 	height: 100%;
