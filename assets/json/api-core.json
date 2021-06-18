@@ -3,12 +3,12 @@
         {
             "attribute": "afterbegin",
             "parameters": "value",
-            "description": ""
+            "description": "The afterbegin attribute inserts text, before its first child."
         },
         {
             "attribute": "afterend",
             "parameters": "value",
-            "description": ""
+            "description": "The afterend attribute inserts text after the element itself."
         },
         {
             "attribute": "alert",
@@ -18,12 +18,12 @@
         {
             "attribute": "beforebegin",
             "parameters": "value",
-            "description": ""
+            "description": "The beforebegin attribute inserts text before the element itself."
         },
         {
             "attribute": "beforeend",
             "parameters": "value",
-            "description": ""
+            "description": "The beforeend attribute inserts text, before its last child."
         },
         {
             "attribute": "decode",
