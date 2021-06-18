@@ -140,7 +140,7 @@ function jsonParse(input, json){
     var value = "";
     var orgJson = json;
 
-    if (isMod) json = json[0]
+    if (isMod) json = json.split(" ")[0]
 
     if (isAssociative) {
         var split = json.split(".");
