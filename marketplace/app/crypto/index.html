@@ -27,7 +27,7 @@
         <section id="crypto" storage="api;cdn">
             <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.crypto.endpoint }}market&limit=50&sort=mc&desc=true" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
                 <figure class="p1 fdc" jsonset="id">
-                    <img class="f0 pr1 w3r" if="!{{ jsonget:n }};;src:{{ storage:cdn.crypto.url }}{{ jsonget:n > replace(' ','-') > replace('\\)','') > replace('\\(','') > toLower }}.png" jsonmod="true" class="w100">
+                    <img class="f0 pr1 w3r" if="!{{ jsonget:n }};;src:{{ storage:cdn.crypto.url }}{{ jsonget:n = replace(' ','-') = replace('\\)','') = replace('\\(','') = toLower }}.png" jsonmod="true" class="w100">
                     <div>
                         <p class="fwb" jsonget="n"></p>
                         <small class="gray" jsonget="s" filteron="true"></small>

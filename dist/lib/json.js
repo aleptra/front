@@ -126,21 +126,23 @@ function json(aEl) {
 
         eval(ondone)
         core.runCoreAttributesInElement(el)
-    
-        aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function(e,out) {
-            return jsonMod(responseHeader[out])
-        });
+
+        aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function(e, out){
+            var first = out.split("=")[0].trim()
+            var isMod = (out.indexOf("=") > 0) ? true : false
+            return jsonMod(responseHeader[first], isMod, out)
+        })
     }
     xhr.send(null)
 }
 
 function jsonParse(input, json){
-    var isMod = (json.indexOf(">") > 0) ? true : false;
-    var isAssociative = (json.indexOf(".") > 0) ? true : false;
-    var value = "";
-    var orgJson = json;
+    var isMod = (json.indexOf("=") > 0) ? true : false
+    var isAssociative = (json.indexOf(".") > 0) ? true : false
+    var value = ""
+    var orgJson = json
 
-    if (isMod) json = json[0]
+    if (isMod) json = json.split(" ")[0]
 
     if (isAssociative) {
         var split = json.split(".");
@@ -155,13 +157,12 @@ function jsonParse(input, json){
 
 function jsonMod(input, isMod, orgJson){
     if (isMod) {
-        var mod = orgJson.trim().split(" > ")
+        var mod = orgJson.trim().split(" = ")
         mod.shift()
         var re = /'(.?)'/gi
 
         for(i in mod) {
             var arg = (mod[i].indexOf(")") > 0) ? true : false;
-            
             if(arg){
                 var func = "core."+mod[i]
                 func = func.replace("(", "('"+input+"',")
