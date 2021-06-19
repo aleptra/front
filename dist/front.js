@@ -431,11 +431,11 @@ var core = function() {
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
 		if (e.hasAttribute("trim"))
-			e.innerHTML = e.innerHTML.trim();
+			e.innerHTML = core.trim(e.innerHTML)
 		if (e.hasAttribute("lowercase"))
-			e.innerHTML = e.innerHTML.toLowerCase();
+			e.innerHTML = core.toLower(e.innerHTML)
 		if (e.hasAttribute("uppercase"))
-			e.innerHTML = e.innerHTML.toUpperCase();
+			e.innerHTML = core.toUpper(e.innerHTML)
 		if (e.hasAttribute("escape")) {
 			var escape = e.innerHTML;
 			var code = escape.charCodeAt(0);
@@ -641,6 +641,7 @@ var core = function() {
 	this.toUpper = function(str){return str.toUpperCase()}
 	this.split = function(str, sep, i){return str.split(sep)[i]}
 	this.replace = function(str, val1, val2){return str.replace(new RegExp(val1, "gi"), val2)}
+	this.trim = function(str){return str.trim()}
 
 	this.sortArray = function(array, propertyName){
 		return array.sort(function(a, b){
