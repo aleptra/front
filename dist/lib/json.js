@@ -130,7 +130,7 @@ function json(aEl) {
         aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function(e, out){
             var first = out.split("=")[0].trim()
             var isMod = (out.indexOf("=") > 0) ? true : false
-            return jsonMod(responseHeader[first], out, isMod)
+            return core.callAttributes(responseHeader[first], out, isMod)
         })
     }
     xhr.send(null)
@@ -149,29 +149,10 @@ function jsonParse(input, json){
         for(i in split) {
             value += "['" + split[i] + "']"
         }
-        return jsonMod(eval("input"+value), orgJson, isMod)
+        return core.callAttributes(eval("input"+value), orgJson, isMod)
     }
 
-    return jsonMod(input[json], orgJson, isMod)
-}
-
-function jsonMod(input, orgJson, isMod){
-    if (isMod) {
-        var mod = orgJson.trim().split(" = ")
-        mod.shift()
-
-        for(i in mod) {
-            var arg = (mod[i].indexOf(")") > 0) ? true : false;
-            if(arg){
-                var func = "core."+mod[i]
-                func = func.replace("(", "('"+input+"',")
-                input = eval(func)
-            }else{
-                input = eval("core."+mod[i]+"('"+input+"')")
-            }
-        }
-    }
-    return input
+    return core.callAttributes(input[json], orgJson, isMod)
 }
 
 function jsonSerialize(inputs){

@@ -599,9 +599,8 @@ var core = function() {
 
 	this.bindInput = function(value, orgEl, input){
 		var orgEl = orgEl.replace(new RegExp('{# ' + value + '(.*?)#}', 'gi'), function(out1, out2){
-			console.log(out1)
 			var isMod = (out1.indexOf("=") > 0) ? true : false
-			input = core.callAttributes(input, out2, isMod)
+			input = core.callAttributes(input, input+out2, isMod)
 			return input
 		})
 		el.outerHTML = orgEl;
@@ -649,12 +648,10 @@ var core = function() {
 		});
 	}
 
-	this.callAttributes = function(input, isMod){
+	this.callAttributes = function(input, orgJson, isMod){
 		if (isMod) {
-			var mod = input.trim().split(" = ")
+			var mod = orgJson.trim().split(" = ")
 			mod.shift()
-			console.log(input)
-			console.dir(mod)
 	
 			for(i in mod) {
 				var arg = (mod[i].indexOf(")") > 0) ? true : false;
