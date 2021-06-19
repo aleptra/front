@@ -159,7 +159,6 @@ function jsonMod(input, isMod, orgJson){
     if (isMod) {
         var mod = orgJson.trim().split(" = ")
         mod.shift()
-        var re = /'(.?)'/gi
 
         for(i in mod) {
             var arg = (mod[i].indexOf(")") > 0) ? true : false;
