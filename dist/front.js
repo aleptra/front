@@ -603,9 +603,9 @@ var core = function() {
 			input = core.callAttributes(input, input+out2, isMod)
 			return input
 		})
-		el.outerHTML = orgEl;
+		el.outerHTML = orgEl
 		el = dom.get(value)
-		return el;
+		return el
 	}
 
 	this.setParam2 = function(uri, key, value) {
