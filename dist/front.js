@@ -598,9 +598,13 @@ var core = function() {
 	}
 
 	this.bindInput = function(value, orgEl, input){
-		var bindValue = value.split(" = ")[0]
-		var el = dom.get(bindValue)
-		el.outerHTML = orgEl.replace(new RegExp('{# ' + bindValue + '(.*?)#}', 'gi'), input);
+		var orgEl = orgEl.replace(new RegExp('{# ' + value + '(.*?)#}', 'gi'), function(out1, out2){
+			console.log(out1)
+			var isMod = (out1.indexOf("=") > 0) ? true : false
+			input = core.callAttributes(input, out2, isMod)
+			return input
+		})
+		el.outerHTML = orgEl;
 		el = dom.get(value)
 		return el;
 	}
@@ -643,6 +647,27 @@ var core = function() {
 		return array.sort(function(a, b){
 			return a[propertyName].charCodeAt(0) - b[propertyName].charCodeAt(0);
 		});
+	}
+
+	this.callAttributes = function(input, isMod){
+		if (isMod) {
+			var mod = input.trim().split(" = ")
+			mod.shift()
+			console.log(input)
+			console.dir(mod)
+	
+			for(i in mod) {
+				var arg = (mod[i].indexOf(")") > 0) ? true : false;
+				if(arg){
+					var func = "core."+mod[i]
+					func = func.replace("(", "('"+input+"',")
+					input = eval(func)
+				}else{
+					input = eval("core."+mod[i]+"('"+input+"')")
+				}
+			}
+		}
+		return input
 	}
 
 	this.tagArray = function(array) {

@@ -130,7 +130,7 @@ function json(aEl) {
         aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function(e, out){
             var first = out.split("=")[0].trim()
             var isMod = (out.indexOf("=") > 0) ? true : false
-            return jsonMod(responseHeader[first], isMod, out)
+            return jsonMod(responseHeader[first], out, isMod)
         })
     }
     xhr.send(null)
@@ -149,13 +149,13 @@ function jsonParse(input, json){
         for(i in split) {
             value += "['" + split[i] + "']"
         }
-        return jsonMod(eval("input"+value), isMod, orgJson)
+        return jsonMod(eval("input"+value), orgJson, isMod)
     }
 
-    return jsonMod(input[json], isMod, orgJson)
+    return jsonMod(input[json], orgJson, isMod)
 }
 
-function jsonMod(input, isMod, orgJson){
+function jsonMod(input, orgJson, isMod){
     if (isMod) {
         var mod = orgJson.trim().split(" = ")
         mod.shift()
