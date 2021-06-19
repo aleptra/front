@@ -50,6 +50,7 @@ function json(aEl) {
     var xhr = new XMLHttpRequest()
     xhr.el = clnEl
     xhr.aEl = aEl
+    xhr.id = Date.now()
     xhr.open("GET", url, true)
 
     if (headers) {
@@ -59,9 +60,9 @@ function json(aEl) {
             xhr.setRequestHeader(header[0], header[1])
         }
     }
-    
-    xhr.onloadstart = function(){ el.innerHTML = '<div class="loader"></div>' }
-    xhr.onloadend = function(){headers = ""}
+
+    xhr.onloadstart = function(){ el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>'); el.innerHTML = '' }
+    xhr.onloadend = function(){headers = ""; dom.remove("loader"+xhr.id)}
     xhr.onprogress = function(){eval(onprogress)}
     xhr.onerror = function(){ eval(onerror) }
     xhr.onload = function(){
