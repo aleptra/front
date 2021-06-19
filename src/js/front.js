@@ -598,11 +598,11 @@ var core = function() {
 	}
 
 	this.bindInput = function(value, orgEl, input){
-		var el = dom.get(value);
-		var re = new RegExp('{# ' + value + ' #}', 'gi');
-		el.outerHTML = orgEl.replace(re, input);
-		var newEl = dom.get(value);
-		return newEl;
+		var bindValue = value.split(" = ")[0]
+		var el = dom.get(bindValue)
+		el.outerHTML = orgEl.replace(new RegExp('{# ' + bindValue + '(.*?)#}', 'gi'), input);
+		el = dom.get(value)
+		return el;
 	}
 
 	this.setParam2 = function(uri, key, value) {
