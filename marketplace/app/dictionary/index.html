@@ -17,7 +17,7 @@
         <nav class="topbar bcgray white white- h4 gap2- shade1" selective="true">
             <a class="pl1" href="./" key="0"><img class="h60" src="https://3el.github.io/front/favicon.ico"></a>
             <form>
-                <input type="text" class="white bs0" placeholder="Search" bind3="test" bindinclude="list.html" bindcache="300">
+                <input type="text" class="white bs0" placeholder="Search" bind3="inputWord" bindinclude="list.html" bindcache="300">
             </form>
                 <div class="group gap0- md_dn">
                     <select>
@@ -34,7 +34,7 @@
         </nav>
     </header>
 
-    <main class="light p1" id="test" include="home.html"></main>
+    <main class="light p1" id="inputWord" include="home.html"></main>
 
     <footer>
         <div eventlistener="offline" eventaction="dom.create('div', ['id=offline', 'className=alert pf b1 l1 bcred white snack', 'innerHTML=<i class=icon>⚠</i> Connection lost...'], 'footer')"></div>
