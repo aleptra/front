@@ -490,6 +490,7 @@ ul.list li{
     display: inline-table;
     flex: unset;
     -ms-flex: unset;
+    font-size: 0;
 }
 
 #navloader {
