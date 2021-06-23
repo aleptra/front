@@ -638,7 +638,7 @@ var core = function() {
 	};
 
 	this.toLower = function(str){return str.toLowerCase()}
-	this.toUpper = function(str){return str.toUpperCase()}
+	this.toUpper = function(str, first){return (first) ? str.charAt(0).toUpperCase() + str.slice(1) : str.toLowerCase()}
 	this.split = function(str, sep, i){return str.split(sep)[i]}
 	this.replace = function(str, val1, val2){return str.replace(new RegExp(val1, "gi"), val2)}
 	this.trim = function(str){return str.trim()}
