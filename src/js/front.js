@@ -425,7 +425,7 @@ var core = function() {
 			if (type == "input")
 				e.addEventListener("change", function(input) {
 					if(e.hasAttribute("bindinclude")) {
-						core.includeBindFile(e, input.target.value)
+						core.includeBindFile(e, input.target.value, value)
 					}else{
 						core.bindInput(value, orgEl, input)
 					}
@@ -586,9 +586,8 @@ var core = function() {
 		e.removeAttribute("include")
 	}
 
-	this.includeBindFile = function(e, input){
+	this.includeBindFile = function(e, input, target){
 		var file = e.getAttribute("bindinclude")
-		var target = e.getAttribute("bind3");
 
 		app.debug("Include (bind) file: "+file, "green")
 		client.get(globalUrl + file, function(response) {
