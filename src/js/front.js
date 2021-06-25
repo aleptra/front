@@ -227,9 +227,14 @@ var core = function() {
 
 	this.runFrontAttributes = function() {
 		for (i = 0; i < front.length; i++) {
-			core.runCoreAttributes(front[i]);
-			core.runLibAttributes(front[i]);
+			this.runCoreAttributes(front[i])
+			this.runLibAttributes(front[i])
 		}
+	}
+
+	this.runAttributesInElement = function(e) {
+		this.runCoreAttributesInElement(e)
+		this.runLibAttributesInElement(e)
 	}
 	
 	this.hasTemplateLayout = function() {
@@ -296,6 +301,14 @@ var core = function() {
 	};
 
 	this.runCoreAttributes = function(e){
+		if(e.hasAttribute("run") && e.getAttribute("run") === "false"){
+			
+			console.log(e.outerHTML)
+
+			e.outerHTML = e.outerHTML.replace(/(?!name|class|id)\b\S+=/ig, function(out){
+				return "d-"+out
+			})
+		}
 		if(e.tagName == "BASE" && e.hasAttribute("env"))
 			app.setupEnvironment(e.getAttribute("env"))
 		if (e.hasAttribute("include"))
@@ -573,9 +586,8 @@ var core = function() {
 		client.get(globalUrl + file, function(response) {
 		if (response)
 			e.innerHTML = response
-			core.runCoreAttributesInElement(e)
-			core.runLibAttributesInElement(e)
-		});
+			core.runAttributesInElement(e)
+		})
 
 		e.removeAttribute("include")
 	}
@@ -591,10 +603,9 @@ var core = function() {
 				el.innerHTML = response
 				el.removeAttribute("include")
 				var newEl = core.bindInput(target, el.outerHTML, input)
-				core.runCoreAttributesInElement(newEl)
-				core.runLibAttributesInElement(newEl)
+				core.runAttributesInElement(newEl)
 			}
-		});
+		})
 	}
 
 	this.bindInput = function(value, orgEl, input){
@@ -826,12 +837,17 @@ var dom = function() {
 		}
 	}
 
+	this.run = function(obj) {
+		var el = this.get(obj)
+		core.runAttributesInElement(el)
+	}
+
 	this.exists = function(obj) {
-		var el = this.get(obj);
+		var el = this.get(obj)
 		if (typeof(el) !== 'undefined' && el != null)
-			return true;
+			return true
 		else
-			return false;
+			return false
 	}
 
 	this.hide = function(obj) {
