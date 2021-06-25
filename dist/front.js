@@ -301,14 +301,8 @@ var core = function() {
 	};
 
 	this.runCoreAttributes = function(e){
-		if(e.hasAttribute("run") && e.getAttribute("run") === "false"){
-			
-			console.log(e.outerHTML)
-
-			e.outerHTML = e.outerHTML.replace(/(?!name|class|id)\b\S+=/ig, function(out){
-				return "d-"+out
-			})
-		}
+		if(e.hasAttribute("run") && e.getAttribute("run") === "false")
+			dom.enable(e,false)
 		if(e.tagName == "BASE" && e.hasAttribute("env"))
 			app.setupEnvironment(e.getAttribute("env"))
 		if (e.hasAttribute("include"))
@@ -837,9 +831,23 @@ var dom = function() {
 		}
 	}
 
-	this.run = function(obj) {
-		var el = this.get(obj)
+	this.run = function(el) {
+		var obj = this.get(el)
+		this.enable(obj,true)
+		var el = this.get(el)
 		core.runAttributesInElement(el)
+	}
+
+	this.enable = function(e, enable) {
+		if (!enable) {
+			e.outerHTML = e.outerHTML.replace(/(?!name|class|id)\b\S+="/ig, function(out){
+				return "d-"+out
+			})
+		}else{
+			e.outerHTML = e.outerHTML.replace(/d-/ig,'')
+		}
+		console.log(e);
+		return e
 	}
 
 	this.exists = function(obj) {
