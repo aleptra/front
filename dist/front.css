@@ -1157,6 +1157,10 @@ nav.slider .loader{
     position: absolute;
 }
 
+nav.slider figure{
+    width: 100%;
+}
+
 nav.slider figure img{
     margin: auto;
 }
