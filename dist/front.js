@@ -846,7 +846,6 @@ var dom = function() {
 		}else{
 			e.outerHTML = e.outerHTML.replace(/d-/ig,'')
 		}
-		console.log(e);
 		return e
 	}
 
