@@ -1,11 +1,11 @@
-<script src="dist/front.js" title="Category" template="true"></script>
+<script src="../../../dist/front.js" title="Category" template="true"></script>
 
 <h1>Category</h1>
-<section json="categories" storage="api">
-    <div id="categories" class="box cards br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=id,word&and=(taxonomy.is.null)" dataheader="{{ storage:api.dictionary.headers }};Prefer:count=exact" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
+<section json="words" storage="api">
+    <div id="words" class="box cards list br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&or=(id.eq.42,taxonomy.eq.42)" bind3="words" dataheader="{{ storage:api.dictionary.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
         <figure class="p1 bcwhite">
-            <i class="icon icon64">&#9733;</i>
-            <p class="f2" methodfocus="put" jsonmod="true">{{ jsonget:word.eng = toUpper(true) }}</p>
+            <p class="f2 pl1" jsonget="word.eng" methodfocus="put"></p>
+            <p class="tar">{{ jsonget:word.syr }}<a class="icon pl1" if="{{ jsonget:word.syr_lat }};undefined;hide:true" onclick="responsiveVoice.speak('{{ jsonget:word.syr_lat }}', 'Arabic Female', {rate: .8})">&#128264;</a></p>
         </figure>
     </div>
 </section>
