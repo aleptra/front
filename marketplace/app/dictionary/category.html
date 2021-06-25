@@ -1,11 +1,11 @@
-<h1>Categories</h1>
+<script src="dist/front.js" title="Category" template="true"></script>
+
+<h1>Category</h1>
 <section json="categories" storage="api">
     <div id="categories" class="box cards br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=id,word&and=(taxonomy.is.null)" dataheader="{{ storage:api.dictionary.headers }};Prefer:count=exact" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
         <figure class="p1 bcwhite">
-            <a href="./category.html?id={{ jsonget:id }}">
-                <i class="icon icon64">&#9733;</i>
-                <p class="f2" methodfocus="put" jsonmod="true">{{ jsonget:word.eng = toUpper(true) }}</p>
-            </a>
+            <i class="icon icon64">&#9733;</i>
+            <p class="f2" methodfocus="put" jsonmod="true">{{ jsonget:word.eng = toUpper(true) }}</p>
         </figure>
     </div>
 </section>
