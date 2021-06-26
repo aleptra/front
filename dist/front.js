@@ -126,8 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('load', function() {
 	if (load) {
-		core.runLibPreloads();
-		core.runFrontAttributes();
+		core.runLibPreloads()
+		core.runFrontAttributes()
 	}
 })
 
