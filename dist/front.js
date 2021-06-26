@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				app.debug('Click');
 			}
 		}
-	};
+	}
 	
 	document.addEventListener('click', function(e) {
 		var clicked = (e.target) ? e.target : e.srcElement;
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			e.stopPropagation();
 		}
 		return false;
-	},true);
+	},true)
 })
 
 window.addEventListener('load', function() {
