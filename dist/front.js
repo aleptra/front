@@ -1,28 +1,28 @@
-var front;
-var frontVariables = [];
-var libAttribute = [];
-var libPreload = [];
-var load = false;
-var loadTemplate = false;
-var xhrProgress;
-var debug = false;
+var front,
+	frontVariables = [],
+	libAttribute = [],
+	libPreload = [],
+	load = false,
+	loadTemplate = false,
+	xhrProgress,
+	debug = false,
 
-var urlDelimiter = '/';
-var elementDivider = /[?=]/;
-var bindDivider = '.';
-var varDivider = ':';
+	urlDelimiter = '/',
+	elementDivider = /[?=]/,
+	bindDivider = '.',
+	varDivider = ':',
 
-var url;
-var title;
-var currentUrl;
-var currentScriptUrl;
-var referrerUrl;
-var baseUrl;
-var html;
-var startpage = 'home.html';
+	url,
+	title,
+	currentUrl,
+	currentScriptUrl,
+	referrerUrl,
+	baseUrl,
+	html,
+	startpage = 'home.html',
 
-var folderLib = "lib";
-var folderPlug = "plug";
+	folderLib = "lib",
+	folderPlug = "plug"
 
 document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
