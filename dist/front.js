@@ -298,7 +298,7 @@ var core = function() {
 		this.runFunction = function(fnc, arg){
 			eval(fnc)(arg);
 		}
-	};
+	}
 
 	this.runCoreAttributes = function(e){
 		if(e.hasAttribute("run") && e.getAttribute("run") === "false")
