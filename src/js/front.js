@@ -425,18 +425,18 @@ var core = function() {
 				})
 			}
 
-			if (type == "input")
-				e.addEventListener("change", function(input) {
-					if(e.hasAttribute("bindinclude")) {
+			if (type == "input"){
+				e.addEventListener("change", function(input){
+					if(e.hasAttribute("bindinclude"))
 						core.includeBindFile(e, input.target.value, target, value)
-					}else{
-						core.bindInput(value, orgEl, input)
-					}
+					else
+						core.bindElement(org, value, orgEl, input)
 				})
-			else if (type == "select")
+			}else if (type == "select"){
 				console.log("select")
-			else
-				console.log(value)
+			}else{
+				core.bindElement(org, value, orgEl)
+			}
 		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
@@ -597,21 +597,24 @@ var core = function() {
 				el = dom.get(target)
 				el.innerHTML = response
 				el.removeAttribute("include")
-				core.bindInput(value, el.outerHTML, input)
+				core.bindElement(el, value, el.outerHTML, input)
 				core.runAttributesInElement(target)
 			}
 		})
 	}
 
-	this.bindInput = function(value, orgEl, input){
-		var orgEl = orgEl.replace(new RegExp('{# ' + value + '(.*?)#}', 'gi'), function(out1, out2){
+	this.bindElement = function(target, value, orgEl, input){
+
+		if (value[0] == "?") {
+			input = core.getParams()[value.substr(1)]
+			value = "\\"+value
+		}
+
+		target.outerHTML = orgEl.replace(new RegExp('{# ' + value + '(.*?)#}', 'gi'), function(out1, out2){
 			var isMod = (out1.indexOf("=") > 0) ? true : false
 			input = core.callAttributes(input, input+out2, isMod)
 			return input
 		})
-		el.outerHTML = orgEl
-		el = dom.get(value)
-		return el
 	}
 
 	this.setParam2 = function(uri, key, value) {
