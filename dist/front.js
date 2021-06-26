@@ -122,18 +122,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		return false;
 	},true);
-});
+})
 
 window.addEventListener('load', function() {
 	if (load) {
 		core.runLibPreloads();
 		core.runFrontAttributes();
 	}
-});
+})
 
 window.addEventListener("hashchange", function() {
 	return false;
-}, false);
+}, false)
 
 function require(src, folder) {
 	var el;
@@ -193,7 +193,7 @@ function getParentTag(element, tag) {
 	}
 
 	return null;
-};
+}
 
 function getObject(obj, name) {
 	var objarr = "obj." + name;
