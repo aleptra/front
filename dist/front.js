@@ -892,6 +892,14 @@ var dom = function() {
 		else return el.innerHTML;
 	}
 
+	this.iHtml = function(obj, html){
+		return obj.innerHTML = html
+	}
+
+	this.oHtml = function(obj, html){
+		return obj.outerHTML = html
+	}
+
 	this.source = function(obj, source) {
 		var el = this.get(obj);
 		if (el && source) el.src = source;
