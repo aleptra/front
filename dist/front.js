@@ -408,16 +408,19 @@ var core = function() {
 			app.debug(el);
 		}
 		if (e.hasAttribute("bind3")) {
-			var value = e.getAttribute("bind3");
+			var attr = e.getAttribute("bind3").split(":")
+			var target = attr[0]
+			var value = attr[1]
+
 			var type = e.localName;
-			var org = dom.get(value);
+			var org = dom.get(target);
 			var orgEl = org.outerHTML;
 
 			if (org.getAttribute("include")) {
 				var changed
 				org.addEventListener('DOMNodeInserted', function(e){
 					if(!changed)
-						orgEl = dom.get(value).outerHTML
+						orgEl = dom.get(target).outerHTML
 						changed = true
 				})
 			}
@@ -425,7 +428,7 @@ var core = function() {
 			if (type == "input")
 				e.addEventListener("change", function(input) {
 					if(e.hasAttribute("bindinclude")) {
-						core.includeBindFile(e, input.target.value, value)
+						core.includeBindFile(e, input.target.value, target, value)
 					}else{
 						core.bindInput(value, orgEl, input)
 					}
@@ -586,17 +589,16 @@ var core = function() {
 		e.removeAttribute("include")
 	}
 
-	this.includeBindFile = function(e, input, target){
+	this.includeBindFile = function(e, input, target, value){
 		var file = e.getAttribute("bindinclude")
-
 		app.debug("Include (bind) file: "+file, "green")
 		client.get(globalUrl + file, function(response) {
 			if (response) {
 				el = dom.get(target)
 				el.innerHTML = response
 				el.removeAttribute("include")
-				var newEl = core.bindInput(target, el.outerHTML, input)
-				core.runAttributesInElement(newEl)
+				core.bindInput(value, el.outerHTML, input)
+				core.runAttributesInElement(target)
 			}
 		})
 	}
