@@ -1,6 +1,6 @@
 <section json="categories" storage="api">
     <h1 class="z08">Categories</h1>
-    <div id="categories" class="box cards mt05 mb1 gut2- xs_gtc2 xm_gtc2 md_gtc3 lg_gtc4 xl_gtc5 xxl_gtc6 xxxl_gtc7 br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=id,word&and=(taxonomy.is.null)" dataheader="{{ storage:api.dictionary.headers }};Prefer:count=exact" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
+    <div id="categories" class="box cards mt05 mb1 gut2- br05- xs_gtc2 xm_gtc2 md_gtc3 lg_gtc4 xl_gtc5 xxl_gtc6 xxxl_gtc7 br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=id,word&and=(taxonomy.is.null)" dataheader="{{ storage:api.dictionary.headers }};Prefer:count=exact" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
         <figure class="p1 tac bcwhite">
             <a href="./category.html?id={{ jsonget:id }}">
                 <i class="icon icon48">&#9733;</i>
