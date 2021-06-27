@@ -839,18 +839,17 @@ var dom = function() {
 		var obj = this.get(el)
 		this.enable(obj,true)
 		var el = this.get(el)
-		core.runAttributesInElement(el)
+		if (!el.getAttribute("run")) core.runAttributesInElement(el)
+		el.setAttribute("run", "true")
 	}
 
 	this.enable = function(e, enable) {
-		if (!enable) {
+		if (!enable)
 			e.outerHTML = e.outerHTML.replace(/(?!name|class|id)\b\S+="/ig, function(out){
 				return "d-"+out
 			})
-		}else{
+		else
 			e.outerHTML = e.outerHTML.replace(/d-/ig,'')
-		}
-		return e
 	}
 
 	this.exists = function(obj) {
