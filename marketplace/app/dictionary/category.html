@@ -1,7 +1,7 @@
 <script src="../../../dist/front.js" title="Category" template="marketplace/app/dictionary/index"></script>
 
-<h1>Category</h1>
 <section json="words" storage="api" bind3="words:?id">
+    <h1>Category</h1>
     <div id="words" class="box cards list br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&or=(id.eq.{# ?id #},taxonomy.eq.{# ?id #})" dataheader="{{ storage:api.dictionary.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
         <figure class="p1 bcwhite">
             <p class="f2 pl1" jsonget="word.eng" methodfocus="put"></p>
