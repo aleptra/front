@@ -1,28 +1,28 @@
-var front;
-var frontVariables = [];
-var libAttribute = [];
-var libPreload = [];
-var load = false;
-var loadTemplate = false;
-var xhrProgress;
-var debug = false;
+var front,
+	frontVariables = [],
+	libAttribute = [],
+	libPreload = [],
+	load = false,
+	loadTemplate = false,
+	xhrProgress,
+	debug = false,
 
-var urlDelimiter = '/';
-var elementDivider = /[?=]/;
-var bindDivider = '.';
-var varDivider = ':';
+	urlDelimiter = '/',
+	elementDivider = /[?=]/,
+	bindDivider = '.',
+	varDivider = ':',
 
-var url;
-var title;
-var currentUrl;
-var currentScriptUrl;
-var referrerUrl;
-var baseUrl;
-var html;
-var startpage = 'home.html';
+	url,
+	title,
+	currentUrl,
+	currentScriptUrl,
+	referrerUrl,
+	baseUrl,
+	html,
+	startpage = 'home.html',
 
-var folderLib = "lib";
-var folderPlug = "plug";
+	folderLib = "lib",
+	folderPlug = "plug"
 
 document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				app.debug('Click');
 			}
 		}
-	};
+	}
 	
 	document.addEventListener('click', function(e) {
 		var clicked = (e.target) ? e.target : e.srcElement;
@@ -121,19 +121,19 @@ document.addEventListener('DOMContentLoaded', function() {
 			e.stopPropagation();
 		}
 		return false;
-	},true);
-});
+	},true)
+})
 
 window.addEventListener('load', function() {
 	if (load) {
-		core.runLibPreloads();
-		core.runFrontAttributes();
+		core.runLibPreloads()
+		core.runFrontAttributes()
 	}
-});
+})
 
 window.addEventListener("hashchange", function() {
 	return false;
-}, false);
+}, false)
 
 function require(src, folder) {
 	var el;
@@ -193,7 +193,7 @@ function getParentTag(element, tag) {
 	}
 
 	return null;
-};
+}
 
 function getObject(obj, name) {
 	var objarr = "obj." + name;
@@ -227,9 +227,14 @@ var core = function() {
 
 	this.runFrontAttributes = function() {
 		for (i = 0; i < front.length; i++) {
-			core.runCoreAttributes(front[i]);
-			core.runLibAttributes(front[i]);
+			this.runCoreAttributes(front[i])
+			this.runLibAttributes(front[i])
 		}
+	}
+
+	this.runAttributesInElement = function(e) {
+		this.runCoreAttributesInElement(e)
+		this.runLibAttributesInElement(e)
 	}
 	
 	this.hasTemplateLayout = function() {
@@ -293,9 +298,11 @@ var core = function() {
 		this.runFunction = function(fnc, arg){
 			eval(fnc)(arg);
 		}
-	};
+	}
 
 	this.runCoreAttributes = function(e){
+		if(e.hasAttribute("run") && e.getAttribute("run") === "false")
+			dom.enable(e,false)
 		if(e.tagName == "BASE" && e.hasAttribute("env"))
 			app.setupEnvironment(e.getAttribute("env"))
 		if (e.hasAttribute("include"))
@@ -401,32 +408,35 @@ var core = function() {
 			app.debug(el);
 		}
 		if (e.hasAttribute("bind3")) {
-			var value = e.getAttribute("bind3");
+			var attr = e.getAttribute("bind3").split(":")
+			var target = attr[0]
+			var value = attr[1]
+
 			var type = e.localName;
-			var org = dom.get(value);
+			var org = dom.get(target);
 			var orgEl = org.outerHTML;
 
 			if (org.getAttribute("include")) {
 				var changed
 				org.addEventListener('DOMNodeInserted', function(e){
 					if(!changed)
-						orgEl = dom.get(value).outerHTML
+						orgEl = dom.get(target).outerHTML
 						changed = true
 				})
 			}
 
-			if (type == "input")
-				e.addEventListener("change", function(input) {
-					if(e.hasAttribute("bindinclude")) {
-						core.includeBindFile(e, input.target.value)
-					}else{
-						core.bindInput(value, orgEl, input)
-					}
+			if (type == "input"){
+				e.addEventListener("change", function(input){
+					if(e.hasAttribute("bindinclude"))
+						core.includeBindFile(e, input.target.value, target, value)
+					else
+						core.bindElement(org, value, orgEl, input)
 				})
-			else if (type == "select")
+			}else if (type == "select"){
 				console.log("select")
-			else
-				console.log(value)
+			}else{
+				core.bindElement(org, value, orgEl)
+			}
 		}
 		if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
 			core.runIteration(e);
@@ -573,39 +583,38 @@ var core = function() {
 		client.get(globalUrl + file, function(response) {
 		if (response)
 			e.innerHTML = response
-			core.runCoreAttributesInElement(e)
-			core.runLibAttributesInElement(e)
-		});
+			core.runAttributesInElement(e)
+		})
 
 		e.removeAttribute("include")
 	}
 
-	this.includeBindFile = function(e, input){
+	this.includeBindFile = function(e, input, target, value){
 		var file = e.getAttribute("bindinclude")
-		var target = e.getAttribute("bind3");
-
 		app.debug("Include (bind) file: "+file, "green")
 		client.get(globalUrl + file, function(response) {
 			if (response) {
 				el = dom.get(target)
 				el.innerHTML = response
 				el.removeAttribute("include")
-				var newEl = core.bindInput(target, el.outerHTML, input)
-				core.runCoreAttributesInElement(newEl)
-				core.runLibAttributesInElement(newEl)
+				core.bindElement(el, value, el.outerHTML, input)
+				core.runAttributesInElement(target)
 			}
-		});
+		})
 	}
 
-	this.bindInput = function(value, orgEl, input){
-		var orgEl = orgEl.replace(new RegExp('{# ' + value + '(.*?)#}', 'gi'), function(out1, out2){
+	this.bindElement = function(target, value, orgEl, input){
+
+		if (value[0] == "?") {
+			input = core.getParams()[value.substr(1)]
+			value = "\\"+value
+		}
+
+		target.outerHTML = orgEl.replace(new RegExp('{# ' + value + '(.*?)#}', 'gi'), function(out1, out2){
 			var isMod = (out1.indexOf("=") > 0) ? true : false
 			input = core.callAttributes(input, input+out2, isMod)
 			return input
 		})
-		el.outerHTML = orgEl
-		el = dom.get(value)
-		return el
 	}
 
 	this.setParam2 = function(uri, key, value) {
@@ -826,12 +835,29 @@ var dom = function() {
 		}
 	}
 
-	this.exists = function(obj) {
-		var el = this.get(obj);
-		if (typeof(el) !== 'undefined' && el != null)
-			return true;
+	this.run = function(el) {
+		var obj = this.get(el)
+		this.enable(obj,true)
+		var el = this.get(el)
+		if (!el.getAttribute("run")) core.runAttributesInElement(el)
+		el.setAttribute("run", "true")
+	}
+
+	this.enable = function(e, enable) {
+		if (!enable)
+			e.outerHTML = e.outerHTML.replace(/(?!name|class|id)\b\S+="/ig, function(out){
+				return "d-"+out
+			})
 		else
-			return false;
+			e.outerHTML = e.outerHTML.replace(/d-/ig,'')
+	}
+
+	this.exists = function(obj) {
+		var el = this.get(obj)
+		if (typeof(el) !== 'undefined' && el != null)
+			return true
+		else
+			return false
 	}
 
 	this.hide = function(obj) {
@@ -866,6 +892,14 @@ var dom = function() {
 		if (el && (content || content === ""))
 			el.innerHTML = content;
 		else return el.innerHTML;
+	}
+
+	this.iHtml = function(obj, html){
+		return obj.innerHTML = html
+	}
+
+	this.oHtml = function(obj, html){
+		return obj.outerHTML = html
 	}
 
 	this.source = function(obj, source) {

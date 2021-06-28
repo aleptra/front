@@ -38,12 +38,10 @@ function nav(path, el, push){
 
 			var array = dom.getChildren("template?tag");
 			for (var i = 0; i < array.length; i++){
-				core.runCoreAttributesInElement(array[i]);
-				core.runLibAttributesInElement(array[i]);
+				core.runAttributesInElement(array[i])
 			}
 
-			core.runCoreAttributesInElement(target);
-			core.runLibAttributesInElement(target);
+			core.runAttributesInElement(target)
 		}
 	});
 
