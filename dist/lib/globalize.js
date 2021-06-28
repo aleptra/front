@@ -25,7 +25,7 @@ function globalizeChangeLanguage(q){
                 globalizeChangeMetaLanguage(q);
                 core.rerunLibAttributes("globalize");
             }
-        });
+        },false);
     }else if (q == "") {
         app.storage("lang", null);
     }else if (app.storage("lang")) {
