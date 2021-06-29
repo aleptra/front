@@ -371,13 +371,12 @@ var core = function() {
 		if (e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"));
 		if (e.hasAttribute("var") || e.hasAttribute("variable")) {
-			var attr = e.getAttribute("var") || e.getAttribute("variable");
-			var res = attr.split(varDivider);
-			frontVariables[res[0].toLowerCase()] = res[1];
+			var attr = e.getAttribute("var") || e.getAttribute("variable")
+			var res = attr.split(varDivider)
+			frontVariables[res[0].toLowerCase()] = res[1]
 		}
-		if (e.tagName == "VAR"){
-			e.innerHTML = frontVariables[e.innerHTML.toLowerCase()];
-		}
+		if (e.tagName == "VAR")
+			e.innerHTML = frontVariables[e.innerHTML.toLowerCase()]
 		if (e.hasAttribute("property") && e.hasAttribute("content")) {
 			
 			var attr = e.getAttribute("content");
