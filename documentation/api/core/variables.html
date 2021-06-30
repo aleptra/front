@@ -1,28 +1,26 @@
-<script src="../../../dist/front.js" title="API - Attributes" onload="dom.class('body?tag', 'remove', 'bg')" template="true"></script>
+<script src="../../../dist/front.js" title="API - Variables" onload="dom.class('body?tag', 'remove', 'bg')" template="true"></script>
 
 <article>
-    <h1 globalize="attributes">Attributes</h1>
+    <h1 globalize="attributes">Variables</h1>
     <nav class="crumbs pointer pt05">
         <ol>
             <li><a href="./documentation.html" globalize="documentation">Dokumentation</a></li>
             <li><a globalize="api">API</a></li>
             <li><a globalize="core">Core</a></li>
-            <li globalize="attributes">Attributes</li>
+            <li globalize="variables">Variables</li>
         </ol>
     </nav>
     <section>
         <table class="mt1 w100p">
             <thead>
                 <tr>
-                    <th globalize="attribute">Attribute</th>
-                    <th globalize="parameters">Parameters</th>
+                    <th globalize="variable">Variable</th>
                     <th class="w50" globalize="description">Description</th>
                 </tr>
             </thead>
-            <tbody class="z09" json="true" iterate="api[0].attributes" datasource="./assets/json/api.json">
+            <tbody class="z09" json="true" iterate="api[1].variables" datasource="./assets/json/api.json">
                 <tr>
-                    <td jsonget="attribute"></td>
-                    <td jsonget="parameters"></td>
+                    <td jsonget="variable"></td>
                     <td jsonget="description"></td>
                 </tr>
             </tbody>
