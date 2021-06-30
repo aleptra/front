@@ -92,8 +92,24 @@
         {
             "variables": [
                 {
-                    "variable": "host",
+                    "variable": "baseUrl",
+                    "output": "URL",
                     "description": ""
+                },
+                {
+                    "variable": "currentScriptUrl",
+                    "output": "URL",
+                    "description": ""
+                },
+                {
+                    "variable": "currentUrl",
+                    "output": "URL",
+                    "description": ""
+                },
+                {
+                    "variable": "debug",
+                    "output": "true|false",
+                    "description": "The debug variable identifies whenever debug mode is off or on."
                 }
             ]
         }

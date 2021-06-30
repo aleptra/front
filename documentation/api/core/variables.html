@@ -15,12 +15,14 @@
             <thead>
                 <tr>
                     <th globalize="variable">Variable</th>
+                    <th globalize="output">Output</th>
                     <th class="w50" globalize="description">Description</th>
                 </tr>
             </thead>
             <tbody class="z09" json="true" iterate="api[1].variables" datasource="./assets/json/api.json">
                 <tr>
                     <td jsonget="variable"></td>
+                    <td jsonget="output"></td>
                     <td jsonget="description"></td>
                 </tr>
             </tbody>
