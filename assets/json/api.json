@@ -94,22 +94,22 @@
                 {
                     "variable": "baseUrl",
                     "output": "URL",
-                    "description": ""
+                    "description": "The baseUrl variable prints out the current configured base URL."
                 },
                 {
                     "variable": "currentScriptUrl",
                     "output": "URL",
-                    "description": ""
+                    "description": "The currentScriptUrl variable prints out the current location in which Front runs."
                 },
                 {
                     "variable": "currentUrl",
                     "output": "URL",
-                    "description": ""
+                    "description": "The currentUrl variable prints out the current URL location in which Front runs."
                 },
                 {
                     "variable": "debug",
                     "output": "true|false",
-                    "description": "The debug variable identifies whenever debug mode is off or on."
+                    "description": "The debug variable prints out whenever debug mode is off or on."
                 }
             ]
         }
