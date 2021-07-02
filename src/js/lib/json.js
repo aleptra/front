@@ -21,10 +21,12 @@ var jsonInitEl = []
 var jsonIndex = 0
 
 function json(aEl) {
-    var target = aEl.getAttribute("json")
+    var attr = aEl.getAttribute("json").split(";")
+    var target = attr[0]
+    var loader = attr[1]
     var el = (target === "true") ? aEl : dom.get(target)
     var e = event && (event.target || event.srcElement)
-    
+ 
     if (e && e.attributes && e.attributes['bind']){
         attrBind = e.getAttribute("bind").split(".")
         bindEl = dom.get(attrBind[0]);
@@ -60,8 +62,16 @@ function json(aEl) {
             xhr.setRequestHeader(header[0], header[1])
         }
     }
-
-    xhr.onloadstart = function(){ el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>'); el.innerHTML = '' }
+    xhr.onloadstart = function(){
+        if (!loader) {
+            el.innerHTML = ''
+            el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>') 
+        }else{
+            el.outerHTML = el.outerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3) {
+                return out+'><span class="loader"></span><'
+            })
+        }
+    }
     xhr.onloadend = function(){headers = ""; dom.remove("loader"+xhr.id)}
     xhr.onprogress = function(){eval(onprogress)}
     xhr.onerror = function(){ eval(onerror) }
@@ -81,47 +91,52 @@ function json(aEl) {
         json = (iterate === "true") ? json : eval("json."+iterate)
         
         el.innerHTML = xhr.el.innerHTML
-        var length = (iterate) ? json.length : iterate
-        core.runIteration(el, 0, length)
 
-        els = el.getElementsByTagName("*")
-        elBreak = xhr.el.getElementsByTagName("*").length
+        if (iterate === "false") {
+            console.log(data)
+        }else{
+            var length = (iterate) ? json.length : iterate
+            core.runIteration(el, 0, length)
 
-        var j = -1;
+            els = el.getElementsByTagName("*")
+            elBreak = xhr.el.getElementsByTagName("*").length
+
+            var j = -1;
         
-        for (i = 0; i < els.length; i++) {
+            for (i = 0; i < els.length; i++) {
             
-            if (i % elBreak == 0) {
-                j++
-            }
+                if (i % elBreak == 0) {
+                    j++
+                }
 
-            var jsonmod = els[i].getAttribute("jsonmod")
-            var jsonget = els[i].getAttribute("jsonget")
-            var jsonset = els[i].getAttribute("jsonset")
-            var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : ''
-            var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : ''
+                var jsonmod = els[i].getAttribute("jsonmod")
+                var jsonget = els[i].getAttribute("jsonget")
+                var jsonset = els[i].getAttribute("jsonset")
+                var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : ''
+                var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : ''
             
-            els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out) {
-                return jsonParse(json[j], $out)
-            });
+                els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out) {
+                    return jsonParse(json[j], $out)
+                })
 
-            if (jsonset) {
-                var res = jsonset.split(":")
-                var value = jsonbefore + json[j][res[0]] + jsonafter
-                els[i].setAttribute(res[1], value)
-            }
-            if (jsonget) {
-                var value = ""
-                var type = els[i].localName
+                if (jsonset) {
+                    var res = jsonset.split(":")
+                    var value = jsonbefore + json[j][res[0]] + jsonafter
+                    els[i].setAttribute(res[1], value)
+                }
+                if (jsonget) {
+                    var value = ""
+                    var type = els[i].localName
 
-                value = jsonbefore + jsonParse(json[j], jsonget) + jsonafter
+                    value = jsonbefore + jsonParse(json[j], jsonget) + jsonafter
 
-                if (type == "img")
-                    els[i].src = value
-                else if(type == "a")
-                    els[i].href = value
-                else
-                    els[i].innerHTML = value.replace(/<[^>]+>/g, '')
+                    if (type == "img")
+                        els[i].src = value
+                    else if(type == "a")
+                        els[i].href = value
+                    else
+                        els[i].innerHTML = value.replace(/<[^>]+>/g, '')
+                }
             }
         }
 
