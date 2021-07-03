@@ -55,7 +55,7 @@ function json(aEl) {
     xhr.id = Date.now()
     xhr.open("GET", url, true)
 
-    if (headers) {
+    if(headers){
         headers = headers.split(";")
         for (var i in headers) {
             var header = headers[i].trim().split(":")
@@ -67,9 +67,10 @@ function json(aEl) {
             el.innerHTML = ''
             el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>') 
         }else{
-            el.outerHTML = el.outerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3) {
-                return out+'><span class="loader"></span><'
-            })
+            /*aEl.outerHTML = aEl.outerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3) {
+                var attr = e.match(/(?!name|class|id)\S+="\S+"/ig).join(" ")
+                return out+'><span class="loader" '+attr+'></span><'
+            })*/
         }
     }
     xhr.onloadend = function(){headers = ""; dom.remove("loader"+xhr.id)}
@@ -88,33 +89,29 @@ function json(aEl) {
 
         var data = xhr.responseText
         var json = JSON.parse(data)
-        json = (iterate === "true") ? json : eval("json."+iterate)
-        
+
+        json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
         el.innerHTML = xhr.el.innerHTML
 
-        if (iterate === "false") {
-            console.log(data)
-        }else{
-            var length = (iterate) ? json.length : iterate
-            core.runIteration(el, 0, length)
+        var length = (iterate) ? json.length : iterate
+        core.runIteration(el, 0, length)
 
-            els = el.getElementsByTagName("*")
-            elBreak = xhr.el.getElementsByTagName("*").length
+        els = el.getElementsByTagName("*")
+        elBreak = xhr.el.getElementsByTagName("*").length
 
-            var j = -1;
+        var j = -1;
         
             for (i = 0; i < els.length; i++) {
             
                 if (i % elBreak == 0) {
                     j++
                 }
-
-                var jsonmod = els[i].getAttribute("jsonmod")
+                
                 var jsonget = els[i].getAttribute("jsonget")
                 var jsonset = els[i].getAttribute("jsonset")
                 var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : ''
                 var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : ''
-            
+
                 els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out) {
                     return jsonParse(json[j], $out)
                 })
@@ -137,7 +134,6 @@ function json(aEl) {
                     else
                         els[i].innerHTML = value.replace(/<[^>]+>/g, '')
                 }
-            }
         }
 
         eval(ondone)
