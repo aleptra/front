@@ -181,10 +181,16 @@ function jsonSerialize(inputs){
 function jsonPost(payload, e){
     var url = e.getAttribute('datasource');
     var headers = e.getAttribute('dataheader');
+    var ondone = e.getAttribute('ondone')
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onreadystatechange = function(){
+        console.log(this.status)
+        if(this.readyState == 4 && (this.status == 200 || this.status == 201))
+            eval(ondone)
+    }
 
     if (headers) {
         headers = headers.split(" ; ");
