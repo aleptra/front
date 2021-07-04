@@ -67,7 +67,10 @@ function globalize(e){
         }else if (placeholder){
             e.placeholder = globalized
         }else{
-            e.innerHTML = globalized
+            if (type == "submit")
+                e.value = globalized
+            else
+                e.innerHTML = globalized
         }
     }
 }
