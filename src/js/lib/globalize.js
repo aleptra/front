@@ -53,7 +53,8 @@ function globalize(e){
         var children = e.childElementCount
         var name = e.localName
         var type = e.type
-        var globalized = trans['translations'][value];
+        var placeholder = e.placeholder
+        var globalized = trans['translations'][value]
         if (children > 0 && (name == "a" || name == "button" || name == "caption")) {
             var child = e.firstChild
             while (child) {
@@ -63,10 +64,10 @@ function globalize(e){
                 }
                 child = child.nextSibling
             }
+        }else if (placeholder){
+            e.placeholder = globalized
         }else if(name == "input" || type == "submit"){
             e.value = globalized
-        }else if (name == "textarea" || name == "input"){
-            e.placeholder = globalized
         }else{
             e.innerHTML = globalized
         }
