@@ -5,16 +5,14 @@ libAttribute.push(
 );
 
 window.addEventListener("submit", function(e){
-    e.preventDefault()
-
-    var e = e.target || e.srcElement
-    payload = jsonSerialize(e)
-    console.dir(payload)
-
-    jsonPost(payload, e)
-
-    e.reset()
-    return false
+    var form = e.target || e.srcElement
+    var target = form.getAttribute('target')
+    if (target !== "_blank")
+        e.preventDefault()
+        var payload = jsonSerialize(form)
+        jsonPost(payload, form)
+        form.reset()
+        return false
 })
 
 var jsonInitEl = []
@@ -180,7 +178,7 @@ function jsonSerialize(inputs){
 
 function jsonPost(payload, e){
     var url = e.getAttribute('datasource');
-    var headers = e.getAttribute('dataheader');
+    var headers = e.getAttribute('dataheader')
     var ondone = e.getAttribute('ondone')
     
     var xhr = new XMLHttpRequest();
