@@ -66,8 +66,6 @@ function globalize(e){
             }
         }else if (placeholder){
             e.placeholder = globalized
-        }else if(name == "input" || type == "submit"){
-            e.value = globalized
         }else{
             e.innerHTML = globalized
         }
