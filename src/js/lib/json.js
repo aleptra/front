@@ -10,7 +10,7 @@ window.addEventListener("submit", function(e){
     if (target !== "_blank") {
         e.preventDefault()
         var payload = jsonSerialize(form)
-        jsonPost(payload, form)
+        jsonPush(payload, form)
         form.reset()
     }
     return false
@@ -168,22 +168,23 @@ function jsonParse(input, json){
 
 function jsonSerialize(inputs){
     formData = new FormData(inputs);
-    const pairs = {};
+    var pairs = {};
 
-    for (const [name, value] of formData) {
+    for (var [name, value] of formData) {
         pairs[name] = value;
     }
 
     return JSON.stringify(pairs, null, 2);
 }
 
-function jsonPost(payload, e){
+function jsonPush(payload, e){
     var url = e.getAttribute('datasource');
     var headers = e.getAttribute('dataheader')
     var ondone = e.getAttribute('ondone')
-    
+    var method = (e.hasAttribute('method')) ? e.getAttribute('method') : "post"
+
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
+    xhr.open(method, url, true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onreadystatechange = function(){
         console.log(this.status)
@@ -206,10 +207,14 @@ function jsonPost(payload, e){
 function dataPush(el){
     var attr = el.getAttribute("datapush"),
         interval = (attr < 1000) ? 1500 : attr,
-        count = 0;
+        count = 0,
+        form = el,
+        payload = jsonSerialize(el)
+        console.dir(payload)
 
     setInterval(function() {
         console.log("Push: " + count);
+        jsonPush(payload, form)
         //json(el);
         //core.runCoreAttributesInElement(e);
         //return poll;
