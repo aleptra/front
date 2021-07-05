@@ -181,7 +181,7 @@ function jsonPush(payload, e){
     var url = e.getAttribute('datasource');
     var headers = e.getAttribute('dataheader')
     var ondone = e.getAttribute('ondone')
-    var method = (e.hasAttribute('method')) ? e.getAttribute('method') : "post"
+    var method = (e.hasAttribute('method')) ? e.getAttribute('method').toUpperCase() : "POST"
 
     var xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
