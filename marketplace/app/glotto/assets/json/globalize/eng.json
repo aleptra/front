@@ -1,0 +1,10 @@
+{
+    "name": "Engelska",
+    "nativeName": "English",
+    "code": "eng",
+    "direction": "ltr",
+    "translations":
+        {
+            "languages": "Languages"
+        }
+}

@@ -1,0 +1,10 @@
+{
+    "name": "Swedish",
+    "nativeName": "Svenska",
+    "code": "swe",
+    "direction": "ltr",
+    "translations":
+        {
+            "languages": "Språk"
+        }
+}
