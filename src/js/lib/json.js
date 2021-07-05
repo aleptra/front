@@ -204,17 +204,19 @@ function jsonPush(payload, e){
     if (payload.length > 2) xhr.send(payload);
 }
 
+function dataForcePush(el) {
+    var payload = jsonSerialize(el)
+    jsonPush(payload, el)
+    console.dir(payload)
+}
+
 function dataPush(el){
     var attr = el.getAttribute("datapush"),
         interval = (attr < 1000) ? 1500 : attr,
-        count = 0,
-        form = el,
-        payload = jsonSerialize(el)
-        console.dir(payload)
-
+        count = 0
     setInterval(function() {
         console.log("Push: " + count);
-        jsonPush(payload, form)
+        //jsonPush(payload, form)
         //json(el);
         //core.runCoreAttributesInElement(e);
         //return poll;
