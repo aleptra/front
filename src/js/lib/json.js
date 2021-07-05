@@ -215,11 +215,8 @@ function dataPush(el){
         interval = (attr < 1000) ? 1500 : attr,
         count = 0
     setInterval(function() {
-        console.log("Push: " + count);
-        //jsonPush(payload, form)
-        //json(el);
-        //core.runCoreAttributesInElement(e);
-        //return poll;
+        var newEl = dom.get(el.id)
+        dataForcePush(newEl)
         count++;
     },interval);
 }
