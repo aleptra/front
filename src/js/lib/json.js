@@ -25,7 +25,7 @@ function json(aEl) {
     var loader = attr[1]
     var el = (target === "true") ? aEl : dom.get(target)
     var e = event && (event.target || event.srcElement)
- 
+
     if (e && e.attributes && e.attributes['bind']){
         attrBind = e.getAttribute("bind").split(".")
         bindEl = dom.get(attrBind[0]);
@@ -66,10 +66,10 @@ function json(aEl) {
             el.innerHTML = ''
             el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>') 
         }else{
-            /*aEl.outerHTML = aEl.outerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3) {
+            aEl.innerHTML = aEl.innerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3) {
                 var attr = e.match(/(?!name|class|id)\S+="\S+"/ig).join(" ")
                 return out+'><span class="loader" '+attr+'></span><'
-            })*/
+            })
         }
     }
     xhr.onloadend = function(){headers = ""; dom.remove("loader"+xhr.id)}
