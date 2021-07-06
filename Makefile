@@ -39,5 +39,6 @@ release:
 		git reset ; \
 		git add $(JS_FILE) ; \
 		git add index.html ; \
+		git commit -m "Alpha Release ($(tag))" ; \
 		git status ; \
 	fi;
