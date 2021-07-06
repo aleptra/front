@@ -26,16 +26,18 @@ watch:
 	@fswatch -r -1 ./src/ ./marketplace/ | xargs -0 -n 1 -I {} echo "File {} changed" && make && make watch
 
 release:
-	@$(eval FILE="dist/front-$(tag).js")
+	@$(eval JS_FILE="dist/front-$(tag).js")
 	@echo -e "\n*----------* \033[33m Push Release to GitHub \033[0m *----------*\n";
 	@echo -e "TAG: \033[1;33m$(tag)\033[0m";
-	@echo -e "FILE: \033[1;33m$(FILE)\033[0m $(DB_LOCAL_PORT)\n";
+	@echo -e "FILE: \033[1;33m$(JS_FILE)\033[0m\n";
 	@echo -en "\033[1;33mAre you sure you want to continue?\033[0m \033[1;36m[y/n]\033[0m: " ; \
 	read RESPONSE ; \
 	if [[ $$RESPONSE = [yY] ]] ; then \
-		cp $(COPY_JS) $(FILE) ; \
+		cp $(COPY_JS) $(JS_FILE) ; \
 		sed -r 's/(name="version" content=")[^"]+"/\1'$(tag)'"/g' index.html > index.html~ ; \
 		mv index.html~ index.html ; \
 		git reset ; \
-		git add $(FILE) ; \
+		git add $(JS_FILE) ; \
+		git add index.html ; \
+		git status ; \
 	fi;
