@@ -17,6 +17,7 @@
   flex-direction: column;
   border-radius: .5rem;
   z-index: 100;
+  margin: initial;
 }
 
 .modal:target {
@@ -48,6 +49,7 @@
   display: block;
   content: "";
   z-index: 50;
+  margin: inherit;
 }
 
 .modal.menu{

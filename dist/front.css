@@ -658,6 +658,7 @@ ul.list li{
   flex-direction: column;
   border-radius: .5rem;
   z-index: 100;
+  margin: initial;
 }
 
 .modal:target {
@@ -689,6 +690,7 @@ ul.list li{
   display: block;
   content: "";
   z-index: 50;
+  margin: inherit;
 }
 
 .modal.menu{
