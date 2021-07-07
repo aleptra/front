@@ -842,7 +842,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 480px) {
     body .pauto, body .pauto-> *{padding: 2rem}
-    body nav.topbar > a{ font-size: 0}
+    body .xm_fs0 a, .xm_fs0- > a, body .xm_fs0{font-size: 0}
     body .mnauto{margin: -2rem}
     body .mnauto.h100{flex: 0 0 calc(100% + 4rem)}
 
