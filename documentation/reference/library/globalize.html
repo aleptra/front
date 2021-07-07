@@ -1,0 +1,62 @@
+<script src="../../../dist/front.js" title="Globalize" onload="dom.class('body?tag', 'remove', 'bg')" template="true"></script>
+
+<article>
+    <h1 globalize="library">Globalize</h1>
+    <p>	Adapt application to various languages and regions.</p>
+        
+    <section class="attributes">
+        <h2 globalize="attributes">Attributes</h2>
+        <table class="mt1 w100p">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Parameters</th>
+                    <th class="w50">Description</th>
+                </tr>
+            </thead>
+            <tbody class="z09">
+                <tr>
+                    <td>globalize</td>
+                    <td>Value</td>
+                    <td>Parsing JSON value key.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="variables">
+        <h2 globalize="attributes">Variables</h2>
+        <table class="mt1 w100p">
+            <thead>
+                <tr>
+                    <th>Variable</th>
+                    <th>Output</th>
+                    <th class="w50">Description</th>
+                </tr>
+            </thead>
+            <tbody class="z09">
+                <tr>
+                    <td>userLanguage</td>
+                    <td>Value</td>
+                    <td><a href="#languagetags">See language tags</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="tags">
+        <h2>Language tags</h2>
+        <table class="mt1 w100p">
+            <thead>
+                <tr>
+                    <th globalize="attribute">Code</th>
+                </tr>
+            </thead>
+            <tbody class="z09" json="true" iterate="true" datasource="./assets/json/languagecodes.json">
+                <tr>
+                    <td jsonget="code"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</article>

@@ -1,0 +1,1694 @@
+[
+    {
+        "code": "af"
+    },
+    {
+        "code": "af_NA"
+    },
+    {
+        "code": "af_ZA"
+    },
+    {
+        "code": "ak"
+    },
+    {
+        "code": "ak_GH"
+    },
+    {
+        "code": "am"
+    },
+    {
+        "code": "am_ET"
+    },
+    {
+        "code": "ar"
+    },
+    {
+        "code": "ar_AE"
+    },
+    {
+        "code": "ar_BH"
+    },
+    {
+        "code": "ar_DJ"
+    },
+    {
+        "code": "ar_DZ"
+    },
+    {
+        "code": "ar_EG"
+    },
+    {
+        "code": "ar_EH"
+    },
+    {
+        "code": "ar_ER"
+    },
+    {
+        "code": "ar_IL"
+    },
+    {
+        "code": "ar_IQ"
+    },
+    {
+        "code": "ar_JO"
+    },
+    {
+        "code": "ar_KM"
+    },
+    {
+        "code": "ar_KW"
+    },
+    {
+        "code": "ar_LB"
+    },
+    {
+        "code": "ar_LY"
+    },
+    {
+        "code": "ar_MA"
+    },
+    {
+        "code": "ar_MR"
+    },
+    {
+        "code": "ar_OM"
+    },
+    {
+        "code": "ar_PS"
+    },
+    {
+        "code": "ar_QA"
+    },
+    {
+        "code": "ar_SA"
+    },
+    {
+        "code": "ar_SD"
+    },
+    {
+        "code": "ar_SO"
+    },
+    {
+        "code": "ar_SS"
+    },
+    {
+        "code": "ar_SY"
+    },
+    {
+        "code": "ar_TD"
+    },
+    {
+        "code": "ar_TN"
+    },
+    {
+        "code": "ar_YE"
+    },
+    {
+        "code": "as"
+    },
+    {
+        "code": "as_IN"
+    },
+    {
+        "code": "az"
+    },
+    {
+        "code": "az_AZ"
+    },
+    {
+        "code": "az_Cyrl"
+    },
+    {
+        "code": "az_Cyrl_AZ"
+    },
+    {
+        "code": "az_Latn"
+    },
+    {
+        "code": "az_Latn_AZ"
+    },
+    {
+        "code": "be"
+    },
+    {
+        "code": "be_BY"
+    },
+    {
+        "code": "bg"
+    },
+    {
+        "code": "bg_BG"
+    },
+    {
+        "code": "bm"
+    },
+    {
+        "code": "bm_Latn"
+    },
+    {
+        "code": "bm_Latn_ML"
+    },
+    {
+        "code": "bn"
+    },
+    {
+        "code": "bn_BD"
+    },
+    {
+        "code": "bn_IN"
+    },
+    {
+        "code": "bo"
+    },
+    {
+        "code": "bo_CN"
+    },
+    {
+        "code": "bo_IN"
+    },
+    {
+        "code": "br"
+    },
+    {
+        "code": "br_FR"
+    },
+    {
+        "code": "bs"
+    },
+    {
+        "code": "bs_BA"
+    },
+    {
+        "code": "bs_Cyrl"
+    },
+    {
+        "code": "bs_Cyrl_BA"
+    },
+    {
+        "code": "bs_Latn"
+    },
+    {
+        "code": "bs_Latn_BA"
+    },
+    {
+        "code": "ca"
+    },
+    {
+        "code": "ca_AD"
+    },
+    {
+        "code": "ca_ES"
+    },
+    {
+        "code": "ca_FR"
+    },
+    {
+        "code": "ca_IT"
+    },
+    {
+        "code": "cs"
+    },
+    {
+        "code": "cs_CZ"
+    },
+    {
+        "code": "cy"
+    },
+    {
+        "code": "cy_GB"
+    },
+    {
+        "code": "da"
+    },
+    {
+        "code": "da_DK"
+    },
+    {
+        "code": "da_GL"
+    },
+    {
+        "code": "de"
+    },
+    {
+        "code": "de_AT"
+    },
+    {
+        "code": "de_BE"
+    },
+    {
+        "code": "de_CH"
+    },
+    {
+        "code": "de_DE"
+    },
+    {
+        "code": "de_LI"
+    },
+    {
+        "code": "de_LU"
+    },
+    {
+        "code": "dz"
+    },
+    {
+        "code": "dz_BT"
+    },
+    {
+        "code": "ee"
+    },
+    {
+        "code": "ee_GH"
+    },
+    {
+        "code": "ee_TG"
+    },
+    {
+        "code": "el"
+    },
+    {
+        "code": "el_CY"
+    },
+    {
+        "code": "el_GR"
+    },
+    {
+        "code": "en"
+    },
+    {
+        "code": "en_AG"
+    },
+    {
+        "code": "en_AI"
+    },
+    {
+        "code": "en_AS"
+    },
+    {
+        "code": "en_AU"
+    },
+    {
+        "code": "en_BB"
+    },
+    {
+        "code": "en_BE"
+    },
+    {
+        "code": "en_BM"
+    },
+    {
+        "code": "en_BS"
+    },
+    {
+        "code": "en_BW"
+    },
+    {
+        "code": "en_BZ"
+    },
+    {
+        "code": "en_CA"
+    },
+    {
+        "code": "en_CC"
+    },
+    {
+        "code": "en_CK"
+    },
+    {
+        "code": "en_CM"
+    },
+    {
+        "code": "en_CX"
+    },
+    {
+        "code": "en_DG"
+    },
+    {
+        "code": "en_DM"
+    },
+    {
+        "code": "en_ER"
+    },
+    {
+        "code": "en_FJ"
+    },
+    {
+        "code": "en_FK"
+    },
+    {
+        "code": "en_FM"
+    },
+    {
+        "code": "en_GB"
+    },
+    {
+        "code": "en_GD"
+    },
+    {
+        "code": "en_GG"
+    },
+    {
+        "code": "en_GH"
+    },
+    {
+        "code": "en_GI"
+    },
+    {
+        "code": "en_GM"
+    },
+    {
+        "code": "en_GU"
+    },
+    {
+        "code": "en_GY"
+    },
+    {
+        "code": "en_HK"
+    },
+    {
+        "code": "en_IE"
+    },
+    {
+        "code": "en_IM"
+    },
+    {
+        "code": "en_IN"
+    },
+    {
+        "code": "en_IO"
+    },
+    {
+        "code": "en_JE"
+    },
+    {
+        "code": "en_JM"
+    },
+    {
+        "code": "en_KE"
+    },
+    {
+        "code": "en_KI"
+    },
+    {
+        "code": "en_KN"
+    },
+    {
+        "code": "en_KY"
+    },
+    {
+        "code": "en_LC"
+    },
+    {
+        "code": "en_LR"
+    },
+    {
+        "code": "en_LS"
+    },
+    {
+        "code": "en_MG"
+    },
+    {
+        "code": "en_MH"
+    },
+    {
+        "code": "en_MO"
+    },
+    {
+        "code": "en_MP"
+    },
+    {
+        "code": "en_MS"
+    },
+    {
+        "code": "en_MT"
+    },
+    {
+        "code": "en_MU"
+    },
+    {
+        "code": "en_MW"
+    },
+    {
+        "code": "en_MY"
+    },
+    {
+        "code": "en_NA"
+    },
+    {
+        "code": "en_NF"
+    },
+    {
+        "code": "en_NG"
+    },
+    {
+        "code": "en_NR"
+    },
+    {
+        "code": "en_NU"
+    },
+    {
+        "code": "en_NZ"
+    },
+    {
+        "code": "en_PG"
+    },
+    {
+        "code": "en_PH"
+    },
+    {
+        "code": "en_PK"
+    },
+    {
+        "code": "en_PN"
+    },
+    {
+        "code": "en_PR"
+    },
+    {
+        "code": "en_PW"
+    },
+    {
+        "code": "en_RW"
+    },
+    {
+        "code": "en_SB"
+    },
+    {
+        "code": "en_SC"
+    },
+    {
+        "code": "en_SD"
+    },
+    {
+        "code": "en_SG"
+    },
+    {
+        "code": "en_SH"
+    },
+    {
+        "code": "en_SL"
+    },
+    {
+        "code": "en_SS"
+    },
+    {
+        "code": "en_SX"
+    },
+    {
+        "code": "en_SZ"
+    },
+    {
+        "code": "en_TC"
+    },
+    {
+        "code": "en_TK"
+    },
+    {
+        "code": "en_TO"
+    },
+    {
+        "code": "en_TT"
+    },
+    {
+        "code": "en_TV"
+    },
+    {
+        "code": "en_TZ"
+    },
+    {
+        "code": "en_UG"
+    },
+    {
+        "code": "en_UM"
+    },
+    {
+        "code": "en_US"
+    },
+    {
+        "code": "en_VC"
+    },
+    {
+        "code": "en_VG"
+    },
+    {
+        "code": "en_VI"
+    },
+    {
+        "code": "en_VU"
+    },
+    {
+        "code": "en_WS"
+    },
+    {
+        "code": "en_ZA"
+    },
+    {
+        "code": "en_ZM"
+    },
+    {
+        "code": "en_ZW"
+    },
+    {
+        "code": "eo"
+    },
+    {
+        "code": "es"
+    },
+    {
+        "code": "es_AR"
+    },
+    {
+        "code": "es_BO"
+    },
+    {
+        "code": "es_CL"
+    },
+    {
+        "code": "es_CO"
+    },
+    {
+        "code": "es_CR"
+    },
+    {
+        "code": "es_CU"
+    },
+    {
+        "code": "es_DO"
+    },
+    {
+        "code": "es_EA"
+    },
+    {
+        "code": "es_EC"
+    },
+    {
+        "code": "es_ES"
+    },
+    {
+        "code": "es_GQ"
+    },
+    {
+        "code": "es_GT"
+    },
+    {
+        "code": "es_HN"
+    },
+    {
+        "code": "es_IC"
+    },
+    {
+        "code": "es_MX"
+    },
+    {
+        "code": "es_NI"
+    },
+    {
+        "code": "es_PA"
+    },
+    {
+        "code": "es_PE"
+    },
+    {
+        "code": "es_PH"
+    },
+    {
+        "code": "es_PR"
+    },
+    {
+        "code": "es_PY"
+    },
+    {
+        "code": "es_SV"
+    },
+    {
+        "code": "es_US"
+    },
+    {
+        "code": "es_UY"
+    },
+    {
+        "code": "es_VE"
+    },
+    {
+        "code": "et"
+    },
+    {
+        "code": "et_EE"
+    },
+    {
+        "code": "eu"
+    },
+    {
+        "code": "eu_ES"
+    },
+    {
+        "code": "fa"
+    },
+    {
+        "code": "fa_AF"
+    },
+    {
+        "code": "fa_IR"
+    },
+    {
+        "code": "ff"
+    },
+    {
+        "code": "ff_CM"
+    },
+    {
+        "code": "ff_GN"
+    },
+    {
+        "code": "ff_MR"
+    },
+    {
+        "code": "ff_SN"
+    },
+    {
+        "code": "fi"
+    },
+    {
+        "code": "fi_FI"
+    },
+    {
+        "code": "fo"
+    },
+    {
+        "code": "fo_FO"
+    },
+    {
+        "code": "fr"
+    },
+    {
+        "code": "fr_BE"
+    },
+    {
+        "code": "fr_BF"
+    },
+    {
+        "code": "fr_BI"
+    },
+    {
+        "code": "fr_BJ"
+    },
+    {
+        "code": "fr_BL"
+    },
+    {
+        "code": "fr_CA"
+    },
+    {
+        "code": "fr_CD"
+    },
+    {
+        "code": "fr_CF"
+    },
+    {
+        "code": "fr_CG"
+    },
+    {
+        "code": "fr_CH"
+    },
+    {
+        "code": "fr_CI"
+    },
+    {
+        "code": "fr_CM"
+    },
+    {
+        "code": "fr_DJ"
+    },
+    {
+        "code": "fr_DZ"
+    },
+    {
+        "code": "fr_FR"
+    },
+    {
+        "code": "fr_GA"
+    },
+    {
+        "code": "fr_GF"
+    },
+    {
+        "code": "fr_GN"
+    },
+    {
+        "code": "fr_GP"
+    },
+    {
+        "code": "fr_GQ"
+    },
+    {
+        "code": "fr_HT"
+    },
+    {
+        "code": "fr_KM"
+    },
+    {
+        "code": "fr_LU"
+    },
+    {
+        "code": "fr_MA"
+    },
+    {
+        "code": "fr_MC"
+    },
+    {
+        "code": "fr_MF"
+    },
+    {
+        "code": "fr_MG"
+    },
+    {
+        "code": "fr_ML"
+    },
+    {
+        "code": "fr_MQ"
+    },
+    {
+        "code": "fr_MR"
+    },
+    {
+        "code": "fr_MU"
+    },
+    {
+        "code": "fr_NC"
+    },
+    {
+        "code": "fr_NE"
+    },
+    {
+        "code": "fr_PF"
+    },
+    {
+        "code": "fr_PM"
+    },
+    {
+        "code": "fr_RE"
+    },
+    {
+        "code": "fr_RW"
+    },
+    {
+        "code": "fr_SC"
+    },
+    {
+        "code": "fr_SN"
+    },
+    {
+        "code": "fr_SY"
+    },
+    {
+        "code": "fr_TD"
+    },
+    {
+        "code": "fr_TG"
+    },
+    {
+        "code": "fr_TN"
+    },
+    {
+        "code": "fr_VU"
+    },
+    {
+        "code": "fr_WF"
+    },
+    {
+        "code": "fr_YT"
+    },
+    {
+        "code": "fy"
+    },
+    {
+        "code": "fy_NL"
+    },
+    {
+        "code": "ga"
+    },
+    {
+        "code": "ga_IE"
+    },
+    {
+        "code": "gd"
+    },
+    {
+        "code": "gd_GB"
+    },
+    {
+        "code": "gl"
+    },
+    {
+        "code": "gl_ES"
+    },
+    {
+        "code": "gu"
+    },
+    {
+        "code": "gu_IN"
+    },
+    {
+        "code": "gv"
+    },
+    {
+        "code": "gv_IM"
+    },
+    {
+        "code": "ha"
+    },
+    {
+        "code": "ha_GH"
+    },
+    {
+        "code": "ha_Latn"
+    },
+    {
+        "code": "ha_Latn_GH"
+    },
+    {
+        "code": "ha_Latn_NE"
+    },
+    {
+        "code": "ha_Latn_NG"
+    },
+    {
+        "code": "ha_NE"
+    },
+    {
+        "code": "ha_NG"
+    },
+    {
+        "code": "he"
+    },
+    {
+        "code": "he_IL"
+    },
+    {
+        "code": "hi"
+    },
+    {
+        "code": "hi_IN"
+    },
+    {
+        "code": "hr"
+    },
+    {
+        "code": "hr_BA"
+    },
+    {
+        "code": "hr_HR"
+    },
+    {
+        "code": "hu"
+    },
+    {
+        "code": "hu_HU"
+    },
+    {
+        "code": "hy"
+    },
+    {
+        "code": "hy_AM"
+    },
+    {
+        "code": "id"
+    },
+    {
+        "code": "id_ID"
+    },
+    {
+        "code": "ig"
+    },
+    {
+        "code": "ig_NG"
+    },
+    {
+        "code": "ii"
+    },
+    {
+        "code": "ii_CN"
+    },
+    {
+        "code": "is"
+    },
+    {
+        "code": "is_IS"
+    },
+    {
+        "code": "it"
+    },
+    {
+        "code": "it_CH"
+    },
+    {
+        "code": "it_IT"
+    },
+    {
+        "code": "it_SM"
+    },
+    {
+        "code": "ja"
+    },
+    {
+        "code": "ja_JP"
+    },
+    {
+        "code": "ka"
+    },
+    {
+        "code": "ka_GE"
+    },
+    {
+        "code": "ki"
+    },
+    {
+        "code": "ki_KE"
+    },
+    {
+        "code": "kk"
+    },
+    {
+        "code": "kk_Cyrl"
+    },
+    {
+        "code": "kk_Cyrl_KZ"
+    },
+    {
+        "code": "kk_KZ"
+    },
+    {
+        "code": "kl"
+    },
+    {
+        "code": "kl_GL"
+    },
+    {
+        "code": "km"
+    },
+    {
+        "code": "km_KH"
+    },
+    {
+        "code": "kn"
+    },
+    {
+        "code": "kn_IN"
+    },
+    {
+        "code": "ko"
+    },
+    {
+        "code": "ko_KP"
+    },
+    {
+        "code": "ko_KR"
+    },
+    {
+        "code": "ks"
+    },
+    {
+        "code": "ks_Arab"
+    },
+    {
+        "code": "ks_Arab_IN"
+    },
+    {
+        "code": "ks_IN"
+    },
+    {
+        "code": "kw"
+    },
+    {
+        "code": "kw_GB"
+    },
+    {
+        "code": "ky"
+    },
+    {
+        "code": "ky_Cyrl"
+    },
+    {
+        "code": "ky_Cyrl_KG"
+    },
+    {
+        "code": "ky_KG"
+    },
+    {
+        "code": "lb"
+    },
+    {
+        "code": "lb_LU"
+    },
+    {
+        "code": "lg"
+    },
+    {
+        "code": "lg_UG"
+    },
+    {
+        "code": "ln"
+    },
+    {
+        "code": "ln_AO"
+    },
+    {
+        "code": "ln_CD"
+    },
+    {
+        "code": "ln_CF"
+    },
+    {
+        "code": "ln_CG"
+    },
+    {
+        "code": "lo"
+    },
+    {
+        "code": "lo_LA"
+    },
+    {
+        "code": "lt"
+    },
+    {
+        "code": "lt_LT"
+    },
+    {
+        "code": "lu"
+    },
+    {
+        "code": "lu_CD"
+    },
+    {
+        "code": "lv"
+    },
+    {
+        "code": "lv_LV"
+    },
+    {
+        "code": "mg"
+    },
+    {
+        "code": "mg_MG"
+    },
+    {
+        "code": "mk"
+    },
+    {
+        "code": "mk_MK"
+    },
+    {
+        "code": "ml"
+    },
+    {
+        "code": "ml_IN"
+    },
+    {
+        "code": "mn"
+    },
+    {
+        "code": "mn_Cyrl"
+    },
+    {
+        "code": "mn_Cyrl_MN"
+    },
+    {
+        "code": "mn_MN"
+    },
+    {
+        "code": "mr"
+    },
+    {
+        "code": "mr_IN"
+    },
+    {
+        "code": "ms"
+    },
+    {
+        "code": "ms_BN"
+    },
+    {
+        "code": "ms_Latn"
+    },
+    {
+        "code": "ms_Latn_BN"
+    },
+    {
+        "code": "ms_Latn_MY"
+    },
+    {
+        "code": "ms_Latn_SG"
+    },
+    {
+        "code": "ms_MY"
+    },
+    {
+        "code": "ms_SG"
+    },
+    {
+        "code": "mt"
+    },
+    {
+        "code": "mt_MT"
+    },
+    {
+        "code": "my"
+    },
+    {
+        "code": "my_MM"
+    },
+    {
+        "code": "nb"
+    },
+    {
+        "code": "nb_NO"
+    },
+    {
+        "code": "nb_SJ"
+    },
+    {
+        "code": "nd"
+    },
+    {
+        "code": "nd_ZW"
+    },
+    {
+        "code": "ne"
+    },
+    {
+        "code": "ne_IN"
+    },
+    {
+        "code": "ne_NP"
+    },
+    {
+        "code": "nl"
+    },
+    {
+        "code": "nl_AW"
+    },
+    {
+        "code": "nl_BE"
+    },
+    {
+        "code": "nl_BQ"
+    },
+    {
+        "code": "nl_CW"
+    },
+    {
+        "code": "nl_NL"
+    },
+    {
+        "code": "nl_SR"
+    },
+    {
+        "code": "nl_SX"
+    },
+    {
+        "code": "nn"
+    },
+    {
+        "code": "nn_NO"
+    },
+    {
+        "code": "no"
+    },
+    {
+        "code": "no_NO"
+    },
+    {
+        "code": "om"
+    },
+    {
+        "code": "om_ET"
+    },
+    {
+        "code": "om_KE"
+    },
+    {
+        "code": "or"
+    },
+    {
+        "code": "or_IN"
+    },
+    {
+        "code": "os"
+    },
+    {
+        "code": "os_GE"
+    },
+    {
+        "code": "os_RU"
+    },
+    {
+        "code": "pa"
+    },
+    {
+        "code": "pa_Arab"
+    },
+    {
+        "code": "pa_Arab_PK"
+    },
+    {
+        "code": "pa_Guru"
+    },
+    {
+        "code": "pa_Guru_IN"
+    },
+    {
+        "code": "pa_IN"
+    },
+    {
+        "code": "pa_PK"
+    },
+    {
+        "code": "pl"
+    },
+    {
+        "code": "pl_PL"
+    },
+    {
+        "code": "ps"
+    },
+    {
+        "code": "ps_AF"
+    },
+    {
+        "code": "pt"
+    },
+    {
+        "code": "pt_AO"
+    },
+    {
+        "code": "pt_BR"
+    },
+    {
+        "code": "pt_CV"
+    },
+    {
+        "code": "pt_GW"
+    },
+    {
+        "code": "pt_MO"
+    },
+    {
+        "code": "pt_MZ"
+    },
+    {
+        "code": "pt_PT"
+    },
+    {
+        "code": "pt_ST"
+    },
+    {
+        "code": "pt_TL"
+    },
+    {
+        "code": "qu"
+    },
+    {
+        "code": "qu_BO"
+    },
+    {
+        "code": "qu_EC"
+    },
+    {
+        "code": "qu_PE"
+    },
+    {
+        "code": "rm"
+    },
+    {
+        "code": "rm_CH"
+    },
+    {
+        "code": "rn"
+    },
+    {
+        "code": "rn_BI"
+    },
+    {
+        "code": "ro"
+    },
+    {
+        "code": "ro_MD"
+    },
+    {
+        "code": "ro_RO"
+    },
+    {
+        "code": "ru"
+    },
+    {
+        "code": "ru_BY"
+    },
+    {
+        "code": "ru_KG"
+    },
+    {
+        "code": "ru_KZ"
+    },
+    {
+        "code": "ru_MD"
+    },
+    {
+        "code": "ru_RU"
+    },
+    {
+        "code": "ru_UA"
+    },
+    {
+        "code": "rw"
+    },
+    {
+        "code": "rw_RW"
+    },
+    {
+        "code": "se"
+    },
+    {
+        "code": "se_FI"
+    },
+    {
+        "code": "se_NO"
+    },
+    {
+        "code": "se_SE"
+    },
+    {
+        "code": "sg"
+    },
+    {
+        "code": "sg_CF"
+    },
+    {
+        "code": "sh"
+    },
+    {
+        "code": "sh_BA"
+    },
+    {
+        "code": "si"
+    },
+    {
+        "code": "si_LK"
+    },
+    {
+        "code": "sk"
+    },
+    {
+        "code": "sk_SK"
+    },
+    {
+        "code": "sl"
+    },
+    {
+        "code": "sl_SI"
+    },
+    {
+        "code": "sn"
+    },
+    {
+        "code": "sn_ZW"
+    },
+    {
+        "code": "so"
+    },
+    {
+        "code": "so_DJ"
+    },
+    {
+        "code": "so_ET"
+    },
+    {
+        "code": "so_KE"
+    },
+    {
+        "code": "so_SO"
+    },
+    {
+        "code": "sq"
+    },
+    {
+        "code": "sq_AL"
+    },
+    {
+        "code": "sq_MK"
+    },
+    {
+        "code": "sq_XK"
+    },
+    {
+        "code": "sr"
+    },
+    {
+        "code": "sr_BA"
+    },
+    {
+        "code": "sr_Cyrl"
+    },
+    {
+        "code": "sr_Cyrl_BA"
+    },
+    {
+        "code": "sr_Cyrl_ME"
+    },
+    {
+        "code": "sr_Cyrl_RS"
+    },
+    {
+        "code": "sr_Cyrl_XK"
+    },
+    {
+        "code": "sr_Latn"
+    },
+    {
+        "code": "sr_Latn_BA"
+    },
+    {
+        "code": "sr_Latn_ME"
+    },
+    {
+        "code": "sr_Latn_RS"
+    },
+    {
+        "code": "sr_Latn_XK"
+    },
+    {
+        "code": "sr_ME"
+    },
+    {
+        "code": "sr_RS"
+    },
+    {
+        "code": "sr_XK"
+    },
+    {
+        "code": "sv"
+    },
+    {
+        "code": "sv_AX"
+    },
+    {
+        "code": "sv_FI"
+    },
+    {
+        "code": "sv_SE"
+    },
+    {
+        "code": "sw"
+    },
+    {
+        "code": "sw_CD"
+    },
+    {
+        "code": "sw_KE"
+    },
+    {
+        "code": "sw_TZ"
+    },
+    {
+        "code": "sw_UG"
+    },
+    {
+        "code": "ta"
+    },
+    {
+        "code": "ta_IN"
+    },
+    {
+        "code": "ta_LK"
+    },
+    {
+        "code": "ta_MY"
+    },
+    {
+        "code": "ta_SG"
+    },
+    {
+        "code": "te"
+    },
+    {
+        "code": "te_IN"
+    },
+    {
+        "code": "th"
+    },
+    {
+        "code": "th_TH"
+    },
+    {
+        "code": "ti"
+    },
+    {
+        "code": "ti_ER"
+    },
+    {
+        "code": "ti_ET"
+    },
+    {
+        "code": "tl"
+    },
+    {
+        "code": "tl_PH"
+    },
+    {
+        "code": "to"
+    },
+    {
+        "code": "to_TO"
+    },
+    {
+        "code": "tr"
+    },
+    {
+        "code": "tr_CY"
+    },
+    {
+        "code": "tr_TR"
+    },
+    {
+        "code": "ug"
+    },
+    {
+        "code": "ug_Arab"
+    },
+    {
+        "code": "ug_Arab_CN"
+    },
+    {
+        "code": "ug_CN"
+    },
+    {
+        "code": "uk"
+    },
+    {
+        "code": "uk_UA"
+    },
+    {
+        "code": "ur"
+    },
+    {
+        "code": "ur_IN"
+    },
+    {
+        "code": "ur_PK"
+    },
+    {
+        "code": "uz"
+    },
+    {
+        "code": "uz_AF"
+    },
+    {
+        "code": "uz_Arab"
+    },
+    {
+        "code": "uz_Arab_AF"
+    },
+    {
+        "code": "uz_Cyrl"
+    },
+    {
+        "code": "uz_Cyrl_UZ"
+    },
+    {
+        "code": "uz_Latn"
+    },
+    {
+        "code": "uz_Latn_UZ"
+    },
+    {
+        "code": "uz_UZ"
+    },
+    {
+        "code": "vi"
+    },
+    {
+        "code": "vi_VN"
+    },
+    {
+        "code": "yi"
+    },
+    {
+        "code": "yo"
+    },
+    {
+        "code": "yo_BJ"
+    },
+    {
+        "code": "yo_NG"
+    },
+    {
+        "code": "zh"
+    },
+    {
+        "code": "zh_CN"
+    },
+    {
+        "code": "zh_HK"
+    },
+    {
+        "code": "zh_Hans"
+    },
+    {
+        "code": "zh_Hans_CN"
+    },
+    {
+        "code": "zh_Hans_HK"
+    },
+    {
+        "code": "zh_Hans_MO"
+    },
+    {
+        "code": "zh_Hans_SG"
+    },
+    {
+        "code": "zh_Hant"
+    },
+    {
+        "code": "zh_Hant_HK"
+    },
+    {
+        "code": "zh_Hant_MO"
+    },
+    {
+        "code": "zh_Hant_TW"
+    },
+    {
+        "code": "zh_MO"
+    },
+    {
+        "code": "zh_SG"
+    },
+    {
+        "code": "zh_TW"
+    },
+    {
+        "code": "zu"
+    },
+    {
+        "code": "zu_ZA"
+    }
+]
