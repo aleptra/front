@@ -62,6 +62,11 @@
     50% {color: black}
 }
 
+@keyframes hue-rotate {
+    from { filter:hue-rotate()}
+    to { filter:hue-rotate(360deg)}
+}
+
 .slidein{
     transition: 1s;
     left: 0;
@@ -91,4 +96,9 @@
 .blink{
     -webkit-animation: 1s blink step-end infinite;
     animation: 1s blink step-end infinite;
+}
+
+.hue-rotate{
+    -webkit-animation: hue-rotate 20s linear infinite;
+    animation: hue-rotate 20s linear infinite;
 }
