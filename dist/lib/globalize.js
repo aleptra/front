@@ -8,6 +8,7 @@ libPreload.push(
 
 var trans = "eng"
 var htmlattr = dom.get("html?tag")
+var userLanguage = core.toLower(navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage)
 
 function globalizePreload(){
     globalizeChangeLanguage(core.getParams()['lang'])
