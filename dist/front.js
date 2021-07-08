@@ -6,6 +6,7 @@ var front,
 	loadTemplate = false,
 	xhrProgress,
 	debug = false,
+	isMobile = false,
 
 	urlDelimiter = '/',
 	elementDivider = /[?=]/,
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	referrerUrl = document.referrer;
 	baseUrl = app.getBaseUrl(currentUrl);
 	xhrProgress = dom.get("navprogress");
+	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
 
 	if (currentScript.hasAttribute("store")) {
 		globalUrl = app.getCurrentEnvironment()[1];
@@ -539,6 +541,8 @@ var core = function() {
 			var val = e.getAttribute("background");
 			if (val.indexOf(".")) e.style.backgroundImage = "url('"+val+"')"; else e.style.backgroundColor = val
 		}
+		if (e.hasAttribute("focus"))
+			dom.focus(e)
 	}
 
 	this.runCoreAttributesInElement = function(e) {
@@ -885,8 +889,8 @@ var dom = function() {
 	}
 
 	this.focus = function(obj) {
-		var el = this.get(obj);
-		if (el) el.focus();
+		var el = core.isObject(obj) ? obj : this.get(obj)
+		el.focus()
 	}
 
 	this.remove = function(obj) {
