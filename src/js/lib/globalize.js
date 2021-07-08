@@ -6,9 +6,10 @@ libPreload.push(
     {'func': 'globalizePreload'}
 )
 
-var trans = "eng"
 var htmlattr = dom.get("html?tag")
-var userLanguage = core.toLower(navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage)
+var trans = "en"
+var userLanguage = "eng"
+var browserLanguage = core.toLower(navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage)
 
 function globalizePreload(){
     globalizeChangeLanguage(core.getParams()['lang'])
@@ -16,22 +17,28 @@ function globalizePreload(){
 
 function globalizeChangeLanguage(q){
     if (q) {
-        client.get(globalUrl + "assets/json/globalize/" + q + ".json", function(response) {
+        var q = q.split("-")
+        var a2 = q[0]
+        var a3 = q[1]
+
+        client.get(globalUrl + "assets/json/globalize/" + a2 + ".json", function(response) {
             if (core.isJson(response)) {
-                app.storage("lang", q)
-                app.storage(q, response)
-                var lang = app.storage("lang")
+                app.storage("language", a2)
+                app.storage("country", a3)
+                app.storage(a2, response)
+                var lang = app.storage("language")
                 trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : ''
                 globalizeChangeMetaDir(trans['direction'])
-                globalizeChangeMetaLanguage(q)
+                globalizeChangeMetaLanguage(a2)
                 core.rerunLibAttributes("globalize")
             }
         },false);
-    }else if (q == "") {
-        app.storage("lang", null)
-    }else if (app.storage("lang")) {
-        var lang = app.storage("lang")
+    }else if (a2 == "") {
+        app.storage("language", null)
+    }else if (app.storage("language")) {
+        var lang = app.storage("language")
         trans = JSON.parse(app.storage(lang))
+        userLanguage = trans["639-2"]
         globalizeChangeMetaDir(trans['direction'])
     }
 }
