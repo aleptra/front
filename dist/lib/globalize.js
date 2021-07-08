@@ -77,6 +77,8 @@ function globalize(e){
         }else{
             if (type == "submit")
                 e.value = globalized
+            else if(name == "optgroup")
+                e.label = globalized
             else
                 e.innerHTML = globalized
         }
