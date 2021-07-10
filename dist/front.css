@@ -1611,6 +1611,16 @@ body .bcblack07{background-color: rgba(0,0,0, .7)}
 body .bcblack08{background-color: rgba(0,0,0, .8)}
 body .bcblack09{background-color: rgba(0,0,0, .9)}
 
+body .bocblack01{border-color:rgba(0,0,0, .1)}
+body .bocblack02{border-color:rgba(0,0,0, .2)}
+body .bocblack03{border-color:rgba(0,0,0, .3)}
+body .bocblack04{border-color:rgba(0,0,0, .4)}
+body .bocblack05{border-color:rgba(0,0,0, .5)}
+body .bocblack06{border-color:rgba(0,0,0, .6)}
+body .bocblack07{border-color:rgba(0,0,0, .7)}
+body .bocblack08{border-color:rgba(0,0,0, .8)}
+body .bocblack09{border-color:rgba(0,0,0, .9)}
+
 /* Brown */
 body .cornsilk{color:#fff8dc}
 body .blanchedalmond{color:#ffebcd}
