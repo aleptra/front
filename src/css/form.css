@@ -52,6 +52,7 @@ input,select,textarea,button,.button {
     color: inherit;
     font-size: inherit;
     font-family: inherit;
+    max-width: 100%;
 }
 
 select{
