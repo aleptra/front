@@ -64,7 +64,6 @@ nav.topbar.shade a:hover{
     color: rgba(255,255,255, 0.8);
     box-shadow: 0px -5px 20px 0px rgba(0,0,0);
     text-shadow: 0 -21px 20px rgba(255,255,253, 0.5);
-    border-radius: 5px;
 }
 
 nav small{
