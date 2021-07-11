@@ -94,7 +94,7 @@ h6,.fs1{ font-size: calc(.7em + .6vw)}
 
 a,i,b,span,select,input,textarea,button,a.button{display: inline-flex;display: -ms-inline-flexbox}
 b,strong,.fwb, .fwb- *{font-weight: bold}
-.di{display: inline}
+.di, p a{display: inline}
 
 table{display:table;border-collapse: collapse;table-layout: fixed;text-align: left}
 thead,.thead{ display: table-header-group}
