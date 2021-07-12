@@ -9,18 +9,19 @@ libPreload.push(
 var htmlattr = dom.get("html?tag")
 var trans = "en"
 var userLanguage = "eng"
-var browserLanguage = core.toLower(navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage)
+var browserLanguage = core.toLower(navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage).split("-")
 
 function globalizePreload(){
-    globalizeChangeLanguage(core.getParams()['lang'])
+    var q = (htmlattr.lang.indexOf("auto") > 0 && !app.storage("language") && !q) ? browserLanguage[0] : core.getParams()['lang']
+    globalizeChangeLanguage(q)
 }
 
 function globalizeChangeLanguage(q){
-    if (q) {
-        var q = q.split("-")
-        var a2 = q[0]
-        var a3 = q[1]
+    var q = (q) ? q.split("-") : ''
+    var a2 = q[0]
+    var a3 = q[1]
 
+    if (a2) {
         client.get(globalUrl + "assets/json/globalize/" + a2 + ".json", function(response) {
             if (core.isJson(response)) {
                 app.storage("language", a2)
@@ -33,7 +34,7 @@ function globalizeChangeLanguage(q){
                 core.rerunLibAttributes("globalize")
             }
         },false);
-    }else if (a2 == "") {
+    }else if (a2 == "*") {
         app.storage("language", null)
     }else if (app.storage("language")) {
         var lang = app.storage("language")
