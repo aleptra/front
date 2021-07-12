@@ -304,7 +304,7 @@ table.fr{float:right}
 .oa{overflow: none}
 
 body .w0{ width: auto !important }
-body .w100, body .w100p{ width: 100%; -ms-flex: 100%; flex: 100% }
+body .w100, body .w100p{ width: 100%; -ms-flex: 0 0 100%; flex: 0 0 100% }
 body .w90, body .w90p{ width: 90%; -ms-flex: 90%; flex: 90% }
 body .w80, body .w80p{ width: 80%; -ms-flex: 80%; flex: 80% }
 body .w75, body .w75p{ width: 75%; -ms-flex: 75%; flex: 75% }
