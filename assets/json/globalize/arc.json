@@ -1,7 +1,7 @@
 {
-    "name": "Aramaic",
-    "nativeName": "ܐܪܡܝܐ",
-    "code": "arc",
+    "name": "ܐܪܡܝܐ",
+    "639-1": "arc",
+    "639-2": "arc",
     "direction": "rtl",
     "translations":
         {
