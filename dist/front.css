@@ -394,6 +394,7 @@ body .flc, body .flc->*{
     -ms-flex-align: center;
     justify-content: center;
     align-items: center;
+    float: unset !important;
 }
 body .pa.flc, body .pr.flc{
     top: 50%;  
