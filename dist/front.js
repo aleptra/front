@@ -259,19 +259,19 @@ var core = function() {
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','script','body']);
 
-				function getTemplate2() {
+				function getTwoTemplates() {
 					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function () {
 					  	if (this.readyState == 4 && this.status == 200) {
 						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm);
-							getTemplate1(response);
+							getOneTemplate(response);
 					  	}
 					}
 					xhr.open("GET", url+"/"+template2+".html", true);
 					xhr.send();
 				  }
 	
-				function getTemplate1(response2) {
+				function getOneTemplate(response2) {
 					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
@@ -287,13 +287,13 @@ var core = function() {
 					xhr.send();
 				}
 				  
-				if (template2) {
-				  	getTemplate2(getTemplate1);
+				if(template2){
+				  	getTwoTemplates()
 				}else{
-					getTemplate1("");
+					getOneTemplate("")
 				}
 
-				return true;
+				return true
 			}
 		}
 
