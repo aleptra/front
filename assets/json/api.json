@@ -109,7 +109,12 @@
                 {
                     "variable": "debugMode",
                     "output": "true | false",
-                    "description": "The debugMode variable prints out whenever debug mode is off or on."
+                    "description": "The debugMode variable prints out whether debug mode is on or off."
+                },
+                {
+                    "variable": "mobileMode",
+                    "output": "true | false",
+                    "description": "The mobileMode variable prints out whether the current running device is a mobile device or not."
                 },
                 {
                     "variable": "startPage",
