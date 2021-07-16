@@ -119,7 +119,7 @@
                 {
                     "variable": "startPage",
                     "output": "URL",
-                    "description": "The startPage variable prints out the default start page."
+                    "description": "The startPage variable prints out the default configured start page."
                 }
             ]
         }
