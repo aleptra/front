@@ -107,9 +107,14 @@
                     "description": "The currentUrl variable prints out the current URL location in which Front runs."
                 },
                 {
-                    "variable": "debug",
-                    "output": "true|false",
-                    "description": "The debug variable prints out whenever debug mode is off or on."
+                    "variable": "debugMode",
+                    "output": "true | false",
+                    "description": "The debugMode variable prints out whenever debug mode is off or on."
+                },
+                {
+                    "variable": "startPage",
+                    "output": "URL",
+                    "description": "The startPage variable prints out the default start page."
                 }
             ]
         }

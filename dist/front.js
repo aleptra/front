@@ -5,7 +5,7 @@ var front,
 	load = false,
 	loadTemplate = false,
 	xhrProgress,
-	debug = false,
+	debugMode = false,
 	isMobile = false,
 
 	urlDelimiter = '/',
@@ -28,7 +28,7 @@ var front,
 document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
 	html = document.documentElement;
-	debug = html.getAttribute("debug");
+	debugMode = html.getAttribute("debug");
 	startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage;
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
@@ -826,7 +826,7 @@ var app = function() {
 	}
 
 	this.debug = function(log, c, bc) {
-		if (debug === "true") console.log("%c"+log, "color:"+c+";background:"+bc)
+		if (debugMode === "true") console.log("%c"+log, "color:"+c+";background:"+bc)
 	}
 }
 
