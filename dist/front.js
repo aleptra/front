@@ -257,7 +257,7 @@ var core = function() {
 				var del = document.documentElement;
 				del.parentNode.removeChild(del);
 
-				var main = dom.removeTags(html.outerHTML, ['html','head','body']);
+				var main = dom.removeTags(html.outerHTML, ['html','head','script','body']);
 
 				function getTemplate2() {
 					var xhr = new XMLHttpRequest();
