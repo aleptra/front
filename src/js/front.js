@@ -13,6 +13,7 @@ var front,
 	bindDivider = '.',
 	varDivider = ':',
 
+	hostname,
 	url,
 	title,
 	currentUrl,
@@ -25,18 +26,19 @@ var front,
 	folderLib = "lib",
 	folderPlug = "plug"
 
-document.addEventListener('DOMContentLoaded', function() {
-	front = document.getElementsByTagName("*");
-	html = document.documentElement;
-	debugMode = html.getAttribute("debug");
-	startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage;
-	url = window.location.origin + urlDelimiter;
-	currentUrl = window.location.href;
-	currentScript = document.querySelector('script[src*="front.js"]');
-	currentScriptUrl = currentScript.getAttribute("src");
-	referrerUrl = document.referrer;
-	baseUrl = app.getBaseUrl(currentUrl);
-	xhrProgress = dom.get("navprogress");
+document.addEventListener('DOMContentLoaded', function(){
+	front = document.getElementsByTagName("*")
+	html = document.documentElement
+	debugMode = html.getAttribute("debug")
+	startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
+	hostname = window.location.hostname
+	url = window.location.origin + urlDelimiter
+	currentUrl = window.location.href
+	currentScript = document.querySelector('script[src*="front.js"]')
+	currentScriptUrl = currentScript.getAttribute("src")
+	referrerUrl = document.referrer
+	baseUrl = app.getBaseUrl(currentUrl)
+	xhrProgress = dom.get("navprogress")
 	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
 
 	if (currentScript.hasAttribute("store")) {
