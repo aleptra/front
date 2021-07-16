@@ -19,7 +19,7 @@ window.addEventListener("popstate", function(e){
 });
 
 function nav(path, el, push){
-	var path = (globalUrl == path || path === globalUrl+"./") ? startpage : path;
+	var path = (globalUrl == path || path === globalUrl+"./") ? startPage : path;
 	var target = (el === undefined || el === false) ? navTargetEl : el;
 	var contentOrginal = dom.content(target);
 	var anchor = (path) ? path.split("#") : '';
@@ -27,7 +27,7 @@ function nav(path, el, push){
 	client.addHeader("Cache-Control", "must-revalidate");
 	client.get(path, function(response){
 		if (response){
-			if (push || path == startpage) navPush(path);
+			if (push || path == startPage) navPush(path);
 			dom.content(target, response);
 			
 			if (anchor[1]){
@@ -50,7 +50,7 @@ function nav(path, el, push){
 }
 
 function navPush(url){
-	var url = url.replace(startpage, "./");
+	var url = url.replace(startPage, "./");
 	var title = dom.get("title?tag").textContent;
 	var stateObj = { path: url };
 	var historyStackLast = historyStack.length -1;

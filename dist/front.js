@@ -20,7 +20,7 @@ var front,
 	referrerUrl,
 	baseUrl,
 	html,
-	startpage = 'home.html',
+	startPage = 'home.html',
 
 	folderLib = "lib",
 	folderPlug = "plug"
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	front = document.getElementsByTagName("*");
 	html = document.documentElement;
 	debug = html.getAttribute("debug");
-	startpage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startpage;
+	startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage;
 	url = window.location.origin + urlDelimiter;
 	currentUrl = window.location.href;
 	currentScript = document.querySelector('script[src*="front.js"]');
