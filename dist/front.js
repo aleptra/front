@@ -346,30 +346,30 @@ var core = function() {
 			var action = e.getAttribute("eventaction");
 			
 			window.addEventListener(listener, function() {
-				eval(action);
+				eval(action)
 			});
 		}
 		if (e.tagName == "TEMPLATE" && !loadTemplate) {
-			var fragments = core.toArray(dom.getChildren("template?tag"));
-			var sorted = core.sortArray(fragments, "tagName");
-			var array = core.tagArray(sorted);	
+			var fragments = core.toArray(dom.getChildren("template?tag"))
+			var sorted = core.sortArray(fragments, "tagName")
+			var array = core.tagArray(sorted)
 			
 			for (var i in array){
-				var el = array[i].tagName+"?tag="+array[i].tagIndex;
-				var index = array[i].getAttribute("index");
+				var el = array[i].tagName+"?tag="+array[i].tagIndex
+				var index = array[i].getAttribute("index")
 
 				if (array[i].tagIndex == index)
-					dom.content(el, array[i].innerHTML);
+					dom.content(el, array[i].innerHTML)
 			}
 
-			loadTemplate = true;
+			loadTemplate = true
 		}
 		if (e.hasAttribute("resizable"))
-			e.style.resize = "both";
+			e.style.resize = "both"
 		if (e.hasAttribute("fixed"))
-			e.style.position = "fixed";
+			e.style.position = "fixed"
 		if (e.hasAttribute("alert"))
-			alert(e.getAttribute("alert"));
+			alert(e.getAttribute("alert"))
 		if (e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"))
 		if (e.innerHTML.match("{%(.*?)%}")) {
