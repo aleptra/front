@@ -2,7 +2,6 @@ libAttribute.push(
 {'attr': 'navigate', 'func': 'nav'}
 )
 
-var globalUrl = app.getCurrentEnvironment()[1]
 var navTargetEl = "main?tag"
 var hash = location.hash
 var historyStack = []
@@ -14,12 +13,12 @@ window.addEventListener("popstate", function(e){
 		var href = e.target.location.pathname
 		return nav(href, false, false)
 	}else{
-		self.location.href = globalUrl
+		self.location.href = currentEnvUrl
 	}
 });
 
 function nav(path, el, push){
-	var path = (globalUrl == path || path === globalUrl+"./") ? startPage : path
+	var path = (currentEnvUrl == path || path === currentEnvUrl+"./") ? startPage : path
 	var target = (el === undefined || el === false) ? navTargetEl : el
 	var contentOrginal = dom.content(target)
 	var anchor = (path) ? path.split("#") : ''
