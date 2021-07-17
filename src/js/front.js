@@ -42,9 +42,10 @@ document.addEventListener('DOMContentLoaded', function(){
 	referrerUrl = document.referrer
 	xhrProgress = dom.get("navprogress")
 	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
+	
+	globalUrl = app.getCurrentEnvironment()[1]
 
 	if (currentScript.hasAttribute("store")) {
-		globalUrl = app.getCurrentEnvironment()[1];
 		var attr = currentScript.getAttribute("store").split(";")
 		for(storefile in attr) {
 			var file = attr[storefile].split(varDivider);
@@ -780,7 +781,7 @@ var app = function() {
 
 	this.getCurrentEnvironment = function(val){
 		var el = dom.get("base?tag")
-		if (el)
+		if (el) {
 			var isLocalDev = this.isLocalDev()
 			var attr = el.getAttribute("env").split(";")
 			for(a in attr){
@@ -790,6 +791,9 @@ var app = function() {
 				else if(env[0] == "prod" && !isLocalDev)
 					return env
 			}
+		}
+
+		return false
 	}
 
 	this.getBaseStartUrl = function() {
