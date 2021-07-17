@@ -82,18 +82,18 @@ document.addEventListener('DOMContentLoaded', function(){
 	document.onkeyup=function(e) {
 		if(e.target.nodeName == "INPUT" || e.target.nodeName == "TEXTAREA" || e.target.isContentEditable) return false
 		var key = String.fromCharCode(e.keyCode)
-			for (i = 0; i < front.length; i++) {
-				if (front[i].hasAttribute("key"))
-					if (front[i].getAttribute("key") == key)
-						var action = front[i].getAttribute("keyaction")
-						eval("front[i]."+action)
+		for(i = 0; i < front.length; i++){
+			if(front[i].hasAttribute("key"))
+				if (front[i].getAttribute("key") == key)
+					var action = front[i].getAttribute("keyaction")
+					eval("front[i]."+action)
 		}
 	}
 
 	document.onclick=function(e) {
 		var clicked = (e.target) ? e.target : e.srcElement;
 	
-		if (clicked.parentNode.getAttribute("selective")) {
+		if(clicked.parentNode.getAttribute("selective")) {
 			
 			for(j=0; j < clicked.parentNode.childElementCount; j++) {
 				clicked.parentNode.children[j].classList.remove("sel");
@@ -102,23 +102,23 @@ document.addEventListener('DOMContentLoaded', function(){
 			clicked.classList.add("sel");
 		}
 	
-		var el = getParentTag(clicked, "a");
-		if (el !== null) {
-			var elHref = el.getAttribute("href");
-			var elTarget = el.getAttribute("target");
-			if(el.hasAttribute("window")) {
+		var el = getParentTag(clicked, "a")
+		if(el !== null){
+			var elHref = el.getAttribute("href")
+			var elTarget = el.getAttribute("target")
+			if(el.hasAttribute("window")){
 				dom.create("div", ["href=/"], "head")
-				alert('hej');
-				return false;
-			}else if(elHref && elHref.substring(0,1) === "#") {
-				location.hash = elHref;
-				return false;
-			}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
-				app.debug('Click with Ajax: '+ elHref);
-				if(window.location.hash) location.hash = "";
-				return nav(currentEnvUrl + elHref, false, true);
+				alert('hej')
+				return false
+			}else if(elHref && elHref.substring(0,1) === "#"){
+				location.hash = elHref
+				return false
+			}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank"){
+				app.debug('Click with Ajax: '+ elHref)
+				if(window.location.hash) location.hash = ""
+				return nav(currentEnvUrl + elHref, false, true)
 			}else{
-				app.debug('Click');
+				app.debug('Click')
 			}
 		}
 	}
