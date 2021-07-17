@@ -768,7 +768,7 @@ var app = function() {
 	}
 
 	this.setupEnvironment = function() {
-		env = this.getCurrentEnvironment();
+		var env = this.getCurrentEnvironment()
 		if (env[0] == "local"){
 			dom.update("base?tag", ["setAttribute", "href", env[1]])
 			app.debug("Running environment: "+env[0], "blue", "yellow")
