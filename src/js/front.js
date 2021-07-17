@@ -247,40 +247,40 @@ var core = function() {
 		this.runLibAttributesInElement(e)
 	}
 	
-	this.hasTemplateLayout = function() {
-		for (i = 0; i < front.length; i++) {
-			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
-				var template = front[i].getAttribute("template").split(";");
-				var template1 = template[0] === "true" ? 'index' : template[0];
-				var template2 = template[1] ? template[1] : false;
+	this.hasTemplateLayout = function(){
+		for (i = 0; i < front.length; i++){
+			if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT"){
+				var template = front[i].getAttribute("template").split(";")
+				var template1 = template[0] === "true" ? 'index' : template[0]
+				var template2 = template[1] ? template[1] : false
 				
-				var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl;
-				var count = cUrl.split("./").length + (template1.match(/..\//g) || []).length;
-				var url = currentUrl.split("/").slice(0, -count).join("/");
+				var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl
+				var count = cUrl.split("./").length + (template1.match(/..\//g) || []).length
+				var url = currentUrl.split("/").slice(0, -count).join("/")
 
-				var html = dom.get("html?tag=0");
-				var script = dom.get("script?tag=0");
-				script.removeAttribute("src");
-				script.removeAttribute("template");
-				var del = document.documentElement;
-				del.parentNode.removeChild(del);
+				var html = dom.get("html?tag=0")
+				var script = dom.get("script?tag=0")
+				script.removeAttribute("src")
+				script.removeAttribute("template")
+				var del = document.documentElement
+				del.parentNode.removeChild(del)
 
-				var main = dom.removeTags(html.outerHTML, ['html','head','script','body']);
+				var main = dom.removeTags(html.outerHTML, ['html','head','script','body'])
 
 				function getTwoTemplates() {
-					var xhr = new XMLHttpRequest();
+					var xhr = new XMLHttpRequest()
 					xhr.onreadystatechange = function () {
 					  	if (this.readyState == 4 && this.status == 200) {
 						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm);
 							getOneTemplate(response);
 					  	}
 					}
-					xhr.open("GET", url+"/"+template2+".html", true);
-					xhr.send();
+					xhr.open("GET", url+"/"+template2+".html", true)
+					xhr.send()
 				  }
 	
 				function getOneTemplate(response2) {
-					var xhr = new XMLHttpRequest();
+					var xhr = new XMLHttpRequest()
 					xhr.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
 							response = this.responseText;
@@ -291,8 +291,8 @@ var core = function() {
 							document.close();
 						}
 					}
-					xhr.open("GET", url+"/"+template1+".html", true);
-					xhr.send();
+					xhr.open("GET", url+"/"+template1+".html", true)
+					xhr.send()
 				}
 				  
 				if(template2){
@@ -318,11 +318,11 @@ var core = function() {
 		if (e.hasAttribute("include"))
 			core.includeFile(e)
 		if (e.hasAttribute("storage")){
-			var attr = e.getAttribute("storage").split(";");
+			var attr = e.getAttribute("storage").split(";")
 
-			var strObject = "";
+			var strObject = ""
 			for(i in attr){
-				strObject += app.storage(attr[i]);
+				strObject += app.storage(attr[i])
 			}
 			var mergedObject = core.mergeObject(strObject);
 
@@ -331,15 +331,15 @@ var core = function() {
 				var data = JSON.parse(mergedObject);
 				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2");
 				return eval("data."+variable);
-			});
+			})
 		}
-		if (e.hasAttribute("title") && e.tagName == "SCRIPT") {
+		if (e.hasAttribute("title") && e.tagName == "SCRIPT"){
 			var value = e.getAttribute("title");
-			document.title = (value) ? value : title;
+			document.title = (value) ? value : title
 		}
-		if (e.tagName == "TITLE") {
+		if (e.tagName == "TITLE"){
 			var value = e.text;
-			document.title = (value) ? value : title;
+			document.title = (value) ? value : title
 		}
 		if (e.hasAttribute("cache")){
 			var value = e.getAttribute("cache");
