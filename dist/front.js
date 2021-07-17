@@ -93,13 +93,13 @@ document.addEventListener('DOMContentLoaded', function(){
 	document.onclick=function(e) {
 		var clicked = (e.target) ? e.target : e.srcElement;
 	
-		if(clicked.parentNode.getAttribute("selective")) {
+		if(clicked.parentNode.getAttribute("selective")){
 			
-			for(j=0; j < clicked.parentNode.childElementCount; j++) {
-				clicked.parentNode.children[j].classList.remove("sel");
+			for(j=0; j < clicked.parentNode.childElementCount; j++){
+				clicked.parentNode.children[j].classList.remove("sel")
 			}
 	
-			clicked.classList.add("sel");
+			clicked.classList.add("sel")
 		}
 	
 		var el = getParentTag(clicked, "a")
@@ -125,12 +125,12 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 	document.addEventListener('click', function(e){
 		var clicked = (e.target) ? e.target : e.srcElement;
-		var val = clicked.parentNode.getAttribute("onclick");
-		if (val) {
-			core.runFunction("dom."+val, clicked.parentNode);
-			e.stopPropagation();
+		var val = clicked.parentNode.getAttribute("onclick")
+		if(val){
+			core.runFunction("dom."+val, clicked.parentNode)
+			e.stopPropagation()
 		}
-		return false;
+		return false
 	},true)
 })
 
