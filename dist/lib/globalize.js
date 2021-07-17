@@ -22,7 +22,7 @@ function globalizeChangeLanguage(q){
     var a3 = q[1]
 
     if (a2) {
-        client.get(globalUrl + "assets/json/globalize/" + a2 + ".json", function(response) {
+        client.get(currentEnvUrl + "assets/json/globalize/" + a2 + ".json", function(response) {
             if (core.isJson(response)) {
                 app.storage("language", a2)
                 app.storage("country", a3)
