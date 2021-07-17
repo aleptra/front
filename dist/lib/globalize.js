@@ -21,8 +21,8 @@ function globalizeChangeLanguage(q){
     var a2 = q[0]
     var a3 = q[1]
 
-    if (a2) {
-        client.get(currentEnvUrl + "assets/json/globalize/" + a2 + ".json", function(response) {
+    if(a2) {
+        client.get(currentEnvUrl + "assets/json/globalize/" + a2 + ".json", function(response){
             if (core.isJson(response)) {
                 app.storage("language", a2)
                 app.storage("country", a3)
@@ -36,7 +36,7 @@ function globalizeChangeLanguage(q){
         },false);
     }else if (a2 == "*") {
         app.storage("language", null)
-    }else if (app.storage("language")) {
+    }else if (app.storage("language")){
         var lang = app.storage("language")
         trans = JSON.parse(app.storage(lang))
         userLanguage = trans["639-2"]
@@ -55,28 +55,28 @@ function globalizeChangeMetaDir(dir){
 }
 
 function globalize(e){
-    var value = e.getAttribute("globalize");
+    var value = e.getAttribute("globalize")
     e.innerHTML = e.innerHTML.trim()
 
-    if (trans['translations'] && trans['translations'][value]){
+    if(trans['translations'] && trans['translations'][value]){
         var children = e.childElementCount
         var name = e.localName
         var type = e.type
         var placeholder = e.placeholder
         var globalized = trans['translations'][value]
-        if (children > 0 && (name == "a" || name == "button" || name == "caption")) {
+        if(children > 0 && (name == "a" || name == "button" || name == "caption")){
             var child = e.firstChild
-            while (child) {
-                if (child.nodeType == 3) {
+            while(child){
+                if(child.nodeType == 3){
                     child.data = globalized
                     break
                 }
                 child = child.nextSibling
             }
-        }else if (placeholder){
+        }else if(placeholder){
             e.placeholder = globalized
         }else{
-            if (type == "submit")
+            if(type == "submit")
                 e.value = globalized
             else if(name == "optgroup")
                 e.label = globalized

@@ -23,18 +23,18 @@ function nav(path, el, push){
 	client.addHeader("Path", path)
 	client.addHeader("Cache-Control", "must-revalidate")
 	client.get(path, function(response){
-		if (response){
-			if (push || path == startPage) navPush(path)
+		if(response){
+			if(push || path == startPage) navPush(path)
 			dom.content(target, response)
 			
-			if (anchor[1]){
+			if(anchor[1]){
 				dom.scrollInto(anchor[1])
 			}else{
 				dom.scrollInto(target, true)
 			}
 
 			var array = dom.getChildren("template?tag");
-			for (var i = 0; i < array.length; i++){
+			for(var i = 0; i < array.length; i++){
 				core.runAttributesInElement(array[i])
 			}
 
@@ -52,7 +52,7 @@ function navPush(url){
 	var stateObj = { path: url }
 	var historyStackLast = historyStack.length -1
 
-	if (historyStack[historyStackLast] !== url){
+	if(historyStack[historyStackLast] !== url){
 		historyStack.push(url)
 		history.pushState(stateObj, title, url)
 	}

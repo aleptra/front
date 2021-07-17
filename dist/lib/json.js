@@ -19,7 +19,7 @@ window.addEventListener("submit", function(e){
 var jsonInitEl = []
 var jsonIndex = 0
 
-function json(aEl) {
+function json(aEl){
     var attr = aEl.getAttribute("json").split(";")
     var target = attr[0]
     var loader = attr[1]
@@ -74,7 +74,7 @@ function json(aEl) {
     }
     xhr.onloadend = function(){headers = ""; dom.remove("loader"+xhr.id)}
     xhr.onprogress = function(){eval(onprogress)}
-    xhr.onerror = function(){ eval(onerror) }
+    xhr.onerror = function(){eval(onerror)}
     xhr.onload = function(){
         var responseHeaders = xhr.getAllResponseHeaders()
         var arr = responseHeaders.trim().split(/[\r\n]+/)
@@ -98,11 +98,11 @@ function json(aEl) {
         els = el.getElementsByTagName("*")
         elBreak = xhr.el.getElementsByTagName("*").length
 
-        var j = -1;
+        var j = -1
         
-            for (i = 0; i < els.length; i++) {
+            for(i = 0; i < els.length; i++){
             
-                if (i % elBreak == 0) {
+                if(i % elBreak == 0){
                     j++
                 }
                 
@@ -111,22 +111,22 @@ function json(aEl) {
                 var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : ''
                 var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : ''
 
-                els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out) {
+                els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out){
                     return jsonParse(json[j], $out)
                 })
 
-                if (jsonset) {
+                if(jsonset){
                     var res = jsonset.split(":")
                     var value = jsonbefore + json[j][res[0]] + jsonafter
                     els[i].setAttribute(res[1], value)
                 }
-                if (jsonget) {
+                if(jsonget){
                     var value = ""
                     var type = els[i].localName
 
                     value = jsonbefore + jsonParse(json[j], jsonget) + jsonafter
 
-                    if (type == "img")
+                    if(type == "img")
                         els[i].src = value
                     else if(type == "a")
                         els[i].href = value
@@ -153,11 +153,11 @@ function jsonParse(input, json){
     var value = ""
     var orgJson = json
 
-    if (isMod) json = json.split(" ")[0]
+    if(isMod) json = json.split(" ")[0]
 
-    if (isAssociative) {
+    if(isAssociative){
         var split = json.split(".");
-        for(i in split) {
+        for(i in split){
             value += "['" + split[i] + "']"
         }
         return core.callAttributes(eval("input"+value), orgJson, isMod)
@@ -167,14 +167,14 @@ function jsonParse(input, json){
 }
 
 function jsonSerialize(inputs){
-    formData = new FormData(inputs);
-    var pairs = {};
+    formData = new FormData(inputs)
+    var pairs = {}
 
-    for (var [name, value] of formData) {
+    for(var [name, value] of formData){
         pairs[name] = value;
     }
 
-    return JSON.stringify(pairs, null, 2);
+    return JSON.stringify(pairs, null, 2)
 }
 
 function jsonPush(payload, e){
@@ -183,19 +183,19 @@ function jsonPush(payload, e){
     var ondone = e.getAttribute('ondone')
     var method = (e.hasAttribute('method')) ? e.getAttribute('method').toUpperCase() : "POST"
 
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    var xhr = new XMLHttpRequest()
+    xhr.open(method, url, true)
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
     xhr.onreadystatechange = function(){
         console.log(this.status)
         if(this.readyState == 4 && (this.status == 200 || this.status == 201))
             eval(ondone)
     }
 
-    if (headers) {
+    if(headers){
         headers = headers.split(" ; ");
 
-        for (var i in headers) {
+        for(var i in headers){
             var header = headers[i].split(":");
             xhr.setRequestHeader(header[0], header[1])
         }
@@ -214,11 +214,11 @@ function dataPush(el){
     var attr = el.getAttribute("datapush"),
         interval = (attr < 1000) ? 1500 : attr,
         count = 0
-    setInterval(function() {
+    setInterval(function(){
         var newEl = dom.get(el.id)
         dataForcePush(newEl)
-        count++;
-    },interval);
+        count++
+    },interval)
 }
 
 function dataPull(){
