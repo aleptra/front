@@ -780,7 +780,7 @@ var app = function() {
 
 	this.getCurrentEnvironment = function(val){
 		var el = dom.get("base?tag")
-		if (el)
+		if (el) {
 			var attr = el.getAttribute("env").split(";")
 			for(a in attr){
 				env = attr[a].split(":")
@@ -789,6 +789,7 @@ var app = function() {
 				else if(env[0] == "prod" && !isLocalDev)
 					return env
 			}
+		}
 	}
 
 	this.getBaseStartUrl = function() {
