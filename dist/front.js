@@ -17,6 +17,7 @@ var front,
 	url,
 	title,
 	currentUrl,
+	currentPage,
 	currentScriptUrl,
 	referrerUrl,
 	baseUrl,
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	hostname = window.location.hostname
 	url = window.location.origin + urlDelimiter
 	currentUrl = window.location.href
+	currentPage = window.location.pathname
 	currentScript = document.querySelector('script[src*="front.js"]')
 	currentScriptUrl = currentScript.getAttribute("src")
 	referrerUrl = document.referrer
