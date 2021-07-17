@@ -178,7 +178,7 @@ function require(src, folder){
 }
 
 function scrollTo(element, to, duration){
-	if(duration < 0) return;
+	if(duration < 0) return
   		var difference = to - element.scrollTop,
   		perTick = difference / duration * 2;
 
@@ -305,7 +305,7 @@ var core = function(){
 		}
 
 		this.runFunction = function(fnc, arg){
-			eval(fnc)(arg);
+			eval(fnc)(arg)
 		}
 	}
 
@@ -328,7 +328,7 @@ var core = function(){
 			var elHtml = e.innerHTML
 			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/gi, function(x){
 				var data = JSON.parse(mergedObject);
-				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2");
+				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
 				return eval("data."+variable);
 			})
 		}
@@ -337,12 +337,12 @@ var core = function(){
 			document.title = (value) ? value : title
 		}
 		if(e.tagName == "TITLE"){
-			var value = e.text;
+			var value = e.text
 			document.title = (value) ? value : title
 		}
 		if(e.hasAttribute("cache")){
-			var value = e.getAttribute("cache");
-			if (value == "no"){
+			var value = e.getAttribute("cache")
+			if(value == "no"){
 				dom.create("meta", ["httpEquiv=Cache-Control", "content=no-cache,no-store,must-revalidate"], "head")
 				dom.create("meta", ["httpEquiv=Pragma", "content=no-cache"], "head")
 				dom.create("meta", ["httpEquiv=Expires", "content=0"], "head")
@@ -466,20 +466,20 @@ var core = function(){
 			var escape = e.innerHTML
 			var code = escape.charCodeAt(0)
 
-			if (0xD800 <= code && code <= 0xDBFF) {
+			if(0xD800 <= code && code <= 0xDBFF) {
 				low = escape.charCodeAt(1)
 				code = ((code- 0xD800) * 0x400) + (low - 0xDC00) + 0x10000
 			}
 
-			if (code) e.innerText = "&#"+ code + ";"
+			if(code) e.innerText = "&#"+ code + ";"
 		}
 		if(e.hasAttribute("format")){
 			var content = e.innerText
 			var format = e.getAttribute("format")
-			if (content.length == 8 && core.isNumber(content)) content = content.replace(/^(\d{4})/, '$1-').replace(/-(\d{2})/, '-$1-')
+			if(content.length == 8 && core.isNumber(content)) content = content.replace(/^(\d{4})/, '$1-').replace(/-(\d{2})/, '-$1-')
 			var value = new Date(content)
 
-			if (format == "age"){
+			if(format == "age"){
 				e.innerHTML = ~~((Date.now() - value.getTime()) / (31557600000))
 			}else{
 				var match = format.match(/\((.*)\)/gi)
@@ -522,14 +522,14 @@ var core = function(){
 			var ifnot = (val.substr(0,1) == "!") ? true : false
 			val = val.replace(/!/g, "")
 
-			if (val.substr(0,2) !== "{{"){
+			if(val.substr(0,2) !== "{{"){
 			
 				var term = val.split(";")
 				var action = term[2].split(/:(.*)/)
 				
-				if (!ifnot && term[0] == term[1])
+				if(!ifnot && term[0] == term[1])
 					e.setAttribute(action[0], action[1])
-				if (ifnot && term[0].length > 0)
+				if(ifnot && term[0].length > 0)
 					e.setAttribute(action[0], action[1])
 			}
 		}
@@ -546,7 +546,7 @@ var core = function(){
 		}
 		if(e.hasAttribute("background")){
 			var val = e.getAttribute("background");
-			if (val.indexOf(".")) e.style.backgroundImage = "url('"+val+"')"; else e.style.backgroundColor = val
+			if(val.indexOf(".")) e.style.backgroundImage = "url('"+val+"')"; else e.style.backgroundColor = val
 		}
 		if(e.hasAttribute("focus"))
 			dom.focus(e)
@@ -555,18 +555,18 @@ var core = function(){
 	this.runCoreAttributesInElement = function(e){
 		var e = (typeof e === 'string') ? dom.get(e) : e
 		els = e.getElementsByTagName("*")
-		for (i = 0; i < els.length; i++) {
+		for(i = 0; i < els.length; i++) {
 			core.runCoreAttributes(els[i])
 		}
 	}
 	
 	this.runLibAttributesInElement = function(e){
 		var e = (typeof e === 'string') ? dom.get(e) : e
-		els = e.getElementsByTagName("*");
+		els = e.getElementsByTagName("*")
 		
 		for(k = 0; k < els.length; k++){
-			for (j = 0; j < libAttribute.length; j++){
-				if (els[k].hasAttribute(libAttribute[j].attr)) {
+			for(j = 0; j < libAttribute.length; j++){
+				if(els[k].hasAttribute(libAttribute[j].attr)) {
 					window[libAttribute[j].func](els[k])
 				}
 			}
@@ -585,14 +585,14 @@ var core = function(){
 	this.rerunLibAttributes = function(attr){
 		for(i = 0; i < front.length; i++)
 			if(front[i].getAttribute(attr))
-				window[attr](front[i]);
+				window[attr](front[i])
 	}
 
 	this.runIteration = function(element, start, stop){
-		var attribute = element.getAttribute("iterate").split(";");
-		var start = (start) ? start : 0;
-		var stop = (stop) ? stop : attribute[0];
-		dom.clone(element, "inside", (stop-start), attribute[1]);
+		var attribute = element.getAttribute("iterate").split(";")
+		var start = (start) ? start : 0
+		var stop = (stop) ? stop : attribute[0]
+		dom.clone(element, "inside", (stop-start), attribute[1])
 	}
 
 	this.includeFile = function(e){
@@ -661,8 +661,8 @@ var core = function(){
 		    params[pair[0]] = decodeURIComponent(pair[1] + "")
         }
         
-		return params;
-	};
+		return params
+	}
 
 	this.toLower = function(str){return str.toLowerCase()}
 	this.toUpper = function(str, first){return (first) ? str.charAt(0).toUpperCase() + str.slice(1) : str.toLowerCase()}
@@ -673,15 +673,15 @@ var core = function(){
 	this.sortArray = function(array, propertyName){
 		return array.sort(function(a, b){
 			return a[propertyName].charCodeAt(0) - b[propertyName].charCodeAt(0)
-		});
+		})
 	}
 
 	this.callAttributes = function(input, orgJson, isMod){
-		if (isMod) {
+		if(isMod){
 			var mod = orgJson.trim().split(" = ")
 			mod.shift()
 	
-			for(i in mod) {
+			for(i in mod){
 				var arg = (mod[i].indexOf(")") > 0) ? true : false;
 				if(arg){
 					var func = "core."+mod[i]
@@ -743,7 +743,7 @@ var core = function(){
 	}
 
 	this.isJson = function(str){
-		try {
+		try{
 			JSON.parse(str)
 			return true
 		}catch(err){
@@ -814,7 +814,7 @@ var app = function(){
 	}
 
 	this.storage = function(key, value){
-		if (key && value)
+		if(key && value)
 			localStorage.setItem(key, value)
 		else if(key && value === null)
 			localStorage.removeItem(key, value)
@@ -825,7 +825,7 @@ var app = function(){
 	}
 	
 	this.isLocalDev = function(){
-		if (baseUrl.match(/localhost|127.|[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}|::1|\.local|^$/gi))
+		if(baseUrl.match(/localhost|127.|[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}|::1|\.local|^$/gi))
 			return true
 		else
 			return false
@@ -836,7 +836,7 @@ var app = function(){
 	}
 
 	this.debug = function(log, c, bc){
-		if (debugMode === "true") console.log("%c"+log, "color:"+c+";background:"+bc)
+		if(debugMode === "true") console.log("%c"+log, "color:"+c+";background:"+bc)
 	}
 }
 
@@ -860,12 +860,12 @@ var dom = function(){
 		var obj = this.get(el)
 		this.enable(obj,true)
 		var el = this.get(el)
-		if (!el.getAttribute("run")) core.runAttributesInElement(el)
+		if(!el.getAttribute("run")) core.runAttributesInElement(el)
 		el.setAttribute("run", "true")
 	}
 
 	this.enable = function(e, enable){
-		if (!enable)
+		if(!enable)
 			e.outerHTML = e.outerHTML.replace(/(?!name|class|id)\b\S+="/ig, function(out){
 				return "d-"+out
 			})
@@ -875,7 +875,7 @@ var dom = function(){
 
 	this.exists = function(obj){
 		var el = this.get(obj)
-		if (typeof(el) !== 'undefined' && el != null)
+		if(typeof(el) !== 'undefined' && el != null)
 			return true
 		else
 			return false
@@ -883,18 +883,18 @@ var dom = function(){
 
 	this.hide = function(obj){
 		var el = this.get(obj)
-		if (el) el.setAttribute('style', 'display: none !important')
+		if(el) el.setAttribute('style', 'display: none !important')
 	}
 
 	this.show = function(obj){
 		var el = this.get(obj)
-		if (el) el.setAttribute('style', 'display: block !important')
+		if(el) el.setAttribute('style', 'display: block !important')
 	}
 
 	this.toggle = function(obj){
 		var el = this.get(obj)
 		var di = el.style.display
-		if (di == 'block' || di == '') this.hide(obj)
+		if(di == 'block' || di == '') this.hide(obj)
 		else this.show(obj)
 	}
 
@@ -905,12 +905,12 @@ var dom = function(){
 
 	this.remove = function(obj) {
 		var el = this.get(obj);
-		if (el) el.parentNode.removeChild(el);
+		if(el) el.parentNode.removeChild(el);
 	}
 
 	this.content = function(obj, content){
 		var el = this.get(obj)
-		if (el && (content || content === ""))
+		if(el && (content || content === ""))
 			el.innerHTML = content
 		else return el.innerHTML
 	}
@@ -946,7 +946,7 @@ var dom = function(){
 		var txt = ""
 		var i
 
-		for (i = 0; i < el.length; i++){
+		for(i = 0; i < el.length; i++){
 			txt = txt + el.elements[i].value + "<br>"
 		}
 
@@ -1128,7 +1128,7 @@ var dom = function(){
 		
     	if (window.clipboardData && window.clipboardData.setData){
         	return clipboardData.setData("Text", text)
-    	}else if (document.queryCommandSupported && document.queryCommandSupported("copy")){
+    	}else if(document.queryCommandSupported && document.queryCommandSupported("copy")){
         	var textarea = document.createElement("textarea")
         	textarea.textContent = text
         	textarea.style.position = "fixed"
