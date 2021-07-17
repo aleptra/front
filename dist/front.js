@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', function(){
 		}
 	}
 
-	document.onclick=function(e) {
-		var clicked = (e.target) ? e.target : e.srcElement;
+	document.onclick=function(e){
+		var clicked = (e.target) ? e.target : e.srcElement
 	
 		if(clicked.parentNode.getAttribute("selective")){
 			
@@ -182,9 +182,9 @@ function scrollTo(element, to, duration){
   		var difference = to - element.scrollTop,
   		perTick = difference / duration * 2;
 
-		setTimeout(function() {
-			element.scrollTop = element.scrollTop + perTick;
-    		scrollTo(element, to, duration - 2);
+		setTimeout(function(){
+			element.scrollTop = element.scrollTop + perTick
+    		scrollTo(element, to, duration - 2)
 		}, 10)
   
 	app.debug("Scroll: "+element+":"+to+":"+duration)
@@ -206,7 +206,7 @@ function getParentTag(element, tag){
 
 function getObject(obj, name){
 	var objarr = "obj." + name
-	try {
+	try{
 		var obj = eval(objarr)
 		return obj
 	}catch(err){
@@ -215,9 +215,9 @@ function getObject(obj, name){
 }
 
 function mergeObject(target){
-    for (var i = 1; i < arguments.length; i++){
+    for(var i = 1; i < arguments.length; i++){
         var source = arguments[i];
-        for (var key in source) {
+        for(var key in source){
             if(source.hasOwnProperty(key)){
                 target[key] = source[key]
             }
@@ -278,7 +278,7 @@ var core = function(){
 					xhr.send()
 				  }
 	
-				function getOneTemplate(response2) {
+				function getOneTemplate(response2){
 					var xhr = new XMLHttpRequest()
 					xhr.onreadystatechange = function(){
 						if(this.readyState == 4 && this.status == 200){
@@ -462,11 +462,11 @@ var core = function(){
 			e.innerHTML = core.toLower(e.innerHTML)
 		if(e.hasAttribute("uppercase"))
 			e.innerHTML = core.toUpper(e.innerHTML)
-		if(e.hasAttribute("escape")) {
+		if(e.hasAttribute("escape")){
 			var escape = e.innerHTML
 			var code = escape.charCodeAt(0)
 
-			if(0xD800 <= code && code <= 0xDBFF) {
+			if(0xD800 <= code && code <= 0xDBFF){
 				low = escape.charCodeAt(1)
 				code = ((code- 0xD800) * 0x400) + (low - 0xDC00) + 0x10000
 			}
@@ -541,7 +541,7 @@ var core = function(){
 			var set = (val[1] == 'false') ? dom.escape(content) : content
 			e.innerHTML = set
 		}
-		if(e.tagName == "CODE") {
+		if(e.tagName == "CODE"){
 			//this.runCoreAttributesInElement(e);
 		}
 		if(e.hasAttribute("background")){
@@ -555,7 +555,7 @@ var core = function(){
 	this.runCoreAttributesInElement = function(e){
 		var e = (typeof e === 'string') ? dom.get(e) : e
 		els = e.getElementsByTagName("*")
-		for(i = 0; i < els.length; i++) {
+		for(i = 0; i < els.length; i++){
 			core.runCoreAttributes(els[i])
 		}
 	}
@@ -566,7 +566,7 @@ var core = function(){
 		
 		for(k = 0; k < els.length; k++){
 			for(j = 0; j < libAttribute.length; j++){
-				if(els[k].hasAttribute(libAttribute[j].attr)) {
+				if(els[k].hasAttribute(libAttribute[j].attr)){
 					window[libAttribute[j].func](els[k])
 				}
 			}
@@ -610,8 +610,8 @@ var core = function(){
 	this.includeBindFile = function(e, input, target, value){
 		var file = e.getAttribute("bindinclude")
 		app.debug("Include (bind) file: "+file, "green")
-		client.get(currentEnvUrl + file, function(response) {
-			if(response) {
+		client.get(currentEnvUrl + file, function(response){
+			if(response){
 				el = dom.get(target)
 				el.innerHTML = response
 				el.removeAttribute("include")
@@ -903,9 +903,9 @@ var dom = function(){
 		el.focus()
 	}
 
-	this.remove = function(obj) {
-		var el = this.get(obj);
-		if(el) el.parentNode.removeChild(el);
+	this.remove = function(obj){
+		var el = this.get(obj)
+		if(el) el.parentNode.removeChild(el)
 	}
 
 	this.content = function(obj, content){
@@ -1102,7 +1102,7 @@ var dom = function(){
 		return text.substr(0, index) + string + text.substr(index)
   	}
 
-	/*this.insert = function (obj, create, html = '', pos = 1) {
+	/*this.insert = function (obj, create, html = '', pos = 1){
 		var node = document.createElement(create[0]);
 		node.id = create[1];
 
@@ -1199,8 +1199,8 @@ var dom = function(){
 			return el.children;
 		else
 			var i = 0, node, nodes = el.childNodes, children = []
-			while (node = nodes[i++]){
-				if(node.nodeType === 1) { children.push(node) }
+			while(node = nodes[i++]){
+				if(node.nodeType === 1){ children.push(node) }
 			}
 			return children
 	}
@@ -1222,7 +1222,7 @@ var dom = function(){
 	return false;
 }
 
-var xhr = function() {
+var xhr = function(){
 
 	var request = new XMLHttpRequest(),
 		headers = [],
