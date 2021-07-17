@@ -1,1694 +1,2258 @@
 [
     {
-        "code": "af"
+        "code": "af",
+        "name_eng": "Afrikaans"
     },
     {
-        "code": "af_NA"
+        "code": "af-NA",
+        "name_eng": "Afrikaans (Namibia)"
     },
     {
-        "code": "af_ZA"
+        "code": "af-ZA",
+        "name_eng": "Afrikaans (South Africa)"
     },
     {
-        "code": "ak"
+        "code": "ak",
+        "name_eng": "Akan"
     },
     {
-        "code": "ak_GH"
+        "code": "ak-GH",
+        "name_eng": "Akan (Ghana)"
     },
     {
-        "code": "am"
+        "code": "am",
+        "name_eng": "Amharic"
     },
     {
-        "code": "am_ET"
+        "code": "am-ET",
+        "name_eng": "Amharic (Ethiopia)"
     },
     {
-        "code": "ar"
+        "code": "ar",
+        "name_eng": "Arabic"
     },
     {
-        "code": "ar_AE"
+        "code": "ar-AE",
+        "name_eng": "Arabic (United Arab Emirates)"
     },
     {
-        "code": "ar_BH"
+        "code": "ar-BH",
+        "name_eng": "Arabic (Bahrain)"
     },
     {
-        "code": "ar_DJ"
+        "code": "ar-DJ",
+        "name_eng": "Arabic (Djibouti)"
     },
     {
-        "code": "ar_DZ"
+        "code": "ar-DZ",
+        "name_eng": "Arabic (Algeria)"
     },
     {
-        "code": "ar_EG"
+        "code": "ar-EG",
+        "name_eng": "Arabic (Egypt)"
     },
     {
-        "code": "ar_EH"
+        "code": "ar-EH",
+        "name_eng": "Arabic (Western Sahara)"
     },
     {
-        "code": "ar_ER"
+        "code": "ar-ER",
+        "name_eng": "Arabic (Eritrea)"
     },
     {
-        "code": "ar_IL"
+        "code": "ar-IL",
+        "name_eng": "Arabic (Israel)"
     },
     {
-        "code": "ar_IQ"
+        "code": "ar-IQ",
+        "name_eng": "Arabic (Iraq)"
     },
     {
-        "code": "ar_JO"
+        "code": "ar-JO",
+        "name_eng": "Arabic (Jordan)"
     },
     {
-        "code": "ar_KM"
+        "code": "ar-KM",
+        "name_eng": "Arabic (Comoros)"
     },
     {
-        "code": "ar_KW"
+        "code": "ar-KW",
+        "name_eng": "Arabic (Kuwait)"
     },
     {
-        "code": "ar_LB"
+        "code": "ar-LB",
+        "name_eng": "Arabic (Lebanon)"
     },
     {
-        "code": "ar_LY"
+        "code": "ar-LY",
+        "name_eng": "Arabic (Libya)"
     },
     {
-        "code": "ar_MA"
+        "code": "ar-MA",
+        "name_eng": "Arabic (Morocco)"
     },
     {
-        "code": "ar_MR"
+        "code": "ar-MR",
+        "name_eng": "Arabic (Mauritania)"
     },
     {
-        "code": "ar_OM"
+        "code": "ar-OM",
+        "name_eng": "Arabic (Oman)"
     },
     {
-        "code": "ar_PS"
+        "code": "ar-PS",
+        "name_eng": "Arabic (West Bank)"
     },
     {
-        "code": "ar_QA"
+        "code": "ar-QA",
+        "name_eng": "Arabic (Qatar)"
     },
     {
-        "code": "ar_SA"
+        "code": "ar-SA",
+        "name_eng": "Arabic (Saudi Arabia)"
     },
     {
-        "code": "ar_SD"
+        "code": "ar-SD",
+        "name_eng": "Arabic (Sudan)"
     },
     {
-        "code": "ar_SO"
+        "code": "ar-SO",
+        "name_eng": "Arabic (Somalia)"
     },
     {
-        "code": "ar_SS"
+        "code": "ar-SS",
+        "name_eng": "Arabic (South Sudan)"
     },
     {
-        "code": "ar_SY"
+        "code": "ar-SY",
+        "name_eng": "Arabic (Syria)"
     },
     {
-        "code": "ar_TD"
+        "code": "ar-TD",
+        "name_eng": "Arabic (Chad)"
     },
     {
-        "code": "ar_TN"
+        "code": "ar-TN",
+        "name_eng": "Arabic (Tunisia)"
     },
     {
-        "code": "ar_YE"
+        "code": "ar-YE",
+        "name_eng": "Arabic (Yemen)"
     },
     {
-        "code": "as"
+        "code": "as",
+        "name_eng": "Assamese"
     },
     {
-        "code": "as_IN"
+        "code": "as-IN",
+        "name_eng": "Assamese (India)"
     },
     {
-        "code": "az"
+        "code": "az",
+        "name_eng": "Azerbaijani"
     },
     {
-        "code": "az_AZ"
+        "code": "az-AZ",
+        "name_eng": "Azerbaijani (Azerbaijan)"
     },
     {
-        "code": "az_Cyrl"
+        "code": "az-Cyrl",
+        "name_eng": "Azerbaijani (Cyrillic)"
     },
     {
-        "code": "az_Cyrl_AZ"
+        "code": "az-Cyrl-AZ",
+        "name_eng": "Azerbaijani (Cyrillic, Azerbaijan)"
     },
     {
-        "code": "az_Latn"
+        "code": "az-Latn",
+        "name_eng": "Azerbaijani (Latin)"
     },
     {
-        "code": "az_Latn_AZ"
+        "code": "az-Latn-AZ",
+        "name_eng": "Azerbaijani (Latin, Azerbaijan)"
     },
     {
-        "code": "be"
+        "code": "be",
+        "name_eng": "Belarusian"
     },
     {
-        "code": "be_BY"
+        "code": "be-BY",
+        "name_eng": "Belarusian (Belarus)"
     },
     {
-        "code": "bg"
+        "code": "bg",
+        "name_eng": "Bulgarian"
     },
     {
-        "code": "bg_BG"
+        "code": "bg-BG",
+        "name_eng": "Bulgarian (Bulgaria)"
     },
     {
-        "code": "bm"
+        "code": "bm",
+        "name_eng": "Bambara"
     },
     {
-        "code": "bm_Latn"
+        "code": "bm-Latn",
+        "name_eng": "Bambara (Latin)"
     },
     {
-        "code": "bm_Latn_ML"
+        "code": "bm-Latn-ML",
+        "name_eng": "Bambara (Latin, Mali)"
     },
     {
-        "code": "bn"
+        "code": "bn",
+        "name_eng": "Bengali"
     },
     {
-        "code": "bn_BD"
+        "code": "bn-BD",
+        "name_eng": "Bengali (Bengladesh)"
     },
     {
-        "code": "bn_IN"
+        "code": "bn-IN",
+        "name_eng": "Bengali (India)"
     },
     {
-        "code": "bo"
+        "code": "bo",
+        "name_eng": "Bosnian"
     },
     {
-        "code": "bo_CN"
+        "code": "bo-CN",
+        "name_eng": ""
     },
     {
-        "code": "bo_IN"
+        "code": "bo-IN",
+        "name_eng": ""
     },
     {
-        "code": "br"
+        "code": "br",
+        "name_eng": ""
     },
     {
-        "code": "br_FR"
+        "code": "br-FR",
+        "name_eng": ""
     },
     {
-        "code": "bs"
+        "code": "bs",
+        "name_eng": ""
     },
     {
-        "code": "bs_BA"
+        "code": "bs-BA",
+        "name_eng": ""
     },
     {
-        "code": "bs_Cyrl"
+        "code": "bs-Cyrl",
+        "name_eng": ""
     },
     {
-        "code": "bs_Cyrl_BA"
+        "code": "bs-Cyrl-BA",
+        "name_eng": ""
     },
     {
-        "code": "bs_Latn"
+        "code": "bs-Latn",
+        "name_eng": ""
     },
     {
-        "code": "bs_Latn_BA"
+        "code": "bs-Latn-BA",
+        "name_eng": ""
     },
     {
-        "code": "ca"
+        "code": "ca",
+        "name_eng": ""
     },
     {
-        "code": "ca_AD"
+        "code": "ca-AD",
+        "name_eng": ""
     },
     {
-        "code": "ca_ES"
+        "code": "ca-ES",
+        "name_eng": ""
     },
     {
-        "code": "ca_FR"
+        "code": "ca-FR",
+        "name_eng": ""
     },
     {
-        "code": "ca_IT"
+        "code": "ca-IT",
+        "name_eng": ""
     },
     {
-        "code": "cs"
+        "code": "cs",
+        "name_eng": ""
     },
     {
-        "code": "cs_CZ"
+        "code": "cs-CZ",
+        "name_eng": ""
     },
     {
-        "code": "cy"
+        "code": "cy",
+        "name_eng": ""
     },
     {
-        "code": "cy_GB"
+        "code": "cy-GB",
+        "name_eng": ""
     },
     {
-        "code": "da"
+        "code": "da",
+        "name_eng": ""
     },
     {
-        "code": "da_DK"
+        "code": "da-DK",
+        "name_eng": ""
     },
     {
-        "code": "da_GL"
+        "code": "da-GL",
+        "name_eng": ""
     },
     {
-        "code": "de"
+        "code": "de",
+        "name_eng": "German"
     },
     {
-        "code": "de_AT"
+        "code": "de-AT",
+        "name_eng": "German (Austria)"
     },
     {
-        "code": "de_BE"
+        "code": "de-BE",
+        "name_eng": "German (Belgium)"
     },
     {
-        "code": "de_CH"
+        "code": "de-CH",
+        "name_eng": "German (Switzerland)"
     },
     {
-        "code": "de_DE"
+        "code": "de-DE",
+        "name_eng": "German (Germany)"
     },
     {
-        "code": "de_LI"
+        "code": "de-LI",
+        "name_eng": ""
     },
     {
-        "code": "de_LU"
+        "code": "de-LU",
+        "name_eng": ""
     },
     {
-        "code": "dz"
+        "code": "dz",
+        "name_eng": ""
     },
     {
-        "code": "dz_BT"
+        "code": "dz-BT",
+        "name_eng": ""
     },
     {
-        "code": "ee"
+        "code": "ee",
+        "name_eng": ""
     },
     {
-        "code": "ee_GH"
+        "code": "ee-GH",
+        "name_eng": ""
     },
     {
-        "code": "ee_TG"
+        "code": "ee-TG",
+        "name_eng": ""
     },
     {
-        "code": "el"
+        "code": "el",
+        "name_eng": ""
     },
     {
-        "code": "el_CY"
+        "code": "el-CY",
+        "name_eng": ""
     },
     {
-        "code": "el_GR"
+        "code": "el-GR",
+        "name_eng": ""
     },
     {
-        "code": "en"
+        "code": "en",
+        "name_eng": "English"
     },
     {
-        "code": "en_AG"
+        "code": "en-AG",
+        "name_eng": "English (Antigua & Barbuda)"
     },
     {
-        "code": "en_AI"
+        "code": "en-AI",
+        "name_eng": "English (Anguilla)"
     },
     {
-        "code": "en_AS"
+        "code": "en-AS",
+        "name_eng": "English (American Samoa)"
     },
     {
-        "code": "en_AU"
+        "code": "en-AU",
+        "name_eng": "English (Australia)"
     },
     {
-        "code": "en_BB"
+        "code": "en-BB",
+        "name_eng": "English (Barbados)"
     },
     {
-        "code": "en_BE"
+        "code": "en-BE",
+        "name_eng": "English (Belgium)"
     },
     {
-        "code": "en_BM"
+        "code": "en-BM",
+        "name_eng": "English (Bermuda)"
     },
     {
-        "code": "en_BS"
+        "code": "en-BS",
+        "name_eng": "English (Bahamas)"
     },
     {
-        "code": "en_BW"
+        "code": "en-BW",
+        "name_eng": "English (Botswana)"
     },
     {
-        "code": "en_BZ"
+        "code": "en-BZ",
+        "name_eng": ""
     },
     {
-        "code": "en_CA"
+        "code": "en-CA",
+        "name_eng": ""
     },
     {
-        "code": "en_CC"
+        "code": "en-CC",
+        "name_eng": ""
     },
     {
-        "code": "en_CK"
+        "code": "en-CK",
+        "name_eng": ""
     },
     {
-        "code": "en_CM"
+        "code": "en-CM",
+        "name_eng": ""
     },
     {
-        "code": "en_CX"
+        "code": "en-CX",
+        "name_eng": ""
     },
     {
-        "code": "en_DG"
+        "code": "en-DG",
+        "name_eng": ""
     },
     {
-        "code": "en_DM"
+        "code": "en-DM",
+        "name_eng": ""
     },
     {
-        "code": "en_ER"
+        "code": "en-ER",
+        "name_eng": ""
     },
     {
-        "code": "en_FJ"
+        "code": "en-FJ",
+        "name_eng": ""
     },
     {
-        "code": "en_FK"
+        "code": "en-FK",
+        "name_eng": ""
     },
     {
-        "code": "en_FM"
+        "code": "en-FM",
+        "name_eng": ""
     },
     {
-        "code": "en_GB"
+        "code": "en-GB",
+        "name_eng": ""
     },
     {
-        "code": "en_GD"
+        "code": "en-GD",
+        "name_eng": ""
     },
     {
-        "code": "en_GG"
+        "code": "en-GG",
+        "name_eng": ""
     },
     {
-        "code": "en_GH"
+        "code": "en-GH",
+        "name_eng": ""
     },
     {
-        "code": "en_GI"
+        "code": "en-GI",
+        "name_eng": ""
     },
     {
-        "code": "en_GM"
+        "code": "en-GM",
+        "name_eng": ""
     },
     {
-        "code": "en_GU"
+        "code": "en-GU",
+        "name_eng": ""
     },
     {
-        "code": "en_GY"
+        "code": "en-GY",
+        "name_eng": ""
     },
     {
-        "code": "en_HK"
+        "code": "en-HK",
+        "name_eng": ""
     },
     {
-        "code": "en_IE"
+        "code": "en-IE",
+        "name_eng": ""
     },
     {
-        "code": "en_IM"
+        "code": "en-IM",
+        "name_eng": ""
     },
     {
-        "code": "en_IN"
+        "code": "en-IN",
+        "name_eng": ""
     },
     {
-        "code": "en_IO"
+        "code": "en-IO",
+        "name_eng": ""
     },
     {
-        "code": "en_JE"
+        "code": "en-JE",
+        "name_eng": ""
     },
     {
-        "code": "en_JM"
+        "code": "en-JM",
+        "name_eng": ""
     },
     {
-        "code": "en_KE"
+        "code": "en-KE",
+        "name_eng": ""
     },
     {
-        "code": "en_KI"
+        "code": "en-KI",
+        "name_eng": ""
     },
     {
-        "code": "en_KN"
+        "code": "en-KN",
+        "name_eng": ""
     },
     {
-        "code": "en_KY"
+        "code": "en-KY",
+        "name_eng": ""
     },
     {
-        "code": "en_LC"
+        "code": "en-LC",
+        "name_eng": ""
     },
     {
-        "code": "en_LR"
+        "code": "en-LR",
+        "name_eng": ""
     },
     {
-        "code": "en_LS"
+        "code": "en-LS",
+        "name_eng": ""
     },
     {
-        "code": "en_MG"
+        "code": "en-MG",
+        "name_eng": ""
     },
     {
-        "code": "en_MH"
+        "code": "en-MH",
+        "name_eng": ""
     },
     {
-        "code": "en_MO"
+        "code": "en-MO",
+        "name_eng": ""
     },
     {
-        "code": "en_MP"
+        "code": "en-MP",
+        "name_eng": ""
     },
     {
-        "code": "en_MS"
+        "code": "en-MS",
+        "name_eng": ""
     },
     {
-        "code": "en_MT"
+        "code": "en-MT",
+        "name_eng": ""
     },
     {
-        "code": "en_MU"
+        "code": "en-MU",
+        "name_eng": ""
     },
     {
-        "code": "en_MW"
+        "code": "en-MW",
+        "name_eng": ""
     },
     {
-        "code": "en_MY"
+        "code": "en-MY",
+        "name_eng": ""
     },
     {
-        "code": "en_NA"
+        "code": "en-NA",
+        "name_eng": ""
     },
     {
-        "code": "en_NF"
+        "code": "en-NF",
+        "name_eng": ""
     },
     {
-        "code": "en_NG"
+        "code": "en-NG",
+        "name_eng": ""
     },
     {
-        "code": "en_NR"
+        "code": "en-NR",
+        "name_eng": ""
     },
     {
-        "code": "en_NU"
+        "code": "en-NU",
+        "name_eng": ""
     },
     {
-        "code": "en_NZ"
+        "code": "en-NZ",
+        "name_eng": ""
     },
     {
-        "code": "en_PG"
+        "code": "en-PG",
+        "name_eng": ""
     },
     {
-        "code": "en_PH"
+        "code": "en-PH",
+        "name_eng": ""
     },
     {
-        "code": "en_PK"
+        "code": "en-PK",
+        "name_eng": ""
     },
     {
-        "code": "en_PN"
+        "code": "en-PN",
+        "name_eng": ""
     },
     {
-        "code": "en_PR"
+        "code": "en-PR",
+        "name_eng": ""
     },
     {
-        "code": "en_PW"
+        "code": "en-PW",
+        "name_eng": ""
     },
     {
-        "code": "en_RW"
+        "code": "en-RW",
+        "name_eng": ""
     },
     {
-        "code": "en_SB"
+        "code": "en-SB",
+        "name_eng": ""
     },
     {
-        "code": "en_SC"
+        "code": "en-SC",
+        "name_eng": ""
     },
     {
-        "code": "en_SD"
+        "code": "en-SD",
+        "name_eng": ""
     },
     {
-        "code": "en_SG"
+        "code": "en-SG",
+        "name_eng": ""
     },
     {
-        "code": "en_SH"
+        "code": "en-SH",
+        "name_eng": ""
     },
     {
-        "code": "en_SL"
+        "code": "en-SL",
+        "name_eng": ""
     },
     {
-        "code": "en_SS"
+        "code": "en-SS",
+        "name_eng": ""
     },
     {
-        "code": "en_SX"
+        "code": "en-SX",
+        "name_eng": ""
     },
     {
-        "code": "en_SZ"
+        "code": "en-SZ",
+        "name_eng": ""
     },
     {
-        "code": "en_TC"
+        "code": "en-TC",
+        "name_eng": ""
     },
     {
-        "code": "en_TK"
+        "code": "en-TK",
+        "name_eng": ""
     },
     {
-        "code": "en_TO"
+        "code": "en-TO",
+        "name_eng": ""
     },
     {
-        "code": "en_TT"
+        "code": "en-TT",
+        "name_eng": ""
     },
     {
-        "code": "en_TV"
+        "code": "en-TV",
+        "name_eng": ""
     },
     {
-        "code": "en_TZ"
+        "code": "en-TZ",
+        "name_eng": ""
     },
     {
-        "code": "en_UG"
+        "code": "en-UG",
+        "name_eng": ""
     },
     {
-        "code": "en_UM"
+        "code": "en-UM",
+        "name_eng": ""
     },
     {
-        "code": "en_US"
+        "code": "en-US",
+        "name_eng": ""
     },
     {
-        "code": "en_VC"
+        "code": "en-VC",
+        "name_eng": ""
     },
     {
-        "code": "en_VG"
+        "code": "en-VG",
+        "name_eng": ""
     },
     {
-        "code": "en_VI"
+        "code": "en-VI",
+        "name_eng": ""
     },
     {
-        "code": "en_VU"
+        "code": "en-VU",
+        "name_eng": ""
     },
     {
-        "code": "en_WS"
+        "code": "en-WS",
+        "name_eng": ""
     },
     {
-        "code": "en_ZA"
+        "code": "en-ZA",
+        "name_eng": ""
     },
     {
-        "code": "en_ZM"
+        "code": "en-ZM",
+        "name_eng": ""
     },
     {
-        "code": "en_ZW"
+        "code": "en-ZW",
+        "name_eng": ""
     },
     {
-        "code": "eo"
+        "code": "eo",
+        "name_eng": ""
     },
     {
-        "code": "es"
+        "code": "es",
+        "name_eng": ""
     },
     {
-        "code": "es_AR"
+        "code": "es-AR",
+        "name_eng": ""
     },
     {
-        "code": "es_BO"
+        "code": "es-BO",
+        "name_eng": ""
     },
     {
-        "code": "es_CL"
+        "code": "es-CL",
+        "name_eng": ""
     },
     {
-        "code": "es_CO"
+        "code": "es-CO",
+        "name_eng": ""
     },
     {
-        "code": "es_CR"
+        "code": "es-CR",
+        "name_eng": ""
     },
     {
-        "code": "es_CU"
+        "code": "es-CU",
+        "name_eng": ""
     },
     {
-        "code": "es_DO"
+        "code": "es-DO",
+        "name_eng": ""
     },
     {
-        "code": "es_EA"
+        "code": "es-EA",
+        "name_eng": ""
     },
     {
-        "code": "es_EC"
+        "code": "es-EC",
+        "name_eng": ""
     },
     {
-        "code": "es_ES"
+        "code": "es-ES",
+        "name_eng": ""
     },
     {
-        "code": "es_GQ"
+        "code": "es-GQ",
+        "name_eng": ""
     },
     {
-        "code": "es_GT"
+        "code": "es-GT",
+        "name_eng": ""
     },
     {
-        "code": "es_HN"
+        "code": "es-HN",
+        "name_eng": ""
     },
     {
-        "code": "es_IC"
+        "code": "es-IC",
+        "name_eng": ""
     },
     {
-        "code": "es_MX"
+        "code": "es-MX",
+        "name_eng": ""
     },
     {
-        "code": "es_NI"
+        "code": "es-NI",
+        "name_eng": ""
     },
     {
-        "code": "es_PA"
+        "code": "es-PA",
+        "name_eng": ""
     },
     {
-        "code": "es_PE"
+        "code": "es-PE",
+        "name_eng": ""
     },
     {
-        "code": "es_PH"
+        "code": "es-PH",
+        "name_eng": ""
     },
     {
-        "code": "es_PR"
+        "code": "es-PR",
+        "name_eng": ""
     },
     {
-        "code": "es_PY"
+        "code": "es-PY",
+        "name_eng": ""
     },
     {
-        "code": "es_SV"
+        "code": "es-SV",
+        "name_eng": ""
     },
     {
-        "code": "es_US"
+        "code": "es-US",
+        "name_eng": ""
     },
     {
-        "code": "es_UY"
+        "code": "es-UY",
+        "name_eng": ""
     },
     {
-        "code": "es_VE"
+        "code": "es-VE",
+        "name_eng": ""
     },
     {
-        "code": "et"
+        "code": "et",
+        "name_eng": ""
     },
     {
-        "code": "et_EE"
+        "code": "et-EE",
+        "name_eng": ""
     },
     {
-        "code": "eu"
+        "code": "eu",
+        "name_eng": ""
     },
     {
-        "code": "eu_ES"
+        "code": "eu-ES",
+        "name_eng": ""
     },
     {
-        "code": "fa"
+        "code": "fa",
+        "name_eng": ""
     },
     {
-        "code": "fa_AF"
+        "code": "fa-AF",
+        "name_eng": ""
     },
     {
-        "code": "fa_IR"
+        "code": "fa-IR",
+        "name_eng": ""
     },
     {
-        "code": "ff"
+        "code": "ff",
+        "name_eng": ""
     },
     {
-        "code": "ff_CM"
+        "code": "ff-CM",
+        "name_eng": ""
     },
     {
-        "code": "ff_GN"
+        "code": "ff-GN",
+        "name_eng": ""
     },
     {
-        "code": "ff_MR"
+        "code": "ff-MR",
+        "name_eng": ""
     },
     {
-        "code": "ff_SN"
+        "code": "ff-SN",
+        "name_eng": ""
     },
     {
-        "code": "fi"
+        "code": "fi",
+        "name_eng": ""
     },
     {
-        "code": "fi_FI"
+        "code": "fi-FI",
+        "name_eng": ""
     },
     {
-        "code": "fo"
+        "code": "fo",
+        "name_eng": ""
     },
     {
-        "code": "fo_FO"
+        "code": "fo-FO",
+        "name_eng": ""
     },
     {
-        "code": "fr"
+        "code": "fr",
+        "name_eng": ""
     },
     {
-        "code": "fr_BE"
+        "code": "fr-BE",
+        "name_eng": ""
     },
     {
-        "code": "fr_BF"
+        "code": "fr-BF",
+        "name_eng": ""
     },
     {
-        "code": "fr_BI"
+        "code": "fr-BI",
+        "name_eng": ""
     },
     {
-        "code": "fr_BJ"
+        "code": "fr-BJ",
+        "name_eng": ""
     },
     {
-        "code": "fr_BL"
+        "code": "fr-BL",
+        "name_eng": ""
     },
     {
-        "code": "fr_CA"
+        "code": "fr-CA",
+        "name_eng": ""
     },
     {
-        "code": "fr_CD"
+        "code": "fr-CD",
+        "name_eng": ""
     },
     {
-        "code": "fr_CF"
+        "code": "fr-CF",
+        "name_eng": ""
     },
     {
-        "code": "fr_CG"
+        "code": "fr-CG",
+        "name_eng": ""
     },
     {
-        "code": "fr_CH"
+        "code": "fr-CH",
+        "name_eng": ""
     },
     {
-        "code": "fr_CI"
+        "code": "fr-CI",
+        "name_eng": ""
     },
     {
-        "code": "fr_CM"
+        "code": "fr-CM",
+        "name_eng": ""
     },
     {
-        "code": "fr_DJ"
+        "code": "fr-DJ",
+        "name_eng": ""
     },
     {
-        "code": "fr_DZ"
+        "code": "fr-DZ",
+        "name_eng": ""
     },
     {
-        "code": "fr_FR"
+        "code": "fr-FR",
+        "name_eng": ""
     },
     {
-        "code": "fr_GA"
+        "code": "fr-GA",
+        "name_eng": ""
     },
     {
-        "code": "fr_GF"
+        "code": "fr-GF",
+        "name_eng": ""
     },
     {
-        "code": "fr_GN"
+        "code": "fr-GN",
+        "name_eng": ""
     },
     {
-        "code": "fr_GP"
+        "code": "fr-GP",
+        "name_eng": ""
     },
     {
-        "code": "fr_GQ"
+        "code": "fr-GQ",
+        "name_eng": ""
     },
     {
-        "code": "fr_HT"
+        "code": "fr-HT",
+        "name_eng": ""
     },
     {
-        "code": "fr_KM"
+        "code": "fr-KM",
+        "name_eng": ""
     },
     {
-        "code": "fr_LU"
+        "code": "fr-LU",
+        "name_eng": ""
     },
     {
-        "code": "fr_MA"
+        "code": "fr-MA",
+        "name_eng": ""
     },
     {
-        "code": "fr_MC"
+        "code": "fr-MC",
+        "name_eng": ""
     },
     {
-        "code": "fr_MF"
+        "code": "fr-MF",
+        "name_eng": ""
     },
     {
-        "code": "fr_MG"
+        "code": "fr-MG",
+        "name_eng": ""
     },
     {
-        "code": "fr_ML"
+        "code": "fr-ML",
+        "name_eng": ""
     },
     {
-        "code": "fr_MQ"
+        "code": "fr-MQ",
+        "name_eng": ""
     },
     {
-        "code": "fr_MR"
+        "code": "fr-MR",
+        "name_eng": ""
     },
     {
-        "code": "fr_MU"
+        "code": "fr-MU",
+        "name_eng": ""
     },
     {
-        "code": "fr_NC"
+        "code": "fr-NC",
+        "name_eng": ""
     },
     {
-        "code": "fr_NE"
+        "code": "fr-NE",
+        "name_eng": ""
     },
     {
-        "code": "fr_PF"
+        "code": "fr-PF",
+        "name_eng": ""
     },
     {
-        "code": "fr_PM"
+        "code": "fr-PM",
+        "name_eng": ""
     },
     {
-        "code": "fr_RE"
+        "code": "fr-RE",
+        "name_eng": ""
     },
     {
-        "code": "fr_RW"
+        "code": "fr-RW",
+        "name_eng": ""
     },
     {
-        "code": "fr_SC"
+        "code": "fr-SC",
+        "name_eng": ""
     },
     {
-        "code": "fr_SN"
+        "code": "fr-SN",
+        "name_eng": ""
     },
     {
-        "code": "fr_SY"
+        "code": "fr-SY",
+        "name_eng": ""
     },
     {
-        "code": "fr_TD"
+        "code": "fr-TD",
+        "name_eng": ""
     },
     {
-        "code": "fr_TG"
+        "code": "fr-TG",
+        "name_eng": ""
     },
     {
-        "code": "fr_TN"
+        "code": "fr-TN",
+        "name_eng": ""
     },
     {
-        "code": "fr_VU"
+        "code": "fr-VU",
+        "name_eng": ""
     },
     {
-        "code": "fr_WF"
+        "code": "fr-WF",
+        "name_eng": ""
     },
     {
-        "code": "fr_YT"
+        "code": "fr-YT",
+        "name_eng": ""
     },
     {
-        "code": "fy"
+        "code": "fy",
+        "name_eng": ""
     },
     {
-        "code": "fy_NL"
+        "code": "fy-NL",
+        "name_eng": ""
     },
     {
-        "code": "ga"
+        "code": "ga",
+        "name_eng": ""
     },
     {
-        "code": "ga_IE"
+        "code": "ga-IE",
+        "name_eng": ""
     },
     {
-        "code": "gd"
+        "code": "gd",
+        "name_eng": ""
     },
     {
-        "code": "gd_GB"
+        "code": "gd-GB",
+        "name_eng": ""
     },
     {
-        "code": "gl"
+        "code": "gl",
+        "name_eng": ""
     },
     {
-        "code": "gl_ES"
+        "code": "gl-ES",
+        "name_eng": ""
     },
     {
-        "code": "gu"
+        "code": "gu",
+        "name_eng": ""
     },
     {
-        "code": "gu_IN"
+        "code": "gu-IN",
+        "name_eng": ""
     },
     {
-        "code": "gv"
+        "code": "gv",
+        "name_eng": ""
     },
     {
-        "code": "gv_IM"
+        "code": "gv-IM",
+        "name_eng": ""
     },
     {
-        "code": "ha"
+        "code": "ha",
+        "name_eng": ""
     },
     {
-        "code": "ha_GH"
+        "code": "ha-GH",
+        "name_eng": ""
     },
     {
-        "code": "ha_Latn"
+        "code": "ha-Latn",
+        "name_eng": ""
     },
     {
-        "code": "ha_Latn_GH"
+        "code": "ha-Latn-GH",
+        "name_eng": ""
     },
     {
-        "code": "ha_Latn_NE"
+        "code": "ha-Latn-NE",
+        "name_eng": ""
     },
     {
-        "code": "ha_Latn_NG"
+        "code": "ha-Latn-NG",
+        "name_eng": ""
     },
     {
-        "code": "ha_NE"
+        "code": "ha-NE",
+        "name_eng": ""
     },
     {
-        "code": "ha_NG"
+        "code": "ha-NG",
+        "name_eng": ""
     },
     {
-        "code": "he"
+        "code": "he",
+        "name_eng": "Hebrew"
     },
     {
-        "code": "he_IL"
+        "code": "he-IL",
+        "name_eng": "Hebrew (Israel)"
     },
     {
-        "code": "hi"
+        "code": "hi",
+        "name_eng": ""
     },
     {
-        "code": "hi_IN"
+        "code": "hi-IN",
+        "name_eng": ""
     },
     {
-        "code": "hr"
+        "code": "hr",
+        "name_eng": ""
     },
     {
-        "code": "hr_BA"
+        "code": "hr-BA",
+        "name_eng": ""
     },
     {
-        "code": "hr_HR"
+        "code": "hr-HR",
+        "name_eng": ""
     },
     {
-        "code": "hu"
+        "code": "hu",
+        "name_eng": ""
     },
     {
-        "code": "hu_HU"
+        "code": "hu-HU",
+        "name_eng": ""
     },
     {
-        "code": "hy"
+        "code": "hy",
+        "name_eng": ""
     },
     {
-        "code": "hy_AM"
+        "code": "hy-AM",
+        "name_eng": ""
     },
     {
-        "code": "id"
+        "code": "id",
+        "name_eng": ""
     },
     {
-        "code": "id_ID"
+        "code": "id-ID",
+        "name_eng": ""
     },
     {
-        "code": "ig"
+        "code": "ig",
+        "name_eng": ""
     },
     {
-        "code": "ig_NG"
+        "code": "ig-NG",
+        "name_eng": ""
     },
     {
-        "code": "ii"
+        "code": "ii",
+        "name_eng": ""
     },
     {
-        "code": "ii_CN"
+        "code": "ii-CN",
+        "name_eng": ""
     },
     {
-        "code": "is"
+        "code": "is",
+        "name_eng": ""
     },
     {
-        "code": "is_IS"
+        "code": "is-IS",
+        "name_eng": ""
     },
     {
-        "code": "it"
+        "code": "it",
+        "name_eng": ""
     },
     {
-        "code": "it_CH"
+        "code": "it-CH",
+        "name_eng": ""
     },
     {
-        "code": "it_IT"
+        "code": "it-IT",
+        "name_eng": ""
     },
     {
-        "code": "it_SM"
+        "code": "it-SM",
+        "name_eng": ""
     },
     {
-        "code": "ja"
+        "code": "ja",
+        "name_eng": ""
     },
     {
-        "code": "ja_JP"
+        "code": "ja-JP",
+        "name_eng": ""
     },
     {
-        "code": "ka"
+        "code": "ka",
+        "name_eng": ""
     },
     {
-        "code": "ka_GE"
+        "code": "ka-GE",
+        "name_eng": ""
     },
     {
-        "code": "ki"
+        "code": "ki",
+        "name_eng": ""
     },
     {
-        "code": "ki_KE"
+        "code": "ki-KE",
+        "name_eng": ""
     },
     {
-        "code": "kk"
+        "code": "kk",
+        "name_eng": ""
     },
     {
-        "code": "kk_Cyrl"
+        "code": "kk-Cyrl",
+        "name_eng": ""
     },
     {
-        "code": "kk_Cyrl_KZ"
+        "code": "kk-Cyrl-KZ",
+        "name_eng": ""
     },
     {
-        "code": "kk_KZ"
+        "code": "kk-KZ",
+        "name_eng": ""
     },
     {
-        "code": "kl"
+        "code": "kl",
+        "name_eng": ""
     },
     {
-        "code": "kl_GL"
+        "code": "kl-GL",
+        "name_eng": ""
     },
     {
-        "code": "km"
+        "code": "km",
+        "name_eng": ""
     },
     {
-        "code": "km_KH"
+        "code": "km-KH",
+        "name_eng": ""
     },
     {
-        "code": "kn"
+        "code": "kn",
+        "name_eng": ""
     },
     {
-        "code": "kn_IN"
+        "code": "kn-IN",
+        "name_eng": ""
     },
     {
-        "code": "ko"
+        "code": "ko",
+        "name_eng": ""
     },
     {
-        "code": "ko_KP"
+        "code": "ko-KP",
+        "name_eng": ""
     },
     {
-        "code": "ko_KR"
+        "code": "ko-KR",
+        "name_eng": ""
     },
     {
-        "code": "ks"
+        "code": "ks",
+        "name_eng": ""
     },
     {
-        "code": "ks_Arab"
+        "code": "ks-Arab",
+        "name_eng": ""
     },
     {
-        "code": "ks_Arab_IN"
+        "code": "ks-Arab-IN",
+        "name_eng": ""
     },
     {
-        "code": "ks_IN"
+        "code": "ks-IN",
+        "name_eng": ""
     },
     {
-        "code": "kw"
+        "code": "kw",
+        "name_eng": ""
     },
     {
-        "code": "kw_GB"
+        "code": "kw-GB",
+        "name_eng": ""
     },
     {
-        "code": "ky"
+        "code": "ky",
+        "name_eng": ""
     },
     {
-        "code": "ky_Cyrl"
+        "code": "ky-Cyrl",
+        "name_eng": ""
     },
     {
-        "code": "ky_Cyrl_KG"
+        "code": "ky-Cyrl-KG",
+        "name_eng": ""
     },
     {
-        "code": "ky_KG"
+        "code": "ky-KG",
+        "name_eng": ""
     },
     {
-        "code": "lb"
+        "code": "lb",
+        "name_eng": ""
     },
     {
-        "code": "lb_LU"
+        "code": "lb-LU",
+        "name_eng": ""
     },
     {
-        "code": "lg"
+        "code": "lg",
+        "name_eng": ""
     },
     {
-        "code": "lg_UG"
+        "code": "lg-UG",
+        "name_eng": ""
     },
     {
-        "code": "ln"
+        "code": "ln",
+        "name_eng": ""
     },
     {
-        "code": "ln_AO"
+        "code": "ln-AO",
+        "name_eng": ""
     },
     {
-        "code": "ln_CD"
+        "code": "ln-CD",
+        "name_eng": ""
     },
     {
-        "code": "ln_CF"
+        "code": "ln-CF",
+        "name_eng": ""
     },
     {
-        "code": "ln_CG"
+        "code": "ln-CG",
+        "name_eng": ""
     },
     {
-        "code": "lo"
+        "code": "lo",
+        "name_eng": ""
     },
     {
-        "code": "lo_LA"
+        "code": "lo-LA",
+        "name_eng": ""
     },
     {
-        "code": "lt"
+        "code": "lt",
+        "name_eng": ""
     },
     {
-        "code": "lt_LT"
+        "code": "lt-LT",
+        "name_eng": ""
     },
     {
-        "code": "lu"
+        "code": "lu",
+        "name_eng": ""
     },
     {
-        "code": "lu_CD"
+        "code": "lu-CD",
+        "name_eng": ""
     },
     {
-        "code": "lv"
+        "code": "lv",
+        "name_eng": ""
     },
     {
-        "code": "lv_LV"
+        "code": "lv-LV",
+        "name_eng": ""
     },
     {
-        "code": "mg"
+        "code": "mg",
+        "name_eng": ""
     },
     {
-        "code": "mg_MG"
+        "code": "mg-MG",
+        "name_eng": ""
     },
     {
-        "code": "mk"
+        "code": "mk",
+        "name_eng": ""
     },
     {
-        "code": "mk_MK"
+        "code": "mk-MK",
+        "name_eng": ""
     },
     {
-        "code": "ml"
+        "code": "ml",
+        "name_eng": ""
     },
     {
-        "code": "ml_IN"
+        "code": "ml-IN",
+        "name_eng": ""
     },
     {
-        "code": "mn"
+        "code": "mn",
+        "name_eng": ""
     },
     {
-        "code": "mn_Cyrl"
+        "code": "mn-Cyrl",
+        "name_eng": ""
     },
     {
-        "code": "mn_Cyrl_MN"
+        "code": "mn-Cyrl-MN",
+        "name_eng": ""
     },
     {
-        "code": "mn_MN"
+        "code": "mn-MN",
+        "name_eng": ""
     },
     {
-        "code": "mr"
+        "code": "mr",
+        "name_eng": ""
     },
     {
-        "code": "mr_IN"
+        "code": "mr-IN",
+        "name_eng": ""
     },
     {
-        "code": "ms"
+        "code": "ms",
+        "name_eng": ""
     },
     {
-        "code": "ms_BN"
+        "code": "ms-BN",
+        "name_eng": ""
     },
     {
-        "code": "ms_Latn"
+        "code": "ms-Latn",
+        "name_eng": ""
     },
     {
-        "code": "ms_Latn_BN"
+        "code": "ms-Latn-BN",
+        "name_eng": ""
     },
     {
-        "code": "ms_Latn_MY"
+        "code": "ms-Latn-MY",
+        "name_eng": ""
     },
     {
-        "code": "ms_Latn_SG"
+        "code": "ms-Latn-SG",
+        "name_eng": ""
     },
     {
-        "code": "ms_MY"
+        "code": "ms-MY",
+        "name_eng": ""
     },
     {
-        "code": "ms_SG"
+        "code": "ms-SG",
+        "name_eng": ""
     },
     {
-        "code": "mt"
+        "code": "mt",
+        "name_eng": ""
     },
     {
-        "code": "mt_MT"
+        "code": "mt-MT",
+        "name_eng": ""
     },
     {
-        "code": "my"
+        "code": "my",
+        "name_eng": ""
     },
     {
-        "code": "my_MM"
+        "code": "my-MM",
+        "name_eng": ""
     },
     {
-        "code": "nb"
+        "code": "nb",
+        "name_eng": ""
     },
     {
-        "code": "nb_NO"
+        "code": "nb-NO",
+        "name_eng": ""
     },
     {
-        "code": "nb_SJ"
+        "code": "nb-SJ",
+        "name_eng": ""
     },
     {
-        "code": "nd"
+        "code": "nd",
+        "name_eng": ""
     },
     {
-        "code": "nd_ZW"
+        "code": "nd-ZW",
+        "name_eng": ""
     },
     {
-        "code": "ne"
+        "code": "ne",
+        "name_eng": ""
     },
     {
-        "code": "ne_IN"
+        "code": "ne-IN",
+        "name_eng": ""
     },
     {
-        "code": "ne_NP"
+        "code": "ne-NP",
+        "name_eng": ""
     },
     {
-        "code": "nl"
+        "code": "nl",
+        "name_eng": ""
     },
     {
-        "code": "nl_AW"
+        "code": "nl-AW",
+        "name_eng": ""
     },
     {
-        "code": "nl_BE"
+        "code": "nl-BE",
+        "name_eng": ""
     },
     {
-        "code": "nl_BQ"
+        "code": "nl-BQ",
+        "name_eng": ""
     },
     {
-        "code": "nl_CW"
+        "code": "nl-CW",
+        "name_eng": ""
     },
     {
-        "code": "nl_NL"
+        "code": "nl-NL",
+        "name_eng": ""
     },
     {
-        "code": "nl_SR"
+        "code": "nl-SR",
+        "name_eng": ""
     },
     {
-        "code": "nl_SX"
+        "code": "nl-SX",
+        "name_eng": ""
     },
     {
-        "code": "nn"
+        "code": "nn",
+        "name_eng": ""
     },
     {
-        "code": "nn_NO"
+        "code": "nn-NO",
+        "name_eng": ""
     },
     {
-        "code": "no"
+        "code": "no",
+        "name_eng": ""
     },
     {
-        "code": "no_NO"
+        "code": "no-NO",
+        "name_eng": ""
     },
     {
-        "code": "om"
+        "code": "om",
+        "name_eng": ""
     },
     {
-        "code": "om_ET"
+        "code": "om-ET",
+        "name_eng": ""
     },
     {
-        "code": "om_KE"
+        "code": "om-KE",
+        "name_eng": ""
     },
     {
-        "code": "or"
+        "code": "or",
+        "name_eng": ""
     },
     {
-        "code": "or_IN"
+        "code": "or-IN",
+        "name_eng": ""
     },
     {
-        "code": "os"
+        "code": "os",
+        "name_eng": ""
     },
     {
-        "code": "os_GE"
+        "code": "os-GE",
+        "name_eng": ""
     },
     {
-        "code": "os_RU"
+        "code": "os-RU",
+        "name_eng": ""
     },
     {
-        "code": "pa"
+        "code": "pa",
+        "name_eng": ""
     },
     {
-        "code": "pa_Arab"
+        "code": "pa-Arab",
+        "name_eng": ""
     },
     {
-        "code": "pa_Arab_PK"
+        "code": "pa-Arab-PK",
+        "name_eng": ""
     },
     {
-        "code": "pa_Guru"
+        "code": "pa-Guru",
+        "name_eng": ""
     },
     {
-        "code": "pa_Guru_IN"
+        "code": "pa-Guru-IN",
+        "name_eng": ""
     },
     {
-        "code": "pa_IN"
+        "code": "pa-IN",
+        "name_eng": ""
     },
     {
-        "code": "pa_PK"
+        "code": "pa-PK",
+        "name_eng": ""
     },
     {
-        "code": "pl"
+        "code": "pl",
+        "name_eng": ""
     },
     {
-        "code": "pl_PL"
+        "code": "pl-PL",
+        "name_eng": ""
     },
     {
-        "code": "ps"
+        "code": "ps",
+        "name_eng": ""
     },
     {
-        "code": "ps_AF"
+        "code": "ps-AF",
+        "name_eng": ""
     },
     {
-        "code": "pt"
+        "code": "pt",
+        "name_eng": ""
     },
     {
-        "code": "pt_AO"
+        "code": "pt-AO",
+        "name_eng": ""
     },
     {
-        "code": "pt_BR"
+        "code": "pt-BR",
+        "name_eng": ""
     },
     {
-        "code": "pt_CV"
+        "code": "pt-CV",
+        "name_eng": ""
     },
     {
-        "code": "pt_GW"
+        "code": "pt-GW",
+        "name_eng": ""
     },
     {
-        "code": "pt_MO"
+        "code": "pt-MO",
+        "name_eng": ""
     },
     {
-        "code": "pt_MZ"
+        "code": "pt-MZ",
+        "name_eng": ""
     },
     {
-        "code": "pt_PT"
+        "code": "pt-PT",
+        "name_eng": ""
     },
     {
-        "code": "pt_ST"
+        "code": "pt-ST",
+        "name_eng": ""
     },
     {
-        "code": "pt_TL"
+        "code": "pt-TL",
+        "name_eng": ""
     },
     {
-        "code": "qu"
+        "code": "qu",
+        "name_eng": ""
     },
     {
-        "code": "qu_BO"
+        "code": "qu-BO",
+        "name_eng": ""
     },
     {
-        "code": "qu_EC"
+        "code": "qu-EC",
+        "name_eng": ""
     },
     {
-        "code": "qu_PE"
+        "code": "qu-PE",
+        "name_eng": ""
     },
     {
-        "code": "rm"
+        "code": "rm",
+        "name_eng": ""
     },
     {
-        "code": "rm_CH"
+        "code": "rm-CH",
+        "name_eng": ""
     },
     {
-        "code": "rn"
+        "code": "rn",
+        "name_eng": ""
     },
     {
-        "code": "rn_BI"
+        "code": "rn-BI",
+        "name_eng": ""
     },
     {
-        "code": "ro"
+        "code": "ro",
+        "name_eng": ""
     },
     {
-        "code": "ro_MD"
+        "code": "ro-MD",
+        "name_eng": ""
     },
     {
-        "code": "ro_RO"
+        "code": "ro-RO",
+        "name_eng": ""
     },
     {
-        "code": "ru"
+        "code": "ru",
+        "name_eng": ""
     },
     {
-        "code": "ru_BY"
+        "code": "ru-BY",
+        "name_eng": ""
     },
     {
-        "code": "ru_KG"
+        "code": "ru-KG",
+        "name_eng": ""
     },
     {
-        "code": "ru_KZ"
+        "code": "ru-KZ",
+        "name_eng": ""
     },
     {
-        "code": "ru_MD"
+        "code": "ru-MD",
+        "name_eng": ""
     },
     {
-        "code": "ru_RU"
+        "code": "ru-RU",
+        "name_eng": ""
     },
     {
-        "code": "ru_UA"
+        "code": "ru-UA",
+        "name_eng": ""
     },
     {
-        "code": "rw"
+        "code": "rw",
+        "name_eng": ""
     },
     {
-        "code": "rw_RW"
+        "code": "rw-RW",
+        "name_eng": ""
     },
     {
-        "code": "se"
+        "code": "se",
+        "name_eng": ""
     },
     {
-        "code": "se_FI"
+        "code": "se-FI",
+        "name_eng": ""
     },
     {
-        "code": "se_NO"
+        "code": "se-NO",
+        "name_eng": ""
     },
     {
-        "code": "se_SE"
+        "code": "se-SE",
+        "name_eng": ""
     },
     {
-        "code": "sg"
+        "code": "sg",
+        "name_eng": ""
     },
     {
-        "code": "sg_CF"
+        "code": "sg-CF",
+        "name_eng": ""
     },
     {
-        "code": "sh"
+        "code": "sh",
+        "name_eng": ""
     },
     {
-        "code": "sh_BA"
+        "code": "sh-BA",
+        "name_eng": ""
     },
     {
-        "code": "si"
+        "code": "si",
+        "name_eng": ""
     },
     {
-        "code": "si_LK"
+        "code": "si-LK",
+        "name_eng": ""
     },
     {
-        "code": "sk"
+        "code": "sk",
+        "name_eng": ""
     },
     {
-        "code": "sk_SK"
+        "code": "sk-SK",
+        "name_eng": ""
     },
     {
-        "code": "sl"
+        "code": "sl",
+        "name_eng": ""
     },
     {
-        "code": "sl_SI"
+        "code": "sl-SI",
+        "name_eng": ""
     },
     {
-        "code": "sn"
+        "code": "sn",
+        "name_eng": ""
     },
     {
-        "code": "sn_ZW"
+        "code": "sn-ZW",
+        "name_eng": ""
     },
     {
-        "code": "so"
+        "code": "so",
+        "name_eng": ""
     },
     {
-        "code": "so_DJ"
+        "code": "so-DJ",
+        "name_eng": ""
     },
     {
-        "code": "so_ET"
+        "code": "so-ET",
+        "name_eng": ""
     },
     {
-        "code": "so_KE"
+        "code": "so-KE",
+        "name_eng": ""
     },
     {
-        "code": "so_SO"
+        "code": "so-SO",
+        "name_eng": ""
     },
     {
-        "code": "sq"
+        "code": "sq",
+        "name_eng": ""
     },
     {
-        "code": "sq_AL"
+        "code": "sq-AL",
+        "name_eng": ""
     },
     {
-        "code": "sq_MK"
+        "code": "sq-MK",
+        "name_eng": ""
     },
     {
-        "code": "sq_XK"
+        "code": "sq-XK",
+        "name_eng": ""
     },
     {
-        "code": "sr"
+        "code": "sr",
+        "name_eng": ""
     },
     {
-        "code": "sr_BA"
+        "code": "sr-BA",
+        "name_eng": ""
     },
     {
-        "code": "sr_Cyrl"
+        "code": "sr-Cyrl",
+        "name_eng": ""
     },
     {
-        "code": "sr_Cyrl_BA"
+        "code": "sr-Cyrl-BA",
+        "name_eng": ""
     },
     {
-        "code": "sr_Cyrl_ME"
+        "code": "sr-Cyrl-ME",
+        "name_eng": ""
     },
     {
-        "code": "sr_Cyrl_RS"
+        "code": "sr-Cyrl-RS",
+        "name_eng": ""
     },
     {
-        "code": "sr_Cyrl_XK"
+        "code": "sr-Cyrl-XK",
+        "name_eng": ""
     },
     {
-        "code": "sr_Latn"
+        "code": "sr-Latn",
+        "name_eng": ""
     },
     {
-        "code": "sr_Latn_BA"
+        "code": "sr-Latn-BA",
+        "name_eng": ""
     },
     {
-        "code": "sr_Latn_ME"
+        "code": "sr-Latn-ME",
+        "name_eng": ""
     },
     {
-        "code": "sr_Latn_RS"
+        "code": "sr-Latn-RS",
+        "name_eng": ""
     },
     {
-        "code": "sr_Latn_XK"
+        "code": "sr-Latn-XK",
+        "name_eng": ""
     },
     {
-        "code": "sr_ME"
+        "code": "sr-ME",
+        "name_eng": ""
     },
     {
-        "code": "sr_RS"
+        "code": "sr-RS",
+        "name_eng": ""
     },
     {
-        "code": "sr_XK"
+        "code": "sr-XK",
+        "name_eng": ""
     },
     {
-        "code": "sv"
+        "code": "sv",
+        "name_eng": ""
     },
     {
-        "code": "sv_AX"
+        "code": "sv-AX",
+        "name_eng": ""
     },
     {
-        "code": "sv_FI"
+        "code": "sv-FI",
+        "name_eng": "Swedish (Finland)"
     },
     {
-        "code": "sv_SE"
+        "code": "sv-SE",
+        "name_eng": "Swedish"
     },
     {
-        "code": "sw"
+        "code": "sw",
+        "name_eng": ""
     },
     {
-        "code": "sw_CD"
+        "code": "sw-CD",
+        "name_eng": ""
     },
     {
-        "code": "sw_KE"
+        "code": "sw-KE",
+        "name_eng": ""
     },
     {
-        "code": "sw_TZ"
+        "code": "sw-TZ",
+        "name_eng": ""
     },
     {
-        "code": "sw_UG"
+        "code": "sw-UG",
+        "name_eng": ""
     },
     {
-        "code": "ta"
+        "code": "ta",
+        "name_eng": ""
     },
     {
-        "code": "ta_IN"
+        "code": "ta-IN",
+        "name_eng": ""
     },
     {
-        "code": "ta_LK"
+        "code": "ta-LK",
+        "name_eng": ""
     },
     {
-        "code": "ta_MY"
+        "code": "ta-MY",
+        "name_eng": ""
     },
     {
-        "code": "ta_SG"
+        "code": "ta-SG",
+        "name_eng": ""
     },
     {
-        "code": "te"
+        "code": "te",
+        "name_eng": ""
     },
     {
-        "code": "te_IN"
+        "code": "te-IN",
+        "name_eng": ""
     },
     {
-        "code": "th"
+        "code": "th",
+        "name_eng": ""
     },
     {
-        "code": "th_TH"
+        "code": "th-TH",
+        "name_eng": ""
     },
     {
-        "code": "ti"
+        "code": "ti",
+        "name_eng": ""
     },
     {
-        "code": "ti_ER"
+        "code": "ti-ER",
+        "name_eng": ""
     },
     {
-        "code": "ti_ET"
+        "code": "ti-ET",
+        "name_eng": ""
     },
     {
-        "code": "tl"
+        "code": "tl",
+        "name_eng": ""
     },
     {
-        "code": "tl_PH"
+        "code": "tl-PH",
+        "name_eng": ""
     },
     {
-        "code": "to"
+        "code": "to",
+        "name_eng": ""
     },
     {
-        "code": "to_TO"
+        "code": "to-TO",
+        "name_eng": ""
     },
     {
-        "code": "tr"
+        "code": "tr",
+        "name_eng": ""
     },
     {
-        "code": "tr_CY"
+        "code": "tr-CY",
+        "name_eng": ""
     },
     {
-        "code": "tr_TR"
+        "code": "tr-TR",
+        "name_eng": ""
     },
     {
-        "code": "ug"
+        "code": "ug",
+        "name_eng": ""
     },
     {
-        "code": "ug_Arab"
+        "code": "ug-Arab",
+        "name_eng": ""
     },
     {
-        "code": "ug_Arab_CN"
+        "code": "ug-Arab-CN",
+        "name_eng": ""
     },
     {
-        "code": "ug_CN"
+        "code": "ug-CN",
+        "name_eng": ""
     },
     {
-        "code": "uk"
+        "code": "uk",
+        "name_eng": ""
     },
     {
-        "code": "uk_UA"
+        "code": "uk-UA",
+        "name_eng": ""
     },
     {
-        "code": "ur"
+        "code": "ur",
+        "name_eng": ""
     },
     {
-        "code": "ur_IN"
+        "code": "ur-IN",
+        "name_eng": ""
     },
     {
-        "code": "ur_PK"
+        "code": "ur-PK",
+        "name_eng": ""
     },
     {
-        "code": "uz"
+        "code": "uz",
+        "name_eng": ""
     },
     {
-        "code": "uz_AF"
+        "code": "uz-AF",
+        "name_eng": ""
     },
     {
-        "code": "uz_Arab"
+        "code": "uz-Arab",
+        "name_eng": ""
     },
     {
-        "code": "uz_Arab_AF"
+        "code": "uz-Arab-AF",
+        "name_eng": ""
     },
     {
-        "code": "uz_Cyrl"
+        "code": "uz-Cyrl",
+        "name_eng": ""
     },
     {
-        "code": "uz_Cyrl_UZ"
+        "code": "uz-Cyrl-UZ",
+        "name_eng": ""
     },
     {
-        "code": "uz_Latn"
+        "code": "uz-Latn",
+        "name_eng": ""
     },
     {
-        "code": "uz_Latn_UZ"
+        "code": "uz-Latn-UZ",
+        "name_eng": ""
     },
     {
-        "code": "uz_UZ"
+        "code": "uz-UZ",
+        "name_eng": ""
     },
     {
-        "code": "vi"
+        "code": "vi",
+        "name_eng": ""
     },
     {
-        "code": "vi_VN"
+        "code": "vi-VN",
+        "name_eng": ""
     },
     {
-        "code": "yi"
+        "code": "yi",
+        "name_eng": "Yiddish"
     },
     {
-        "code": "yo"
+        "code": "yo",
+        "name_eng": "Yoruba"
     },
     {
-        "code": "yo_BJ"
+        "code": "yo-BJ",
+        "name_eng": "Yoruba (Benin)"
     },
     {
-        "code": "yo_NG"
+        "code": "yo-NG",
+        "name_eng": "Yoruba (Nigeria)"
     },
     {
-        "code": "zh"
+        "code": "zh",
+        "name_eng": "Chinese"
     },
     {
-        "code": "zh_CN"
+        "code": "zh-CN",
+        "name_eng": "Chinese (China)"
     },
     {
-        "code": "zh_HK"
+        "code": "zh-HK",
+        "name_eng": "Chinese (Hong Kong SAR China)"
     },
     {
-        "code": "zh_Hans"
+        "code": "zh-Hans",
+        "name_eng": "Chinese (Simplified)"
     },
     {
-        "code": "zh_Hans_CN"
+        "code": "zh-Hans-CN",
+        "name_eng": "Chinese (Simplified, China)"
     },
     {
-        "code": "zh_Hans_HK"
+        "code": "zh-Hans-HK",
+        "name_eng": "Chinese (Simplified, Hong Kong SAR China)"
     },
     {
-        "code": "zh_Hans_MO"
+        "code": "zh-Hans-MO",
+        "name_eng": "Chinese (Simplified, Macau SAR China)"
     },
     {
-        "code": "zh_Hans_SG"
+        "code": "zh-Hans-SG",
+        "name_eng": "Chinese (Simplified, Singapore)"
     },
     {
-        "code": "zh_Hant"
+        "code": "zh-Hant",
+        "name_eng": "Chinese (Traditional)"
     },
     {
-        "code": "zh_Hant_HK"
+        "code": "zh-Hant-HK",
+        "name_eng": "Chinese (Traditional, Hong Kong SAR China)"
     },
     {
-        "code": "zh_Hant_MO"
+        "code": "zh-Hant-MO",
+        "name_eng": "Chinese (Traditional, Macau SAR China)"
     },
     {
-        "code": "zh_Hant_TW"
+        "code": "zh-Hant-TW",
+        "name_eng": "Chinese (Traditional, Taiwan)"
     },
     {
-        "code": "zh_MO"
+        "code": "zh-MO",
+        "name_eng": "Chinese (Macau SAR China)"
     },
     {
-        "code": "zh_SG"
+        "code": "zh-SG",
+        "name_eng": "Chinese (Singapore)"
     },
     {
-        "code": "zh_TW"
+        "code": "zh-TW",
+        "name_eng": "Chinese (Taiwan)"
     },
     {
-        "code": "zu"
+        "code": "zu",
+        "name_eng": "Zulu"
     },
     {
-        "code": "zu_ZA"
+        "code": "zu-ZA",
+        "name_eng": "Zulu (South Africa)"
     }
 ]

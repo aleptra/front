@@ -11,9 +11,9 @@
         <table class="mt1 w100p">
             <thead>
                 <tr>
-                    <th>Attribute</th>
-                    <th>Parameters</th>
-                    <th class="w50">Description</th>
+                    <th globalize="attribute">Attribute</th>
+                    <th globalize="parameters">Parameters</th>
+                    <th globalize="description" class="w50">Description</th>
                 </tr>
             </thead>
             <tbody class="z09">
@@ -27,13 +27,13 @@
     </section>
 
     <section class="variables">
-        <h2 globalize="attributes">Variables</h2>
+        <h2 globalize="variables">Variables</h2>
         <table class="mt1 w100p">
             <thead>
                 <tr>
-                    <th>Variable</th>
-                    <th>Output</th>
-                    <th class="w50">Description</th>
+                    <th globalize="variable">Variable</th>
+                    <th globalize="output">Output</th>
+                    <th globalize="decription" class="w50">Description</th>
                 </tr>
             </thead>
             <tbody class="z09">
@@ -52,11 +52,13 @@
             <thead>
                 <tr>
                     <th globalize="attribute">Code</th>
+                    <th globalize="name">Name</th>
                 </tr>
             </thead>
             <tbody class="z09" json="true" iterate="true" datasource="./assets/json/languagecodes.json">
                 <tr>
-                    <td jsonget="code"></td>
+                    <td>{{ jsonget:code = toLower }}</td>
+                    <td jsonget="name_eng"></td>
                 </tr>
             </tbody>
         </table>
