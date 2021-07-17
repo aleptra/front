@@ -13,7 +13,7 @@ var front,
 	bindDivider = '.',
 	varDivider = ':',
 
-	hostname,
+	hostName,
 	url,
 	title,
 	currentUrl,
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	html = document.documentElement
 	debugMode = html.getAttribute("debug")
 	startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
-	hostname = window.location.hostname
+	hostName = window.location.hostname
 	url = window.location.origin + urlDelimiter
 	currentUrl = window.location.href
 	currentPage = window.location.pathname
