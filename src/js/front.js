@@ -48,38 +48,38 @@ document.addEventListener('DOMContentLoaded', function(){
 	xhrProgress = dom.get("navprogress")
 	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
 
-	if (currentScript.hasAttribute("store")) {
+	if(currentScript.hasAttribute("store")){
 		var attr = currentScript.getAttribute("store").split(";")
-		for(storefile in attr) {
-			var file = attr[storefile].split(varDivider);
-			var sclient = new xhr();
+		for(storefile in attr){
+			var file = attr[storefile].split(varDivider)
+			var sclient = new xhr()
 			sclient.addHeader("storeName", file[1]);
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, headers){
 				if (response)
 					app.storage(headers[0][1], response)
-			}, false);
+			}, false)
 		}
 	}
 
 	if(!core.hasTemplateLayout()){
 
 		currentScriptUrl = app.getBaseUrl(currentScript.src);
-		if (currentScript.hasAttribute(folderLib)) {
-			var libs = currentScript.getAttribute(folderLib).split(";");
+		if(currentScript.hasAttribute(folderLib)){
+			var libs = currentScript.getAttribute(folderLib).split(";")
 			for(lib in libs)
-				require(libs[lib], folderLib);
+				require(libs[lib], folderLib)
 		}
-		if (currentScript.hasAttribute(folderPlug)) {
-			var plugs = currentScript.getAttribute(folderPlug).split(";");
+		if(currentScript.hasAttribute(folderPlug)){
+			var plugs = currentScript.getAttribute(folderPlug).split(";")
 			for(plug in plugs)
-				require(plugs[plug], folderPlug);
+				require(plugs[plug], folderPlug)
 		}
 
-		load = true;
-		loadTemplate = false;
+		load = true
+		loadTemplate = false
 	}
 
-	document.onkeyup=function(e) {
+	document.onkeyup=function(e){
 		if(e.target.nodeName == "INPUT" || e.target.nodeName == "TEXTAREA" || e.target.isContentEditable) return false
 		var key = String.fromCharCode(e.keyCode)
 		for(i = 0; i < front.length; i++){
