@@ -39,15 +39,15 @@ document.addEventListener('DOMContentLoaded', function(){
 	currentUrl = window.location.href
 	baseUrl = app.getBaseUrl(currentUrl)
 	environments = app.getCurrentEnvironment()
-	currentPage = window.location.pathname.replace(baseUrl, "")
+	currentEnvName = environments[0]
+	currentEnvUrl = environments[1]
+	currentPage = window.location.pathname.replace(currentEnvUrl, "")
 	currentScript = document.querySelector('script[src*="front.js"]')
 	currentScriptUrl = currentScript.getAttribute("src")
 	referrerUrl = document.referrer
 	xhrProgress = dom.get("navprogress")
 	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
 	globalUrl = environments[1]
-	currentEnvName = environments[0]
-	currentEnvUrl = environments[1]
 
 	if (currentScript.hasAttribute("store")) {
 		var attr = currentScript.getAttribute("store").split(";")
