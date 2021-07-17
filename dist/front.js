@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function(){
 			var file = attr[storefile].split(varDivider);
 			var sclient = new xhr();
 			sclient.addHeader("storeName", file[1]);
-			sclient.get(globalUrl + file[0] + ".json", function(response, headers){
+			sclient.get(currentEnvUrl + file[0] + ".json", function(response, headers){
 				if (response)
 					app.storage(headers[0][1], response)
 			}, false);
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function(){
 			}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
 				app.debug('Click with Ajax: '+ elHref);
 				if(window.location.hash) location.hash = "";
-				return nav(globalUrl + elHref, false, true);
+				return nav(currentEnvUrl + elHref, false, true);
 			}else{
 				app.debug('Click');
 			}
@@ -600,7 +600,7 @@ var core = function() {
 	this.includeFile = function(e){
 		var file = e.getAttribute("include")
 		app.debug("Include file: "+file, "green")
-		client.get(globalUrl + file, function(response) {
+		client.get(currentEnvUrl + file, function(response) {
 		if (response)
 			e.innerHTML = response
 			core.runAttributesInElement(e)
@@ -612,7 +612,7 @@ var core = function() {
 	this.includeBindFile = function(e, input, target, value){
 		var file = e.getAttribute("bindinclude")
 		app.debug("Include (bind) file: "+file, "green")
-		client.get(globalUrl + file, function(response) {
+		client.get(currentEnvUrl + file, function(response) {
 			if (response) {
 				el = dom.get(target)
 				el.innerHTML = response
