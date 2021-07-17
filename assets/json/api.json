@@ -97,6 +97,11 @@
                     "description": "The baseUrl variable prints out the current configured base URL."
                 },
                 {
+                    "variable": "currentPage",
+                    "output": "Path",
+                    "description": "The currentPage variable prints out the current path and filename of the current page."
+                },
+                {
                     "variable": "currentScriptUrl",
                     "output": "URL",
                     "description": "The currentScriptUrl variable prints out the current location in which Front runs."
@@ -110,6 +115,11 @@
                     "variable": "debugMode",
                     "output": "true | false",
                     "description": "The debugMode variable prints out whether debug mode is on or off."
+                },
+                {
+                    "variable": "hostName",
+                    "output": "URL",
+                    "description": "The hostName variable prints out the name of the internet host of the current page."
                 },
                 {
                     "variable": "mobileMode",
