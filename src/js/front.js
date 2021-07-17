@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function(){
 			var sclient = new xhr()
 			sclient.addHeader("storeName", file[1]);
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, headers){
-				if (response)
+				if(response)
 					app.storage(headers[0][1], response)
 			}, false)
 		}
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		var key = String.fromCharCode(e.keyCode)
 		for(i = 0; i < front.length; i++){
 			if(front[i].hasAttribute("key"))
-				if (front[i].getAttribute("key") == key)
+				if(front[i].getAttribute("key") == key)
 					var action = front[i].getAttribute("keyaction")
 					eval("front[i]."+action)
 		}
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function(){
 })
 
 window.addEventListener('load', function(){
-	if (load){
+	if(load){
 		core.runLibPreloads()
 		core.runFrontAttributes()
 	}
@@ -148,10 +148,10 @@ window.addEventListener("hashchange", function(){
 function require(src, folder){
 	var el
 
-	if (src.indexOf("http") >= 0){
+	if(src.indexOf("http") >= 0){
 		src = src
 		el = "script"
-	}else if (src.indexOf(".js") >= 0){
+	}else if(src.indexOf(".js") >= 0){
 		src = baseUrl + src
 		el = "script"
 	}else if(src.indexOf(".css") >= 0){
@@ -218,7 +218,7 @@ function mergeObject(target){
     for (var i = 1; i < arguments.length; i++){
         var source = arguments[i];
         for (var key in source) {
-            if (source.hasOwnProperty(key)){
+            if(source.hasOwnProperty(key)){
                 target[key] = source[key]
             }
         }
@@ -229,7 +229,7 @@ function mergeObject(target){
 var core = function(){
 	this.runLibPreloads = function(){
 		for(i = 0; i < libPreload.length; i++){
-			if (libPreload[i].func)
+			if(libPreload[i].func)
 				window[libPreload[i].func]()
 		}
 	}
@@ -412,7 +412,7 @@ var core = function(){
 			var value = e.getAttribute("metacontent")
 			var els = document.getElementsByTagName("meta")
 			for(var i in els){
-				if (typeof(els[i].name) != 'undefined' && els[i].name.toLowerCase() == value)
+				if(typeof(els[i].name) != 'undefined' && els[i].name.toLowerCase() == value)
 				  e.innerHTML = els[i].content
 			}
 		}
@@ -657,7 +657,7 @@ var core = function(){
         
         for(var i = 0; i < vars.length; i++){
 			var pair = vars[i].split('=')
-			if (!pair[1]) pair[1] = ""
+			if(!pair[1]) pair[1] = ""
 		    params[pair[0]] = decodeURIComponent(pair[1] + "")
         }
         
@@ -704,7 +704,7 @@ var core = function(){
 			if(attr){
 				u = attr
 			}else{
-				if (current != array[j].tagName){
+				if(current != array[j].tagName){
 					current = array[j].tagName
 					u = 0
 				}else{
@@ -772,7 +772,7 @@ var app = function(){
 
 	this.setupEnvironment = function(){
 		var env = this.getCurrentEnvironment()
-		if (env[0] == "local"){
+		if(env[0] == "local"){
 			dom.update("base?tag", ["setAttribute", "href", env[1]])
 			app.debug("Running environment: "+env[0], "blue", "yellow")
 		}else if(env[0] == "prod"){
@@ -788,7 +788,7 @@ var app = function(){
 			var attr = el.getAttribute("env").split(";")
 			for(a in attr){
 				env = attr[a].split(":")
-				if (isLocalDev)
+				if(isLocalDev)
 					return env
 				else if(env[0] == "prod" && !isLocalDev)
 					return env
@@ -925,19 +925,19 @@ var dom = function(){
 
 	this.source = function(obj, source){
 		var el = this.get(obj)
-		if (el && source) el.src = source
+		if(el && source) el.src = source
 		else return el.src
 	}
 
 	this.value = function(obj, value){
 		var el = this.get(obj)
-		if (el && value!= null) el.value = value
+		if(el && value!= null) el.value = value
 		else return el.value
 	}
 
 	this.placeholder = function(obj, value){
 		var el = this.get(obj)
-		if (el && value!= null) el.placeholder = value
+		if(el && value!= null) el.placeholder = value
 		else return el.placeholder
 	}
 
@@ -955,28 +955,28 @@ var dom = function(){
 
 	this.width = function(obj, value){
 		var el = this.get(obj)
-		if (el && value!= null) el.width = value
+		if(el && value!= null) el.width = value
 		else return el.width
 	}
 
 	this.height = function(obj, value){
 		var el = this.get(obj)
-		if (el && value!= null) el.height = value
+		if(el && value!= null) el.height = value
 		else return el.height;
 	}
 
 	this.dimension = function(obj, measure, value){
 		var el = this.get(obj)
 		alert(el.width)
-		if (el && value!= null) el.width = value
+		if(el && value!= null) el.width = value
 		else return el.width
-		if (el && value!= null) el.height = value
+		if(el && value!= null) el.height = value
 		else return el.height
 	}
 
 	this.checked = function(obj){
 		var el = this.get(obj)
-		if (el.checked) return true
+		if(el.checked) return true
 		else return false
 	}
 
@@ -1017,16 +1017,16 @@ var dom = function(){
 
 	this.reset = function(obj){
 		var el = this.get(obj)
-		if (el) el.reset()
+		if(el) el.reset()
 	}
 
 	this.audio = function(obj, action){
 		var el = this.get(obj)
 		if(action == 'play'){
-			if (el) el.play()
+			if(el) el.play()
 		}else if(action == 'stop'){
-			if (el) el.pause()
-			if (el) el.currentTime = 0.0
+			if(el) el.pause()
+			if(el) el.currentTime = 0.0
 		}
 	}
 	
@@ -1034,7 +1034,7 @@ var dom = function(){
 		var el = this.get(el)
 		//console.dir(el);
 		var props = "el."+arr[0]+"('"+arr[1]+"', '"+arr[2]+"')"
-		if (el) eval(props)
+		if(el) eval(props)
 	}
 
 	this.create = function(el, arr, parent){
@@ -1126,7 +1126,7 @@ var dom = function(){
 		el = dom.getElementsByAttribute("bindcopy", el.children)
 		var text = el[0].innerText
 		
-    	if (window.clipboardData && window.clipboardData.setData){
+    	if(window.clipboardData && window.clipboardData.setData){
         	return clipboardData.setData("Text", text)
     	}else if(document.queryCommandSupported && document.queryCommandSupported("copy")){
         	var textarea = document.createElement("textarea")
@@ -1153,7 +1153,7 @@ var dom = function(){
 	
 	this.scrollInto = function(el,bool){
 		var target = this.get(el)
-		if (!bool)
+		if(!bool)
 			target.scrollIntoView()
 		else
 			target.scrollTop = bool
@@ -1200,7 +1200,7 @@ var dom = function(){
 		else
 			var i = 0, node, nodes = el.childNodes, children = []
 			while (node = nodes[i++]){
-				if (node.nodeType === 1) { children.push(node) }
+				if(node.nodeType === 1) { children.push(node) }
 			}
 			return children
 	}
