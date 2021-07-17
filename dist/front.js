@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function(){
 	referrerUrl = document.referrer
 	xhrProgress = dom.get("navprogress")
 	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
-	globalUrl = environments[1]
 
 	if (currentScript.hasAttribute("store")) {
 		var attr = currentScript.getAttribute("store").split(";")
