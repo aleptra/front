@@ -213,95 +213,95 @@
     },
     {
         "code": "bo",
-        "name_eng": "Bosnian"
+        "name_eng": "Tibetan"
     },
     {
         "code": "bo-CN",
-        "name_eng": ""
+        "name_eng": "Tibetan (China)"
     },
     {
         "code": "bo-IN",
-        "name_eng": ""
+        "name_eng": "Tibetan (India)"
     },
     {
         "code": "br",
-        "name_eng": ""
+        "name_eng": "Breton"
     },
     {
         "code": "br-FR",
-        "name_eng": ""
+        "name_eng": "Breton (France)"
     },
     {
         "code": "bs",
-        "name_eng": ""
+        "name_eng": "Bosnian"
     },
     {
         "code": "bs-BA",
-        "name_eng": ""
+        "name_eng": "Bosnian (Bosnia & Herzegovina)"
     },
     {
         "code": "bs-Cyrl",
-        "name_eng": ""
+        "name_eng": "Bosnian (Cyrillic)"
     },
     {
         "code": "bs-Cyrl-BA",
-        "name_eng": ""
+        "name_eng": "Bosnian (Cyrillic, Bosnia & Herzegovina)"
     },
     {
         "code": "bs-Latn",
-        "name_eng": ""
+        "name_eng": "Bosnian (Latin)"
     },
     {
         "code": "bs-Latn-BA",
-        "name_eng": ""
+        "name_eng": "Bosnian (Latin, Bosnia & Herzegovina)"
     },
     {
         "code": "ca",
-        "name_eng": ""
+        "name_eng": "Catalan"
     },
     {
         "code": "ca-AD",
-        "name_eng": ""
+        "name_eng": "Catalan (Andorra)"
     },
     {
         "code": "ca-ES",
-        "name_eng": ""
+        "name_eng": "Catalan (Spain)"
     },
     {
         "code": "ca-FR",
-        "name_eng": ""
+        "name_eng": "Catalan (France)"
     },
     {
         "code": "ca-IT",
-        "name_eng": ""
+        "name_eng": "Catalan (Italy)"
     },
     {
         "code": "cs",
-        "name_eng": ""
+        "name_eng": "Czech"
     },
     {
         "code": "cs-CZ",
-        "name_eng": ""
+        "name_eng": "Czech (Czech Republic)"
     },
     {
         "code": "cy",
-        "name_eng": ""
+        "name_eng": "Welsh"
     },
     {
         "code": "cy-GB",
-        "name_eng": ""
+        "name_eng": "Welsh (United Kingdom)"
     },
     {
         "code": "da",
-        "name_eng": ""
+        "name_eng": "Danish"
     },
     {
         "code": "da-DK",
-        "name_eng": ""
+        "name_eng": "Danish (Denmark)"
     },
     {
         "code": "da-GL",
-        "name_eng": ""
+        "name_eng": "Danish (Greenland)"
     },
     {
         "code": "de",
@@ -325,43 +325,43 @@
     },
     {
         "code": "de-LI",
-        "name_eng": ""
+        "name_eng": "German (Liechtenstein)"
     },
     {
         "code": "de-LU",
-        "name_eng": ""
+        "name_eng": "German (Luxembourg)"
     },
     {
         "code": "dz",
-        "name_eng": ""
+        "name_eng": "Dzongkha"
     },
     {
         "code": "dz-BT",
-        "name_eng": ""
+        "name_eng": "Dzongkha (Bhutan)"
     },
     {
         "code": "ee",
-        "name_eng": ""
+        "name_eng": "Ewe"
     },
     {
         "code": "ee-GH",
-        "name_eng": ""
+        "name_eng": "Ewe (Ghana)"
     },
     {
         "code": "ee-TG",
-        "name_eng": ""
+        "name_eng": "Ewe (Togo)"
     },
     {
         "code": "el",
-        "name_eng": ""
+        "name_eng": "Greek"
     },
     {
         "code": "el-CY",
-        "name_eng": ""
+        "name_eng": "Greek (Cyprus)"
     },
     {
         "code": "el-GR",
-        "name_eng": ""
+        "name_eng": "Greek (Greece)"
     },
     {
         "code": "en",
@@ -405,87 +405,87 @@
     },
     {
         "code": "en-BZ",
-        "name_eng": ""
+        "name_eng": "English (Belize)"
     },
     {
         "code": "en-CA",
-        "name_eng": ""
+        "name_eng": "English (Canada)"
     },
     {
         "code": "en-CC",
-        "name_eng": ""
+        "name_eng": "English (Cocos (Keeling) Islands)"
     },
     {
         "code": "en-CK",
-        "name_eng": ""
+        "name_eng": "English (Cook Islands)"
     },
     {
         "code": "en-CM",
-        "name_eng": ""
+        "name_eng": "English (Cameroon)"
     },
     {
         "code": "en-CX",
-        "name_eng": ""
+        "name_eng": "English (Christmas Island)"
     },
     {
         "code": "en-DG",
-        "name_eng": ""
+        "name_eng": "English (Diego Garcia)"
     },
     {
         "code": "en-DM",
-        "name_eng": ""
+        "name_eng": "English (Dominica)"
     },
     {
         "code": "en-ER",
-        "name_eng": ""
+        "name_eng": "English (Eritrea)"
     },
     {
         "code": "en-FJ",
-        "name_eng": ""
+        "name_eng": "English (Fiji)"
     },
     {
         "code": "en-FK",
-        "name_eng": ""
+        "name_eng": "English (Falkland Islands)"
     },
     {
         "code": "en-FM",
-        "name_eng": ""
+        "name_eng": "English (Micronesia)"
     },
     {
         "code": "en-GB",
-        "name_eng": ""
+        "name_eng": "English (United Kingdom)"
     },
     {
         "code": "en-GD",
-        "name_eng": ""
+        "name_eng": "English (Grenada)"
     },
     {
         "code": "en-GG",
-        "name_eng": ""
+        "name_eng": "English (Guernesey)"
     },
     {
         "code": "en-GH",
-        "name_eng": ""
+        "name_eng": "English (Ghana)"
     },
     {
         "code": "en-GI",
-        "name_eng": ""
+        "name_eng": "English (Gibraltar)"
     },
     {
         "code": "en-GM",
-        "name_eng": ""
+        "name_eng": "English (Gambia)"
     },
     {
         "code": "en-GU",
-        "name_eng": ""
+        "name_eng": "English (Guam)"
     },
     {
         "code": "en-GY",
-        "name_eng": ""
+        "name_eng": "English (Guyana)"
     },
     {
         "code": "en-HK",
-        "name_eng": ""
+        "name_eng": "English (Hong Kong SAR China)"
     },
     {
         "code": "en-IE",
