@@ -712,13 +712,13 @@ var core = function() {
 			array[j].tagIndex = u;
 		}
 	
-		return array;
+		return array
 	}
 
 	this.toArray = function(obj){
 		var arr = [];
 		[].push.apply(arr, obj);
-		return arr;
+		return arr
 	}
 
 	this.toDOM = function(str){
@@ -732,7 +732,7 @@ var core = function() {
     		KeyVal[i] = KeyVal[i].split(":");
     		obj[KeyVal[i][0]]=KeyVal[i][1];
 		}
-		return obj;
+		return obj
 	}
 
 	this.mergeObject = function(str){
@@ -742,9 +742,9 @@ var core = function() {
 	this.isJson = function(str) {
 		try {
 			JSON.parse(str);
-			return true;
+			return true
 		}catch(err){
-			return false;
+			return false
 		}
 	}
 
@@ -759,7 +759,7 @@ var app = function() {
 	this.getBaseUrl = function(url) {
 		str = url.split(urlDelimiter);
 		str.pop();
-		return str.join(urlDelimiter) + urlDelimiter;
+		return str.join(urlDelimiter) + urlDelimiter
 	}
 
 	this.getNewUrl = function(){
@@ -804,7 +804,7 @@ var app = function() {
 	}
 	
 	this.getPathUrl = function(url){
-		return new URL(url).pathname;
+		return new URL(url).pathname
 	}
 
 	this.storage = function(key, value) {
