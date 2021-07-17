@@ -19,6 +19,8 @@ var front,
 	currentUrl,
 	currentPage,
 	currentScriptUrl,
+	currentEnvName,
+	currentEnvUrl,
 	referrerUrl,
 	baseUrl,
 	html,
@@ -36,14 +38,16 @@ document.addEventListener('DOMContentLoaded', function(){
 	url = window.location.origin + urlDelimiter
 	currentUrl = window.location.href
 	baseUrl = app.getBaseUrl(currentUrl)
+	environments = app.getCurrentEnvironment()
 	currentPage = window.location.pathname.replace(baseUrl, "")
 	currentScript = document.querySelector('script[src*="front.js"]')
 	currentScriptUrl = currentScript.getAttribute("src")
 	referrerUrl = document.referrer
 	xhrProgress = dom.get("navprogress")
 	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
-	
-	globalUrl = app.getCurrentEnvironment()[1]
+	globalUrl = environments[1]
+	currentEnvName = environments[0]
+	currentEnvUrl = environments[1]
 
 	if (currentScript.hasAttribute("store")) {
 		var attr = currentScript.getAttribute("store").split(";")
