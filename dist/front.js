@@ -35,11 +35,11 @@ document.addEventListener('DOMContentLoaded', function(){
 	hostName = window.location.hostname
 	url = window.location.origin + urlDelimiter
 	currentUrl = window.location.href
-	currentPage = window.location.pathname
+	baseUrl = app.getBaseUrl(currentUrl)
+	currentPage = window.location.pathname.replace(baseUrl, "")
 	currentScript = document.querySelector('script[src*="front.js"]')
 	currentScriptUrl = currentScript.getAttribute("src")
 	referrerUrl = document.referrer
-	baseUrl = app.getBaseUrl(currentUrl)
 	xhrProgress = dom.get("navprogress")
 	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
 
