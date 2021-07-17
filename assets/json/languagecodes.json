@@ -1093,83 +1093,83 @@
     },
     {
         "code": "fy",
-        "name_eng": ""
+        "name_eng": "Western Frisian"
     },
     {
         "code": "fy-NL",
-        "name_eng": ""
+        "name_eng": "Western Frisian (Netherlands)"
     },
     {
         "code": "ga",
-        "name_eng": ""
+        "name_eng": "Irish"
     },
     {
         "code": "ga-IE",
-        "name_eng": ""
+        "name_eng": "Irish (Ireland)"
     },
     {
         "code": "gd",
-        "name_eng": ""
+        "name_eng": "Scottish Gaelic"
     },
     {
         "code": "gd-GB",
-        "name_eng": ""
+        "name_eng": "Scottish Gaelic (United Kingdom)"
     },
     {
         "code": "gl",
-        "name_eng": ""
+        "name_eng": "Galician"
     },
     {
         "code": "gl-ES",
-        "name_eng": ""
+        "name_eng": "Galician (Spain)"
     },
     {
         "code": "gu",
-        "name_eng": ""
+        "name_eng": "Gujarati"
     },
     {
         "code": "gu-IN",
-        "name_eng": ""
+        "name_eng": "Gujarati (India)"
     },
     {
         "code": "gv",
-        "name_eng": ""
+        "name_eng": "Manx"
     },
     {
         "code": "gv-IM",
-        "name_eng": ""
+        "name_eng": "Manx (Isle of Man)"
     },
     {
         "code": "ha",
-        "name_eng": ""
+        "name_eng": "Hausa"
     },
     {
         "code": "ha-GH",
-        "name_eng": ""
+        "name_eng": "Hausa (Ghana)"
     },
     {
         "code": "ha-Latn",
-        "name_eng": ""
+        "name_eng": "Hausa (Latin)"
     },
     {
         "code": "ha-Latn-GH",
-        "name_eng": ""
+        "name_eng": "Hausa (Latin, Ghana)"
     },
     {
         "code": "ha-Latn-NE",
-        "name_eng": ""
+        "name_eng": "Hausa (Latin, Niger)"
     },
     {
         "code": "ha-Latn-NG",
-        "name_eng": ""
+        "name_eng": "Hausa (Latin, Nigeria)"
     },
     {
         "code": "ha-NE",
-        "name_eng": ""
+        "name_eng": "Hausa (Niger)"
     },
     {
         "code": "ha-NG",
-        "name_eng": ""
+        "name_eng": "Hausa (Nigeria)"
     },
     {
         "code": "he",
@@ -1181,31 +1181,31 @@
     },
     {
         "code": "hi",
-        "name_eng": ""
+        "name_eng": "Hindi"
     },
     {
         "code": "hi-IN",
-        "name_eng": ""
+        "name_eng": "Hindi (India)"
     },
     {
         "code": "hr",
-        "name_eng": ""
+        "name_eng": "Croatian"
     },
     {
         "code": "hr-BA",
-        "name_eng": ""
+        "name_eng": "Croatian (Bosnia & Herzegovina)"
     },
     {
         "code": "hr-HR",
-        "name_eng": ""
+        "name_eng": "Croatian (Croatia)"
     },
     {
         "code": "hu",
-        "name_eng": ""
+        "name_eng": "Hungarian"
     },
     {
         "code": "hu-HU",
-        "name_eng": ""
+        "name_eng": "Hungarian (Hungary)"
     },
     {
         "code": "hy",
