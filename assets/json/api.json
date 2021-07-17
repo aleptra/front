@@ -97,6 +97,16 @@
                     "description": "The baseUrl variable prints out the current configured base URL."
                 },
                 {
+                    "variable": "currentEnvName",
+                    "output": "Name",
+                    "description": "The currentEnvName variable prints out the current environment name."
+                },
+                {
+                    "variable": "currentEnvUrl",
+                    "output": "Path",
+                    "description": "The currentEnvUrl variable prints out the current environment path."
+                },
+                {
                     "variable": "currentPage",
                     "output": "Path",
                     "description": "The currentPage variable prints out the current path and filename of the current page."
