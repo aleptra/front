@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		}
 	}
 	
-	document.addEventListener('click', function(e) {
+	document.addEventListener('click', function(e){
 		var clicked = (e.target) ? e.target : e.srcElement;
 		var val = clicked.parentNode.getAttribute("onclick");
 		if (val) {
@@ -134,115 +134,115 @@ document.addEventListener('DOMContentLoaded', function(){
 	},true)
 })
 
-window.addEventListener('load', function() {
-	if (load) {
+window.addEventListener('load', function(){
+	if (load){
 		core.runLibPreloads()
 		core.runFrontAttributes()
 	}
 })
 
-window.addEventListener("hashchange", function() {
-	return false;
+window.addEventListener("hashchange", function(){
+	return false
 }, false)
 
-function require(src, folder) {
-	var el;
+function require(src, folder){
+	var el
 
-	if (src.indexOf("http") >= 0) {
-		src = src;
-		el = "script";
-	}else if (src.indexOf(".js") >= 0) {
-		src = baseUrl + src;
-		el = "script";
-	}else if(src.indexOf(".css") >= 0) {
-		src = src;
-		el = "link";
+	if (src.indexOf("http") >= 0){
+		src = src
+		el = "script"
+	}else if (src.indexOf(".js") >= 0){
+		src = baseUrl + src
+		el = "script"
+	}else if(src.indexOf(".css") >= 0){
+		src = src
+		el = "link"
 	}else{
-		file = (folder == "plug") ? src+"/"+src : src;
-		src = currentScriptUrl + folder+urlDelimiter+file+".js";
-		el = "script";
+		file = (folder == "plug") ? src+"/"+src : src
+		src = currentScriptUrl + folder+urlDelimiter+file+".js"
+		el = "script"
 	}
 
 	var head = dom.get("head?tag"),
-	asset = document.createElement(el);
-	asset.src = src;
-	asset.href = src;
-	asset.rel = "stylesheet";
-	asset.async = true;
-  	asset.onload = function () {
-		app.debug("Loaded: "+ src);
-	};
+		asset = document.createElement(el)
+	asset.src = src
+	asset.href = src
+	asset.rel = "stylesheet"
+	asset.async = true
+  	asset.onload = function(){
+		app.debug("Loaded: "+ src)
+	}
 
 	head.appendChild(asset);
   	//firstScript.parentNode.insertBefore(js, firstScript);
 }
 
-function scrollTo(element, to, duration) {
-	if (duration < 0) return;
+function scrollTo(element, to, duration){
+	if(duration < 0) return;
   		var difference = to - element.scrollTop,
   		perTick = difference / duration * 2;
 
 		setTimeout(function() {
 			element.scrollTop = element.scrollTop + perTick;
     		scrollTo(element, to, duration - 2);
-		}, 10);
+		}, 10)
   
-	app.debug("Scroll: "+element+":"+to+":"+duration);
+	app.debug("Scroll: "+element+":"+to+":"+duration)
 }
 
 function set(type, param, value){
 	dom.set(type, param, value);
 }
 
-function getParentTag(element, tag) {
-	while (element !== null) {
-		if (element.tagName && element.tagName.toLowerCase() === tag) {
-			return element;
+function getParentTag(element, tag){
+	while(element !== null){
+		if (element.tagName && element.tagName.toLowerCase() === tag){
+			return element
 		}
-		element = element.parentNode;
+		element = element.parentNode
 	}
 
-	return null;
+	return null
 }
 
-function getObject(obj, name) {
-	var objarr = "obj." + name;
+function getObject(obj, name){
+	var objarr = "obj." + name
 	try {
-		var obj = eval(objarr);
-		return obj;
+		var obj = eval(objarr)
+		return obj
 	}catch(err){
-		return false;
+		return false
 	}
 }
 
-function mergeObject(target) {
-    for (var i = 1; i < arguments.length; i++) {
+function mergeObject(target){
+    for (var i = 1; i < arguments.length; i++){
         var source = arguments[i];
         for (var key in source) {
-            if (source.hasOwnProperty(key)) {
-                target[key] = source[key];
+            if (source.hasOwnProperty(key)){
+                target[key] = source[key]
             }
         }
     }
-    return target;
+    return target
 }
 
-var core = function() {
-	this.runLibPreloads = function() {
-		for (i = 0; i < libPreload.length; i++) {
+var core = function(){
+	this.runLibPreloads = function(){
+		for (i = 0; i < libPreload.length; i++){
 			if (libPreload[i].func)
-				window[libPreload[i].func]();
+				window[libPreload[i].func]()
 		}
 	}
 
-	this.runFrontAttributes = function() {
-		for (i = 0; i < front.length; i++) {
+	this.runFrontAttributes = function(){
+		for (i = 0; i < front.length; i++){
 			this.runCoreAttributes(front[i])
 			this.runLibAttributes(front[i])
 		}
 	}
 
-	this.runAttributesInElement = function(e) {
+	this.runAttributesInElement = function(e){
 		this.runCoreAttributesInElement(e)
 		this.runLibAttributesInElement(e)
 	}
