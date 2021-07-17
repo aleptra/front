@@ -21,9 +21,9 @@ function globalizeChangeLanguage(q){
     var a2 = q[0]
     var a3 = q[1]
 
-    if(a2) {
+    if(a2){
         client.get(currentEnvUrl + "assets/json/globalize/" + a2 + ".json", function(response){
-            if (core.isJson(response)) {
+            if(core.isJson(response)){
                 app.storage("language", a2)
                 app.storage("country", a3)
                 app.storage(a2, response)
@@ -34,9 +34,9 @@ function globalizeChangeLanguage(q){
                 core.rerunLibAttributes("globalize")
             }
         },false);
-    }else if (a2 == "*") {
+    }else if(a2 == "*"){
         app.storage("language", null)
-    }else if (app.storage("language")){
+    }else if(app.storage("language")){
         var lang = app.storage("language")
         trans = JSON.parse(app.storage(lang))
         userLanguage = trans["639-2"]
