@@ -7,18 +7,16 @@ var hash = location.hash
 var historyStack = []
 
 window.addEventListener("popstate", function(e){
-	if(location.href.indexOf('#') !== -1){
+	if(location.href.indexOf('#') !== -1)
 		return false
-	}else if(window.history && window.history.pushState){
-		var href = e.target.location.pathname
-		return nav(href, false, false)
-	}else{
+	else if(window.history && window.history.pushState)
+		return nav(e.target.location.pathname, false, false)
+	else
 		self.location.href = currentEnvUrl
-	}
-});
+})
 
 function nav(path, el, push){
-	var path = (currentEnvUrl == path || path === currentEnvUrl+"./") ? startPage : path
+	var path = (currentEnvUrl === path || path === currentEnvUrl+"./") ? startPage : path
 	var target = (el === undefined || el === false) ? navTargetEl : el
 	var contentOrginal = dom.content(target)
 	var anchor = (path) ? path.split("#") : ''
