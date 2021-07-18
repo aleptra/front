@@ -1258,7 +1258,7 @@ var xhr = function(){
 		}
 
 		request.onload = function(){
-			callback(this.responseText, headers)
+			callback(this.responseText, this.status, headers)
 			headers.length = 0
 			client.resetProgress()
 		}
@@ -1297,21 +1297,18 @@ var xhr = function(){
 		}
 
 		request.send(null)
-  }
+  	}
 
-  this.post = function(url, data, callback){
-
+  	this.post = function(url, data, callback){
 		request.open("POST", url, true)
 		request.setRequestHeader('Content-Type', 'application/json')
-
 		request.onload = function(){
 			callback(this.responseText)
 			app.debug("%c API (Response): "+this.responseText, "blue", "yellow")
 		}
-
 		app.debug("%c API (POST): "+JSON.stringify(data), "green", "white")
 		request.send(JSON.stringify(data))
-  }
+  	}
 }
 
 var core = new core()
