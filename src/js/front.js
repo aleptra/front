@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		for(storefile in attr){
 			var file = attr[storefile].split(varDivider)
 			var sclient = new xhr()
-			sclient.addHeader("storeName", file[1]);
+			sclient.addHeader("storeName", file[1])
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, headers){
 				if(response)
 					app.storage(headers[0][1], response)
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	if(!core.hasTemplateLayout()){
 
-		currentScriptUrl = app.getBaseUrl(currentScript.src);
+		currentScriptUrl = app.getBaseUrl(currentScript.src)
 		if(currentScript.hasAttribute(folderLib)){
 			var libs = currentScript.getAttribute(folderLib).split(";")
 			for(lib in libs)
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	}
 	
 	document.addEventListener('click', function(e){
-		var clicked = (e.target) ? e.target : e.srcElement;
+		var clicked = (e.target) ? e.target : e.srcElement
 		var val = clicked.parentNode.getAttribute("onclick")
 		if(val){
 			core.runFunction("dom."+val, clicked.parentNode)
@@ -173,14 +173,14 @@ function require(src, folder){
 		app.debug("Loaded: "+ src)
 	}
 
-	head.appendChild(asset);
-  	//firstScript.parentNode.insertBefore(js, firstScript);
+	head.appendChild(asset)
+  	//firstScript.parentNode.insertBefore(js, firstScript)
 }
 
 function scrollTo(element, to, duration){
 	if(duration < 0) return
   		var difference = to - element.scrollTop,
-  		perTick = difference / duration * 2;
+  		perTick = difference / duration * 2
 
 		setTimeout(function(){
 			element.scrollTop = element.scrollTop + perTick
@@ -191,7 +191,7 @@ function scrollTo(element, to, duration){
 }
 
 function set(type, param, value){
-	dom.set(type, param, value);
+	dom.set(type, param, value)
 }
 
 function getParentTag(element, tag){
@@ -216,7 +216,7 @@ function getObject(obj, name){
 
 function mergeObject(target){
     for(var i = 1; i < arguments.length; i++){
-        var source = arguments[i];
+        var source = arguments[i]
         for(var key in source){
             if(source.hasOwnProperty(key)){
                 target[key] = source[key]
@@ -327,9 +327,9 @@ var core = function(){
 
 			var elHtml = e.innerHTML
 			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/gi, function(x){
-				var data = JSON.parse(mergedObject);
+				var data = JSON.parse(mergedObject)
 				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
-				return eval("data."+variable);
+				return eval("data."+variable)
 			})
 		}
 		if(e.hasAttribute("title") && e.tagName == "SCRIPT"){
@@ -381,7 +381,7 @@ var core = function(){
 			eval(e.getAttribute("onload"))
 		if(e.innerHTML.match("{%(.*?)%}")){
 			e.innerHTML = e.innerHTML.replace(new RegExp('{%(.*?)%}', 'gi'), function(out1, out2){
-				var input = eval(out2);
+				var input = eval(out2)
 				var isMod = (out1.indexOf("=") > 0) ? true : false
 				input = core.callAttributes(input, input+out2, isMod)
 				return input
@@ -396,15 +396,15 @@ var core = function(){
 			e.innerHTML = frontVariables[e.innerHTML.toLowerCase()]
 		if(e.hasAttribute("property") && e.hasAttribute("content")){
 			
-			var attr = e.getAttribute("content");
-			//var increment = attr.split(";");
+			var attr = e.getAttribute("content")
+			//var increment = attr.split(";")
 			//attr.innerText = ""
 
-			//var increment = (variables) ? el.getAttribute("variable").split(";")[1] : 0;
-			test = attr.replace(/{{ (.*?) }}/ig, "$1");
-			var test2 = test.split(";");
+			//var increment = (variables) ? el.getAttribute("variable").split(";")[1] : 0
+			test = attr.replace(/{{ (.*?) }}/ig, "$1")
+			var test2 = test.split(";")
 			try{
-				e.content = eval(test2[1]);
+				e.content = eval(test2[1])
 			}catch(err){}
 			
 		}
@@ -455,7 +455,7 @@ var core = function(){
 			}
 		}
 		if(e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
-			core.runIteration(e);
+			core.runIteration(e)
 		if(e.hasAttribute("trim"))
 			e.innerHTML = core.trim(e.innerHTML)
 		if(e.hasAttribute("lowercase"))
@@ -542,10 +542,10 @@ var core = function(){
 			e.innerHTML = set
 		}
 		if(e.tagName == "CODE"){
-			//this.runCoreAttributesInElement(e);
+			//this.runCoreAttributesInElement(e)
 		}
 		if(e.hasAttribute("background")){
-			var val = e.getAttribute("background");
+			var val = e.getAttribute("background")
 			if(val.indexOf(".")) e.style.backgroundImage = "url('"+val+"')"; else e.style.backgroundColor = val
 		}
 		if(e.hasAttribute("focus"))
@@ -641,8 +641,8 @@ var core = function(){
 
 	this.setParam = function(uri, key, value){
 		function upperToHyphenLower(match, offset, string){
-			app.debug(match);
-			return (offset > 0 ? '-' : '') + match.toLowerCase();
+			app.debug(match)
+			return (offset > 0 ? '-' : '') + match.toLowerCase()
 		}
 		return uri.replace(new RegExp("([?&]"+key+"(?=[=&#]|$)[^#&]*|(?=#|$))"), "&"+key+"="+encodeURIComponent(value)).replace(/^([^?&]+)&/, "$1?", upperToHyphenLower)
 	}
@@ -682,7 +682,7 @@ var core = function(){
 			mod.shift()
 	
 			for(i in mod){
-				var arg = (mod[i].indexOf(")") > 0) ? true : false;
+				var arg = (mod[i].indexOf(")") > 0) ? true : false
 				if(arg){
 					var func = "core."+mod[i]
 					func = func.replace("(", "('"+input+"',")
@@ -729,7 +729,7 @@ var core = function(){
 	}
 
 	this.toObject = function(str){
-		obj = {};
+		obj = {}
     	var KeyVal = str.split(",")
     	for(i in KeyVal){
     		KeyVal[i] = KeyVal[i].split(":")
@@ -761,12 +761,12 @@ var app = function(){
 
 	this.getBaseUrl = function(url){
 		str = url.split(urlDelimiter)
-		str.pop();
+		str.pop()
 		return str.join(urlDelimiter) + urlDelimiter
 	}
 
 	this.getNewUrl = function(){
-		var count = currentScriptUrl.split("./").length;
+		var count = currentScriptUrl.split("./").length
 		return currentUrl.split("/").slice(0, -count).join("/")
 	}
 
@@ -962,7 +962,7 @@ var dom = function(){
 	this.height = function(obj, value){
 		var el = this.get(obj)
 		if(el && value!= null) el.height = value
-		else return el.height;
+		else return el.height
 	}
 
 	this.dimension = function(obj, measure, value){
@@ -1032,7 +1032,7 @@ var dom = function(){
 	
 	this.update = function(el, arr){
 		var el = this.get(el)
-		//console.dir(el);
+		//console.dir(el)
 		var props = "el."+arr[0]+"('"+arr[1]+"', '"+arr[2]+"')"
 		if(el) eval(props)
 	}
@@ -1103,21 +1103,21 @@ var dom = function(){
   	}
 
 	/*this.insert = function (obj, create, html = '', pos = 1){
-		var node = document.createElement(create[0]);
-		node.id = create[1];
+		var node = document.createElement(create[0])
+		node.id = create[1]
 
-		//alert(create[1]);
-		//this.content(node, 'dddd');
-		//var textnode = document.createTextNode(html);
-		//node.appendChild(textnode);
+		//alert(create[1])
+		//this.content(node, 'dddd')
+		//var textnode = document.createTextNode(html)
+		//node.appendChild(textnode)
 
-		var el = this.get(obj);
-		el.insertBefore(node, el.childNodes[0]);
+		var el = this.get(obj)
+		el.insertBefore(node, el.childNodes[0])
 
-		dom.content(create[1], 'Reload page to see this post!');
+		dom.content(create[1], 'Reload page to see this post!')
 
-		scrollTo(document.body, el.offsetTop, 100);
-		//document.getElementById(obj).appendChild(node);
+		scrollTo(document.body, el.offsetTop, 100)
+		//document.getElementById(obj).appendChild(node)
 	}*/
 	
 	this.copyText = function(el){
@@ -1170,9 +1170,9 @@ var dom = function(){
 			resEl.setAttribute(res[1], core.setParam(attr, param, value))
 			
 			var func = resEl.getAttribute("datasourceonchange")
-			window[func](resEl);
+			window[func](resEl)
 
-			//eval(func);
+			//eval(func)
 
 		}else{
 			dom.content(el.name, value)
@@ -1196,7 +1196,7 @@ var dom = function(){
 		else if(typeof(el['content']) !== 'undefined')
 			return el.content.children;
 		else if(typeof(el['children']) !== 'undefined')
-			return el.children;
+			return el.children
 		else
 			var i = 0, node, nodes = el.childNodes, children = []
 			while(node = nodes[i++]){
@@ -1219,7 +1219,7 @@ var dom = function(){
 		return str.replace(/(<([^>]+)>)/ig, "")
 	}
 	
-	return false;
+	return false
 }
 
 var xhr = function(){
@@ -1227,7 +1227,7 @@ var xhr = function(){
 	var request = new XMLHttpRequest(),
 		headers = [],
 		credentials = false,
-		x = 0;
+		x = 0
 
 	this.addHeader = function(header, value){
 		headers.push([header, value])
@@ -1249,7 +1249,7 @@ var xhr = function(){
 		request.open("GET", url, async)
 
 		if(credentials){
-			request.withCredentials = true;
+			request.withCredentials = true
 		}
 
 		if(headers){
@@ -1289,15 +1289,15 @@ var xhr = function(){
 		}
 
 		request.onerror = function(){
-			//callback("error");
+			//callback("error")
 		}
 
 		request.ontimeout = function(e){
-			//callback("timeout");
-		};
+			//callback("timeout")
+		}
 
 		request.send(null)
-  };
+  }
 
   this.post = function(url, data, callback){
 
