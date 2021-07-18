@@ -21,7 +21,7 @@ function globalizePreload(){
     var queryLocale = core.getParams()['lang']
 
     if(queryLocale){
-        locale = queryLocale
+        locale = (queryLocale === "*") ? '' : queryLocale
     }else if(htmlAttr.lang.indexOf("auto") > 0 && !storageLocale){
         locale = core.toLower(browserLocale)
     }else if(storageLocale){
