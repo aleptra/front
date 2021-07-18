@@ -6,64 +6,77 @@ libPreload.push(
     {'func': 'globalizePreload'}
 )
 
-var htmlattr = dom.get("html?tag")
-var trans = "en"
-var userLanguage = "eng"
-var browserLanguage = core.toLower(navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage).split("-")
+var htmlAttr = dom.get("html?tag"),
+    localeLoad = true,
+    localeJson,
+    currentLocale,
+    defaultLocale = (htmlAttr.lang) ? htmlAttr.lang.split(";")[0] : 'en',
+    browserLocale = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage
 
 function globalizePreload(){
-    var q = (htmlattr.lang.indexOf("auto") > 0 && !app.storage("language") && !q) ? browserLanguage[0] : core.getParams()['lang']
-    globalizeChangeLanguage(q)
+
+    var locale = defaultLocale
+    var storageLocale = app.storage("locale")
+    var queryLocale = core.getParams()['lang']
+
+    if(queryLocale){
+        locale = queryLocale
+    }else if(htmlAttr.lang.indexOf("auto") > 0 && !storageLocale){
+        locale = core.toLower(browserLocale)
+    }else if(storageLocale){
+        locale = storageLocale
+    }
+
+    globalizeChangeLanguage(locale)
 }
 
-function globalizeChangeLanguage(q){
-    var q = (q) ? q.split("-") : ''
-    var a2 = q[0]
-    var a3 = q[1]
+function globalizeChangeLanguage(locale){
+    locale = (locale) ? locale.split("-") : ''
 
-    if(a2){
-        client.get(currentEnvUrl + "assets/json/globalize/" + a2 + ".json", function(response){
-            if(core.isJson(response)){
-                app.storage("language", a2)
-                app.storage("country", a3)
-                app.storage(a2, response)
-                var lang = app.storage("language")
-                trans = app.storage(lang) ? JSON.parse(app.storage(lang)) : ''
-                globalizeChangeMetaDir(trans['direction'])
-                globalizeChangeMetaLanguage(a2)
-                core.rerunLibAttributes("globalize")
-            }
-        },false);
-    }else if(a2 == "*"){
-        app.storage("language", null)
-    }else if(app.storage("language")){
-        var lang = app.storage("language")
-        trans = JSON.parse(app.storage(lang))
-        userLanguage = trans["639-2"]
-        globalizeChangeMetaDir(trans['direction'])
-    }
+    if(locale[0])
+        globalizeLoadFile(locale[0])
+    else if(locale[0] == "*")
+        app.storage("locale", null)
 }
 
 function globalizeChangeMetaLanguage(lang){
-    htmlattr.lang = lang
+    htmlAttr.lang = lang
 }
 
 function globalizeChangeMetaDir(dir){
-    htmlattr.dir = dir
-    htmlattr.classList.remove("ltr","rtl")
-    htmlattr.classList.add(dir)
+    htmlAttr.dir = dir
+    htmlAttr.classList.remove("ltr","rtl")
+    htmlAttr.classList.add(dir)
+}
+
+function globalizeLoadFile(a2){
+    var lclient = new xhr()
+    lclient.get(currentEnvUrl + "assets/json/globalize/" + a2 + ".json", function(response, status){
+        if(core.isJson(response)){
+            localeJson = JSON.parse(response)
+            app.storage(a2, response)
+            app.storage("locale", a2)
+            globalizeChangeMetaDir(localeJson.direction)
+            globalizeChangeMetaLanguage(a2)
+            core.rerunLibAttributes("globalize")
+        }
+        if (status !== 200 && localeLoad){
+            globalizeLoadFile(defaultLocale)
+            localeLoad = false
+        }
+    })
 }
 
 function globalize(e){
     var value = e.getAttribute("globalize")
     e.innerHTML = e.innerHTML.trim()
 
-    if(trans['translations'] && trans['translations'][value]){
+    if(localeJson && localeJson.translations[value]){
         var children = e.childElementCount
         var name = e.localName
         var type = e.type
         var placeholder = e.placeholder
-        var globalized = trans['translations'][value]
+        var globalized = localeJson.translations[value]
         if(children > 0 && (name == "a" || name == "button" || name == "caption")){
             var child = e.firstChild
             while(child){
