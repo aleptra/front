@@ -1,0 +1,12 @@
+{
+    "name": "English",
+    "nativeName": "English",
+    "code": "eng",
+    "direction": "ltr",
+    "translations":
+        {
+            "all_words": "All words",
+            "categories": "Categories",
+            "search": "Search"
+        }
+}

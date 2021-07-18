@@ -1,0 +1,12 @@
+{
+    "name": "Swedish",
+    "nativeName": "Svenska",
+    "code": "sv",
+    "direction": "ltr",
+    "translations":
+        {
+            "all_words": "Alla ord",
+            "categories": "Kategorier",
+            "search": "Sök"
+        }
+}
