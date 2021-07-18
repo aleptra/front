@@ -274,7 +274,7 @@ var core = function(){
 							getOneTemplate(response)
 					  	}
 					}
-					xhr.open("GET", url+"/"+template2+".html", true)
+					xhr.open("GET", url+"/"+template2+".html")
 					xhr.send()
 				  }
 	
@@ -290,7 +290,7 @@ var core = function(){
 							document.close()
 						}
 					}
-					xhr.open("GET", url+"/"+template1+".html", true)
+					xhr.open("GET", url+"/"+template1+".html")
 					xhr.send()
 				}
 				  
