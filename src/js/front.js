@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function(){
 			var file = attr[storefile].split(varDivider)
 			var sclient = new xhr()
 			sclient.addHeader("storeName", file[1])
-			sclient.get(currentEnvUrl + file[0] + ".json", function(response, headers){
+			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
 				if(response)
 					app.storage(headers[0][1], response)
 			}, false)
