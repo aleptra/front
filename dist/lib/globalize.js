@@ -9,7 +9,7 @@ libPreload.push(
 var htmlAttr = dom.get("html?tag"),
     localeLoad = true,
     localeJson,
-    currentLocale,
+    localeCode,
     defaultLocale = (htmlAttr.lang) ? htmlAttr.lang.split(";")[0] : 'en',
     browserLocale = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage
 
@@ -54,6 +54,7 @@ function globalizeLoadFile(a2){
     lclient.get(currentEnvUrl + "assets/json/globalize/" + a2 + ".json", function(response, status){
         if(core.isJson(response)){
             localeJson = JSON.parse(response)
+            localeCode = localeJson.code
             app.storage(a2, response)
             app.storage("locale", a2)
             globalizeChangeMetaDir(localeJson.direction)
