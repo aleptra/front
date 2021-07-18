@@ -10,10 +10,9 @@ var htmlAttr = dom.get("html?tag"),
     localeLoad = true,
     localeJson,
     localeCode,
+    localeCountry,
     defaultLocale = (htmlAttr.lang) ? htmlAttr.lang.split(";")[0] : 'en',
     browserLocale = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage
-    userLanguage
-    userCountry
 
 function globalizePreload(){
 
@@ -57,8 +56,7 @@ function globalizeLoadFile(a2){
         if(core.isJson(response)){
             localeJson = JSON.parse(response)
             localeCode = localeJson.code
-            userLanguage = a2
-            userCountry = '?'
+            localeCountry = '?'
             app.storage(a2, response)
             app.storage("locale", a2)
             globalizeChangeMetaDir(localeJson.direction)
