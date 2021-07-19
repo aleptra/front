@@ -47,6 +47,8 @@ function json(aEl){
     var onprogress = el.getAttribute('onprogress')
     var onerror = el.getAttribute('onerror')
     var ondone = el.getAttribute('ondone')
+    var onempty = el.getAttribute('onempty')
+    var onstart = el.getAttribute('onstart')
 
     var xhr = new XMLHttpRequest()
     xhr.el = clnEl
@@ -62,6 +64,7 @@ function json(aEl){
         }
     }
     xhr.onloadstart = function(){
+        eval(onstart)
         if (!loader) {
             el.innerHTML = ''
             el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>') 
@@ -88,6 +91,10 @@ function json(aEl){
 
         var data = xhr.responseText
         var json = JSON.parse(data)
+        
+        if(json.length == 0){
+            eval(onempty)
+        }
 
         json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
         el.innerHTML = xhr.el.innerHTML
