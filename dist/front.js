@@ -336,7 +336,7 @@ var core = function(){
 			var value = e.getAttribute("title")
 			document.title = (value) ? value : title
 		}
-		if(e.tagName == "TITLE"){
+		if(e.tagName == "TITLE" && e.parentNode.tagName !== "HEAD"){
 			var value = e.text
 			document.title = (value) ? value : title
 		}
