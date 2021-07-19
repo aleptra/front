@@ -337,6 +337,7 @@ var core = function(){
 			document.title = (value) ? value : title
 		}
 		if(e.tagName == "TITLE" && e.parentNode.tagName !== "HEAD"){
+			this.runLibAttributes(e)
 			var value = e.text
 			document.title = (value) ? value : title
 		}
@@ -563,7 +564,6 @@ var core = function(){
 	this.runLibAttributesInElement = function(e){
 		var e = (typeof e === 'string') ? dom.get(e) : e
 		els = e.getElementsByTagName("*")
-		
 		for(k = 0; k < els.length; k++){
 			for(j = 0; j < libAttribute.length; j++){
 				if(els[k].hasAttribute(libAttribute[j].attr)){
