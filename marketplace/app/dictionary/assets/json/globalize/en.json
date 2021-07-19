@@ -5,8 +5,11 @@
     "direction": "ltr",
     "translations":
         {
+            "#language#": "English",
             "all_words": "All words",
             "categories": "Categories",
-            "search": "Search"
+            "category": "Category",
+            "search": "Search",
+            "search_for_a_word": "Search for a word"
         }
 }

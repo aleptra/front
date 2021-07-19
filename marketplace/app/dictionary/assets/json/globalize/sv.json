@@ -5,8 +5,11 @@
     "direction": "ltr",
     "translations":
         {
+            "#language#": "Svenska",
             "all_words": "Alla ord",
             "categories": "Kategorier",
-            "search": "Sök"
+            "category": "Kategori",
+            "search": "Sök",
+            "search_for_a_word": "Sök efter ett ord"
         }
 }
