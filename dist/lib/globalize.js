@@ -80,7 +80,9 @@ function globalize(e){
         var type = e.type
         var placeholder = e.placeholder
         var globalized = localeJson.translations[value]
-        if(children > 0 && (name == "a" || name == "button" || name == "caption")){
+        if (name == "title") {
+            document.title = globalized
+        }else if(children > 0 && (name == "a" || name == "button" || name == "caption")){
             var child = e.firstChild
             while(child){
                 if(child.nodeType == 3){

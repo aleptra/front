@@ -337,7 +337,6 @@ var core = function(){
 			document.title = (value) ? value : title
 		}
 		if(e.tagName == "TITLE" && e.parentNode.tagName !== "HEAD"){
-			this.runLibAttributes(e)
 			var value = e.text
 			document.title = (value) ? value : title
 		}
