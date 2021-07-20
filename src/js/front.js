@@ -718,8 +718,8 @@ var core = function(){
 	}
 
 	this.toArray = function(obj){
-		var arr = [];
-		[].push.apply(arr, obj)
+		var arr = []
+		if (obj) [].push.apply(arr, obj)
 		return arr
 	}
 
