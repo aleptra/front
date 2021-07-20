@@ -357,16 +357,22 @@ var core = function(){
 			})
 		}
 		if(e.tagName == "TEMPLATE" && !loadTemplate){
-			var fragments = core.toArray(dom.getChildren("template?tag"))
-			var sorted = core.sortArray(fragments, "tagName")
-			var array = core.tagArray(sorted)
+			var template1 = core.toArray(dom.getChildren("template?tag=0"))
+			var template2 = core.toArray(dom.getChildren("template?tag=1"))
+			var sorted1 = core.sortArray(template1, "tagName")
+			var sorted2 = core.sortArray(template2, "tagName")
+			var array = core.tagArray(sorted1)
+			var array2 = core.tagArray(sorted2)
 			
 			for(var i in array){
 				var el = array[i].tagName+"?tag="+array[i].tagIndex
 				var index = array[i].getAttribute("index")
+				var inherit = array[i].getAttribute("inherit")
 
-				if(array[i].tagIndex == index)
+				if(array[i].tagIndex == index && !inherit)
 					dom.content(el, array[i].innerHTML)
+				if(array2[i] && inherit)
+					dom.content(el, array2[i].innerHTML)
 			}
 
 			loadTemplate = true
