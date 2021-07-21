@@ -22,7 +22,6 @@
     color: inherit;
 }
 
-
 ::placeholder{color: rgba(255,255,255,.6)}
 :-ms-input-placeholder{color: rgba(255,255,255,.6)}
 ::-ms-input-placeholder{color: rgba(255,255,255,.6)}
