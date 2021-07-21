@@ -788,7 +788,7 @@ var app = function(){
 	this.getCurrentEnvironment = function(val){
 		var el = dom.get("base?tag")
 		if(el){
-			var isLocalDev = this.isLocalDev()
+			var isLocalDev = (baseUrl.match(/localhost|127.|[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}|::1|\.local|^$/gi)) ? true : false
 			var attr = el.getAttribute("env").split(";")
 			for(a in attr){
 				env = attr[a].split(":")
