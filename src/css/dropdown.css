@@ -1,9 +1,9 @@
-.dropdown {
+.dropdown{
   position: relative;
   display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-content{
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -13,6 +13,6 @@
   z-index: 1;
 }
 
-.dropdown button:focus .dropdown-content {
+.dropdown button:focus .dropdown-content{
   display: unset;
 }
