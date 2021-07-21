@@ -776,13 +776,12 @@ var app = function(){
 	}
 
 	this.setupEnvironment = function(){
-		var env = this.getCurrentEnvironment()
-		if(env[0] == "local"){
-			dom.update("base?tag", ["setAttribute", "href", env[1]])
-			app.debug("Running environment: "+env[0], "blue", "yellow")
-		}else if(env[0] == "prod"){
-			dom.update("base?tag", ["setAttribute", "href", env[1]])
-			app.debug("Running environment: "+env[0], "yellow", "green")
+		if(currentEnvName == "local"){
+			dom.update("base?tag", ["setAttribute", "href", currentEnvUrl])
+			app.debug("Running environment: "+currentEnvName, "blue", "yellow")
+		}else if(currentEnvName == "prod"){
+			dom.update("base?tag", ["setAttribute", "href", currentEnvUrl])
+			app.debug("Running environment: "+currentEnvName, "yellow", "green")
 		}
 	}
 
