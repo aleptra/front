@@ -7,7 +7,7 @@
     outline: none!important;
 }
 
-*, .df {
+*, .df{
     display: inline-block;
     display: -webkit-box;
     display: -webkit-flex;
@@ -30,7 +30,7 @@
 .phdark:-ms-input-placeholder{color: rgba(0,0,0,.2)}
 .phdark::-ms-input-placeholder{color: rgba(0,0,0,.2)}
 
-html {
+html{
     width: 100%;
     height: 100%;
     font-size: 1em;
@@ -50,7 +50,7 @@ hr{ margin-bottom: 1rem;
     border: none
 }
 
-section,article,code,pre,samp,p,form,div{
+section,article,code,pre,samp,p,div{
     display: block;
     font-family: inherit;
     height: inherit;
@@ -92,7 +92,7 @@ h6,.fs1{ font-size: calc(.7em + .6vw)}
 .lh22{line-height: 2.2}
 .lh25{line-height: 2.5}
 
-a,i,b,span,select,input,textarea,button,a.button{display: inline-flex;display: -ms-inline-flexbox}
+a,i,b,span,select,form,form *,input,textarea,button,a.button{display: inline-flex;display: -ms-inline-flexbox}
 b,strong,.fwb, .fwb- *{font-weight: bold}
 .fsi,.fsi- *{font-style:italic}
 .di, p a, small a, p sup{display: inline}
@@ -144,7 +144,7 @@ body.nav{
     grid-template-areas: "nav head head" "nav nav nav" "left middle right" "foot foot foot"
 }
 
-body>header, .header {
+body>header, .header{
     grid-area: head;
     -ms-grid-row: 1;
     -ms-grid-column: 1;
@@ -152,7 +152,7 @@ body>header, .header {
     z-index: 10;
 }
 
-body>nav, .nav {
+body>nav, .nav{
     grid-area: nav;
     -ms-grid-row: 2;
     -ms-grid-column: 1;
@@ -160,7 +160,7 @@ body>nav, .nav {
     z-index: 10;
 }
 
-body>aside, .aside {
+body>aside, .aside{
     grid-area: left;
     -ms-grid-row: 3;
     -ms-grid-column: 1;
@@ -168,7 +168,7 @@ body>aside, .aside {
     padding: 0;
 }
 
-body>main, .main {
+body>main, .main{
     grid-area: middle;
     -ms-grid-row: 3;
     -ms-grid-column: 2;
@@ -177,14 +177,14 @@ body>main, .main {
     -ms-flex-direction: column;
 }
 
-body>main+aside, .grid .aside+.aside {
+body>main+aside, .grid .aside+.aside{
     grid-area: right;
     -ms-grid-row: 3;
     -ms-grid-column: 3;
     overflow: auto;
 }
 
-body>footer, .footer {
+body>footer, .footer{
     grid-area: foot;
     -ms-grid-row: 4;
     -ms-grid-column: 1;
@@ -242,7 +242,7 @@ summary{
 .z19, .z19- * { zoom: 1.9 }
 .z20, .z20- * { zoom: 2 }
 
-[class*='z'] {
+[class*='z']{
     line-height: inherit;
     width: auto;
 }
@@ -416,7 +416,7 @@ ul.list li{
     width: 100%;
 }
 
-[class*='icon'] { 
+[class*='icon']{
     font-style: normal;
     color: inherit;
     line-height: normal;
