@@ -827,12 +827,14 @@ var app = function(){
 		else if(key && value === undefined)
 			return localStorage.getItem(key)
 	}
-	
-	this.isLocalDev = function(){
-		if(baseUrl.match(/localhost|127.|[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}|::1|\.local|^$/gi))
-			return true
-		else
-			return false
+
+	this.runDevFile = function(){
+		var dclient = new xhr()
+		dclient.get(currentEnvUrl + ".env", function(response){
+			if(response)
+				app.debug("Include file: .env", "green")
+				eval(response)
+		})
 	}
 
 	this.redirect = function(url){
