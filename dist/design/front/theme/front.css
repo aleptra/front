@@ -109,7 +109,7 @@ textarea:hover{
 }
 
 select:focus,
-input:focus,
+input[type='text']:focus,
 textarea:focus{
     background-color: rgba(0,0,0, .04);
 }
