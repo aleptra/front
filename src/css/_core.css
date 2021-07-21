@@ -7,7 +7,7 @@
     outline: none!important;
 }
 
-*, .df{
+*, form, .df{
     display: inline-block;
     display: -webkit-box;
     display: -webkit-flex;
@@ -92,7 +92,7 @@ h6,.fs1{ font-size: calc(.7em + .6vw)}
 .lh22{line-height: 2.2}
 .lh25{line-height: 2.5}
 
-a,i,b,span,select,form,form *,input,textarea,button,a.button{display: inline-flex;display: -ms-inline-flexbox}
+a,i,b,span,select,form *,input,textarea,button,a.button{display: inline-flex;display: -ms-inline-flexbox}
 b,strong,.fwb, .fwb- *{font-weight: bold}
 .fsi,.fsi- *{font-style:italic}
 .di, p a, small a, p sup{display: inline}
