@@ -304,20 +304,20 @@ table.fr{float:right}
 .oa{overflow: none}
 
 body .w0{ width: auto !important }
-body .w100, body .w100p{ width: 100%; -ms-flex: 0 100%; flex: 0 100% }
-body .w90, body .w90p{ width: 90%; -ms-flex: 0 90%; flex: 0 90% }
-body .w80, body .w80p{ width: 80%; -ms-flex: 0 80%; flex: 0 80% }
-body .w75, body .w75p{ width: 75%; -ms-flex: 0 75%; flex: 0 75% }
-body .w70, body .w70p{ width: 70%; -ms-flex: 0 70%; flex: 0 70% }
-body .w65, body .w65p{ width: 65%; -ms-flex: 0 65%; flex: 0 65% }
-body .w60, body .w60p{ width: 60%; -ms-flex: 0 60%; flex: 0 60% }
-body .w50, body .w50p{ width: 50%; -ms-flex: 0 50%; flex: 0 50% }
-body .w45, body .w45p{ width: 45%; -ms-flex: 0 45%; flex: 0 45% }
-body .w40, body .w40p{ width: 40%; -ms-flex: 0 40%; flex: 0 40% }
-body .w35, body .w35p{ width: 35%; -ms-flex: 0 35%; flex: 0 35% }
-body .w33, body .w33p{ width: 33%; -ms-flex: 0 33%; flex: 0 33% }
-body .w30, body .w30p{ width: 30%; -ms-flex: 0 30%; flex: 0 30% }    
-body .w25, body .w25p{ width: 25%; -ms-flex: 0 25%; flex: 0 25% }
+body .w100, body .w100p{ width: 100%; -ms-flex: 1 100%; flex: 1 100% }
+body .w90, body .w90p{ width: 90%; -ms-flex: 1 90%; flex: 1 90% }
+body .w80, body .w80p{ width: 80%; -ms-flex: 1 80%; flex: 1 80% }
+body .w75, body .w75p{ width: 75%; -ms-flex: 1 75%; flex: 1 75% }
+body .w70, body .w70p{ width: 70%; -ms-flex: 1 70%; flex: 1 70% }
+body .w65, body .w65p{ width: 65%; -ms-flex: 1 65%; flex: 1 65% }
+body .w60, body .w60p{ width: 60%; -ms-flex: 1 60%; flex: 1 60% }
+body .w50, body .w50p{ width: 50%; -ms-flex: 1 50%; flex: 1 50% }
+body .w45, body .w45p{ width: 45%; -ms-flex: 1 45%; flex: 1 45% }
+body .w40, body .w40p{ width: 40%; -ms-flex: 1 40%; flex: 1 40% }
+body .w35, body .w35p{ width: 35%; -ms-flex: 1 35%; flex: 1 35% }
+body .w33, body .w33p{ width: 33%; -ms-flex: 1 33%; flex: 1 33% }
+body .w30, body .w30p{ width: 30%; -ms-flex: 1 30%; flex: 1 30% }    
+body .w25, body .w25p{ width: 25%; -ms-flex: 1 25%; flex: 1 25% }
 
 body .miw10, body .miw10- * { min-width: 10rem }
 body .miw15, body .miw15- * { min-width: 15rem }
