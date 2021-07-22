@@ -18,5 +18,10 @@
         "dist/front*": true,
         "dist/lib": true,
     },
+    "git.autofetchPeriod": 180,
+    "git.autofetch": true,
+    "git.autorefresh": true,
+    "git.confirmEmptyCommits": false,
+    "files.trimTrailingWhitespace": true,
     "liveServer.settings.port": 5501
 }
