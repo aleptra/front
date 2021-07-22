@@ -43,8 +43,8 @@ body{
     border-radius: 4px;
 }
 
-[class*='icon'] { 
-    font-family: material; 
+[class*='icon'] {
+    font-family: material;
 }
 
 .dark { background-color: #212121; color: #fff }
@@ -103,7 +103,6 @@ select:focus,input:focus,textarea:focus{
 }
 
 nav.topbar select,nav.topbar input,nav.topbar textarea,nav.topbar button{
-    min-height: 100%;
     padding: .5rem;
     border-radius: .25rem;
 }

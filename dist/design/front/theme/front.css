@@ -24,8 +24,8 @@ body{
     padding-right: .4rem;
 }
 
-[class*='icon'] { 
-    font-family: material; 
+[class*='icon'] {
+    font-family: material;
 }
 
 code{
@@ -114,14 +114,6 @@ textarea:focus{
     background-color: rgba(0,0,0, .04);
 }
 
-nav.topbar select,
-nav.topbar input,
-nav.topbar textarea,
-nav.topbar button,
-nav.topbar .button{
-    min-height: 99%;
-}
-
 body .outlined{ border-radius: .5rem; background-color: #fff; color: #000; box-shadow: 0 0 0 1px rgba(0,0,0, .42) }
 body .outlined:hover{ background-color: inherit; box-shadow: 0 0 0 1px rgba(0,0,0, .42) }
 body .outlined:focus{ background-color: inherit; box-shadow: 0 0 0 1px rgba(0,0,0, .42) }
@@ -162,7 +154,7 @@ button, .button{
     font-weight: 500;
     letter-spacing: .05em;
     padding: 0 1.25rem 0 1.25rem;
-    
+
     align-items: center;
 }
 
