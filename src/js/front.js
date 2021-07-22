@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function(){
 	xhrProgress = dom.get("navprogress")
 	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
 
+	if (currentEnvName == 'local') app.runDevFile()
+
 	if(currentScript.hasAttribute("store")){
 		var attr = currentScript.getAttribute("store").split(";")
 		for(storefile in attr){
@@ -92,16 +94,16 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	document.onclick=function(e){
 		var clicked = (e.target) ? e.target : e.srcElement
-	
+
 		if(clicked.parentNode.getAttribute("selective")){
-			
+
 			for(j=0; j < clicked.parentNode.childElementCount; j++){
 				clicked.parentNode.children[j].classList.remove("sel")
 			}
-	
+
 			clicked.classList.add("sel")
 		}
-	
+
 		var el = getParentTag(clicked, "a")
 		if(el !== null){
 			var elHref = el.getAttribute("href")
@@ -122,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function(){
 			}
 		}
 	}
-	
+
 	document.addEventListener('click', function(e){
 		var clicked = (e.target) ? e.target : e.srcElement
 		var val = clicked.parentNode.getAttribute("onclick")
@@ -186,7 +188,7 @@ function scrollTo(element, to, duration){
 			element.scrollTop = element.scrollTop + perTick
     		scrollTo(element, to, duration - 2)
 		}, 10)
-  
+
 	app.debug("Scroll: "+element+":"+to+":"+duration)
 }
 
@@ -245,14 +247,14 @@ var core = function(){
 		this.runCoreAttributesInElement(e)
 		this.runLibAttributesInElement(e)
 	}
-	
+
 	this.hasTemplateLayout = function(){
 		for(i = 0; i < front.length; i++){
 			if(front[i].hasAttribute("template") && front[i].tagName == "SCRIPT"){
 				var template = front[i].getAttribute("template").split(";")
 				var template1 = template[0] === "true" ? 'index' : template[0]
 				var template2 = template[1] ? template[1] : false
-				
+
 				var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl
 				var count = cUrl.split("./").length + (template1.match(/..\//g) || []).length
 				var url = currentUrl.split("/").slice(0, -count).join("/")
@@ -277,7 +279,7 @@ var core = function(){
 					xhr.open("GET", url+"/"+template2+".html")
 					xhr.send()
 				  }
-	
+
 				function getOneTemplate(response2){
 					var xhr = new XMLHttpRequest()
 					xhr.onreadystatechange = function(){
@@ -293,7 +295,7 @@ var core = function(){
 					xhr.open("GET", url+"/"+template1+".html")
 					xhr.send()
 				}
-				  
+
 				if(template2){
 				  	getTwoTemplates()
 				}else{
@@ -351,7 +353,7 @@ var core = function(){
 		if(e.hasAttribute("eventlistener")){
 			var listener = e.getAttribute("eventlistener")
 			var action = e.getAttribute("eventaction")
-			
+
 			window.addEventListener(listener, function(){
 				eval(action)
 			})
@@ -363,7 +365,7 @@ var core = function(){
 			var sorted2 = core.sortArray(template2, "tagName")
 			var array = core.tagArray(sorted1)
 			var array2 = core.tagArray(sorted2)
-			
+
 			for(var i in array){
 				var el = array[i].tagName+"?tag="+array[i].tagIndex
 				var index = array[i].getAttribute("index")
@@ -401,7 +403,7 @@ var core = function(){
 		if(e.tagName == "VAR")
 			e.innerHTML = frontVariables[e.innerHTML.toLowerCase()]
 		if(e.hasAttribute("property") && e.hasAttribute("content")){
-			
+
 			var attr = e.getAttribute("content")
 			//var increment = attr.split(";")
 			//attr.innerText = ""
@@ -412,7 +414,7 @@ var core = function(){
 			try{
 				e.content = eval(test2[1])
 			}catch(err){}
-			
+
 		}
 		if(e.hasAttribute("metacontent")){
 			var value = e.getAttribute("metacontent")
@@ -529,10 +531,10 @@ var core = function(){
 			val = val.replace(/!/g, "")
 
 			if(val.substr(0,2) !== "{{"){
-			
+
 				var term = val.split(";")
 				var action = term[2].split(/:(.*)/)
-				
+
 				if(!ifnot && term[0] == term[1])
 					e.setAttribute(action[0], action[1])
 				if(ifnot && term[0].length > 0)
@@ -565,7 +567,7 @@ var core = function(){
 			core.runCoreAttributes(els[i])
 		}
 	}
-	
+
 	this.runLibAttributesInElement = function(e){
 		var e = (typeof e === 'string') ? dom.get(e) : e
 		els = e.getElementsByTagName("*")
@@ -586,7 +588,7 @@ var core = function(){
 			}
 		}
 	}
-	
+
 	this.rerunLibAttributes = function(attr){
 		for(i = 0; i < front.length; i++)
 			if(front[i].getAttribute(attr))
@@ -659,13 +661,13 @@ var core = function(){
 	    parser.href = url
 	    var query = parser.search.substring(1)
 	    var vars = query.split('&')
-        
+
         for(var i = 0; i < vars.length; i++){
 			var pair = vars[i].split('=')
 			if(!pair[1]) pair[1] = ""
 		    params[pair[0]] = decodeURIComponent(pair[1] + "")
         }
-        
+
 		return params
 	}
 
@@ -685,7 +687,7 @@ var core = function(){
 		if(isMod){
 			var mod = orgJson.trim().split(" = ")
 			mod.shift()
-	
+
 			for(i in mod){
 				var arg = (mod[i].indexOf(")") > 0) ? true : false
 				if(arg){
@@ -704,7 +706,7 @@ var core = function(){
 		var current = null
 		var u = 0
 		for(j=0; j < array.length; j++){
-			
+
 			attr = array[j].getAttribute('index')
 			if(attr){
 				u = attr
@@ -719,7 +721,7 @@ var core = function(){
 
 			array[j].tagIndex = u
 		}
-	
+
 		return array
 	}
 
@@ -812,7 +814,7 @@ var app = function(){
 		currentScriptUrl = newBaseUrl.join(urlDelimiter)
 		app.debug("FrontBaseUrl changed: "+currentScriptUrl)
 	}
-	
+
 	this.getPathUrl = function(url){
 		return new URL(url).pathname
 	}
@@ -832,8 +834,8 @@ var app = function(){
 		var dclient = new xhr()
 		dclient.get(currentEnvUrl + ".env", function(response){
 			if(response)
-				app.debug("Include file: .env", "green")
 				eval(response)
+				app.debug("Include file: .env", "green")
 		})
 	}
 
@@ -1035,7 +1037,7 @@ var dom = function(){
 			if(el) el.currentTime = 0.0
 		}
 	}
-	
+
 	this.update = function(el, arr){
 		var el = this.get(el)
 		//console.dir(el)
@@ -1058,19 +1060,19 @@ var dom = function(){
 
 	this.clone = function(el, parent, copies, variables){
 		var cln = el.cloneNode(true)
-	
+
 		if(parent === "head"){
 			document.getElementsByTagName('head')[0].appendChild(cln)
 		}else if(parent === "inside"){
 			el.innerHtml = ""
-			
+
 			var elHtml = el.innerHTML
 
 			var html = ""
 			var increment = (variables) ? el.getAttribute("variable").split(":")[1] : 0
 
 			for(var j=0; j < copies; j++){
-			
+
 				if(variables){
 					elVarHtml = elHtml.replace(/<var>(.*)<\/var>|{{ (.*?) }}/gi, increment)
 					html += elVarHtml
@@ -1125,13 +1127,13 @@ var dom = function(){
 		scrollTo(document.body, el.offsetTop, 100)
 		//document.getElementById(obj).appendChild(node)
 	}*/
-	
+
 	this.copyText = function(el){
-		
+
 		var el = (core.isString(el)) ? this.get(el) : el
 		el = dom.getElementsByAttribute("bindcopy", el.children)
 		var text = el[0].innerText
-		
+
     	if(window.clipboardData && window.clipboardData.setData){
         	return clipboardData.setData("Text", text)
     	}else if(document.queryCommandSupported && document.queryCommandSupported("copy")){
@@ -1151,12 +1153,12 @@ var dom = function(){
         	}
     	}
 	}
-	
+
 	this.resize = function(el, value){
 		var el = this.get(el)
 		el.style.resize = "both"
 	}
-	
+
 	this.scrollInto = function(el,bool){
 		var target = this.get(el)
 		if(!bool)
@@ -1166,7 +1168,7 @@ var dom = function(){
 	}
 
 	this.set = function(type, param, value){
-		
+
 		var el = event.target || event.srcElement
 		var res = el.getAttribute("bind").split(bindDivider)
 
@@ -1174,7 +1176,7 @@ var dom = function(){
 			var resEl = this.get(res[0])
 			var attr = resEl.getAttribute(res[1])
 			resEl.setAttribute(res[1], core.setParam(attr, param, value))
-			
+
 			var func = resEl.getAttribute("datasourceonchange")
 			window[func](resEl)
 
@@ -1224,7 +1226,7 @@ var dom = function(){
 	this.removeAllTags = function(str){
 		return str.replace(/(<([^>]+)>)/ig, "")
 	}
-	
+
 	return false
 }
 
