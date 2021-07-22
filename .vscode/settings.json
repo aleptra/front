@@ -13,5 +13,9 @@
             "event": "onFileChange"
         }
     ],
+    "files.exclude": {
+        "dist/front*": true,
+        "dist/lib": true,
+    },
     "liveServer.settings.port": 5501
 }
