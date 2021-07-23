@@ -252,8 +252,8 @@ var core = function(){
 		for(i = 0; i < front.length; i++){
 			if(front[i].hasAttribute("template") && front[i].tagName == "SCRIPT"){
 				var template = front[i].getAttribute("template").split(";")
-				var template1 = template[0] === "true" ? 'index' : template[0]
-				var template2 = template[1] ? template[1] : false
+				var template1 = template[0] === "true" ? 'index' : template[0],
+					template2 = template[1] ? template[1] : false
 
 				var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl
 				var count = cUrl.split("./").length + (template1.match(/..\//g) || []).length
