@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function(){
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
 				if(response)
 					app.storage(headers[0][1], response)
-			}, false)
+			},false)
 		}
 	}
 
@@ -836,7 +836,7 @@ var app = function(){
 			if(status == 200)
 				eval(response)
 				app.debug("Include file: .env", "green")
-		})
+		},false)
 	}
 
 	this.redirect = function(url){
