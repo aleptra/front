@@ -148,25 +148,25 @@ window.addEventListener("hashchange", function(){
 }, false)
 
 function require(src, folder){
-	var el
+	var type
 
 	if(src.indexOf("http") >= 0){
 		src = src
-		el = "script"
+		type = "script"
 	}else if(src.indexOf(".js") >= 0){
 		src = baseUrl + src
-		el = "script"
+		type = "script"
 	}else if(src.indexOf(".css") >= 0){
 		src = src
-		el = "link"
+		type = "link"
 	}else{
 		file = (folder == "plug") ? src+"/"+src : src
 		src = currentScriptUrl + folder+urlDelimiter+file+".js"
-		el = "script"
+		type = "script"
 	}
 
 	var head = dom.get("head?tag"),
-		asset = document.createElement(el)
+		asset = document.createElement(type)
 	asset.src = src
 	asset.href = src
 	asset.rel = "stylesheet"
