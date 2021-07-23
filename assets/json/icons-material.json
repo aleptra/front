@@ -56,13 +56,13 @@
             "name": "double_arrow",
             "html_entity": "&#187;",
             "html_entity_2": "&#xBB;"
-        }, 
+        },
         {
             "title": "Modifier Letter Left Arrowhead",
             "name": "keyboard_arrow_left, navigate_before, chevron_left",
             "html_entity": "&#706;",
             "html_entity_2": "&#x2C2"
-        },     
+        },
         {
             "title": "Modifier Letter Right Arrowhead",
             "name": "keyboard_arrow_right, navigate_after, chevron_right",
@@ -655,13 +655,13 @@
             "html_entity": "&#10044;",
             "html_entity_2": "&#x273C;",
             "keywords": "flower, plant, green"
-        },  
+        },
         {
             "title": "Snowflake",
             "name": "ac_unit",
             "html_entity": "&#10052",
             "html_entity_2": "&#x2744;"
-        },     
+        },
         {
             "title": "Cross Mark",
             "name": "close, clear",
@@ -962,6 +962,13 @@
             "name": "visibility, remove_red_eye",
             "html_entity": "&#128065;",
             "html_entity_2": "&#x1F441;"
+        },
+        {
+            "title": "Ear",
+            "name": "hearing",
+            "html_entity": "&#128066;",
+            "html_entity_2": "&#x1F442;",
+            "keywords": "listening"
         },
         {
             "title": "Thumbs Up Sign",
