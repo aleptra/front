@@ -644,10 +644,10 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (min-width: 740px) {
     .cards { grid-template-columns: 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr}
-    
+
     body .lg_dn{display: inherit}
     body .lg_pl2 { padding-left: 2rem }
-    body .lg_pl3 { padding-left: 3rem }  
+    body .lg_pl3 { padding-left: 3rem }
     body .lg_pl4 { padding-left: 4rem }
     body .lg_pl5 { padding-left: 5rem }
     body .lg_pl6 { padding-left: 6rem }
@@ -754,7 +754,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 }
 
 @media only screen and (max-width: 1279px) and (min-width: 960px) {
-    
+
 }
 
 @media only screen and (max-width: 960px) {
@@ -773,7 +773,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 }
 
 @media only screen and (max-width: 959px) and (min-width: 740px) {
-    
+
 }
 
 @media only screen and (max-width: 739px) {
@@ -816,7 +816,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 }
 
 @media only screen and (max-width: 739px) and (min-width: 600px) {
-    
+
 }
 
 @media only screen and (max-width: 600px) {
@@ -855,6 +855,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xm_fs0 a, .xm_fs0- > a, body .xm_fs0{font-size: 0}
     body .mnauto{margin: -2rem}
     body .mnauto.h100{flex: 0 0 calc(100% + 4rem)}
+    body .crumbs{display:none}
 
     body .xm_du{display: inherit}
     body .xm_w50p, body .xm_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
@@ -884,7 +885,6 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .pauto, body .pauto-> *{padding: 1.5rem}
     body .mnauto{margin: -1.5rem}
     body .mnauto.h100{flex: 0 0 calc(100% + 3rem)}
-    body .crumbs{display:none}
 
     body .sm_du{display: inherit}
     body .sm_w50p, body .sm_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
