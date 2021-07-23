@@ -255,15 +255,15 @@ var core = function(){
 				var template1 = template[0] === "true" ? 'index' : template[0],
 					template2 = template[1] ? template[1] : false
 
-				var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl
-				var count = cUrl.split("../").length + (template1.match(/..\//g) || []).length
-				var url = currentUrl.split("/").slice(0, -count).join("/")
+				var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl,
+					count = cUrl.split("../").length + (template1.match(/..\//g) || []).length,
+					url = currentUrl.split("/").slice(0, -count).join("/")
 
-				var html = dom.get("html?tag=0")
-				var script = dom.get("script?tag=0")
+				var html = dom.get("html?tag=0"),
+					script = dom.get("script?tag=0"),
+					del = document.documentElement
 				script.removeAttribute("src")
 				script.removeAttribute("template")
-				var del = document.documentElement
 				del.parentNode.removeChild(del)
 
 				var main = dom.removeTags(html.outerHTML, ['html','head','script','body'])
