@@ -316,7 +316,7 @@ body .w45, body .w45p{ width: 45%; -ms-flex: 1 45%; flex: 1 45% }
 body .w40, body .w40p{ width: 40%; -ms-flex: 1 40%; flex: 1 40% }
 body .w35, body .w35p{ width: 35%; -ms-flex: 1 35%; flex: 1 35% }
 body .w33, body .w33p{ width: 33%; -ms-flex: 1 33%; flex: 1 33% }
-body .w30, body .w30p{ width: 30%; -ms-flex: 1 30%; flex: 1 30% }    
+body .w30, body .w30p{ width: 30%; -ms-flex: 1 30%; flex: 1 30% }
 body .w25, body .w25p{ width: 25%; -ms-flex: 1 25%; flex: 1 25% }
 
 body .miw10, body .miw10- * { min-width: 10rem }
@@ -397,8 +397,8 @@ body .flc, body .flc->*{
     float: unset !important;
 }
 body .pa.flc, body .pr.flc{
-    top: 50%;  
-    left: 50%; 
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -419,20 +419,24 @@ ul.list li{
     font-style: normal;
     color: inherit;
     line-height: normal;
-    width: unset!important;
     z-index: inherit;
 }
 
-.icon16{ font-size: 16px }
-.icon24{ font-size: 24px }
-.icon32{ font-size: 32px }
-.icon48{ font-size: 48px }
-.icon64{ font-size: 64px }
-.icon96{ font-size: 96px }
-.icon128{ font-size: 128px }
-.icon192{ font-size: 192px }
-.icon256{ font-size: 256px }
-.icon512{ font-size: 512px }
+body .icon16{font-size:16px;width:16px;height:16px}
+body .icon24{font-size:24px;width:24px;height:24px}
+body .icon32{font-size:32px;width:32px;height:32px}
+body .icon48{font-size:48px;width:48px;height:48px}
+body .icon64{font-size:64px;width:64px;height:64px}
+body .icon96{font-size:96px;width:96px;height:96px}
+body .icon128{font-size:128px;width:128px;height:128px}
+body .icon192{font-size:192px;width:192px;height:192px}
+body .icon256{font-size:256px;width:256px;height:256px}
+body .icon512{font-size:512px;width:512px;height:512px}
+
+.icon.circled{
+    padding-right: 0;
+    border-radius: 50%
+}
 
 .bsc{background-size:cover}
 
