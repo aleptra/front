@@ -336,21 +336,6 @@ body .mw80p, body .mw80p- * { max-width: 80% }
 body .mw90p, body .mw90p- * { max-width: 90% }
 body .mw100p, body .mw100p- * { max-width: 100% }
 
-body .h25{height: 25%}
-body .h50{height: 50%}
-body .h60{height: 60%}
-body .h70{height: 70%}
-body .h80{height: 80%}
-body .h90{height: 90%}
-body .h5r{height: 5rem}
-body .h6r{height: 6rem}
-body .h7r{height: 7rem}
-body .h8r{height: 8rem}
-body .h9r{height: 9rem}
-body .h10r{height: 10rem}
-body .h25r{height: 25rem}
-body .h50r{height: 50rem}
-
 .gap05->*{ margin-left: .25rem;margin-right: .25rem }
 .gap1->*{ margin-left: .5rem;margin-right: .5rem }
 .gap105->*{ margin-left: .75rem;margin-right: .75rem }
@@ -420,6 +405,7 @@ ul.list li{
     color: inherit;
     line-height: normal;
     z-index: inherit;
+    box-sizing: border-box;
 }
 
 body .icon16{font-size:16px;width:16px;height:16px}
@@ -434,8 +420,8 @@ body .icon256{font-size:256px;width:256px;height:256px}
 body .icon512{font-size:512px;width:512px;height:512px}
 
 .icon.circled{
-    padding-right: 0;
-    border-radius: 50%
+    border-radius: 50%;
+    padding: 1rem;
 }
 
 .bsc{background-size:cover}
