@@ -779,7 +779,7 @@ var app = function(){
 		return currentUrl.split("/").slice(0, -count).join("/")
 	}
 
-	this.setupElement = function(res) {
+	this.setupElement = function(res){
 		var el,
 			res = res.split('=')
 
