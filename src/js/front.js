@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function(){
 				location.hash = elHref
 				return false
 			}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank"){
-				app.debug('Click with Ajax: '+ elHref)
+				app.debug('Click (Ajax): '+ elHref)
 				if(window.location.hash) location.hash = ""
 				return nav(currentEnvUrl + elHref, false, true)
 			}else{
@@ -172,7 +172,7 @@ function require(src, folder){
 	asset.rel = "stylesheet"
 	asset.async = false
   	asset.onload = function(){
-		app.debug("Loaded: "+ src)
+		app.debug("Load: "+ src)
 	}
 
 	head.appendChild(asset)
@@ -314,7 +314,7 @@ var core = function(){
 	this.runCoreAttributes = function(e){
 		if(e.tagName == "BASE" && e.hasAttribute("env")) {
 			dom.update("base?tag", ["setAttribute", "href", currentEnvUrl])
-			app.debug("Running environment: "+currentEnvName, "blue")
+			app.debug("Environment: "+currentEnvName, "blue")
 		}
 		if(e.hasAttribute("run") && e.getAttribute("run") === "false")
 			dom.enable(e,false)
