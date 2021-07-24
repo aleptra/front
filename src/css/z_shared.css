@@ -508,6 +508,7 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .pt1{ padding-top: 1rem }
 .pt105{ padding-top: 1.5rem }
 .pt2{ padding-top: 2rem }
+.pt3{ padding-top: 3rem }
 .pb1{ padding-bottom: 1rem }
 .pb105{ padding-bottom: 1.5rem }
 .pb2{ padding-bottom: 2rem }
