@@ -312,10 +312,12 @@ var core = function(){
 	}
 
 	this.runCoreAttributes = function(e){
+		if(e.tagName == "BASE" && e.hasAttribute("env")) {
+			dom.update("base?tag", ["setAttribute", "href", currentEnvUrl])
+			app.debug("Running environment: "+currentEnvName, "blue")
+		}
 		if(e.hasAttribute("run") && e.getAttribute("run") === "false")
 			dom.enable(e,false)
-		if(e.tagName == "BASE" && e.hasAttribute("env"))
-			app.setupEnvironment(e.getAttribute("env"))
 		if(e.hasAttribute("include"))
 			core.includeFile(e)
 		if(e.hasAttribute("storage")){
@@ -777,13 +779,16 @@ var app = function(){
 		return currentUrl.split("/").slice(0, -count).join("/")
 	}
 
-	this.setupEnvironment = function(){
-		if(currentEnvName == "local"){
-			dom.update("base?tag", ["setAttribute", "href", currentEnvUrl])
-			app.debug("Running environment: "+currentEnvName, "blue", "yellow")
-		}else if(currentEnvName == "prod"){
-			dom.update("base?tag", ["setAttribute", "href", currentEnvUrl])
-			app.debug("Running environment: "+currentEnvName, "yellow", "green")
+	this.setupElement = function(res) {
+		var el,
+			res = res.split('=')
+
+		if(res[1].indexOf(".js") >= 0){
+			el = dom.get('script?tag='+res[0])
+			el.src = res[1]
+		}else if(res[1].indexOf(".css") >= 0){
+			el = dom.get('link?tag='+res[0])
+			el.href = res[1]
 		}
 	}
 
