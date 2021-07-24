@@ -778,6 +778,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
     body .xl_du{display: inherit}
     body .xl_pu{position: inherit}
     body .xl_bcu{background-color: inherit}
+    body .xl_flcu{top:inherit;left: inherit;transform:inherit}
     body .xl_fs100 a, body .xl_fs100{ font-size: 100% }
     body .xl_fs90 a, body .xl_fs90{ font-size: 90% }
     body .xl_fs80 a, body .xl_fs80{ font-size: 80% }
