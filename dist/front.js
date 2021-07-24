@@ -767,7 +767,7 @@ var app = function(){
 	var baseStartUrl
 
 	this.getBaseUrl = function(url){
-		str = url.split(urlDelimiter)
+		var str = url.split(urlDelimiter)
 		str.pop()
 		return str.join(urlDelimiter) + urlDelimiter
 	}
