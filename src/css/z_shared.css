@@ -776,6 +776,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 
 @media only screen and (max-width: 960px) {
     body .xl_du{display: inherit}
+    body .xl_pu{position: inherit}
     body .xl_fs100 a, body .xl_fs100{ font-size: 100% }
     body .xl_fs90 a, body .xl_fs90{ font-size: 90% }
     body .xl_fs80 a, body .xl_fs80{ font-size: 80% }
