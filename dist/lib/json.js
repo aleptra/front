@@ -1,8 +1,8 @@
 libAttribute.push(
-{'attr': 'json', 'func': 'json'},
-{'attr': 'datapull', 'func': 'dataPull'},
-{'attr': 'datapush', 'func': 'dataPush'},
-);
+    {'attr': 'json', 'func': 'json'},
+    {'attr': 'datapull', 'func': 'dataPull'},
+    {'attr': 'datapush', 'func': 'dataPush'}
+)
 
 window.addEventListener("submit", function(e){
     var form = e.target || e.srcElement
@@ -67,7 +67,7 @@ function json(aEl){
         eval(onstart)
         if (!loader) {
             el.innerHTML = ''
-            el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>') 
+            el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>')
         }else{
             aEl.innerHTML = aEl.innerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3) {
                 var attr = e.match(/(?!name|class|id)\S+="\S+"/ig).join(" ")
@@ -91,7 +91,7 @@ function json(aEl){
 
         var data = xhr.responseText
         var json = JSON.parse(data)
-        
+
         if(json.length == 0){
             eval(onempty)
         }
@@ -106,13 +106,13 @@ function json(aEl){
         elBreak = xhr.el.getElementsByTagName("*").length
 
         var j = -1
-        
+
             for(i = 0; i < els.length; i++){
-            
+
                 if(i % elBreak == 0){
                     j++
                 }
-                
+
                 var jsonget = els[i].getAttribute("jsonget")
                 var jsonset = els[i].getAttribute("jsonset")
                 var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : ''
@@ -229,5 +229,5 @@ function dataPush(el){
 }
 
 function dataPull(){
-    
+
 }

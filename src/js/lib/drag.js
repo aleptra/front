@@ -1,6 +1,6 @@
 libAttribute.push(
-{'attr': 'draggable', 'func': 'draggable'}
-);
+  {'attr': 'draggable', 'func': 'draggable'}
+)
 
 function draggable(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;

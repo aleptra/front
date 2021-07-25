@@ -1,5 +1,5 @@
 libAttribute.push(
-    {'attr': 'filter', 'func': 'bindFilter'}
+  {'attr': 'filter', 'func': 'bindFilter'}
 )
 
 var target
@@ -15,7 +15,7 @@ function filter(){
   var children = _.getChildren(target)
 
   for(i = 0; i < children.length; i++){
-    
+
     if(children[i].childElementCount > 0){
       var child = _.getChildren(children[i])
 
@@ -28,7 +28,7 @@ function filter(){
         }
       }
     }
-  
+
   }
 
 }
