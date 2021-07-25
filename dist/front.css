@@ -1764,10 +1764,14 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .pt105{ padding-top: 1.5rem }
 .pt2{ padding-top: 2rem }
 .pt3{ padding-top: 3rem }
+.pt4{ padding-top: 4rem }
+.pt5{ padding-top: 5rem }
 .pb1{ padding-bottom: 1rem }
 .pb105{ padding-bottom: 1.5rem }
 .pb2{ padding-bottom: 2rem }
 .pb3{ padding-bottom: 3rem }
+.pb4{ padding-bottom: 4rem }
+.pb5{ padding-bottom: 5rem }
 .mt0, .mt0- *{ margin-top: 0 }
 .m05, .m05- *{ margin: .5rem }
 .mt05, .mt05- *{margin-top:.5rem}
