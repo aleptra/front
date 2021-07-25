@@ -1,5 +1,5 @@
 libAttribute.push(
-{'attr': 'navigate', 'func': 'nav'}
+	{'attr': 'navigate', 'func': 'nav'}
 )
 
 var navTargetEl = "main?tag"
@@ -26,7 +26,7 @@ function nav(path, el, push){
 		if(response){
 			if(push || path == startPage) navPush(path)
 			dom.content(target, response)
-			
+
 			if(anchor[1]){
 				dom.scrollInto(anchor[1])
 			}else{
@@ -40,7 +40,7 @@ function nav(path, el, push){
 
 			core.runAttributesInElement(target)
 		}
-	});
+	})
 
 	loadTemplate = false
 	return false
