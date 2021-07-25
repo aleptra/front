@@ -54,6 +54,7 @@ nav[class*='gap'] figure {margin:0}
 .tabs {
   flex-wrap: wrap;
   -ms-flex-wrap: wrap;
+  word-break: break-word
 }
 
 .tabs.full > label{
