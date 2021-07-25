@@ -1773,6 +1773,14 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .pb3{ padding-bottom: 3rem }
 .pb4{ padding-bottom: 4rem }
 .pb5{ padding-bottom: 5rem }
+.ml0, .ml0- *{margin-left:0}
+.ml1, .ml1- *{margin-left:1rem}
+.ml2, .ml2- *{margin-left:2rem}
+.ml3, .ml3- *{margin-left:3rem}
+.mr0, .mr0- *{margin-right:0}
+.mr1, .mr1- *{margin-right:1rem}
+.mr2, .mr2- *{margin-right:2rem}
+.mr2, .mr3- *{margin-right:3rem}
 .mt0, .mt0- *{ margin-top: 0 }
 .m05, .m05- *{ margin: .5rem }
 .mt05, .mt05- *{margin-top:.5rem}
