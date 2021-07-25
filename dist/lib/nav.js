@@ -40,7 +40,7 @@ function nav(path, el, push){
 
 			core.runAttributesInElement(target)
 		}
-	});
+	})
 
 	loadTemplate = false
 	return false

@@ -3,9 +3,9 @@ var popup = function() {
 	this.id = 'popup' // The name of the div that will be created
 
 	this.open = function(modal, data) {
-	
-		var data = (data) ? data : '';
-	
+
+		var data = (data) ? data : ''
+
 		if (data) {
 			data.unshift(modal);
 		}else{
@@ -23,7 +23,7 @@ var popup = function() {
     //
 
 		xhr('modal', data, 'xhrModal', [['content','xhrModal']]);
-    return false;
+    return false
 	}
 
 	this.create = function() {
@@ -34,7 +34,7 @@ var popup = function() {
 		dom.hide(this.id)
 		dom.remove(this.id)
 	}
-};
+}
 
 var popup = new popup(),
     modal = popup;

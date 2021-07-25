@@ -9,28 +9,27 @@ function slide(e){
     console.dir(params);
     //console.log(obj['domain']);
 
+    var jdata = JSON.parse(JSON.stringify(e.getAttribute("slide").toString()))
+    console.dir(jdata)
 
-    var jdata = JSON.parse(JSON.stringify(e.getAttribute("slide").toString()));
-    console.dir(jdata);
-
-    showSlides(slideIndex);
+    showSlides(slideIndex)
 }
 
 function plusSlides(n) {
-    showSlides(slideIndex += n);
+    showSlides(slideIndex += n)
 }
 
 function slideTo(n) {
-    showSlides(slideIndex = n);
+    showSlides(slideIndex = n)
 }
 
 function showSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("slide");
+    var i
+    var slides = document.getElementsByClassName("slide")
     if (n > slides.length) {slideIndex = 1}
     if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+    for (i = 0; i < slides.length; i++){
+        slides[i].style.display = "none"
     }
-    slides[slideIndex-1].style.display = "inherit";
+    slides[slideIndex-1].style.display = "inherit"
 }
