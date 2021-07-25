@@ -5,9 +5,9 @@ libAttribute.push(
 )
 
 window.addEventListener("submit", function(e){
-  var form = e.target || e.srcElement
-  var target = form.getAttribute('target')
-  if (target !== "_blank") {
+  var form = e.target || e.srcElement,
+      target = form.getAttribute('target')
+  if(target !== "_blank"){
     e.preventDefault()
     var payload = jsonSerialize(form)
     jsonPush(payload, form)
@@ -16,15 +16,15 @@ window.addEventListener("submit", function(e){
   return false
 })
 
-var jsonInitEl = []
-var jsonIndex = 0
+var jsonInitEl = [],
+    jsonIndex = 0
 
 function json(aEl){
-  var attr = aEl.getAttribute("json").split(";")
-  var target = attr[0]
-  var loader = attr[1]
-  var el = (target === "true") ? aEl : dom.get(target)
-  var e = event && (event.target || event.srcElement)
+  var attr = aEl.getAttribute("json").split(";"),
+      target = attr[0],
+      loader = attr[1],
+      el = (target === "true") ? aEl : dom.get(target),
+      e = event && (event.target || event.srcElement)
 
   if (e && e.attributes && e.attributes['bind']){
     attrBind = e.getAttribute("bind").split(".")
@@ -42,13 +42,13 @@ function json(aEl){
   }
 
   var iterate = el.getAttribute('iterate')
-  var url = el.getAttribute('datasource')
-  var headers = el.getAttribute('dataheader')
-  var onprogress = el.getAttribute('onprogress')
-  var onerror = el.getAttribute('onerror')
-  var ondone = el.getAttribute('ondone')
-  var onempty = el.getAttribute('onempty')
-  var onstart = el.getAttribute('onstart')
+      url = el.getAttribute('datasource'),
+      headers = el.getAttribute('dataheader'),
+      onstart = el.getAttribute('onstart'),
+      onprogress = el.getAttribute('onprogress'),
+      onerror = el.getAttribute('onerror'),
+      ondone = el.getAttribute('ondone'),
+      onempty = el.getAttribute('onempty')
 
   var xhr = new XMLHttpRequest()
   xhr.el = clnEl
@@ -79,13 +79,13 @@ function json(aEl){
   xhr.onprogress = function(){eval(onprogress)}
   xhr.onerror = function(){eval(onerror)}
   xhr.onload = function(){
-    var responseHeaders = xhr.getAllResponseHeaders()
-    var arr = responseHeaders.trim().split(/[\r\n]+/)
-    var responseHeader = {}
+    var responseHeaders = xhr.getAllResponseHeaders(),
+        arr = responseHeaders.trim().split(/[\r\n]+/),
+        responseHeader = {}
     arr.forEach(function(line){
-      var parts = line.split(': ')
-      var header = parts.shift()
-      var value = parts.join(': ')
+      var parts = line.split(': '),
+          header = parts.shift(),
+          value = parts.join(': ')
       responseHeader[header] = value
     })
 
@@ -113,10 +113,10 @@ function json(aEl){
           j++
         }
 
-        var jsonget = els[i].getAttribute("jsonget")
-        var jsonset = els[i].getAttribute("jsonset")
-        var jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : ''
-        var jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : ''
+        var jsonget = els[i].getAttribute("jsonget"),
+            jsonset = els[i].getAttribute("jsonset"),
+            jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : '',
+            jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : ''
 
         els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function(e,$out){
           return jsonParse(json[j], $out)
@@ -146,8 +146,8 @@ function json(aEl){
     core.runCoreAttributesInElement(el)
 
     aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function(e, out){
-      var first = out.split("=")[0].trim()
-      var isMod = (out.indexOf("=") > 0) ? true : false
+      var first = out.split("=")[0].trim(),
+          isMod = (out.indexOf("=") > 0) ? true : false
       return core.callAttributes(responseHeader[first], out, isMod)
     })
   }
@@ -155,10 +155,10 @@ function json(aEl){
 }
 
 function jsonParse(input, json){
-  var isMod = (json.indexOf("=") > 0) ? true : false
-  var isAssociative = (json.indexOf(".") > 0) ? true : false
-  var value = ""
-  var orgJson = json
+  var isMod = (json.indexOf("=") > 0) ? true : false,
+      isAssociative = (json.indexOf(".") > 0) ? true : false,
+      value = "",
+      orgJson = json
 
   if(isMod) json = json.split(" ")[0]
 
@@ -174,11 +174,11 @@ function jsonParse(input, json){
 }
 
 function jsonSerialize(inputs){
-  formData = new FormData(inputs)
-  var pairs = {}
+  var formData = new FormData(inputs),
+      pairs = {}
 
   for(var [name, value] of formData){
-    pairs[name] = value;
+    pairs[name] = value
   }
 
   return JSON.stringify(pairs, null, 2)
@@ -200,10 +200,10 @@ function jsonPush(payload, e){
   }
 
   if(headers){
-    headers = headers.split(" ; ");
+    headers = headers.split(" ; ")
 
     for(var i in headers){
-      var header = headers[i].split(":");
+      var header = headers[i].split(":")
       xhr.setRequestHeader(header[0], header[1])
     }
   }
@@ -214,13 +214,13 @@ function jsonPush(payload, e){
 function dataForcePush(el) {
   var payload = jsonSerialize(el)
   jsonPush(payload, el)
-  console.dir(payload)
+  app.debug(payload)
 }
 
 function dataPush(el){
   var attr = el.getAttribute("datapush"),
-  interval = (attr < 1000) ? 1500 : attr,
-  count = 0
+      interval = (attr < 1000) ? 1500 : attr,
+      count = 0
   setInterval(function(){
     var newEl = dom.get(el.id)
     dataForcePush(newEl)
