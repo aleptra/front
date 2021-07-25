@@ -568,7 +568,7 @@ body .bw3{border-width: 3px}
 body .bw4{border-width: 4px}
 body .bw5{border-width: 5px}
 
-body [class*='wc_'], body .m0a {margin: 0 auto;flex:initial}
+body [class*='wc_'], body .m0a {margin: 0 auto;flex:initial;max-width:100%}
 body [class*='_dn'], body [class*='_du']{display: none}
 
 .wc_xm{max-width: 480px}
