@@ -1810,10 +1810,10 @@ body .bw5{border-width: 5px}
 body [class*='wc_'], body .m0a {margin: 0 auto;flex:initial;max-width:100%}
 body [class*='_dn'], body [class*='_du']{display: none}
 
-.wc_xm{max-width: 480px}
-.wc_xl{max-width: 960px}
-.wc_xxl{max-width: 1280px}
-.wc_xxxl{max-width: 1440px}
+.wc_xm{width: 480px}
+.wc_xl{width: 960px}
+.wc_xxl{width: 1280px}
+.wc_xxxl{width: 1440px}
 
 .w80w{ max-width: 80vw}
 
