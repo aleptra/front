@@ -56,6 +56,7 @@
             "run": "Run",
             "run_template": "Run template",
             "output": "Output",
+            "page_not_found": "Page not found",
             "parameters": "Parametrar",
             "search": "Search",
             "set": "Set",
