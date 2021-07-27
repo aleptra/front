@@ -115,6 +115,19 @@
             "type": 2,
             "author": "Josef Gabrielsson",
             "cost": "0"
+        },
+        {
+            "id": 11,
+            "title": "Google Maps",
+            "description": "Google Maps",
+            "version": "0.1.0",
+            "screenshot": "",
+            "icon": "./dist/plug/googlemaps/icon.svg",
+            "url": "",
+            "url_target": 0,
+            "type": 2,
+            "author": "Josef Gabrielsson",
+            "cost": "0"
         }
     ]
 }
