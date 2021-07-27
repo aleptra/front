@@ -1,12 +1,12 @@
 libAttribute.push(
-  {'attr': 'json', 'func': 'json'},
-  {'attr': 'datapull', 'func': 'dataPull'},
-  {'attr': 'datapush', 'func': 'dataPush'}
+  {"attr": "json", "func": "json"},
+  {"attr": "datapull", "func": "dataPull"},
+  {"attr": "datapush", "func": "dataPush"}
 )
 
 window.addEventListener("submit", function(e){
   var form = e.target || e.srcElement,
-      target = form.getAttribute('target')
+      target = form.getAttribute("target")
   if(target !== "_blank"){
     e.preventDefault()
     var payload = jsonSerialize(form)
@@ -26,9 +26,9 @@ function json(aEl){
       el = (target === "true") ? aEl : dom.get(target),
       e = event && (event.target || event.srcElement)
 
-  if (e && e.attributes && e.attributes['bind']){
+  if (e && e.attributes && e.attributes["bind"]){
     attrBind = e.getAttribute("bind").split(".")
-    bindEl = dom.get(attrBind[0]);
+    bindEl = dom.get(attrBind[0])
     clnEl = jsonInitEl[bindEl.getAttribute("jsonindex")]
     dom.scrollInto(attrBind[0], false)
   }else{
@@ -41,14 +41,14 @@ function json(aEl){
     jsonIndex++
   }
 
-  var url = el.getAttribute('datasource'),
-      headers = el.getAttribute('dataheader'),
-      iterate = el.getAttribute('iterate')
-      onstart = el.getAttribute('onstart'),
-      onprogress = el.getAttribute('onprogress'),
-      onerror = el.getAttribute('onerror'),
-      ondone = el.getAttribute('ondone'),
-      onempty = el.getAttribute('onempty')
+  var url = el.getAttribute("datasource"),
+      headers = el.getAttribute("dataheader"),
+      iterate = el.getAttribute("iterate")
+      onstart = el.getAttribute("onstart"),
+      onprogress = el.getAttribute("onprogress"),
+      onerror = el.getAttribute("onerror"),
+      ondone = el.getAttribute("ondone"),
+      onempty = el.getAttribute("onempty")
 
   var xhr = new XMLHttpRequest()
   xhr.el = clnEl
@@ -66,7 +66,7 @@ function json(aEl){
   xhr.onloadstart = function(){
     eval(onstart)
     if(!loader){
-      el.innerHTML = ''
+      el.innerHTML = ""
       el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>')
     }else{
       aEl.innerHTML = aEl.innerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3){
@@ -83,9 +83,9 @@ function json(aEl){
         arr = responseHeaders.trim().split(/[\r\n]+/),
         responseHeader = {}
     arr.forEach(function(line){
-      var parts = line.split(': '),
+      var parts = line.split(": "),
           header = parts.shift(),
-          value = parts.join(': ')
+          value = parts.join(": ")
       responseHeader[header] = value
     })
 
@@ -99,7 +99,7 @@ function json(aEl){
     el.innerHTML = xhr.el.innerHTML
 
     if(iterate){
-      json = (iterate.indexOf('.') > 0) ? json[0] : json
+      json = (iterate.indexOf(".") > 0) ? json[0] : json
       json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
       var length = (iterate) ? json.length : iterate
       core.runIteration(el, 0, length)
@@ -142,7 +142,7 @@ function json(aEl){
           else if(type == "a")
             els[i].href = value
           else
-            els[i].innerHTML = value.replace(/<[^>]+>/g, '')
+            els[i].innerHTML = value.replace(/<[^>]+>/g, "")
         }
     }
 
@@ -189,10 +189,10 @@ function jsonSerialize(inputs){
 }
 
 function jsonPush(payload, e){
-  var url = e.getAttribute('datasource'),
-      headers = e.getAttribute('dataheader'),
-      ondone = e.getAttribute('ondone'),
-      method = (e.hasAttribute('method')) ? e.getAttribute('method').toUpperCase() : "POST"
+  var url = e.getAttribute("datasource"),
+      headers = e.getAttribute("dataheader"),
+      ondone = e.getAttribute("ondone"),
+      method = (e.hasAttribute("method")) ? e.getAttribute("method").toUpperCase() : "POST"
 
   var xhr = new XMLHttpRequest()
   xhr.open(method, url, true)
