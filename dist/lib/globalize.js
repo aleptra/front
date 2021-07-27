@@ -1,9 +1,9 @@
 libAttribute.push(
-  {'attr': 'globalize', 'func': 'globalize'}
+  {"attr": "globalize", "func": "globalize"}
 )
 
 libPreload.push(
-  {'func': 'globalizePreload'}
+  {"func": "globalizePreload"}
 )
 
 var htmlAttr = dom.get("html?tag"),
@@ -11,7 +11,7 @@ var htmlAttr = dom.get("html?tag"),
     localeJson,
     localeCode,
     localeCountry,
-    defaultLocale = (htmlAttr.lang) ? htmlAttr.lang.split(";")[0] : 'en',
+    defaultLocale = (htmlAttr.lang) ? htmlAttr.lang.split(";")[0] : "en",
     browserLocale = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage
 
 function globalizePreload(){
@@ -21,7 +21,7 @@ function globalizePreload(){
       queryLocale = core.getParams()['lang']
 
   if(queryLocale){
-    locale = (queryLocale === "*") ? '' : queryLocale
+    locale = (queryLocale === "*") ? "" : queryLocale
   }else if(htmlAttr.lang.indexOf("auto") > 0 && !storageLocale){
     locale = core.toLower(browserLocale)
   }else if(storageLocale){
@@ -32,7 +32,7 @@ function globalizePreload(){
 }
 
 function globalizeChangeLanguage(locale){
-  locale = (locale) ? locale.split("-") : ''
+  locale = (locale) ? locale.split("-") : ""
 
   if(locale[0])
     globalizeLoadFile(locale[0])
@@ -56,7 +56,7 @@ function globalizeLoadFile(a2){
     if(core.isJson(response)){
       localeJson = JSON.parse(response)
       localeCode = localeJson.code
-      localeCountry = '?'
+      localeCountry = "?"
       app.storage(a2, response)
       app.storage("locale", a2)
       globalizeChangeMetaDir(localeJson.direction)

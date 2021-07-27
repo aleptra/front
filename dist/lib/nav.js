@@ -1,5 +1,5 @@
 libAttribute.push(
-	{'attr': 'navigate', 'func': 'nav'}
+	{"attr": "navigate", "func": "nav"}
 )
 
 var navTargetEl = "main?tag"
@@ -19,7 +19,7 @@ function nav(path, el, push){
 	var path = (currentEnvUrl === path || path === currentEnvUrl+"./") ? startPage : path
 	var target = (el === undefined || el === false) ? navTargetEl : el
 	var contentOrginal = dom.content(target)
-	var anchor = (path) ? path.split("#") : ''
+	var anchor = (path) ? path.split("#") : ""
 	client.addHeader("Path", path)
 	client.addHeader("Cache-Control", "must-revalidate")
 	client.get(path, function(response){

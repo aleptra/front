@@ -1,5 +1,5 @@
 libAttribute.push(
-  {'attr': 'filter', 'func': 'bindFilter'}
+  {"attr": "filter", "func": "bindFilter"}
 )
 
 var target
@@ -20,11 +20,11 @@ function filter(){
       var child = _.getChildren(children[i])
 
       for(j = 0; j < child.length; j++){
-        if(child[j].hasAttribute('filteron')){
+        if(child[j].hasAttribute("filteron")){
             if (child[j].textContent.toUpperCase().indexOf(filter) > -1 || child[j - 1].textContent.toUpperCase().indexOf(filter) > -1)
-              children[i].style.display = ''
+              children[i].style.display = ""
             else
-              children[i].style.display = 'none'
+              children[i].style.display = "none"
         }
       }
     }
