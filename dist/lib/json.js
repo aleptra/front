@@ -69,7 +69,7 @@ function json(aEl){
       el.innerHTML = ''
       el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>')
     }else{
-      aEl.innerHTML = aEl.innerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3) {
+      aEl.innerHTML = aEl.innerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3){
         var attr = e.match(/(?!name|class|id)\S+="\S+"/ig).join(" ")
         return out+'><span class="loader" '+attr+'></span><'
       })
@@ -164,7 +164,7 @@ function jsonParse(input, json){
   if(isMod) json = json.split(" ")[0]
 
   if(isAssociative){
-    var split = json.split(".");
+    var split = json.split(".")
     for(i in split){
       value += "['" + split[i] + "']"
     }
@@ -186,7 +186,7 @@ function jsonSerialize(inputs){
 }
 
 function jsonPush(payload, e){
-  var url = e.getAttribute('datasource');
+  var url = e.getAttribute('datasource')
   var headers = e.getAttribute('dataheader')
   var ondone = e.getAttribute('ondone')
   var method = (e.hasAttribute('method')) ? e.getAttribute('method').toUpperCase() : "POST"
