@@ -120,7 +120,7 @@
             "id": 11,
             "title": "Google Maps",
             "description": "Google Maps",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "screenshot": "",
             "icon": "./dist/plug/googlemaps/icon.svg",
             "url": "",
