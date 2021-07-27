@@ -58,14 +58,14 @@ function json(aEl){
 
   if(headers){
     headers = headers.split(";")
-    for (var i in headers) {
+    for(var i in headers){
       var header = headers[i].trim().split(":")
       xhr.setRequestHeader(header[0], header[1])
     }
   }
   xhr.onloadstart = function(){
     eval(onstart)
-    if (!loader) {
+    if(!loader){
       el.innerHTML = ''
       el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>')
     }else{
