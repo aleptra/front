@@ -6,7 +6,8 @@
 require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY&callback=initMap&libraries=&v=weekly")
 
 function initMap(){
-  if(dom.get("googlemaps")){
+  var el = dom.get("googlemaps")
+  if(el){
     var attr = el.getAttribute("googlemaps").split(",")
         latVal = attr[0].split(":")[1],
         lngVal = attr[1].split(":")[1]
