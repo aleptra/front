@@ -96,12 +96,15 @@ function json(aEl){
       eval(onempty)
     }
 
-    json = (iterate.indexOf('.') > 0) ? json[0] : json
-    json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
     el.innerHTML = xhr.el.innerHTML
 
-    var length = (iterate) ? json.length : iterate
-    core.runIteration(el, 0, length)
+    if(iterate){
+      json = (iterate.indexOf('.') > 0) ? json[0] : json
+      json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
+      var length = (iterate) ? json.length : iterate
+      core.runIteration(el, 0, length)
+    }
+
 
     els = el.getElementsByTagName("*")
     elBreak = xhr.el.getElementsByTagName("*").length
