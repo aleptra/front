@@ -24,12 +24,12 @@ var front,
 	referrerUrl,
 	baseUrl,
 	html,
-	startPage = 'home.html',
+	startPage = "home.html",
 
 	folderLib = "lib",
 	folderPlug = "plug"
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener("DOMContentLoaded", function(){
 	front = document.getElementsByTagName("*")
 	html = document.documentElement
 	debugMode = html.getAttribute("debug")
@@ -110,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function(){
 			var elTarget = el.getAttribute("target")
 			if(el.hasAttribute("window")){
 				dom.create("div", ["href=/"], "head")
-				alert('hej')
 				return false
 			}else if(elHref && elHref.substring(0,1) === "#"){
 				location.hash = elHref
@@ -125,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		}
 	}
 
-	document.addEventListener('click', function(e){
+	document.addEventListener("click", function(e){
 		var clicked = (e.target) ? e.target : e.srcElement
 		var val = clicked.parentNode.getAttribute("onclick")
 		if(val){
@@ -136,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	},true)
 })
 
-window.addEventListener('load', function(){
+window.addEventListener("load", function(){
 	if(load){
 		core.runLibPreloads()
 		core.runFrontAttributes()
@@ -508,7 +507,7 @@ var core = function(){
 		}
 		if(e.hasAttribute("decode")){
 			var decode = e.getAttribute("decode")
-			e.innerHTML = ''
+			e.innerHTML = ""
 		}
 		if(e.hasAttribute("delimiter")){
 			var delimiter = e.getAttribute("delimiter")
@@ -548,7 +547,7 @@ var core = function(){
 		if(e.hasAttribute("content") && e.tagName !== "META"){
 			var val = e.getAttribute("content").split(":")
 			var content = front.namedItem(val[0]).innerHTML
-			var set = (val[1] == 'false') ? dom.escape(content) : content
+			var set = (val[1] == "false") ? dom.escape(content) : content
 			e.innerHTML = set
 		}
 		if(e.tagName == "CODE"){
@@ -563,7 +562,7 @@ var core = function(){
 	}
 
 	this.runCoreAttributesInElement = function(e){
-		var e = (typeof e === 'string') ? dom.get(e) : e
+		var e = (typeof e === "string") ? dom.get(e) : e
 		els = e.getElementsByTagName("*")
 		for(i = 0; i < els.length; i++){
 			core.runCoreAttributes(els[i])
@@ -571,7 +570,7 @@ var core = function(){
 	}
 
 	this.runLibAttributesInElement = function(e){
-		var e = (typeof e === 'string') ? dom.get(e) : e
+		var e = (typeof e === "string") ? dom.get(e) : e
 		els = e.getElementsByTagName("*")
 		for(k = 0; k < els.length; k++){
 			for(j = 0; j < libAttribute.length; j++){
@@ -583,7 +582,7 @@ var core = function(){
 	}
 
 	this.runLibAttributes = function(e){
-		var e = (typeof e === 'string') ? dom.get(e) : e
+		var e = (typeof e === "string") ? dom.get(e) : e
 		for(j = 0; j < libAttribute.length; j++){
 			if(e.getAttribute(libAttribute[j].attr)){
 				window[libAttribute[j].func](e)
@@ -651,7 +650,7 @@ var core = function(){
 	this.setParam = function(uri, key, value){
 		function upperToHyphenLower(match, offset, string){
 			app.debug(match)
-			return (offset > 0 ? '-' : '') + match.toLowerCase()
+			return (offset > 0 ? "-" : "") + match.toLowerCase()
 		}
 		return uri.replace(new RegExp("([?&]"+key+"(?=[=&#]|$)[^#&]*|(?=#|$))"), "&"+key+"="+encodeURIComponent(value)).replace(/^([^?&]+)&/, "$1?", upperToHyphenLower)
 	}
@@ -659,7 +658,7 @@ var core = function(){
 	this.getParams = function (url){
 		var url = (url) ? url : window.location.href
 	    var params = {}
-	    var parser = document.createElement('a')
+	    var parser = document.createElement("a")
 	    parser.href = url
 	    var query = parser.search.substring(1)
 	    var vars = query.split('&')
@@ -709,7 +708,7 @@ var core = function(){
 		var u = 0
 		for(j=0; j < array.length; j++){
 
-			attr = array[j].getAttribute('index')
+			attr = array[j].getAttribute("index")
 			if(attr){
 				u = attr
 			}else{
@@ -781,13 +780,13 @@ var app = function(){
 
 	this.setupElement = function(res){
 		var el,
-			res = res.split('=')
+			res = res.split("=")
 
 		if(res[1].indexOf(".js") >= 0){
 			el = dom.get('script?tag='+res[0])
 			el.src = res[1]
 		}else if(res[1].indexOf(".css") >= 0){
-			el = dom.get('link?tag='+res[0])
+			el = dom.get("link?tag="+res[0])
 			el.href = res[1]
 		}
 	}
@@ -855,7 +854,7 @@ var app = function(){
 
 var dom = function(){
 
-	var oldClass = ''
+	var oldClass = ""
 
 	this.get = function(obj){
 		var res = obj.split(elementDivider)
@@ -883,12 +882,12 @@ var dom = function(){
 				return "d-"+out
 			})
 		else
-			e.outerHTML = e.outerHTML.replace(/d-/ig,'')
+			e.outerHTML = e.outerHTML.replace(/d-/ig, "")
 	}
 
 	this.exists = function(obj){
 		var el = this.get(obj)
-		if(typeof(el) !== 'undefined' && el != null)
+		if(typeof(el) !== "undefined" && el != null)
 			return true
 		else
 			return false
@@ -896,18 +895,18 @@ var dom = function(){
 
 	this.hide = function(obj){
 		var el = this.get(obj)
-		if(el) el.setAttribute('style', 'display: none !important')
+		if(el) el.setAttribute("style", "display: none !important")
 	}
 
 	this.show = function(obj){
 		var el = this.get(obj)
-		if(el) el.setAttribute('style', 'display: block !important')
+		if(el) el.setAttribute("style", "display: block !important")
 	}
 
 	this.toggle = function(obj){
 		var el = this.get(obj)
 		var di = el.style.display
-		if(di == 'block' || di == '') this.hide(obj)
+		if(di == "block" || di == "") this.hide(obj)
 		else this.show(obj)
 	}
 
@@ -980,7 +979,6 @@ var dom = function(){
 
 	this.dimension = function(obj, measure, value){
 		var el = this.get(obj)
-		alert(el.width)
 		if(el && value!= null) el.width = value
 		else return el.width
 		if(el && value!= null) el.height = value
@@ -1001,17 +999,17 @@ var dom = function(){
 			var classVal = el.getAttribute("class")
 			var bclass = el.getAttribute("bindclass")
 
-			if(action == 'add'){
+			if(action == "add"){
 				el.classList.add(classname)
-			}else if(action == 'remove'){
+			}else if(action == "remove"){
 				el.classList.remove(classname)
-			}else if(action == 'toggle'){
+			}else if(action == "toggle"){
 				el.classList.toggle(classname)
-			}else if(action == 'update'){
+			}else if(action == "update"){
 				var bname = el.classList.item(bclass)
 				app.debug(bname)
 				el.className = el.className.replace(bname, classname)
-			}else if(action == 'reset'){
+			}else if(action == "reset"){
 				el.classList.remove(classname)
 				el.offsetWidth = el.offsetWidth // fix
 				el.classList.add(classname)
@@ -1035,9 +1033,9 @@ var dom = function(){
 
 	this.audio = function(obj, action){
 		var el = this.get(obj)
-		if(action == 'play'){
+		if(action == "play"){
 			if(el) el.play()
-		}else if(action == 'stop'){
+		}else if(action == "stop"){
 			if(el) el.pause()
 			if(el) el.currentTime = 0.0
 		}
@@ -1102,13 +1100,13 @@ var dom = function(){
 	}
 
 	this.unescape = function(text){
-		var el = document.createElement('textarea')
+		var el = document.createElement("textarea")
 		el.innerHTML = text
 		return el.value
 	}
 
 	this.nl2br = function(text){
-		return text.replace(/(?:\r\n|\r|\n)/g, '<br>')
+		return text.replace(/(?:\r\n|\r|\n)/g, "<br>")
 	}
 
 	this.insertAt = function(text, index, string){
@@ -1148,18 +1146,18 @@ var dom = function(){
         	document.body.appendChild(textarea)
         	textarea.select()
         	try{
-            	return document.execCommand("copy")
+            return document.execCommand("copy")
         	}catch(ex){
-            	console.warn("Copy to clipboard failed.", ex)
-            	return false
+            console.warn("Copy to clipboard failed.", ex)
+            return false
         	}finally{
-            	document.body.removeChild(textarea)
-				alert(text+" copied!")
+            document.body.removeChild(textarea)
+				    alert(text+" copied!")
         	}
     	}
 	}
 
-	this.resize = function(el, value){
+  this.resize = function(el, value){
 		var el = this.get(el)
 		el.style.resize = "both"
 	}
@@ -1206,9 +1204,9 @@ var dom = function(){
 		var el = core.isObject(el) ? el : this.get(el)
 		if(!el)
 			return false
-		else if(typeof(el['content']) !== 'undefined')
+		else if(typeof(el['content']) !== "undefined")
 			return el.content.children;
-		else if(typeof(el['children']) !== 'undefined')
+		else if(typeof(el['children']) !== "undefined")
 			return el.children
 		else
 			var i = 0, node, nodes = el.childNodes, children = []
@@ -1223,8 +1221,8 @@ var dom = function(){
 		for(i in tags){
 			rtags += "<\\/?"+tags[i]+ "[^>]*>|"
 		}
-		var re = new RegExp(rtags,'gi')
-		str = str.replace(re, '')
+		var re = new RegExp(rtags,"gi")
+		str = str.replace(re, "")
 		return str
 	}
 
