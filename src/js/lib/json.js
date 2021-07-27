@@ -96,7 +96,6 @@ function json(aEl){
       eval(onempty)
     }
 
-    json = (iterate.indexOf('.')) ? json[0] : json
     json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
     el.innerHTML = xhr.el.innerHTML
 
