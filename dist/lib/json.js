@@ -41,9 +41,9 @@ function json(aEl){
     jsonIndex++
   }
 
-  var iterate = el.getAttribute('iterate')
-      url = el.getAttribute('datasource'),
+  var url = el.getAttribute('datasource'),
       headers = el.getAttribute('dataheader'),
+      iterate = el.getAttribute('iterate')
       onstart = el.getAttribute('onstart'),
       onprogress = el.getAttribute('onprogress'),
       onerror = el.getAttribute('onerror'),
@@ -89,8 +89,8 @@ function json(aEl){
       responseHeader[header] = value
     })
 
-    var data = xhr.responseText
-    var json = JSON.parse(data)
+    var data = xhr.responseText,
+        json = JSON.parse(data)
 
     if(json.length == 0){
       eval(onempty)
@@ -124,13 +124,13 @@ function json(aEl){
         })
 
         if(jsonset){
-          var res = jsonset.split(":")
-          var value = jsonbefore + json[j][res[0]] + jsonafter
+          var res = jsonset.split(":"),
+              value = jsonbefore + json[j][res[0]] + jsonafter
           els[i].setAttribute(res[1], value)
         }
         if(jsonget){
-          var value = ""
-          var type = els[i].localName
+          var value = "",
+              type = els[i].localName
 
           value = jsonbefore + jsonParse(json[j], jsonget) + jsonafter
 
@@ -186,10 +186,10 @@ function jsonSerialize(inputs){
 }
 
 function jsonPush(payload, e){
-  var url = e.getAttribute('datasource')
-  var headers = e.getAttribute('dataheader')
-  var ondone = e.getAttribute('ondone')
-  var method = (e.hasAttribute('method')) ? e.getAttribute('method').toUpperCase() : "POST"
+  var url = e.getAttribute('datasource'),
+      headers = e.getAttribute('dataheader'),
+      ondone = e.getAttribute('ondone'),
+      method = (e.hasAttribute('method')) ? e.getAttribute('method').toUpperCase() : "POST"
 
   var xhr = new XMLHttpRequest()
   xhr.open(method, url, true)
