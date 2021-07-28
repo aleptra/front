@@ -5,12 +5,23 @@
 
 require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY&callback=initMap&libraries=&v=weekly")
 
+libAttribute.push(
+  {"attr": "googlemaps", "func": "googlemaps"}
+)
+
+function googlemaps(){
+  alert('josef')
+}
+
 function initMap(){
+
   var el = dom.get("googlemaps")
+
   if(el){
     var attr = el.getAttribute("googlemaps").split(",")
         latVal = attr[0].split(":")[1],
         lngVal = attr[1].split(":")[1]
+
     var googleMapsOptions = {
       zoom: 8,
       center: { lat: parseFloat(latVal), lng: parseFloat(lngVal) },
