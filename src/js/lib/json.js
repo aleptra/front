@@ -174,10 +174,12 @@ function jsonParse(input, json){
 }
 
 function jsonParseHeader(aEl, responseHeader){
-  aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function (e, out){
-    var first = out.split("=")[0].trim(), isMod = (out.indexOf("=") > 0) ? true : false
-    return core.callAttributes(responseHeader[first], out, isMod)
-  })
+  if (aEl) {
+    aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function (e, out){
+      var first = out.split("=")[0].trim(), isMod = (out.indexOf("=") > 0) ? true : false
+      return core.callAttributes(responseHeader[first], out, isMod)
+    })
+  }
 }
 
 function jsonSerialize(inputs){
