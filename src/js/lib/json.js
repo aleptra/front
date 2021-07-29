@@ -146,8 +146,8 @@ function json(aEl){
         }
     }
 
-    eval(ondone)
     jsonParseHeader(aEl, responseHeader)
+    eval(ondone)
     core.runCoreAttributesInElement(el)
     core.runLibAttributesInElement(el)
   }
@@ -175,7 +175,8 @@ function jsonParse(input, json){
 
 function jsonParseHeader(aEl, responseHeader){
   var re = /{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi
-  if(aEl.outerHTML.match(re)){
+  if(aEl.outerHTML && aEl.outerHTML.match(re)){
+    alert('ss')
     aEl.outerHTML = aEl.outerHTML.replace(re, function (e, out){
       var first = out.split("=")[0].trim(), isMod = (out.indexOf("=") > 0) ? true : false
       return core.callAttributes(responseHeader[first], out, isMod)
