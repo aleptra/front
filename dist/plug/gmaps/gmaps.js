@@ -18,7 +18,7 @@ function gmaps(){
 
     var location = { lat: parseFloat(latVal), lng: parseFloat(lngVal) }
     var map = new google.maps.Map(el,{
-          zoom: 10,
+          zoom: 15,
           center: location,
         })
     var marker = new google.maps.Marker({
