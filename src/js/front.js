@@ -270,10 +270,8 @@ var core = function(){
 				function getTwoTemplates(){
 					var xhr = new XMLHttpRequest()
 					xhr.onreadystatechange = function(){
-					  	if(this.status == 200){
-						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm)
-							  getOneTemplate(response)
-					  	}
+						  var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm)
+							getOneTemplate(response)
 					}
 					xhr.open("GET", url+"/"+template2+".html")
 					xhr.send()
@@ -282,14 +280,12 @@ var core = function(){
 				function getOneTemplate(response2){
 					var xhr = new XMLHttpRequest()
 					xhr.onreadystatechange = function(){
-						if(this.status == 200){
 							response = this.responseText
 							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">')
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main+response2)
 							document.open()
 							document.write(response)
 							document.close()
-						}
 					}
 					xhr.open("GET", url+"/"+template1+".html")
 					xhr.send()
