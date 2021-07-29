@@ -3,13 +3,13 @@
     Version: 0.1.2
 */
 
-/*libAttribute.push(
+libAttribute.push(
   {"attr": "googlemaps", "func": "googlemaps"}
-)*/
+)
 
-require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY&callback=googlemapsPreload")
+require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY")
 
-function googlemapsPreload(){
+function googlemaps(){
   var el = dom.get("googlemaps")
   if(el){
     var attr = el.getAttribute("googlemaps").split(",")
@@ -21,9 +21,9 @@ function googlemapsPreload(){
           zoom: 4,
           center: location,
         })
-    var marker = new google.maps.Marker({
+    /*var marker = new google.maps.Marker({
           position: location,
           map: map,
-        })
+        })*/
   }
 }
