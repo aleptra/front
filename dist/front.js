@@ -263,7 +263,8 @@ var core = function(){
 					  del = document.documentElement
 				script.removeAttribute("src")
 				script.removeAttribute("template")
-				del.parentNode.removeChild(del)
+        var currentHtml = html.innerHTML
+        html.innerHTML = ''
 
 				var main = dom.removeTags(html.outerHTML, ["html","head","script","body"])
 
@@ -281,12 +282,24 @@ var core = function(){
 					var xhr = new XMLHttpRequest()
 					xhr.onreadystatechange = function(){
 							response = this.responseText
+              console.dir(response);
 							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">')
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main+response2)
-							document.open()
+
+console.dir(response)
+            //html.insertAdjacentHTML('beforeend', response);
+            html.innerHTML = response
+            console.dir(html)
+            var main = dom.get("main?tag")
+            main.innerHTML = currentHtml
+              /*console.dir(response);
+              document.open()
 							document.write(response)
-							document.close()
-					}
+							document.close()*/
+
+              core.runFrontAttributes();
+
+            }
 					xhr.open("GET", url+"/"+template1+".html", false)
 					xhr.send()
 				}
