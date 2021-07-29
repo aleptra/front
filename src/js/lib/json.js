@@ -150,7 +150,7 @@ function json(aEl){
     core.runCoreAttributesInElement(el)
     //core.runLibAttributesInElement(el)
 
-    jsonParseHeader(aEl, responseHeader)
+    //jsonParseHeader(aEl, responseHeader)
   }
   xhr.send(null)
 }
