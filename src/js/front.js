@@ -777,7 +777,7 @@ var app = function(){
 			res = res.split("=")
 
 		if(res[1].indexOf(".js") >= 0){
-			el = dom.get('script?tag='+res[0])
+			el = dom.get("script?tag="+res[0])
 			el.src = res[1]
 		}else if(res[1].indexOf(".css") >= 0){
 			el = dom.get("link?tag="+res[0])
@@ -1089,7 +1089,7 @@ var dom = function(){
 
 	this.escape = function(text){
 		return text.replace(/[\u0009\u0000-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u00FF]/g, function(x){
-			return '&#' + ('000' + x.charCodeAt(0)).substr(-4, 4) + ';'
+			return "&#" + ("000" + x.charCodeAt(0)).substr(-4, 4) + ";"
 		})
 	}
 
