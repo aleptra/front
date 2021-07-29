@@ -146,10 +146,11 @@ function json(aEl){
         }
     }
 
-    jsonParseHeader(aEl, responseHeader)
     eval(ondone)
     core.runCoreAttributesInElement(el)
     //core.runLibAttributesInElement(el)
+
+    jsonParseHeader(aEl, responseHeader)
   }
   xhr.send(null)
 }
