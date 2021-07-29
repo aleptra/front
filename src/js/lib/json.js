@@ -54,7 +54,7 @@ function json(aEl){
   xhr.el = clnEl
   xhr.aEl = aEl
   xhr.id = Date.now()
-  xhr.open("GET", url, true)
+  xhr.open("GET", url)
 
   if(headers){
     headers = headers.split(";")
