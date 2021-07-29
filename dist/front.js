@@ -1,33 +1,33 @@
 var front,
-	frontVariables = [],
-	libAttribute = [],
-	libPreload = [],
-	load = false,
-	loadTemplate = false,
-	xhrProgress,
-	debugMode = false,
-	isMobile = false,
+	  frontVariables = [],
+	  libAttribute = [],
+	  libPreload = [],
+	  load = false,
+	  loadTemplate = false,
+	  xhrProgress,
+	  debugMode = false,
+	  isMobile = false,
 
-	urlDelimiter = '/',
-	elementDivider = /[?=]/,
-	bindDivider = '.',
-	varDivider = ':',
+	  urlDelimiter = '/',
+	  elementDivider = /[?=]/,
+	  bindDivider = '.',
+	  varDivider = ':',
 
-	hostName,
-	url,
-	title,
-	currentUrl,
-	currentPage,
-	currentScriptUrl,
-	currentEnvName,
-	currentEnvUrl,
-	referrerUrl,
-	baseUrl,
-	html,
-	startPage = "home.html",
+	  hostName,
+	  url,
+	  title,
+	  currentUrl,
+	  currentPage,
+	  currentScriptUrl,
+    currentEnvName,
+    currentEnvUrl,
+    referrerUrl,
+    baseUrl,
+    html,
+    startPage = "home.html",
 
-	folderLib = "lib",
-	folderPlug = "plug"
+    folderLib = "lib",
+    folderPlug = "plug"
 
 document.addEventListener("DOMContentLoaded", function(){
 	front = document.getElementsByTagName("*")
@@ -252,15 +252,15 @@ var core = function(){
 			if(front[i].hasAttribute("template") && front[i].tagName == "SCRIPT"){
 				var template = front[i].getAttribute("template").split(";")
 				var template1 = template[0] === "true" ? 'index' : template[0],
-					template2 = template[1] ? template[1] : false
+					  template2 = template[1] ? template[1] : false
 
 				var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl,
-					count = cUrl.split("../").length + (template1.match(/..\//g) || []).length,
-					url = currentUrl.split("/").slice(0, -count).join("/")
+					  count = cUrl.split("../").length + (template1.match(/..\//g) || []).length,
+					  url = currentUrl.split("/").slice(0, -count).join("/")
 
 				var html = dom.get("html?tag=0"),
-					script = dom.get("script?tag=0"),
-					del = document.documentElement
+					  script = dom.get("script?tag=0"),
+					  del = document.documentElement
 				script.removeAttribute("src")
 				script.removeAttribute("template")
 				del.parentNode.removeChild(del)
@@ -277,7 +277,7 @@ var core = function(){
 					}
 					xhr.open("GET", url+"/"+template2+".html")
 					xhr.send()
-				  }
+				}
 
 				function getOneTemplate(response2){
 					var xhr = new XMLHttpRequest()
@@ -531,7 +531,6 @@ var core = function(){
 			val = val.replace(/!/g, "")
 
 			if(val.substr(0,2) !== "{{"){
-
 				var term = val.split(";")
 				var action = term[2].split(/:(.*)/)
 
