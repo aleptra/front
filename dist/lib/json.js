@@ -98,13 +98,12 @@ function json(aEl){
 
     el.innerHTML = xhr.el.innerHTML
 
-    //if(iterate){
+    if(iterate){
       json = (iterate.indexOf(".") > 0) ? json[0] : json
       json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
       var length = (iterate) ? json.length : iterate
       core.runIteration(el, 0, length)
-    //}
-
+    }
 
     els = el.getElementsByTagName("*")
     elBreak = xhr.el.getElementsByTagName("*").length
@@ -147,9 +146,8 @@ function json(aEl){
     }
 
     core.runCoreAttributesInElement(el)
-    //core.runLibAttributesInElement(el)
-
-    //jsonParseHeader(aEl, responseHeader)
+    core.runLibAttributesInElement(el)
+    jsonParseHeader(aEl, responseHeader)
     eval(ondone)
   }
   xhr.send(null)
