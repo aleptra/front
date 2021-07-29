@@ -3,24 +3,27 @@
     Version: 0.1.2
 */
 
-require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY")
-
-libAttribute.push(
+/*libAttribute.push(
   {"attr": "googlemaps", "func": "googlemaps"}
-)
+)*/
 
-function googlemaps(){
+require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY&callback=googlemapsPreload")
+
+function googlemapsPreload(){
   var el = dom.get("googlemaps")
   if(el){
     var attr = el.getAttribute("googlemaps").split(",")
         latVal = attr[0].split(":")[1],
         lngVal = attr[1].split(":")[1]
-
-    var googleMapsOptions = {
-      zoom: 8,
-      center: { lat: parseFloat(latVal), lng: parseFloat(lngVal) },
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    map = new google.maps.Map(el, googleMapsOptions)
   }
+
+  var location = { lat: -25.344, lng: 131.036 }
+      map = new google.maps.Map(el,{
+        zoom: 4,
+        center: location,
+      }),
+    marker = new google.maps.Marker({
+        position: location,
+        map: map,
+      })
 }
