@@ -1255,7 +1255,7 @@ var xhr = function(){
 
 	this.get = function(url, callback, async){
 		var async = (async === false) ? false : true
-		request.open("GET", url, async)
+		request.open("GET", url, true)
 
 		if(credentials){
 			request.withCredentials = true
