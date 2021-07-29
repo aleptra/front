@@ -148,8 +148,8 @@ function json(aEl){
 
     eval(ondone)
     core.runCoreAttributesInElement(el)
-    core.runLibAttributesInElement(el)
     jsonParseHeader(aEl, responseHeader)
+    core.runLibAttributesInElement(el)
   }
   xhr.send(null)
 }
