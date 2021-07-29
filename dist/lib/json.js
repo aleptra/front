@@ -92,14 +92,11 @@ function json(aEl){
     var data = xhr.responseText,
         json = JSON.parse(data)
 
-    if(json.length == 0){
-      eval(onempty)
-    }
+    if(json.length == 0) eval(onempty)
 
     el.innerHTML = xhr.el.innerHTML
 
     if(iterate){
-      json = (iterate.indexOf(".") > 0) ? json[0] : json
       json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
       var length = (iterate) ? json.length : iterate
       core.runIteration(el, 0, length)
