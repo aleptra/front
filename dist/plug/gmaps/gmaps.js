@@ -1,6 +1,6 @@
 /*
     Author: Josef Gabrielsson
-    Version: 0.1.2
+    Version: 0.1.3
 */
 
 libAttribute.push(
@@ -16,14 +16,14 @@ function gmaps(){
         latVal = attr[0].split(":")[1],
         lngVal = attr[1].split(":")[1]
 
-    var location = { lat: -25.344, lng: 131.036 }
+    var location = { lat: parseFloat(latVal), lng: parseFloat(lngVal) }
     var map = new google.maps.Map(el,{
-          zoom: 4,
+          zoom: 10,
           center: location,
         })
-    /*var marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
           position: location,
           map: map,
-        })*/
+        })
   }
 }
