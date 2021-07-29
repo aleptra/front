@@ -3,20 +3,14 @@
     Version: 0.1.2
 */
 
-require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY&callback=initMap&libraries=&v=weekly")
+require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY")
 
 libAttribute.push(
   {"attr": "googlemaps", "func": "googlemaps"}
 )
 
 function googlemaps(){
-  alert('josef')
-}
-
-function initMap(){
-
   var el = dom.get("googlemaps")
-
   if(el){
     var attr = el.getAttribute("googlemaps").split(",")
         latVal = attr[0].split(":")[1],
@@ -27,7 +21,6 @@ function initMap(){
       center: { lat: parseFloat(latVal), lng: parseFloat(lngVal) },
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-
     map = new google.maps.Map(el, googleMapsOptions)
   }
 }
