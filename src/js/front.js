@@ -8,10 +8,10 @@ var front,
 	  debugMode = false,
 	  isMobile = false,
 
-	  urlDelimiter = '/',
+	  urlDelimiter = "/",
 	  elementDivider = /[?=]/,
-	  bindDivider = '.',
-	  varDivider = ':',
+	  bindDivider = ".",
+	  varDivider = ":",
 
 	  hostName,
 	  url,
@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", function(){
 	currentScriptUrl = currentScript.getAttribute("src")
 	referrerUrl = document.referrer
 	xhrProgress = dom.get("navprogress")
-	isMobile = 'ontouchstart' in window && window.screen.availWidth < 768
+	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
 
-	if (currentEnvName == 'local') app.runDevFile()
+	if (currentEnvName == "local") app.runDevFile()
 
 	if(currentScript.hasAttribute("store")){
 		var attr = currentScript.getAttribute("store").split(";")
@@ -251,7 +251,7 @@ var core = function(){
 		for(i = 0; i < front.length; i++){
 			if(front[i].hasAttribute("template") && front[i].tagName == "SCRIPT"){
 				var template = front[i].getAttribute("template").split(";")
-				var template1 = template[0] === "true" ? 'index' : template[0],
+				var template1 = template[0] === "true" ? "index" : template[0],
 					  template2 = template[1] ? template[1] : false
 
 				var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl,
@@ -265,7 +265,7 @@ var core = function(){
 				script.removeAttribute("template")
 				del.parentNode.removeChild(del)
 
-				var main = dom.removeTags(html.outerHTML, ['html','head','script','body'])
+				var main = dom.removeTags(html.outerHTML, ["html","head","script","body"])
 
 				function getTwoTemplates(){
 					var xhr = new XMLHttpRequest()
@@ -384,7 +384,7 @@ var core = function(){
 		if(e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"))
 		if(e.innerHTML.match("{%(.*?)%}")){
-			e.innerHTML = e.innerHTML.replace(new RegExp('{%(.*?)%}', 'gi'), function(out1, out2){
+			e.innerHTML = e.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function(out1, out2){
 				var input = eval(out2)
 				var isMod = (out1.indexOf("=") > 0) ? true : false
 				input = core.callAttributes(input, input+out2, isMod)
@@ -416,7 +416,7 @@ var core = function(){
 			var value = e.getAttribute("metacontent")
 			var els = document.getElementsByTagName("meta")
 			for(var i in els){
-				if(typeof(els[i].name) != 'undefined' && els[i].name.toLowerCase() == value)
+				if(typeof(els[i].name) != "undefined" && els[i].name.toLowerCase() == value)
 				  e.innerHTML = els[i].content
 			}
 		}
@@ -438,7 +438,7 @@ var core = function(){
 
 			if(org.getAttribute("include")){
 				var changed
-				org.addEventListener('DOMNodeInserted', function(e){
+				org.addEventListener("DOMNodeInserted", function(e){
 					if(!changed)
 						orgEl = dom.get(target).outerHTML
 						changed = true
@@ -489,11 +489,11 @@ var core = function(){
 				var match = format.match(/\((.*)\)/gi)
 				var res = match[0].slice(1,-1)
 				e.innerHTML = res.replace(/Y/gi, value.getFullYear())
-					.replace(/M/gi, ('0'+value.getMonth()).substr(-2))
-					.replace(/D/gi, ('0'+value.getDay()).substr(-2))
-					.replace(/H/gi, ('0'+value.getHours()).substr(-2))
-					.replace(/I/gi, ('0'+value.getMinutes()).substr(-2))
-					.replace(/S/gi, ('0'+value.getSeconds()).substr(-2))
+					.replace(/M/gi, ("0"+value.getMonth()).substr(-2))
+					.replace(/D/gi, ("0"+value.getDay()).substr(-2))
+					.replace(/H/gi, ("0"+value.getHours()).substr(-2))
+					.replace(/I/gi, ("0"+value.getMinutes()).substr(-2))
+					.replace(/S/gi, ("0"+value.getSeconds()).substr(-2))
 			}
 		}
 		if(e.hasAttribute("fixedpoint")){
@@ -509,7 +509,7 @@ var core = function(){
 			document.styleSheets[0].insertRule("nav.delimiter * a:after {content: '\\00a0 \\00a0"+delimiter+"\\00a0 \\00a0' !important}",0)
 		}
 		if(e.hasAttribute("slice")){
-			var slice = e.getAttribute("slice").replace(/\s+/g, '')
+			var slice = e.getAttribute("slice").replace(/\s+/g, "")
 			var res = slice.split(",")
 			e.innerHTML = e.innerHTML.slice(res[0],res[1])
 		}
@@ -655,10 +655,10 @@ var core = function(){
 	    var parser = document.createElement("a")
 	    parser.href = url
 	    var query = parser.search.substring(1)
-	    var vars = query.split('&')
+	    var vars = query.split("&")
 
         for(var i = 0; i < vars.length; i++){
-			var pair = vars[i].split('=')
+			var pair = vars[i].split("=")
 			if(!pair[1]) pair[1] = ""
 		    params[pair[0]] = decodeURIComponent(pair[1] + "")
         }
@@ -1059,7 +1059,7 @@ var dom = function(){
 		var cln = el.cloneNode(true)
 
 		if(parent === "head"){
-			document.getElementsByTagName('head')[0].appendChild(cln)
+			document.getElementsByTagName("head")[0].appendChild(cln)
 		}else if(parent === "inside"){
 			el.innerHtml = ""
 
@@ -1105,25 +1105,7 @@ var dom = function(){
 
 	this.insertAt = function(text, index, string){
 		return text.substr(0, index) + string + text.substr(index)
-  	}
-
-	/*this.insert = function (obj, create, html = '', pos = 1){
-		var node = document.createElement(create[0])
-		node.id = create[1]
-
-		//alert(create[1])
-		//this.content(node, 'dddd')
-		//var textnode = document.createTextNode(html)
-		//node.appendChild(textnode)
-
-		var el = this.get(obj)
-		el.insertBefore(node, el.childNodes[0])
-
-		dom.content(create[1], 'Reload page to see this post!')
-
-		scrollTo(document.body, el.offsetTop, 100)
-		//document.getElementById(obj).appendChild(node)
-	}*/
+  }
 
 	this.copyText = function(el){
 
@@ -1198,9 +1180,9 @@ var dom = function(){
 		var el = core.isObject(el) ? el : this.get(el)
 		if(!el)
 			return false
-		else if(typeof(el['content']) !== "undefined")
+		else if(typeof(el["content"]) !== "undefined")
 			return el.content.children;
-		else if(typeof(el['children']) !== "undefined")
+		else if(typeof(el["children"]) !== "undefined")
 			return el.children
 		else
 			var i = 0, node, nodes = el.childNodes, children = []
@@ -1306,7 +1288,7 @@ var xhr = function(){
 
   	this.post = function(url, data, callback){
 		request.open("POST", url, true)
-		request.setRequestHeader('Content-Type', 'application/json')
+		request.setRequestHeader("Content-Type", "application/json")
 		request.onload = function(){
 			callback(this.responseText)
 			app.debug("%c API (Response): "+this.responseText, "blue", "yellow")
