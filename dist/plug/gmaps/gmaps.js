@@ -4,15 +4,15 @@
 */
 
 libAttribute.push(
-  {"attr": "googlemaps", "func": "googlemaps"}
+  {"attr": "gmaps", "func": "gmaps"}
 )
 
 require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY")
 
-function googlemaps(){
-  var el = dom.get("googlemaps")
+function gmaps(){
+  var el = dom.get("gmaps")
   if(el){
-    var attr = el.getAttribute("googlemaps").split(",")
+    var attr = el.getAttribute("gmaps").split(",")
         latVal = attr[0].split(":")[1],
         lngVal = attr[1].split(":")[1]
 
