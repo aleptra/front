@@ -272,7 +272,7 @@ var core = function(){
 					xhr.onreadystatechange = function(){
 					  	if(this.status == 200){
 						  	var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm)
-							getOneTemplate(response)
+							  getOneTemplate(response)
 					  	}
 					}
 					xhr.open("GET", url+"/"+template2+".html")
