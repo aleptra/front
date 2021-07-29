@@ -148,6 +148,7 @@ function json(aEl){
 
     eval(ondone)
     core.runCoreAttributesInElement(el)
+    core.runLibAttributesInElement(el)
 
     aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function(e, out){
       var first = out.split("=")[0].trim(),
