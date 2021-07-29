@@ -295,11 +295,10 @@ var core = function(){
 					xhr.send()
 				}
 
-				if(template2){
-				  	getTwoTemplates()
-				}else{
+				if(template2)
+				  getTwoTemplates()
+				else
 					getOneTemplate("")
-				}
 
 				return true
 			}
