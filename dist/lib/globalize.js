@@ -94,7 +94,7 @@ function globalize(e){
     }else if(placeholder){
       e.placeholder = globalized
     }else{
-      if(type == "submit")
+      if(type == "submit" && name == "input")
         e.value = globalized
       else if(name == "optgroup")
         e.label = globalized
