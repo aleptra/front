@@ -147,14 +147,9 @@ function json(aEl){
     }
 
     eval(ondone)
+    jsonParseHeader(aEl, responseHeader)
     core.runCoreAttributesInElement(el)
     core.runLibAttributesInElement(el)
-
-    aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function(e, out){
-      var first = out.split("=")[0].trim(),
-          isMod = (out.indexOf("=") > 0) ? true : false
-      return core.callAttributes(responseHeader[first], out, isMod)
-    })
   }
   xhr.send(null)
 }
@@ -176,6 +171,14 @@ function jsonParse(input, json){
   }
 
   return core.callAttributes(input[json], orgJson, isMod)
+}
+
+function jsonParseHeader(aEl,responseHeader){
+  aEl.outerHTML = aEl.outerHTML.replace(/{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi, function(e, out){
+    var first = out.split("=")[0].trim(),
+        isMod = (out.indexOf("=") > 0) ? true : false
+    return core.callAttributes(responseHeader[first], out, isMod)
+  })
 }
 
 function jsonSerialize(inputs){
