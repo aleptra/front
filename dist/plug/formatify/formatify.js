@@ -25,7 +25,7 @@ function formatify(el){
           indent = indent.substring(tab.length);
       }
 
-      result += indent + '<' + element + '>\r\n';
+      result += indent + "<" + element + ">\r\n";
       if (element.match(/^<?\w[^>]*[^\/]$/) && !element.match(/^doctype|meta|base|link|input|img|hr.*$/i))
           indent += tab;
     })
@@ -47,31 +47,31 @@ function formatify_colorize(text, attr){
 
     //Name
     text = text.replace(/(\w+&#0062;|&#0060;\w+|&#0060;&#0047;\w+)/ig, function(x){
-        var pos = (x.substr(0, 14) == "&#0060;&#0047;") ? 14 : 7;
-        var x = dom.insertAt(x, pos, '<span class="'+color[0]+'">');
-        return x+'</span>';
+        var pos = (x.substr(0, 14) == "&#0060;&#0047;") ? 14 : 7
+        var x = dom.insertAt(x, pos, '<span class="'+color[0]+'">')
+        return x+'</span>'
     });
 
     //Attribute
     text = text.replace(/[\w]+&#0061;/ig, function(x){
-            var a = dom.insertAt(x, (x.length - 7), "</span>");
-            return '<span class="'+color[1]+'">'+a;
-    });
+            var a = dom.insertAt(x, (x.length - 7), "</span>")
+            return '<span class="'+color[1]+'">'+a
+    })
 
     //Value
     var text = text.replace(/&#0034;(.*?)&#0034;/ig, function(x){
-        return '<span class="'+color[2]+'">'+x+'</span>';
-    });
+        return '<span class="'+color[2]+'">'+x+'</span>'
+    })
 
     //Bracket
     text = text.replace(/(&#0060;&#0047;|&#0060;|&#0062;)/ig, function(x){
-        return '<span class="'+color[3]+'">'+x+'</span>';
-    });
+        return '<span class="'+color[3]+'">'+x+'</span>'
+    })
 
     //Comment
     text = text.replace(/<\w+\s+\S+&#0033;&#0045;&#0045;.(.*?).&#0045;&#0045;<\w+\s+\S+>/ig, function(x,y){
-        return '<span class="'+color[4]+'">'+dom.removeAllTags(x)+'</span>';
-    });
+        return '<span class="'+color[4]+'">'+dom.removeAllTags(x)+'</span>'
+    })
 
-    return text;
+    return text
 }
