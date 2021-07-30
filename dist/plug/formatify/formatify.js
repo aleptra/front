@@ -8,41 +8,41 @@
 */
 
 libAttribute.push(
-    {'attr': 'formatify', 'func': 'formatify'}
-);
+    {"attr": "formatify", "func": "formatify"}
+)
 
-function formatify(el) {
-    var attr = el.getAttribute("formatify").split(";");
-    var target = el;
-    el = _.unescape(target.innerHTML.trim());
+function formatify(el){
+  var attr = el.getAttribute("formatify").split(";");
+  var target = el;
+  el = _.unescape(target.innerHTML.trim());
 
-    var tab = "\t",
-        result = "",
-        indent = "";
+  var tab = "\t",
+      result = "",
+      indent = ""
 
-    el.split(/>\s+<[^>\s<\/]{0}/).forEach(function(element) {
-        if (element.match(/^\/\w/)) {
-            indent = indent.substring(tab.length);
-        }
+  el.split(/>\s+<[^>\s<\/]{0}/).forEach(function(element){
+      if(element.match(/^\/\w/)){
+          indent = indent.substring(tab.length);
+      }
 
-        result += indent + '<' + element + '>\r\n';
-        if (element.match(/^<?\w[^>]*[^\/]$/) && !element.match(/^doctype|meta|base|link|input|img|hr.*$/i))
-            indent += tab;
-    });
+      result += indent + '<' + element + '>\r\n';
+      if (element.match(/^<?\w[^>]*[^\/]$/) && !element.match(/^doctype|meta|base|link|input|img|hr.*$/i))
+          indent += tab;
+    })
 
-    result = _.escape(result.substring(1, result.length-3));
-    if (attr[1]) result = result.replace(/&#0009;/ig, "&emsp;").replace(/&#0010;/ig, "<br>");;
-    target.innerHTML = formatify_colorize(result, attr);
+  result = _.escape(result.substring(1, result.length-3))
+  if (attr[1]) result = result.replace(/&#0009;/ig, "&emsp;").replace(/&#0010;/ig, "<br>")
+  target.innerHTML = formatify_colorize(result, attr)
 }
 
 function formatify_colorize(text, attr){
-    
-    var color = [];
+
+    var color = []
 
     for(val in attr){
-        var prop = attr[val].split(":");
+        var prop = attr[val].split(":")
         if (prop[0] == "colors")
-            color = prop[1].split(",");
+            color = prop[1].split(",")
     }
 
     //Name
