@@ -159,8 +159,8 @@ function require(src, folder){
 		src = src
 		type = "link"
 	}else{
-		file = (folder == "plug") ? src+"/"+src : src
-		src = currentScriptUrl + folder+urlDelimiter+file+".js"
+		file = (folder == "plug") ? src + "/" +src : src
+		src = currentScriptUrl + folder + urlDelimiter + file + ".js"
 		type = "script"
 	}
 
@@ -273,7 +273,7 @@ var core = function(){
 						  var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm)
 							getOneTemplate(response)
 					}
-					xhr.open("GET", url+"/"+template2+".html", false)
+					xhr.open("GET", url + "/" + template2 + ".html", false)
 					xhr.send()
 				}
 
@@ -287,7 +287,7 @@ var core = function(){
 							document.write(response)
 							document.close()
 					}
-					xhr.open("GET", url+"/"+template1+".html", false)
+					xhr.open("GET", url+ "/" + template1 + ".html", false)
 					xhr.send()
 				}
 
@@ -475,7 +475,7 @@ var core = function(){
 				code = ((code- 0xD800) * 0x400) + (low - 0xDC00) + 0x10000
 			}
 
-			if(code) e.innerText = "&#"+ code + ";"
+			if(code) e.innerText = "&#" + code + ";"
 		}
 		if(e.hasAttribute("format")){
 			var content = e.innerText
@@ -627,7 +627,7 @@ var core = function(){
 
 		if(value[0] == "?"){
 			input = core.getParams()[value.substr(1)]
-			value = "\\"+value
+			value = "\\" + value
 		}
 
 		target.outerHTML = orgEl.replace(new RegExp('{# ' + value + '(.*?)#}', 'gi'), function(out1, out2){
@@ -638,7 +638,7 @@ var core = function(){
 	}
 
 	this.setParam2 = function(uri, key, value){
-		return uri.replace(new RegExp("([?&]"+key+"(?=[=&#]|$)[^#&]*|(?=#|$))"), "&"+key+"="+encodeURIComponent(value)).replace(/^([^?&]+)&/, "$1?")
+		return uri.replace(new RegExp("([?&]" + key + "(?=[=&#]|$)[^#&]*|(?=#|$))"), "&" + key + "=" + encodeURIComponent(value)).replace(/^([^?&]+)&/, "$1?")
 	}
 
 	this.setParam = function(uri, key, value){
@@ -646,7 +646,7 @@ var core = function(){
 			app.debug(match)
 			return (offset > 0 ? "-" : "") + match.toLowerCase()
 		}
-		return uri.replace(new RegExp("([?&]"+key+"(?=[=&#]|$)[^#&]*|(?=#|$))"), "&"+key+"="+encodeURIComponent(value)).replace(/^([^?&]+)&/, "$1?", upperToHyphenLower)
+		return uri.replace(new RegExp("([?&]" + key + "(?=[=&#]|$)[^#&]*|(?=#|$))"), "&" + key + "=" + encodeURIComponent(value)).replace(/^([^?&]+)&/, "$1?", upperToHyphenLower)
 	}
 
 	this.getParams = function (url){
@@ -657,11 +657,11 @@ var core = function(){
 	    var query = parser.search.substring(1)
 	    var vars = query.split("&")
 
-        for(var i = 0; i < vars.length; i++){
-			var pair = vars[i].split("=")
-			if(!pair[1]) pair[1] = ""
+      for(var i = 0; i < vars.length; i++){
+			  var pair = vars[i].split("=")
+			  if(!pair[1]) pair[1] = ""
 		    params[pair[0]] = decodeURIComponent(pair[1] + "")
-        }
+      }
 
 		return params
 	}
@@ -686,11 +686,11 @@ var core = function(){
 			for(i in mod){
 				var arg = (mod[i].indexOf(")") > 0) ? true : false
 				if(arg){
-					var func = "core."+mod[i]
-					func = func.replace("(", "('"+input+"',")
+					var func = "core." + mod[i]
+					func = func.replace("(", "('"+ input +"',")
 					input = eval(func)
 				}else{
-					input = eval("core."+mod[i]+"('"+input+"')")
+					input = eval("core."+ mod[i] +"('"+ input +"')")
 				}
 			}
 		}
