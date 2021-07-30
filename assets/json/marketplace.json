@@ -128,6 +128,19 @@
             "type": 2,
             "author": "Josef Gabrielsson",
             "cost": "0"
+        },
+        {
+            "id": 12,
+            "title": "ResponsiveVoice",
+            "description": "ResponsiveVoice Text To Speech",
+            "version": "0.1.0",
+            "screenshot": "",
+            "icon": "./dist/plug/responsivevoice/icon.svg",
+            "url": "",
+            "url_target": 0,
+            "type": 2,
+            "author": "Josef Gabrielsson",
+            "cost": "0"
         }
     ]
 }
