@@ -13,10 +13,10 @@ function gmaps(){
   var el = dom.get("gmaps")
   if(el){
     var attr = el.getAttribute("gmaps").split(",")
-        latVal = attr[0].split(":")[1],
-        lngVal = attr[1].split(":")[1]
+        latVal = parseFloat(attr[0].split(":")[1]) || 0,
+        lngVal = parseFloat(attr[1].split(":")[1]) || 0
 
-    var location = { lat: parseFloat(latVal), lng: parseFloat(lngVal) }
+    var location = { lat: latVal, lng: lngVal }
     var map = new google.maps.Map(el,{
           zoom: 15,
           center: location,
