@@ -406,18 +406,20 @@ ul.list li{
     line-height: normal;
     z-index: inherit;
     box-sizing: border-box;
+    -ms-flex: 0;
+    flex: 0;
 }
 
-body .icon16{font-size:16px;width:16px;height:16px}
-body .icon24{font-size:24px;width:24px;height:24px}
-body .icon32{font-size:32px;width:32px;height:32px}
-body .icon48{font-size:48px;width:48px;height:48px}
-body .icon64{font-size:64px;width:64px;height:64px}
-body .icon96{font-size:96px;width:96px;height:96px}
-body .icon128{font-size:128px;width:128px;height:128px}
-body .icon192{font-size:192px;width:192px;height:192px}
-body .icon256{font-size:256px;width:256px;height:256px}
-body .icon512{font-size:512px;width:512px;height:512px}
+body .icon16{font-size:16px}
+body .icon24{font-size:24px}
+body .icon32{font-size:32px}
+body .icon48{font-size:48px}
+body .icon64{font-size:64px}
+body .icon96{font-size:96px}
+body .icon128{font-size:128px}
+body .icon192{font-size:192px}
+body .icon256{font-size:256px}
+body .icon512{font-size:512px}
 
 .icon.circled{
     border-radius: 50%;
