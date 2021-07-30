@@ -16,7 +16,7 @@ window.addEventListener("popstate", function(e){
 })
 
 function nav(path, el, push){
-	var path = (currentEnvUrl === path || path === currentEnvUrl+"./") ? startPage : path
+	var path = (currentEnvUrl === path || path === currentEnvUrl + "./") ? startPage : path
 	var target = (el === undefined || el === false) ? navTargetEl : el
 	var contentOrginal = dom.content(target)
 	var anchor = (path) ? path.split("#") : ""
