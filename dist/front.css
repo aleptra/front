@@ -22,6 +22,7 @@
     color: inherit;
 }
 
+::-webkit-details-marker{display:none}
 ::placeholder{color: rgba(255,255,255,.6)}
 :-ms-input-placeholder{color: rgba(255,255,255,.6)}
 ::-ms-input-placeholder{color: rgba(255,255,255,.6)}
@@ -928,7 +929,7 @@ button.icon,.button.icon{
     padding-bottom: .3rem
 }
 
-.sidebar * * { 
+.sidebar * * {
     -ms-flex-direction: column;
     flex-direction: column;
     width: 100%;
