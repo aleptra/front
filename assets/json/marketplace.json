@@ -120,7 +120,7 @@
             "id": 11,
             "title": "Gmaps",
             "description": "Integrate Google Maps",
-            "version": "0.1.1",
+            "version": "0.1.3",
             "screenshot": "",
             "icon": "./dist/plug/gmaps/icon.svg",
             "url": "",
