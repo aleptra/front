@@ -151,22 +151,27 @@ function json(aEl){
 }
 
 function jsonParse(input, json){
-  var isMod = (json.indexOf("=") > 0) ? true : false,
-      isAssociative = (json.indexOf(".") > 0) ? true : false,
-      value = "",
-      orgJson = json
+  try{
+    var isMod = (json.indexOf("=") > 0) ? true : false,
+        isAssociative = (json.indexOf(".") > 0) ? true : false,
+        value = "",
+        orgJson = json
 
-  if(isMod) json = json.split(" ")[0]
+    if(isMod) json = json.split(" ")[0]
 
-  if(isAssociative){
-    var split = json.split(".")
-    for(i in split){
-      value += "['" + split[i] + "']"
+    if(isAssociative){
+      var split = json.split(".")
+      for(i in split){
+        value += "['" + split[i] + "']"
+      }
+      return core.callAttributes(eval("input"+value), orgJson, isMod)
     }
-    return core.callAttributes(eval("input"+value), orgJson, isMod)
-  }
 
-  return core.callAttributes(input[json], orgJson, isMod)
+    return core.callAttributes(input[json], orgJson, isMod)
+
+  }catch(err){
+    return ""
+  }
 }
 
 function jsonParseHeader(aEl, responseHeader){
