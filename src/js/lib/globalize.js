@@ -53,7 +53,7 @@ function globalizeChangeMetaDir(dir){
 function globalizeLoadFile(a2){
   var lclient = new xhr()
   lclient.get(currentEnvUrl + "assets/json/globalize/" + a2 + ".json", function(response, status){
-    if(core.isJson(response)){
+    if(status == 200 && core.isJson(response)){
       localeJson = JSON.parse(response)
       localeCode = localeJson.code
       localeCountry = "?"
