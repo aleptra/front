@@ -22,8 +22,8 @@ function nav(path, el, push){
 	var anchor = (path) ? path.split("#") : ""
 	client.addHeader("Path", path)
 	client.addHeader("Cache-Control", "must-revalidate")
-	client.get(path, function(response){
-		if(response){
+	client.get(path, function(response,status){
+		if(status == 200){
 			if(push || path == startPage) navPush(path)
 			dom.content(target, response)
 
