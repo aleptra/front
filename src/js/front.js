@@ -4,7 +4,6 @@ var front,
 	  libPreload = [],
 	  load = false,
 	  loadTemplate = false,
-	  xhrProgress,
 	  debugMode = false,
 	  isMobile = false,
 
@@ -45,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	currentScript = document.querySelector('script[src*="front.js"]')
 	currentScriptUrl = currentScript.getAttribute("src")
 	referrerUrl = document.referrer
-	xhrProgress = dom.get("navprogress")
 	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
 
 	if (currentEnvName == "local") app.runDevFile()
@@ -1211,6 +1209,7 @@ var dom = function(){
 
 var xhr = function(){
 
+  xhrProgress = dom.get("navprogress")
 	var request = new XMLHttpRequest(),
 		headers = [],
 		credentials = false,
@@ -1225,10 +1224,9 @@ var xhr = function(){
 	}
 
 	this.resetProgress = function(){
-		if(xhrProgress){
+		if(xhrProgress)
 			xhrProgress.style.width = "0%"
 			_.show("navloader")
-		}
 	}
 
 	this.get = function(url, callback, async){
