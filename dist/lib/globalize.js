@@ -17,8 +17,8 @@ var htmlAttr = dom.get("html?tag"),
 function globalizePreload(){
 
   var locale = defaultLocale,
-      storageLocale = app.storage("locale"),
-      queryLocale = core.getParams()['lang']
+      storageLocale = app.storage("language"),
+      queryLocale = core.getParams()['locale']
 
   if(queryLocale){
     locale = (queryLocale === "*") ? "" : queryLocale
@@ -33,11 +33,14 @@ function globalizePreload(){
 
 function globalizeChangeLanguage(locale){
   locale = (locale) ? locale.split("-") : ""
+  var language = locale[0],
+      country = locale[1] || ""
 
-  if(locale[0])
-    globalizeLoadFile(locale[0])
-  else if(locale[0] == "*")
-    app.storage("locale", null)
+  if(language)
+    globalizeLoadFile(language,country)
+  else if(language == "*")
+    app.storage("language", null)
+    app.storage("country", null)
 }
 
 function globalizeChangeLanguageTags(lang, dir){
@@ -47,16 +50,17 @@ function globalizeChangeLanguageTags(lang, dir){
   htmlAttr.classList.add(dir)
 }
 
-function globalizeLoadFile(a2){
+function globalizeLoadFile(language,country){
   var lclient = new xhr()
-  lclient.get(currentEnvUrl + "assets/json/globalize/" + a2 + ".json", function(response, status){
+  lclient.get(currentEnvUrl + "assets/json/globalize/" + language + ".json", function(response, status){
     if(status == 200 && core.isJson(response)){
       localeJson = JSON.parse(response)
       localeCode = localeJson.code
-      localeCountry = "?"
-      app.storage(a2, response)
-      app.storage("locale", a2)
-      globalizeChangeLanguageTags(a2, localeJson.direction)
+      localeCountry = country
+      app.storage(language, response)
+      app.storage("language", language)
+      app.storage("country", country)
+      globalizeChangeLanguageTags(language, localeJson.direction)
       core.rerunLibAttributes("globalize")
     }
     if(status !== 200 && localeLoad){
