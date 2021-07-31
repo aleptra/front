@@ -402,13 +402,12 @@ ul.list li{
 }
 
 [class*='icon']{
-    font-style: normal;
-    color: inherit;
-    line-height: normal;
-    z-index: inherit;
-    box-sizing: border-box;
-    -ms-flex: 0;
-    flex: 0;
+  font-style: normal;
+  color: inherit;
+  line-height: normal;
+  z-index: inherit;
+  box-sizing: border-box;
+  width: unset!important;
 }
 
 body .icon16{font-size:16px}
@@ -929,7 +928,7 @@ button.icon,.button.icon{
     padding-bottom: .3rem
 }
 
-.sidebar * * {
+.sidebar * * { 
     -ms-flex-direction: column;
     flex-direction: column;
     width: 100%;
