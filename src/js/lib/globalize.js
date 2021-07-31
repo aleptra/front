@@ -56,7 +56,7 @@ function globalizeLoadFile(a2){
       localeCountry = "?"
       app.storage(a2, response)
       app.storage("locale", a2)
-      globalizeChangeLanguageTags(localeJson.direction, a2)
+      globalizeChangeLanguageTags(a2, localeJson.direction)
       core.rerunLibAttributes("globalize")
     }
     if(status !== 200 && localeLoad){
