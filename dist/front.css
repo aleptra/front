@@ -401,13 +401,13 @@ ul.list li{
     width: 100%;
 }
 
-[class*='icon']{
+body [class*='icon']{
   font-style: normal;
   color: inherit;
   line-height: normal;
   z-index: inherit;
   box-sizing: border-box;
-  width: unset!important;
+  width: unset;
 }
 
 body .icon16{font-size:16px}
