@@ -40,11 +40,8 @@ function globalizeChangeLanguage(locale){
     app.storage("locale", null)
 }
 
-function globalizeChangeMetaLanguage(lang){
+function globalizeChangeLanguageTags(lang, dir){
   htmlAttr.lang = lang
-}
-
-function globalizeChangeMetaDir(dir){
   htmlAttr.dir = dir
   htmlAttr.classList.remove("ltr","rtl")
   htmlAttr.classList.add(dir)
@@ -59,8 +56,7 @@ function globalizeLoadFile(a2){
       localeCountry = "?"
       app.storage(a2, response)
       app.storage("locale", a2)
-      globalizeChangeMetaDir(localeJson.direction)
-      globalizeChangeMetaLanguage(a2)
+      globalizeChangeLanguageTags(localeJson.direction, a2)
       core.rerunLibAttributes("globalize")
     }
     if(status !== 200 && localeLoad){
