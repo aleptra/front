@@ -1209,11 +1209,11 @@ var dom = function(){
 
 var xhr = function(){
 
-  xhrProgress = dom.get("navprogress")
-	var request = new XMLHttpRequest(),
-		headers = [],
-		credentials = false,
-		x = 0
+  var xhrProgress = dom.get("navprogress"),
+	    request = new XMLHttpRequest(),
+		  headers = [],
+		  credentials = false,
+		  x = 0
 
 	this.addHeader = function(header, value){
 		headers.push([header, value])
@@ -1271,7 +1271,7 @@ var xhr = function(){
 					}
 				}
 			}
-		}
+	}
 
 		request.onerror = function(){
 			//callback("error")
