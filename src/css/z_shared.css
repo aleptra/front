@@ -538,6 +538,7 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .ml2, .ml2- *{margin-left:2rem}
 .ml3, .ml3- *{margin-left:3rem}
 .mr0, .mr0- *{margin-right:0}
+.mr05, .mr05- *{margin-right:.5rem}
 .mr1, .mr1- *{margin-right:1rem}
 .mr2, .mr2- *{margin-right:2rem}
 .mr2, .mr3- *{margin-right:3rem}
