@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	if(currentScript.hasAttribute("store")){
 		var attr = currentScript.getAttribute("store").split(";")
 		for(storefile in attr){
-			var file = attr[storefile].split(varDivider)
-			var sclient = new xhr()
+			var file = attr[storefile].split(varDivider),
+			    sclient = new xhr()
 			sclient.addHeader("storeName", file[1])
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
 				if(status == 200)
@@ -127,8 +127,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	}
 
 	document.addEventListener("click", function(e){
-		var clicked = (e.target) ? e.target : e.srcElement
-		var val = clicked.parentNode.getAttribute("onclick")
+		var clicked = (e.target) ? e.target : e.srcElement,
+		    val = clicked.parentNode.getAttribute("onclick")
 		if(val){
 			core.runFunction("dom."+val, clicked.parentNode)
 			e.stopPropagation()
@@ -184,8 +184,8 @@ function require(src, folder){
 
 function scrollTo(element, to, duration){
 	if(duration < 0) return
-  		var difference = to - element.scrollTop,
-  		perTick = difference / duration * 2
+  	var difference = to - element.scrollTop,
+  	    perTick = difference / duration * 2
 
 		setTimeout(function(){
 			element.scrollTop = element.scrollTop + perTick
@@ -254,8 +254,8 @@ var core = function(){
 	this.hasTemplateLayout = function(){
 		for(i = 0; i < front.length; i++){
 			if(front[i].hasAttribute("template") && front[i].tagName == "SCRIPT"){
-				var template = front[i].getAttribute("template").split(";")
-				var template1 = template[0] === "true" ? "index" : template[0],
+				var template = front[i].getAttribute("template").split(";"),
+				    template1 = template[0] === "true" ? "index" : template[0],
 					  template2 = template[1] ? template[1] : false
 
 				var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl,
@@ -319,9 +319,8 @@ var core = function(){
 		if(e.hasAttribute("include"))
 			core.includeFile(e)
 		if(e.hasAttribute("storage")){
-			var attr = e.getAttribute("storage").split(";")
-
-			var strObject = ""
+			var attr = e.getAttribute("storage").split(";"),
+			    strObject = ""
 			for(i in attr){
 				strObject += app.storage(attr[i])
 			}
@@ -329,8 +328,8 @@ var core = function(){
 
 			var elHtml = e.innerHTML
 			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/gi, function(x){
-				var data = JSON.parse(mergedObject)
-				var variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
+				var data = JSON.parse(mergedObject),
+				    variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
 				return eval("data."+variable)
 			})
 		}
@@ -351,25 +350,25 @@ var core = function(){
 			}
 		}
 		if(e.hasAttribute("eventlistener")){
-			var listener = e.getAttribute("eventlistener")
-			var action = e.getAttribute("eventaction")
+			var listener = e.getAttribute("eventlistener"),
+			    action = e.getAttribute("eventaction")
 
 			window.addEventListener(listener, function(){
 				eval(action)
 			})
 		}
 		if(e.tagName == "TEMPLATE" && !loadTemplate){
-			var template1 = core.toArray(dom.getChildren("template?tag=0"))
-			var template2 = core.toArray(dom.getChildren("template?tag=1"))
-			var sorted1 = core.sortArray(template1, "tagName")
-			var sorted2 = core.sortArray(template2, "tagName")
-			var array = core.tagArray(sorted1)
-			var array2 = core.tagArray(sorted2)
+			var template1 = core.toArray(dom.getChildren("template?tag=0")),
+			    template2 = core.toArray(dom.getChildren("template?tag=1")),
+			    sorted1 = core.sortArray(template1, "tagName"),
+			    sorted2 = core.sortArray(template2, "tagName"),
+			    array = core.tagArray(sorted1),
+			    array2 = core.tagArray(sorted2)
 
 			for(var i in array){
-				var el = array[i].tagName+"?tag="+array[i].tagIndex
-				var index = array[i].getAttribute("index")
-				var inherit = array[i].getAttribute("inherit")
+				var el = array[i].tagName+"?tag="+array[i].tagIndex,
+				    index = array[i].getAttribute("index"),
+				    inherit = array[i].getAttribute("inherit")
 
 				if(array[i].tagIndex == index && !inherit)
 					dom.content(el, array[i].innerHTML)
@@ -389,14 +388,14 @@ var core = function(){
 			eval(e.getAttribute("onload"))
   	if(e.innerHTML.match("{%(.*?)%}")){
       e.innerHTML = e.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function(out1, out2){
-        var input = eval(out2)
-        var isMod = (out1.indexOf("=") > 0) ? true : false
+      var input = eval(out2),
+          isMod = (out1.indexOf("=") > 0) ? true : false
         return core.callAttributes(input, input+out2, isMod)
       })
     }
 		if(e.hasAttribute("var") || e.hasAttribute("variable")){
-			var attr = e.getAttribute("var") || e.getAttribute("variable")
-			var res = attr.split(varDivider)
+			var attr = e.getAttribute("var") || e.getAttribute("variable"),
+			    res = attr.split(varDivider)
 			frontVariables[res[0].toLowerCase()] = res[1]
 		}
 		if(e.tagName == "VAR")
