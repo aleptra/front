@@ -747,7 +747,7 @@ form .group{
     flex-direction: row;
     -ms-flex-direction: row;
 }
-  
+
 form .group label{
     flex: none;
     --ms-flex: none;
@@ -758,12 +758,12 @@ form .group label{
 }
 
 form .group label.right-inline{
-    text-align: right;  
+    text-align: right;
     padding-right: 8px;
     padding-left: 10px;
     width: auto;
 }
-  
+
 form .group .input-control{
     flex: 1 1 auto;
     -ms-flex: 1 1 auto;
@@ -773,7 +773,7 @@ form .group .input-control{
     padding: 4px;
     margin-top: -4px;
 }
-  
+
 @media (max-width: 768px){
     form .group{
       flex-direction: column;
@@ -783,9 +783,9 @@ form .group .input-control{
       margin-top: 2px;
     }
     form .group label.right-inline{
-      text-align: left;  
+      text-align: left;
       padding-right: 0;
-      padding-left: 0;   
+      padding-left: 0;
     }
 }
 
@@ -819,11 +819,6 @@ button,.button{
 button.text,.button.text{
     background-color: transparent;
     color: #000;
-}
-
-button.icon,.button.icon{
-    font-size: 130%;
-    float: left;
 }
 .grid{min-width: 0; margin: 0 auto; min-height: auto; z-index:1}
 
