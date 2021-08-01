@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	referrerUrl = document.referrer
 	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
 
-  core.initCoreVariables()
+  //core.initCoreVariables()
 
 	if(currentEnvName == "local") app.runDevFile()
 
@@ -387,6 +387,13 @@ var core = function(){
 			alert(e.getAttribute("alert"))
 		if(e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"))
+  	if(e.innerHTML.match("{%(.*?)%}")){
+      e.innerHTML = e.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function(out1, out2){
+        var input = eval(out2)
+        var isMod = (out1.indexOf("=") > 0) ? true : false
+        return core.callAttributes(input, input+out2, isMod)
+      })
+    }
 		if(e.hasAttribute("var") || e.hasAttribute("variable")){
 			var attr = e.getAttribute("var") || e.getAttribute("variable")
 			var res = attr.split(varDivider)
