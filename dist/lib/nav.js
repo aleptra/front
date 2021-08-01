@@ -27,6 +27,8 @@ function nav(path, el, push){
 			if(push || path == startPage) navPush(path)
 			dom.content(target, response)
 
+      core.initCoreVariables(target)
+
 			if(anchor[1]){
 				dom.scrollInto(anchor[1])
 			}else{

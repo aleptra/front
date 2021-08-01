@@ -1,7 +1,9 @@
-var front,
+var html,
+    front,
 	  frontVariables = [],
 	  libAttribute = [],
 	  libPreload = [],
+    xhrProgress,
 	  load = false,
 	  loadTemplate = false,
 	  debugMode = false,
@@ -29,8 +31,8 @@ var front,
     folderPlug = "plug"
 
 document.addEventListener("DOMContentLoaded", function(){
+  html = document.documentElement
 	front = document.getElementsByTagName("*")
-	html = document.documentElement
 	debugMode = html.getAttribute("debug")
 	startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
 	hostName = window.location.hostname
@@ -40,13 +42,15 @@ document.addEventListener("DOMContentLoaded", function(){
 	environments = app.getCurrentEnvironment()
 	currentEnvName = environments[0]
 	currentEnvUrl = environments[1]
-	currentPage = window.location.pathname.replace(currentEnvUrl, "")
+	currentPage = window.location.pathname
 	currentScript = document.querySelector('script[src*="front.js"]')
 	currentScriptUrl = currentScript.getAttribute("src")
 	referrerUrl = document.referrer
 	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
 
-	if (currentEnvName == "local") app.runDevFile()
+  core.initCoreVariables()
+
+	if(currentEnvName == "local") app.runDevFile()
 
 	if(currentScript.hasAttribute("store")){
 		var attr = currentScript.getAttribute("store").split(";")
@@ -131,6 +135,8 @@ document.addEventListener("DOMContentLoaded", function(){
 		}
 		return false
 	},true)
+
+  xhrProgress = dom.get("navprogress")
 })
 
 window.addEventListener("load", function(){
@@ -163,7 +169,7 @@ function require(src, folder){
 	}
 
 	var head = dom.get("head?tag"),
-		asset = document.createElement(type)
+		  asset = document.createElement(type)
 	asset.src = src
 	asset.href = src
 	asset.rel = "stylesheet"
@@ -381,14 +387,6 @@ var core = function(){
 			alert(e.getAttribute("alert"))
 		if(e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"))
-		if(e.innerHTML.match("{%(.*?)%}")){
-			e.innerHTML = e.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function(out1, out2){
-				var input = eval(out2)
-				var isMod = (out1.indexOf("=") > 0) ? true : false
-				input = core.callAttributes(input, input+out2, isMod)
-				return input
-			})
-		}
 		if(e.hasAttribute("var") || e.hasAttribute("variable")){
 			var attr = e.getAttribute("var") || e.getAttribute("variable")
 			var res = attr.split(varDivider)
@@ -552,6 +550,15 @@ var core = function(){
 		if(e.hasAttribute("focus"))
 			dom.focus(e)
 	}
+
+  this.initCoreVariables = function(e){
+    var target = (e) ? dom.get(e) : html
+    target.innerHTML = target.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function(out1, out2){
+      var input = eval(out2)
+      var isMod = (out1.indexOf("=") > 0) ? true : false
+      return core.callAttributes(input, input+out2, isMod)
+    })
+  }
 
 	this.runCoreAttributesInElement = function(e){
 		var e = (typeof e === "string") ? dom.get(e) : e
@@ -1209,8 +1216,7 @@ var dom = function(){
 
 var xhr = function(){
 
-  var xhrProgress = dom.get("navprogress"),
-	    request = new XMLHttpRequest(),
+  var request = new XMLHttpRequest(),
 		  headers = [],
 		  credentials = false,
 		  x = 0
