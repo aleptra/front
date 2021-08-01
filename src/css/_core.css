@@ -381,6 +381,7 @@ body .flc, body .flc->*{
     justify-content: center;
     align-items: center;
     float: unset !important;
+    max-height:100%
 }
 body .pa.flc, body .pr.flc{
     top: 50%;
