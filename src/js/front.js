@@ -108,8 +108,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
 		var el = getParentTag(clicked, "a")
 		if(el !== null){
-			var elHref = el.getAttribute("href")
-			var elTarget = el.getAttribute("target")
+			var elHref = el.getAttribute("href"),
+			    elTarget = el.getAttribute("target")
 			if(el.hasAttribute("window")){
 				dom.create("div", ["href=/"], "head")
 				return false
