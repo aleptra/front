@@ -423,13 +423,6 @@ var core = function(){
 				  e.innerHTML = els[i].content
 			}
 		}
-		if(e.hasAttribute("bind2")){
-			var value = e.getAttribute("bind2")
-			var target = dom.get(value)
-			var el = target.outerHTML.replace(/{{\s*(.*?)\s*}}/gi, "1")
-			target.outerHTML = el
-			app.debug(el)
-		}
 		if(e.hasAttribute("bind3")){
 			var attr = e.getAttribute("bind3").split(":")
 			var target = attr[0]
