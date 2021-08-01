@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			var sclient = new xhr()
 			sclient.addHeader("storeName", file[1])
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
-				if(response)
+				if(status == 200)
 					app.storage(headers[0][1], response)
 			},false)
 		}
@@ -605,8 +605,8 @@ var core = function(){
 	this.includeFile = function(e){
 		var file = e.getAttribute("include")
 		app.debug("Include file: "+file, "green")
-		client.get(currentEnvUrl + file, function(response){
-			if(response)
+		client.get(currentEnvUrl + file, function(response, status){
+			if(status == 200)
 				e.innerHTML = response
 				core.runAttributesInElement(e)
 		})
@@ -617,8 +617,8 @@ var core = function(){
 	this.includeBindFile = function(e, input, target, value){
 		var file = e.getAttribute("bindinclude")
 		app.debug("Include (bind) file: "+file, "green")
-		client.get(currentEnvUrl + file, function(response){
-			if(response){
+		client.get(currentEnvUrl + file, function(response, status){
+			if(status == 200){
 				el = dom.get(target)
 				el.innerHTML = response
 				el.removeAttribute("include")
