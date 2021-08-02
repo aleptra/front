@@ -1269,7 +1269,7 @@ body .shade0->*, body .shade0, body .bs0, body .bs0->*{
 body .cp50{ clip-path: circle(50%); -ms-flex: inherit; flex: inherit}
 
 body .black, body .black- >* { background-color: #000; color: #fff; }
-body .bcblack, body .bcblack- *{ background-color: #000 }
+body .bcblack, body .bcblack- *, body .bcblack_h:hover{ background-color: #000 }
 
 body .tdu, body .tdu->*{text-decoration:underline}
 
@@ -1599,7 +1599,8 @@ body .bclightslategray{background-color:#778899}
 body .bcslategray{background-color:#708090}
 body .bcdarkslategray{background-color:#2f4f4f}
 
-body .bcblack01{background-color: rgba(0,0,0, .1)}
+body .bcblack01,body .bcblack001_h:hover{background-color: rgba(0,0,0, .01)}
+body .bcblack01,body .bcblack01_h:hover{background-color: rgba(0,0,0, .1)}
 body .bcblack02{background-color: rgba(0,0,0, .2)}
 body .bcblack03{background-color: rgba(0,0,0, .3)}
 body .bcblack04{background-color: rgba(0,0,0, .4)}
