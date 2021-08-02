@@ -313,13 +313,13 @@ body .bcwhite06{background-color: rgba(255,255,255, .6)}
 body .bcwhite07{background-color: rgba(255,255,255, .7)}
 body .bcwhite08{background-color: rgba(255,255,255, .8)}
 body .bcwhite09{background-color: rgba(255,255,255, .9)}
-body .bcsnow{background-color:#fffafa}
+body .bcsnow,.bcsnow_h:hover{background-color:#fffafa}
 body .bchoneydew{background-color:#f0fff0}
 body .bcmintcream{background-color:#f5fffa}
 body .bcazure{background-color:#f0ffff}
 body .bcaliceblue{background-color:#f0f8ff}
-body .bcghostwhite{background-color:#f8f8ff}
-body .bcwhitesmoke{background-color:#f5f5f5}
+body .bcghostwhite,.bcghostwhite_h:hover{background-color:#f8f8ff}
+body .bcwhitesmoke,.bcwhietsmoke_h:hover{background-color:#f5f5f5}
 body .bcseashell{background-color:#fff5ee}
 body .bcbeige{background-color:#f5f5dc}
 body .bcoldlace{background-color:#fdf5e6}
