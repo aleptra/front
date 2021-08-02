@@ -96,6 +96,7 @@ h6,.fs1{ font-size: calc(.7em + .6vw)}
 
 a,i,b,span,select,form *,input,textarea,button,a.button{display: inline-flex;display: -ms-inline-flexbox}
 b,strong,.fwb, .fwb- *{font-weight: bold}
+.fwb2, .fwb2- *{font-weight: bolder}
 .fsi,.fsi- *{font-style:italic}
 .di, p a, small a, p sup{display: inline}
 
