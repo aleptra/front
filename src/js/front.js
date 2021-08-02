@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
 				if(status == 200)
 					app.storage(headers[0][1], response)
-			},false)
+			})
 		}
 	}
 
@@ -173,7 +173,7 @@ function require(src, folder){
 	asset.src = src
 	asset.href = src
 	asset.rel = "stylesheet"
-	asset.async = false
+	asset.async = true
   	asset.onload = function(){
 		app.debug("Load: "+ src)
 	}
