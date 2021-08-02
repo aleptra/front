@@ -50,7 +50,8 @@
   flex-direction: row;
   -ms-flex-direction: row;
   flex: 1;
-  -ms-flex: 1
+  -ms-flex: 1;
+  align-items: center
 }
 
 .box.list .fr{
