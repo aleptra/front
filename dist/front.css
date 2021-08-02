@@ -771,9 +771,6 @@ form .group .input-control{
     flex: 1 1 auto;
     -ms-flex: 1 1 auto;
     display: block;
-    margin-bottom: 10px;
-    margin-right: 8px;
-    margin-top: -4px;
 }
 
 @media (max-width: 768px){
