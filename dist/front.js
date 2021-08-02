@@ -431,15 +431,8 @@ var core = function(){
 			var org = dom.get(target)
 			var orgEl = org.outerHTML
 
-			if(org.getAttribute("include")){
-				var changed
-				org.addEventListener("DOMNodeInserted", function(e){
-					if(!changed)
-						orgEl = dom.get(target).outerHTML
-						changed = true
-				})
-			}
-
+			if(org.getAttribute("include"))
+				orgEl = dom.changed(org, orgEl, target)
 			if(type == "input"){
 				e.addEventListener("change", function(input){
 					if(e.hasAttribute("bindinclude"))
@@ -838,7 +831,7 @@ var app = function(){
 			if(status == 200)
 				eval(response)
 				app.debug("Include file: .env", "green")
-		},false)
+		})
 	}
 
 	this.redirect = function(url){
@@ -1058,6 +1051,16 @@ var dom = function(){
 		else
 			document.body.appendChild(el)
 	}
+
+  this.changed = function(org, orgEl, target) {
+    var changed
+    org.addEventListener("DOMNodeInserted", function(e){
+      if (!changed)
+        orgEl = dom.get(target).outerHTML
+        changed = true
+    })
+    return orgEl
+  }
 
 	this.clone = function(el, parent, copies, variables){
 		var cln = el.cloneNode(true)
