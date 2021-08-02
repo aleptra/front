@@ -328,8 +328,16 @@ var core = function(){
 
 			var elHtml = e.innerHTML
 			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/gi, function(x){
-				var data = JSON.parse(mergedObject),
-				    variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
+        var data,
+            variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
+
+        try{
+          data = JSON.parse(mergedObject)
+        }catch(e){
+          data = ""
+          console.dir(mergedObject)
+        }
+
 				return eval("data."+variable)
 			})
 		}
