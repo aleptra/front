@@ -186,11 +186,22 @@ function jsonParseHeader(aEl, responseHeader){
 }
 
 function jsonSerialize(inputs){
-  var formData = new FormData(inputs),
-      pairs = {}
-
-  for(var [name, value] of formData){
-    pairs[name] = value
+  try {
+    var formData = new FormData(inputs),
+    pairs = {}
+    for(var [name, value] of formData)
+      pairs[name] = value
+  }catch(e){
+    var els = inputs.elements
+    console.dir(els)
+    /*pairs = Object.keys(els)
+        .reduce((obj, field) => {
+            if(isNaN(field)){
+                obj[field] = els[field].value
+            }
+            return obj
+        }, {})
+    */
   }
 
   return JSON.stringify(pairs, null, 2)
