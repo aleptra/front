@@ -18,7 +18,7 @@
   box-sizing: content-box;
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
-  word-wrap: break-word;
+  word-wrap: break-word
 }
 
 .box figure figcaption,
@@ -43,17 +43,16 @@
   display: flex;
   grid-template-columns: unset;
   flex-direction: column;
-  text-align: left;
+  text-align: left
 }
 
 .box.list *{
   flex-direction: row;
   -ms-flex-direction: row;
   flex: 1;
-  -ms-flex: 1;
-  align-items: baseline
+  -ms-flex: 1
 }
 
 .box.list .fr{
-  float: right;
+  float: right
 }
