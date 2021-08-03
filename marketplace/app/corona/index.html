@@ -23,7 +23,7 @@
 
     <main class="light p1">
         <section id="crypto" storage="api">
-            <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.corona.endpoint }}all/" dataheader="{{ storage:api.corona.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+            <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.corona.endpoint }}all/" dataheader="{{ storage:api.corona.headers }}" filter="true">
                 <figure class="p1 fdc" jsonset="id">
                     <div>
                         <p class="fwb" jsonget="Country" filteron="true"></p>

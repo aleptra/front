@@ -30,7 +30,7 @@
                     <input type="text" name="task" class="f2 bcwhite pl1" jsonget="task" filteron="true" contenteditable="true"></p>
                 </figure>
             </form>
-            <div id="todo-tasks" class="box cards list br0- flc-" iterate="true" json="true" datasource="{{ storage:api.todo.endpoint }}?order=id.desc" dataheader="{{ storage:api.todo.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+            <div id="todo-tasks" class="box cards list br0- flc-" iterate="true" json="true" datasource="{{ storage:api.todo.endpoint }}?order=id.desc" dataheader="{{ storage:api.todo.headers }}" filter="true">
                <!-- <a href="#" window="dialog">-->
                     <figure class="p1 bcwhite">
                         <input id="{{ jsonget:id }}" class="f0 z15" type="checkbox" onclick="alert('s')" if="{{ jsonget:done }};true;checked">

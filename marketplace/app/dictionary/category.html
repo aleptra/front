@@ -2,7 +2,7 @@
 
 <section json="words" storage="api" bind3="words:?id">
     <h1 class="z08" globalize="category">Category</h1>
-    <div id="words" class="box cards list mt05 br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&or=(id.eq.{# ?id #},taxonomy.eq.{# ?id #})" dataheader="{{ storage:api.dictionary.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
+    <div id="words" class="box cards list mt05 br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&or=(id.eq.{# ?id #},taxonomy.eq.{# ?id #})" dataheader="{{ storage:api.dictionary.headers }}">
         <figure class="p1 bcwhite">
             <p class="f2 pl1" jsonget="word.eng" methodfocus="put"></p>
             <p class="tar">{{ jsonget:word.swe }}</p>

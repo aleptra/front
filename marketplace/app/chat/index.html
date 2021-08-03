@@ -23,7 +23,7 @@
 
     <main class="light p1">
         <section id="chat" storage="api">
-            <div id="chat-posts" class="box cards list bcwhite- gut2-" iterate="true" json="true" datasource="{{ storage:api.chat.endpoint }}" dataheader="{{ storage:api.chat.headers }}" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json" filter="true">
+            <div id="chat-posts" class="box cards list bcwhite- gut2-" iterate="true" json="true" datasource="{{ storage:api.chat.endpoint }}" dataheader="{{ storage:api.chat.headers }}" filter="true">
                 <figure class="p1 fdc" jsonset="id">
                     <div>
                         <p>#{{ jsonget:id }}</p>
