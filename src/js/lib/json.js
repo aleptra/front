@@ -43,7 +43,8 @@ function json(aEl){
 
   var url = el.getAttribute("datasource"),
       headers = el.getAttribute("dataheader"),
-      iterate = el.getAttribute("iterate")
+      iterate = el.getAttribute("iterate"),
+      filter = el.getAttribute("jsonfilter"),
       onstart = el.getAttribute("onstart"),
       onprogress = el.getAttribute("onprogress"),
       onerror = el.getAttribute("onerror"),
@@ -96,9 +97,14 @@ function json(aEl){
 
     el.innerHTML = xhr.el.innerHTML
 
+    if(filter){
+      var str = filter.replace(/:/g,"===").replace(/;/g," && x.")
+      json = eval("json."+iterate).filter(eval("x => x."+str))
+    }
+
     if(iterate){
       json = (iterate.indexOf(".") > 0 && iterate.indexOf("[") < 0) ? json[0] : json
-      json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
+      json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate) || json
       var length = (iterate) ? json.length : iterate
       core.runIteration(el, 0, length)
     }
@@ -149,6 +155,16 @@ function json(aEl){
     eval(ondone)
   }
   xhr.send(null)
+}
+
+function jsonFilter(array, test){
+  var passedTest =[];
+  for (var i = 0; i < array.length; i++) {
+     if(test(array[i]))
+        passedTest.push(array[i]);
+  }
+
+  return passedTest;
 }
 
 function jsonParse(input, json){
