@@ -97,7 +97,7 @@ function json(aEl){
     el.innerHTML = xhr.el.innerHTML
 
     if(iterate){
-      json = (iterate.indexOf(".") > 0) ? json[0] : json
+      json = (iterate.indexOf(".") > 0 && iterate.indexOf("[") < 0) ? json[0] : json
       json = (iterate === "true" || iterate === "false") ? json : eval("json."+iterate)
       var length = (iterate) ? json.length : iterate
       core.runIteration(el, 0, length)
