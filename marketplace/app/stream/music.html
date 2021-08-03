@@ -1,7 +1,7 @@
 <!--<script src="http://localhost:8888/ui/front.js" title="Music" template="true"></script>-->
 
 <section id="popular">
-    <div id="popular-music" class="box cards gap05- br05- w10- black- tac glow-" iterate="results" json="true" datasource="http://api.discogs.com/database/search?&page=1&{?year}&token=atvoAylKVzUzRVNRQtuMQpfUBqDLsMsLwSehzVGW" onerror="alert('Fetch error')" onsuccess="alert('Fetch OK')" datasourceonchange="json">
+    <div id="popular-music" class="box cards gap05- br05- w10- black- tac glow-" iterate="results" json="true" datasource="http://api.discogs.com/database/search?&page=1&{?year}&token=atvoAylKVzUzRVNRQtuMQpfUBqDLsMsLwSehzVGW">
         <a href="movie.html">
         <figure jsonset="id">
             <img jsonget="thumb" src="">
