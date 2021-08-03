@@ -19,8 +19,6 @@
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   word-wrap: break-word;
-  flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
 }
 
 .box figure figcaption,
