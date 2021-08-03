@@ -21,14 +21,12 @@ function filter(){
 
       for(j = 0; j < child.length; j++){
         if(child[j].hasAttribute("filteron")){
-            if (child[j].textContent.toUpperCase().indexOf(filter) > -1 || child[j - 1].textContent.toUpperCase().indexOf(filter) > -1)
-              children[i].style.display = ""
-            else
-              children[i].style.display = "none"
+          if (child[j].textContent.toUpperCase().indexOf(filter) > -1 || child[j - 1].textContent.toUpperCase().indexOf(filter) > -1)
+            children[i].style.display = ""
+          else
+            children[i].style.display = "none"
         }
       }
     }
-
   }
-
 }
