@@ -7,7 +7,7 @@
   outline: none!important
 }
 
-*, form, .df{
+*, form, .df, .df- *{
   display: inline-block;
   display: -webkit-box;
   display: -webkit-flex;
