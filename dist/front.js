@@ -1062,16 +1062,20 @@ var dom = function(){
 		}else if(parent === "inside"){
 			el.innerHtml = ""
 
-			var elHtml = el.innerHTML
+			var elHtml = el.innerHTML,
+          html = "",
+          pad = 0,
+		      increment = (variables) ? el.getAttribute("variable").split(":")[1] : 0
 
-			var html = ""
-			var increment = (variables) ? el.getAttribute("variable").split(":")[1] : 0
+      if (increment) {
+          pad = increment.match(/(0*)/s)[0]
+          pad = (pad || []).length
+      }
 
 			for(var j=0; j < copies; j++){
 
 				if(variables){
-          if (increment === "01" || increment <= 9) console.log(increment)
-					elVarHtml = elHtml.replace(/<var>(.*)<\/var>|{{ (.*?) }}/gi, increment)
+					elVarHtml = elHtml.replace(/<var>(.*)<\/var>|{{ (.*?) }}/gi, this.pad(increment,pad))
 					html += elVarHtml
 				}else{
 					html += elHtml
@@ -1086,6 +1090,12 @@ var dom = function(){
 			document.body.appendChild(cln)
 		}
 	}
+
+  this.pad = function(num, size) {
+    var s = num + ""
+    if(s.length < size) s = "0" + s
+    return s
+  }
 
 	this.escape = function(text){
 		return text.replace(/[\u0009\u0000-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u00FF]/g, function(x){
