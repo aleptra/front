@@ -1093,7 +1093,7 @@ var dom = function(){
 
   this.pad = function(num, size) {
     var s = num + ""
-    if(s.length < size) s = "0" + s
+    if(s.length <= size) s = "0" + s
     return s
   }
 
