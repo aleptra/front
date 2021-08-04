@@ -445,7 +445,7 @@ var core = function(){
             core.bindElement(org, value, orgEl, input)
 				}
       }else if(type == "checkbox"){
-        e.onclick = function(){
+        e.onclick = function(input){
           core.bindElement(org, input.target.checked, orgEl, input.target.value)
         }
 			}else if(type == "select"){
