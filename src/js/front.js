@@ -431,19 +431,24 @@ var core = function(){
 			var target = attr[0]
 			var value = attr[1]
 
-			var type = e.localName
-			var org = dom.get(target)
-			var orgEl = org.outerHTML
+			var name = e.localName
+          type = e.type,
+			    org = dom.get(target)
+			    orgEl = org.outerHTML
 
 			if(org.getAttribute("include"))
 				orgEl = dom.changed(org, orgEl, target)
-			if(type == "input"){
-				e.addEventListener("change", function(input){
+			if(type == "text"){
+				e.onchange = function(input){
 					if(e.hasAttribute("bindinclude"))
 						core.includeBindFile(e, input.target.value, target, value)
 					else
-						core.bindElement(org, value, orgEl, input)
-				})
+            core.bindElement(org, value, orgEl, input)
+				}
+      }else if(type == "checkbox"){
+        e.onclick = function(){
+          core.bindElement(org, input.target.checked, orgEl, input.target.value)
+        }
 			}else if(type == "select"){
 				console.log("select")
 			}else{
@@ -631,7 +636,7 @@ var core = function(){
 			value = "\\" + value
 		}
 
-		target.outerHTML = orgEl.replace(new RegExp('{# ' + value + '(.*?)#}', 'gi'), function(out1, out2){
+		target.outerHTML = orgEl.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
 			var isMod = (out1.indexOf("=") > 0) ? true : false
 			input = core.callAttributes(input, input+out2, isMod)
 			return input
