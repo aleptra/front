@@ -948,18 +948,6 @@ var dom = function(){
 		else return el.placeholder
 	}
 
-	this.formvalues = function(obj){
-		var el = this.get(obj)
-		var txt = ""
-		var i
-
-		for(i = 0; i < el.length; i++){
-			txt = txt + el.elements[i].value + "<br>"
-		}
-
-		alert(txt)
-	}
-
 	this.width = function(obj, value){
 		var el = this.get(obj)
 		if(el && value!= null) el.width = value
