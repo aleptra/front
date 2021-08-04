@@ -431,8 +431,7 @@ var core = function(){
 			var target = attr[0]
 			var value = attr[1]
 
-			var name = e.localName
-          type = e.type,
+			var type = e.type,
 			    org = dom.get(target)
 			    orgEl = org.outerHTML
 
