@@ -835,7 +835,7 @@ var app = function(){
 			if(status == 200)
 				eval(response)
 				app.debug("Include file: .env", "green")
-		},true)
+		})
 	}
 
 	this.redirect = function(url){
@@ -1082,6 +1082,7 @@ var dom = function(){
 			for(var j=0; j < copies; j++){
 
 				if(variables){
+          if (increment === "01" || increment <= 9) console.log(increment)
 					elVarHtml = elHtml.replace(/<var>(.*)<\/var>|{{ (.*?) }}/gi, increment)
 					html += elVarHtml
 				}else{
