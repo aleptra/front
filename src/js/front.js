@@ -32,6 +32,7 @@ var html,
 
 document.addEventListener("DOMContentLoaded", function(){
   html = document.documentElement
+  title = document.title
 	front = document.getElementsByTagName("*")
 	debugMode = html.getAttribute("debug")
 	startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
@@ -341,13 +342,8 @@ var core = function(){
 				return eval("data."+variable)
 			})
 		}
-		if(e.hasAttribute("title") && e.tagName == "SCRIPT"){
-			var value = e.getAttribute("title")
-			document.title = (value) ? value : title
-		}
 		if(e.tagName == "TITLE" && e.parentNode.tagName !== "HEAD"){
-			var value = e.text
-			document.title = (value) ? value : title
+			document.title = e.text
 		}
 		if(e.hasAttribute("cache")){
 			var value = e.getAttribute("cache")
@@ -372,7 +368,7 @@ var core = function(){
 			    sorted2 = core.sortArray(template2, "tagName"),
 			    array = core.tagArray(sorted1),
 			    array2 = core.tagArray(sorted2)
-
+console.dir(array)
 			for(var i in array){
 				var el = array[i].tagName+"?tag="+array[i].tagIndex,
 				    index = array[i].getAttribute("index"),

@@ -26,7 +26,7 @@ function nav(path, el, push){
 		if(status == 200){
 			if(push || path == startPage) navPush(path)
 			dom.content(target, response)
-
+      if(!dom.get("title?tag=1")) document.title = title
       //core.initCoreVariables(target)
 
 			if(anchor[1]){
