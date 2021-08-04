@@ -368,7 +368,7 @@ var core = function(){
 			    sorted2 = core.sortArray(template2, "tagName"),
 			    array = core.tagArray(sorted1),
 			    array2 = core.tagArray(sorted2)
-console.dir(array)
+
 			for(var i in array){
 				var el = array[i].tagName+"?tag="+array[i].tagIndex,
 				    index = array[i].getAttribute("index"),
