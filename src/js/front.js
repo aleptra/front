@@ -438,11 +438,12 @@ var core = function(){
 			if(org.getAttribute("include"))
 				orgEl = dom.changed(org, orgEl, target)
 			if(type == "text"){
-				e.onchange = function(input){
-					if(e.hasAttribute("bindinclude"))
-						core.includeBindFile(e, input.target.value, target, value)
-					else
-            core.bindElement(org, value, orgEl, input)
+				e.onkeypress = function(input){
+          if(input.keyCode === 13)
+					  if(e.hasAttribute("bindinclude"))
+						  core.includeBindFile(e, input.target.value, target, value)
+					  else
+              core.bindElement(org, value, orgEl, input)
 				}
       }else if(type == "checkbox"){
         e.onclick = function(input){
