@@ -452,7 +452,7 @@ var core = function(){
 			}else if(type == "select"){
 				console.log("select")
 			}else{
-				core.bindElement(org, value, input)
+				core.bindElement(org, value)
 			}
 		}
 		if(e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
