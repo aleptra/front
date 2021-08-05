@@ -443,16 +443,16 @@ var core = function(){
 					  if(e.hasAttribute("bindinclude"))
 						  core.includeBindFile(e, input.target.value, target, value)
 					  else
-              core.bindElement(org, value, orgEl, input)
+              core.bindElement(org, value, input)
 				}
       }else if(type == "checkbox"){
         e.onclick = function(input){
-          core.bindElement(org, input.target.checked, orgEl, input.target.value)
+          core.bindElement(org, input.target.checked, input.target.value)
         }
 			}else if(type == "select"){
 				console.log("select")
 			}else{
-				core.bindElement(org, value, orgEl)
+				core.bindElement(org, value, input)
 			}
 		}
 		if(e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
@@ -623,20 +623,20 @@ var core = function(){
 				el = dom.get(target)
 				el.innerHTML = response
 				el.removeAttribute("include")
-				core.bindElement(el, value, el.outerHTML, input)
+				core.bindElement(el, value, input)
 				core.runAttributesInElement(target)
 			}
 		})
 	}
 
-	this.bindElement = function(target, value, orgEl, input){
+	this.bindElement = function(target, value, input){
 
 		if(value[0] == "?"){
 			input = core.getParams()[value.substr(1)]
 			value = "\\" + value
 		}
 
-		target.outerHTML = orgEl.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
+		target.outerHTML = target.outerHTML.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
 			var isMod = (out1.indexOf("=") > 0) ? true : false
 			input = core.callAttributes(input, input+out2, isMod)
 			return input
