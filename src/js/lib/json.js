@@ -143,8 +143,9 @@ function json(aEl){
               type = els[i].localName
 
           value = jsonbefore + jsonParse(json[j], jsonget) + jsonafter
-
-          if(type == "img")
+          if (type == "input")
+            els[i].value = value
+          else if(type == "img")
             els[i].src = value
           else if(type == "a")
             els[i].href = value
