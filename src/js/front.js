@@ -98,33 +98,31 @@ document.addEventListener("DOMContentLoaded", function(){
 	document.onclick=function(e){
 		var clicked = (e.target) ? e.target : e.srcElement
 
-		if(clicked.parentNode.getAttribute("selective")){
-
-			for(j=0; j < clicked.parentNode.childElementCount; j++){
-				clicked.parentNode.children[j].classList.remove("sel")
-			}
-
-			clicked.classList.add("sel")
-		}
+    if(clicked.parentNode.getAttribute("selective")){
+      for(j=0; j < clicked.parentNode.childElementCount; j++){
+        clicked.parentNode.children[j].classList.remove("sel")
+      }
+      clicked.classList.add("sel")
+    }
 
 		var el = getParentTag(clicked, "a")
 		if(el !== null){
 			var elHref = el.getAttribute("href"),
-			    elTarget = el.getAttribute("target")
-			if(el.hasAttribute("window")){
-				dom.create("div", ["href=/"], "head")
-				return false
-			}else if(elHref && elHref.substring(0,1) === "#"){
-				location.hash = elHref
-				return false
-			}else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank"){
-				app.debug('Click (Ajax): '+ elHref)
-				if(window.location.hash) location.hash = ""
-				return nav(currentEnvUrl + elHref, false, true)
-			}else{
-				app.debug('Click')
-			}
-		}
+		    elTarget = el.getAttribute("target")
+		  if(el.hasAttribute("window")){
+			  dom.create("div", ["href=/"], "head")
+        return false
+      }else if(elHref && elHref.substring(0,1) === "#"){
+        location.hash = elHref
+        return false
+       }else if(elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank"){
+        app.debug('Click (Ajax): '+ elHref)
+        if(window.location.hash) location.hash = ""
+        return nav(currentEnvUrl + elHref, false, true)
+      }else{
+         app.debug('Click')
+      }
+    }
 	}
 
 	document.addEventListener("click", function(e){
@@ -432,27 +430,29 @@ var core = function(){
 			var value = attr[1]
 
 			var type = e.type,
-			    org = dom.get(target)
-			    orgEl = org.outerHTML
+			    targetEl = dom.get(target)
+			    orgEl = targetEl.outerHTML
 
-			if(org.getAttribute("include"))
-				orgEl = dom.changed(org, orgEl, target)
+			if(targetEl.getAttribute("include"))
+				orgEl = dom.changed(targetEl, orgEl, target)
 			if(type == "text"){
 				e.onkeypress = function(input){
           if(input.keyCode === 13)
 					  if(e.hasAttribute("bindinclude"))
-						  core.includeBindFile(e, input.target.value, target, value)
+              core.includeBindFile(e, input.target.value, target, value)
 					  else
-              core.bindElement(org, value, input)
+              dom.bind(targetEl, value, orgEl, input)
 				}
       }else if(type == "checkbox"){
+
         e.onclick = function(input){
-          core.bindElement(org, input.target.checked, input.target.value)
+          return dom.bind(targetEl, value, orgEl, input.target.value)
         }
+
 			}else if(type == "select"){
 				console.log("select")
 			}else{
-				core.bindElement(org, value)
+				dom.bind(targetEl, value, orgEl)
 			}
 		}
 		if(e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
@@ -623,23 +623,9 @@ var core = function(){
 				el = dom.get(target)
 				el.innerHTML = response
 				el.removeAttribute("include")
-				core.bindElement(el, value, input)
+				dom.bind(el, value, el.outerHTML, input)
 				core.runAttributesInElement(target)
 			}
-		})
-	}
-
-	this.bindElement = function(target, value, input){
-
-		if(value[0] == "?"){
-			input = core.getParams()[value.substr(1)]
-			value = "\\" + value
-		}
-
-		target.outerHTML = target.outerHTML.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
-			var isMod = (out1.indexOf("=") > 0) ? true : false
-			input = core.callAttributes(input, input+out2, isMod)
-			return input
 		})
 	}
 
@@ -868,6 +854,30 @@ var dom = function(){
 		}
 	}
 
+  this.bind = function(target, value, orgEl, input){
+		if(value[0] == "?"){
+			input = core.getParams()[value.substr(1)]
+			value = "\\" + value
+		}
+
+    for(var i = 0; i < target.attributes.length; i++){
+      var attr = target.attributes[i],
+          attrName = attr.name+"-init"
+
+      if(target.hasAttribute(attrName)) target.setAttribute(attr.name, atob(target.getAttribute(attrName)))
+
+      if(attr.value.match("{# " + value + "(.*?)#}", "gi")){
+        var init = btoa(attr.value)
+        var attrVal = attr.value.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
+          var isMod = (out1.indexOf("=") > 0) ? true : false
+          return core.callAttributes(input, input+out2, isMod)
+        })
+        attr.value = attrVal
+        target.setAttribute(attrName, init)
+      }
+    }
+	}
+
 	this.run = function(el){
 		var obj = this.get(el)
 		this.enable(obj,true)
@@ -1049,9 +1059,9 @@ var dom = function(){
 			document.body.appendChild(el)
 	}
 
-  this.changed = function(org, orgEl, target) {
+  this.changed = function(targetEl, orgEl, target) {
     var changed
-    org.addEventListener("DOMNodeInserted", function(e){
+    targetEl.addEventListener("DOMNodeInserted", function(e){
       if (!changed)
         orgEl = dom.get(target).outerHTML
         changed = true
