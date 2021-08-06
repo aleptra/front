@@ -30,14 +30,14 @@
                     <input type="text" name="task" class="f2 bcwhite pl1" jsonget="task" filteron="true" contenteditable="true"></p>
                 </figure>
             </form>
-            <form method="patch" id="todo-tasks" class="box cards list br0- flc-" iterate="true" json="true" datasource="{{ storage:api.todo.endpoint }}?order=id.desc" dataheader="{{ storage:api.todo.headers }}" datapatch="{{ storage:api.todo.endpoint }}?id=eq.{# id #}" filter="true">
-               <!-- <a href="#" window="dialog">-->
-                    <figure class="p1 bcwhite" jsonpayload="id:id;">
-                        <input id="task{{ jsonget:id }}" class="f0 z15" type="checkbox" patch="{{ jsonget:id }}" bind3="todo-tasks:id" value="{{ jsonget:id }}" if="{{ jsonget:done }};true;checked">
-                        <p class="f2 pl1" jsonget="task" filteron="true" methodfocus="put" contenteditable="true"></p>
-                    </figure>
-                <!--</a>-->
-            </form>
+            <div id="todo-tasks" class="box cards list br0- flc-" iterate="true" json="true" datasource="{{ storage:api.todo.endpoint }}?order=id.desc" dataheader="{{ storage:api.todo.headers }}" datapatch="{{ storage:api.todo.endpoint }}?id=eq.{# id #}" filter="true">
+              <form method="patch" datasource="{{ storage:api.todo.endpoint }}?id=eq.{{ jsonget:id }}" payload="">
+                  <figure class="p1 bcwhite" jsonpayload="id:id;" filteron="{{ jsonget:task }}">
+                      <input id="task{{ jsonget:id }}" class="f0 z15" type="checkbox" patch="{{ jsonget:id }}" bind3="todo-tasks:id" value="{{ jsonget:id }}" if="{{ jsonget:done }};true;checked">
+                      <p class="f2 pl1" jsonget="task" contenteditable="true"></p>
+                  </figure>
+              </form>
+            </div>
         </section>
 
     </main>

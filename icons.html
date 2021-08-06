@@ -31,7 +31,7 @@
                 <select>
                     <option>All</option>
                     <option>Action</option>
-                </select>    
+                </select>
             </div>
          </nav>
      </aside>
@@ -47,10 +47,10 @@
     </section>
 
     <div class="box cards xxs_gtc1 xs_gtc2 sm_gtc3 xl_gtc4 xxl_gtc5 xxxl_gtc6 gut2- br05- bcwhite- border- tac" json="true" iterate="icons" datasource="assets/json/icons-material.json" filter="true" preloader="true">
-        <figure class="p05" onclick="copyText">
+        <figure class="p05" onclick="copyText" filteron="{{ jsonget:title }}">
             <i class="icon48" jsonget="html_entity"></i>
-            <figcaption class="z08 md_dn" filteron="true" jsonget="title" slice="0,20"></figcaption>
-            <small class="md_dn" filteron="true" jsonget="name" slice="0,20"></small>
+            <figcaption class="z08 md_dn" jsonget="title" slice="0,20"></figcaption>
+            <small class="md_dn" jsonget="name" slice="0,20"></small>
             <small jsonget="html_entity" bindcopy="true" escape="true"></small>
         </figure>
     </div>
