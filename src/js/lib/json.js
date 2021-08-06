@@ -241,7 +241,7 @@ function jsonPush(payload, e){
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
   xhr.onreadystatechange = function(){
     console.log(this.status)
-    if(this.readyState == 4 && (this.status == 200 || this.status == 201))
+    if(this.readyState == 4 && (this.status == 200 || this.status == 201 || this.status == 204))
       eval(ondone)
   }
 
