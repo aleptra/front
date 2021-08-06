@@ -7,11 +7,12 @@ libAttribute.push(
 window.addEventListener("submit", function(e){
   var form = e.target || e.srcElement,
       target = form.getAttribute("target")
+      reset = form.getAttribute("reset")
   if(target !== "_blank"){
     e.preventDefault()
     var payload = jsonSerialize(form)
     jsonPush(payload, form)
-    form.reset()
+    if (reset !== "false") form.reset()
   }
   return false
 })
