@@ -12,7 +12,7 @@ function filter(){
   var e = event && (event.target || event.srcElement)
   var filter = e.value.toUpperCase()
 
-  var children = target.getElementsByTagName('*');
+  var children = target.getElementsByTagName('*')
   for(var i = 0; i < children.length; i++){
       if(children[i].hasAttribute("filteron")){
         var filteron = children[i].getAttribute("filteron")
