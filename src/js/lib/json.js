@@ -12,6 +12,7 @@ window.addEventListener("submit", function(e){
     e.preventDefault()
     var payload = jsonSerialize(form)
     jsonPush(payload, form)
+    app.debug("Payload: "+payload)
     if (reset !== "false") form.reset()
   }
   return false
