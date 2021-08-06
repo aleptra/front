@@ -19,6 +19,7 @@
         "dist/lib": true,
     },
     "workbench.editor.enablePreview": false,
+    "workbench.editor.showTabs": true,
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
