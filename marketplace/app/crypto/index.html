@@ -26,14 +26,14 @@
     <main class="light p1">
         <section id="crypto" storage="api;cdn">
             <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.crypto.endpoint }}market&limit=50&sort=mc&desc=true" filter="true">
-                <figure class="p1 fdc" jsonset="id">
+                <figure class="p1 fdc" jsonset="id" filteron="{{ jsonget:n }} {{ jsonget:s }}">
                     <img class="f0 pr1 w3r" if="!{{ jsonget:n }};;src:{{ storage:cdn.crypto.url }}{{ jsonget:n = replace(' ','-') = replace('\\)','') = replace('\\(','') = toLower }}.png" jsonmod="true" class="w100">
                     <div>
                         <p class="fwb" jsonget="n"></p>
-                        <small class="gray" jsonget="s" filteron="true"></small>
+                        <small class="gray" jsonget="s"></small>
                     </div>
                     <p class="f1 tar green" jsonget="p" fixedpoint="3" afterbegin="$ "></p>
-                    <p class="fwb d0" jsonget="n" filteron="true"></p>
+                    <p class="fwb d0" jsonget="n"></p>
                 </figure>
             </div>
         </section>
