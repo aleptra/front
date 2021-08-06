@@ -24,9 +24,9 @@
     <main class="light p1">
         <section id="crypto" storage="api">
             <div id="crypto-coins" class="box cards list bcwhite- gut2-" iterate="data" json="true" datasource="{{ storage:api.corona.endpoint }}all/" dataheader="{{ storage:api.corona.headers }}" filter="true">
-                <figure class="p1 fdc" jsonset="id">
+                <figure class="p1 fdc" jsonset="id" filteron="{{ jsonget:Country }}">
                     <div>
-                        <p class="fwb" jsonget="Country" filteron="true"></p>
+                        <p class="fwb" jsonget="Country"></p>
                         <small class="orange" jsonget="New Cases" jsonbefore="New Cases: "></small>
                         <small class="red" jsonget="New Deaths" jsonbefore="New Deaths: "></small>
                         <small class="green" jsonget="New Recovered" jsonbefore="New Recovered: "></small>
