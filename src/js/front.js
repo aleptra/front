@@ -431,22 +431,20 @@ var core = function(){
 
 			var type = e.type,
 			    targetEl = dom.get(target)
-			    orgEl = targetEl.outerHTML
+			    orgEl = (targetEl) ? targetEl.outerHTML : ''
 
-			if(targetEl.getAttribute("include"))
-				orgEl = dom.changed(targetEl, orgEl, target)
 			if(type == "text"){
 				e.onkeypress = function(input){
           if(input.keyCode === 13)
 					  if(e.hasAttribute("bindinclude"))
               core.includeBindFile(e, input.target.value, target, value)
 					  else
-              dom.bind(targetEl, value, orgEl, input)
+              dom.bind(targetEl, value, input)
 				}
       }else if(type == "checkbox"){
 
         e.onclick = function(input){
-          return dom.bind(targetEl, value, orgEl, input.target.value)
+          return dom.bind(targetEl, value, input.target.value)
         }
 
 			}else if(type == "select"){
@@ -623,7 +621,7 @@ var core = function(){
 				el = dom.get(target)
 				el.innerHTML = response
 				el.removeAttribute("include")
-				dom.bind(el, value, el.outerHTML, input)
+				dom.bindInclude(el, value, input)
 				core.runAttributesInElement(target)
 			}
 		})
@@ -854,7 +852,7 @@ var dom = function(){
 		}
 	}
 
-  this.bind = function(target, value, orgEl, input){
+  this.bind = function(target, value, input){
 		if(value[0] == "?"){
 			input = core.getParams()[value.substr(1)]
 			value = "\\" + value
@@ -876,6 +874,20 @@ var dom = function(){
         target.setAttribute(attrName, init)
       }
     }
+	}
+
+  this.bindInclude = function(target, value, input){
+
+		if(value[0] == "?"){
+			input = core.getParams()[value.substr(1)]
+			value = "\\" + value
+		}
+
+		target.outerHTML = target.outerHTML.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
+			var isMod = (out1.indexOf("=") > 0) ? true : false
+			input = core.callAttributes(input, input+out2, isMod)
+			return input
+		})
 	}
 
 	this.run = function(el){
@@ -1058,16 +1070,6 @@ var dom = function(){
 		else
 			document.body.appendChild(el)
 	}
-
-  this.changed = function(targetEl, orgEl, target) {
-    var changed
-    targetEl.addEventListener("DOMNodeInserted", function(e){
-      if (!changed)
-        orgEl = dom.get(target).outerHTML
-        changed = true
-    })
-    return orgEl
-  }
 
 	this.clone = function(el, parent, copies, variables){
 		var cln = el.cloneNode(true)
