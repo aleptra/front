@@ -117,7 +117,7 @@ textarea:focus{
 body .outlined{ border-radius: .5rem; background-color: #fff; color: #000; box-shadow: 0 0 0 1px rgba(0,0,0, .42) }
 body .outlined:hover{ background-color: inherit; box-shadow: 0 0 0 1px rgba(0,0,0, .42) }
 body .outlined:focus{ background-color: inherit; box-shadow: 0 0 0 1px rgba(0,0,0, .42) }
-.text{ box-shadow: unset; background-color: unset }
+.text,.select.text:hover, input[type='text'].text:hover, textarea.text:hover{ box-shadow: unset; background-color: unset }
 .rounded{ border-radius: 2rem}
 .positioned{
     min-width:3rem;

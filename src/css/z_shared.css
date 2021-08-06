@@ -470,9 +470,11 @@ body .h50r{height: 50rem}
 .h50,.h50p { flex: 0 0 50%;-ms-flex: 1 0 50%; }
 .h100,.h100p { flex: 0 0 100%;-ms-flex: 1 0 100%; }
 .h100vh { height: 100vh }
+.mih0 { min-height: unset }
 .hm80,.hm80p { min-height: 80% }
 .hm90,.hm90p { min-height: 90% }
 .hm100,.hm100p { min-height: 100% }
+.mah0 { max-height: unset }
 .mh3 { max-height: 3rem }
 .mh5 { max-height: 5rem }
 .mh10 { max-height: 10rem }
