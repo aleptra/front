@@ -20,6 +20,7 @@
     },
     "workbench.editor.enablePreview": false,
     "workbench.editor.showTabs": true,
+    "breadcrumbs.enabled": false,
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
