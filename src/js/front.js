@@ -717,12 +717,14 @@ var core = function(){
 	}
 
 	this.toDOM = function(str){
-		return new DOMParser().parseFromString(str, "text/xml")
+		return new DOMParser().parseFromString(str, "text/html")
 	}
 
-  this.toHTML = function(str){
-		return new DOMParser().parseFromString(str, "text/html").documentElement.textContent
-	}
+  this.toHTML = function(e){
+    var el = document.createElement('textarea')
+    el.innerHTML = e.innerHTML
+    return el.value
+  }
 
 	this.toObject = function(str){
 		obj = {}
