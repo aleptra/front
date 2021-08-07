@@ -329,12 +329,10 @@ var core = function(){
         var data = "",
             variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
         try{
-          data = JSON.parse(mergedObject)
+          data = JSON.parse(mergedObjects)
           return eval("data."+variable)
         }catch(e){
-          console.log(e)
-          console.log(variable)
-          console.log(mergedObject)
+          dom.get("main?tag=0").innerHTML = e +"<hr>"+ variable + "<hr>"+mergedObject
         }
 			})
 		}
