@@ -172,7 +172,7 @@ function require(src, folder){
 	asset.src = src
 	asset.href = src
 	asset.rel = "stylesheet"
-	asset.async = true
+	asset.async = false
   	asset.onload = function(){
 		app.debug("Load: "+ src)
 	}
