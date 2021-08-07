@@ -324,17 +324,18 @@ var core = function(){
 				strObject += app.storage(attr[i])
 			}
 			var mergedObject = core.mergeObject(strObject)
-
 			var elHtml = e.innerHTML
 			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/gi, function(x){
         var data = "",
             variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
-
         try{
           data = JSON.parse(mergedObject)
+          console.dir(data)
           return eval("data."+variable)
         }catch(e){
-          console.dir(mergedObject)
+          console.log(e)
+          console.log(variable)
+          console.log(mergedObject)
         }
 			})
 		}
