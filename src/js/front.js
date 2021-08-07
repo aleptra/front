@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function(){
 })
 
 window.onerror = function (msg, url, line) {
-  dom.get("main?tag=0").innerHTML = msg + "<br>" + " at " + url + ":"+line
+  dom.create('div', ['id=fronterror', 'className=alert pf b1 l1 bcred white snack', 'innerHTML='+msg + "<br>" + " at " + url + ":"+line], 'footer')
 }
 
 window.addEventListener("load", function(){
