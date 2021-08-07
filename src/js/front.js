@@ -330,7 +330,6 @@ var core = function(){
             variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
         try{
           data = JSON.parse(mergedObject)
-          console.dir(data)
           return eval("data."+variable)
         }catch(e){
           console.log(e)

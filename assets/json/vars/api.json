@@ -1,9 +1,5 @@
 {
     "api": {
-        "todo": { 
-            "endpoint": "https://nxsglpuwmlqladuxlmty.supabase.co/rest/v1/tasks",
-            "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzYyNDkwNiwiZXhwIjoxOTMzMjAwOTA2fQ._-dA_LjamQizyEoNq2ZjUMkVe2vQPO7C_3Ba9SINXos" 
-        },
         "chat": {
             "endpoint": "https://querlspbhylhljdpvbpm.supabase.co/rest/v1/posts",
             "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzY0NTM0NSwiZXhwIjoxOTMzMjIxMzQ1fQ.pG5ihvVIIwh-xbRHF7H2UWExGNxcQmvsQFrp-BJ_UlQ"
