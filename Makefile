@@ -19,6 +19,9 @@ git:
 	make
 	git add . && git commit -m "Experimental" && git push
 
+test:
+	cypress open --config-file "cypress/cypress.json"
+
 serve:
 	python -m SimpleHTTPServer 8000
 
