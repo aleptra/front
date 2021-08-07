@@ -335,8 +335,8 @@ var core = function(){
         try{
           data = JSON.parse(mergedObject)
           return eval("data."+variable)
-        }catch(e){
-          dom.get("main?tag=0").innerHTML = e +"<hr>"+ variable + "<hr>"+mergedObject
+        }catch(err){
+          dom.get("main?tag=0").innerHTML += err +"<hr>"+ variable + "<hr>"+mergedObject
         }
 			})
 		}
