@@ -100,11 +100,10 @@ function json(aEl){
     el.innerHTML = xhr.el.innerHTML
 
     if(filter){
-      var index = filter.match(/[(\d)]/g, function(x){
-        return x
-      })
-      var str = filter.replace("["+index+"];", "").replace(/:/g,"===").replace(/;/g," && x.")
-      json = json[iterate].filter(eval("x => x."+str))
+      var index = (filter.match(/\((\d)\);/s) || [])[1]
+      var str = filter.replace("("+index+");", "").replace(/:/g,"===").replace(/;/g," && x.")
+      json = (json[iterate]) ? json[iterate] : json
+      json = json.filter(eval("x => x."+str))
       json = (index) ? [json[index]] : json
     }
 
