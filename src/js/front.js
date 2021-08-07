@@ -138,6 +138,10 @@ document.addEventListener("DOMContentLoaded", function(){
   xhrProgress = dom.get("navprogress")
 })
 
+window.onerror = function (msg, url, line) {
+  dom.get("main?tag=0").innerHTML = msg + "<br>" + " at " + url + ":"+line
+}
+
 window.addEventListener("load", function(){
 	if(load){
 		core.runLibPreloads()
