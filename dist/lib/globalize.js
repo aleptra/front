@@ -75,22 +75,12 @@ function globalize(e){
   e.innerHTML = e.innerHTML.trim()
 
   if(localeJson && localeJson.translations[value]){
-    var children = e.childElementCount,
-        name = e.localName,
+    var name = e.localName,
         type = e.type,
         placeholder = e.placeholder,
         globalized = localeJson.translations[value]
     if(name == "title"){
       document.title = globalized
-    }else if(children > 0 && (name == "a" || name == "button" || name == "caption")){
-      var child = e.firstChild
-      while(child){
-        if(child.nodeType == 3){
-          child.data = globalized
-          break
-        }
-        child = child.nextSibling
-      }
     }else if(placeholder){
       e.placeholder = globalized
     }else{
@@ -99,7 +89,19 @@ function globalize(e){
       else if(name == "optgroup")
         e.label = globalized
       else
-        e.innerHTML = globalized
+        if(e.childElementCount > 0 && (name !== "p" && name !== "i" && name !== "b")){
+          var child = e.firstChild
+          while(child){
+            if(child.nodeType == 3){
+              child.data = globalized
+              e.innerHTML = core.toHTML(e)
+              break
+            }
+            child = child.nextSibling
+          }
+        }else{
+          e.innerHTML = globalized
+        }
     }
   }
 }
