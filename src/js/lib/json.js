@@ -70,7 +70,7 @@ function json(aEl){
     eval(onstart)
     if(!loader){
       el.innerHTML = ""
-      el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader"></div>')
+      el.insertAdjacentHTML("afterend", '<div id="loader'+xhr.id+'" class="loader pa flc"></div>')
     }else{
       aEl.innerHTML = aEl.innerHTML.replace(/(.*?)loader="(.*?)">(.*?)</gi, function(e,out,out2,out3){
         var attr = e.match(/(?!name|class|id)\S+="\S+"/ig).join(" ")
