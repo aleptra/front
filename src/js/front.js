@@ -4,6 +4,7 @@ var html,
 	  libAttribute = [],
 	  libPreload = [],
     xhrProgress,
+    appStorage,
 	  load = false,
 	  loadTemplate = false,
 	  debugMode = false,
@@ -48,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	currentScriptUrl = currentScript.getAttribute("src")
 	referrerUrl = document.referrer
 	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
-
   //core.initCoreVariables()
 
 	if(currentEnvName == "local") app.runDevFile()
@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			sclient.addHeader("storeName", file[1])
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
 				if(status == 200)
+          appStorage = response
 					app.storage(headers[0][1], response)
 			})
 		}
@@ -336,7 +337,7 @@ var core = function(){
           data = JSON.parse(mergedObject)
           return eval("data."+variable)
         }catch(err){
-          dom.get("main?tag=0").innerHTML += err +"<hr>"+ variable + "<hr><b>mergedObject:</b> "+mergedObject + "<hr><b>StrObject:</b> "+strObject
+          dom.get("main?tag=0").insertAdjacentHTML('beforeend', err +"<hr>"+ variable + "<hr><b>mergedObject:</b> "+mergedObject + "<hr><b>StrObject:</b> "+strObject+"<hr><b>App Storage:</b>"+appStorage)
         }
 			})
 		}
