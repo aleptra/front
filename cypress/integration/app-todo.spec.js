@@ -1,11 +1,11 @@
 
-describe('Open To Do Application', () => {
+describe('To Do Application', () => {
   it('Clear Cache', () => {
     cy.clearLocalStorage()
     cy.clearCookies()
   })
 
-  it('Visit To Do Application', () => {
+  it('Visit Application', () => {
     cy.visit('/marketplace/app/todo')
   })
 })

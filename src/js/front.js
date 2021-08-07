@@ -327,17 +327,15 @@ var core = function(){
 
 			var elHtml = e.innerHTML
 			e.innerHTML = elHtml.replace(/{{\s*storage\s*:\s*(.*?)\s*}}/gi, function(x){
-        var data,
+        var data = "",
             variable = x.replace(/{{(.*):(.*)(.*?)(.*)}}/gi, "$2")
 
         try{
           data = JSON.parse(mergedObject)
+          return eval("data."+variable)
         }catch(e){
-          data = ""
           console.dir(mergedObject)
         }
-
-				return eval("data."+variable)
 			})
 		}
 		if(e.tagName == "TITLE" && e.parentNode.tagName !== "HEAD"){
