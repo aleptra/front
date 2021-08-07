@@ -720,6 +720,10 @@ var core = function(){
 		return new DOMParser().parseFromString(str, "text/xml")
 	}
 
+  this.toHTML = function(str){
+		return new DOMParser().parseFromString(str, "text/html").documentElement.textContent
+	}
+
 	this.toObject = function(str){
 		obj = {}
     	var KeyVal = str.split(",")
