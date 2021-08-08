@@ -823,13 +823,13 @@ var app = function(){
 
 	this.storage = function(key, value){
 		if(key && value)
-			sessionStorage.setItem(key, value)
+			localStorage.setItem(key, value)
 		else if(key && value === null)
-			sessionStorage.removeItem(key, value)
+			localStorage.removeItem(key, value)
 		else if(key == null && !value)
-			sessionStorage.clear()
+			localStorage.clear()
 		else if(key && value === undefined)
-			return sessionStorage.getItem(key)
+			return localStorage.getItem(key)
 	}
 
 	this.runDevFile = function(){
