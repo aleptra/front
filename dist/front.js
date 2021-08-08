@@ -358,7 +358,6 @@ var core = function(){
 		if(e.hasAttribute("eventlistener")){
 			var listener = e.getAttribute("eventlistener"),
 			    action = e.getAttribute("eventaction")
-
 			window.addEventListener(listener, function(){
 				eval(action)
 			})
