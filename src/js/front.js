@@ -451,7 +451,6 @@ var core = function(){
 			}else if(type == "select"){
 				console.log("select")
 			}else{
-        console.log(value)
 				dom.bind(targetEl, value, value)
 			}
 		}
@@ -865,7 +864,7 @@ var dom = function(){
 			input = core.getParams()[value.substr(1)]
 			value = "\\" + value
 		}
-
+console.log(value)
     for(var i = 0; i < target.attributes.length; i++){
       var attr = target.attributes[i],
           attrName = attr.name+"-init"
