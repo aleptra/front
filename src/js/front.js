@@ -54,13 +54,13 @@ document.addEventListener("DOMContentLoaded", function(){
 	if(currentEnvName == "local") app.runDevFile()
 
 	if(currentScript.hasAttribute("store")){
+
 		var attr = currentScript.getAttribute("store").split(";")
 		for(storefile in attr){
 			var file = attr[storefile].split(varDivider),
 			    sclient = new xhr()
 			sclient.addHeader("storeName", file[1])
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
-				if(status == 200)
           appStorage = response
 					app.storage(headers[0][1], response)
 			})
