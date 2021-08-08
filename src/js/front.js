@@ -7,6 +7,7 @@ var html,
     appStorage,
 	  load = false,
 	  loadTemplate = false,
+    loadStorage = false,
 	  debugMode = false,
 	  isMobile = false,
 
@@ -31,23 +32,26 @@ var html,
     folderLib = "lib",
     folderPlug = "plug"
 
-document.addEventListener("DOMContentLoaded", function(){
+if (document.readyState == 'loading') {
+  url = window.location.origin + urlDelimiter
   html = document.documentElement
   title = document.title
+  referrerUrl = document.referrer
+  currentScript = document.querySelector('script[src*="front.js"]')
+  hostName = window.location.hostname
+  currentUrl = window.location.href
+  currentPage = window.location.pathname
+}
+
+document.addEventListener("DOMContentLoaded", function(){
 	front = document.getElementsByTagName("*")
 	debugMode = html.getAttribute("debug")
 	startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
-	hostName = window.location.hostname
-	url = window.location.origin + urlDelimiter
-	currentUrl = window.location.href
 	baseUrl = app.getBaseUrl(currentUrl)
 	environments = app.getCurrentEnvironment()
 	currentEnvName = environments[0]
 	currentEnvUrl = environments[1]
-	currentPage = window.location.pathname
-	currentScript = document.querySelector('script[src*="front.js"]')
 	currentScriptUrl = currentScript.getAttribute("src")
-	referrerUrl = document.referrer
 	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
   //core.initCoreVariables()
 
@@ -65,6 +69,8 @@ document.addEventListener("DOMContentLoaded", function(){
 					app.storage(headers[0][1], response)
 			})
 		}
+    load = false
+    loadStorage = true
 	}
 
 	if(!core.hasTemplateLayout()){
