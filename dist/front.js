@@ -453,7 +453,6 @@ var core = function(){
 			}else{
         console.log(value)
 				dom.bind(targetEl, value, value)
-        console.log("mjaooo")
 			}
 		}
 		if(e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
