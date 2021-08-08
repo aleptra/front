@@ -34,7 +34,7 @@
               <form method="patch" datasource="{{ storage:api.todo.endpoint }}?id=eq.{{ jsonget:id }}" dataheader="{{ storage:api.todo.headers }}" reset="false">
                   <figure class="p1 bcwhite" jsonpayload="id:id;" filteron="{{ jsonget:task }}">
                       <input id="task{{ jsonget:id }}" class="f0 z15" type="checkbox" patch="{{ jsonget:id }}" bind3="todo-tasks:id" value="{{ jsonget:id }}" if="{{ jsonget:done }};true;checked">
-                      <input type="text" name="task" class="f2 bc0 pl1 text mih0" jsonget="task">
+                      <input type="text" name="task" class="f1 bc0 pl1 text mih0" jsonget="task">
                   </figure>
               </form>
             </div>
