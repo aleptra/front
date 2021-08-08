@@ -806,8 +806,8 @@ select{
 }
 
 input[type=radio],input[type=checkbox]{
-  min-height: 2rem;
-  min-width: 2rem
+  min-height: .8rem;
+  min-width: .8rem
 }
 
 button,.button{
