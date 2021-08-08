@@ -52,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
   //core.initCoreVariables()
 
+  if(currentEnvName == "local") app.runDevFile()
+
 	if(currentScript.hasAttribute("store")){
 
 		var attr = currentScript.getAttribute("store").split(";")
@@ -146,7 +148,6 @@ window.onerror = function (msg, url, line) {
 
 window.addEventListener("load", function(){
 	if(load){
-    if(currentEnvName == "local") app.runDevFile()
 		core.runLibPreloads()
 		core.runFrontAttributes()
 	}
