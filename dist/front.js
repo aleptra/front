@@ -32,7 +32,7 @@ var html,
     folderLib = "lib",
     folderPlug = "plug"
 
-if (document.readyState == 'loading') {
+if(document.readyState == "loading"){
   url = window.location.origin + urlDelimiter
   html = document.documentElement
   title = document.title
