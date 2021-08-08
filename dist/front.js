@@ -32,12 +32,30 @@ var html,
     folderLib = "lib",
     folderPlug = "plug"
 
+
+    currentScript = document.querySelector('script[src*="front.js"]')
+    if(currentScript.hasAttribute("store")){
+
+      var attr = currentScript.getAttribute("store").split(";")
+      for(storefile in attr){
+        var file = attr[storefile].split(varDivider),
+            sclient = new xhr()
+            sclient.timeout = 10000
+        sclient.addHeader("storeName", file[1])
+        sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
+            appStorage = response
+            app.storage(headers[0][1], response)
+        })
+      }
+      load = false
+      loadStorage = true
+    }
+
 if(document.readyState == "loading") {
   url = window.location.origin + urlDelimiter
   html = document.documentElement
   title = document.title
   referrerUrl = document.referrer
-  currentScript = document.querySelector('script[src*="front.js"]')
   hostName = window.location.hostname
   currentUrl = window.location.href
   currentPage = window.location.pathname
@@ -57,22 +75,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 	if(currentEnvName == "local") app.runDevFile()
 
-	if(currentScript.hasAttribute("store")){
 
-		var attr = currentScript.getAttribute("store").split(";")
-		for(storefile in attr){
-			var file = attr[storefile].split(varDivider),
-			    sclient = new xhr()
-          sclient.timeout = 10000
-			sclient.addHeader("storeName", file[1])
-			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
-          appStorage = response
-					app.storage(headers[0][1], response)
-			})
-		}
-    load = false
-    loadStorage = true
-	}
 
 	if(!core.hasTemplateLayout()){
 
