@@ -32,7 +32,12 @@ var html,
     folderLib = "lib",
     folderPlug = "plug"
 
+if (document.readyState == "loading"){
+  alert('ss')
+  if(currentEnvName == "local") app.runDevFile()
+}
 document.addEventListener("DOMContentLoaded", function(){
+  alert('ss')
   html = document.documentElement
   title = document.title
 	front = document.getElementsByTagName("*")
@@ -51,8 +56,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	referrerUrl = document.referrer
 	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
   //core.initCoreVariables()
-
-	if(currentEnvName == "local") app.runDevFile()
 
 	if(currentScript.hasAttribute("store")){
 
@@ -182,12 +185,11 @@ function require(src, folder){
 	asset.rel = "stylesheet"
 	asset.async = false
   asset.defer = "defer"
-  	asset.onload = function(){
-		  app.debug("Load: "+ src)
-	  }
+  asset.onload = function(){
+		app.debug("Load: "+ src)
+	}
 
 	head.appendChild(asset)
-  	//firstScript.parentNode.insertBefore(js, firstScript)
 }
 
 function scrollTo(element, to, duration){
