@@ -790,7 +790,7 @@ form .group .input-control{
   }
 }
 
-input[type=text],input[type=password],select,textarea,button,.button{
+input,select,textarea,button,.button{
   min-height: 2rem;
   flex: none;
   position: relative;

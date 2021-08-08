@@ -440,7 +440,7 @@ var core = function(){
 					  if(e.hasAttribute("bindinclude"))
               core.includeBindFile(e, input.target.value, target, value)
 					  else
-              dom.bind(targetEl, value, input)
+              dom.bind(targetEl, input.target.value, input.target.value)
 				}
       }else if(type == "checkbox" || type == "radio"){
 
@@ -864,10 +864,12 @@ var dom = function(){
 			input = core.getParams()[value.substr(1)]
 			value = "\\" + value
 		}
+console.log(value)
+console.log(target)
     for(var i = 0; i < target.attributes.length; i++){
       var attr = target.attributes[i],
           attrName = attr.name+"-init"
-
+      console.dir(attr)
       if(target.hasAttribute(attrName)) target.setAttribute(attr.name, atob(target.getAttribute(attrName)))
 
       if(attr.value.match("{# " + value + "(.*?)#}", "gi")){
