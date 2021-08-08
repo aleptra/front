@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function(){
 		for(storefile in attr){
 			var file = attr[storefile].split(varDivider),
 			    sclient = new xhr()
+          sclient.timeout = 10000
 			sclient.addHeader("storeName", file[1])
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
           appStorage = response
