@@ -32,7 +32,7 @@ var html,
     folderLib = "lib",
     folderPlug = "plug"
 
-if(document.readyState == "loading"){
+if(document.readyState == "loading") {
   url = window.location.origin + urlDelimiter
   html = document.documentElement
   title = document.title
@@ -343,7 +343,7 @@ var core = function(){
           data = JSON.parse(mergedObject)
           return eval("data."+variable)
         }catch(err){
-          dom.get("main?tag=0").insertAdjacentHTML('beforeend', err +"<hr>"+ variable + "<hr><b>mergedObject:</b> "+mergedObject + "<hr><b>StrObject:</b> "+strObject+"<hr><b>App Storage:</b>"+appStorage)
+          dom.get("main?tag=0").insertAdjacentHTML('beforeend', err +"<hr>"+ variable + "<hr><b>mergedObject:</b> "+mergedObject + "<hr><b>StrObject:</b> "+strObject+"<hr><b>App Storage:</b>"+appStorage+"<hr><b>LoadStorage:</b>"+loadStorage)
         }
 			})
 		}
