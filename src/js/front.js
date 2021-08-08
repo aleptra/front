@@ -32,12 +32,7 @@ var html,
     folderLib = "lib",
     folderPlug = "plug"
 
-if (document.readyState == "loading"){
-  alert('ss')
-  if(currentEnvName == "local") app.runDevFile()
-}
 document.addEventListener("DOMContentLoaded", function(){
-  alert('ss')
   html = document.documentElement
   title = document.title
 	front = document.getElementsByTagName("*")
@@ -151,6 +146,7 @@ window.onerror = function (msg, url, line) {
 
 window.addEventListener("load", function(){
 	if(load){
+    if(currentEnvName == "local") app.runDevFile()
 		core.runLibPreloads()
 		core.runFrontAttributes()
 	}
