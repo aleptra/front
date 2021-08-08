@@ -442,7 +442,7 @@ var core = function(){
 					  else
               dom.bind(targetEl, value, input)
 				}
-      }else if(type == "checkbox"){
+      }else if(type == "checkbox" || type == "radio"){
 
         e.onclick = function(input){
           return dom.bind(targetEl, value, input.target.value)
