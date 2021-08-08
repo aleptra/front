@@ -32,26 +32,27 @@ var html,
     folderLib = "lib",
     folderPlug = "plug"
 
-if(document.readyState == "loading") {
-  url = window.location.origin + urlDelimiter
-  html = document.documentElement
-  title = document.title
-  referrerUrl = document.referrer
-  currentScript = document.querySelector('script[src*="front.js"]')
-  hostName = window.location.hostname
-  currentUrl = window.location.href
-  currentPage = window.location.pathname
+if (document.readyState == 'loading') {
+      alert('wee')
 }
 
 document.addEventListener("DOMContentLoaded", function(){
+  html = document.documentElement
+  title = document.title
 	front = document.getElementsByTagName("*")
 	debugMode = html.getAttribute("debug")
 	startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
+	hostName = window.location.hostname
+	url = window.location.origin + urlDelimiter
+	currentUrl = window.location.href
 	baseUrl = app.getBaseUrl(currentUrl)
 	environments = app.getCurrentEnvironment()
 	currentEnvName = environments[0]
 	currentEnvUrl = environments[1]
+	currentPage = window.location.pathname
+	currentScript = document.querySelector('script[src*="front.js"]')
 	currentScriptUrl = currentScript.getAttribute("src")
+	referrerUrl = document.referrer
 	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
   //core.initCoreVariables()
 
@@ -63,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function(){
 		for(storefile in attr){
 			var file = attr[storefile].split(varDivider),
 			    sclient = new xhr()
-          sclient.timeout = 10000
 			sclient.addHeader("storeName", file[1])
 			sclient.get(currentEnvUrl + file[0] + ".json", function(response, status, headers){
           appStorage = response
