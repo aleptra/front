@@ -835,7 +835,7 @@ var app = function(){
 			if(status == 200)
 				eval(response)
 				app.debug("Include file: .env", "green")
-		})
+		},true)
 	}
 
 	this.redirect = function(url){
