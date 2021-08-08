@@ -330,7 +330,7 @@ var core = function(){
 			var attr = e.getAttribute("storage").split(";"),
 			    strObject = ""
 			for(i in attr){
-				strObject += app.storage(attr[i])
+				strObject += app.storage(attr[i]) || ''
 			}
 			var mergedObject = core.mergeObject(strObject)
 			var elHtml = e.innerHTML
