@@ -32,10 +32,6 @@ var html,
     folderLib = "lib",
     folderPlug = "plug"
 
-if (document.readyState == 'loading') {
-      alert('wee')
-}
-
 document.addEventListener("DOMContentLoaded", function(){
   html = document.documentElement
   title = document.title
