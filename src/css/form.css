@@ -45,7 +45,7 @@ form .group .input-control{
   }
 }
 
-input,select,textarea,button,.button{
+input[type=text],input[type=password],select,textarea,button,.button{
   min-height: 2rem;
   flex: none;
   position: relative;
@@ -58,11 +58,6 @@ input,select,textarea,button,.button{
 
 select{
   height: 3rem;
-}
-
-input[type="checkbox"], input[type="checkbox"]:hover{
-  box-shadow: unset;
-  min-height: unset;
 }
 
 button,.button{
