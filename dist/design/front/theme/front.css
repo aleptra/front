@@ -82,7 +82,7 @@ nav.pagination{
     -moz-box-shadow: unset;
 }
 
-select,input,textarea,button{
+select,textarea,button,input[type=text],input[type=password],input[type=email]{
     box-shadow: 0 1px 0 rgba(0,0,0,.4);
     background-color: rgba(0,0,0,.05);
     color: rgba(0,0,0,.87);
