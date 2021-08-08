@@ -428,13 +428,11 @@ var core = function(){
 			}
 		}
 		if(e.hasAttribute("bind3")){
-			var attr = e.getAttribute("bind3").split(":")
-			var target = attr[0]
-			var value = attr[1]
-
-			var type = e.type,
+			var attr = e.getAttribute("bind3").split(":"),
+			    target = attr[0],
+			    value = attr[1],
+          type = e.type,
 			    targetEl = dom.get(target)
-			    orgEl = (targetEl) ? targetEl.outerHTML : ''
 
 			if(type == "text"){
 				e.onkeypress = function(input){
@@ -453,7 +451,9 @@ var core = function(){
 			}else if(type == "select"){
 				console.log("select")
 			}else{
-				dom.bind(targetEl, value, orgEl)
+        console.log(value)
+				dom.bind(targetEl, value, value)
+        console.log("mjaooo")
 			}
 		}
 		if(e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
