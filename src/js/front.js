@@ -181,9 +181,10 @@ function require(src, folder){
 	asset.href = src
 	asset.rel = "stylesheet"
 	asset.async = false
+  asset.defer = "defer"
   	asset.onload = function(){
-		app.debug("Load: "+ src)
-	}
+		  app.debug("Load: "+ src)
+	  }
 
 	head.appendChild(asset)
   	//firstScript.parentNode.insertBefore(js, firstScript)
