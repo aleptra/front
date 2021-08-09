@@ -440,7 +440,7 @@ var core = function(){
 					  if(e.hasAttribute("bindinclude"))
               core.includeBindFile(e, input.target.value, target, value)
 					  else
-              dom.bind(targetEl, input.target.value, input.target.value)
+              dom.bind(targetEl, value, input.target.value)
 				}
       }else if(type == "checkbox" || type == "radio"){
 
@@ -864,17 +864,18 @@ var dom = function(){
 			input = core.getParams()[value.substr(1)]
 			value = "\\" + value
 		}
-console.log(value)
-console.log(target)
+
+    var match = "{# " + value + "(.*?)#}"
+
     for(var i = 0; i < target.attributes.length; i++){
       var attr = target.attributes[i],
           attrName = attr.name+"-init"
-      console.dir(attr)
-      if(target.hasAttribute(attrName)) target.setAttribute(attr.name, atob(target.getAttribute(attrName)))
 
-      if(attr.value.match("{# " + value + "(.*?)#}", "gi")){
-        var init = btoa(attr.value)
-        var attrVal = attr.value.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
+      if(target.hasAttribute(attrName)) target.setAttribute(attr.name, target.getAttribute(attrName).b64d())
+
+      if(attr.value.match(match, "gi")){
+        var init = attr.value.b64e()
+        var attrVal = attr.value.replace(new RegExp(match, "gi"), function(out1, out2){
           var isMod = (out1.indexOf("=") > 0) ? true : false
           return core.callAttributes(input, input+out2, isMod)
         })
@@ -882,6 +883,21 @@ console.log(target)
         target.setAttribute(attrName, init)
       }
     }
+
+    var attrName = "inner-init"
+
+    if(target.hasAttribute(attrName))
+      target.innerHTML = target.getAttribute(attrName).b64d()
+    else
+      target.setAttribute(attrName, target.innerHTML.b64e())
+
+    if(target.innerHTML.match(match, "gi")){
+      target.innerHTML = target.innerHTML.replace(new RegExp(match, "gi"), function(out1, out2){
+        var isMod = (out1.indexOf("=") > 0) ? true : false
+        return core.callAttributes(input, input+out2, isMod)
+      })
+    }
+
 	}
 
   this.bindInclude = function(target, value, input){
@@ -891,7 +907,7 @@ console.log(target)
 			value = "\\" + value
 		}
 
-		target.outerHTML = target.outerHTML.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
+		target.innerHTML = target.innerHTML.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
 			var isMod = (out1.indexOf("=") > 0) ? true : false
 			return core.callAttributes(input, input+out2, isMod)
 		})
@@ -1329,6 +1345,13 @@ var xhr = function(){
 		app.debug("%c API (POST): "+JSON.stringify(data), "green", "white")
 		request.send(JSON.stringify(data))
   	}
+}
+
+String.prototype.b64e = function(){
+  return btoa(unescape(encodeURIComponent(this)))
+}
+String.prototype.b64d = function(){
+  return decodeURIComponent(escape(atob(this)))
 }
 
 var core = new core()
