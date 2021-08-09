@@ -893,8 +893,7 @@ console.log(target)
 
 		target.outerHTML = target.outerHTML.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
 			var isMod = (out1.indexOf("=") > 0) ? true : false
-			input = core.callAttributes(input, input+out2, isMod)
-			return input
+			return core.callAttributes(input, input+out2, isMod)
 		})
 	}
 
