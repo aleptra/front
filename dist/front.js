@@ -884,12 +884,10 @@ var dom = function(){
       }
     }
 
-    var attrName = "inner-init"
-
-    if(target.hasAttribute(attrName))
-      target.innerHTML = target.getAttribute(attrName).b64d()
+    if(target.init)
+      target.innerHTML = target.init
     else
-      target.setAttribute(attrName, target.innerHTML.b64e())
+      target.init = target.innerHTML
 
     if(target.innerHTML.match(match, "gi")){
       target.innerHTML = target.innerHTML.replace(new RegExp(match, "gi"), function(out1, out2){
