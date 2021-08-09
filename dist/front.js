@@ -435,8 +435,9 @@ var core = function(){
 			    targetEl = dom.get(target)
 
 			if(type == "text"){
-				e.onkeypress = function(input){
-          if(input.keyCode === 13)
+        var key = e.getAttribute("bindkey") || 13
+				e.onkeyup = function(input){
+          if(input.keyCode === key || key === "true")
 					  if(e.hasAttribute("bindinclude"))
               core.includeBindFile(e, input.target.value, target, value)
 					  else

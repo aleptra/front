@@ -1,0 +1,40 @@
+<script src="../../dist/front.js" template="index"></script>
+
+<h1>Binding</h1>
+
+<h3 class="mt2">Text:</h3>
+<section id="test-texts">
+
+  <form>
+    <h7>Input (catch enter):</h7>
+    <input type="text" bind3="texts:id"><br>
+    <h7>Input (catch all keys):</h7>
+    <input type="text" bind3="texts:id" bindkey="true"><br>
+    <h7>Input (no reset form):</h7>
+    <input type="text" bind3="texts:id" reset="false"><br>
+    <h7>Input (reset form):</h7>
+    <input type="text" bind3="texts:id" reset="true"><br>
+  </form>
+
+  <h5>Output:</h5>
+  <div id="texts" bindvalue="{# id #}" class="bos1 p1">{# id #}
+    <div id="test">Text in element</div>
+  </div>
+
+</section>
+<!--
+<section id="test-checkboxs">
+  <div id="checkboxs" bindvalue="{# id #}">
+    <input type="checkbox" bind3="checkboxs:id" value="1"> 1
+    <input type="checkbox" bind3="checkboxs:id" value="2"> 2
+    <input type="checkbox" bind3="checkboxs:id" value="3"> 3
+  </div>
+</section>
+
+<section id="test-radios">
+  <div id="radios" bindvalue="{# id #}">
+    <input type="radio" name="radio" bind3="radios:id" value="1"> 1
+    <input type="radio" name="radio" bind3="radios:id" value="2"> 2
+    <input type="radio" name="radio" bind3="radios:id" value="3"> 3
+  </div>
+</section>-->
