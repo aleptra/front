@@ -1,7 +1,4 @@
-<script 
-    src="../../dist/front.js"
-    template="index;documentation/index">
-</script>
+<script src="../../dist/front.js" template="index;documentation/index"></script>
 
 <title globalize="iteration">Iteration</title>
 
@@ -31,7 +28,7 @@
 
       <input type="radio" name="panel1" id="tab2">
       <label class="z09" for="tab2" globalize="run" onclick="_.run('source1')"><i class="icon">&#9658;</i>Kör</label>
-      <section class="h20" run="false">
+      <section run="false">
         <pre id="source1">
             <div variable="i:1" iterate="10;i++">
               <div>
@@ -41,6 +38,6 @@
               <hr>
             </div>
         </pre>
-      </section>  
+      </section>
     </nav>
 </section>
