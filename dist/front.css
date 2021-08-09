@@ -1804,6 +1804,9 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .m05, .m05-> *{margin: .5rem}
 .m075, .m075-> *{margin: .75rem}
 
+body [class*='mih']{min-height: inherit!important}
+body [class*='mah']{max-height: inherit!important}
+
 body .bos0{border-style: none}
 body .bos1{border-style: outset}
 body .bos2{border-style: inset}
