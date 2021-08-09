@@ -622,7 +622,7 @@ var core = function(){
 				el = dom.get(target)
 				el.innerHTML = response
 				el.removeAttribute("include")
-				dom.bindInclude(el, value, input)
+				dom.bind(el, value, input)
 				core.runAttributesInElement(target)
 			}
 		})
@@ -898,19 +898,6 @@ var dom = function(){
       })
     }
 
-	}
-
-  this.bindInclude = function(target, value, input){
-
-		if(value[0] == "?"){
-			input = core.getParams()[value.substr(1)]
-			value = "\\" + value
-		}
-
-		target.innerHTML = target.innerHTML.replace(new RegExp("{# " + value + "(.*?)#}", "gi"), function(out1, out2){
-			var isMod = (out1.indexOf("=") > 0) ? true : false
-			return core.callAttributes(input, input+out2, isMod)
-		})
 	}
 
 	this.run = function(el){
