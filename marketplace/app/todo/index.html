@@ -27,11 +27,11 @@
             <form method="post" datasource="{{ storage:api.todo.endpoint }}" dataheader="{{ storage:api.todo.headers }}">
                 <figure class="p1 shade1 bcwhite">
                     <p class="f0"></p>
-                    <input type="text" name="task" class="f2 bcwhite pl1" jsonget="task" filteron="true" contenteditable="true"></p>
+                    <input type="text" name="task" class="f2 bcwhite pl1" jsonget="task" filteron="true" autocomplete="off"></p>
                 </figure>
             </form>
             <div id="todo-tasks" class="box cards list br0-" iterate="true" json="true" datasource="{{ storage:api.todo.endpoint }}?order=id.desc" dataheader="{{ storage:api.todo.headers }}" datapatch="{{ storage:api.todo.endpoint }}?id=eq.{# id #}" filter="true">
-              <form method="patch" datasource="{{ storage:api.todo.endpoint }}?id=eq.{{ jsonget:id }}" dataheader="{{ storage:api.todo.headers }}" reset="false">
+              <form method="patch" datasource="{{ storage:api.todo.endpoint }}?id=eq.{{ jsonget:id }}" dataheader="{{ storage:api.todo.headers }}" reset="false" autocomplete="off" spellcheck="false">
                   <figure class="p1 bcwhite" jsonpayload="id:id;" filteron="{{ jsonget:task }}">
                       <input id="task{{ jsonget:id }}" class="f0 z15" type="checkbox" patch="{{ jsonget:id }}" bind3="todo-tasks:id" value="{{ jsonget:id }}" if="{{ jsonget:done }};true;checked">
                       <input type="text" name="task" class="f1 bc0 pl1 text mih0" jsonget="task">
