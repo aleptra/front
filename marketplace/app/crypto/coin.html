@@ -1,17 +1,101 @@
-<script src="../../../dist/front.js" template="../"></script>
+<script src="../../../dist/front.js" template="marketplace/app/crypto/index"></script>
 
 <title>Coin</title>
 
-<section id="crypto" storage="api;cdn">
-    <div id="crypto-coins" class="box cards list bcwhite- gut2-" json="true" datasource="{{ storage:api.crypto.endpoint }}assets&symbol=LTC" filter="true">
-        <figure class="p1 fdc" jsonset="id" filteron="{{ jsonget:n }} {{ jsonget:s }}">
-            <img class="f0 pr1 w3r" src="{{ storage:cdn.crypto.url }}{{ jsonget:data[0].symbol = replace(' ','-') = replace('\\)','') = replace('\\(','') = toLower }}.png" jsonmod="true">
-            <div>
-                <p class="fwb" jsonget="data[0].name"></p>
-                <small class="gray" jsonget="s"></small>
-            </div>
-            <p class="f1 tar green" jsonget="p" fixedpoint="3" afterbegin="$ "></p>
-            <p class="fwb d0" jsonget="n"></p>
+<article class="pauto" storage="api;cdn" json="coin" bind3="coin:?s">
+    <section id="coin" iterate="data" datasource="{{ storage:api.crypto.endpoint }}assets&symbol={# ?s #}">
+      <nav class="aic">
+        <img class="f0 pr1" src="{{ storage:cdn.crypto.url }}{{ jsonget:name = replace(' ','-') = replace('\\)','') = replace('\\(','') = toLower }}.png" jsonmod="true"><h1 jsonget="name"></h1>
+      </nav>
+        <div class="box cards mt1 br0- flc-">
+            <figure class="pauto bcwhite">
+                <p class="fwb">
+                    <i class="dimgray w10r" globalize="first_name"><small class="fs07">Price</small></i>${{ jsonget:price }}
+                </p>
+            </figure>
+            <figure class="pauto bcwhite">
+              <p class="fwb">
+                  <i class="dimgray w10r" globalize="first_name"><small class="fs07">% CHANGE 1W</small></i>{{ jsonget:percent_change_24h }}%
+              </p>
+          </figure>
+          <figure class="pauto bcwhite">
+            <p class="fwb">
+                <i class="dimgray w10r" globalize="first_name"><small class="fs07">MARKET CAP</small></i>${{ jsonget:market_cap_global }}
+            </p>
         </figure>
-    </div>
-</section>
+        <figure class="pauto bcwhite">
+          <p class="fwb">
+              <i class="dimgray w10r" globalize="first_name"><small class="fs07">Volume 24H</small></i>${{ jsonget:volume_24h }}
+          </p>
+      </figure>
+        </div>
+    </section>
+
+    <figure class="cards bcwhite">
+
+      <ul class="sparklist pauto">
+            <li>
+              <span class="sparkline">
+                <span class="index"><span class="count" style="height: 27%;">(60,</span> </span>
+                <span class="index"><span class="count" style="height: 97%;">220,</span> </span>
+                <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+                <span class="index"><span class="count" style="height: 35%;">80,</span> </span>
+                <span class="index"><span class="count" style="height: 49%;">110,</span> </span>
+                <span class="index"><span class="count" style="height: 40%;">90,</span> </span>
+                <span class="index"><span class="count" style="height: 80%;">180,</span> </span>
+                <span class="index"><span class="count" style="height: 62%;">140,</span> </span>
+                <span class="index"><span class="count" style="height: 53%;">120,</span> </span>
+                <span class="index"><span class="count" style="height: 71%;">160,</span> </span>
+                <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
+                <span class="index"><span class="count" style="height: 100%;">225,</span> </span>
+                <span class="index"><span class="count" style="height: 78%;">175,</span> </span>
+                <span class="index"><span class="count" style="height: 56%;">125)</span> </span>
+              </span>
+            </li>
+
+          </ul>
+      </figure>
+
+
+</article>
+
+<style>
+  .sparklist {
+  overflow: visible;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.sparklist li {
+  list-style: none;
+  margin-right: 35px;
+}
+
+
+.sparkline {
+  display: inline-block;
+  height: 10rem;
+  margin: 0 2em;
+  transition: all 0.5s ease;
+}
+
+.sparkline .index {
+  position: relative;
+  float: left;
+  width: 2px;
+  height: inherit;
+}
+
+.sparkline .index .count {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: #AAA;
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+}
+</style>
