@@ -3,10 +3,11 @@
 <title>Coin</title>
 
 <section id="crypto" storage="api;cdn">
-    <div id="crypto-coins" class="box cards list bcwhite- gut2-" json="true" datasource="{{ storage:api.crypto.endpoint }}data=assets&symbol=LTC" filter="true">
+    <div id="crypto-coins" class="box cards list bcwhite- gut2-" json="true" datasource="{{ storage:api.crypto.endpoint }}assets&symbol=LTC" filter="true">
         <figure class="p1 fdc" jsonset="id" filteron="{{ jsonget:n }} {{ jsonget:s }}">
+            <img class="f0 pr1 w3r" src="{{ storage:cdn.crypto.url }}{{ jsonget:data[0].symbol = replace(' ','-') = replace('\\)','') = replace('\\(','') = toLower }}.png" jsonmod="true">
             <div>
-                <p class="fwb" jsonget="n"></p>
+                <p class="fwb" jsonget="data[0].name"></p>
                 <small class="gray" jsonget="s"></small>
             </div>
             <p class="f1 tar green" jsonget="p" fixedpoint="3" afterbegin="$ "></p>
