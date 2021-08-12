@@ -3,6 +3,7 @@ var html,
 	  frontVariables = [],
 	  libAttribute = [],
 	  libPreload = [],
+    listenEls = [],
     xhrProgress,
     appStorage,
 	  load = false,
@@ -51,6 +52,24 @@ document.addEventListener("DOMContentLoaded", function(){
 	referrerUrl = document.referrer
 	isMobile = "ontouchstart" in window && window.screen.availWidth < 768
   //core.initCoreVariables()
+
+  var main = dom.get("main?tag=0"),
+      triggered = false
+  if (main) main.addEventListener("scroll", function(e){
+    x = e.target.scrollLeft
+    y = e.target.scrollTop
+
+    var el = dom.get(listenEls[0]),
+        attr = el.getAttribute("scrolltoggle").split(";"),
+        attrX = attr[0],
+        attrY = attr[1]
+      if ((attrX >= x && y >= attrY) && triggered) {
+        dom.hide(el)
+      }else{
+        triggered = true
+        dom.show(el)
+      }
+  })
 
   if(currentEnvName == "local") app.runDevFile()
 
@@ -314,6 +333,13 @@ var core = function(){
 		this.runFunction = function(fnc, arg){
 			eval(fnc)(arg)
 		}
+
+    this.runListener = function(e){
+      var listener = e.getAttribute("eventlistener"), action = e.getAttribute("eventaction")
+      window.addEventListener(listener, function(){
+        eval(action)
+      })
+    }
 	}
 
 	this.runCoreAttributes = function(e){
@@ -355,13 +381,8 @@ var core = function(){
 				dom.create("meta", ["httpEquiv=Expires", "content=0"], "head")
 			}
 		}
-		if(e.hasAttribute("eventlistener")){
-			var listener = e.getAttribute("eventlistener"),
-			    action = e.getAttribute("eventaction")
-			window.addEventListener(listener, function(){
-				eval(action)
-			})
-		}
+		if(e.hasAttribute("eventlistener"))
+			core.runListener(e)
 		if(e.tagName == "TEMPLATE" && !loadTemplate){
 			var template1 = core.toArray(dom.getChildren("template?tag=0")),
 			    template2 = core.toArray(dom.getChildren("template?tag=1")),
@@ -541,6 +562,8 @@ var core = function(){
 			var set = (val[1] == "false") ? dom.escape(content) : content
 			e.innerHTML = set
 		}
+    if(e.hasAttribute("scrolltoggle"))
+      listenEls.push(e)
 		if(e.tagName == "CODE"){
 			//this.runCoreAttributesInElement(e)
 		}
