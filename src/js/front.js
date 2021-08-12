@@ -849,6 +849,7 @@ var dom = function(){
 	var oldClass = ""
 
 	this.get = function(obj){
+    if(core.isObject(obj)) return obj
 		var res = obj.split(elementDivider)
 		if(res[1] === "tag"){
 			var index = (res[2]) ? res[2] : 0
@@ -945,8 +946,7 @@ var dom = function(){
 	}
 
 	this.focus = function(obj){
-		var el = core.isObject(obj) ? obj : this.get(obj)
-		el.focus()
+		this.get(obj).focus()
 	}
 
 	this.remove = function(obj){
@@ -1216,7 +1216,7 @@ var dom = function(){
 	}
 
 	this.getChildren = function(el){
-		var el = core.isObject(el) ? el : this.get(el)
+		var el = this.get(el)
 		if(!el)
 			return false
 		else if(typeof(el["content"]) !== "undefined")
