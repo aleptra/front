@@ -55,20 +55,22 @@ document.addEventListener("DOMContentLoaded", function(){
 
   var main = dom.get("main?tag=0"),
       triggered = false
-  if (main) main.addEventListener("scroll", function(e){
+  if(main) main.addEventListener("scroll", function(e){
     x = e.target.scrollLeft
     y = e.target.scrollTop
 
-    var el = dom.get(listenEls[0]),
+    if(listenEls.length > 0){
+      var el = dom.get(listenEls[0]),
         attr = el.getAttribute("scrolltoggle").split(";"),
         attrX = attr[0],
         attrY = attr[1]
-      if ((attrX >= x && y >= attrY) && triggered) {
+      if((attrX >= x && y >= attrY) && triggered){
         dom.hide(el)
       }else{
         triggered = true
         dom.show(el)
       }
+    }
   })
 
   if(currentEnvName == "local") app.runDevFile()
