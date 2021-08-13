@@ -241,6 +241,7 @@ function jsonPush(payload, e){
   xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
   xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   xhr.setRequestHeader("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS,PATCH")
+  xhr.setRequestHeader("Accept", "application/json")
   xhr.onreadystatechange = function(){
     console.log(this.status)
     if(this.readyState == 4 && (this.status == 200 || this.status == 201 || this.status == 204))
