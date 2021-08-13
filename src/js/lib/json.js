@@ -238,6 +238,8 @@ function jsonPush(payload, e){
   var xhr = new XMLHttpRequest()
   xhr.open(method, url, true)
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+  xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+  xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   xhr.setRequestHeader("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS,PATCH")
   xhr.onreadystatechange = function(){
     console.log(this.status)
