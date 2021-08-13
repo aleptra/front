@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function(){
   xhrProgress = dom.get("navprogress")
 })
 
-window.onerror = function (msg, url, line) {
+window.onerror = function(msg, url, line){
   dom.create('div', ['id=fronterror', 'className=alert pf b1 l1 bcred white snack', 'innerHTML='+msg + "<br>" + " at " + url + ":"+line], 'footer')
 }
 
