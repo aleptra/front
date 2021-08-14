@@ -208,12 +208,14 @@ function jsonParseHeader(aEl, responseHeader){
 }
 
 function jsonSerialize(inputs){
-  pairs = {}
+  var pairs = {}
   for(var i = 0; i < inputs.length; i++) {
     var payload = inputs[i].getAttribute("payload"),
-        type = inputs[i].getAttribute("type")
-    if (payload !== "false" || type !== "submit" || type !== "reset")
-      pairs[inputs[i].name] = inputs[i].value
+        type = inputs[i].getAttribute("type"),
+        name = inputs[i].name,
+        value = inputs[i].value
+    if (name && (payload !== "false" || type !== "submit" || type !== "reset"))
+      pairs[name] = value
   }
   return JSON.stringify(pairs, null, 2)
 }
