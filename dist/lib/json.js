@@ -208,10 +208,11 @@ function jsonParseHeader(aEl, responseHeader){
 }
 
 function jsonSerialize(inputs){
-  var formData = new FormData(inputs),
   pairs = {}
-  for(var [name, value] of formData){
-    pairs[name] = value
+  for(var i = 0; i < inputs.length; i++) {
+    var payload = inputs[i].getAttribute("payload"),
+        type = inputs[i].getAttribute("type")
+    if (payload !== "false" || type !== "submit") pairs[inputs[i].name] = inputs[i].value
   }
   return JSON.stringify(pairs, null, 2)
 }
