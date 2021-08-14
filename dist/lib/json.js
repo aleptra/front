@@ -212,7 +212,8 @@ function jsonSerialize(inputs){
   for(var i = 0; i < inputs.length; i++) {
     var payload = inputs[i].getAttribute("payload"),
         type = inputs[i].getAttribute("type")
-    if (payload !== "false" || type !== "submit") pairs[inputs[i].name] = inputs[i].value
+    if (payload !== "false" || type !== "submit" || type !== "reset")
+      pairs[inputs[i].name] = inputs[i].value
   }
   return JSON.stringify(pairs, null, 2)
 }
