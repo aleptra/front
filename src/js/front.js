@@ -470,9 +470,12 @@ var core = function(){
 
         e.onclick = function(input){
           if(value.split("|")){
-            var values = value.split("|")
-            var newValue = (values[0] == input.target.value) ? values[1] : values[0]
+            var values = value.split("|"),
+                newValue = (values[0] == input.target.value) ? values[1] : values[0],
+                newCheckedValue = (newValue === "true") ? true : false
+            targetEl.setAttribute("checked", newCheckedValue)
             targetEl.value = newValue
+            targetEl.checked = newCheckedValue
           }else{
             return dom.bind(targetEl, value, input.target.value)
           }
