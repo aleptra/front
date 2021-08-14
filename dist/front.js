@@ -469,7 +469,13 @@ var core = function(){
       }else if(type == "checkbox" || type == "radio"){
 
         e.onclick = function(input){
-          return dom.bind(targetEl, value, input.target.value)
+          if(value.split("|")){
+            var values = value.split("|")
+            var newValue = (values[0] == input.target.value) ? values[1] : values[0]
+            targetEl.value = newValue
+          }else{
+            return dom.bind(targetEl, value, input.target.value)
+          }
         }
 
 			}else if(type == "select"){
