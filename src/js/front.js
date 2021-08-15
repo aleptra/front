@@ -4,6 +4,7 @@ var html,
 	  libAttribute = [],
 	  libPreload = [],
     listenEls = [],
+    bindEls = [],
     xhrProgress,
     appStorage,
 	  load = false,
@@ -575,6 +576,12 @@ var core = function(){
 		}
     if(e.hasAttribute("scrolltoggle"))
       listenEls.push(e)
+    if(e.hasAttribute("bindvalue")){
+      var attr = e.getAttribute("bind3").split(":"),
+          value = e.getAttribute("bindvalue"),
+          targetEl = dom.get(attr[0])
+      bindEls.push({value: value, el: targetEl})
+    }
 		if(e.tagName == "CODE"){
 			//this.runCoreAttributesInElement(e)
 		}
