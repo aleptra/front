@@ -82,15 +82,8 @@ function json(aEl){
   xhr.onprogress = function(){eval(onprogress)}
   xhr.onerror = function(){eval(onerror)}
   xhr.onload = function(){
-    var responseHeaders = xhr.getAllResponseHeaders(),
-        arr = responseHeaders.trim().split(/[\r\n]+/),
-        responseHeader = {}
-    arr.forEach(function(line){
-      var parts = line.split(": "),
-          header = parts.shift(),
-          value = parts.join(": ")
-      responseHeader[header] = value
-    })
+
+    jsonParseHeader(xhr.getAllResponseHeaders(), aEl)
 
     var data = xhr.responseText,
         json = JSON.parse(data)
@@ -157,7 +150,6 @@ function json(aEl){
 
     core.runCoreAttributesInElement(el)
     core.runLibAttributesInElement(el)
-    jsonParseHeader(aEl, responseHeader)
     eval(ondone)
   }
   xhr.send(null)
@@ -197,8 +189,19 @@ function jsonParse(input, json){
   }
 }
 
-function jsonParseHeader(aEl, responseHeader){
+function jsonParseHeader(responseHeaders, aEl){
+
+  var arr = responseHeaders.trim().split(/[\r\n]+/),
+      responseHeader = {}
+  arr.forEach(function(line){
+    var parts = line.split(": "),
+        header = parts.shift(),
+        value = parts.join(": ")
+    responseHeader[header] = value
+  })
+
   var re = /{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi
+
   for(var i = 0; i < bindEls.length; i++){
     bindEls[i]['el'].innerHTML = bindEls[i]['el'].innerHTML.replace(re, function (e, out){
       var first = out.split("=")[0].trim(), isMod = (out.indexOf("=") > 0) ? true : false
