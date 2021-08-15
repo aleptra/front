@@ -485,7 +485,8 @@ var core = function(){
 			}else if(type == "select"){
 				console.log("select")
 			}else{
-				dom.bind(targetEl, value, value)
+        var bindvalue = (e.hasAttribute("bindvalue")) ? e.getAttribute("bindvalue") : value
+				dom.bind(targetEl, value, bindvalue)
 			}
 		}
 		if(e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
