@@ -1,6 +1,6 @@
 <script src="../../../dist/front.js" title="Category" template="marketplace/app/dictionary/index"></script>
 
-<section json="words" storage="api" bind3="words:?id">
+<section json="words" storage="api" bind="words:?id">
     <h1 class="z08" globalize="category">Category</h1>
     <div id="words" class="box cards list mt05 br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&or=(id.eq.{# ?id #},taxonomy.eq.{# ?id #})" dataheader="{{ storage:api.dictionary.headers }}">
         <figure class="p1 bcwhite">

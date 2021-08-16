@@ -489,8 +489,8 @@ var core = function(){
 				dom.bind(targetEl, value, bindvalue)
 			}
 		}
-    if(e.hasAttribute("bind3")){
-			var attr = e.getAttribute("bind3").split(":"),
+    if(e.hasAttribute("bind")){
+			var attr = e.getAttribute("bind").split(":"),
 			    target = attr[0],
 			    value = attr[1],
           type = e.type,

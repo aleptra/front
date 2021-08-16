@@ -2,7 +2,7 @@
 
 <title>Movie - {{ %title }}</title>
 
-<section class="df df- w100 h100" storage="api" json="movie" bind3="movie:?id">
+<section class="df df- w100 h100" storage="api" json="movie" bind="movie:?id">
   <div class="h100 w100" id="movie" iterate="results" jsonfilter="(0);type:'Trailer';site:'YouTube'" datasource="{{ storage:api.stream.endpoint }}movie/{# ?id #}/videos?{{ storage:api.stream.api_key }}&language=en-US&page=1">
     <iframe class="w100 h100" src="https://www.youtube-nocookie.com/embed/{{ jsonget:key }}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0&autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>

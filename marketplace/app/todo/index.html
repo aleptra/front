@@ -33,7 +33,7 @@
             <div id="todo-tasks" class="box cards list br0-" iterate="true" json="true" datasource="{{ storage:api.todo.endpoint }}?order=id.desc" dataheader="{{ storage:api.todo.headers }}" datapatch="{{ storage:api.todo.endpoint }}?id=eq.{# id #}" filter="true">
               <form method="patch" datasource="{{ storage:api.todo.endpoint }}?id=eq.{{ jsonget:id }}" dataheader="{{ storage:api.todo.headers }}" reset="false" autocomplete="off" spellcheck="false">
                   <figure class="p1 bcwhite" filteron="{{ jsonget:task }}">
-                      <input type="checkbox" bind3="task{{ jsonget:id }}:true|false" submit="partial" id="task{{ jsonget:id }}" name="done" class="f0 z15" patch="{{ jsonget:id }}" value="{{ jsonget:done }}" if="{{ jsonget:done }};true;checked">
+                      <input type="checkbox" bind="task{{ jsonget:id }}:true|false" submit="partial" id="task{{ jsonget:id }}" name="done" class="f0 z15" patch="{{ jsonget:id }}" value="{{ jsonget:done }}" if="{{ jsonget:done }};true;checked">
                       <input type="text" name="task" class="f1 bc0 pl1 text mih0" jsonget="task" value="{{ jsonget:task }}">
                   </figure>
               </form>
