@@ -306,7 +306,7 @@ var core = function(){
 						  var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm)
 							getOneTemplate(response)
 					}
-					xhr.open("GET", url + "/" + template2 + ".html")
+					xhr.open("GET", url + "/" + template2 + ".html", false)
 					xhr.send()
 				}
 
@@ -320,7 +320,7 @@ var core = function(){
 							document.write(response)
 							document.close()
 					}
-					xhr.open("GET", url+ "/" + template1 + ".html")
+					xhr.open("GET", url+ "/" + template1 + ".html", false)
 					xhr.send()
 				}
 
