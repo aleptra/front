@@ -28,8 +28,8 @@ function json(aEl){
       el = (target === "true") ? aEl : dom.get(target),
       e = event && (event.target || event.srcElement)
 
-  if (e && e.attributes && e.attributes["bind"]){
-    attrBind = e.getAttribute("bind").split(".")
+  if (e && e.attributes && e.attributes["bind1"]){
+    attrBind = e.getAttribute("bind1").split(".")
     bindEl = dom.get(attrBind[0])
     clnEl = jsonInitEl[bindEl.getAttribute("jsonindex")]
     dom.scrollInto(attrBind[0], false)
@@ -83,7 +83,8 @@ function json(aEl){
   xhr.onerror = function(){eval(onerror)}
   xhr.onload = function(){
 
-    jsonParseHeader(xhr.getAllResponseHeaders(), aEl)
+    console.log(xhr)
+    jsonParseHeader(xhr.getAllResponseHeaders(), target)
 
     var data = xhr.responseText,
         json = JSON.parse(data)
@@ -189,7 +190,7 @@ function jsonParse(input, json){
   }
 }
 
-function jsonParseHeader(responseHeaders, aEl){
+function jsonParseHeader(responseHeaders, target){
 
   var arr = responseHeaders.trim().split(/[\r\n]+/),
       responseHeader = {}
@@ -199,10 +200,12 @@ function jsonParseHeader(responseHeaders, aEl){
         value = parts.join(": ")
     responseHeader[header] = value
   })
-
+console.dir(arr)
+  console.dir(target)
   var re = /{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi
 
   for(var i = 0; i < bindEls.length; i++){
+    console.dir(bindEls[i])
     bindEls[i]['el'].innerHTML = bindEls[i]['el'].innerHTML.replace(re, function (e, out){
       var first = out.split("=")[0].trim(), isMod = (out.indexOf("=") > 0) ? true : false
       return core.callAttributes(responseHeader[first], out, isMod)
