@@ -616,7 +616,7 @@ var core = function(){
     if(e.hasAttribute("scrolltoggle"))
       listenEls.push(e)
     if(e.hasAttribute("bindvalue")){
-      var attr = e.getAttribute("bind3").split(":"),
+      var attr = e.getAttribute("bind").split(":"),
           id = attr[0],
           target = attr[1],
           value = e.getAttribute("bindvalue"),
