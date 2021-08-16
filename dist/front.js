@@ -306,7 +306,7 @@ var core = function(){
 						  var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm)
 							getOneTemplate(response)
 					}
-					xhr.open("GET", url + "/" + template2 + ".html", false)
+					xhr.open("GET", url + "/" + template2 + ".html")
 					xhr.send()
 				}
 
@@ -316,11 +316,11 @@ var core = function(){
 							response = this.responseText
 							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">')
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main+response2)
-							document.open()
+              document.open()
 							document.write(response)
 							document.close()
 					}
-					xhr.open("GET", url+ "/" + template1 + ".html", false)
+					xhr.open("GET", url+ "/" + template1 + ".html")
 					xhr.send()
 				}
 
