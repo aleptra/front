@@ -452,7 +452,7 @@ var core = function(){
 			}
 		}
 		if(e.hasAttribute("bind")){
-			var attr = e.getAttribute("bind").split(";"),
+			var attr = e.getAttribute("bind").split(":"),
 			    target = attr[0],
 			    value = attr[1],
           type = e.type,
