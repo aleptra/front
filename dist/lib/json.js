@@ -83,7 +83,6 @@ function json(aEl){
   xhr.onerror = function(){eval(onerror)}
   xhr.onload = function(){
 
-    console.log(xhr)
     jsonParseHeader(xhr.getAllResponseHeaders(), target)
 
     var data = xhr.responseText,
@@ -200,13 +199,12 @@ function jsonParseHeader(responseHeaders, target){
         value = parts.join(": ")
     responseHeader[header] = value
   })
-console.dir(arr)
-  console.dir(target)
+
   var re = /{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi
 
   for(var i = 0; i < bindEls.length; i++){
-    console.dir(bindEls[i])
-    bindEls[i]['el'].innerHTML = bindEls[i]['el'].innerHTML.replace(re, function (e, out){
+    var id = bindEls[i]['e'].getAttribute("json")
+    if (target == id) bindEls[i]['el'].innerHTML = bindEls[i]['el'].innerHTML.replace(re, function (e, out){
       var first = out.split("=")[0].trim(), isMod = (out.indexOf("=") > 0) ? true : false
       return core.callAttributes(responseHeader[first], out, isMod)
     })

@@ -617,11 +617,10 @@ var core = function(){
       listenEls.push(e)
     if(e.hasAttribute("bindvalue")){
       var attr = e.getAttribute("bind").split(":"),
-          id = attr[0],
           target = attr[1],
           value = e.getAttribute("bindvalue"),
           el = dom.get(target)
-      bindEls.push({id: id, value: value, target: target, el: el})
+      bindEls.push({value: value, target: target, el: el, e: e})
     }
 		if(e.tagName == "CODE"){
 			//this.runCoreAttributesInElement(e)
