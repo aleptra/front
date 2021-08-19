@@ -28,8 +28,8 @@ function json(aEl){
       el = (target === "true") ? aEl : dom.get(target),
       e = event && (event.target || event.srcElement)
 
-  if (e && e.attributes && e.attributes["bind"]){
-    attrBind = e.getAttribute("bind").split(".")
+  if (e && e.attributes && e.attributes["bind1"]){
+    attrBind = e.getAttribute("bind1").split(".")
     bindEl = dom.get(attrBind[0])
     clnEl = jsonInitEl[bindEl.getAttribute("jsonindex")]
     dom.scrollInto(attrBind[0], false)
@@ -82,15 +82,8 @@ function json(aEl){
   xhr.onprogress = function(){eval(onprogress)}
   xhr.onerror = function(){eval(onerror)}
   xhr.onload = function(){
-    var responseHeaders = xhr.getAllResponseHeaders(),
-        arr = responseHeaders.trim().split(/[\r\n]+/),
-        responseHeader = {}
-    arr.forEach(function(line){
-      var parts = line.split(": "),
-          header = parts.shift(),
-          value = parts.join(": ")
-      responseHeader[header] = value
-    })
+
+    jsonParseHeader(xhr.getAllResponseHeaders(), target)
 
     var data = xhr.responseText,
         json = JSON.parse(data)
@@ -157,7 +150,6 @@ function json(aEl){
 
     core.runCoreAttributesInElement(el)
     core.runLibAttributesInElement(el)
-    jsonParseHeader(aEl, responseHeader)
     eval(ondone)
   }
   xhr.send(null)
@@ -197,10 +189,22 @@ function jsonParse(input, json){
   }
 }
 
-function jsonParseHeader(aEl, responseHeader){
+function jsonParseHeader(responseHeaders, target){
+
+  var arr = responseHeaders.trim().split(/[\r\n]+/),
+      responseHeader = {}
+  arr.forEach(function(line){
+    var parts = line.split(": "),
+        header = parts.shift(),
+        value = parts.join(": ")
+    responseHeader[header] = value
+  })
+
   var re = /{{\s*jsonheader\s*:\s*(.*?)\s*}}/gi
-  if(aEl.outerHTML.match(re)){
-    aEl.outerHTML = aEl.outerHTML.replace(re, function (e, out){
+
+  for(var i = 0; i < bindEls.length; i++){
+    var id = bindEls[i]['e'].getAttribute("json")
+    if (target == id) bindEls[i]['el'].innerHTML = bindEls[i]['el'].innerHTML.replace(re, function (e, out){
       var first = out.split("=")[0].trim(), isMod = (out.indexOf("=") > 0) ? true : false
       return core.callAttributes(responseHeader[first], out, isMod)
     })
@@ -208,24 +212,15 @@ function jsonParseHeader(aEl, responseHeader){
 }
 
 function jsonSerialize(inputs){
-  try {
-    var formData = new FormData(inputs),
-    pairs = {}
-    for(var [name, value] of formData)
+  var pairs = {}
+  for(var i = 0; i < inputs.length; i++) {
+    var payload = inputs[i].getAttribute("payload"),
+        type = inputs[i].getAttribute("type"),
+        name = inputs[i].name,
+        value = inputs[i].value
+    if (name && (payload !== "false" || type !== "submit" || type !== "reset"))
       pairs[name] = value
-  }catch(e){
-    var els = inputs.elements
-    console.dir(els)
-    /*pairs = Object.keys(els)
-        .reduce((obj, field) => {
-            if(isNaN(field)){
-                obj[field] = els[field].value
-            }
-            return obj
-        }, {})
-    */
   }
-
   return JSON.stringify(pairs, null, 2)
 }
 

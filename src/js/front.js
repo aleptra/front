@@ -4,6 +4,7 @@ var html,
 	  libAttribute = [],
 	  libPreload = [],
     listenEls = [],
+    bindEls = [],
     xhrProgress,
     appStorage,
 	  load = false,
@@ -55,20 +56,22 @@ document.addEventListener("DOMContentLoaded", function(){
 
   var main = dom.get("main?tag=0"),
       triggered = false
-  if (main) main.addEventListener("scroll", function(e){
+  if(main) main.addEventListener("scroll", function(e){
     x = e.target.scrollLeft
     y = e.target.scrollTop
 
-    var el = dom.get(listenEls[0]),
+    if(listenEls.length > 0){
+      var el = dom.get(listenEls[0]),
         attr = el.getAttribute("scrolltoggle").split(";"),
         attrX = attr[0],
         attrY = attr[1]
-      if ((attrX >= x && y >= attrY) && triggered) {
+      if((attrX >= x && y >= attrY) && triggered){
         dom.hide(el)
       }else{
         triggered = true
         dom.show(el)
       }
+    }
   })
 
   if(currentEnvName == "local") app.runDevFile()
@@ -161,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function(){
   xhrProgress = dom.get("navprogress")
 })
 
-window.onerror = function (msg, url, line) {
+window.onerror = function(msg, url, line){
   dom.create('div', ['id=fronterror', 'className=alert pf b1 l1 bcred white snack', 'innerHTML='+msg + "<br>" + " at " + url + ":"+line], 'footer')
 }
 
@@ -313,7 +316,7 @@ var core = function(){
 							response = this.responseText
 							response = response.replace(/<base(.*)>/gi, '<base$1 href="'+url+'/">')
 							response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>'+main+response2)
-							document.open()
+              document.open()
 							document.write(response)
 							document.close()
 					}
@@ -448,8 +451,8 @@ var core = function(){
 				  e.innerHTML = els[i].content
 			}
 		}
-		if(e.hasAttribute("bind3")){
-			var attr = e.getAttribute("bind3").split(":"),
+		if(e.hasAttribute("bind")){
+			var attr = e.getAttribute("bind").split(":"),
 			    target = attr[0],
 			    value = attr[1],
           type = e.type,
@@ -467,13 +470,61 @@ var core = function(){
       }else if(type == "checkbox" || type == "radio"){
 
         e.onclick = function(input){
-          return dom.bind(targetEl, value, input.target.value)
+          if(value.split("|")){
+            var values = value.split("|"),
+                newValue = (values[0] == input.target.value) ? values[1] : values[0],
+                newCheckedValue = (newValue === "true") ? true : false
+            targetEl.setAttribute("checked", newCheckedValue)
+            targetEl.value = newValue
+            targetEl.checked = newCheckedValue
+          }else{
+            return dom.bind(targetEl, value, input.target.value)
+          }
         }
 
 			}else if(type == "select"){
 				console.log("select")
 			}else{
-				dom.bind(targetEl, value, value)
+        var bindvalue = (e.hasAttribute("bindvalue")) ? e.getAttribute("bindvalue") : value
+				dom.bind(targetEl, value, bindvalue)
+			}
+		}
+    if(e.hasAttribute("bind")){
+			var attr = e.getAttribute("bind").split(":"),
+			    target = attr[0],
+			    value = attr[1],
+          type = e.type,
+			    targetEl = dom.get(target)
+
+			if(type == "text"){
+        var key = e.getAttribute("bindkey") || 13
+				e.onkeyup = function(input){
+          if(input.keyCode === key || key === "true")
+					  if(e.hasAttribute("bindinclude"))
+              core.includeBindFile(e, input.target.value, target, value)
+					  else
+              dom.bind(targetEl, value, input.target.value)
+				}
+      }else if(type == "checkbox" || type == "radio"){
+
+        e.onclick = function(input){
+          if(value.split("|")){
+            var values = value.split("|"),
+                newValue = (values[0] == input.target.value) ? values[1] : values[0],
+                newCheckedValue = (newValue === "true") ? true : false
+            targetEl.setAttribute("checked", newCheckedValue)
+            targetEl.value = newValue
+            targetEl.checked = newCheckedValue
+          }else{
+            return dom.bind(targetEl, value, input.target.value)
+          }
+        }
+
+			}else if(type == "select"){
+				console.log("select")
+			}else{
+        var bindvalue = (e.hasAttribute("bindvalue")) ? e.getAttribute("bindvalue") : value
+				dom.bind(targetEl, value, bindvalue)
 			}
 		}
 		if(e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
@@ -564,6 +615,13 @@ var core = function(){
 		}
     if(e.hasAttribute("scrolltoggle"))
       listenEls.push(e)
+    if(e.hasAttribute("bindvalue")){
+      var attr = e.getAttribute("bind").split(":"),
+          target = attr[1],
+          value = e.getAttribute("bindvalue"),
+          el = dom.get(target)
+      bindEls.push({value: value, target: target, el: el, e: e})
+    }
 		if(e.tagName == "CODE"){
 			//this.runCoreAttributesInElement(e)
 		}
@@ -1211,7 +1269,7 @@ var dom = function(){
 	this.set = function(type, param, value){
 
 		var el = event.target || event.srcElement
-		var res = el.getAttribute("bind").split(bindDivider)
+		var res = el.getAttribute("bind1").split(bindDivider)
 
 		if(res[1]){
 			var resEl = this.get(res[0])
