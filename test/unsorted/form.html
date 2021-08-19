@@ -1,0 +1,102 @@
+<style>
+
+
+/* form specific formatting */
+form .group {
+  display: flex;
+  flex-direction: row;
+  display: -ms-flexbox;
+  -ms-flex-direction: row;
+}
+
+form .group label {
+  flex: none;
+  --ms-flex: none;
+  display: block;
+  width: 125px;
+  font-weight: bold;
+  font-size: 1em;
+}
+form .group label.right-inline {
+  text-align: right;  
+  padding-right: 8px;
+  padding-left: 10px;
+  width: auto;
+}
+
+form .group .input-control {
+  flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  display: block;
+  margin-bottom: 10px;
+  margin-right: 8px;
+  padding: 4px;
+  margin-top: -4px;
+}
+
+@media (max-width: 768px) {
+  form .group {
+    flex-direction: column;
+    --ms-flex-direction: column;
+  }
+  form .group .input-control {
+    margin-top: 2px;
+  }
+  form .group label.right-inline {
+    text-align: left;  
+    padding-right: 0;
+    padding-left: 0;   
+  }
+}
+</style>
+
+
+<article class="main-content">
+
+    <header>
+      <h1>Responsive Form Example</h1>
+      <small>
+                  <p>
+                      This example demonstrates how to create a simple form layout that can responsively expand and
+                      stack depending on the width of the page.
+                  </p>
+                  <p>&nbsp;</p>
+              </small>
+  
+    </header>
+  
+    
+    <form>
+    <div class="group">
+      <label>First Name</label>
+      <input value="Rick" class="input-control" />
+  
+      <label class="right-inline">Last Name</label>
+      <input value="Strahl" class="input-control" />
+    </div>
+  
+    <div class="group">
+      <label>Company</label>
+      <input value="West Wind" class="input-control" />
+    </div>
+  
+    <div class="group">
+      <label>Address</label>
+      <textarea class="input-control">32 North End</textarea>
+    </div>
+  
+    <div class="group">
+      <label>City,State,Zip</label>
+      <input value="Walnut Creek" class="input-control" placeholder="City" style="flex: 6;-ms-flex:6" />    
+      <input value="CA" class="input-control" placeholder="State" style="flex:1;-ms-flex:1" />    
+      <input value="94152" class="input-control" placeholder="Postal Code" style="flex:2; -ms-flex:2" />
+    </div>
+  
+    <div class="group">
+      <label>&nbsp;</label>
+      <button>Save</button>
+      <button>Cancel</button>
+  
+    </div>
+  </form>
+  </article>

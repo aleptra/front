@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>CSS Grid inline-block</title>
+    <meta charset="utf-8">
+    <style>
+      .container {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 0;
+        text-align: center;
+      }
+      .grid-item {
+        display: inline-block;
+        width: 25rem;
+        font-size: 1rem;
+        vertical-align: top;
+        margin: 5px;
+      }
+      .green {
+        background-color: darkgreen;
+      }
+      .red {
+        background-color: tomato;
+      }
+      .blue {
+        background-color: cornflowerblue;
+      }
+      .purple {
+        background-color: violet;
+      }
+      .orange {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="grid-item green" style="width: 10rem">1/12</div>
+      <div class="grid-item red">1/12</div>
+      <div class="grid-item blue">1/12</div>
+      <div class="grid-item green">1/12</div>
+      <div class="grid-item red">1/12</div>
+      <div class="grid-item orange">1/12</div>
+      <div class="grid-item green">1/12</div>
+      <div class="grid-item purple">1/12</div>
+      <div class="grid-item green">1/12</div>
+    </div>
+  </body>
+</html>

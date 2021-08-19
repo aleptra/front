@@ -1,0 +1,70 @@
+/* Crumbs */
+nav.crumbs{
+  word-break: break-all;
+}
+
+.crumbs.guillemet * li:after{
+    content: "\00a0\00a0 \00BB \00a0\00a0"
+}
+
+.crumbs.pointer * li:after{
+    content: "\00a0\00a0 \276F \00a0\00a0"
+}
+
+.crumbs * li:last-child:after{
+    content: "";
+}
+
+/* Tabs */
+
+nav.tabsX {
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+}
+
+nav.tabsX label {
+  order: 0;
+  display: block;
+  padding: .4rem 1.5rem;
+  border: thin solid #ddd;
+  border-bottom-width: 0;
+  border-right-width: 0;
+  cursor: pointer;
+  background-color: #eeeeee;
+  color: #444
+}
+
+nav.tabsX label:active{
+  background-color: #fff;
+}
+
+nav.tabsX label:last-of-type{
+  border-right-width: thin;
+}
+
+nav.tabsX [class^="tabnew"] {
+  order: 1;
+  flex-grow: 1;
+  width: 100%;
+  display: none;
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+}
+
+nav.tabsX input[type="radio"] {
+  display: none;
+}
+
+nav.tabsX input[type="radio"]:checked + label {
+  background-color:#fff;
+  color: #000;
+  font-weight: bold;
+}
+
+nav.tabsX input[type="radio"]:checked + label + [class^="tabnew"] {
+  display: block;
+  background-color:#ffffff;
+  color:#000;
+  overflow: scroll;
+}

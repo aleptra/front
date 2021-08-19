@@ -1,0 +1,104 @@
+<html>
+<body>
+    <div class="grid">
+      <div class="grid-cell">
+        <div class="grid-cell-inner"></div>
+      </div>
+      <div class="grid-cell">
+        <div class="grid-cell-inner"></div>
+      </div>
+      <div class="grid-cell">
+        <div class="grid-cell-inner"></div>
+      </div>
+      <div class="grid-cell">
+        <div class="grid-cell-inner"></div>
+      </div>
+      <div class="grid-cell">
+        <div class="grid-cell-inner"></div>
+      </div>
+      <div class="grid-cell">
+        <div class="grid-cell-inner"></div>
+      </div>
+
+  </div>
+  
+  <style>
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html,body{
+    margin: 0;
+    padding: 0;
+}
+
+.grid {
+  /* forces equal cell heights */
+  display: flex;
+  display: -ms-flexbox;
+
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+
+  /* creates gaps */
+  padding: 20px 0 0 20px;
+  margin: -20px;
+  width: 100%;
+}
+
+.grid-cell {
+  /* sets column count */
+  width: calc(100% / 1); /* 1 columns */
+
+  /* creates gaps */
+  border: 0 solid transparent;
+  border-width: 0 20px 20px 0;
+  
+  /* prevents background bleed */
+  background-clip: padding-box;
+
+  /* forces inner to take up full grid cell height */
+  display: flex;
+  display: -ms-flexbox;
+}
+
+@media (min-width: 400px){
+  .grid-cell {
+    width: calc(100% / 2); /* 2 columns */
+  }
+}
+
+@media (min-width: 600px){
+  .grid-cell {
+    width: calc(100% / 3); /* 3 columns */
+  }
+}
+
+.grid-cell-inner {
+  width: 100%;
+}
+
+
+/************************************\
+  Prettiness only below this point
+\************************************/
+
+.grid-cell-inner {
+  box-shadow: 0 0 10px 3px black;
+}
+
+.grid-cell {
+  /* So that we can see the grid cells */
+  box-shadow: inset 0 0 0 1px #000;
+  height: 100px;
+}
+
+.grid{
+  max-width: 100%;
+  margin: 0 auto;
+}
+</style>
+
+</body>
+</html>

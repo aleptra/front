@@ -1,0 +1,38 @@
+[contenteditable="true"] {
+}
+
+[contenteditable="true"]:hover,
+[contenteditable="true"]:focus {
+    background-color: white;
+    border-color: #999;
+}
+
+body{
+    padding-top: 2rem;
+    padding-right: 10rem;
+    overflow: hidden;
+}
+
+body>header, body>nav, body>aside, body>main, body>footer{
+    min-width: 5rem;
+    min-height: 5rem;
+    border: 1px dashed #f1f1f1;
+}
+
+#toolbar{
+    font-size: 70%;
+}
+
+#toolbox{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#toolbox > *{
+    width: 43%;
+}
+
+#toolbox a{
+    pointer-events: none;
+    cursor: default;
+}

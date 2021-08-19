@@ -1,0 +1,125 @@
+<ul id="menu">
+    <li>
+      <input id="check01" type="checkbox" name="menu"/>
+      <label for="check01">Tasto menu 01</label>
+      <ul class="submenu">
+        <li><a href="#">Sotto menu 1</a></li>
+        <li><a href="#">Sotto menu 2</a></li>
+      </ul>
+    </li>
+    <li>
+      <input id="check02" type="checkbox" name="menu"/>
+      <label for="check02">Tasto menu 02</label>
+      <ul class="submenu">
+        <li><a href="#">Sotto menu 3 (long text)</a></li>
+        <li><a href="#">Sotto menu 4</a></li>
+        <li><a href="#">Sotto menu 5</a></li>
+      </ul>
+    </li>
+  </ul>
+  <article>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate earum nulla asperiores corrupti eius maxime laboriosam voluptates sequi at iure consequatur suscipit voluptatibus magnam alias harum incidunt quis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam officia labore maiores perspiciatis nulla aperiam magnam dicta commodi debitis distinctio temporibus in saepe unde. Incidunt vel labore accusamus voluptas eligendi.</p>
+  </article>
+
+
+
+  <style>
+      /*General styles for body*/
+body{
+  margin:0;
+  padding:3em 0;
+  font-family:Helvetica, Arial, sans-serif;
+  background:#eee;
+  color:#222;
+}
+
+article{margin:10px;}
+
+/*Style for the first level menu bar*/
+ul#menu{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:3em;
+  margin:0;
+  padding:0 10px;
+  background:#333;
+  color:#eee;
+  box-shadow:0 -1px rgba(0,0,0,.5) inset;
+}
+
+ul#menu > li{
+  float:left;
+  list-style-type:none;
+  position:relative;
+}
+
+label{
+  position:relative;
+  display:block;
+  padding:0 18px 0 12px;
+  line-height:3em;
+  transition:background 0.3s;
+  cursor:pointer;
+}
+
+label:after{
+  content:"";
+  position:absolute;
+  display:block;
+  top:50%;
+  right:5px;
+  width:0;
+  height:0;
+  border-top:4px solid rgba(255,255,255,.5);
+  border-bottom:0 solid rgba(255,255,255,.5);
+  border-left:4px solid transparent;
+  border-right:4px solid transparent;
+  transition:border-bottom .1s, border-top .1s .1s;
+  }
+
+label:hover,
+input:checked ~ label{background:rgba(0,0,0,.3);}
+
+input:checked ~ label:after{
+  border-top:0 solid rgba(255,255,255,.5);
+  border-bottom:4px solid rgba(255,255,255,.5);
+  transition:border-top .1s, border-bottom .1s .1s;
+}
+
+/*hide the inputs*/
+input{display:none}
+
+/*show the second levele menu of the selected voice*/
+input:checked ~ ul.submenu{
+  max-height:300px;
+  transition:max-height 0.5s ease-in;
+}
+
+/*style for the second level menu*/
+ul.submenu{
+  max-height:0;
+  padding:0;
+  overflow:hidden;
+  list-style-type:none;
+  background:#444;
+  box-shadow:0 0 1px rgba(0,0,0,.3);
+  transition:max-height 0.5s ease-out;
+  position:absolute;
+  min-width:100%;
+}
+
+ul.submenu li a{
+  display:block;
+  padding:12px;
+  color:#ddd;
+  text-decoration:none;
+  box-shadow:0 -1px rgba(0,0,0,.5) inset;
+  transition:background .3s;
+  white-space:nowrap;
+}
+
+ul.submenu li a:hover{
+  background:rgba(0,0,0,.3);
+}
+</style>

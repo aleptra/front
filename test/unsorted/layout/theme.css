@@ -1,0 +1,18 @@
+*{
+    color: #322720;
+}
+
+body{
+    background: rgb(223,208,188);
+    background: radial-gradient(circle, rgba(223,208,188,1) 0%, rgba(225,210,191,1) 20%, rgba(219,209,189,1) 47%, rgba(214,206,186,1) 85%, rgba(224,209,188,1) 100%);
+}
+
+span{
+    font-weight: normal;
+    color: #E8482D;
+}
+
+.dark{
+    background-color: #3A141B;
+    color: #FCF2FA;
+}

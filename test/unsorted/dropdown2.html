@@ -1,0 +1,82 @@
+<nav>
+    <ul>
+        <li><a href="#">View</a></li>
+        <li class="drop">
+            <button style="padding: 2rem">You</button>
+            
+            <div class="dropdownContain">
+                <div class="dropOut">
+                    <div class="triangle"></div>
+                    <ul>
+                        <li>Plan</li>
+                        <li>Account Settings</li>
+                        <li>Switch Account</li>
+                        <li>Sign Out</li>
+                    </ul>
+                </div>
+            </div>
+        
+        </li>
+        <li><a href="#">Help</a></li>
+    </ul>
+</nav>
+
+
+<style>
+
+ul li.drop {
+	position: relative;
+}
+
+ul > li {
+	display: inline-block;
+}
+
+ul li a {
+	line-height: 80px;
+	padding: 0 20px;
+	height: 80px;
+	color: #777;
+}
+ul li a:hover {
+	color: #eee;
+}
+
+.dropdownContain {
+	width: 160px;
+	position: absolute;
+	z-index: 2;
+	left: 50%;
+	margin-left: -80px; /* half of width */
+	top: -400px;
+}
+.dropOut {
+	width: 160px;
+	background: white;
+	float: left;
+	position: relative;
+	margin-top: 0px;
+	opacity: 0;
+
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 10%), 0px 1px 1px 0px rgb(0 0 0 / 5%), 0px 0px 3px 0px rgb(0 0 0 / 10%);
+}
+
+.dropOut ul {
+	float: left;
+	padding: 10px 0;
+}
+.dropOut ul li {
+	text-align: left;
+	float: left;
+	width: 125px;
+	padding: 12px 0 10px 15px;
+	margin: 0px 10px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+ul li:hover a { color: white; }
+ul li:hover .dropdownContain { top: 65px; }
+ul li:hover .dropOut { opacity: 1; margin-top: 8px; }
+</style>
