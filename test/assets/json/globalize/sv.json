@@ -1,0 +1,9 @@
+{
+  "name": "Svenska",
+  "code": "swe",
+  "direction": "ltr",
+  "translations":
+      {
+          "translate": "Översätt"
+      }
+}
