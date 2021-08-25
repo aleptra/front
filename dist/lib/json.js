@@ -133,10 +133,9 @@ function json(aEl){
           els[i].setAttribute(res[1], value)
         }
         if(jsonget){
-          var value = "",
+          var parseValue = jsonParse(json[j], jsonget),
               type = els[i].localName
-
-          value = jsonbefore + jsonParse(json[j], jsonget) + jsonafter
+              value = jsonbefore + parseValue + jsonafter
           if (type == "input")
             els[i].value = value
           else if(type == "img")
@@ -170,7 +169,8 @@ function jsonParse(input, json){
     var isMod = (json.indexOf("=") > 0) ? true : false,
         isAssociative = (json.indexOf(".") > 0) ? true : false,
         value = "",
-        orgJson = json
+        orgJson = json,
+        parse
 
     if(isMod) json = json.split(" ")[0]
 
@@ -179,10 +179,12 @@ function jsonParse(input, json){
       for(i in split){
         value += "['" + split[i] + "']"
       }
-      return core.callAttributes(eval("input"+value), orgJson, isMod)
+      parse = core.callAttributes(eval("input"+value), orgJson, isMod)
+    }else{
+      parse = core.callAttributes(input[json], orgJson, isMod)
     }
 
-    return core.callAttributes(input[json], orgJson, isMod)
+    return (parse === undefined) ? '' : parse
 
   }catch(err){
     return ""
