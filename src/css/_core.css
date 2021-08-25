@@ -86,9 +86,9 @@ h3,.fs13{ font-size: calc(1em + .9vw)}
 h4,.fs12{ font-size: calc(.9em + .8vw)}
 h5,.fs11{ font-size: calc(.8em + .7vw)}
 h6,.fs1{ font-size: calc(.7em + .6vw)}
-.fs2{ font-size: 200%; line-height: 2}
-.fs09{ font-size: 90%}
-.fs08{ font-size: 80%}
+body .fs200, .fs2{ font-size: 200%; line-height: 2}
+body .fs90, .fs09{ font-size: 90%}
+body .fs80, .fs08{ font-size: 80%}
 
 .lh2{line-height: 2}
 .lh22{line-height: 2.2}
