@@ -634,7 +634,8 @@ body .icon512{font-size:512px}
   -ms-flex-direction: row;
   flex: 1;
   -ms-flex: 1;
-  align-items: center
+  align-items: center;
+  overflow: hidden;
 }
 
 .box.list .fr{
