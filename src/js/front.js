@@ -1,6 +1,7 @@
 var html,
     front,
 	  frontVariables = [],
+    frontEnums = [],
 	  libAttribute = [],
 	  libPreload = [],
     listenEls = [],
@@ -373,6 +374,14 @@ var core = function(){
         }
 			})
 		}
+    if(e.hasAttribute("enum")){
+			var enums = e.getAttribute("enum")
+          test = enums.split(";")
+      for(i in test){
+        v = test[i].split(":")
+        frontEnums[v[0]] = v[1]
+      }
+		}
 		if(e.tagName == "TITLE" && e.parentNode.tagName !== "HEAD"){
 			document.title = e.text
 		}
@@ -415,13 +424,6 @@ var core = function(){
 			alert(e.getAttribute("alert"))
 		if(e.hasAttribute("onload"))
 			eval(e.getAttribute("onload"))
-  	if(e.innerHTML.match("{%(.*?)%}")){
-      e.innerHTML = e.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function(out1, out2){
-      var input = eval(out2),
-          isMod = (out1.indexOf("=") > 0) ? true : false
-        return core.callAttributes(input, input+out2, isMod)
-      })
-    }
 		if(e.hasAttribute("var") || e.hasAttribute("variable")){
 			var attr = e.getAttribute("var") || e.getAttribute("variable"),
 			    res = attr.split(varDivider)
@@ -443,6 +445,13 @@ var core = function(){
 			}catch(err){}
 
 		}
+    if(e.innerHTML.match("{%(.*?)%}")){
+      e.innerHTML = e.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function(out1, out2){
+      var input = eval(out2),
+          isMod = (out1.indexOf("=") > 0) ? true : false
+        return core.callAttributes(input, input+out2, isMod)
+      })
+    }
 		if(e.hasAttribute("metacontent")){
 			var value = e.getAttribute("metacontent")
 			var els = document.getElementsByTagName("meta")
@@ -744,6 +753,8 @@ var core = function(){
 	this.split = function(str, sep, i){return str.split(sep)[i]}
 	this.replace = function(str, val1, val2){return str.replace(new RegExp(val1, "gi"), val2)}
 	this.trim = function(str){return str.trim()}
+  this.enum = function(int){return frontEnums[int]}
+  this.position = function(int){alert(int)}
 
 	this.sortArray = function(array, propertyName){
 		return array.sort(function(a, b){
