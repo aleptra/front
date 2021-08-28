@@ -74,7 +74,7 @@ function globalize(e){
   if (typeof e === "string") return localeJson.translations[e]
 
   var value = e.getAttribute("globalize")
-  //e.innerHTML = e.innerHTML.trim()
+  e.innerHTML = e.innerHTML.trim()
 
   if(localeJson && localeJson.translations[value]){
     var name = e.localName,
