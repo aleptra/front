@@ -429,8 +429,10 @@ var core = function(){
 			    res = attr.split(varDivider)
 			frontVariables[res[0].toLowerCase()] = res[1]
 		}
-		if(e.tagName == "VAR")
-			e.innerHTML = frontVariables[e.innerHTML.toLowerCase()]
+		if(e.tagName == "VAR"){
+      var variable = frontVariables[e.innerHTML.toLowerCase()]
+      if(variable) e.innerHTML = variable
+    }
 		if(e.hasAttribute("property") && e.hasAttribute("content")){
 
 			var attr = e.getAttribute("content")
@@ -1182,21 +1184,22 @@ var dom = function(){
 			document.getElementsByTagName("head")[0].appendChild(cln)
 		}else if(parent === "inside"){
 			el.innerHtml = ""
-
 			var elHtml = el.innerHTML,
           html = "",
           pad = 0,
-		      increment = (variables) ? el.getAttribute("variable").split(":")[1] : 0
+          attrVal = (variables) ? el.getAttribute("variable").split(":") : 0,
+		      increment = (variables) ? attrVal[1] : 0
 
-      if (increment) {
-          pad = increment.match(/(0*)/s)[0]
-          pad = (pad || []).length
+      if(increment){
+        pad = increment.match(/(0*)/s)[0]
+        pad = (pad || []).length
       }
 
 			for(var j=0; j < copies; j++){
-
 				if(variables){
-					elVarHtml = elHtml.replace(/<var>(.*)<\/var>|{{ (.*?) }}/gi, this.pad(increment,pad))
+          elVarHtml = elHtml.replace(new RegExp("<var>"+attrVal[0]+"<\/var>|{{(.*?)"+attrVal[0]+"(.*?)}}", "gi"), function(out1, out2, out3){
+            return dom.pad(increment,pad)
+          })
 					html += elVarHtml
 				}else{
 					html += elHtml
