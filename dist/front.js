@@ -754,7 +754,7 @@ var core = function(){
 	this.replace = function(str, val1, val2){return str.replace(new RegExp(val1, "gi"), val2)}
 	this.trim = function(str){return str.trim()}
   this.enum = function(int){return frontEnums[int]}
-  this.position = function(int){alert(int)}
+  this.plug = function(str, plug){return window[plug](str)}
 
 	this.sortArray = function(array, propertyName){
 		return array.sort(function(a, b){
