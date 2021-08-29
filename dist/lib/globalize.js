@@ -70,17 +70,20 @@ function globalizeLoadFile(language,country){
   })
 }
 
-function globalize(e){
+function globalize(e, fstr){
   if (typeof e === "string") return localeJson.translations[e]
 
-  var value = e.getAttribute("globalize")
+  var attr = e.getAttribute("globalize").split(";")
+      value = attr[0],
+      fstr = (attr[1]) ? attr[1] : ''
+
   e.innerHTML = e.innerHTML.trim()
 
   if(localeJson && localeJson.translations[value]){
     var name = e.localName,
         type = e.type,
         placeholder = e.placeholder,
-        globalized = localeJson.translations[value]
+        globalized = (fstr) ? localeJson.translations[value].replace("{"+fstr+"}", e.innerHTML) : localeJson.translations[value]
     if(name == "title"){
       document.title = globalized
     }else if(placeholder){
