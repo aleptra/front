@@ -1198,7 +1198,9 @@ var dom = function(){
 			for(var j=0; j < copies; j++){
 				if(variables){
           elVarHtml = elHtml.replace(new RegExp("<var>"+attrVal[0]+"<\/var>|{{(.*?)"+attrVal[0]+"(.*?)}}", "gi"), function(out1, out2, out3){
-            return dom.pad(increment,pad)
+            var input = dom.pad(increment,pad),
+                isMod = (out1.indexOf("=") > 0) ? true : false
+            return core.callAttributes(input, input+out3, isMod)
           })
 					html += elVarHtml
 				}else{
