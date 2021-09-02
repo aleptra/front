@@ -1,7 +1,7 @@
 <div include="categories.html"></div>
 
 <section json="words" storage="api">
-    <h1 class="z08">All words</h1>
+    <h1 class="z08" globalize="all_words">All words</h1>
     <p>{{ jsonheader:content-range = split('/',1) }} total</p>
     <div id="words" class="box cards mt05 list br0- flc-" iterate="true" datasource="{{ storage:api.dictionary.endpoint }}?select=*&word->>eng=ilike.*" dataheader="{{ storage:api.dictionary.headers }};Prefer:count=exact">
         <figure class="p1 bcwhite">
