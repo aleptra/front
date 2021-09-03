@@ -60,25 +60,25 @@ body .f10,.box *.f10{flex: 10}
 
 /*https://www.rapidtables.com/web/color/html-color-codes.html*/
 
-body .bc0, body .bc0_h:hover {background-color: unset}
+html body .bc0, html body .bc0_h:hover {background-color: unset}
 
 /* Red */
-body .lightsalmon{color:#ffa07a}
-body .salmon{color:#fa8072}
-body .darksalmon{color:#e9967A}
-body .lightcoral{color:#f08080}
-body .indianred{color:#cd5c5c}
-body .crimson{color:#dc143c}
-body .firebrick,.firebrick- *{color:#b22222}
-body .red,.red- *, .sred- *.sel{color:#ff0000}
-body .darkred,.darkred- *{color:#8b0000}
+html body .lightsalmon{color:#ffa07a}
+html body .salmon{color:#fa8072}
+html body .darksalmon{color:#e9967A}
+html body .lightcoral{color:#f08080}
+html body .indianred{color:#cd5c5c}
+html body .crimson{color:#dc143c}
+html body .firebrick,.firebrick- *{color:#b22222}
+html body .red,.red- *, .sred- *.sel{color:#ff0000}
+html body .darkred,.darkred- *{color:#8b0000}
 
-body .bclightsalmon{background-color:#ffa07a}
-body .bcsalmon{background-color:#fa8072}
-body .bcdarksalmon{background-color:#e9967A}
-body .bclightcoral{background-color:#f08080}
-body .bcindianred{background-color:#cd5c5c}
-body .bccrimson{background-color:#dc143c}
+html body .bclightsalmon{background-color:#ffa07a}
+html body .bcsalmon{background-color:#fa8072}
+html body .bcdarksalmon{background-color:#e9967A}
+html body .bclightcoral{background-color:#f08080}
+html body .bcindianred{background-color:#cd5c5c}
+html body .bccrimson{background-color:#dc143c}
 body .bcfirebrick{background-color:#b22222}
 body .bcred{background-color:#ff0000}
 body .bcdarkred{background-color:#8b0000}
@@ -566,6 +566,7 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .mr2, .mr2- *{margin-right:2rem}
 .mr2, .mr3- *{margin-right:3rem}
 .mt0, .mt0- *{ margin-top: 0 }
+.mt05, .mt05-> *{margin-top: .5rem}
 .m05, .m05- *{ margin: .5rem }
 .mt05, .mt05- *{margin-top:.5rem}
 .mt1, .mt1- *{ margin-top: 1rem }
@@ -574,6 +575,7 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .mt4, .mt4- *{ margin-top: 4rem }
 .mt5, .mt5- *{ margin-top: 5rem }
 .mb0, .mb0- *{ margin-bottom: 0 }
+.mb05, .mb05-> *{margin-bottom: .5rem}
 .mb1, .mb1- *{ margin-bottom: 1rem }
 .mb2, .mb2- *{ margin-bottom: 2rem }
 .mb3, .mb3- *{ margin-bottom: 3rem }
