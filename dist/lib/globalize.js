@@ -75,15 +75,15 @@ function globalize(e, fstr){
 
   var attr = e.getAttribute("globalize").split(";")
       value = attr[0],
-      fstr = (attr[1]) ? attr[1] : ''
+      fstr = (attr[1]) ? attr[1] : '',
+      html = e.innerHTML.trim()
 
   if(localeJson && localeJson.translations[value]){
-    e.innerHTML = e.innerHTML.trim()
-
     var name = e.localName,
         type = e.type,
         placeholder = e.placeholder,
-        globalized = (fstr) ? localeJson.translations[value].replace("{"+fstr+"}", e.innerHTML) : localeJson.translations[value]
+        globalized = (fstr) ? localeJson.translations[value].replace("{"+fstr+"}", html) : localeJson.translations[value]
+    e.innerHTML = html
     if(name == "title"){
       document.title = globalized
     }else if(placeholder){
@@ -94,16 +94,10 @@ function globalize(e, fstr){
       else if(name == "optgroup")
         e.label = globalized
       else
-        if(e.childElementCount > 0 && (name !== "p" && name !== "i" && name !== "b")){
-          var child = e.firstChild
-          while(child){
-            if(child.nodeType == 3){
-              child.data = globalized
-              break
-            }
-            child = child.nextSibling
-          }
-          e.innerHTML = core.toHTML(e)
+        if(e.childElementCount > 0){
+          var first = e.firstChild.outerHTML || '',
+              last = e.lastChild.outerHTML || ''
+          e.innerHTML = first + globalized + last
         }else{
           e.innerHTML = globalized
         }
