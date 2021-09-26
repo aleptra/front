@@ -77,9 +77,9 @@ function globalize(e, fstr){
       value = attr[0],
       fstr = (attr[1]) ? attr[1] : ''
 
-  e.innerHTML = e.innerHTML.trim()
-
   if(localeJson && localeJson.translations[value]){
+    e.innerHTML = e.innerHTML.trim()
+
     var name = e.localName,
         type = e.type,
         placeholder = e.placeholder,
@@ -99,11 +99,11 @@ function globalize(e, fstr){
           while(child){
             if(child.nodeType == 3){
               child.data = globalized
-              e.innerHTML = core.toHTML(e)
               break
             }
             child = child.nextSibling
           }
+          e.innerHTML = core.toHTML(e)
         }else{
           e.innerHTML = globalized
         }
