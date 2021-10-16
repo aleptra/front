@@ -29,6 +29,7 @@
 .phdark::placeholder{color: rgba(0,0,0,.2)}
 .phdark:-ms-input-placeholder{color: rgba(0,0,0,.2)}
 .phdark::-ms-input-placeholder{color: rgba(0,0,0,.2)}
+*:invalid{color: rgba(255,255,255,.6)}
 
 html{
   width: 100%;
