@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function(){
             fName = val[1]
             path = val[0]
             newEl = document.createElement('style')
-        newEl.appendChild(document.createTextNode('@font-face{font-family:'+fName+'; src:url(http:'+path+')}'))
+        newEl.appendChild(document.createTextNode('@font-face{font-family:'+fName+'; src:url('+path+')}'))
         document.body.appendChild(newEl)
       }
     }
