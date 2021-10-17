@@ -32,8 +32,9 @@ var html,
     html,
     startPage = "home.html",
 
-    folderLib = "lib",
-    folderPlug = "plug"
+    pathLib = "lib",
+    pathPlug = "plug",
+    pathFont = "font"
 
 document.addEventListener("DOMContentLoaded", function(){
   html = document.documentElement
@@ -96,16 +97,27 @@ document.addEventListener("DOMContentLoaded", function(){
 	if(!core.hasTemplateLayout()){
 
 		currentScriptUrl = app.getBaseUrl(currentScript.src)
-		if(currentScript.hasAttribute(folderLib)){
-			var libs = currentScript.getAttribute(folderLib).split(";")
+		if(currentScript.hasAttribute(pathLib)){
+			var libs = currentScript.getAttribute(pathLib).split(";")
 			for(lib in libs)
-				require(libs[lib], folderLib)
+				require(libs[lib], pathLib)
 		}
-		if(currentScript.hasAttribute(folderPlug)){
-			var plugs = currentScript.getAttribute(folderPlug).split(";")
+		if(currentScript.hasAttribute(pathPlug)){
+			var plugs = currentScript.getAttribute(pathPlug).split(";")
 			for(plug in plugs)
-				require(plugs[plug], folderPlug)
+				require(plugs[plug], pathPlug)
 		}
+    if(currentScript.hasAttribute(pathFont)){
+      var fonts = currentScript.getAttribute(pathFont).split(";")
+			for(font in fonts){
+        var val = fonts[font].split(":")
+            fName = val[1]
+            path = val[0]
+            newEl = document.createElement('style')
+        newEl.appendChild(document.createTextNode('@font-face{font-family:'+fName+'; src:url(http:'+path+')}'))
+        document.body.appendChild(newEl)
+      }
+    }
 
 		load = true
 		loadTemplate = false
@@ -642,6 +654,8 @@ var core = function(){
 		}
 		if(e.hasAttribute("focus"))
 			dom.focus(e)
+    if(e.hasAttribute("font"))
+      e.style.fontFamily = e.getAttribute("font")
 	}
 
   this.initCoreVariables = function(e){
