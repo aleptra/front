@@ -1036,6 +1036,11 @@ var dom = function(){
 			return false
 	}
 
+	this.populate = function(obj){
+    var target = this.get(obj.getAttribute("populate"))
+    target.innerHTML = obj.innerHTML
+	}
+
 	this.hide = function(obj){
 		var el = this.get(obj)
 		if(el) el.setAttribute("style", "display: none !important")
