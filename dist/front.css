@@ -99,7 +99,8 @@ b,strong,html .fwb, html .fwb- *{font-weight: bold}
 .fwb2, .fwb2- *{font-weight: bolder}
 .fsi,.fsi- *{font-style:italic}
 .di, p a, small a, p sup{display: inline}
-
+.dltr{direction: ltr}
+.drtl{direction: rtl}
 table{display:table;border-collapse: collapse;table-layout: fixed;text-align: left}
 thead,.thead{ display: table-header-group}
 caption{display: table-caption;text-align:left;padding:.5em}
