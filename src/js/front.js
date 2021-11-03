@@ -474,44 +474,6 @@ var core = function(){
 				  e.innerHTML = els[i].content
 			}
 		}
-		if(e.hasAttribute("bind")){
-			var attr = e.getAttribute("bind").split(":"),
-			    target = attr[0],
-			    value = attr[1],
-          type = e.type,
-			    targetEl = dom.get(target)
-
-			if(type == "text"){
-        var key = e.getAttribute("bindkey") || 13
-				e.onkeyup = function(input){
-          if(input.keyCode === key || key === "true")
-					  if(e.hasAttribute("bindinclude"))
-              core.includeBindFile(e, input.target.value, target, value)
-					  else
-              dom.bind(targetEl, value, input.target.value)
-				}
-      }else if(type == "checkbox" || type == "radio"){
-
-        e.onclick = function(input){
-          if(value.split("|")){
-            var values = value.split("|"),
-                newValue = (values[0] == input.target.value) ? values[1] : values[0],
-                newCheckedValue = (newValue === "true") ? true : false
-            targetEl.setAttribute("checked", newCheckedValue)
-            targetEl.value = newValue
-            targetEl.checked = newCheckedValue
-          }else{
-            return dom.bind(targetEl, value, input.target.value)
-          }
-        }
-
-			}else if(type == "select"){
-				console.log("select")
-			}else{
-        var bindvalue = (e.hasAttribute("bindvalue")) ? e.getAttribute("bindvalue") : value
-				dom.bind(targetEl, value, bindvalue)
-			}
-		}
     if(e.hasAttribute("bind")){
 			var attr = e.getAttribute("bind").split(":"),
 			    target = attr[0],
