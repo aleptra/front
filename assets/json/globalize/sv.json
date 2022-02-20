@@ -27,6 +27,7 @@
             "development": "Utveckling",
             "download": "Ladda ner",
             "documentation": "Dokumentation",
+            "cross_platform": "Cross-plattform",
             "effects": "Effekter",
             "event_listeners": "Eventlyssnare",
             "explore_repository": "Utforska arkiv",
@@ -85,6 +86,7 @@
             "widget": "Widget",
             "widgets": "Widgets",
 
+            "cross_platform_description": "För tillfället genomgår plattformen en värderingsfas.",
             "open_source_description": "Front är ett gratis och öppen källkodsprojekt som tillhandahålls under MIT-licensen. Källkoden är också tillgänglig, som du kan utforska i detalj eller dela och ändra för att passa dina behov."
         }
 }

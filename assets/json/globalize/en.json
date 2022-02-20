@@ -27,6 +27,7 @@
             "development": "Development",
             "download": "Download",
             "documentation": "Documentation",
+            "cross_platform": "Cross-platform",
             "effects": "Effects",
             "event_listeners": "Event Listeners",
             "explore_repository": "Explore repository",
@@ -85,6 +86,7 @@
             "widget": "Widget",
             "widgets": "Widgets",
 
+            "cross_platform_description": "At the moment, the platform is undergoing a valuation phase.",
             "open_source_description": "Front is a free and open-source project provided under the MIT license. The source code is also available, which you can explore in detail or fork and modify to suit your needs."
         }
 }
