@@ -46,6 +46,7 @@
             "marketplace": "Marketplace",
             "markup": "Markup",
             "menus": "Menus",
+            "name": "Name",
             "navigations": "Navigations",
             "notice_usage": "Not recommended for production use",
             "open_source": "Open source",
