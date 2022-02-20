@@ -29,6 +29,7 @@
             "documentation": "Dokumentation",
             "effects": "Effekter",
             "event_listeners": "Eventlyssnare",
+            "explore_repository": "Utforska arkiv",
             "front_class_attributes": "Front class attribut",
             "get": "Hämta",
             "get_started": "Kom igång",
@@ -61,6 +62,7 @@
             "output": "Utmatning",
             "page_not_found": "Sidan hittas inte",
             "parameters": "Parametrar",
+            "read_license": "Läs licens",
             "search": "Sök",
             "set": "Sätt",
             "showcase": "Monter",
@@ -81,6 +83,8 @@
             "variables": "Variabler",
             "views": "Vyer",
             "widget": "Widget",
-            "widgets": "Widgets"
+            "widgets": "Widgets",
+
+            "open_source_description": "Front är ett gratis och öppen källkodsprojekt som tillhandahålls under MIT-licensen. Källkoden är också tillgänglig, som du kan utforska i detalj eller dela och ändra för att passa dina behov."
         }
 }

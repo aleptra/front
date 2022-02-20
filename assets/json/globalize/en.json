@@ -29,6 +29,7 @@
             "documentation": "Documentation",
             "effects": "Effects",
             "event_listeners": "Event Listeners",
+            "explore_repository": "Explore repository",
             "front_class_attributes": "Front class attributes",
             "get": "Get",
             "get_started": "Get started",
@@ -60,6 +61,7 @@
             "output": "Output",
             "page_not_found": "Page not found",
             "parameters": "Parametrar",
+            "read_license": "Read license",
             "search": "Search",
             "set": "Set",
             "showcase": "Showcase",
@@ -80,6 +82,8 @@
             "variables": "Variables",
             "views": "Views",
             "widget": "Widget",
-            "widgets": "Widgets"
+            "widgets": "Widgets",
+
+            "open_source_description": "Front is a free and open-source project provided under the MIT license. The source code is also available, which you can explore in detail or fork and modify to suit your needs."
         }
 }
