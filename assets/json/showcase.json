@@ -2,27 +2,20 @@
     "examples":[
         {
             "id": 1,
-            "title": "IngGreen",
-            "screenshot": "assets/img/screenshot_inggreen.png",
-            "url": "https://www.inggreen.co",
-            "type": "Consulting firm"
-        },
-        {
-            "id": 2,
             "title": "Aramean Institute",
             "screenshot": "assets/img/screenshot_aramean_institute.png",
             "url": "https://www.aramean.institute",
             "type": "Institute"
         },
         {
-            "id": 3,
+            "id": 2,
             "title": "Aramean Center",
             "screenshot": "assets/img/screenshot_aramean_center.png",
             "url": "https://www.aramean.center",
             "type": "Organization"
         },
         {
-            "id": 4,
+            "id": 3,
             "title": "Josef Gabrielsson",
             "screenshot": "assets/img/screenshot_josef.png",
             "url": "https://www.josef.st",
