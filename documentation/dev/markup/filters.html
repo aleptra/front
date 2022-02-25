@@ -1,0 +1,31 @@
+<script src="../../../dist/front.js" template="index;documentation/index"></script>
+<title globalize="filters">Filters</title>
+<h1 globalize="filters">Filters</h1>
+<nav class="crumbs pointer pt05">
+    <ol>
+        <li><a href="#" globalize="documentation">Documentation</a></li>
+        <li><a globalize="development">Development</a></li>
+        <li><a globalize="markup">Markup</a></li>
+        <li globalize="filters">Filters</li>
+    </ol>
+</nav>
+
+<section id="crumbs">
+    <table class="mt1 w100p">
+        <caption class="tal">
+            <img src="assets/img/icon_black.svg" class="di" height="24"><span globalize="front_filters">Front filters</span>
+        </caption>
+        <thead>
+            <tr>
+                <th globalize="name" class="w5r">Name</th>
+                <th globalize="description" class="w5r">Description</th>
+            </tr>
+        </thead>
+        <tbody class="z09" json="true" iterate="true" datasource="./assets/json/filters.json">
+            <tr>
+                <td jsonget="name"></td>
+                <td jsonget="description"></td>
+            </tr>
+        </tbody>
+    </table>
+</section>

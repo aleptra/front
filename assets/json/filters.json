@@ -1,0 +1,19 @@
+
+[
+    {
+        "name": "toUpper",
+        "description": "The toUpper filter converts a string to lowercase letters."
+    },
+    {
+        "name": "toLower",
+        "description": "The toLower filter converts a string to uppercase letters."
+    },
+    {
+      "name": "replace",
+      "description": ""
+    },
+    {
+      "name": "trim",
+      "description": ""
+    }
+]
