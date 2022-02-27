@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function(){
   //core.initCoreVariables()
 
   var main = dom.get("main?tag=0"),
-      triggered = false
+      trigger = false
   if(main) main.addEventListener("scroll", function(e){
     x = e.target.scrollLeft
     y = e.target.scrollTop
@@ -67,11 +67,13 @@ document.addEventListener("DOMContentLoaded", function(){
         attr = el.getAttribute("scrolltoggle").split(";"),
         attrX = attr[0],
         attrY = attr[1]
-      if((attrX >= x && y >= attrY) && triggered){
+      if((x >= attrX && y >= attrY) && !trigger){
         dom.hide(el)
-      }else{
-        triggered = true
+        trigger = true
+      }
+      if (y <= 0) {
         dom.show(el)
+        trigger = false
       }
     }
   })
