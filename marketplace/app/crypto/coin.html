@@ -5,7 +5,7 @@
 <article class="pauto" storage="api;cdn" json="coin" bind="coin:?s">
     <section id="coin" iterate="data" datasource="{{ storage:api.crypto.endpoint }}assets&symbol={# ?s #}">
       <nav class="aic">
-        <img class="f0 pr1" src="{{ storage:cdn.crypto.url }}{{ jsonget:name = replace(' ','-') = replace('\\)','') = replace('\\(','') = toLower }}.png" jsonmod="true"><h1 jsonget="name"></h1>
+        <img class="f0 pr1 mh3" src="{{ storage:cdn.crypto.url }}{{ jsonget:name = replace(' ','-') = replace('\\)','') = replace('\\(','') = toLower }}.png" jsonmod="true"><h1 jsonget="name"></h1>
       </nav>
         <div class="box cards mt1 br0- flc-">
             <figure class="pauto bcwhite">
