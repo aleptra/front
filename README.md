@@ -1,6 +1,6 @@
 # Front (Experimental)
 
-<img src="https://3el.github.io/front/assets/img/icon_black.svg" width="100">
+<img src="https://www.front.nu/assets/img/icon_black.svg" width="100">
 
 ## [Explore documentation][0]
 
@@ -40,6 +40,6 @@ A file watcher is recommended to be present and installed as an extension and th
     ]
 }
 ```
-[0]:https://3el.github.io/front
+[0]:https://www.front.nu
 [1]:https://code.visualstudio.com
 [2]:https://marketplace.visualstudio.com/items?itemName=appulate.filewatcher
