@@ -341,6 +341,12 @@ body .mw80p, body .mw80p- * { max-width: 80% }
 body .mw90p, body .mw90p- * { max-width: 90% }
 body .mw100p, body .mw100p- * { max-width: 100% }
 
+body .mh70p, body .mh70p- * { max-height: 70% }
+body .mh75p, body .mh75p- * { max-height: 75% }
+body .mh80p, body .mh80p- * { max-height: 80% }
+body .mh90p, body .mh90p- * { max-height: 90% }
+body .mh100p, body .mh100p- * { max-height: 100% }
+
 .gap05->*{ margin-left: .25rem;margin-right: .25rem }
 .gap1->*{ margin-left: .5rem;margin-right: .5rem }
 .gap105->*{ margin-left: .75rem;margin-right: .75rem }
