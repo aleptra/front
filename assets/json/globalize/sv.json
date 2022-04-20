@@ -23,6 +23,8 @@
       "colors": "Färger",
       "components": "Komponenter",
       "conditional_statements": "Villkorssatser",
+      "current_version": "Aktuell version",
+      "current_version:": "Aktuell version: ",
       "description": "Beskrivning",
       "development": "Utveckling",
       "download": "Ladda ner",

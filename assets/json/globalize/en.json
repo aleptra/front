@@ -23,6 +23,8 @@
       "colors": "Colors",
       "components": "Componentens",
       "conditional_statements": "Conditional Statements",
+      "current_version": "Current version",
+      "current_version:": "Current version: ",
       "description": "Description",
       "development": "Development",
       "download": "Download",
