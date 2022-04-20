@@ -933,9 +933,10 @@ var app = function () {
   this.runDevFile = function () {
     var dclient = new xhr()
     dclient.get(currentEnvUrl + ".env", function (response, status) {
-      if (status == 200)
+      if (status == 200) {
         eval(response)
-      app.debug("Include file: .env", "green")
+        app.debug("Include file: .env", "green")
+      }
     }, true)
   }
 
