@@ -688,9 +688,10 @@ var core = function () {
     var file = e.getAttribute("include")
     app.debug("Include file: " + file, "green")
     client.get(currentEnvUrl + file, function (response, status) {
-      if (status == 200)
+      if (status == 200) {
         e.innerHTML = response
-      core.runAttributesInElement(e)
+        core.runAttributesInElement(e)
+      }
     })
 
     e.removeAttribute("include")
