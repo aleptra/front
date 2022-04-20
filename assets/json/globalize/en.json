@@ -98,6 +98,7 @@
       "speed_performance_description": "Front is one of the fastest platforms on the web development market.<br>One of the main objectives is to achieve the maximum speed and performance possible through constant optimizations of the source code.",
       "marketplace_description": "Buy, sell or give away items for free.",
       "cross_platform_description": "At the moment, the platform is undergoing a valuation phase.",
-      "open_source_description": "Front is a free and open-source project provided under the MIT license. The source code is also available, which you can explore in detail or fork and modify to suit your needs."
+      "open_source_description": "Front is a free and open-source project provided under the MIT license. The source code is also available, which you can explore in detail or fork and modify to suit your needs.",
+      "paradigm_description": "The technology has a minimalistic logic making it easy for developers to understand and maintain. Combining imperative and declarative style creates a new way of coding in abstractive mode."
     }
 }

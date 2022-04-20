@@ -98,6 +98,7 @@
       "speed_performance_description": "Front är en av de snabbaste plattformarna på webbutvecklingsmarknaden.<br>Ett av huvudmålen är att uppnå maximal hastighet och prestanda genom ständiga optimeringar av källkoden.",
       "marketplace_description": "Köp, sälj eller ge bort föremål gratis.",
       "cross_platform_description": "För tillfället genomgår plattformen en värderingsfas.",
-      "open_source_description": "Front är ett gratis och öppen källkodsprojekt som tillhandahålls under MIT-licensen. Källkoden är också tillgänglig, som du kan utforska i detalj eller dela och ändra för att passa dina behov."
+      "open_source_description": "Front är ett gratis och öppen källkodsprojekt som tillhandahålls under MIT-licensen. Källkoden är också tillgänglig, som du kan utforska i detalj eller dela och ändra för att passa dina behov.",
+      "paradigm_description": "Tekniken har en minimalistisk logik som gör det lätt för utvecklare att förstå och underhålla. Att kombinera imperativ och deklarativ stil skapar ett nytt sätt att koda i abstrakt läge."
     }
 }
