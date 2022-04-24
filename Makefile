@@ -57,7 +57,7 @@ app%create:
 	read RESPONSE ; \
 	if [[ $$RESPONSE = [yY] ]] ; then \
 		mkdir -p $(BOILERPLATE)$$NAME ; \
-		cp boilerplate/* $(BOILERPLATE)$$NAME && echo -e '\033[33mBoilerplate project created\033[0m'; \
+		cp -r boilerplate/ $(BOILERPLATE)$$NAME && echo -e '\033[33mBoilerplate project created\033[0m'; \
 	else \
 		exit 0 ; \
 	fi; \
