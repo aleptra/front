@@ -1,6 +1,13 @@
 SHELL := /bin/bash
 ARGS = $(filter-out $@,$(MAKECMDGOALS))
 
+BIN_PHP = $(shell which php)
+BIN_PYTHON2 = $(shell which python)
+BIN_PYTHON3 = $(shell which python3)
+
+SERVE_PORT = 8000
+SERVE_DIR = .
+
 OUTPUT_CSS = dist/front.css
 OUTPUT_CSS_MINI = dist/front.min.css
 COPY_JS = dist/front.js
@@ -25,7 +32,13 @@ test:
 	cypress open --config-file "cypress/cypress.json"
 
 serve:
-	python -m SimpleHTTPServer 8000
+	@if [ $(BIN_PYTHON3) ] ; then \
+		python3 -m http.server -d $(SERVE_DIR) $(SERVE_PORT) ; \
+	elif [ $(BIN_PYTHON2) ] ; then \
+		python -m SimpleHTTPServer -d $(SERVE_DIR) $(SERVER_PORT) ; \
+	elif [ $(BIN_PHP) ] ; then \
+		php -S localhost:$(SERVE_PORT) -t $(SERVE_DIR) ; \
+	fi;
 
 watch:
 	@fswatch -r -1 ./src/ ./marketplace/ | xargs -0 -n 1 -I {} echo "File {} changed" && make && make watch
@@ -64,9 +77,9 @@ app%create:
 	echo -en "Start application ?\033[0m \033[1;36m[y/n]\033[0m: " ; \
 	read RESPONSE ; \
 	if [[ $$RESPONSE = [yY] ]] ; then \
-		echo VALUE $$NAME ; \
-		open -a 'Visual Studio Code' $(BOILERPLATE)$$NAME ; \
-		open -a "Google Chrome" $(BOILERPLATE)$$NAME --args --disable-web-security --disable-site-isolation-trials ; \
+		open -a 'Visual Studio Code' $(BOILERPLATE)$$NAME --fresh ; \
+		make serve SERVE_DIR=$(BOILERPLATE)$$NAME \
+		| open -a 'Google Chrome' http://localhost:$(SERVE_PORT) ; \
 	else \
 		exit 0 ; \
 	fi; \
