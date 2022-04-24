@@ -84,6 +84,16 @@ app%create:
 		exit 0 ; \
 	fi; \
 
+#: Open existing project.
+app%open:
+	@echo -e "\n*----------* \033[33m Open app \033[0m *----------*\n";
+	@for name in $(BOILERPLATE) ; do \
+		echo $${name} ; \
+	done; \
+	echo ; \
+	echo -en "Name of project: " ; \
+	read NAME ; \
+
 #: This help.
 help:
 	@grep -B1 -E "^[%a-zA-Z0-9_-]+\:([^\=]|$$)" Makefile \
