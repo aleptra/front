@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en;auto">
+  <head>
+    <title>Boilerplate</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge;ie=10;chrome=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <base env="local:/;prod:/">
+    <link type="text/css" href="https://www.front.nu/dist/front.css" rel="stylesheet">
+    <link type="text/css" href="https://www.front.nu/dist/design/front/theme/front.css" rel="stylesheet">
+    <script src="https://www.front.nu/dist/front.js"></script>
+  </head>
+  <body>
+    <div id="navloader" class="navloader pa t0 w100 bcred d0">
+      <div id="navprogress" class="bcwhite04"></div>
+    </div>
+    <header class="topbar bcwhite shade05 h4 shade1 gap3- fwb- syellow- ttu-" selective="true">
+      <a href="#menu" class="button bcblack xl_du white- p0 br0"><i class="icon32">≡</i></a>
+        <figure><a href="./"><img class="mh80p" src="https://www.front.nu/assets/img/logo.png"></a></figure>
+        <a href="page1.html" globalize="watch">Page 1</a>
+        <a href="page2.html" globalize="listen">Page 2</a>
+        <a href="page3.html" globalize="read">Page 3</a>
+        <a class="z09 bc0 black lg_dn h50 br1 fr mr0 button" href="#">Button</a>
+        <a class="z09 bcred lg_dn h50 br1 button ml1" href="#">Button</a>
+
+        <div id="menu" class="modal menu">
+          <nav class="topbar flc0 shade h4 gap3- br0-">
+            <a href="#" class="button bcred xl_du yellow- p0"><i class="icon32">&#10060;</i></a>
+            <figure class="pl2 pr2"><img src="https://www.front.nu/assets/img/logo.png" class="mh80p"></figure>
+          </nav>
+              <section>
+                  <nav class="sidebar pt2 w100 fs13 gaph2- red- bcwhitesmoke pointer afr">
+                      <a href="page1.html">Page 1</a>
+                      <hr class="p0">
+                      <a href="page2.html">Page 2</a>
+                      <hr class="p0">
+                      <a href="page3.html">Page 3</a>
+                  </nav>
+                  <nav class="sidebar z08 mt2 red- gaph2- pointer afr">
+                      <h7 class="black08 tac">Item 1</h7>
+                      <hr>
+                      <a href="participate/register" globalize="register_ethnicity">Register ethnicity</a>
+                  </nav>
+                  <nav class="sidebar z08 mt2 red- gaph2- pointer afr">
+                      <h7 class="black08 tac" globalize="database">Database</h7>
+                      <hr>
+                      <a href="database/persons.html" globalize="persons">Persons</a>
+                      <a href="database/buildings.html" globalize="buildings">Buildings</a>
+                      <a href="database/organizations.html" globalize="organizations">Organizations</a>
+                </nav>
+            </section>
+        </div>
+    </header>
+    <aside class="xl_dn"></aside>
+    <main include="home.html"></main>
+    <aside class="lg_dn"></aside>
+    <footer>
+        <div eventlistener="offline" eventaction="dom.show('offline')" id="offline" class="alert pf b1 l1 bcred white snack d0"><i class=icon>⚠</i> Connection lost...</div>
+        <div eventlistener="online" eventaction="dom.hide('offline')"></div>
+    </footer>
+  </body>
+</html>
