@@ -40,6 +40,11 @@ A file watcher is recommended to be present and installed as an extension and th
     ]
 }
 ```
+#### CLI
+make serve
+make compress
+make watch
+
 [0]:https://www.front.nu
 [1]:https://code.visualstudio.com
 [2]:https://marketplace.visualstudio.com/items?itemName=appulate.filewatcher
