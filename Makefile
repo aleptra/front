@@ -74,15 +74,7 @@ app%create:
 	else \
 		exit 0 ; \
 	fi; \
-	echo -en "Start application ?\033[0m \033[1;36m[y/n]\033[0m: " ; \
-	read RESPONSE ; \
-	if [[ $$RESPONSE = [yY] ]] ; then \
-		open -a 'Visual Studio Code' $(BOILERPLATE)$$NAME --fresh ; \
-		make serve SERVE_DIR=$(BOILERPLATE)$$NAME \
-		| open -a 'Google Chrome' http://localhost:$(SERVE_PORT) ; \
-	else \
-		exit 0 ; \
-	fi; \
+	make app:start DIR=$(BOILERPLATE)$$NAME ; \
 
 #: Open existing project.
 app%open:
@@ -93,6 +85,17 @@ app%open:
 	echo ; \
 	echo -en "Name of project: " ; \
 	read NAME ; \
+
+app%start:
+	@echo -en "Start application ?\033[0m \033[1;36m[y/n]\033[0m: " ; \
+	read RESPONSE ; \
+	if [[ $$RESPONSE = [yY] ]] ; then \
+		open -a 'Visual Studio Code' $(DIR) --fresh ; \
+		make serve SERVE_DIR=$(DIR) \
+		| open -a 'Google Chrome' http://localhost:$(SERVE_PORT) ; \
+	else \
+		exit 0 ; \
+	fi; \
 
 #: This help.
 help:
