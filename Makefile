@@ -76,7 +76,7 @@ app%create:
 	fi; \
 	make app:start DIR=$(BOILERPLATE)$$NAME ; \
 
-#: Open existing project.
+#: Open an existing project.
 app%open:
 	@echo -e "\n*----------* \033[33m Open app \033[0m *----------*\n";
 	@for name in $(BOILERPLATE) ; do \
