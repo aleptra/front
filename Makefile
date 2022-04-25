@@ -79,12 +79,11 @@ app%create:
 #: Open an existing project.
 app%open:
 	@echo -e "\n*----------* \033[33m Open app \033[0m *----------*\n";
-	@for name in $(BOILERPLATE) ; do \
-		echo $${name} ; \
-	done; \
+	@ls -1 $(BOILERPLATE) ; \
 	echo ; \
 	echo -en "Name of project: " ; \
 	read NAME ; \
+	make app:start DIR=$(BOILERPLATE)$$NAME; \
 
 app%start:
 	@echo -en "Start application ?\033[0m \033[1;36m[y/n]\033[0m: " ; \
