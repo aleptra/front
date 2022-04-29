@@ -1,104 +1,156 @@
 .loader {
-    border: 10px solid #f3f3f3;
-    border-radius: 50% !important;
-    border-top: 10px solid #000;
-    width: 50px;
-    height: 50px;
-    -webkit-animation: spin 1s linear infinite;
-    animation: spin 1s linear infinite;
-    display: inline-table;
-    flex: unset;
-    -ms-flex: unset;
-    font-size: 0;
+  border: 10px solid #f3f3f3;
+  border-radius: 50% !important;
+  border-top: 10px solid #000;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+  display: inline-table;
+  flex: unset;
+  -ms-flex: unset;
+  font-size: 0;
 }
 
 #navloader {
-    z-index: 50;
+  z-index: 50;
 }
-  
+
 #navprogress {
-    width: 1%;
-    height: 2px;
+  width: 1%;
+  height: 2px;
 }
 
 @-webkit-keyframes spin {
-    0% {-webkit-transform: rotate(0deg)}
-    100% {-webkit-transform: rotate(360deg)}
+  0% {
+    -webkit-transform: rotate(0deg)
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg)
+  }
 }
-  
+
 @keyframes spin {
-    0% {transform: rotate(0deg)}
-    100% {transform: rotate(360deg)}
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
 }
 
 @-webkit-keyframes slide {
-    100% {left: 0}
+  100% {
+    left: 0
+  }
 }
 
 @keyframes slide {
-    100% {left: 0}
+  100% {
+    left: 0
+  }
 }
 
 @keyframes fadein {
-    0% {opacity:0}
-    100% {opacity:1}
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1
+  }
 }
 
 @keyframes pulsate {
-    0% {transform: scale(.95)}
-    20% {transform: scale(.97)}
-    30% {transform: scale(.95)}
-    40% {transform: scale(1)}
-    100% {transform: scale(.95)}
+  0% {
+    transform: scale(.95)
+  }
+
+  20% {
+    transform: scale(.97)
+  }
+
+  30% {
+    transform: scale(.95)
+  }
+
+  40% {
+    transform: scale(1)
+  }
+
+  100% {
+    transform: scale(.95)
+  }
 }
-  
-@keyframes blink{
-    from, to {color: transparent}
-    50% {color: white }
+
+@keyframes blink {
+
+  from,
+  to {
+    color: transparent
+  }
+
+  50% {
+    color: white
+  }
 }
-  
+
 @-moz-keyframes blink {
-    from, to {color: transparent}
-    50% {color: black}
+
+  from,
+  to {
+    color: transparent
+  }
+
+  50% {
+    color: black
+  }
 }
 
 @keyframes hue-rotate {
-    from { filter:hue-rotate()}
-    to { filter:hue-rotate(360deg)}
+  from {
+    filter: hue-rotate()
+  }
+
+  to {
+    filter: hue-rotate(360deg)
+  }
 }
 
-.slidein{
-    transition: 1s;
-    left: 0;
+.slidein {
+  transition: 1s;
+  left: 0;
 }
 
-.fadein{
-    opacity: 0;
-    -webkit-transition: fadein ease 20s;
-    transition: fadein ease 20s;
+.fadein {
+  opacity: 0;
+  -webkit-transition: fadein ease 20s;
+  transition: fadein ease 20s;
 }
 
-.slide{
-    -webkit-transition: slide 0.5s forwards;
-    transition: slide 0.5s forwards;
+.slide {
+  -webkit-transition: slide 0.5s forwards;
+  transition: slide 0.5s forwards;
 }
 
-.spin{
-    -webkit-animation: spin 1s linear infinite;
-    animation: spin 1s linear infinite;
+.spin {
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
-.pulsate{
-    -webkit-animation: pulsate 1s linear infinite;
-    animation: pulsate 1s linear infinite;
+.pulsate {
+  -webkit-animation: pulsate 1s linear infinite;
+  animation: pulsate 1s linear infinite;
 }
 
-.blink{
-    -webkit-animation: 1s blink step-end infinite;
-    animation: 1s blink step-end infinite;
+.blink {
+  -webkit-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
 }
 
-.hue-rotate{
-    -webkit-animation: hue-rotate 20s linear infinite;
-    animation: hue-rotate 20s linear infinite;
+.hue-rotate {
+  -webkit-animation: hue-rotate 20s linear infinite;
+  animation: hue-rotate 20s linear infinite;
 }

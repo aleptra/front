@@ -1,19 +1,19 @@
-.alert{
-    border-radius: .5rem;
-    display: inline-block;
-    padding: 1rem 1.2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0, .25);
-    -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .25);
-    -moz-box-shadow: 0 2px 4px rgba(0,0,0, .25);
-    align-items: center;
+.alert {
+  border-radius: .5rem;
+  display: inline-block;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+  align-items: center;
 }
 
-.alert.banner{
-    width: 100%;
+.alert.banner {
+  width: 100%;
 }
 
-.alert form{
-    justify-content: center;
-    display: -ms-flexbox;
-    -ms-flex-pack: center;
+.alert form {
+  justify-content: center;
+  display: -ms-flexbox;
+  -ms-flex-pack: center;
 }

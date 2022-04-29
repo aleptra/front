@@ -1,59 +1,59 @@
-.sidebar{
-    flex-direction: column;
-    -ms-flex-direction: column;
-    overflow: auto;
-    align-self: stretch;
-    height: 100%;
-    width: 100%;
+.sidebar {
+  flex-direction: column;
+  -ms-flex-direction: column;
+  overflow: auto;
+  align-self: stretch;
+  height: 100%;
+  width: 100%;
 }
 
-.sidebar > *{
-    flex-direction: column;
-    -ms-flex-direction: column;
-    padding-bottom: .3rem
+.sidebar>* {
+  flex-direction: column;
+  -ms-flex-direction: column;
+  padding-bottom: .3rem
 }
 
-.sidebar * * { 
-    -ms-flex-direction: column;
-    flex-direction: column;
-    width: 100%;
+.sidebar * * {
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
 }
 
 .sidebar a,
 .sidebar summary *,
-.sidebar details details summary{
-    padding: .5rem 1rem .5rem 2.2rem;
-    font-size: 92%;
+.sidebar details details summary {
+  padding: .5rem 1rem .5rem 2.2rem;
+  font-size: 92%;
 }
 
-.sidebar summary{
-    padding: .6rem 1rem .6rem 1.5rem;
+.sidebar summary {
+  padding: .6rem 1rem .6rem 1.5rem;
 }
 
-.sidebar details * summary{
-    padding-left: 2.2rem;
+.sidebar details * summary {
+  padding-left: 2.2rem;
 }
 
-.sidebar details * a{
-    padding-left: 3rem;
-    font-size: 87%;
+.sidebar details * a {
+  padding-left: 3rem;
+  font-size: 87%;
 }
 
-.sidebar ul li *{
-    -ms-flex-direction: row;
-    flex-direction: row;
-    align-items: center;
-    -ms-flex-pack: center;
+.sidebar ul li * {
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: center;
+  -ms-flex-pack: center;
 }
 
 .sidebar summary:hover,
 .sidebar details li:hover,
 .sidebar ul li:hover,
-.sidebar a:hover{
-    background-color: rgba(0,0,0, 0.025);
+.sidebar a:hover {
+  background-color: rgba(0, 0, 0, 0.025);
 }
 
-.sidebar hr{
-    border: 0;
-    border-bottom: 1px solid rgba(0,0,0, 0.07);
+.sidebar hr {
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }

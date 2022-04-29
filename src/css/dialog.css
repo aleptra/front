@@ -3,15 +3,15 @@
   padding: 1.5rem;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   background: #fff;
   visibility: hidden;
   opacity: 0;
   -webkit-transition: opacity .5s, visibility 0s linear .5s;
   transition: opacity .5s, visibility 0s linear .5s;
-  box-shadow: 0 2px 4px rgba(0,0,0, .5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
   -webkit-box-shadow: 0 2px 4px #00000080;
-  -moz-box-shadow: 0 2px 4px rgba(0,0,0, .5);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
   z-index: 1;
   -ms-flex-direction: column;
   flex-direction: column;
@@ -37,8 +37,8 @@
   z-index: 10;
 }
 
-.modal:target + .backdrop {
-  background: rgba(0,0,0,.7);
+.modal:target+.backdrop {
+  background: rgba(0, 0, 0, .7);
   cursor: default;
   position: fixed;
   top: 0;
@@ -52,16 +52,16 @@
   margin: inherit;
 }
 
-.modal.menu{
+.modal.menu {
   display: initial;
-	padding: 0;
-	margin: 0;
-	height: 100%;
+  padding: 0;
+  margin: 0;
+  height: 100%;
   width: 100%;
   font-size: initial;
 }
 
-.modal.menu section{
+.modal.menu section {
   width: inherit;
   height: inherit;
   overflow: scroll;
@@ -69,9 +69,9 @@
 }
 
 .modal.menu section * {
-	height: unset;
-	display: inherit;
-	width: 100%;
+  height: unset;
+  display: inherit;
+  width: 100%;
   font-size: initial;
 }
 

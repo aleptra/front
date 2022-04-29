@@ -1,53 +1,74 @@
-nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
-nav[class*='gap'] > :last-child {margin-right: initial}
-nav[class*='gap'] figure {margin:0}
+nav[class*='gap']> :first-child {
+  margin-left: inherit;
+  margin-right: 0
+}
+
+nav[class*='gap']> :last-child {
+  margin-right: initial
+}
+
+nav[class*='gap'] figure {
+  margin: 0
+}
 
 /* Global */
-nav{
+nav {
   word-break: break-all;
   position: relative;
 }
 
-nav.guillemet * a:after, nav.guillemet a:after{
+nav.guillemet * a:after,
+nav.guillemet a:after {
   content: "\00a0\00a0 \00BB \00a0\00a0"
 }
 
-nav.pointer * a:after, nav.pointer a:after{
+nav.pointer * a:after,
+nav.pointer a:after {
   content: "\00a0\00a0 \276F \00a0\00a0"
 }
 
-nav.pipe a:after{
+nav.pipe a:after {
   content: "\00a0\00a0 | \00a0\00a0"
 }
 
-nav.afr a:after, nav.fr {
+nav.afr a:after,
+nav.fr {
   float: right;
 }
 
 /* Crumbs */
 
-.crumbs * li:last-child:after{
-    content: "";
+.crumbs * li:last-child:after {
+  content: "";
 }
 
 /* Pagination */
 
-nav.pagination a{
-	padding: .25em .5em;
+nav.pagination a {
+  padding: .25em .5em;
 }
 
-nav.pagination > span a{
-	color: inherit;
-	background-color: inherit;
+nav.pagination>span a {
+  color: inherit;
+  background-color: inherit;
 }
 
-nav.pagination a:hover{
-	background-color: rgba(0,0,0, .1);
+nav.pagination a:hover {
+  background-color: rgba(0, 0, 0, .1);
 }
 
-nav[class*='gap'] > :first-child{margin-left: inherit; margin-right: 0}
-nav[class*='gap'] > :last-child {margin-right: initial}
-nav[class*='gap'] figure {margin:0}
+nav[class*='gap']> :first-child {
+  margin-left: inherit;
+  margin-right: 0
+}
+
+nav[class*='gap']> :last-child {
+  margin-right: initial
+}
+
+nav[class*='gap'] figure {
+  margin: 0
+}
 
 /* Tabs */
 
@@ -57,12 +78,12 @@ nav[class*='gap'] figure {margin:0}
   word-break: break-word
 }
 
-.tabs.full > label{
+.tabs.full>label {
   flex: 1;
   -ms-flex: 1;
 }
 
-.tabs > label {
+.tabs>label {
   order: 0;
   display: block;
   padding: .5rem 1.5rem;
@@ -75,11 +96,11 @@ nav[class*='gap'] figure {margin:0}
   font-size: 92%;
 }
 
-.tabs > label:active{
+.tabs>label:active {
   background-color: #fff;
 }
 
-.tabs > section {
+.tabs>section {
   order: 1;
   flex-grow: 1;
   width: 100%;
@@ -89,31 +110,31 @@ nav[class*='gap'] figure {margin:0}
   border: 1px solid #ddd;
 }
 
-.tabs > input[type="radio"]:checked + label {
-  background-color:#fff;
+.tabs>input[type="radio"]:checked+label {
+  background-color: #fff;
   color: #000;
   font-weight: bold;
   margin-bottom: -1px;
   z-index: 1;
 }
 
-.tabs > input[type="radio"]:checked + label + section {
+.tabs>input[type="radio"]:checked+label+section {
   display: block;
-  background-color:#ffffff;
-  color:#000;
+  background-color: #ffffff;
+  color: #000;
   overflow: scroll;
 }
 
-.tabs.accordions{
+.tabs.accordions {
   flex-direction: column;
   -ms-flex-direction: column;
 }
 
-.tabs.accordions > label{
+.tabs.accordions>label {
   padding: 1rem;
 }
 
-.tabs.accordions > section{
+.tabs.accordions>section {
   order: unset;
 }
 
@@ -121,6 +142,6 @@ nav[class*='gap'] figure {margin:0}
   display: none;
 }
 
-#togglebar:checked ~ * .toggleable {
+#togglebar:checked~* .toggleable {
   display: inherit;
 }
