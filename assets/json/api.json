@@ -1,148 +1,155 @@
 {
-    "api":[
+  "api": [
+    {
+      "attributes": [
         {
-            "attributes": [
-                {
-                    "attribute": "afterbegin",
-                    "parameters": "value",
-                    "description": "The afterbegin attribute inserts text, before its first child."
-                },
-                {
-                    "attribute": "afterend",
-                    "parameters": "value",
-                    "description": "The afterend attribute inserts text after the element itself."
-                },
-                {
-                    "attribute": "alert",
-                    "parameters": "value",
-                    "description": "The alert attribute displays an alert box with a specified message."
-                },
-                {
-                    "attribute": "beforebegin",
-                    "parameters": "value",
-                    "description": "The beforebegin attribute inserts text before the element itself."
-                },
-                {
-                    "attribute": "beforeend",
-                    "parameters": "value",
-                    "description": "The beforeend attribute inserts text, before its last child."
-                },
-                {
-                    "attribute": "decode",
-                    "parameters": "value",
-                    "description": ""
-                },
-                {
-                    "attribute": "delimiter",
-                    "parameters": "value",
-                    "description": ""
-                },
-                {
-                    "attribute": "encode",
-                    "parameters": "value",
-                    "description": ""
-                },
-                {
-                    "attribute": "fixed",
-                    "parameters": "value",
-                    "description": ""
-                },
-                {
-                    "attribute": "fixedpoint",
-                    "parameters": "value",
-                    "description": ""
-                },
-                {
-                    "attribute": "format",
-                    "parameters": "date(), age",
-                    "description": ""
-                },
-                {
-                    "attribute": "hide",
-                    "parameters": "value",
-                    "description": ""
-                },
-                {
-                    "attribute": "iterate",
-                    "parameters": "",
-                    "description": ""
-                },
-                {
-                    "attribute": "lowercase",
-                    "parameters": "value",
-                    "description": "The lowercase attribute converts a string to lowercase letters."
-                },
-                {
-                    "attribute": "slice",
-                    "parameters": "start, length",
-                    "description": "The slice attribute cuts a portion of the string, starting at the specified index and extending for a given number of characters afterwards."
-                },
-                {
-                    "attribute": "trim",
-                    "parameters": "value",
-                    "description": "The trim attribute removes whitespace from both sides of a string."
-                },
-                {
-                    "attribute": "uppercase",
-                    "parameters": "value",
-                    "description": "The uppercase attribute converts a string to uppercase letters."
-                }        
-            ]
+          "attribute": "afterbegin",
+          "parameters": "value",
+          "description": "The afterbegin attribute inserts text, before its first child."
         },
         {
-            "variables": [
-                {
-                    "variable": "baseUrl",
-                    "output": "URL",
-                    "description": "The baseUrl variable prints out the current configured base URL."
-                },
-                {
-                    "variable": "currentEnvName",
-                    "output": "Name",
-                    "description": "The currentEnvName variable prints out the current environment name."
-                },
-                {
-                    "variable": "currentEnvUrl",
-                    "output": "Path",
-                    "description": "The currentEnvUrl variable prints out the current environment path."
-                },
-                {
-                    "variable": "currentPage",
-                    "output": "Path",
-                    "description": "The currentPage variable prints out the current path and filename of the current page."
-                },
-                {
-                    "variable": "currentScriptUrl",
-                    "output": "URL",
-                    "description": "The currentScriptUrl variable prints out the current location in which Front runs."
-                },
-                {
-                    "variable": "currentUrl",
-                    "output": "URL",
-                    "description": "The currentUrl variable prints out the current URL location in which Front runs."
-                },
-                {
-                    "variable": "debugMode",
-                    "output": "true | false",
-                    "description": "The debugMode variable prints out whether debug mode is on or off."
-                },
-                {
-                    "variable": "hostName",
-                    "output": "URL",
-                    "description": "The hostName variable prints out the name of the internet host of the current page."
-                },
-                {
-                    "variable": "mobileMode",
-                    "output": "true | false",
-                    "description": "The mobileMode variable prints out whether the current running device is a mobile device or not."
-                },
-                {
-                    "variable": "startPage",
-                    "output": "URL",
-                    "description": "The startPage variable prints out the default configured start page."
-                }
-            ]
+          "attribute": "afterend",
+          "parameters": "value",
+          "description": "The afterend attribute inserts text after the element itself."
+        },
+        {
+          "attribute": "alert",
+          "parameters": "value",
+          "description": "The alert attribute displays an alert box with a specified message."
+        },
+        {
+          "attribute": "beforebegin",
+          "parameters": "value",
+          "description": "The beforebegin attribute inserts text before the element itself."
+        },
+        {
+          "attribute": "beforeend",
+          "parameters": "value",
+          "description": "The beforeend attribute inserts text, before its last child."
+        },
+        {
+          "attribute": "decode",
+          "parameters": "value",
+          "description": ""
+        },
+        {
+          "attribute": "delimiter",
+          "parameters": "value",
+          "description": ""
+        },
+        {
+          "attribute": "encode",
+          "parameters": "value",
+          "description": ""
+        },
+        {
+          "attribute": "fixed",
+          "parameters": "value",
+          "description": ""
+        },
+        {
+          "attribute": "fixedpoint",
+          "parameters": "value",
+          "description": ""
+        },
+        {
+          "attribute": "format",
+          "parameters": "date(), age",
+          "description": ""
+        },
+        {
+          "attribute": "hide",
+          "parameters": "value",
+          "description": ""
+        },
+        {
+          "attribute": "iterate",
+          "parameters": "",
+          "description": ""
+        },
+        {
+          "attribute": "lowercase",
+          "parameters": "value",
+          "description": "The lowercase attribute converts a string to lowercase letters."
+        },
+        {
+          "attribute": "slice",
+          "parameters": "start, length",
+          "description": "The slice attribute cuts a portion of the string, starting at the specified index and extending for a given number of characters afterwards."
+        },
+        {
+          "attribute": "trim",
+          "parameters": "value",
+          "description": "The trim attribute removes whitespace from both sides of a string."
+        },
+        {
+          "attribute": "uppercase",
+          "parameters": "value",
+          "description": "The uppercase attribute converts a string to uppercase letters."
         }
-        
-   ]
+      ]
+    },
+    {
+      "elements": [
+        {
+          "element": "title",
+          "description": "The title element sets the document's title that is shown in a browser's title bar or a page's tab."
+        }
+      ]
+    },
+    {
+      "variables": [
+        {
+          "variable": "baseUrl",
+          "output": "URL",
+          "description": "The baseUrl variable prints out the current configured base URL."
+        },
+        {
+          "variable": "currentEnvName",
+          "output": "Name",
+          "description": "The currentEnvName variable prints out the current environment name."
+        },
+        {
+          "variable": "currentEnvUrl",
+          "output": "Path",
+          "description": "The currentEnvUrl variable prints out the current environment path."
+        },
+        {
+          "variable": "currentPage",
+          "output": "Path",
+          "description": "The currentPage variable prints out the current path and filename of the current page."
+        },
+        {
+          "variable": "currentScriptUrl",
+          "output": "URL",
+          "description": "The currentScriptUrl variable prints out the current location in which Front runs."
+        },
+        {
+          "variable": "currentUrl",
+          "output": "URL",
+          "description": "The currentUrl variable prints out the current URL location in which Front runs."
+        },
+        {
+          "variable": "debugMode",
+          "output": "true | false",
+          "description": "The debugMode variable prints out whether debug mode is on or off."
+        },
+        {
+          "variable": "hostName",
+          "output": "URL",
+          "description": "The hostName variable prints out the name of the internet host of the current page."
+        },
+        {
+          "variable": "mobileMode",
+          "output": "true | false",
+          "description": "The mobileMode variable prints out whether the current running device is a mobile device or not."
+        },
+        {
+          "variable": "startPage",
+          "output": "URL",
+          "description": "The startPage variable prints out the default configured start page."
+        }
+      ]
+    }
+  ]
 }
