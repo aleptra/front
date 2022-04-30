@@ -21,6 +21,8 @@
       "core": "Kärna",
       "color": "Färg",
       "colors": "Färger",
+      "command": "Kommando",
+      "commands": "Kommandon",
       "components": "Komponenter",
       "conditional_statements": "Villkorssatser",
       "current_version": "Aktuell version",

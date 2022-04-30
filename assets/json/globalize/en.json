@@ -21,6 +21,8 @@
       "core": "Core",
       "color": "Color",
       "colors": "Colors",
+      "command": "Command",
+      "commands": "Commands",
       "components": "Componentens",
       "conditional_statements": "Conditional Statements",
       "current_version": "Current version",
