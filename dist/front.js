@@ -317,11 +317,9 @@ var core = function () {
 
         function getTwoTemplates() {
           var xhr = new XMLHttpRequest()
-          xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-              var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm)
-              getOneTemplate(response)
-            }
+          xhr.onload = function () {
+            var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm)
+            getOneTemplate(response)
           }
           xhr.open("GET", url + "/" + template2 + ".html", false)
           xhr.send()
