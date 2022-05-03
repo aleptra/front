@@ -3010,6 +3010,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
 }
 
 @media only screen and (min-width: 1440px) {
+  html.fsauto{font-size: 1.3em}
   .cards { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr}
 
   body .xxxl_dn{display: inherit}
