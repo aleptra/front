@@ -899,7 +899,7 @@ var app = function () {
       }
     }
 
-    return [0, currentPage]
+    return [0, baseUrl]
   }
 
   this.getBaseStartUrl = function () {
