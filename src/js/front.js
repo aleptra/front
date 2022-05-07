@@ -45,11 +45,11 @@ document.addEventListener("DOMContentLoaded", function () {
   hostName = window.location.hostname
   url = window.location.origin + urlDelimiter
   currentUrl = window.location.href
+  currentPage = window.location.pathname
   baseUrl = app.getBaseUrl(currentUrl)
   environments = app.getCurrentEnvironment()
   currentEnvName = environments[0]
   currentEnvUrl = environments[1]
-  currentPage = window.location.pathname
   currentScript = document.querySelector('script[src*="front.js"]')
   currentScriptUrl = currentScript.getAttribute("src")
   referrerUrl = document.referrer
@@ -885,7 +885,7 @@ var app = function () {
     }
   }
 
-  this.getCurrentEnvironment = function (val) {
+  this.getCurrentEnvironment = function () {
     var el = dom.get("base?tag")
     if (el) {
       var isLocalDev = (baseUrl.match(/localhost|127.|[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}|::1|\.local|^$/gi)) ? true : false
@@ -899,7 +899,7 @@ var app = function () {
       }
     }
 
-    return false
+    return [0, currentPage]
   }
 
   this.getBaseStartUrl = function () {
