@@ -85,9 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var attr = currentScript.getAttribute("store").split(";")
     for (storefile in attr) {
       var file = attr[storefile].split(varDivider),
-        sclient = new xhr()
-      sclient.addHeader("storeName", file[1])
-      sclient.get(currentEnvUrl + file[0] + ".json", function (response, status, headers) {
+        storeXhr = new xhr()
+      storeXhr.addHeader("storeName", file[1])
+      storeXhr.get(currentEnvUrl + file[0] + ".json", function (response, status, headers) {
         appStorage = response
         app.storage(headers[0][1], response)
       })
@@ -685,7 +685,8 @@ var core = function () {
   this.includeFile = function (e) {
     var file = e.getAttribute("include")
     app.debug("Include file: " + file, "green")
-    client.get(currentEnvUrl + file, function (response, status) {
+    var includeXhr = new xhr()
+    includeXhr.get(currentEnvUrl + file, function (response, status) {
       if (status == 200) {
         e.innerHTML = response
         core.runAttributesInElement(e)
@@ -698,7 +699,8 @@ var core = function () {
   this.includeBindFile = function (e, input, target, value) {
     var file = e.getAttribute("bindinclude")
     app.debug("Include (bind) file: " + file, "green")
-    client.get(currentEnvUrl + file, function (response, status) {
+    var bindXhr = new xhr()
+    bindXhr.get(currentEnvUrl + file, function (response, status) {
       if (status == 200) {
         el = dom.get(target)
         el.innerHTML = response
@@ -929,8 +931,8 @@ var app = function () {
   }
 
   this.runDevFile = function () {
-    var dclient = new xhr()
-    dclient.get(currentEnvUrl + ".env", function (response, status) {
+    var devXhr = new xhr()
+    devXhr.get(currentEnvUrl + ".env", function (response, status) {
       if (status == 200) {
         eval(response)
         app.debug("Include file: .env", "green")
