@@ -41,7 +41,7 @@ function globalizeChangeLanguage(locale) {
     globalizeLoadFile(language, country)
   else if (language == "*")
     app.storage("language", null)
-  app.storage("country", null)
+    app.storage("country", null)
 }
 
 function globalizeChangeLanguageTags(lang, dir) {
