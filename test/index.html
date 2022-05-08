@@ -1,32 +1,21 @@
-<!doctype html>
-<html cache="no" debug="true" startpage="home.html">
-<head>
-  <title>Front - Test</title>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge;ie=10;chrome=1" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <base env="local:/test/;prod:/front/test/">
-  <link type="text/css" href="../dist/front.css" rel="stylesheet">
-  <link type="text/css" href="../dist/design/front/theme/front.css?4" rel="stylesheet">
-  <link type="text/css" href="../assets/css/theme.css?4" rel="stylesheet">
-  <link type="image/x-icon" href="./favicon.ico" rel="shortcut icon">
-  <script src="../dist/front.js" lib="popup;nav;json;globalize;filter" plug="formatify" enum=""></script>
-</head>
-<body id>
-  <div id="navloader" class="navloader pa t0 w100 bcwhite03 d0"><div id="navprogress" class="bcwhite08"></div></div>
-  <input class="togglebar" type="checkbox" id="togglebar">
-  <header>
-    <nav class="topbar dark shade h5 md_fs70 lg_fs80 xl_fs90 aic" selective="true">
-      <img src="../assets/img/icon_black.svg" class="h50"><h1 class="fs13" globalize="title">Testning</h1>
+<!DOCTYPE html>
+<html debug="true">
+  <head>
+    <title>Front</title>
+    <link type="text/css" href="../dist/front.css" rel="stylesheet">
+    <link type="text/css" href="../dist/design/front/theme/front.css?4" rel="stylesheet">
+    <script src="../dist/front.js"></script>
+  </head>
+  <body>
+    <header></header>
+    <nav class="bcblack h4">
+      <figure class="mh100p">
+        <a class="b0" href="./" key="0"><img src="https://www.front.nu/assets/img/logo.png" /></a>
+      </figure>
     </nav>
-  </header>
-  <nav></nav>
-  <aside></aside>
-  <main class="pauto" include="home.html"></main>
-  <aside class="lg_dn lg_gan w50p"></aside>
-  <footer>
-    <div eventlistener="offline" eventaction="dom.show('offline')" id="offline" class="alert pf b1 l1 bcred white snack d0"><i class=icon>⚠</i> Connection lost...</div>
-    <div eventlistener="online" eventaction="dom.hide('offline')"></div>
-  </footer>
-</body>
+    <aside></aside>
+    <main include="home.html" class="pauto"></main>
+    <aside></aside>
+    <footer></footer>
+  </body>
 </html>

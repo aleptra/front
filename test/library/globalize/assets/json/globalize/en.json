@@ -1,0 +1,10 @@
+{
+  "name": "English",
+  "code": "eng",
+  "direction": "ltr",
+  "translations":
+    {
+      "button": "Button",
+      "buttons": "Buttons"
+     }
+}

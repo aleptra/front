@@ -1,0 +1,10 @@
+{
+  "name": "ܐܪܡܝܐ",
+  "code": "arc",
+  "direction": "rtl",
+  "translations":
+    {
+      "button": "ܙܕܦܬܐ",
+      "buttons": "ܙܕܦܬܐ"
+    }
+}

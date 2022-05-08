@@ -1,0 +1,10 @@
+{
+  "name": "Svenska",
+  "code": "swe",
+  "direction": "ltr",
+  "translations":
+    {
+      "button": "Knapp",
+      "buttons": "Knappar"
+  }
+}
