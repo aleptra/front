@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
         app.debug('Click (Ajax): ' + elHref)
         if (window.location.hash) location.hash = ""
-        return nav(currentEnvUrl + elHref, false, true)
+        if (core.isLibLoaded('nav')) return nav(currentEnvUrl + elHref, false, true)
       } else {
         app.debug('Click')
       }
@@ -293,6 +293,13 @@ var core = function () {
   this.runAttributesInElement = function (e) {
     this.runCoreAttributesInElement(e)
     this.runLibAttributesInElement(e)
+  }
+
+  this.isLibLoaded = function (lib) {
+    if (typeof nav === 'function')
+      return true
+    else
+      return false
   }
 
   this.hasTemplateLayout = function () {
