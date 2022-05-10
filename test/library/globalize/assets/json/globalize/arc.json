@@ -4,7 +4,6 @@
   "direction": "rtl",
   "translations":
     {
-      "button": "ܙܕܦܬܐ",
-      "buttons": "ܙܕܦܬܐ"
+      "hello_world!": "ܫܠܡܐ ܒܪܝܬܐ!"
     }
 }

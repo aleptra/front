@@ -4,7 +4,6 @@
   "direction": "ltr",
   "translations":
     {
-      "button": "Button",
-      "buttons": "Buttons"
-     }
+      "hello_world!": "Hello world!"
+    }
 }

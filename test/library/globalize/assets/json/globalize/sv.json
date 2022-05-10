@@ -4,7 +4,6 @@
   "direction": "ltr",
   "translations":
     {
-      "button": "Knapp",
-      "buttons": "Knappar"
+      "hello_world!": "Hallå världen!"
   }
 }
