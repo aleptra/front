@@ -4,8 +4,11 @@ describe('GUI Testing - Button', () => {
     cy.visit('gui/button.html')
   })
 
-  it('Clear Cache', () => {
-    cy.clearLocalStorage()
-    cy.clearCookies()
+  it('Click on button', () => {
+    cy.get('#button1').click()
+  })
+
+  it('Double-click on button', () => {
+    cy.get('#button1').dblclick()
   })
 })
