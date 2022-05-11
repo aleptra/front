@@ -1,36 +1,35 @@
 {
-    "api":
-        {
-        "chat": {
-            "endpoint": "https://querlspbhylhljdpvbpm.supabase.co/rest/v1/posts",
-            "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzY0NTM0NSwiZXhwIjoxOTMzMjIxMzQ1fQ.pG5ihvVIIwh-xbRHF7H2UWExGNxcQmvsQFrp-BJ_UlQ"
-        },
-        "crypto": {
-          "endpoint": "https://api.lunarcrush.com/v2?key=kj5y1p7y4satuby8mpv1&data="
-        },
-        "corona": {
-          "endpoint": "https://worldometers.p.rapidapi.com/api/coronavirus/",
-          "headers": "x-rapidapi-key:6e42f7ba0emsh3db78a609ae11c5p129260jsn599357a14709;x-rapidapi-host:worldometers.p.rapidapi.com;useQueryString:true"
-        },
-        "dictionary": {
-          "endpoint": "https://fepmwokzjfhuyhyggktb.supabase.co/rest/v1/words",
-          "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMTc4OTE1OCwiZXhwIjoxOTM3MzY1MTU4fQ.AhcMTJs8FwpE-CL_TvxGyQuo8E4PUjHhQ_qOshlv6BU"
-        },
-        "glotto": {
-          "endpoint": "https://fepmwokzjfhuyhyggktb.supabase.co/rest/v1/languages",
-          "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMTc4OTE1OCwiZXhwIjoxOTM3MzY1MTU4fQ.AhcMTJs8FwpE-CL_TvxGyQuo8E4PUjHhQ_qOshlv6BU"
-        },
-        "note": {
-          "endpoint": "https://lmaxhwqfjsphltrhlewl.supabase.co/rest/v1/notes",
-          "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxODA3Mzg3MSwiZXhwIjoxOTMzNjQ5ODcxfQ.NFnRf6sJq1nhbGUD8eTvliQiOLbYNHQ2GFgYcaQ3Mmw"
-        },
-        "stream": {
-          "endpoint": "https://api.themoviedb.org/3/",
-          "api_key": "api_key=342c7c6976e9730798bc4bfbb2786cf7"
-        },
-        "todo": {
-          "endpoint": "https://nxsglpuwmlqladuxlmty.supabase.co/rest/v1/tasks",
-          "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzYyNDkwNiwiZXhwIjoxOTMzMjAwOTA2fQ._-dA_LjamQizyEoNq2ZjUMkVe2vQPO7C_3Ba9SINXos"
-        }
+  "api": {
+    "chat": {
+      "endpoint": "https://querlspbhylhljdpvbpm.supabase.co/rest/v1/posts",
+      "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzY0NTM0NSwiZXhwIjoxOTMzMjIxMzQ1fQ.pG5ihvVIIwh-xbRHF7H2UWExGNxcQmvsQFrp-BJ_UlQ"
+    },
+    "crypto": {
+      "endpoint": "https://api.lunarcrush.com/v2?key=kj5y1p7y4satuby8mpv1&data="
+    },
+    "corona": {
+      "endpoint": "https://worldometers.p.rapidapi.com/api/coronavirus/",
+      "headers": "x-rapidapi-key:6e42f7ba0emsh3db78a609ae11c5p129260jsn599357a14709;x-rapidapi-host:worldometers.p.rapidapi.com;useQueryString:true"
+    },
+    "dictionary": {
+      "endpoint": "https://fepmwokzjfhuyhyggktb.supabase.co/rest/v1/words",
+      "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMTc4OTE1OCwiZXhwIjoxOTM3MzY1MTU4fQ.AhcMTJs8FwpE-CL_TvxGyQuo8E4PUjHhQ_qOshlv6BU"
+    },
+    "glotto": {
+      "endpoint": "https://fepmwokzjfhuyhyggktb.supabase.co/rest/v1/languages",
+      "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMTc4OTE1OCwiZXhwIjoxOTM3MzY1MTU4fQ.AhcMTJs8FwpE-CL_TvxGyQuo8E4PUjHhQ_qOshlv6BU"
+    },
+    "note": {
+      "endpoint": "https://lmaxhwqfjsphltrhlewl.supabase.co/rest/v1/notes",
+      "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxODA3Mzg3MSwiZXhwIjoxOTMzNjQ5ODcxfQ.NFnRf6sJq1nhbGUD8eTvliQiOLbYNHQ2GFgYcaQ3Mmw"
+    },
+    "stream": {
+      "endpoint": "https://api.themoviedb.org/3/",
+      "api_key": "api_key=342c7c6976e9730798bc4bfbb2786cf7"
+    },
+    "todo": {
+      "endpoint": "https://nxsglpuwmlqladuxlmty.supabase.co/rest/v1/tasks",
+      "headers": "apikey:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNzYyNDkwNiwiZXhwIjoxOTMzMjAwOTA2fQ._-dA_LjamQizyEoNq2ZjUMkVe2vQPO7C_3Ba9SINXos"
     }
+  }
 }

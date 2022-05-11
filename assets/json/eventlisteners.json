@@ -1,11 +1,10 @@
-
 [
-    {
-        "name": "online",
-        "description": "Checking if the Internet connection is online."
-    },
-    {
-        "name": "offline",
-        "description": "Checking if the Internet connection is offline."
-    }
+  {
+    "name": "online",
+    "description": "Checking if the Internet connection is online."
+  },
+  {
+    "name": "offline",
+    "description": "Checking if the Internet connection is offline."
+  }
 ]
