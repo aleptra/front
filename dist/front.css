@@ -785,15 +785,6 @@ table.fr {
   float: right
 }
 
-.ttu,
-.ttu- * {
-  text-transform: uppercase
-}
-
-.ttn{
-  text-transform: none
-}
-
 .ofa {
   overflow: auto
 }
@@ -2278,6 +2269,15 @@ body .black, body .black- >* { background-color: #000; color: #fff; }
 body .bcblack, body .bcblack- *, body .bcblack_h:hover{ background-color: #000 }
 
 body .tdu, body .tdu->*{text-decoration:underline}
+
+body .ttu,
+body .ttu- * {
+  text-transform: uppercase
+}
+
+body .ttn{
+  text-transform: none
+}
 
 body .flc0{
   -webkit-box-pack: unset;
