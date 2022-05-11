@@ -790,6 +790,10 @@ table.fr {
   text-transform: uppercase
 }
 
+.ttn{
+  text-transform: none
+}
+
 .ofa {
   overflow: auto
 }
