@@ -24,12 +24,13 @@ default:
 compress: default
 	cat ${OUTPUT_CSS} | tr -d "\t\n" | tr -s "[:blank:]" " " > ${OUTPUT_CSS_MINI}
 
+.PHONY: test
+test:
+	cypress open --config-file "cypress/cypress/config.json"
+
 git:
 	make
 	git add . && git commit -m "Experimental" && git push
-
-test:
-	cypress open --config-file "cypress/cypress.json"
 
 serve:
 	@if [ $(BIN_PYTHON3) ] ; then \
