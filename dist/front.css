@@ -1610,23 +1610,6 @@ body.disabled:after {
   display: block;
   content: "";
   z-index: 100;
-}.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 12px 16px;
-  z-index: 1;
-}
-
-.dropdown button:focus .dropdown-content {
-  display: unset;
 }form {
   flex-direction: column;
   -ms-flex-direction: column;
@@ -1877,6 +1860,28 @@ button.text,
 .rtl .topbar *.fr {
   margin-left: unset !important;
   margin-right: auto !important;
+}.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown ul li:hover,
+.dropdown a:hover {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown button:focus .dropdown-content {
+  display: unset;
 }.sidebar {
   flex-direction: column;
   -ms-flex-direction: column;

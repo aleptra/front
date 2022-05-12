@@ -1,116 +1,56 @@
-<script
-    src="../../../dist/front.js"
-    template="index;documentation/index">
-</script>
+<script src="../../../dist/front.js" template="index;documentation/index"></script>
 
 <title globalize="menus">Menus</title>
 
 <template>
-    <aside index="0" inherit="true"></aside>
-    <aside index="1">
-        <nav class="sidebar w11">
-            <h5 class="p1 mt1">Menus</h5>
-            <ul>
-                <li><a href="#">Dropdown</a></li>
-            </ul>
-        </nav>
-    </aside>
+  <aside index="0" inherit="true"></aside>
+  <aside index="1">
+    <nav class="sidebar w11">
+      <h5 class="p1 mt1">Menus</h5>
+      <ul>
+        <li><a href="#">Dropdown</a></li>
+      </ul>
+    </nav>
+  </aside>
 </template>
 
-<h1>Menus</h1>
+<h1 globalize="menus">Menus</h1>
 <nav class="crumbs pointer pt05">
-    <ol>
-        <li><a href="#">Documentation</a></li>
-        <li><a>Development</a></li>
-        <li><a>Components</a></li>
-        <li>Boxes</li>
+  <ol>
+    <li><a href="#" globalize="documentation">Documentation</a></li>
+    <li><a globalize="development">Development</a></li>
+    <li><a globalize="components">Components</a></li>
+    <li globalize="menus">Menus</li>
   </ol>
 </nav>
 
 <section>
-    <h2>Dropdown</h2>
-    <nav class="tabs">
-        <input type="radio" name="panel1" id="tab1">
-        <label class="z09" for="tab1">Code</label>
-        <section>
-            <code class="antiquewhite">
-                &lt;div <span class="navajowhite">class=</span>"alert dialog"&gt;<br>
-                &emsp;&emsp;&lt;i <span class="navajowhite">class=</span>"icon"&gt;⚠&lt;/i&gt; Connection lost...<br>
-                &lt;/div&gt;
-            </code>
-        </section>
+  <h2>Dropdown</h2>
+  <p>Click on the button to open the dropdown menu.</p>
+  <nav class="tabs">
+    <input type="radio" name="panel2" id="tab3">
+    <label class="z09" for="tab3" globalize="code">Code</label>
+    <section>
+      <code class="antiquewhite">
+        &lt;div <span class="navajowhite">class=</span>"alert dialog"&gt;<br>
+        &emsp;&emsp;&lt;i <span class="navajowhite">class=</span>"icon"&gt;⚠&lt;/i&gt; Connection lost...<br>
+        &lt;/div&gt;
+      </code>
+    </section>
 
-        <input type="radio" name="panel1" id="tab2" checked>
-        <label class="z09" for="tab2">Preview</label>
-        <section>
-            <pre class="h10">
-                <div class="dropdown">
-                    <button>Mouseover</button>
-                    <nav class="dropdown-content">
-                      <a>Link 1</a>
-                      <a>Link 2</a>
-                      <a>Link 3</a>
-                    </nav>
-                  </div>
-            </pre>
-        </section>
-    </nav>
+    <input type="radio" name="panel2" id="tab4" checked>
+    <label class="z09" for="tab4" globalize="preview">Preview</label>
+    <section>
+      <pre class="h10">
+        <div class="dropdown">
+          <button onclick="dom.toggle('dropdownmenu')">Dropdown</button>
+          <ul id="dropdownmenu" class="dropdown-content">
+            <li><a href="#">Item 1</a></li>
+            <li><a href="#">Item 2</a></li>
+            <li><a href="#">Item 3</a></li>
+          </ul>
+        </div>
+      </pre>
+    </section>
+  </nav>
 </section>
-
-
-<h2>Clickable Dropdown</h2>
-<p>Click on the button to open the dropdown menu.</p>
-
-<div class="dropdown2">
-  <button onclick="dom.toggle('myDropdown')" class="dropbtn">Dropdown</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </div>
-</div>
-
-<script>
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-
-<style>
-
-.dropdown2 {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  min-width: 160px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown2 a:hover {background-color: #ddd;}
-
-.show {display: block;}
-</style>

@@ -3,6 +3,11 @@
   display: inline-block;
 }
 
+.dropdown ul li:hover,
+.dropdown a:hover {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
