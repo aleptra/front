@@ -1,52 +1,51 @@
-<script 
-    src="../../../dist/front.js"
-    template="index;documentation/index">
-</script>
+<script src="../../../dist/front.js" template="index;documentation/index"></script>
 
 <title globalize="navigations">Navigations</title>
 
 <template>
-	<aside index="0" inherit="true"></aside>
-	<aside index="1">
-		<nav class="sidebar w11">
-			<h5 class="p1 mt1" globalize="navigations">Navigations</h5>
-			<ul>
-				<li><a href="#crumbs">Crumbs</a></li>
-				<li><a href="#pagination">Pagination</a></li>
-				<li><a href="#sidebar">Sidebar</a></li>
-				<li><a href="#topbar">Topbar</a></li>
-				<li><a href="#bottombar">Bottombar</a></li>
-				<li><a href="#tabs">Tabs</a></li>
-				<li><a href="#tree">Tree</a></li>
-			</ul>
-		</nav>
-	</aside>
+  <aside index="0" inherit="true"></aside>
+  <aside index="1">
+    <nav class="sidebar w11">
+      <h5 class="p1 mt1" globalize="navigations">Navigations</h5>
+      <ul>
+        <li><a href="#crumbs">Crumbs</a></li>
+        <li><a href="#pagination">Pagination</a></li>
+        <li><a href="#sidebar">Sidebar</a></li>
+        <li><a href="#topbar">Topbar</a></li>
+        <li><a href="#bottombar">Bottombar</a></li>
+        <li><a href="#tabs">Tabs</a></li>
+        <li><a href="#tree">Tree</a></li>
+      </ul>
+    </nav>
+  </aside>
 </template>
 
 <h1 globalize="navigations">Navigations</h1>
 <nav class="crumbs pointer">
-	<ol>
-		<li><a href="#">Documentation</a></li>
-		<li><a>Development</a></li>
-		<li><a>Components</a></li>
-		<li>Navigations</li>
-	</ol>
+  <ol>
+    <li><a href="#">Documentation</a></li>
+    <li><a>Development</a></li>
+    <li><a>Components</a></li>
+    <li>Navigations</li>
+  </ol>
 </nav>
 
 <section id="crumbs">
-	<h2>Crumbs</h2>
-	<p>Crumbs are a secondary navigation aid that helps users understand the relation between their location on a page.</p>
-	<nav class="tabs mt1">
-		<input type="radio" name="panel1" id="tab1" checked>
-		<label class="z09" for="tab1">Code</label>
-		<section>
-			<code class="markup wsp lavender" content="source1:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
-		</section>
+  <h2>Crumbs</h2>
+  <p>Crumbs are a secondary navigation aid that helps users understand the relation between their location on a page.
+  </p>
+  <nav class="tabs mt1">
+    <input type="radio" name="panel1" id="tab1" checked>
+    <label class="z09" for="tab1">Code</label>
+    <section>
+      <code class="markup wsp lavender" content="source1:false"
+        formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
+    </section>
 
-		<input type="radio" name="panel1" id="tab2">
-		<label class="z09" for="tab2">Preview</label>
-		<section>
-			<pre id="source1">
+    <input type="radio" name="panel1" id="tab2">
+    <label class="z09" for="tab2">Preview</label>
+    <section>
+      <pre id="source1">
 				<nav class="crumbs pointer" bindclass="1" id="run2">
 					<ol>
 						<li><a>Home</a></li>
@@ -55,82 +54,88 @@
 					</ol>
 				</nav>
 		  </pre>
-		</section>
-	</nav>
+    </section>
+  </nav>
 
-	<table class="mt1">
-		<caption class="tal">
-			<img src="./assets/img/icon_black.svg" class="di" height="24" globalize="front_class_attributes">Class Attributes
-		</caption>
-		<thead>
-			<tr>
-				<th globalize="class">CSS</th>
-				<th globalize="description">Description</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody class="z09">
-			<tr>
-				<td>pointer</td>
-				<td>Use &#10095; as delimiter.</td>
-				<td class="tar"><button class="z07" onclick="_.click('tab2');_.class('run2','update','pointer')"><i class="icon">&#9658</i>Run</button</td>
-			</tr>
-			<tr>
-				<td>guillemet</td>
-				<td>Use &#187; as delimiter.</td>
-				<td><button class="z07" onclick="_.click('tab2');_.class('run2','update','guillemet')"><i class="icon">&#9658</i>Run</button</td>
-			</tr>
-			<tr>
-				<td>pipe</td>
-				<td>Use &#124; as delimiter.</td>
-				<td><button class="z07" onclick="_.click('tab2');_.class('run2','update','pipe')"><i class="icon">&#9658</i>Run</button</td>
-			</tr>
-			<tr>
-				<td>delimiter</td>
-				<td>Configure for a custom delimiter.</td>
-				<td></td>
-			</tr>
-		</tbody>
-	</table>
+  <table class="mt1">
+    <caption class="tal">
+      <img src="./assets/img/icon_black.svg" class="di" height="24" globalize="front_class_attributes">Class Attributes
+    </caption>
+    <thead>
+      <tr>
+        <th globalize="class">CSS</th>
+        <th globalize="description">Description</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="z09">
+      <tr>
+        <td>pointer</td>
+        <td>Use &#10095; as delimiter.</td>
+        <td class="tar"><button class="z07" onclick="_.click('tab2');_.class('run2','update','pointer')"><i
+              class="icon">&#9658</i>Run</button< /td>
+      </tr>
+      <tr>
+        <td>guillemet</td>
+        <td>Use &#187; as delimiter.</td>
+        <td><button class="z07" onclick="_.click('tab2');_.class('run2','update','guillemet')"><i
+              class="icon">&#9658</i>Run</button< /td>
+      </tr>
+      <tr>
+        <td>pipe</td>
+        <td>Use &#124; as delimiter.</td>
+        <td><button class="z07" onclick="_.click('tab2');_.class('run2','update','pipe')"><i class="icon">&#9658</i>Run
+            </button< /td>
+      </tr>
+      <tr>
+        <td>delimiter</td>
+        <td>Configure for a custom delimiter.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 
-	<table class="mt1">
-		<caption class="tal">
-			<img src="./assets/img/icon_black.svg" class="di" height="24" globalize="front_class_attributes">Front Custom Attributes
-		</caption>
-		<thead>
-			<tr>
-				<th globalize="attribute">Attribute</th>
-				<th class="tac" globalize="character">Value</th>
-				<th globalize="description">Description</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody class="z09">
-			<tr>
-				<td>delimiter</td>
-				<td class="tac"><input type="text" class="w3r" maxlength="2"></td>
-				<td>Use custom delimiter.</td>
-				<td><button class="z07" onclick="_.click('tab2');_.class('run2','update','delimiter')"><i class="icon">&#9658</i>Run</button</td>
-			</tr>
-		</tbody>
-	</table>
+  <table class="mt1">
+    <caption class="tal">
+      <img src="./assets/img/icon_black.svg" class="di" height="24" globalize="front_class_attributes">Front Custom
+      Attributes
+    </caption>
+    <thead>
+      <tr>
+        <th globalize="attribute">Attribute</th>
+        <th class="tac" globalize="character">Value</th>
+        <th globalize="description">Description</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="z09">
+      <tr>
+        <td>delimiter</td>
+        <td class="tac"><input type="text" class="w3r" maxlength="2"></td>
+        <td>Use custom delimiter.</td>
+        <td><button class="z07" onclick="_.click('tab2');_.class('run2','update','delimiter')"><i
+              class="icon">&#9658</i>Run</button< /td>
+      </tr>
+    </tbody>
+  </table>
 </section>
 
 <section id="pagination" class="mt3">
-	<h2>Pagination</h2>
-	<p>Paginations are quick navigations that help users to navigate in discrete pages.</p>
-	
-	<nav class="tabs mt1">
-		<input type="radio" name="panel2" id="tab3" checked>
-		<label class="z09" for="tab3">Code</label>
-		<section>
-			<code class="markup wsp lavender" content="source2:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
-		</section>
+  <h2>Pagination</h2>
+  <p>Paginations are quick navigations that help users to navigate in discrete pages.</p>
 
-		<input type="radio" name="panel2" id="tab4">
-		<label class="z09" for="tab4">Preview</label>
-		<section>
-			<pre id="source2">
+  <nav class="tabs mt1">
+    <input type="radio" name="panel2" id="tab3" checked>
+    <label class="z09" for="tab3">Code</label>
+    <section>
+      <code class="markup wsp lavender" content="source2:false"
+        formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
+    </section>
+
+    <input type="radio" name="panel2" id="tab4">
+    <label class="z09" for="tab4">Preview</label>
+    <section>
+      <pre id="source2">
 				<nav class="pagination">
 					<a href="#">&laquo;</a>
 					<a href="#">1</a>
@@ -141,99 +146,103 @@
 					<a href="#">&raquo;</a>
 				</nav>
 			</pre>
-		</section>
-	</nav>
+    </section>
+  </nav>
 </section>
 
 <section id="sidebar" class="mt3">
-	<h2>Sidebar</h2>
-	<nav class="tabs">
-		<input type="radio" name="panel3" id="tab5" checked>
-		<label class="z09" for="tab5">Code</label>
-		<section>
-			<code class="markup wsp lavender" content="source4:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
-		</section>
+  <h2>Sidebar</h2>
+  <nav class="tabs">
+    <input type="radio" name="panel3" id="tab5" checked>
+    <label class="z09" for="tab5">Code</label>
+    <section>
+      <code class="markup wsp lavender" content="source4:false"
+        formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
+    </section>
 
-		<input type="radio" name="panel3" id="tab6">
-		<label class="z09" for="tab6">Preview</label>
-		<section>
-			<pre id="source4">
+    <input type="radio" name="panel3" id="tab6">
+    <label class="z09" for="tab6">Preview</label>
+    <section>
+      <pre id="source4">
 				<nav class="sidebar light w15">
 					<a>Link 1</a>
 					<a>Link 2</a>
 					<a>Link 3</a>
 				</nav>
 		  </pre>
-		</section>
-	</nav>
+    </section>
+  </nav>
 </section>
 
 <section id="topbar" class="mt3">
-	<h2>Topbar</h2>
-	<nav class="tabs">
-		<input type="radio" name="panel4" id="tab7" checked>
-		<label class="z09" for="tab7">Code</label>
-		<section>
-			<code class="markup wsp lavender" content="source5:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
-		</section>
+  <h2>Topbar</h2>
+  <nav class="tabs">
+    <input type="radio" name="panel4" id="tab7" checked>
+    <label class="z09" for="tab7">Code</label>
+    <section>
+      <code class="markup wsp lavender" content="source5:false"
+        formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
+    </section>
 
-		<input type="radio" name="panel4" id="tab8">
-		<label class="z09" for="tab8">Preview</label>
-		<section>
-			<pre id="source5">
+    <input type="radio" name="panel4" id="tab8">
+    <label class="z09" for="tab8">Preview</label>
+    <section>
+      <pre id="source5">
 				<nav class="topbar light gap2-">
 					<a>Link 1</a>
 					<a>Link 2</a>
 					<a>Link 3</a>
 				</nav>
 		  </pre>
-		</section>
-	</nav>
+    </section>
+  </nav>
 </section>
 
 <section id="bottombar" class="mt3">
-	<h2>Bottombar</h2>
-	<nav class="tabs">
-		<input type="radio" name="panel5" id="tab9" checked>
-		<label class="z09" for="tab9">Code</label>
-		<section>
-			<code class="markup wsp lavender" content="source6:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
-		</section>
+  <h2>Bottombar</h2>
+  <nav class="tabs">
+    <input type="radio" name="panel5" id="tab9" checked>
+    <label class="z09" for="tab9">Code</label>
+    <section>
+      <code class="markup wsp lavender" content="source6:false"
+        formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
+    </section>
 
-		<input type="radio" name="panel5" id="tab10">
-		<label class="z09" for="tab10">Preview</label>
-		<section>
-			<pre id="source6">
+    <input type="radio" name="panel5" id="tab10">
+    <label class="z09" for="tab10">Preview</label>
+    <section>
+      <pre id="source6">
 				<nav class="bottombar light gap2-">
 					<a>Link 1</a>
 					<a>Link 2</a>
 					<a>Link 3</a>
 				</nav>
 		  </pre>
-		</section>
-	</nav>
+    </section>
+  </nav>
 </section>
 
 <section id="tabs" class="mt3">
-	<h2 class="mt1">Tabs</h2>
-	<nav class="tabs">
-		<input type="radio" name="panel6" id="tab11" checked>
-		<label class="z09" for="tab11">Code</label>
-		<section>
-			<code class="markup wsp lavender" content="source7:false" formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
-		</section>
+  <h2 class="mt1">Tabs</h2>
+  <nav class="tabs">
+    <input type="radio" name="panel6" id="tab11" checked>
+    <label class="z09" for="tab11">Code</label>
+    <section>
+      <code class="markup wsp lavender" content="source7:false"
+        formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
+    </section>
 
-		<input type="radio" name="panel6" id="tab12">
-		<label class="z09" for="tab12">Preview</label>
-		<section>
-			<pre id="source7">
+    <input type="radio" name="panel6" id="tab12">
+    <label class="z09" for="tab12">Preview</label>
+    <section>
+      <pre id="source7">
 				<nav class="tabs">
 					<input type="radio" name="paneldemo" id="tabdemo1" checked>
 					<label for="tabdemo1">Tab 1</label>
 					<section>
 						<p>Content from Tab 1</p>
 					</section>
-			
+
 					<input type="radio" name="paneldemo" id="tabdemo2">
 					<label for="tabdemo2">Tab 2</label>
 					<section>
@@ -247,25 +256,25 @@
 					</section>
 				</nav>
 		  	</pre>
-		</section>
-	</nav>
+    </section>
+  </nav>
 
-	<table class="mt1">
-        <caption class="tal">
-            <img src="./assets/img/icon_black.svg" class="di" height="24">Front class attributes
-        </caption>
-        <thead>
-            <tr>
-                <th>Class</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody class="z09">
-            <tr>
-                <td>full</td>
-                <td>Responsive Full Width Tabs</td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="mt1">
+    <caption class="tal">
+      <img src="./assets/img/icon_black.svg" class="di" height="24">Front class attributes
+    </caption>
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody class="z09">
+      <tr>
+        <td>full</td>
+        <td>Responsive Full Width Tabs</td>
+      </tr>
+    </tbody>
+  </table>
 
 </section>
