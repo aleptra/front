@@ -535,6 +535,7 @@ body .h50r{height: 50rem}
 .p10p{ padding: 10% }
 .pl05{ padding-left: .5rem }
 .pl1{ padding-left: 1rem }
+.pl1d25{ padding-left: 1.25rem }
 .pl2{ padding-left: 2rem }
 .pl3{ padding-left: 3rem }
 .pl4{ padding-left: 4rem }
@@ -545,6 +546,7 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .pr025, .pr025->*{ padding-right: .25rem }
 .pr05, .pr05->*{ padding-right: .5rem }
 .pr1{ padding-right: 1rem }
+.pr1d25{ padding-right: 1.25rem }
 .pr2{ padding-right: 2rem }
 .pr3{ padding-right: 3rem }
 .pr4{ padding-right: 4rem }
