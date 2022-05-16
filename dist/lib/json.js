@@ -281,13 +281,13 @@ function dataPush(el) {
   var attr = el.getAttribute("datapush"),
     interval = (attr < 1000) ? 1500 : attr,
     count = 0
-  setInterval(function () {
+  var i = setInterval(function () {
     var newEl = dom.get(el.id)
     if (newEl) {
       dataForcePush(newEl)
       count++
     } else {
-      clearInterval(interval)
+      clearInterval(i)
     }
     app.debug("Interval: " + interval)
   }, interval)
