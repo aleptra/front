@@ -71,6 +71,7 @@ function json(aEl) {
       xhr.setRequestHeader(header[0], header[1])
     }
   }
+
   xhr.onloadstart = function () {
     eval(onstart)
     if (!loader) {
@@ -83,16 +84,20 @@ function json(aEl) {
       })
     }
   }
+
   xhr.onloadend = function () {
     headers = "";
     dom.remove("loader" + xhr.id)
   }
+
   xhr.onprogress = function () {
     eval(onprogress)
   }
+
   xhr.onerror = function () {
     eval(onerror)
   }
+
   xhr.onload = function () {
 
     jsonParseHeader(xhr.getAllResponseHeaders(), target)
@@ -249,7 +254,7 @@ function jsonPush(payload, e) {
   xhr.open(method, url, true)
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
   xhr.onreadystatechange = function () {
-    console.log(this.status)
+    app.debug("Push status: " + this.status)
     if (this.readyState == 4 && (this.status == 200 || this.status == 201 || this.status == 204))
       eval(ondone)
   }

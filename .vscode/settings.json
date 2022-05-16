@@ -29,5 +29,5 @@
     "git.autorefresh": true,
     "git.confirmEmptyCommits": false,
     "files.trimTrailingWhitespace": true,
-    "liveServer.settings.port": 5503
+    "liveServer.settings.port": 5504
 }
