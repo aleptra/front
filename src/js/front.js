@@ -1013,14 +1013,14 @@ var dom = function () {
   }
 
   this.run = function (el) {
-    //var start = performance.now()
+    var start = performance.now()
     var obj = this.get(el)
     this.enable(obj, true)
     var el = this.get(el)
     if (!el.getAttribute("run")) core.runAttributesInElement(el)
     el.setAttribute("run", "true")
-    //var end = performance.now();
-    //alert((end - start) + " ms")
+    var end = performance.now()
+    app.debug("Run finished: " + (end - start) + " ms")
   }
 
   this.enable = function (e, enable) {
