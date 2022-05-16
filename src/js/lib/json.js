@@ -283,8 +283,13 @@ function dataPush(el) {
     count = 0
   setInterval(function () {
     var newEl = dom.get(el.id)
-    if (newEl) dataForcePush(newEl)
-    count++
+    if (newEl) {
+      dataForcePush(newEl)
+      count++
+    } else {
+      clearInterval(interval)
+    }
+    app.debug("Interval: " + interval)
   }, interval)
 }
 
