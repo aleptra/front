@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html debug="true">
   <head>
-    <title>Globalize caption</title>
+    <title>Globalize table</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link type="text/css" href="../../dist/front.css" rel="stylesheet">
     <link type="text/css" href="../../dist/design/front/theme/front.css?4" rel="stylesheet">
@@ -10,7 +10,7 @@
   <body>
     <header class="topbar bcblack white- h4 pl1">
       <img class="h60 pr05" src="https://www.front.nu/favicon.ico">
-      <h3>Globalize caption</h3>
+      <h3>Globalize table</h3>
       <a class="button fr" href="/test" target="_top">
         <button class="positioned r1 bcdimgray"><i class="icon16">&#5176;</i></button>
       </a>
@@ -21,7 +21,31 @@
       <a href="?locale=arc">Aramaic</a>
     </nav>
     <main class="pauto">
-      <caption class="tal" globalize="hello_world!"></caption>
+      <table>
+        <caption globalize="hello_world!"></caption>
+        <thead>
+          <tr>
+           <th></th>
+           <th scope="col" globalize="hello_world!"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td globalize="hello_world"></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td globalize="hello_world!"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td globalize="hello_world!"></td>
+            <td globalize="hello_world!"></td>
+          </tr>
+        </tfoot>
+      </table>
     </main>
   </body>
 </html>

@@ -4,6 +4,12 @@
   "direction": "ltr",
   "translations":
     {
-      "hello_world!": "Hallå världen!"
+      "hello_world!": "Hallå världen!",
+      "h1": "Det här är rubrik 1",
+      "h2": "Det här är rubrik 2",
+      "h3": "Det här är rubrik 3",
+      "h4": "Det här är rubrik 4",
+      "h5": "Det här är rubrik 5",
+      "h6": "Det här är rubrik 6"
   }
 }
