@@ -5,10 +5,10 @@ describe('GUI Testing - Button', () => {
   })
 
   it('Clicking on button', () => {
-    cy.get('#button1').click()
+    cy.get('main button').click()
   })
 
   it('Double-clicking on button', () => {
-    cy.get('#button1').dblclick()
+    cy.get('main button').dblclick()
   })
 })

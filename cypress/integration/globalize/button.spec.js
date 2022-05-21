@@ -5,7 +5,7 @@ describe('Globalization Testing - Button', () => {
   })
 
   it('Checking for English translation in button value', () => {
-    cy.get('button').contains('Hello world!')
+    cy.get('main button').contains('Hello world!')
   })
 
   it('Opening GUI in Swedish', () => {
@@ -13,7 +13,7 @@ describe('Globalization Testing - Button', () => {
   })
 
   it('Checking for Swedish translation in button value', () => {
-    cy.get('button').contains('Hallå världen!')
+    cy.get('main button').contains('Hallå världen!')
   })
 
   it('Opening GUI in Aramaic', () => {
@@ -21,6 +21,6 @@ describe('Globalization Testing - Button', () => {
   })
 
   it('Checking for Aramaic translation in button value', () => {
-    cy.get('button').contains('ܫܠܡܐ ܒܪܝܬܐ!')
+    cy.get('main button').contains('ܫܠܡܐ ܒܪܝܬܐ!')
   })
 })
