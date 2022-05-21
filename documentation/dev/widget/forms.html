@@ -6,9 +6,11 @@
   <aside index="0" inherit="true"></aside>
   <aside index="1">
     <nav class="sidebar w10">
-      <h5 class="p1 mt1">Test</h5>
+      <h5 class="p1 mt1">Forms</h5>
       <ul>
-        <li><a href="#"></a></li>
+        <li><a href="#select">Select</a></li>
+        <li><a href="#textarea">Textarea</a></li>
+        <li><a href="#textfield">Textfield</a></li>
       </ul>
     </nav>
   </aside>
@@ -24,31 +26,8 @@
   </ol>
 </nav>
 
-<section id="fields">
-  <h2>Fields</h2>
-  <nav class="tabs">
-    <input type="radio" name="panel1" id="tab1" checked>
-    <label class="z09" for="tab1" globalize="code">Code</label>
-    <section>
-      <code class="markup wsp lavender" content="source1:false"
-        formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
-    </section>
-
-    <input type="radio" name="panel1" id="tab2">
-    <label class="z09" for="tab2" globalize="preview">Preview</label>
-    <section>
-      <pre id="source1">
-            <div class="box gap1-">
-                <input type="text" placeholder="Label">
-                <input class="outlined" type="text" placeholder="Label">
-            </div>
-        </pre>
-    </section>
-  </nav>
-</section>
-
-<section id="selects">
-  <h2>Selects</h2>
+<section id="select">
+  <h2>Select</h2>
   <nav class="tabs">
     <input type="radio" name="panel2" id="tab3" checked>
     <label class="z09" for="tab3" globalize="code">Code</label>
@@ -78,8 +57,8 @@
   </nav>
 </section>
 
-<section id="textareas">
-  <h2>Textareas</h2>
+<section id="textarea">
+  <h2>Textarea</h2>
   <nav class="tabs">
     <input type="radio" name="panel3" id="tab5" checked>
     <label class="z09" for="tab5" globalize="code">Code</label>
@@ -93,6 +72,29 @@
     <section>
       <pre id="source3">
             <textarea class="w100 h5r outlined"></textarea>
+        </pre>
+    </section>
+  </nav>
+</section>
+
+<section id="textfield">
+  <h2>Textfield</h2>
+  <nav class="tabs">
+    <input type="radio" name="panel1" id="tab1" checked>
+    <label class="z09" for="tab1" globalize="code">Code</label>
+    <section>
+      <code class="markup wsp lavender" content="source1:false"
+        formatify="colors:silver,cornsilk,navajowhite,slategray,green"></code>
+    </section>
+
+    <input type="radio" name="panel1" id="tab2">
+    <label class="z09" for="tab2" globalize="preview">Preview</label>
+    <section>
+      <pre id="source1">
+            <div class="box gap1-">
+                <input type="text" placeholder="Label">
+                <input class="outlined" type="text" placeholder="Label">
+            </div>
         </pre>
     </section>
   </nav>
