@@ -71,6 +71,7 @@ nav small{
     font-weight: bold;
 }
 
+.dropdown ul,
 nav.sidebar{
     border-right: 1px inset rgba(0,0,0, .07);
     border-left: 1px inset rgba(0,0,0, .07);
