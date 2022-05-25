@@ -6,16 +6,22 @@ body .shade_h->*:hover, .shade{
   -moz-box-shadow: 0 2px 4px rgba(0,0,0, .5)
 }
 
-body .shade1_h->*:hover, body .shade1, body .bs01{
+body .shade1_h->*:hover, body .shade1, body .bs1{
   box-shadow: 0 2px 4px rgba(0,0,0, .1);
   -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .1);
   -moz-box-shadow: 0 2px 4px rgba(0,0,0, .1)
 }
 
-body .shade2_h->*:hover, body .shade2, body .bs02{
+body .shade2_h->*:hover, body .shade2, body .bs2{
   box-shadow: 0 2px 4px rgba(0,0,0, .2);
   -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .2);
   -moz-box-shadow: 0 2px 4px rgba(0,0,0, .2)
+}
+
+body .shade5_h->*:hover, body .shade5, body .bs5{
+  box-shadow: 0 2px 4px rgba(0,0,0, .5);
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .5);
+  -moz-box-shadow: 0 2px 4px rgba(0,0,0, .5)
 }
 
 body .shade1r{
