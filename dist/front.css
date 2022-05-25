@@ -1865,8 +1865,12 @@ button.text,
   display: inline-block;
 }
 
-.dropdown ul li:hover,
-.dropdown a:hover {
+.dropdown ul li a{
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.dropdown ul li:hover{
   background-color: rgba(0, 0, 0, 0.025);
 }
 
