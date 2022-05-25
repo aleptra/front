@@ -5,16 +5,25 @@ body .shade_h->*:hover, .shade{
   -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .5);
   -moz-box-shadow: 0 2px 4px rgba(0,0,0, .5)
 }
-body .shade1_h->*:hover, body .shade1{
+
+body .shade1_h->*:hover, body .shade1, body .bs01{
   box-shadow: 0 2px 4px rgba(0,0,0, .1);
   -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .1);
   -moz-box-shadow: 0 2px 4px rgba(0,0,0, .1)
 }
+
+body .shade2_h->*:hover, body .shade2, body .bs02{
+  box-shadow: 0 2px 4px rgba(0,0,0, .2);
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0, .2);
+  -moz-box-shadow: 0 2px 4px rgba(0,0,0, .2)
+}
+
 body .shade1r{
   box-shadow: 4px 0px 4px 0px rgba(0,0,0, .1);
   -webkit-box-shadow: 4px 0px 4px 0px rgba(0,0,0, .1);
   -moz-box-shadow: 4px 0px 4px 0px rgba(0,0,0, .1)
 }
+
 body .tshade025, body .ts025{text-shadow: 1px 1px 1px rgba(0,0,0, .25)}
 body .tshade05, body .ts05{text-shadow: 1px 1px 1px rgba(0,0,0, 0.5)}
 body .tshade1, body .ts1{text-shadow: 1px 1px 1px rgba(0,0,0, 1)}
