@@ -1187,17 +1187,22 @@ var dom = function () {
     if (el) eval(props)
   }
 
-  this.create = function (el, arr, parent) {
+  this.create = function (el, arr, target, prepend) {
     var el = document.createElement(el)
     for (i in arr) {
       var props = arr[i].split(/=(.+)/)
       eval("el." + props[0] + " = '" + props[1] + "'")
     }
 
-    if (parent)
-      document.getElementsByTagName(parent)[0].appendChild(el)
-    else
+    if (target) {
+      var parent = document.getElementsByTagName(target)[0]
+      if (prepend)
+        parent.insertAdjacentElement('afterbegin', el)
+      else
+        parent.appendChild(el)
+    } else {
       document.body.appendChild(el)
+    }
   }
 
   this.clone = function (el, parent, copies, variables) {
