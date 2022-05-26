@@ -679,6 +679,14 @@ summary {
   left: 3rem
 }
 
+.l4 {
+  left: 4rem
+}
+
+.l5 {
+  left: 5rem
+}
+
 .r0 {
   right: 0
 }
@@ -697,6 +705,14 @@ summary {
 
 .r3 {
   right: 3rem
+}
+
+.r4 {
+  right: 4rem
+}
+
+.r5 {
+  right: 5rem
 }
 
 .b0 {
