@@ -141,9 +141,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (clicked.parentNode && clicked.parentNode.getAttribute("selective")) {
       for (j = 0; j < clicked.parentNode.childElementCount; j++) {
-        clicked.parentNode.children[j].classList.remove("sel")
+        dom.class(clicked.parentNode.children[j], 'remove', 'sel')
       }
-      clicked.classList.add("sel")
+      dom.class(clicked, 'add', 'sel')
     }
 
     var el = getParentTag(clicked, "a")
