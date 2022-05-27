@@ -1,4 +1,3 @@
-
 describe('Component Testing - Include', () => {
   it('Opening GUI', () => {
     cy.visit('core/include/index.html')

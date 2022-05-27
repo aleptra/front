@@ -1,4 +1,3 @@
-
 describe('GUI Testing - Slider', () => {
   it('Opening GUI', () => {
     cy.visit('gui/slider.html')

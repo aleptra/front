@@ -1,4 +1,3 @@
-
 describe('GUI Testing - Textfield', () => {
   it('Opening GUI', () => {
     cy.visit('gui/textfield.html')

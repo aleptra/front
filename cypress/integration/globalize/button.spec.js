@@ -1,4 +1,3 @@
-
 describe('Globalization Testing - Button', () => {
   it('Opening GUI in English', () => {
     cy.visit('globalize/button.html?locale=en')

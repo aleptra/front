@@ -1,4 +1,3 @@
-
 describe('Globalization Testing - Heading 1-6', () => {
   it('Opening GUI in English', () => {
     cy.visit('globalize/heading.html?locale=en')

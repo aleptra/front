@@ -1,4 +1,3 @@
-
 describe('GUI Testing - Select', () => {
   it('Opening GUI', () => {
     cy.visit('gui/select.html')

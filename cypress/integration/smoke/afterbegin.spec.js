@@ -1,4 +1,5 @@
-describe('GUI Testing - Button', () => {
+
+describe('Smoke Testing - afterbegin', () => {
   it('Opening GUI', () => {
     cy.visit('gui/button.html')
   })
