@@ -1,22 +1,32 @@
 
 describe('Smoke Testing - afterbegin', () => {
   it('Opening GUI', () => {
-    cy.visit('gui/button.html')
+    cy.visit('smoke/afterbegin.html')
   })
 
-  it('Clicking on enabled button', () => {
-    cy.get('main #enabled button').click()
+  it('Checking for afterbegin attribute in elements', () => {
+    cy.get('main button').should('have.attr', 'afterbegin')
+    cy.get('main div').should('have.attr', 'afterbegin')
+    cy.get('main span').should('have.attr', 'afterbegin')
+    cy.get('main p').should('have.attr', 'afterbegin')
+    cy.get('main h1').should('have.attr', 'afterbegin')
+    cy.get('main h2').should('have.attr', 'afterbegin')
+    cy.get('main h3').should('have.attr', 'afterbegin')
+    cy.get('main h4').should('have.attr', 'afterbegin')
+    cy.get('main h5').should('have.attr', 'afterbegin')
+    cy.get('main h6').should('have.attr', 'afterbegin')
   })
 
-  it('Clicking on disabled button', () => {
-    cy.get('main #disabled button').should('be.disabled').click({force:true})
-  })
-
-  it('Double-clicking on enabled button', () => {
-    cy.get('main #enabled button').dblclick()
-  })
-
-  it('Double-clicking on disabled button', () => {
-    cy.get('main #disabled button').should('be.disabled').dblclick({force:true})
+  it('Checking if afterbegin attribute is executed in elements', () => {
+    cy.get('main button').contains('[OK]')
+    cy.get('main div').contains('[OK]')
+    cy.get('main span').contains('[OK]')
+    cy.get('main p').contains('[OK]')
+    cy.get('main h1').contains('[OK]')
+    cy.get('main h2').contains('[OK]')
+    cy.get('main h3').contains('[OK]')
+    cy.get('main h4').contains('[OK]')
+    cy.get('main h5').contains('[OK]')
+    cy.get('main h6').contains('[OK]')
   })
 })
