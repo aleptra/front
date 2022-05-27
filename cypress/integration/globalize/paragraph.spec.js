@@ -4,8 +4,10 @@ describe('Globalization Testing - Paragraph', () => {
   })
 
   it('Checking for English translation in paragraphs', () => {
-    cy.get('main p').contains('Hello world!')
-    cy.get('main pre').contains('Hello world!')
+    cy.get("main").within(() => {
+      cy.get('p').contains('Hello world!')
+      cy.get('pre').contains('Hello world!')
+    })
   })
 
   it('Opening GUI in Swedish', () => {
@@ -13,8 +15,10 @@ describe('Globalization Testing - Paragraph', () => {
   })
 
   it('Checking for Swedish translation in paragraphs', () => {
-    cy.get('main p').contains('Hallå världen!')
-    cy.get('main pre').contains('Hallå världen!')
+    cy.get("main").within(() => {
+      cy.get('p').contains('Hallå världen!')
+      cy.get('pre').contains('Hallå världen!')
+    })
   })
 
   it('Opening GUI in Aramaic', () => {
@@ -22,7 +26,9 @@ describe('Globalization Testing - Paragraph', () => {
   })
 
   it('Checking for Aramaic translation in paragraphs', () => {
-    cy.get('main p').contains('ܫܠܡܐ ܒܪܝܬܐ!')
-    cy.get('main pre').contains('ܫܠܡܐ ܒܪܝܬܐ!')
+    cy.get("main").within(() => {
+      cy.get('p').contains('ܫܠܡܐ ܒܪܝܬܐ!')
+      cy.get('pre').contains('ܫܠܡܐ ܒܪܝܬܐ!')
+    })
   })
 })

@@ -4,11 +4,13 @@ describe('Globalization Testing - Table', () => {
   })
 
   it('Checking for English translation in table', () => {
-    cy.get('main table caption').contains('Hello world!')
-    cy.get('main table thead th').contains('Hello world!')
-    cy.get('main table tbody tr td').contains('Hello world!')
-    cy.get('main table tfoot tr td').eq(0).contains('Hello world!')
-    cy.get('main table tfoot tr td').eq(1).contains('Hello world!')
+    cy.get("main").within(() => {
+      cy.get('table caption').contains('Hello world!')
+      cy.get('table thead th').contains('Hello world!')
+      cy.get('table tbody tr td').contains('Hello world!')
+      cy.get('table tfoot tr td').eq(0).contains('Hello world!')
+      cy.get('table tfoot tr td').eq(1).contains('Hello world!')
+    })
   })
 
   it('Opening GUI in Swedish', () => {
@@ -16,11 +18,13 @@ describe('Globalization Testing - Table', () => {
   })
 
   it('Checking for Swedish translation in table', () => {
-    cy.get('main table caption').contains('Hallå världen!')
-    cy.get('main table thead th').contains('Hallå världen!')
-    cy.get('main table tbody tr td').contains('Hallå världen!')
-    cy.get('main table tfoot tr td').eq(0).contains('Hallå världen!')
-    cy.get('main table tfoot tr td').eq(1).contains('Hallå världen!')
+    cy.get("main").within(() => {
+      cy.get('table caption').contains('Hallå världen!')
+      cy.get('table thead th').contains('Hallå världen!')
+      cy.get('table tbody tr td').contains('Hallå världen!')
+      cy.get('table tfoot tr td').eq(0).contains('Hallå världen!')
+      cy.get('table tfoot tr td').eq(1).contains('Hallå världen!')
+    })
   })
 
   it('Opening GUI in Aramaic', () => {
@@ -28,10 +32,12 @@ describe('Globalization Testing - Table', () => {
   })
 
   it('Checking for Aramaic translation in table', () => {
-    cy.get('main table caption').contains('ܫܠܡܐ ܒܪܝܬܐ!')
-    cy.get('main table thead th').contains('ܫܠܡܐ ܒܪܝܬܐ!')
-    cy.get('main table tbody tr td').contains('ܫܠܡܐ ܒܪܝܬܐ!')
-    cy.get('main table tfoot tr td').eq(0).contains('ܫܠܡܐ ܒܪܝܬܐ!')
-    cy.get('main table tfoot tr td').eq(1).contains('ܫܠܡܐ ܒܪܝܬܐ!')
+    cy.get("main").within(() => {
+      cy.get('table caption').contains('ܫܠܡܐ ܒܪܝܬܐ!')
+      cy.get('table thead th').contains('ܫܠܡܐ ܒܪܝܬܐ!')
+      cy.get('table tbody tr td').contains('ܫܠܡܐ ܒܪܝܬܐ!')
+      cy.get('table tfoot tr td').eq(0).contains('ܫܠܡܐ ܒܪܝܬܐ!')
+      cy.get('table tfoot tr td').eq(1).contains('ܫܠܡܐ ܒܪܝܬܐ!')
+    })
   })
 })
