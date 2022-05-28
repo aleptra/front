@@ -1,4 +1,3 @@
-
 describe('Smoke Testing - include', () => {
   it('Opening GUI', () => {
     cy.visit('smoke/include.html')

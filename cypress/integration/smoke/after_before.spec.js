@@ -1,4 +1,3 @@
-
 describe('Smoke Testing - after & before', () => {
   it('Opening GUI', () => {
     cy.visit('smoke/after_before.html')

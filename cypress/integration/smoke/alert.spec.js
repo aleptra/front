@@ -1,4 +1,3 @@
-
 describe('Smoke Testing - alert', () => {
   it('Opening GUI', () => {
     cy.visit('smoke/alert.html')
@@ -12,7 +11,7 @@ describe('Smoke Testing - alert', () => {
 
   it('Checking if alerts are executed', () => {
     cy.reload()
-    cy.on('window:alert', (str)=>{
+    cy.on('window:alert', (str) => {
       expect(str).to.contains('alert')
     })
   })
