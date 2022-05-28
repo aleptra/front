@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html debug="true">
+  <head>
+    <title>Smoke - format</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link type="text/css" href="../../../dist/front.css" rel="stylesheet">
+    <link type="text/css" href="../../../dist/design/front/theme/front.css?4" rel="stylesheet">
+    <script src="../../../dist/front.js"></script>
+  </head>
+  <body>
+    <header class="topbar bcblack white- h4 pl1">
+      <img class="h60 pr05" src="/favicon.ico">
+      <h3>{% title %}</h3>
+      <a class="button fr" href="/test" target="_top">
+        <button class="positioned r1 bcdimgray"><i class="icon16">&#5176;</i></button>
+      </a>
+    </header>
+    <main class="pauto">
+      <h3 class="mt2">Date</h3>
+      <span format="date(y-m-d)">19870430</span>
+      <h3 class="mt2">Date (hyphen input)</h3>
+      <span format="date(y-m-d)">1987-04-30</span>
+      <h3 class="mt2">Date (comma input)</h3>
+      <span format="date(y-m-d)">1987, 04, 30</span>
+      <h3 class="mt2">Year</h3>
+      <span format="date(Y)">19870430</span>
+      <h3 class="mt2">Month</h3>
+      <span format="date(m)">19870430</span>
+      <h3 class="mt2">Day</h3>
+      <span format="date(d)">19870430</span>
+      <h3 class="mt2">Age</h3>
+      <span format="age">19870430</span>
+    </main>
+  </body>
+</html>
