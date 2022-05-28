@@ -1,0 +1,21 @@
+describe('Smoke Testing - slice', () => {
+  it('Opening GUI', () => {
+    cy.visit('smoke/slice.html')
+  })
+
+  it('Checking for slice attribute in elements', () => {
+    cy.get("main").within(() => {
+      cy.get('div').should('have.attr', 'slice')
+      cy.get('p').should('have.attr', 'slice')
+      cy.get('span').should('have.attr', 'slice')
+    })
+  })
+
+  it('Checking if trim slice is executed in elements', () => {
+    cy.get("main").within(() => {
+      cy.get('div').should('have.text', 'div slice')
+      cy.get('p').should('have.text', 'ice')
+      cy.get('span').contains('slice')
+    })
+  })
+})
