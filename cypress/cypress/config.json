@@ -5,5 +5,11 @@
   "component": {
     "viewportHeight": 500,
     "viewportWidth": 500
-  }
+  },
+  "integrationFolder":"cypress/integration",
+  "testFiles": [
+    "smoke/**/*.js",
+    "gui/**/*.js",
+    "globalize/**/*.js"
+  ]
 }
