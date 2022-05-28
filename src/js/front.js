@@ -751,7 +751,7 @@ var core = function () {
     return str.toLowerCase()
   }
   this.toUpper = function (str, first) {
-    return (first) ? str.charAt(0).toUpperCase() + str.slice(1) : str.toLowerCase()
+    return (first) ? str.charAt(0).toUpperCase() + str.slice(1) : str.toUpperCase()
   }
   this.split = function (str, sep, i) {
     return str.split(sep)[i]

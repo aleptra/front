@@ -11,7 +11,7 @@ describe('Smoke Testing - slice', () => {
     })
   })
 
-  it('Checking if trim slice is executed in elements', () => {
+  it('Checking if slice is executed in elements', () => {
     cy.get("main").within(() => {
       cy.get('div').should('have.text', 'div slice')
       cy.get('p').should('have.text', 'ice')
