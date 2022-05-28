@@ -445,7 +445,7 @@ var core = function () {
     if (e.hasAttribute("fixed"))
       e.style.position = "fixed"
     if (e.hasAttribute("alert"))
-      alert(e.getAttribute("alert"))
+      window.alert(e.getAttribute("alert"))
     if (e.hasAttribute("onload"))
       eval(e.getAttribute("onload"))
     if (e.hasAttribute("var") || e.hasAttribute("variable")) {
