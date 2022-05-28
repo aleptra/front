@@ -110,6 +110,66 @@
     {
       "elements": [
         {
+          "element": "article",
+          "description": ""
+        },
+        {
+          "element": "body",
+          "description": ""
+        },
+        {
+          "element": "div",
+          "description": ""
+        },
+        {
+          "element": "h1",
+          "description": ""
+        },
+        {
+          "element": "h2",
+          "description": ""
+        },
+        {
+          "element": "h3",
+          "description": ""
+        },
+        {
+          "element": "h4",
+          "description": ""
+        },
+        {
+          "element": "h5",
+          "description": ""
+        },
+        {
+          "element": "h6",
+          "description": ""
+        },
+        {
+          "element": "html",
+          "description": ""
+        },
+        {
+          "element": "p",
+          "description": ""
+        },
+        {
+          "element": "pre",
+          "description": ""
+        },
+        {
+          "element": "section",
+          "description": ""
+        },
+        {
+          "element": "span",
+          "description": ""
+        },
+        {
+          "element": "template",
+          "description": ""
+        },
+        {
           "element": "title",
           "description": "The title element sets the document's title that is shown in a browser's title bar or a page's tab."
         }

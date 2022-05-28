@@ -21,13 +21,13 @@
         <table class="mt1 w100p">
             <thead>
                 <tr>
-                    <th globalize="element">Element</th>
+                    <th globalize="tag">Tag</th>
                     <th class="w50" globalize="description">Description</th>
                 </tr>
             </thead>
             <tbody class="z09" json="true" iterate="core[1].elements" datasource="./assets/json/references.json">
                 <tr>
-                    <td jsonget="element"></td>
+                    <td jsonget="element" jsonbefore="&#65124;" jsonafter="&#65125;"></td>
                     <td jsonget="description"></td>
                 </tr>
             </tbody>
