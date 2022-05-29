@@ -6,4 +6,4 @@ jobs:
     container: cypress/included:3.8.3
     steps:
       - uses: actions/checkout@v1
-      - run: cypress run --config-file cypress/cypress/config.json
+      - run: cypress run
