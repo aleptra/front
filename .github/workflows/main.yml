@@ -1,9 +1,11 @@
-name: Integration tests
+name: Chrome headless
 on: [push]
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest
-    container: cypress/included:3.8.3
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
-      - run: cypress run
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          headless: true
