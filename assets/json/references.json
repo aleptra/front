@@ -76,6 +76,11 @@
           "description": ""
         },
         {
+          "attribute": "font",
+          "parameters": "",
+          "description": ""
+        },
+        {
           "attribute": "format",
           "parameters": "date(), age",
           "description": ""

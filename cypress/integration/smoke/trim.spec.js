@@ -13,9 +13,9 @@ describe('Smoke Testing - trim', () => {
 
   it('Checking if trim attribute is executed in elements', () => {
     cy.get("main").within(() => {
-      cy.get('div', { timeout: 0 }).should('have.text', 'div trim')
-      cy.get('p', { timeout: 0 }).should('have.text', 'p trim')
-      cy.get('span', { timeout: 0 }).contains('span trim')
+      cy.get('div').should('have.text', 'div trim')
+      cy.get('p').should('have.text', 'p trim')
+      cy.get('span').contains('span trim')
     })
   })
 })
