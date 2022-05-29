@@ -91,6 +91,11 @@
           "description": "The lowercase attribute converts a string to lowercase letters."
         },
         {
+          "attribute": "selective",
+          "parameters": "",
+          "description": ""
+        },
+        {
           "attribute": "slice",
           "parameters": "start, length",
           "description": "The slice attribute cuts a portion of the string, starting at the specified index and extending for a given number of characters afterwards."
@@ -110,7 +115,15 @@
     {
       "elements": [
         {
+          "element": "address",
+          "description": ""
+        },
+        {
           "element": "article",
+          "description": ""
+        },
+        {
+          "element": "aside",
           "description": ""
         },
         {
@@ -119,6 +132,10 @@
         },
         {
           "element": "div",
+          "description": ""
+        },
+        {
+          "element": "footer",
           "description": ""
         },
         {
@@ -143,6 +160,22 @@
         },
         {
           "element": "h6",
+          "description": ""
+        },
+        {
+          "element": "header",
+          "description": ""
+        },
+        {
+          "element": "main",
+          "description": ""
+        },
+        {
+          "element": "meta",
+          "description": ""
+        },
+        {
+          "element": "nav",
           "description": ""
         },
         {
