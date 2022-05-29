@@ -1,22 +1,12 @@
-name: Chrome headless
+name: End-to-end tests
 on: [push]
 jobs:
   cypress-run:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latests
     steps:
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6
-          # Only install what we need to run the client in-action and tests against it
-          # format:    `--filter <packagename>...`
-          run_install: |
-            - args: [--filter myclient... --filter cypress-tests...]
-      - name: Run Cypress tests
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup NPM
+        run: npm init
+      - name: Cypress run
         uses: cypress-io/github-action@v2
-        with:
-          # we have already installed all dependencies above
-          install: false
-          command: pnpm --dir cypress/ cypress:ci
-          start: pnpm --dir myclient/ dev
-          wait-on: 'https://localhost:3000'
