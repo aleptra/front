@@ -61,6 +61,11 @@
           "description": ""
         },
         {
+          "attribute": "escape",
+          "parameters": "",
+          "description": ""
+        },
+        {
           "attribute": "fixed",
           "parameters": "value",
           "description": ""
