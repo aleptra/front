@@ -10,5 +10,4 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           install: false
-          build: npm run build
-          start: npm start
+          config-file: cypress/cypress/config.json
