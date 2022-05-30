@@ -612,6 +612,8 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .m025, .m025-> *{margin: .25rem}
 .m05, .m05-> *{margin: .5rem}
 .m075, .m075-> *{margin: .75rem}
+.rv{resize:vertical}
+.rh{resize:horizontal}
 
 body [class*='mih']{min-height: inherit!important}
 body [class*='mah']{max-height: inherit!important}
