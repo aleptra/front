@@ -591,7 +591,7 @@ body .pr0, body .pr0->*{ padding-right: unset }
 .mr1, .mr1- *{margin-right:1rem}
 .mr2, .mr2- *{margin-right:2rem}
 .mr2, .mr3- *{margin-right:3rem}
-.mt0, .mt0- *{ margin-top: 0 }
+body .mt0, body .mt0- *{ margin-top: 0 }
 .mt05, .mt05-> *{margin-top: .5rem}
 .m05, .m05- *{ margin: .5rem }
 .mt05, .mt05- *{margin-top:.5rem}
