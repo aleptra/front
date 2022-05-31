@@ -28,7 +28,7 @@ body{
   font-family: material;
 }
 
-code{
+code, .code{
   background-color: #000;
   border-left: 5px solid #000;
   border-radius: .5rem;
@@ -42,7 +42,8 @@ code{
   width: 100%;
 }
 
-code.markup{
+code.markup,
+.code.markup{
   position: relative;
   border-left: 10px solid #2b2c30;
   box-shadow: -1px 0 0 0 #2b2c30, 0 0 0 1px #dfdfdf;

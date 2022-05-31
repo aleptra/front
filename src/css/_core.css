@@ -100,7 +100,7 @@ hr {
 
 section,
 article,
-code,
+code, .code,
 pre,
 samp,
 p,
@@ -116,7 +116,8 @@ div {
   height: unset
 }
 
-code {
+code,
+.code {
   overflow: auto;
   word-wrap: normal !important;
   word-break: normal;
