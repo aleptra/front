@@ -124,6 +124,11 @@ code,
   direction: ltr
 }
 
+code *,
+.code *{
+  white-space: unset
+}
+
 dialog,
 .modal {
   display: -webkit-flex;
