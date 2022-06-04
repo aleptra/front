@@ -22,16 +22,22 @@ function editorOnBlur(){
 }
 
 function editorOnKeyDown(e, el) {
+  var sel = window.getSelection()
+  var range = sel.getRangeAt(0)
   if (e.keyCode == 9) {
-    e.preventDefault()
-    var sel = window.getSelection()
-    var range = sel.getRangeAt(0)
-    console.log(range)
     var tabNodeValue = '\u0009'
     //var tabNodeValue = Array(4).join('\u00a0')
     var tabNode = document.createTextNode(tabNodeValue)
     range.insertNode(tabNode)
     range.setStartAfter(tabNode)
     range.setEndAfter(tabNode)
+  } else if (e.keyCode == 13) {
+    range.setStart(sel)
+  } else {
+    return
   }
+
+  console.log(e.target)
+  core.runAttributesInElement(e.target)
+  e.preventDefault()
 }

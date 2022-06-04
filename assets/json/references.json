@@ -7,6 +7,38 @@
           "description": "Runs all attributes in element."
         },
         {
+          "property": "core.hasTemplateLayout()",
+          "description": ""
+        },
+        {
+          "property": "core.runFrontAttributes()",
+          "description": ""
+        },
+        {
+          "property": "core.runIteration()",
+          "description": ""
+        },
+        {
+          "property": "core.isLibLoaded()",
+          "description": ""
+        },
+        {
+          "property": "core.lowercase()",
+          "description": "converts a string to lowercase letters."
+        },
+        {
+          "property": "core.runLibPreloads()",
+          "description": ""
+        },
+        {
+          "property": "core.trim()",
+          "description": "Removes whitespace from both sides of a string."
+        },
+        {
+          "property": "core.uppercase()",
+          "description": "Converts a string to uppercase letters."
+        },
+        {
           "property": "dom.click()",
           "description": ""
         },
