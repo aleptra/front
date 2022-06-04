@@ -1,0 +1,39 @@
+<script src="../../../dist/front.js" template="index;documentation/index"></script>
+
+<title globalize="api">API</title>
+
+<template>
+  <aside index="0" inherit="true"></aside>
+  <aside index="1"></aside>
+</template>
+
+<article>
+  <h1 globalize="API">API</h1>
+  <nav class="crumbs pointer pt05">
+    <ol>
+        <li><a href="./documentation" globalize="documentation">Dokumentation</a></li>
+        <li><a globalize="api">API</a></li>
+        <li globalize="overview">Overview</li>
+    </ol>
+  </nav>
+
+  <p class="mt1">Front has built-in application programming interface functions.</p>
+
+    <section>
+      <table class="mt1 w100p">
+          <thead>
+              <tr>
+                  <th globalize="property">Property</th>
+                  <th class="w50" globalize="description">Description</th>
+              </tr>
+          </thead>
+          <tbody class="z09" json="true" iterate="api[0].properties" datasource="./assets/json/references.json">
+              <tr>
+                  <td jsonget="property"></td>
+                  <td jsonget="description"></td>
+              </tr>
+          </tbody>
+      </table>
+  </section>
+
+</article>

@@ -1,4 +1,34 @@
 {
+  "api": [
+    {
+      "properties": [
+        {
+          "property": "core.runAttributesInElement()",
+          "description": "Runs all attributes in element."
+        },
+        {
+          "property": "dom.click()",
+          "description": ""
+        },
+        {
+          "property": "dom.class()",
+          "description": ""
+        },
+        {
+          "property": "dom.create()",
+          "description": "Creates an element."
+        },
+        {
+          "property": "dom.get()",
+          "description": "Gets an element by id, name or tag."
+        },
+        {
+          "property": "dom.remove()",
+          "description": ""
+        }
+      ]
+    }
+  ],
   "cli": [
     {
       "commands": [
