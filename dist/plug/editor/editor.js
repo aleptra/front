@@ -41,3 +41,11 @@ function editorOnKeyDown(e, el) {
   core.runAttributesInElement(e.target)
   e.preventDefault()
 }
+
+function editorPreview() {
+  var code = dom.get('code?tag=0')
+  var x = dom.get('iframe?tag=0')
+  var y = (x.contentWindow || x.contentDocument)
+  if (y.document)y = y.document
+  y.body.innerHTML = code.innerText
+}
