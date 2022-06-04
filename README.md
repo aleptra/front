@@ -1,5 +1,6 @@
 [![Integration tests](https://github.com/aleptra/front/actions/workflows/main.yml/badge.svg)](https://github.com/aleptra/front/actions/workflows/main.yml)
 # Front (Experimental)
+## Powered by JavaScript ES5
 
 <img src="https://www.front.nu/assets/img/icon_black.svg" width="100">
 
