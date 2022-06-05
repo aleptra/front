@@ -1,5 +1,7 @@
 ~$*
+*.log
 .DS_Store
 .AppleDouble
 .LSOverride
 cypress/videos
+cypress/fixtures/*.js

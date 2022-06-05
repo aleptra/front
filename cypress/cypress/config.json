@@ -10,6 +10,7 @@
   "testFiles": [
     "smoke/**/*.js",
     "gui/**/*.js",
-    "globalize/**/*.js"
+    "globalize/**/*.js",
+    "unit/**/*.js"
   ]
 }
