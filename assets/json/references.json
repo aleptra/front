@@ -24,7 +24,7 @@
         },
         {
           "property": "core.lowercase()",
-          "description": "converts a string to lowercase letters."
+          "description": "Converts a string to lowercase letters."
         },
         {
           "property": "core.runLibPreloads()",
@@ -40,7 +40,7 @@
         },
         {
           "property": "dom.click()",
-          "description": ""
+          "description": "Clicks on an element."
         },
         {
           "property": "dom.class()",
