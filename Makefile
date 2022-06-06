@@ -28,7 +28,7 @@ compress: default
 test:
 	@cp src/js/front.js cypress/fixtures
 	@echo -en '\n\nexport { core, app, dom, socket, client }' >> cypress/fixtures/front.js
-	@cypress open --config-file "cypress/cypress/config.json"
+	@cypress open --config-file "cypress/config.json"
 
 git:
 	make
