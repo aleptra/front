@@ -6,6 +6,7 @@
     "viewportHeight": 500,
     "viewportWidth": 500
   },
+  "video": false,
   "integrationFolder":"cypress/integration",
   "testFiles": [
     "smoke/**/*.js",
