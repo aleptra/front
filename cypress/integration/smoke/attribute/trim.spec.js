@@ -1,6 +1,6 @@
-describe('Smoke Testing - trim', () => {
+describe('Smoke Testing - trim (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/trim.html')
+    cy.visit('smoke/attribute/trim.html')
   })
 
   it('Checking for trim attribute in elements', () => {

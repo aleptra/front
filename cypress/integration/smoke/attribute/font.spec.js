@@ -1,6 +1,6 @@
-describe('Smoke Testing - font', () => {
+describe('Smoke Testing - font (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/font.html')
+    cy.visit('smoke/attribute/font.html')
   })
 
   it('Checking for font attribute in elements', () => {

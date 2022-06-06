@@ -1,6 +1,6 @@
-describe('Smoke Testing - fixedpoint', () => {
+describe('Smoke Testing - fixedpoint (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/fixedpoint.html')
+    cy.visit('smoke/attribute/fixedpoint.html')
   })
 
   it('Checking for fixedpoint attribute in elements', () => {

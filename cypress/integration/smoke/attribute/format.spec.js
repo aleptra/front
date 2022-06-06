@@ -1,6 +1,6 @@
-describe('Smoke Testing - format', () => {
+describe('Smoke Testing - format (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/format.html')
+    cy.visit('smoke/attribute/format.html')
   })
 
   it('Checking for format attribute in elements', () => {

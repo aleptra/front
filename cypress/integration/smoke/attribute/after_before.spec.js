@@ -1,6 +1,6 @@
-describe('Smoke Testing - after & before', () => {
+describe('Smoke Testing - after & before (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/after_before.html')
+    cy.visit('smoke/attribute/after_before.html')
   })
 
   context('Afterbegin', () => {

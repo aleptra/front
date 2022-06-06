@@ -1,6 +1,6 @@
-describe('Smoke Testing - include', () => {
+describe('Smoke Testing - include (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/include.html')
+    cy.visit('smoke/attribute/include.html')
   })
 
   /*

@@ -1,6 +1,6 @@
-describe('Smoke Testing - uppercase', () => {
+describe('Smoke Testing - uppercase (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/uppercase.html')
+    cy.visit('smoke/attribute/uppercase.html')
   })
 
   it('Checking for uppercase attribute in elements', () => {

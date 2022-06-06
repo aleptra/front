@@ -1,6 +1,6 @@
-describe('Smoke Testing - loop', () => {
+describe('Smoke Testing - iterate (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/loop.html')
+    cy.visit('smoke/attribute/loop.html')
   })
 
   it('Checking for iterate attribute in elements', () => {

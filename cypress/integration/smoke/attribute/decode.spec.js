@@ -1,6 +1,6 @@
-describe('Smoke Testing - decode', () => {
+describe('Smoke Testing - decode (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/decode.html')
+    cy.visit('smoke/attribute/decode.html')
   })
 
   it('Checking for decode attribute in elements', () => {

@@ -1,6 +1,6 @@
 describe('Smoke Testing - selective', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/selective.html')
+    cy.visit('smoke/attribute/selective.html')
   })
 
   it('Checking for selective attributes in elements', () => {

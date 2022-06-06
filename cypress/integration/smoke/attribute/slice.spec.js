@@ -1,6 +1,6 @@
-describe('Smoke Testing - slice', () => {
+describe('Smoke Testing - slice (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/slice.html')
+    cy.visit('smoke/attribute/slice.html')
   })
 
   it('Checking for slice attribute in elements', () => {

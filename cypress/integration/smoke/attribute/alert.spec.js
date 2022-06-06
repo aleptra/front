@@ -1,6 +1,6 @@
-describe('Smoke Testing - alert', () => {
+describe('Smoke Testing - alert (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/alert.html')
+    cy.visit('smoke/attribute/alert.html')
   })
 
   it('Checking for alert attribute in elements', () => {

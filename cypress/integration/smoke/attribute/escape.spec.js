@@ -1,6 +1,6 @@
-describe('Smoke Testing - escape', () => {
+describe('Smoke Testing - escape (Attribute)', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/escape.html')
+    cy.visit('smoke/attribute/escape.html')
   })
 
   it('Checking for escape attribute in elements', () => {
