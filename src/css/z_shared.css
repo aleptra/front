@@ -539,6 +539,7 @@ body .h50r{height: 50rem}
 body .p0 {padding: 0}
 body .p025, body .p025->*{ padding: .25rem }
 body .p05, body .p05->*{ padding: .5rem }
+body .p075, body .p075->*{ padding: .75rem }
 .p1,.p1->*{ padding: 1rem }
 .p2,.p2->*{ padding: 2rem }
 .p3,.p3->*{ padding: 3rem }
