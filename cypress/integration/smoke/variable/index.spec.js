@@ -34,7 +34,12 @@ describe('Smoke Testing - All (variable)', () => {
     })
 
     it('{% hostname %}', () => {
-      cy.get('#hostname p').contains('localhost')
+      cy.get('#hostname p').then(($el) => {
+        const txt = $el.text()
+        cy.location().should((loc) => {
+          expect(loc.hostname).to.eq(txt)
+        })
+      })
     })
 
     it.skip('{% mobileMode %}', () => {
