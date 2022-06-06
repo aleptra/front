@@ -3156,6 +3156,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .lg_w80p, body .lg_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
   body .lg_w90p, body .lg_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
   body .lg_w100p, body .lg_w100p- * { width: 100%; -ms-flex: 100%; flex: 100%}
+  body .lg_f2, body .lg_f2- * { -ms-flex: 2; flex: 2}
+  body .lg_f3, body .lg_f3- * { -ms-flex: 3; flex: 3}
   body .lg_fs100 a, body .lg_fs100{ font-size: 100% }
   body .lg_fs90 a, body .lg_fs90{ font-size: 90% }
   body .lg_fs80 a, body .lg_fs80{ font-size: 80% }
@@ -3203,6 +3205,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .md_w80p, body .md_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
   body .md_w90p, body .md_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
   body .md_w100p, body .md_w100p- * { width: 100%; -ms-flex: 100%; flex: 100% }
+  body .md_f2, body .md_f2- * { -ms-flex: 2; flex: 2}
+  body .md_f3, body .md_f3- * { -ms-flex: 3; flex: 3}
   body .md_fs100 a, body .md_fs100{ font-size: 100% }
   body .md_fs90 a, body .md_fs90{ font-size: 90% }
   body .md_fs80 a, body .md_fs80{ font-size: 80% }
