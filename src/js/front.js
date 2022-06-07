@@ -78,10 +78,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })
 
-  if (currentEnvName == "local") app.runDevFile()
+  if (currentEnvName == "local") {
+    app.runDevFile()
+  }
 
   if (currentScript.hasAttribute("store")) {
-
     var attr = currentScript.getAttribute("store").split(";")
     for (storefile in attr) {
       var file = attr[storefile].split(varDivider),
@@ -97,18 +98,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (!core.hasTemplateLayout()) {
-
     currentScriptUrl = app.getBaseUrl(currentScript.src)
     if (currentScript.hasAttribute(pathLib)) {
       var libs = currentScript.getAttribute(pathLib).split(";")
       for (lib in libs)
         require(libs[lib], pathLib)
     }
+
     if (currentScript.hasAttribute(pathPlug)) {
       var plugs = currentScript.getAttribute(pathPlug).split(";")
       for (plug in plugs)
         require(plugs[plug], pathPlug)
     }
+
     if (currentScript.hasAttribute(pathFont)) {
       var fonts = currentScript.getAttribute(pathFont).split(";")
       for (font in fonts) {
