@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (!core.hasTemplateLayout()) {
-    currentScriptUrl = app.getBaseUrl(currentScript.src)
+    currentScriptUrl = app.getBaseUrl(currentScriptUrl)
     if (currentScript.hasAttribute(pathLib)) {
       var libs = currentScript.getAttribute(pathLib).split(";")
       for (lib in libs)
