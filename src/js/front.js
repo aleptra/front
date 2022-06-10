@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
         app.storage(headers[0][1], response)
       })
     }
-    load = false
+
     loadStorage = true
   }
 
@@ -122,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    load = true
     loadTemplate = false
   }
 
@@ -185,10 +184,8 @@ window.onerror = function (msg, url, line) {
 }
 
 window.addEventListener("load", function () {
-  if (load) {
-    core.runLibPreloads()
-    core.runFrontAttributes()
-  }
+  core.runLibPreloads()
+  core.runFrontAttributes()
 })
 
 window.addEventListener("hashchange", function () {
