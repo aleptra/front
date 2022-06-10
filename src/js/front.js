@@ -54,7 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
   currentScriptUrl = currentScript.getAttribute("src")
   referrerUrl = document.referrer
   isMobile = "ontouchstart" in window && window.screen.availWidth < 768
-  //core.initCoreVariables()
+
+  if (currentEnvName == "local") {
+    app.runDevFile()
+  }
 
   var main = dom.get("main?tag=0"),
     trigger = false
@@ -77,10 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   })
-
-  if (currentEnvName == "local") {
-    app.runDevFile()
-  }
 
   if (currentScript.hasAttribute("store")) {
     var attr = currentScript.getAttribute("store").split(";")
