@@ -293,11 +293,8 @@ var core = function () {
     this.runLibAttributesInElement(e)
   }
 
-  this.isLibLoaded = function (lib) {
-    if (typeof nav === 'function')
-      return true
-    else
-      return false
+  this.isLibLoaded = function (name) {
+    return (typeof window[name] === 'function')
   }
 
   this.hasTemplateLayout = function () {
