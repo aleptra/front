@@ -11,25 +11,38 @@
 </nav>
 
 <section id="global-variables">
-    <h2>Global Variables</h2>
-    <code class="antiquewhite">
-        {% <span class="navajowhite">globalVariable</span> %}
+    <h2 globalize="global_variables">Global variables</h2>
+    <p>Global variables are variables with global scope, meaning that they can be accessed throughout the entire application.</p>
+    <code class="antiquewhite" run="false">
+        {&#65130; <span class="navajowhite">globalVariable</span> &#65130;}
     </code>
     <div class="alert bccornsilk snack shade0 mt1">
         <i class="icon24 pr2">&#128712</i><a href="./documentation/reference/core/variables.html">See all available variables</a>
     </div>
 </section>
 
+<section id="special-variables">
+  <h2 globalize="special_variables">Special variables</h2>
+  <p>Special variables are variables with global scope, meaning that they can be accessed throughout the entire application.</p>
+  <h3 class="mt1">Querystring</h3>
+  <code class="antiquewhite" run="false">
+      {# ?<span class="navajowhite">QuerystringVariable</span> #}
+  </code>
+  <div class="alert bcazure snack shade0 mt1">
+    <i class="icon24 pr1">⚠</i>The bind attribute is required, but will be deprecated in the future.
+  </div>
+</section>
+
 <section id="local-variables">
-    <h2>Local Variables</h2>
-    <code class="antiquewhite">
+    <h2 globalize="local_variables">Local variables</h2>
+    <code class="antiquewhite" run="false">
         {{ <span class="navajowhite">localVariable</span> }}
     </code>
 </section>
 
 <section id="library-variables">
-    <h2>Library Variables</h2>
-    <code class="antiquewhite">
+    <h2 globalize="library_variables">Library variables</h2>
+    <code class="antiquewhite" run="false">
         {{ <span class="navajowhite">library:variable</span> }}
     </code>
 </section>

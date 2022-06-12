@@ -1,6 +1,6 @@
-describe('Smoke Testing - All (variable)', () => {
+describe('Smoke Testing - Global variables', () => {
   it('Opening GUI', () => {
-    cy.visit('smoke/variable/index.html')
+    cy.visit('smoke/variable/global.html')
   })
 
   context('Checking if variables are executed', () => {
