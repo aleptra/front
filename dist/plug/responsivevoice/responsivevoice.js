@@ -1,1 +1,1 @@
-require("https://code.responsivevoice.org/responsivevoice.js?key=HoGHbU9L")
+app.require("https://code.responsivevoice.org/responsivevoice.js?key=HoGHbU9L")

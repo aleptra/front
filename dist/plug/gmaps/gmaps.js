@@ -7,7 +7,7 @@ libAttribute.push(
   {"attr": "gmaps", "func": "gmaps"}
 )
 
-require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY")
+app.require("https://maps.googleapis.com/maps/api/js?key=AIzaSyAev1q4GNC-VlKYxWQXWfuPQ3pexINKOEY")
 
 function gmaps(){
   var el = dom.get("gmaps")

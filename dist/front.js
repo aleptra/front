@@ -101,13 +101,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentScript.hasAttribute(pathLib)) {
       var libs = currentScript.getAttribute(pathLib).split(";")
       for (lib in libs)
-        require(libs[lib], pathLib)
+        app.require(libs[lib], pathLib)
     }
 
     if (currentScript.hasAttribute(pathPlug)) {
       var plugs = currentScript.getAttribute(pathPlug).split(";")
       for (plug in plugs)
-        require(plugs[plug], pathPlug)
+        app.require(plugs[plug], pathPlug)
     }
 
     if (currentScript.hasAttribute(pathFont)) {
@@ -191,51 +191,6 @@ window.addEventListener("load", function () {
 window.addEventListener("hashchange", function () {
   return false
 }, false)
-
-function require(src, folder) {
-  var type
-
-  if (src.indexOf("http") >= 0) {
-    src = src
-    type = "script"
-  } else if (src.indexOf(".js") >= 0) {
-    src = baseUrl + src
-    type = "script"
-  } else if (src.indexOf(".css") >= 0) {
-    src = src
-    type = "link"
-  } else {
-    file = (folder == "plug") ? src + "/" + src : src
-    src = currentScriptUrl + folder + urlDelimiter + file + ".js"
-    type = "script"
-  }
-
-  var head = dom.get("head?tag"),
-    asset = document.createElement(type)
-  asset.src = src
-  asset.href = src
-  asset.rel = "stylesheet"
-  asset.async = false
-  asset.defer = "defer"
-  asset.onload = function () {
-    app.debug("Load: " + src)
-  }
-
-  head.appendChild(asset)
-}
-
-function scrollTo(element, to, duration) {
-  if (duration < 0) return
-  var difference = to - element.scrollTop,
-    perTick = difference / duration * 2
-
-  setTimeout(function () {
-    element.scrollTop = element.scrollTop + perTick
-    scrollTo(element, to, duration - 2)
-  }, 10)
-
-  app.debug("Scroll: " + element + ":" + to + ":" + duration)
-}
 
 function set(type, param, value) {
   dom.set(type, param, value)
@@ -942,8 +897,53 @@ var app = function () {
     }, true)
   }
 
+  this.require = function (src, folder) {
+    var type
+
+    if (src.indexOf("http") >= 0) {
+      src = src
+      type = "script"
+    } else if (src.indexOf(".js") >= 0) {
+      src = baseUrl + src
+      type = "script"
+    } else if (src.indexOf(".css") >= 0) {
+      src = src
+      type = "link"
+    } else {
+      file = (folder == "plug") ? src + "/" + src : src
+      src = currentScriptUrl + folder + urlDelimiter + file + ".js"
+      type = "script"
+    }
+
+    var head = dom.get("head?tag"),
+      asset = document.createElement(type)
+    asset.src = src
+    asset.href = src
+    asset.rel = "stylesheet"
+    asset.async = false
+    asset.defer = "defer"
+    asset.onload = function () {
+      app.debug("Load: " + src)
+    }
+
+    head.appendChild(asset)
+  }
+
   this.redirect = function (url) {
     top.location.href = url
+  }
+
+  this.scrollTo = function (element, to, duration) {
+    if (duration < 0) return
+    var difference = to - element.scrollTop,
+      perTick = difference / duration * 2
+
+    setTimeout(function () {
+      element.scrollTop = element.scrollTop + perTick
+      scrollTo(element, to, duration - 2)
+    }, 10)
+
+    app.debug("Scroll: " + element + ":" + to + ":" + duration)
   }
 
   this.debug = function (log, c, bc) {
