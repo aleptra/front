@@ -46,7 +46,7 @@ serve:
 watch:
 	@fswatch -r -1 ./src/ ./marketplace/ | xargs -0 -n 1 -I {} echo "File {} changed" && make && make watch
 
-release:
+git%release:
 	@$(eval JS_FILE="dist/front-$(tag).js")
 	@echo -e "\n*----------* \033[33m Push Release to GitHub \033[0m *----------*\n";
 	@echo -e "TAG: \033[1;33m$(tag)\033[0m";
@@ -62,6 +62,19 @@ release:
 		git add index.html ; \
 		git commit -m "Alpha Release ($(tag))" ; \
 		git status ; \
+	fi;
+
+#: Revert to specific commit hash and push to master.
+git%revert:
+	@echo -en "\033[1;33mEnter commit hash\033[0m: " ; \
+	read HASH ; \
+	git reset --hard $(HASH) ; \
+	echo -en "\033[1;33mAre you sure you want to continue?\033[0m \033[1;36m[y/n]\033[0m: " ; \
+	read RESPONSE ; \
+	if [[ $$RESPONSE = [yY] ]] ; then \
+		git push origin master -f ; \
+	else \
+		exit 0 ; \
 	fi;
 
 #: Create a new project from a boilerplate.
