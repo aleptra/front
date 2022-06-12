@@ -74,6 +74,8 @@ git%revert:
 	if [[ $$RESPONSE = [yY] ]] ; then \
 		git push origin master -f ; \
 	else \
+		git reset --hard HEAD~1 ; \
+		git pull ; \
 		exit 0 ; \
 	fi;
 
