@@ -68,7 +68,7 @@ git%release:
 git%revert:
 	@echo -en "\033[1;33mEnter commit hash\033[0m: " ; \
 	read HASH ; \
-	git reset --hard $(HASH) ; \
+	git reset --hard $$HASH ; \
 	echo -en "\033[1;33mAre you sure you want to continue?\033[0m \033[1;36m[y/n]\033[0m: " ; \
 	read RESPONSE ; \
 	if [[ $$RESPONSE = [yY] ]] ; then \
