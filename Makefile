@@ -18,8 +18,7 @@ BOILERPLATE = $$HOME/front/
 default:
 	cat src/css/*.css > ${OUTPUT_CSS}
 	rsync src/js/front.js ${COPY_JS}
-	rsync --exclude 'front.js' --exclude 'marketplace/' src/js/lib/* ${COPY_JS_LIBS}
-	rsync -r marketplace/plugin/ ${COPY_JS_PLUGS}
+	rsync --exclude 'front.js' --exclude src/js/lib/* ${COPY_JS_LIBS}
 
 compress: default
 	cat ${OUTPUT_CSS} | tr -d "\t\n" | tr -s "[:blank:]" " " > ${OUTPUT_CSS_MINI}
