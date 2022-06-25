@@ -29,7 +29,6 @@ var html,
   currentEnvUrl,
   referrerUrl,
   baseUrl,
-  html,
   startPage = "home.html",
 
   pathLib = "lib",
@@ -43,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
   debugMode = html.getAttribute("debug")
   startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
   hostName = window.location.hostname
+  hostProtocol = window.location.protocol.slice(0, -1)
   url = window.location.origin + urlDelimiter
   currentUrl = window.location.href
   currentPage = window.location.pathname

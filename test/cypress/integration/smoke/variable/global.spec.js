@@ -33,11 +33,20 @@ describe('Smoke Testing - Global variables', () => {
       cy.get('#debugmode p').contains('true')
     })
 
-    it('{% hostname %}', () => {
+    it('{% hostName %}', () => {
       cy.get('#hostname p').then(($el) => {
         const txt = $el.text()
         cy.location().should((loc) => {
           expect(loc.hostname).to.eq(txt)
+        })
+      })
+    })
+
+    it('{% hostProtocol %}', () => {
+      cy.get('#hostprotocol p').then(($el) => {
+        const txt = $el.text()
+        cy.location().should((loc) => {
+          expect(loc.protocol.slice(0, -1)).to.eq(txt)
         })
       })
     })
