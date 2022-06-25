@@ -6,3 +6,5 @@
 .LSOverride
 cypress/videos
 cypress/fixtures/*.js
+node_modules
+package-lock.json
