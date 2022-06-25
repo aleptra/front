@@ -1,13 +1,15 @@
 SHELL := /bin/bash
 ARGS = $(filter-out $@,$(MAKECMDGOALS))
 
-SERVE_PORT = 3030
+SERVE_PORT = 8081
 SERVE_DIR = $$PWD
 
 BIN_PHP = $(shell which php)
 BIN_PYTHON2 = $(shell which python)
 BIN_PYTHON3 = $(shell which python3)
-SERVE_ACTIVE_PORT = $(shell lsof -t -i:$(SERVE_PORT))
+
+USE_PORT=$(or $(PORT),$(SERVE_PORT))
+SERVE_ACTIVE_PORT=$(shell lsof -t -i:$(USE_PORT))
 
 OUTPUT_CSS = dist/front.css
 OUTPUT_CSS_MINI = dist/front.min.css
@@ -15,7 +17,10 @@ COPY_JS = dist/front.js
 COPY_JS_LIBS = dist/lib/
 COPY_JS_PLUGS = dist/plug/
 BOILERPLATE = $$HOME/front/
+
 CYPRESS_DIR = test/cypress/
+CYPRESS_SERVE_PORT = 3030
+CYPRESS_ARGS = -P test -C cypress/cypress.config.js
 
 default:
 	cat src/css/*.css > ${OUTPUT_CSS}
@@ -26,10 +31,15 @@ compress: default
 	cat ${OUTPUT_CSS} | tr -d "\t\n" | tr -s "[:blank:]" " " > ${OUTPUT_CSS_MINI}
 
 .PHONY: test
-test: serve
+test:
+	@make serve PORT=$(CYPRESS_SERVE_PORT)
 	@cp -fr src/* ${CYPRESS_DIR}fixtures
 	@echo -en '\n\nexport { core, app, dom, socket, client }' >> ${CYPRESS_DIR}fixtures/js/front.js
-	@cypress run -P test -C cypress/cypress.config.js
+	@if [ $(ARGS) ] && [ $(ARGS) == "headed" ] ; then \
+		cypress open $(CYPRESS_ARGS) ; \
+	else \
+		cypress run $(CYPRESS_ARGS) ; \
+	fi;
 
 git:
 	make
@@ -41,11 +51,11 @@ serve:
 	fi;
 
 	@if [ $(BIN_PYTHON3) ] ; then \
-		python3 -m http.server -d $(SERVE_DIR) $(SERVE_PORT) & \
+		python3 -m http.server -d $(SERVE_DIR) $(USE_PORT) & \
 	elif [ $(BIN_PYTHON2) ] ; then \
-		python -m SimpleHTTPServer -d $(SERVE_DIR) $(SERVER_PORT) & \
+		python -m SimpleHTTPServer -d $(SERVE_DIR) $(USE_PORT) & \
 	elif [ $(BIN_PHP) ] ; then \
-		php -S localhost:$(SERVE_PORT) -t $(SERVE_DIR) & \
+		php -S localhost:$(USE_PORT) -t $(SERVE_DIR) & \
 	fi;
 
 watch:
