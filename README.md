@@ -21,32 +21,15 @@
 Visual Studio Code is recommended for this project.
 
 ### Watcher
-A file watcher is recommended to be present and installed as an extension and the file watcher must run the command ```make``` for the CSS to be rebuilt.
+A file watcher is recommended to be present and installed as an extension and the file watcher must run the command ```make``` for the JS and CSS to be rebuilt.
 
-#### File Watcher (settings.json)
-```
-{
-    "filewatcher.commands" : [
-        {
-            "match": "\\.css*",
-            "isAsync": true,
-            "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
-            "event": "onFileChange"
-        },
-        {
-            "match": "\\.js*",
-            "isAsync": true,
-            "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
-            "event": "onFileChange"
-        }
-    ]
-}
-```
 #### CLI
-make serve
-make compress
-make watch
+```make serve```
 
-[0]:https://www.front.nu
+```make compress```
+
+```make watch```
+
+[0]:https://www.front.nu/documentation
 [1]:https://code.visualstudio.com
 [2]:https://marketplace.visualstudio.com/items?itemName=appulate.filewatcher
