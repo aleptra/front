@@ -6,7 +6,7 @@ describe('Smoke Testing - Global variables', () => {
   context('Checking if variables are executed', () => {
 
     it('{% baseUrl %}', () => {
-      cy.get('#baseurl p').contains('/test/smoke/variable')
+      cy.get('#baseurl p').contains('/smoke/variable')
     })
 
     it.skip('{% currentEnvName %}', () => {
@@ -14,11 +14,11 @@ describe('Smoke Testing - Global variables', () => {
     })
 
     it.skip('{% currentEnvUrl %}', () => {
-      cy.get('#currentEnvUrl p').contains('/test/smoke/variable')
+      cy.get('#currentEnvUrl p').contains('/smoke/variable')
     })
 
     it.skip('{% currentPage %}', () => {
-      cy.get('#currentPage p').contains('/test/smoke/variable/variable')
+      cy.get('#currentPage p').contains('/smoke/variable/variable')
     })
 
     it.skip('{% currentScriptUrl %}', () => {

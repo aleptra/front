@@ -1,6 +1,7 @@
 ~$*
-*/cypress/videos
 */cypress/downloads
+*/cypress/screenshots
+*/cypress/videos
 */cypress/fixtures/css
 */cypress/fixtures/js
 *.front.nu

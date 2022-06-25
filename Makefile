@@ -29,7 +29,7 @@ compress: default
 test: serve
 	@cp -fr src/* ${CYPRESS_DIR}fixtures
 	@echo -en '\n\nexport { core, app, dom, socket, client }' >> ${CYPRESS_DIR}fixtures/js/front.js
-	@cypress open -P test -C cypress/cypress.config.js
+	@cypress run -P test -C cypress/cypress.config.js
 
 git:
 	make
