@@ -27,9 +27,9 @@ compress: default
 
 .PHONY: test
 test: serve
-	@cp src/js/front.js ${CYPRESS_DIR}fixtures
-	@echo -en '\n\nexport { core, app, dom, socket, client }' >> ${CYPRESS_DIR}fixtures/front.js
-	@cypress run --project test/cypress/integration
+	@cp -fr src/* ${CYPRESS_DIR}fixtures
+	@echo -en '\n\nexport { core, app, dom, socket, client }' >> ${CYPRESS_DIR}fixtures/js/front.js
+	@cypress open -P test -C cypress/cypress.config.js
 
 git:
 	make

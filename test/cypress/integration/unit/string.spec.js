@@ -1,4 +1,4 @@
-import { core } from '../../fixtures/front';
+import { core } from '../../fixtures/js/front';
 
 describe('Unit Testing - String functions', () => {
 
