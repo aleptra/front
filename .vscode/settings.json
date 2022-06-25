@@ -1,0 +1,19 @@
+{
+  "makefile.extensionOutputFolder": "./.vscode",
+	"editor.insertSpaces": true,
+	"editor.tabSize": 2,
+  "filewatcher.commands" : [
+    {
+      "match": "\\.css*",
+      "isAsync": true,
+      "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
+      "event": "onFileChange"
+    },
+    {
+      "match": "\\.js*",
+      "isAsync": true,
+      "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
+      "event": "onFileChange"
+    }
+  ]
+}
