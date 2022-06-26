@@ -11,6 +11,7 @@ jobs:
         with:
           node-version: 14
       - run: npm install --package-lock-only
+      - run: npm init
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
