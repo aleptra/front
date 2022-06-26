@@ -10,11 +10,4 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
-      - run: npm init
       - run: npm install --package-lock-only
-      - name: Cypress run
-        uses: cypress-io/github-action@v4
-        with:
-          build: npm run build
-          start: npm start
-          project: test
