@@ -1,0 +1,11 @@
+name: Integration tests
+on: [push]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
+    name: E2E on Chrome
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
