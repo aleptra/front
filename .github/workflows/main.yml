@@ -1,16 +1,17 @@
 name: Integration tests
 on: [push]
 jobs:
-  cypress-run:
-    runs-on: ubuntu-20.04
-    name: E2E on Chrome
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 12, 14, 16 ]
+    name: Node ${{ matrix.node }} sample
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
-          cache: 'npm'
-      - run: npm init
-      - uses: cypress-io/github-action@v4
-        with:
-          browser: chrome
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm test
