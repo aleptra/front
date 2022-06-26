@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
   debugMode = html.getAttribute("debug")
   startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
   hostName = window.location.hostname
-  hostPort = window.location.port
   hostProtocol = window.location.protocol.slice(0, -1)
   url = window.location.origin + urlDelimiter
   currentUrl = window.location.href
@@ -260,9 +259,9 @@ var core = function () {
           template1 = template[0] === "true" ? "index" : template[0],
           template2 = template[1] ? template[1] : false
 
-        var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? currentUrl : currentScriptUrl,
+        var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? url : currentScriptUrl,
           count = cUrl.split("../").length + (template1.match(/..\//g) || []).length,
-          url = currentUrl.split("/").slice(0, -count).join("/")
+          urlTemplate = url.split("/").slice(0, -count).join("/")
 
         var html = dom.get("html?tag=0"),
           script = dom.get("script?tag=0"),
@@ -270,7 +269,6 @@ var core = function () {
         script.removeAttribute("src")
         script.removeAttribute("template")
         del.parentNode.removeChild(del)
-
         var main = dom.removeTags(html.outerHTML, ["html", "head", "script", "body"])
 
         function getTwoTemplates() {
@@ -279,7 +277,7 @@ var core = function () {
             var response = this.responseText.match(/<template[^>]*>([\s\S]*?)<\/template>/gm)
             getOneTemplate(response)
           }
-          xhr.open("GET", url + "/" + template2 + ".html", false)
+          xhr.open("GET", urlTemplate + "/" + template2 + ".html", false)
           xhr.send()
         }
 
