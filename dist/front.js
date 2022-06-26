@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
   debugMode = html.getAttribute("debug")
   startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
   hostName = window.location.hostname
+  hostPort = window.location.port
   hostProtocol = window.location.protocol.slice(0, -1)
   url = window.location.origin + urlDelimiter
   currentUrl = window.location.href
