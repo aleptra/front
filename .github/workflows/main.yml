@@ -9,7 +9,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 14
-      - run: npm init
       - uses: cypress-io/github-action@v4
         with:
           browser: chrome
+      - run: npm init
