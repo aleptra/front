@@ -1224,7 +1224,7 @@ var dom = function () {
       }
 
       if (increment) {
-        pad = increment.match(/(0*)/s)[0]
+        pad = increment.match(/(0*)/s)[0] | ''
         pad = (pad || []).length
       }
 
