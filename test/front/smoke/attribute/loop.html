@@ -18,9 +18,19 @@
     <main class="pauto">
       <section id="numerical">
         <h3>Numerical loop</h3>
+        
+        <h4 class="mt1">Div</h4>
         <div variable="i:1" iterate="20;i++">
           <p>{{ i }} = <var>i</var></p>
         </div>
+
+        <h4 class="mt1">Select</h4>
+        <select class="phdark bw1 bos8 bocblack02" name="birth_date_year" variable="i:2000" iterate="100;i++" required>
+          <option>{{ i }}</option>
+        </select>
+        <select class="phdark bw1 bos8 bocblack02" name="birth_date_month" variable="i:01" iterate="10;i++" required>
+          <option>{{ i }}</option>
+        </select>
       </section>
     </main>
   </body>

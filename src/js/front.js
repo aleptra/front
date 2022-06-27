@@ -1224,8 +1224,8 @@ var dom = function () {
       }
 
       if (increment) {
-        pad = increment.match(/(0*)/s)
-        pad = (pad[0] || []).length
+        pad = increment.match(/^0+/g)
+        pad = pad ? pad.length : 0
       }
 
       for (var j = 0; j < copies; j++) {
