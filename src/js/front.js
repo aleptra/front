@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
   startPage = (html.hasAttribute("startpage")) ? html.getAttribute("startpage") : startPage
   hostName = window.location.hostname
   hostProtocol = window.location.protocol.slice(0, -1)
+  hostPort = (hostProtocol == 'https') ? 443 : window.location.port | 80
   url = window.location.origin + urlDelimiter
   currentUrl = window.location.href
   currentPage = window.location.pathname
