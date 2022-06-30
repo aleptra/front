@@ -16,13 +16,13 @@
       </a>
     </header>
     <main class="pauto">
-      <section id="querystring" class="mt2 gaph2-" bind="bindid:?variable">
+      <section id="globalize" class="mt2 gaph2-">
         <h3>Globalize</h3>
         <hr class="bcblack">
-        <p>{% browserLocale %}</p>
-        <p>{% defaultLocale %}</p>
-        <p>{% localeCode %}</p>
-        <p>{% localeCountry %}</p>
+        <p id="browserlocale">{% browserLocale %}</p>
+        <p id="defaultlocale">{% defaultLocale %}</p>
+        <p id="localecode">{% localeCode %}</p>
+        <p id="localecountry">{% localeCountry %}</p>
       </section>
     </main>
   </body>
