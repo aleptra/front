@@ -1554,26 +1554,27 @@ body .icon512 {
 .box.list .fr {
   float: right
 }.modal {
+  position: fixed;
+  padding: 1.5rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #fff;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity .5s, visibility 0s linear .5s;
+  transition: opacity .5s, visibility 0s linear .5s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
   -webkit-box-shadow: 0 2px 4px #00000080;
   -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
-  border-radius: .5rem;
-  flex-direction: column;
+  z-index: 1;
   -ms-flex-direction: column;
-  position: fixed;
-  padding: 1.5rem;
-  margin: initial;
-  max-height: 100%;
-  opacity: 0;
-  overflow: scroll;
-  top: 50%;
-  left: 50%;
-  transition: opacity .5s, visibility 0s linear .5s;
-  -webkit-transition: opacity .5s, visibility 0s linear .5s;
-  transform: translate(-50%, -50%);
-  visibility: hidden;
+  flex-direction: column;
+  border-radius: .5rem;
   z-index: 100;
+  margin: initial;
+  overflow: scroll;
+  max-height: 100%;
 }
 
 .modal:target {
