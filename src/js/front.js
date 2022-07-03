@@ -150,12 +150,24 @@ document.addEventListener("DOMContentLoaded", function () {
     var el = getParentTag(clicked, "a")
     if (el !== null) {
       var elHref = el.getAttribute("href"),
-        elTarget = el.getAttribute("target")
+          elTarget = el.getAttribute("target"),
+          elUrl = el.getAttribute("modalurl")
       if (el.hasAttribute("window")) {
         dom.create("div", ["href=/"], "head")
         return false
       } else if (elHref && elHref.substring(0, 1) === "#") {
         location.hash = elHref
+        if (elUrl) {
+          var modalXhr = new xhr()
+              el = dom.get(elHref.replace("#", ""))
+              el.innerHTML = '<span class="loader"></span>'
+          modalXhr.get(currentEnvUrl + elUrl, function (response, status) {
+            if (status == 200) {
+              el.innerHTML = response
+              core.runAttributesInElement(el)
+            }
+          })
+        }
         return false
       } else if (elHref && elHref.substring(0, 11) !== "javascript:" && elTarget !== "_top" && elTarget !== "_blank") {
         app.debug('Click (Ajax): ' + elHref)
@@ -169,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.addEventListener("click", function (e) {
     var clicked = (e.target) ? e.target : e.srcElement,
-      val = clicked.parentNode.getAttribute("onclick")
+        val = clicked.parentNode.getAttribute("onclick")
     if (val) {
       core.runFunction("dom." + val, clicked.parentNode)
       e.stopPropagation()
@@ -257,16 +269,16 @@ var core = function () {
     for (i = 0; i < front.length; i++) {
       if (front[i].hasAttribute("template") && front[i].tagName == "SCRIPT") {
         var template = front[i].getAttribute("template").split(";"),
-          template1 = template[0] === "true" ? "index" : template[0],
-          template2 = template[1] ? template[1] : false
+            template1 = template[0] === "true" ? "index" : template[0],
+            template2 = template[1] ? template[1] : false
 
         var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? url : currentScriptUrl,
-          count = cUrl.split("../").length + (template1.match(/..\//g) || []).length,
-          urlTemplate = url.split("/").slice(0, -count).join("/")
+            count = cUrl.split("../").length + (template1.match(/..\//g) || []).length,
+            urlTemplate = url.split("/").slice(0, -count).join("/")
 
         var html = dom.get("html?tag=0"),
-          script = dom.get("script?tag=0"),
-          del = document.documentElement
+            script = dom.get("script?tag=0"),
+            del = document.documentElement
         script.removeAttribute("src")
         script.removeAttribute("template")
         del.parentNode.removeChild(del)
@@ -313,7 +325,7 @@ var core = function () {
 
     this.runListener = function (e) {
       var listener = e.getAttribute("eventlistener"),
-        action = e.getAttribute("eventaction")
+          action = e.getAttribute("eventaction")
       window.addEventListener(listener, function () {
         eval(action)
       })

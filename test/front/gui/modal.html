@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html debug="true">
+<head>
+  <title>GUI - Modal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link type="text/css" href="/dist/front.css" rel="stylesheet">
+  <link type="text/css" href="/dist/design/front/theme/front.css" rel="stylesheet">
+  <script src="/dist/front.js" lib="globalize"></script>
+</head>
+<body>
+  <header class="topbar bcblack white- h4 pl1">
+    <img class="h60 pr05" src="/test/front/favicon.ico">
+    <h3>{% title %}</h3>
+    <a class="button fr" href="/test/front" target="_top">
+      <button class="positioned r1 bcdimgray"><i class="icon16">&#5176;</i></button>
+    </a>
+  </header>
+  <main class="pauto">
+    <section>
+      <a href="#inlinemodal">Open inline modal</a>
+      <div id="inlinemodal" class="modal w50 p3" draggable="false">
+        <a href="#" class="close">x</a>
+        <h2>Inline modal</h2>
+        <p>This is the content!</p>
+      </div>
+    </section>
+    <section>
+      <a href="#ajaxmodal" modalurl="../assets/modals/edit.html?id=1">Open ajax modal</a>
+      <div id="ajaxmodal" class="modal w50 p3" draggable="false"></div>
+    </section>
+  </main>
+</body>
+</html>
