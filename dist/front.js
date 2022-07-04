@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
       storeXhr.get(currentEnvUrl + file[0] + ".json", function (response, status, headers) {
         appStorage = response
         app.storage(headers[0][1], response)
-      })
+      }, false)
     }
 
     loadStorage = true
