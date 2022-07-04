@@ -3132,6 +3132,12 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .xl_flcu, body *.flc.xl_flcu{top:inherit;left: inherit;transform:inherit}
   body .xl_shadeu{box-shadow:inherit;-webkit-box-shadow:inherit;-moz-box-shadow:inherit}
   body .xl_hu{height:unset}
+  body .xl_w50p, body .xl_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
+  body .xl_w60p, body .xl_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
+  body .xl_w70p, body .xl_w70p- * { width: 70%; -ms-flex: 70%; flex: 70% }
+  body .xl_w80p, body .xl_w80p- * { width: 80%; -ms-flex: 80%; flex: 80% }
+  body .xl_w90p, body .xl_w90p- * { width: 90%; -ms-flex: 90%; flex: 90% }
+  body .xl_w100p, body .xl_w100p- * { width: 100%; -ms-flex: 100%; flex: 100%}
   body .xl_fs100 a, body .xl_fs100{ font-size: 100% }
   body .xl_fs90 a, body .xl_fs90{ font-size: 90% }
   body .xl_fs80 a, body .xl_fs80{ font-size: 80% }
