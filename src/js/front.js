@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (status == 200) {
               el.innerHTML = response
               core.runAttributesInElement(el)
-              core.runVariables(el)
+              core.runVariablesInElement(el)
             }
           })
         }

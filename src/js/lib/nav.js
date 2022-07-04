@@ -28,7 +28,7 @@ function nav(path, el, push) {
       if (push || path == startPage) navPush(path)
       dom.content(target, response)
       if (!dom.get("title?tag=1")) document.title = title
-      //core.runVariables(target)
+      //core.runVariablesInElement(target)
 
       if (anchor[1]) {
         dom.scrollInto(anchor[1])
