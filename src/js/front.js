@@ -1,4 +1,3 @@
-alert('ss')
 var html,
   front,
   frontVariables = [],
