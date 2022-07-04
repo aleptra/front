@@ -30,6 +30,7 @@ var html,
   referrerUrl,
   baseUrl,
   startPage = "home.html",
+  pageType,
 
   pathLib = "lib",
   pathPlug = "plug",
@@ -161,10 +162,12 @@ document.addEventListener("DOMContentLoaded", function () {
           var modalXhr = new xhr()
               el = dom.get(elHref.replace("#", ""))
               el.innerHTML = '<span class="loader"></span>'
+              pageType = 'modal'
           modalXhr.get(currentEnvUrl + elUrl, function (response, status) {
             if (status == 200) {
               el.innerHTML = response
               core.runAttributesInElement(el)
+              core.runVariables(el)
             }
           })
         }
@@ -600,7 +603,7 @@ var core = function () {
       e.style.fontFamily = e.getAttribute("font")
   }
 
-  this.initCoreVariables = function (e) {
+  this.runVariables = function (e) {
     var target = (e) ? dom.get(e) : html
     target.innerHTML = target.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function (out1, out2) {
       var input = eval(out2)
