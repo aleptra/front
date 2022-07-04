@@ -30,7 +30,7 @@ var html,
   referrerUrl,
   baseUrl,
   startPage = "home.html",
-  pageType,
+  pageType = "page",
 
   pathLib = "lib",
   pathPlug = "plug",
