@@ -1,3 +1,4 @@
+alert('ss')
 var html,
   front,
   frontVariables = [],
@@ -909,7 +910,7 @@ var app = function () {
         eval(response)
         app.debug("Include file: .env", "green")
       }
-    }, true)
+    }, false)
   }
 
   this.require = function (src, folder) {
