@@ -313,11 +313,7 @@ var core = function () {
           xhr.send()
         }
 
-        if (template2)
-          getTwoTemplates()
-        else
-          getOneTemplate("")
-
+        template2 ? getTwoTemplates() : getOneTemplate("")
         return true
       }
     }
