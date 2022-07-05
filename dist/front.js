@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
   hostName = window.location.hostname
   hostProtocol = window.location.protocol.slice(0, -1)
   hostPort = (hostProtocol == 'https') ? 443 : window.location.port | 80
-  url = window.location.origin + urlDelimiter
+  url = window.location.origin
   currentUrl = window.location.href
   currentPage = window.location.pathname
   baseUrl = app.getBaseUrl(currentUrl)
