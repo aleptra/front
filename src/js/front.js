@@ -599,7 +599,7 @@ var core = function () {
       e.style.fontFamily = e.getAttribute("font")
   }
 
-  this.runVariables = function (e) {
+  this.runVariablesInElement = function (e) {
     var target = (e) ? dom.get(e) : html
     target.innerHTML = target.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function (out1, out2) {
       var input = eval(out2)
