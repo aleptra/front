@@ -2,6 +2,10 @@
   "makefile.extensionOutputFolder": "./.vscode",
 	"editor.insertSpaces": true,
 	"editor.tabSize": 2,
+  "files.exclude": {
+    "dist/front*": true,
+    "dist/lib": true,
+  },
   "filewatcher.commands" : [
     {
       "match": "\\.css*",
