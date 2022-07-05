@@ -3,19 +3,26 @@ describe('GUI Testing - Modal', () => {
     cy.visit('gui/modal.html')
   })
 
-  it('Checking for link name', () => {
-    cy.get('main a').contains('Link')
+  it("Checking for anchor tags in links", () => {
+    cy.get("main").within(() => {
+      cy.get('#inline a').eq(0).should('have.attr', 'href', '#inlinemodal')
+      cy.get('#ajax a').eq(0).should('have.attr', 'href', '#ajaxmodal')
+    })
   })
 
-  it("Checking for anchor tag in link", () => {
-    cy.get('main a').should('have.attr', 'href', '#test')
+  it('Opening inline modal', () => {
+    cy.get('main #inline a').eq(0).click()
   })
 
-  it('Opening modal', () => {
-    cy.get('main a').click()
+  it("Checking for inline anchor in url", () => {
+    cy.url().should('include', '#inlinemodal')
   })
 
-  it("Checking for anchor in url", () => {
-    cy.url().should('include', '#test')
+  it('Opening ajax modal', () => {
+    cy.get('main #ajax a').eq(0).click()
+  })
+
+  it("Checking for ajax anchor in url", () => {
+    cy.url().should('include', '#ajaxmodal')
   })
 })
