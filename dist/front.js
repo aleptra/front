@@ -301,7 +301,7 @@ var core = function () {
           var xhr = new XMLHttpRequest()
           xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-              response = this.responseText
+              var response = this.responseText
               response = response.replace(/<base(.*)>/gi, '<base$1 href="' + url + '/">')
               response = response.replace(/<main(.*) include="(.*)">/gi, '<main$1>' + main + response2)
               document.open()
