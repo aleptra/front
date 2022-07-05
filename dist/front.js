@@ -166,8 +166,8 @@ document.addEventListener("DOMContentLoaded", function () {
           modalXhr.get(currentEnvUrl + elUrl, function (response, status) {
             if (status == 200) {
               el.innerHTML = response
-              core.runAttributesInElement(el)
               core.runVariablesInElement(el)
+              core.runAttributesInElement(el)
             }
           })
         }
