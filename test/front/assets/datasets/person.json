@@ -1,0 +1,12 @@
+{
+  "person": [
+    {
+      "id": 1,
+      "name": "Josef",
+      "lastname": "Gabrielsson",
+      "role": "CEO",
+      "salary": 156000,
+      "company": "Aleptra"
+    }
+  ]
+}

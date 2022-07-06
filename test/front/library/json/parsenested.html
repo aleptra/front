@@ -2,11 +2,11 @@
 <html debug="true">
 
 <head>
-  <title>Navigation with selective</title>
+  <title>Parsing Nested JSON Data</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link type="text/css" href="/dist/front.css" rel="stylesheet">
   <link type="text/css" href="/dist/design/front/theme/front.css" rel="stylesheet">
-  <script src="/dist/front.js" lib="nav"></script>
+  <script src="/dist/front.js" lib="nav;json"></script>
 </head>
 
 <body>
@@ -17,12 +17,17 @@
       <button class="positioned r1 bcdimgray"><i class="icon16">&#5176;</i></button>
     </a>
   </header>
-  <nav class="topbar p1 pl2 bcwhitesmoke shade1 gap3- sred-" selective="true">
-    <a href="page1.html">Page 1</a>
-    <a href="page2.html">Page 2</a>
-  </nav>
   <main class="pauto">
-    Navigating will not refresh the page.
+    <article>
+      <section iterate="true" json="true" datasource="../../assets/datasets/todo.json">
+        <div>
+          <b jsonget="id" jsonafter=")"></b>
+          <span jsonget="title"></span>
+          <p jsonget="completed"></p>
+        </div>
+        <hr>
+      </section>
+    </article>
   </main>
 </body>
 
