@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html debug="true">
+
+<head>
+  <title>Parsing Multi JSON Data</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link type="text/css" href="/dist/front.css" rel="stylesheet">
+  <link type="text/css" href="/dist/design/front/theme/front.css" rel="stylesheet">
+  <script src="/dist/front.js" lib="nav;json"></script>
+</head>
+
+<body>
+  <header class="topbar bcblack white- h4 pl1">
+    <img class="h60 pr05" src="/test/front/favicon.ico">
+    <h3>{% title %}</h3>
+    <a class="button fr" href="/test/front" target="_top">
+      <button class="positioned r1 bcdimgray"><i class="icon16">&#5176;</i></button>
+    </a>
+  </header>
+  <main class="pauto">
+    <article>
+      <section iterate="multi" json="true" datasource="../../assets/datasets/multi.json">
+        <div>
+          <b jsonget="id" jsonafter=")"></b>
+          <span jsonget="title.eng"></span>
+          <p jsonget="completed"></p>
+        </div>
+        <hr>
+      </section>
+    </article>
+  </main>
+</body>
+
+</html>

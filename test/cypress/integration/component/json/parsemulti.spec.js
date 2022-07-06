@@ -1,6 +1,6 @@
-describe('Component Testing - Parsing Nested JSON Data', () => {
+describe('Component Testing - Parsing Multi JSON Data', () => {
   it('Opening GUI', () => {
-    cy.visit('library/json/parsenested.html')
+    cy.visit('library/json/parsemulti.html')
   })
 
   it('Checking for jsonget attribute in elements', () => {
@@ -19,7 +19,7 @@ describe('Component Testing - Parsing Nested JSON Data', () => {
   it('Checking if the iteration has parsed values', () => {
     cy.get('main div span')
     .each(($el, $index) => {
-      cy.get($el).should('have.text', 'Todo ' + ($index + 1))
+      cy.get($el).should('have.text', 'Multi ' + ($index + 1))
     })
     cy.get('main div p')
     .each(($el) => {
