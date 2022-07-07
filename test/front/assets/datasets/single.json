@@ -4,6 +4,8 @@
     "first_name": "First name",
     "middle_name": "Middle name",
     "last_name": "Last name",
-    "nickname": "Nickname"
+    "nickname": "Nickname",
+    "checked": true,
+    "link": "https://www.front.nu"
   }
 ]

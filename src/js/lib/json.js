@@ -11,7 +11,7 @@ libAttribute.push({
 
 window.addEventListener("submit", function (e) {
   var form = e.target || e.srcElement,
-    target = form.getAttribute("target")
+      target = form.getAttribute("target")
   reset = form.getAttribute("reset")
   if (target !== "_blank") {
     e.preventDefault()
@@ -24,12 +24,12 @@ window.addEventListener("submit", function (e) {
 })
 
 var jsonInitEl = [],
-  jsonIndex = 0
+    jsonIndex = 0
 
 function json(aEl) {
   var attr = aEl.getAttribute("json").split(";"),
-    target = attr[0],
-    loader = attr[1],
+      target = attr[0],
+      loader = attr[1],
     el = (target === "true") ? aEl : dom.get(target),
     e = event && (event.target || event.srcElement)
 
@@ -49,20 +49,20 @@ function json(aEl) {
   }
 
   var url = el.getAttribute("datasource"),
-    headers = el.getAttribute("dataheader"),
-    iterate = el.getAttribute("iterate"),
-    filter = el.getAttribute("jsonfilter"),
-    onstart = el.getAttribute("onstart"),
-    onprogress = el.getAttribute("onprogress"),
-    onerror = el.getAttribute("onerror"),
-    ondone = el.getAttribute("ondone"),
-    onempty = el.getAttribute("onempty")
+      headers = el.getAttribute("dataheader"),
+      iterate = el.getAttribute("iterate"),
+      filter = el.getAttribute("jsonfilter"),
+      onstart = el.getAttribute("onstart"),
+      onprogress = el.getAttribute("onprogress"),
+      onerror = el.getAttribute("onerror"),
+      ondone = el.getAttribute("ondone"),
+      onempty = el.getAttribute("onempty")
 
   var xhr = new XMLHttpRequest()
-  xhr.el = clnEl
-  xhr.aEl = aEl
-  xhr.id = Date.now()
-  xhr.open("GET", url)
+      xhr.el = clnEl
+      xhr.aEl = aEl
+      xhr.id = Date.now()
+      xhr.open("GET", url)
 
   if (headers) {
     headers = headers.split(";")
@@ -103,7 +103,7 @@ function json(aEl) {
     jsonParseHeader(xhr.getAllResponseHeaders(), target)
 
     var data = xhr.responseText,
-      json = JSON.parse(data)
+        json = JSON.parse(data)
 
     if (json.length == 0) eval(onempty)
 
@@ -136,9 +136,9 @@ function json(aEl) {
       }
 
       var jsonget = els[i].getAttribute("jsonget"),
-        jsonset = els[i].getAttribute("jsonset"),
-        jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : '',
-        jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : ''
+          jsonset = els[i].getAttribute("jsonset"),
+          jsonbefore = (els[i].getAttribute("jsonbefore")) ? els[i].getAttribute("jsonbefore") : '',
+          jsonafter = (els[i].getAttribute("jsonafter")) ? els[i].getAttribute("jsonafter") : ''
 
       els[i].outerHTML = els[i].outerHTML.replace(/{{\s*jsonget\s*:\s*(.*?)\s*}}/gi, function (e, $out) {
         return jsonParse(json[j], $out)
@@ -146,21 +146,31 @@ function json(aEl) {
 
       if (jsonset) {
         var res = jsonset.split(":"),
-          value = jsonbefore + json[j][res[0]] + jsonafter
+            value = jsonbefore + json[j][res[0]] + jsonafter
         els[i].setAttribute(res[1], value)
       }
       if (jsonget) {
         var parseValue = jsonParse(json[j], jsonget),
-          type = els[i].localName
+            elName = els[i].localName
+            elType = els[i].type
         value = jsonbefore + parseValue + jsonafter
-        if (type == "input")
-          els[i].value = value
-        else if (type == "img")
-          els[i].src = value
-        else if (type == "a")
-          els[i].href = value
-        else
-          els[i].innerHTML = value.replace(/<[^>]+>/g, "")
+
+        switch (elName) {
+          case "input":
+            if (elType == "checkbox")
+              els[i].checked = value
+            else
+              els[i].value = value
+            break
+          case "img":
+            els[i].src = value
+            break
+          case "a":
+            els[i].href = value
+            break
+          default:
+            els[i].innerHTML = value.replace(/<[^>]+>/g, "")
+        }
       }
     }
 
@@ -184,10 +194,10 @@ function jsonFilter(array, test) {
 function jsonParse(input, json) {
   try {
     var isMod = (json.indexOf("=") > 0) ? true : false,
-      isAssociative = (json.indexOf(".") > 0) ? true : false,
-      value = "",
-      orgJson = json,
-      parse
+        isAssociative = (json.indexOf(".") > 0) ? true : false,
+        value = "",
+        orgJson = json,
+        parse
 
     if (isMod) json = json.split(" ")[0]
 
@@ -211,11 +221,11 @@ function jsonParse(input, json) {
 function jsonParseHeader(responseHeaders, target) {
 
   var arr = responseHeaders.trim().split(/[\r\n]+/),
-    responseHeader = {}
+      responseHeader = {}
   arr.forEach(function (line) {
     var parts = line.split(": "),
-      header = parts.shift(),
-      value = parts.join(": ")
+        header = parts.shift(),
+        value = parts.join(": ")
     responseHeader[header] = value
   })
 

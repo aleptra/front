@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html debug="true">
+
+<head>
+  <title>Widgets Parsing JSON Data</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link type="text/css" href="/dist/front.css" rel="stylesheet">
+  <link type="text/css" href="/dist/design/front/theme/front.css" rel="stylesheet">
+  <script src="/dist/front.js" lib="nav;json"></script>
+</head>
+
+<body>
+  <header class="topbar bcblack white- h4 pl1">
+    <img class="h60 pr05" src="/test/front/favicon.ico">
+    <h3>{% title %}</h3>
+    <a class="button fr" href="/test/front" target="_top">
+      <button class="positioned r1 bcdimgray"><i class="icon16">&#5176;</i></button>
+    </a>
+  </header>
+  <main class="pauto">
+    <article>
+      <section json="true" datasource="../../assets/datasets/single.json">
+        <div class="group outline- gaph2-">
+          <input name="first_name" type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="First Name"
+            jsonget="first_name">
+          <input name="middle_name" type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="Middle Name"
+            jsonget="middle_name">
+          <input name="last_name" type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="Last Name"
+            jsonget="last_name">
+        </div>
+
+        <div class="group db">
+          <input name="checkbox" type="checkbox" value="1" class="mr05" jsonget="checked">Checkbox
+        </div>
+
+        <a jsonget="link" target="_blank">Link</a>
+      </section>
+    </article>
+  </main>
+</body>
+
+</html>
