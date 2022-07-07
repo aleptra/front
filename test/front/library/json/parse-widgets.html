@@ -21,19 +21,25 @@
     <article>
       <section json="true" datasource="../../assets/datasets/single.json">
         <div class="group outline- gaph2-">
-          <input name="first_name" type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="First Name"
-            jsonget="first_name">
-          <input name="middle_name" type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="Middle Name"
-            jsonget="middle_name">
-          <input name="last_name" type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="Last Name"
-            jsonget="last_name">
+          <input type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="First Name" jsonget="first_name">
+          <input type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="Middle Name" jsonget="middle_name">
+          <input type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="Last Name" jsonget="last_name">
         </div>
 
         <div class="group db">
-          <input name="checkbox" type="checkbox" value="1" class="mr05" jsonget="checked">Checkbox
+          <select class="phdark bw1 bos8 bocblack02" variable="i:1900" iterate="140;i++" jsonget="birth_year">
+            <option value="" iterate="0" disabled>-</option>
+            <option value="{{ i }}">{{ i }}</option>
+          </select>
         </div>
 
-        <a jsonget="link" target="_blank">Link</a>
+        <div class="group db">
+          <input type="checkbox" value="1" class="mr05" jsonget="checked">Checkbox
+        </div>
+
+        <div class="group db">
+          <a jsonget="link" target="_blank">Link</a>
+        </div>
       </section>
     </article>
   </main>

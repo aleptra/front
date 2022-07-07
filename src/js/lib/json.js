@@ -168,6 +168,9 @@ function json(aEl) {
           case "a":
             els[i].href = value
             break
+          case "select":
+
+            break
           default:
             els[i].innerHTML = value.replace(/<[^>]+>/g, "")
         }

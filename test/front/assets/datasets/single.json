@@ -1,11 +1,12 @@
 [
   {
     "id": 1,
-    "first_name": "First name",
-    "middle_name": "Middle name",
-    "last_name": "Last name",
+    "first_name": "First Name",
+    "middle_name": "Middle Name",
+    "last_name": "Last Name",
     "nickname": "Nickname",
     "checked": true,
-    "link": "https://www.front.nu"
+    "link": "https://www.front.nu",
+    "birth_year": "1987" 
   }
 ]
