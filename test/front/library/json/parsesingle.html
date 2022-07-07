@@ -19,13 +19,12 @@
   </header>
   <main class="pauto">
     <article>
-      <section iterate="true" json="true" datasource="../../assets/datasets/todo.json">
-        <div>
-          <b jsonget="id" jsonafter=")"></b>
-          <span jsonget="title"></span>
-          <p jsonget="completed"></p>
-        </div>
-        <hr>
+      <section json="true" datasource="../../assets/datasets/single.json">
+        <div jsonget="id"></div>
+        <div jsonget="first_name"></div>
+        <div jsonget="middle_name"></div>
+        <div jsonget="last_name"></div>
+        <div jsonget="nickname"></div>
       </section>
     </article>
   </main>

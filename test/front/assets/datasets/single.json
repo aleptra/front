@@ -1,8 +1,9 @@
-{
-  "id": 1,
-  "name": "Name",
-  "lastname": "Lastname",
-  "role": "Role",
-  "salary": 1000000,
-  "company": "Company"
-}
+[
+  {
+    "id": 1,
+    "first_name": "First name",
+    "middle_name": "Middle name",
+    "last_name": "Last name",
+    "nickname": "Nickname"
+  }
+]
