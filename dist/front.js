@@ -506,6 +506,13 @@ var core = function () {
 
       if (code) e.innerText = "&#" + code + ";"
     }
+    if(e.hasAttribute("placeholder") && e.tagName == "SELECT") {
+      var oEl = document.createElement("option")
+      oEl.text = e.getAttribute("placeholder")
+      oEl.setAttribute("disabled", "disabled")
+      oEl.setAttribute("selected", "selected")
+      e.prepend(oEl)
+    }
     if (e.hasAttribute("format")) {
       var content = e.innerText
       var format = e.getAttribute("format")
@@ -1234,7 +1241,7 @@ var dom = function () {
         increment = (variables) ? attrVal[1] : 0
 
       if (iterateOnly && index !== parseFloat(iterateOnly)) {
-        //el.remove()
+        el.remove()
       } else if (index === parseFloat(iterateOnly)) {
         html += elHtml
         if (selected) el.selected = 'selected'
