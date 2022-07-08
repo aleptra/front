@@ -1227,14 +1227,14 @@ var dom = function () {
       var elHtml = el.innerHTML,
         html = "",
         pad = 0,
-        iterateOnly = el.getAttribute("iterate"),
+        iterateOnly = el.getAttribute("skip"),
         selected = el.hasAttribute("selected"),
         index = el.index,
         attrVal = (variables) ? el.getAttribute("variable").split(":") : 0,
         increment = (variables) ? attrVal[1] : 0
 
-      if (core.isNumber(iterateOnly) && index !== parseFloat(iterateOnly)) {
-        el.remove()
+      if (iterateOnly && index !== parseFloat(iterateOnly)) {
+        //el.remove()
       } else if (index === parseFloat(iterateOnly)) {
         html += elHtml
         if (selected) el.selected = 'selected'
