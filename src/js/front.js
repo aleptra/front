@@ -656,11 +656,12 @@ var core = function () {
         window[attr](front[i])
   }
 
-  this.runIteration = function (element, start, stop) {
-    var attribute = element.getAttribute("iterate").split(";")
+  this.runIteration = function (el, start, stop) {
+    var attribute = el.getAttribute("iterate").split(";")
     var start = (start) ? start : 0
     var stop = (stop) ? stop : attribute[0]
-    dom.clone(element, "inside", (stop - start), attribute[1])
+    dom.clone(el, "inside", (stop - start), attribute[1])
+    dom.placeholder(el)
   }
 
   this.includeFile = function (e) {
@@ -1118,9 +1119,18 @@ var dom = function () {
   }
 
   this.placeholder = function (obj, value) {
-    var el = this.get(obj)
-    if (el && value != null) el.placeholder = value
-    else return el.placeholder
+    var el = this.get(obj),
+        type = el.tagName
+
+    switch (type) {
+        case "SELECT":
+          var attr = el.getAttribute("placeholder")
+          el.insertAdjacentHTML("afterbegin", "<option selected disabled>"+attr+"</option>")
+        break
+      default:
+        if (el && value != null) el.placeholder = value
+        else return el.placeholder
+    }
   }
 
   this.width = function (obj, value) {
