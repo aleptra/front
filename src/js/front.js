@@ -506,6 +506,9 @@ var core = function () {
 
       if (code) e.innerText = "&#" + code + ";"
     }
+    if(e.hasAttribute("placeholder")) {
+      dom.placeholder(e)
+    }
     if (e.hasAttribute("format")) {
       var content = e.innerText
       var format = e.getAttribute("format")
@@ -654,7 +657,6 @@ var core = function () {
     var start = (start) ? start : 0
     var stop = (stop) ? stop : attribute[0]
     dom.clone(el, "inside", (stop - start), attribute[1])
-    dom.placeholder(el)
   }
 
   this.includeFile = function (e) {
