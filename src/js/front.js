@@ -506,9 +506,6 @@ var core = function () {
 
       if (code) e.innerText = "&#" + code + ";"
     }
-    if(e.hasAttribute("placeholder") && !e.hasAttribute("iterate")) {
-      dom.placeholder(e)
-    }
     if (e.hasAttribute("format")) {
       var content = e.innerText
       var format = e.getAttribute("format")
