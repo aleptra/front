@@ -485,8 +485,10 @@ var core = function () {
         dom.bind(targetEl, value, bindvalue)
       }
     }
-    if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false)
+    if (e.hasAttribute("iterate") && e.hasAttribute("datasource") === false) {
       core.runIteration(e)
+      e.removeAttribute("iterate")
+    }
     if (e.hasAttribute("trim"))
       e.innerHTML = core.trim(e.innerHTML)
     if (e.hasAttribute("lowercase"))

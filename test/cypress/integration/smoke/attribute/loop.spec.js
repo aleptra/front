@@ -3,9 +3,9 @@ describe('Smoke Testing - iterate (Attribute)', () => {
     cy.visit('smoke/attribute/loop.html')
   })
 
-  it('Checking for iterate attribute in elements', () => {
+  it('Checking if iterate attribute is removed', () => {
     cy.get("main").within(() => {
-      cy.get('div').should('have.attr', 'iterate')
+      cy.get('div').should('not.have.attr', 'iterate')
     })
   })
 
