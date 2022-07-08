@@ -506,12 +506,8 @@ var core = function () {
 
       if (code) e.innerText = "&#" + code + ";"
     }
-    if(e.hasAttribute("placeholder") && e.tagName == "SELECT") {
-      var oEl = document.createElement("option")
-      oEl.text = e.getAttribute("placeholder")
-      oEl.setAttribute("disabled", "disabled")
-      oEl.setAttribute("selected", "selected")
-      e.prepend(oEl)
+    if(e.hasAttribute("placeholder") && !e.hasAttribute("iterate")) {
+      dom.placeholder(el)
     }
     if (e.hasAttribute("format")) {
       var content = e.innerText
