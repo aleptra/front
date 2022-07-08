@@ -1120,7 +1120,7 @@ var dom = function () {
     switch (type) {
         case "SELECT":
           var attr = el.getAttribute("placeholder")
-          el.insertAdjacentHTML("afterbegin", "<option selected>"+attr+"</option>")
+          el.insertAdjacentHTML("afterbegin", "<option value=\"\" selected disabled>"+attr+"</option>")
         break
       default:
         if (el && value != null) el.placeholder = value
