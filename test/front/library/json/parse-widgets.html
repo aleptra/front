@@ -21,13 +21,11 @@
     <article>
       <section json="true" datasource="../../assets/datasets/single.json">
         <div class="group outline- gaph2-">
-          <input type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="First Name" jsonget="first_name">
-          <input type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="Middle Name" jsonget="middle_name">
-          <input type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="Last Name" jsonget="last_name">
+          <input type="text" class="f1 phdark bw1 bos8 bocblack02" placeholder="Name" jsonget="name">
         </div>
 
         <div class="group db">
-          <select class="phdark bw1 bos8 bocblack02" variable="i:1900" iterate="140;i++" jsonget="birth_year">
+          <select class="phdark bw1 bos8 bocblack02" variable="i:1900" iterate="140;i++" jsonget="year">
             <option value="" iterate="0" disabled>-</option>
             <option value="{{ i }}">{{ i }}</option>
           </select>

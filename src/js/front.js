@@ -593,6 +593,10 @@ var core = function () {
       if (val.indexOf(".")) e.style.backgroundImage = "url('" + val + "')";
       else e.style.backgroundColor = val
     }
+    if (e.hasAttribute("select")) {
+      var val = e.getAttribute("select")
+      e.value = val
+    }
     if (e.hasAttribute("focus"))
       dom.focus(e)
     if (e.hasAttribute("font"))
