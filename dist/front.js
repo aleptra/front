@@ -1,6 +1,7 @@
 var html,
   front,
   frontVariables = [],
+  frontAfterload = [],
   frontEnums = [],
   libAttribute = [],
   libPreload = [],
@@ -202,6 +203,7 @@ window.onerror = function (msg, url, line) {
 window.addEventListener("load", function () {
   core.runLibPreloads()
   core.runFrontAttributes()
+  //core.runFrontAfterloads()
 })
 
 window.addEventListener("hashchange", function () {
@@ -249,6 +251,13 @@ var core = function () {
     for (i = 0; i < libPreload.length; i++) {
       if (libPreload[i].func)
         window[libPreload[i].func]()
+    }
+  }
+
+  this.runFrontAfterloads = function () {
+    for (i = 0; i < frontAfterload.length; i++) {
+      if (frontAfterload[i].el)
+        core.runFunction(frontAfterload[i].func, frontAfterload[i].el)
     }
   }
 
@@ -318,8 +327,8 @@ var core = function () {
       }
     }
 
-    this.runFunction = function (fnc, arg) {
-      eval(fnc)(arg)
+    this.runFunction = function (func, arg) {
+      eval(func)(arg)
     }
 
     this.runListener = function (e) {
@@ -506,7 +515,7 @@ var core = function () {
 
       if (code) e.innerText = "&#" + code + ";"
     }
-    if(e.hasAttribute("placeholder")) {
+    if(e.hasAttribute("placeholder") && !e.hasAttribute("variable")) {
       dom.placeholder(e)
     }
     if (e.hasAttribute("format")) {
@@ -657,6 +666,7 @@ var core = function () {
     var start = (start) ? start : 0
     var stop = (stop) ? stop : attribute[0]
     dom.clone(el, "inside", (stop - start), attribute[1])
+    //core.runFrontAfterloads()
   }
 
   this.includeFile = function (e) {
@@ -972,9 +982,6 @@ var app = function () {
 }
 
 var dom = function () {
-
-  var oldClass = ""
-
   this.get = function (obj) {
     if (core.isObject(obj)) return obj
     var res = obj.split(elementDivider)
@@ -1115,12 +1122,12 @@ var dom = function () {
 
   this.placeholder = function (obj, value) {
     var el = this.get(obj),
-        type = el.tagName
-
+        type = el.localName
     switch (type) {
-        case "SELECT":
+        case "select":
+          console.log('one', )
           var attr = el.getAttribute("placeholder")
-          el.insertAdjacentHTML('afterbegin', '<option value="" selected="true" skip disabled>'+attr+'</option>')
+          el.insertAdjacentHTML('afterbegin', '<option value="" selected="true" disabled>'+attr+'</option>')
         break
       default:
         if (el && value != null) el.placeholder = value
@@ -1230,7 +1237,8 @@ var dom = function () {
   }
 
   this.clone = function (el, parent, copies, variables) {
-    var cln = el.cloneNode(true)
+    var cln = el.cloneNode(true),
+        type = el.localName
 
     if (parent === "head") {
       document.getElementsByTagName("head")[0].appendChild(cln)
@@ -1239,18 +1247,8 @@ var dom = function () {
       var elHtml = el.innerHTML,
         html = "",
         pad = 0,
-        iterateOnly = el.getAttribute("skip"),
-        selected = el.hasAttribute("selected"),
-        index = el.index,
         attrVal = (variables) ? el.getAttribute("variable").split(":") : 0,
         increment = (variables) ? attrVal[1] : 0
-
-      if (iterateOnly && index !== parseFloat(iterateOnly)) {
-        el.remove()
-      } else if (index === parseFloat(iterateOnly)) {
-        html += elHtml
-        if (selected) el.selected = 'selected'
-      }
 
       if (increment) {
         pad = increment.match(/^0+/g)
@@ -1268,11 +1266,14 @@ var dom = function () {
         } else {
           html += elHtml
         }
-
         increment++
       }
 
       el.innerHTML = html
+
+      if (type === "select") {
+        dom.placeholder(el) 
+      }
 
     } else {
       document.body.appendChild(cln)

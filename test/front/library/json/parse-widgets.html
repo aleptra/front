@@ -25,7 +25,13 @@
         </div>
 
         <div class="group db">
-          <select class="phdark bw1 bos8 bocblack02" variable="i:1900" iterate="140;i++" jsonget="year" placeholder="-">
+          <select class="phdark bw1 bos8 bocblack02"  variable="i:1900" iterate="100;i++" jsonget="year" placeholder="Year">
+            <option value="{{ i }}">{{ i }}</option>
+          </select>
+        </div>
+
+        <div class="group db">
+          <select class="phdark bw1 bos8 bocblack02" variable="i:01" iterate="12;i++" placeholder="Month">
             <option value="{{ i }}">{{ i }}</option>
           </select>
         </div>
