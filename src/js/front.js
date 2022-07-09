@@ -506,7 +506,7 @@ var core = function () {
 
       if (code) e.innerText = "&#" + code + ";"
     }
-    if(e.hasAttribute("placeholder") && !e.hasAttribute("variable")) {
+    if(e.hasAttribute("placeholder") && !e.hasAttribute("iterate") && !e.hasAttribute("variable") ) {
       dom.placeholder(e)
     }
     if (e.hasAttribute("format")) {
@@ -1261,7 +1261,7 @@ var dom = function () {
       el.innerHTML = html
 
       if (type === "select") {
-        dom.placeholder(el) 
+        dom.placeholder(el)
       }
 
     } else {
