@@ -1,7 +1,6 @@
 var html,
   front,
   frontVariables = [],
-  frontAfterload = [],
   frontEnums = [],
   libAttribute = [],
   libPreload = [],
@@ -203,7 +202,6 @@ window.onerror = function (msg, url, line) {
 window.addEventListener("load", function () {
   core.runLibPreloads()
   core.runFrontAttributes()
-  //core.runFrontAfterloads()
 })
 
 window.addEventListener("hashchange", function () {
@@ -251,13 +249,6 @@ var core = function () {
     for (i = 0; i < libPreload.length; i++) {
       if (libPreload[i].func)
         window[libPreload[i].func]()
-    }
-  }
-
-  this.runFrontAfterloads = function () {
-    for (i = 0; i < frontAfterload.length; i++) {
-      if (frontAfterload[i].el)
-        core.runFunction(frontAfterload[i].func, frontAfterload[i].el)
     }
   }
 
@@ -666,7 +657,6 @@ var core = function () {
     var start = (start) ? start : 0
     var stop = (stop) ? stop : attribute[0]
     dom.clone(el, "inside", (stop - start), attribute[1])
-    //core.runFrontAfterloads()
   }
 
   this.includeFile = function (e) {
@@ -1125,7 +1115,6 @@ var dom = function () {
         type = el.localName
     switch (type) {
         case "select":
-          console.log('one', )
           var attr = el.getAttribute("placeholder")
           el.insertAdjacentHTML('afterbegin', '<option value="" selected="true" disabled>'+attr+'</option>')
         break
