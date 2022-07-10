@@ -149,6 +149,7 @@ function json(aEl) {
             value = jsonbefore + json[j][res[0]] + jsonafter
         els[i].setAttribute(res[1], value)
       }
+
       if (jsonget) {
         var parseValue = jsonParse(json[j], jsonget),
             elName = els[i].localName
@@ -179,6 +180,7 @@ function json(aEl) {
 
     core.runCoreAttributesInElement(el)
     core.runLibAttributesInElement(el)
+    dom.placeholder(el)
     eval(ondone)
   }
   xhr.send(null)

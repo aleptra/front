@@ -506,7 +506,7 @@ var core = function () {
 
       if (code) e.innerText = "&#" + code + ";"
     }
-    if(e.hasAttribute("placeholder") && !e.hasAttribute("iterate") && !e.hasAttribute("variable") ) {
+    if(e.hasAttribute("placeholder") && !e.hasAttribute("datasource")) {
       dom.placeholder(e)
     }
     if (e.hasAttribute("format")) {
@@ -568,7 +568,7 @@ var core = function () {
           e.setAttribute(action[0], action[1])
       }
     }
-    if (e.hasAttribute("hide") || e.hasAttribute("skip"))
+    if (e.hasAttribute("hide"))
       e.style.display = "none"
     if (e.hasAttribute("content") && e.tagName !== "META") {
       var val = e.getAttribute("content").split(":")
@@ -1116,7 +1116,8 @@ var dom = function () {
     switch (type) {
         case "select":
           var attr = el.getAttribute("placeholder")
-          el.insertAdjacentHTML('afterbegin', '<option value="" selected="true" disabled>'+attr+'</option>')
+          el.insertAdjacentHTML('afterbegin', '<option selected="true" disabled>'+attr+'</option>')
+          el.selectedIndex = 0
         break
       default:
         if (el && value != null) el.placeholder = value
@@ -1226,13 +1227,13 @@ var dom = function () {
   }
 
   this.clone = function (el, parent, copies, variables) {
-    var cln = el.cloneNode(true),
-        type = el.localName
+    var cln = el.cloneNode(true)
 
     if (parent === "head") {
       document.getElementsByTagName("head")[0].appendChild(cln)
     } else if (parent === "inside") {
       el.innerHtml = ""
+
       var elHtml = el.innerHTML,
         html = "",
         pad = 0,
@@ -1257,12 +1258,46 @@ var dom = function () {
         }
         increment++
       }
+      el.innerHTML = html
+    } else {
+      document.body.appendChild(cln)
+    }
+  }
+
+  this.clone2 = function (el, parent, copies, variables) {
+    var cln = el.cloneNode(true),
+        type = el.localName
+
+    if (parent === "head") {
+      document.getElementsByTagName("head")[0].appendChild(cln)
+    } else if (parent === "inside") {
+      el.innerHtml = ""
+      var elHtml = el.innerHTML,
+        html = "",
+        pad = 0,
+        attrVal = (variables) ? el.getAttribute("variable").split(":") : 0,
+        increment = (variables) ? attrVal[1] : 0
+
+      if (increment) {
+        pad = increment.match(/^0+/g)
+        pad = pad ? pad.length : 0
+      }
+
+      for (var j = 0; j < copies; j++) {
+        if (variables) {
+          elVarHtml = elHtml.replace(new RegExp("<var>" + attrVal[0] + "<\/var>|{{(.*?)" + attrVal[0] + "(.*?)}}", "gi"), function (out1, out2, out3) {
+            var input = dom.pad(increment, pad),
+                isMod = (out1.indexOf("=") > 0) ? true : false
+            return core.callAttributes(input, input + out3, isMod)
+          })
+          html += elVarHtml
+        } else {
+          html += elHtml
+        }
+        increment++
+      }
 
       el.innerHTML = html
-
-      if (type === "select") {
-        dom.placeholder(el)
-      }
 
     } else {
       document.body.appendChild(cln)
