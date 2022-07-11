@@ -178,7 +178,6 @@ function json(aEl) {
       }
     }
 
-    core.runCoreAttributesInElement(el)
     core.runLibAttributesInElement(el)
     dom.placeholder(el)
     eval(ondone)
