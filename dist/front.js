@@ -553,7 +553,7 @@ var core = function () {
     if (e.hasAttribute("afterbegin"))
       e.insertAdjacentText("afterbegin", e.getAttribute("afterbegin"))
     if (e.hasAttribute("if"))
-      core.if(e.getAttribute("if"))
+      core.if(e)
     if (e.hasAttribute("hide"))
       e.style.display = "none"
     if (e.hasAttribute("content") && e.tagName !== "META") {
@@ -727,13 +727,14 @@ var core = function () {
   this.plug = function (str, plug) {
     return window[plug](str)
   }
-  this.if = function (val) {
-    var ifnot = (val.substr(0, 1) == "!") ? true : false
-    val = val.replace(/!/g, "")
+  this.if = function (e) {
+    var attr = e.getAttribute("if"),
+        ifnot = (attr.substr(0, 1) == "!") ? true : false,
+        val = val.replace(/!/g, "")
 
     if (val.substr(0, 2) !== "{{") {
-      var term = val.split(";")
-      var action = term[2].split(/:(.*)/)
+      var term = val.split(";"),
+          action = term[2].split(/:(.*)/)
 
       if (!ifnot && term[0] == term[1])
         e.setAttribute(action[0], action[1])
