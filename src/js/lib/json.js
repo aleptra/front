@@ -178,6 +178,7 @@ function json(aEl) {
       }
     }
 
+    core.runCoreAttributesInElement(el) //TODO: Needed by if attribute
     core.runLibAttributesInElement(el)
     dom.placeholder(el)
     eval(ondone)
