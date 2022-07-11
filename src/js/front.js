@@ -541,9 +541,8 @@ var core = function () {
       document.styleSheets[0].insertRule("nav.delimiter * a:after {content: '\\00a0 \\00a0" + delimiter + "\\00a0 \\00a0' !important}", 0)
     }
     if (e.hasAttribute("slice")) {
-      var slice = e.getAttribute("slice").replace(/\s+/g, "")
-      var res = slice.split(",")
-      e.innerHTML = e.innerHTML.slice(res[0], res[1])
+      var slice = e.getAttribute("slice").replace(/\s+/g, "").split(",")
+      e.innerHTML = core.slice(e.innerHTML, slice[0], slice[1])
     }
     if (e.hasAttribute("beforebegin"))
       e.insertAdjacentText("beforebegin", e.getAttribute("beforebegin"))
@@ -731,6 +730,9 @@ var core = function () {
   }
   this.trim = function (str) {
     return str.trim()
+  }
+  this.slice = function (str, val1, val2) {
+    return str.slice(val1, val2)
   }
   this.enum = function (int) {
     return frontEnums[int]
