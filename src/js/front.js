@@ -730,7 +730,7 @@ var core = function () {
   this.if = function (e) {
     var attr = e.getAttribute("if"),
         ifnot = (attr.substr(0, 1) == "!") ? true : false,
-        val = val.replace(/!/g, "")
+        val = attr.replace(/!/g, "")
 
     if (val.substr(0, 2) !== "{{") {
       var term = val.split(";"),
