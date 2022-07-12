@@ -549,38 +549,38 @@ body .p075, body .p075->*{ padding: .75rem }
 .p10p{ padding: 10% }
 .p10{ padding: 10rem }
 .p10p{ padding: 10% }
-.pl05{ padding-left: .5rem }
-.pl1{ padding-left: 1rem }
-.pl1d25{ padding-left: 1.25rem }
-.pl2{ padding-left: 2rem }
-.pl3{ padding-left: 3rem }
-.pl4{ padding-left: 4rem }
-.pl5{ padding-left: 5rem }
-.pl6{ padding-left: 6rem }
-.pl10{ padding-left: 10rem }
+body .pl05{ padding-left: .5rem }
+body .pl1{ padding-left: 1rem }
+body .pl1d25{ padding-left: 1.25rem }
+body .pl2{ padding-left: 2rem }
+body .pl3{ padding-left: 3rem }
+body .pl4{ padding-left: 4rem }
+body .pl5{ padding-left: 5rem }
+body .pl6{ padding-left: 6rem }
+body .pl10{ padding-left: 10rem }
 body .pr0, body .pr0->*{ padding-right: unset }
-.pr025, .pr025->*{ padding-right: .25rem }
-.pr05, .pr05->*{ padding-right: .5rem }
-.pr1{ padding-right: 1rem }
-.pr1d25{ padding-right: 1.25rem }
-.pr2{ padding-right: 2rem }
-.pr3{ padding-right: 3rem }
-.pr4{ padding-right: 4rem }
-.pr5{ padding-right: 5rem }
-.pr6{ padding-right: 6rem }
-.pr10{ padding-right: 10rem }
-.pt0{ padding-top: 0 }
-.pt05{ padding-top: .5rem }
-.pt1{ padding-top: 1rem }
-.pt105{ padding-top: 1.5rem }
-.pt2{ padding-top: 2rem }
-.pt3{ padding-top: 3rem }
-.pt4{ padding-top: 4rem }
-.pt5{ padding-top: 5rem }
-.pb1{ padding-bottom: 1rem }
-.pb105{ padding-bottom: 1.5rem }
-.pb2{ padding-bottom: 2rem }
-.pb3{ padding-bottom: 3rem }
+body .pr025, .pr025->*{ padding-right: .25rem }
+body .pr05, .pr05->*{ padding-right: .5rem }
+body .pr1{ padding-right: 1rem }
+body .pr1d25{ padding-right: 1.25rem }
+body .pr2{ padding-right: 2rem }
+body .pr3{ padding-right: 3rem }
+body .pr4{ padding-right: 4rem }
+body .pr5{ padding-right: 5rem }
+body .pr6{ padding-right: 6rem }
+body .pr10{ padding-right: 10rem }
+body .pt0{ padding-top: 0 }
+body .pt05{ padding-top: .5rem }
+body .pt1{ padding-top: 1rem }
+body .pt105{ padding-top: 1.5rem }
+body .pt2{ padding-top: 2rem }
+body .pt3{ padding-top: 3rem }
+body .pt4{ padding-top: 4rem }
+body .pt5{ padding-top: 5rem }
+body .pb1{ padding-bottom: 1rem }
+body .pb105{ padding-bottom: 1.5rem }
+body .pb2{ padding-bottom: 2rem }
+body .pb3{ padding-bottom: 3rem }
 .pb4{ padding-bottom: 4rem }
 .pb5{ padding-bottom: 5rem }
 .ml0, .ml0- *{margin-left:0}
