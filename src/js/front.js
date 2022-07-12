@@ -1030,8 +1030,8 @@ var dom = function () {
   }
 
   this.run = function (el) {
-    var start = performance.now()
-    var obj = this.get(el)
+    var start = performance.now(),
+        obj = this.get(el)
     this.enable(obj, true)
     var el = this.get(el)
     if (!el.getAttribute("run")) core.runAttributesInElement(el)
@@ -1073,8 +1073,8 @@ var dom = function () {
   }
 
   this.toggle = function (obj) {
-    var el = this.get(obj)
-    var di = el.style.display
+    var el = this.get(obj),
+        di = el.style.display
     if (di == "block") this.hide(obj)
     else this.show(obj)
   }
@@ -1161,8 +1161,8 @@ var dom = function () {
     var el = this.get(obj)
 
     try {
-      var classVal = el.getAttribute("class")
-      var bclass = el.getAttribute("bindclass")
+      var classVal = el.getAttribute("class"),
+          bclass = el.getAttribute("bindclass")
 
       if (action == "add") {
         el.classList.add(classname)
@@ -1240,10 +1240,10 @@ var dom = function () {
       el.innerHtml = ""
 
       var elHtml = el.innerHTML,
-        html = "",
-        pad = 0,
-        attrVal = (variables) ? el.getAttribute("variable").split(":") : 0,
-        increment = (variables) ? attrVal[1] : 0
+          html = "",
+          pad = 0,
+          attrVal = (variables) ? el.getAttribute("variable").split(":") : 0,
+          increment = (variables) ? attrVal[1] : 0
 
       if (increment) {
         pad = increment.match(/^0+/g)
@@ -1254,7 +1254,7 @@ var dom = function () {
         if (variables) {
           elVarHtml = elHtml.replace(new RegExp("<var>" + attrVal[0] + "<\/var>|{{(.*?)" + attrVal[0] + "(.*?)}}", "gi"), function (out1, out2, out3) {
             var input = dom.pad(increment, pad),
-              isMod = (out1.indexOf("=") > 0) ? true : false
+                isMod = (out1.indexOf("=") > 0) ? true : false
             return core.callAttributes(input, input + out3, isMod)
           })
           html += elVarHtml
