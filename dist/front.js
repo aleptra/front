@@ -435,13 +435,13 @@ var core = function () {
     if (e.innerHTML.match("{%(.*?)%}")) {
       e.innerHTML = e.innerHTML.replace(new RegExp("{%(.*?)%}", "gi"), function (out1, out2) {
         var input = eval(out2),
-          isMod = (out1.indexOf("=") > 0) ? true : false
+            isMod = (out1.indexOf("=") > 0) ? true : false
         return core.callAttributes(input, input + out2, isMod)
       })
     }
     if (e.hasAttribute("metacontent")) {
-      var value = e.getAttribute("metacontent")
-      var els = document.getElementsByTagName("meta")
+      var value = e.getAttribute("metacontent"),
+          els = document.getElementsByTagName("meta")
       for (var i in els) {
         if (typeof (els[i].name) != "undefined" && els[i].name.toLowerCase() == value)
           e.innerHTML = els[i].content
@@ -449,10 +449,10 @@ var core = function () {
     }
     if (e.hasAttribute("bind")) {
       var attr = e.getAttribute("bind").split(":"),
-        target = attr[0],
-        value = attr[1],
-        type = e.type,
-        targetEl = dom.get(target)
+          target = attr[0],
+          value = attr[1],
+          type = e.type,
+          targetEl = dom.get(target)
 
       if (type == "text") {
         var key = e.getAttribute("bindkey") || 13
@@ -496,8 +496,8 @@ var core = function () {
     if (e.hasAttribute("uppercase"))
       e.innerHTML = core.toUpper(e.innerHTML)
     if (e.hasAttribute("escape")) {
-      var escape = e.innerHTML
-      var code = escape.charCodeAt(0)
+      var escape = e.innerHTML,
+          code = escape.charCodeAt(0)
 
       if (0xD800 <= code && code <= 0xDBFF) {
         low = escape.charCodeAt(1)
@@ -510,8 +510,8 @@ var core = function () {
       dom.placeholder(e)
     }
     if (e.hasAttribute("format")) {
-      var content = e.innerText
-      var format = e.getAttribute("format")
+      var content = e.innerText,
+          format = e.getAttribute("format")
       if (content.length == 8 && core.isNumber(content)) content = content.replace(/^(\d{4})/, '$1-').replace(/-(\d{2})/, '-$1-')
       var value = new Date(content)
 
