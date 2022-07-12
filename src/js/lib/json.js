@@ -152,8 +152,9 @@ function json(aEl) {
 
       if (jsonget) {
         var parseValue = jsonParse(json[j], jsonget),
-            elName = els[i].localName
+            elName = els[i].localName,
             elType = els[i].type
+
         value = jsonbefore + parseValue + jsonafter
 
         switch (elName) {
