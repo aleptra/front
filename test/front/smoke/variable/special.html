@@ -16,10 +16,17 @@
       </a>
     </header>
     <main class="pauto">
-      <section id="querystring" class="mt2 gaph2-" bind="bindid:?variable">
+      <section id="querystring" class="mt2">
         <h3>Querystring bind</h3>
         <hr class="bcblack">
-        <p id="bindid">{# ?variable #}</p>
+        <p id="bind1" bind="bind1:?variable">{# ?variable #}</p>
+        <p id="bind2" bind="bind2:?variable">{# ?variable #}</p>
+      </section>
+      <section id="querystring" class="mt2" bind="bind3:?variable">
+        <h3>Querystring bind in modal</h3>
+        <hr class="bcblack">
+      <a href="#ajaxmodal" id="bind3" modalurl="../../assets/modals/ajax.html?ajax=newajaxvalue">Open ajax modal</a>
+      <div id="ajaxmodal" class="modal w50 p3" draggable="false"></div>
       </section>
     </main>
   </body>

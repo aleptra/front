@@ -24,6 +24,7 @@ var html,
   title,
   currentUrl,
   currentPage,
+  currentModalUrl,
   currentScriptUrl,
   currentEnvName,
   currentEnvUrl,
@@ -163,6 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
               el = dom.get(elHref.replace("#", ""))
               el.innerHTML = '<span class="loader"></span>'
               pageType = 'modal'
+              currentModalUrl = elUrl
           modalXhr.get(currentEnvUrl + elUrl, function (response, status) {
             if (status == 200) {
               el.innerHTML = response
@@ -992,7 +994,7 @@ var dom = function () {
 
   this.bind = function (target, value, input) {
     if (value[0] == "?") {
-      input = core.getParams()[value.substr(1)]
+      input = (currentModalUrl) ? core.getParams(currentModalUrl)[value.substr(1)] : core.getParams()[value.substr(1)]
       value = "\\" + value
     }
 
