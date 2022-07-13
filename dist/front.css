@@ -134,7 +134,8 @@ dialog,
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flex;
-  display: flex
+  display: flex;
+  overflow: auto
 }
 
 .fs22 {
