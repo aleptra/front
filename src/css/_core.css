@@ -1129,12 +1129,9 @@ body .mh100p- * {
   margin-bottom: 5rem
 }
 
-[class*='gap']> :first-child {
-  margin-left: 0;
-}
-
+[class*='gap']> :first-child,
 [class*='gap']> :last-child {
-  margin-right: 0
+  margin-left: 0;
 }
 
 body .fww {
