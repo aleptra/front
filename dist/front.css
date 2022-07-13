@@ -2172,7 +2172,7 @@ nav[class*='gap'] figure {
   display: block;
   background-color: #ffffff;
   color: #000;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .tabs.accordions {
