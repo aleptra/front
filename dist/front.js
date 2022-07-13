@@ -277,9 +277,9 @@ var core = function () {
             template1 = template[0] === "true" ? "index" : template[0],
             template2 = template[1] ? template[1] : false
 
-        var cUrl = (currentScriptUrl.indexOf("http") >= 0) ? url + "/" : currentScriptUrl,
+        var cUrl = (currentScriptUrl.indexOf("://") >= 0) ? url + "/" : currentScriptUrl,
             count = cUrl.split("../").length + (template1.match(/..\//g) || []).length,
-            urlTemplate = url.split("/").slice(0, -count).join("/")
+            urlTemplate = cUrl.split("/").slice(0, -count).join("/")
 
         var html = dom.get("html?tag=0"),
             script = dom.get("script?tag=0"),
