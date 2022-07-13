@@ -1131,7 +1131,6 @@ body .mh100p- * {
 
 [class*='gap']> :first-child {
   margin-left: 0;
-  margin-right: 0
 }
 
 [class*='gap']> :last-child {
