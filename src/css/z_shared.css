@@ -672,6 +672,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .sm_gtc4 { grid-template-columns: 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr}
   body .sm_gtc5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr}
   body .sm_gtc6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr;-ms-grid-columns: 1fr 1fr 1fr 1fr 1fr}
+  body .sm_w100p, body .sm_w100p- * { width: 100%; -ms-flex: 100%; flex: 100%}
 }
 
 @media only screen and (min-width: 480px) {
@@ -698,6 +699,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .xm_z18, body .xm_z18- * { zoom: 1.8 }
   body .xm_z19, body .xm_z19- * { zoom: 1.9 }
   body .xm_z20, body .xm_z20- * { zoom: 2 !important }
+  body .xm_w100p, body .xm_w100p- * { width: 100%; -ms-flex: 100%; flex: 100%}
 }
 
 @media only screen and (min-width: 600px) {
@@ -753,6 +755,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .lg_w25r{ width: 25rem}
   body .lg_w30r{ width: 30rem}
   body .lg_w40r{ width: 40rem}
+  body .lg_w100p, body .lg_w100p- * { width: 100%; -ms-flex: 100%; flex: 100%}
   body .lg_z05, body .lg_z05- * { zoom: .5 }
   body .lg_z06, body .lg_z06- * { zoom: .7 }
   body .lg_z07, body .lg_z07- * { zoom: .7 }
