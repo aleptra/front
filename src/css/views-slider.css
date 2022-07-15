@@ -12,6 +12,7 @@ nav.slider .loader {
 
 nav.slider figure {
   width: 100%;
+  background-size: cover
 }
 
 nav.slider figure img {
