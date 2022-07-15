@@ -2752,6 +2752,8 @@ body .br4,body .br4->*{ border-radius: 4rem }
 body .br5,body .br5->*{ border-radius: 5rem }
 body .br50,body .br50->* { border-radius: 50% }
 
+.bsc {background-size: cover}
+
 /* Screen Sized: XXS, XS, SM, MD, LG, XL, XXL, XXXL */
 
 .wxxs{ max-width: 220px }
@@ -2930,7 +2932,6 @@ body [class*='_dn'], body [class*='_du']{display: none}
 @media only screen and (min-width: 220px) {
   body .xxs_dn{display: inherit}
 }
-
 
 @media only screen and (min-width: 300px) {
   body .xs_dn{display: inherit}
