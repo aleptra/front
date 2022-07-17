@@ -515,7 +515,7 @@ var core = function () {
       var content = e.innerText,
           format = e.getAttribute("format")
       if (content.length == 8 && core.isNumber(content)) content = content.replace(/^(\d{4})/, '$1-').replace(/-(\d{2})/, '-$1-')
-      var value = new Date(content)
+      var value = (content) ? new Date(content) : new Date()
 
       if (format == "age") {
         e.innerHTML = ~~((Date.now() - value.getTime()) / (31557600000))

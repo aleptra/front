@@ -1,35 +1,53 @@
 <!DOCTYPE html>
 <html debug="true">
-  <head>
-    <title>Smoke - format</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link type="text/css" href="/dist/front.css" rel="stylesheet">
-    <link type="text/css" href="/dist/design/front/theme/front.css" rel="stylesheet">
-    <script src="/dist/front.js"></script>
-  </head>
-  <body>
-    <header class="topbar bcblack white- h4 pl1">
-      <img class="h60 pr05" src="/test/front/favicon.ico">
-      <h3>{% title %}</h3>
-      <a class="button fr" href="/test/front" target="_top">
-        <button class="positioned r1 bcdimgray"><i class="icon16">&#5176;</i></button>
-      </a>
-    </header>
-    <main class="pauto">
-      <h3 class="mt2">Date</h3>
-      <span format="date(y-m-d)">19870430</span>
-      <h3 class="mt2">Date (hyphen input)</h3>
-      <span format="date(y-m-d)">1987-04-30</span>
-      <h3 class="mt2">Date (comma input)</h3>
-      <span format="date(y-m-d)">1987, 04, 30</span>
-      <h3 class="mt2">Year</h3>
-      <span format="date(Y)">19870430</span>
-      <h3 class="mt2">Month</h3>
-      <span format="date(m)">19870430</span>
-      <h3 class="mt2">Day</h3>
-      <span format="date(d)">19870430</span>
-      <h3 class="mt2">Age</h3>
-      <span format="age">19870430</span>
-    </main>
-  </body>
+
+<head>
+  <title>Smoke - format</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link type="text/css" href="/dist/front.css" rel="stylesheet">
+  <link type="text/css" href="/dist/design/front/theme/front.css" rel="stylesheet">
+  <script src="/dist/front.js"></script>
+</head>
+
+<body>
+  <header class="topbar bcblack white- h4 pl1">
+    <img class="h60 pr05" src="/test/front/favicon.ico">
+    <h3>{% title %}</h3>
+    <a class="button fr" href="/test/front" target="_top">
+      <button class="positioned r1 bcdimgray"><i class="icon16">&#5176;</i></button>
+    </a>
+  </header>
+  <main class="pauto">
+    <section id="novalues" class="l2">
+      <h3>No values</h3>
+      <b>Date</b>
+      <p format="date(y-m-d)"></p>
+      <b>Year</b>
+      <p format="date(y)"></p>
+      <b>Month</b>
+      <p format="date(m)"></p>
+      <b>Day</b>
+      <p format="date(d)"></p>
+    </section>
+
+    <section id="values" class="mt2 lh2">
+      <h3>With values</h3>
+      <b>Date</b>
+      <p format="date(y-m-d)">19870430</p>
+      <b>Date (hyphen input)</b>
+      <p format="date(y-m-d)">1987-04-30</p>
+      <b>Date (comma input)</b>
+      <p format="date(y-m-d)">1987, 04, 30</p>
+      <b>Year</b>
+      <p format="date(Y)">19870430</p>
+      <b>Month</b>
+      <p format="date(m)">19870430</p>
+      <b>Day</b>
+      <p format="date(d)">19870430</p>
+      <b>Age</b>
+      <p format="age">19870430</p>
+    </section>
+  </main>
+</body>
+
 </html>
