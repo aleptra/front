@@ -145,3 +145,49 @@ nav[class*='gap'] figure {
 #togglebar:checked~* .toggleable {
   display: inherit;
 }
+
+.tabs.clean * {
+  border: unset;
+  background-color: unset
+}
+
+.tabs.vertical {
+  display: block;
+}
+
+.tabs.vertical>section {
+  width: auto;
+}
+
+.tabs.vertical{
+  display: block
+}
+
+.tabs.vertical label{
+  overflow: hidden;
+  width: 20%;  
+}
+
+.tabs.vertical section {
+  position: absolute;
+  z-index:0;
+  opacity:0;
+  left: 20%;
+  top: 0
+}
+
+.tabs.vertical>input:checked ~ section {
+ z-index:1;
+ opacity:1;
+}
+
+
+
+
+
+
+
+
+
+
+

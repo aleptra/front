@@ -481,6 +481,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .pauto, .pauto-> *{ padding: 3rem }
 .mnauto{ margin: -3rem }
 .mnauto.h100{flex: 0 0 calc(100% + 6rem)}
+.mnauto.h100 + .h100{margin-top: 6rem}
 .pauto1w{ padding: 3rem 1rem }
 
 body .h25{height: 25%}

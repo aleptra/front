@@ -2194,7 +2194,54 @@ nav[class*='gap'] figure {
 
 #togglebar:checked~* .toggleable {
   display: inherit;
-}nav.slider {
+}
+
+.tabs.clean * {
+  border: unset;
+  background-color: unset
+}
+
+.tabs.vertical {
+  display: block;
+}
+
+.tabs.vertical>section {
+  width: auto;
+}
+
+.tabs.vertical{
+  display: block
+}
+
+.tabs.vertical label{
+  overflow: hidden;
+  width: 20%;  
+}
+
+.tabs.vertical section {
+  position: absolute;
+  z-index:0;
+  opacity:0;
+  left: 20%;
+  top: 0
+}
+
+.tabs.vertical>input:checked ~ section {
+ z-index:1;
+ opacity:1;
+}
+
+
+
+
+
+
+
+
+
+
+
+nav.slider {
   justify-content: center;
   align-items: stretch;
   height: 100%;
@@ -2760,6 +2807,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .pauto, .pauto-> *{ padding: 3rem }
 .mnauto{ margin: -3rem }
 .mnauto.h100{flex: 0 0 calc(100% + 6rem)}
+.mnauto.h100 + .h100{margin-top: 6rem}
 .pauto1w{ padding: 3rem 1rem }
 
 body .h25{height: 25%}
