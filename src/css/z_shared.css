@@ -639,7 +639,7 @@ body .bw3{border-width: 3px}
 body .bw4{border-width: 4px}
 body .bw5{border-width: 5px}
 
-body [class*='wc_'], body .m0a {margin: 0 auto;flex:initial;max-width:100%}
+body [class*='wc_'], body .m0a {margin-left: auto; margin-right: auto;flex:initial;max-width:100%}
 body [class*='_dn'], body [class*='_du']{display: none}
 
 .wc_xm{width: 480px}
@@ -928,7 +928,8 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .pauto, body .pauto-> *{padding: 2.5rem}
   body .mnauto, body .md_mnauto{margin: -2.5rem}
   body .mnauto.h100{flex: 0 0 calc(100% + 5rem)}
-
+  body .mnauto.h100 + .h100{margin-top: 5rem}
+  
   body .md_du{display: inherit}
   body .md_w50p, body .md_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
   body .md_w60p, body .md_w60p- * { width: 60%; -ms-flex: 60%; flex: 60% }
@@ -962,6 +963,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .xm_fs0 a, .xm_fs0- > a, body .xm_fs0{font-size: 0}
   body .mnauto{margin: -2rem}
   body .mnauto.h100{flex: 0 0 calc(100% + 4rem)}
+  body .mnauto.h100 + .h100{margin-top: 4rem}
   body .crumbs{display:none}
 
   body .xm_du{display: inherit}
