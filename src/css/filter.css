@@ -1,0 +1,5 @@
+.grayscale, .grayscale- * {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+  -ms-filter: progid: DXImageTransform.Microsoft.grayscale(1);
+}

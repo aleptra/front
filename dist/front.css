@@ -1,3 +1,12 @@
+.darktheme ::-webkit-scrollbar {
+  background: rgba(0, 0, 0, .5);
+}
+
+.darktheme ::-webkit-scrollbar-thumb,
+.darktheme body {
+  background: #000000;
+}
+
 *,
 *:before,
 *:after {
@@ -755,7 +764,7 @@ summary {
   color: #fff
 }
 
-.dark * {
+.dark > * {
   color: #fff
 }
 
@@ -1640,6 +1649,10 @@ body.disabled:after {
   display: block;
   content: "";
   z-index: 100;
+}.grayscale, .grayscale- * {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+  -ms-filter: progid: DXImageTransform.Microsoft.grayscale(1);
 }form {
   flex-direction: column;
   -ms-flex-direction: column;
