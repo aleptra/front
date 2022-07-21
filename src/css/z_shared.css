@@ -69,8 +69,8 @@ body .flc0{
   -ms-flex-align: unset;
   justify-content: unset;
 }
-
-body .f0,.box *.f0{flex:0}
+body .fa,.box *.fa{flex: auto}
+body .f0,.box *.f0{flex: 0}
 body .f1,.box *.f1{flex: 1}
 body .f2,.box *.f2{flex: 2}
 body .f3,.box *.f3{flex: 3}
