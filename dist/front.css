@@ -2218,10 +2218,6 @@ nav[class*='gap'] figure {
   border-bottom-width: initial
 }
 
-.tabs.vertical section {
-  min-height: 100vh;
-}
-
 .tabs.vertical input[name="tab"] {
   display: none;
 }
