@@ -481,7 +481,7 @@ body .br50,body .br50->* { border-radius: 50% }
 .pauto, .pauto-> *{ padding: 3rem }
 .mnauto{ margin: -3rem }
 .mnauto.h100{flex: 0 0 calc(100% + 6rem)}
-.mnauto.h100 + .h100{margin-top: 6rem}
+.mnauto.h100 + *{margin-top: 6rem}
 .pauto1w{ padding: 3rem 1rem }
 
 body .h25{height: 25%}
@@ -928,7 +928,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .pauto, body .pauto-> *{padding: 2.5rem}
   body .mnauto, body .md_mnauto{margin: -2.5rem}
   body .mnauto.h100{flex: 0 0 calc(100% + 5rem)}
-  body .mnauto.h100 + .h100{margin-top: 5rem}
+  body .mnauto.h100 + *{margin-top: 5rem}
   
   body .md_du{display: inherit}
   body .md_w50p, body .md_w50p- * { width: 50%; -ms-flex: 50%; flex: 50% }
@@ -963,7 +963,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .xm_fs0 a, .xm_fs0- > a, body .xm_fs0{font-size: 0}
   body .mnauto{margin: -2rem}
   body .mnauto.h100{flex: 0 0 calc(100% + 4rem)}
-  body .mnauto.h100 + .h100{margin-top: 4rem}
+  body .mnauto.h100 + *{margin-top: 4rem}
   body .crumbs{display:none}
 
   body .xm_du{display: inherit}
