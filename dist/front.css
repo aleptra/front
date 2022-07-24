@@ -1295,8 +1295,8 @@ body .icon512 {
     left: 1.5rem;
 }
 
-.sidebar details[open] summary:after,
-.sidebar details[open] details[open] summary:after {
+.sidebar details[open] > summary:after,
+.sidebar details[open] > details[open] summary:after {
     content: "\02C4";
 }.alert {
   border-radius: .5rem;
