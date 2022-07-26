@@ -628,7 +628,7 @@ var core = function () {
     for (k = 0; k < els.length; k++) {
       for (j = 0; j < libAttribute.length; j++) {
         if (els[k].hasAttribute(libAttribute[j].attr)) {
-          window[libAttribute[j].func](els[k])
+          window[libAttribute[j].func](els[k], libAttribute[j].arg)
         }
       }
     }
@@ -638,7 +638,7 @@ var core = function () {
     var e = (typeof e === "string") ? dom.get(e) : e
     for (j = 0; j < libAttribute.length; j++) {
       if (e.getAttribute(libAttribute[j].attr)) {
-        window[libAttribute[j].func](e)
+        window[libAttribute[j].func](e, libAttribute[j].arg)
       }
     }
   }

@@ -3,10 +3,12 @@ libAttribute.push({
   "func": "json"
 }, {
   "attr": "datapull",
-  "func": "dataPull"
+  "func": "dataTransfer",
+  "arg": "pull"
 }, {
   "attr": "datapush",
-  "func": "dataPush"
+  "func": "dataTransfer",
+  "arg": "push"
 })
 
 window.addEventListener("submit", function (e) {
@@ -293,22 +295,23 @@ function dataForcePush(el) {
   app.debug(payload)
 }
 
-function dataPush(el) {
-  var attr = el.getAttribute("datapush"),
-    interval = (attr < 1000) ? 1500 : attr,
-    count = 0
+function dataTransfer(el, arg) {
+  var attr = el.getAttribute("data" + arg),
+      interval = (attr < 1000) ? 1500 : attr
   var i = setInterval(function () {
     var newEl = dom.get(el.id)
     if (newEl) {
-      dataForcePush(newEl)
-      count++
+      switch (arg) {
+        case "push":
+          dataForcePush(newEl)
+          break
+        case "pull": 
+          console.info('pull not implemented!')
+          break
+      }
     } else {
       clearInterval(i)
     }
     app.debug("Interval: " + interval)
   }, interval)
-}
-
-function dataPull() {
-
 }
