@@ -31,9 +31,9 @@ function nav(path, el, push) {
       //core.runVariablesInElement(target)
 
       if (anchor[1]) {
-        dom.scrollInto(anchor[1])
+        dom.scrollTo(anchor[1], "anchor")
       } else {
-        dom.scrollInto(target, true)
+        dom.scrollTo(target, "top")
       }
 
       var array = dom.getChildren("template?tag");

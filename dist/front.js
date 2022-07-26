@@ -63,23 +63,32 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   var main = dom.get("main?tag=0"),
-    trigger = false
+      trigger = false,
+      pull = false
   if (main) main.addEventListener("scroll", function (e) {
-    x = e.target.scrollLeft
-    y = e.target.scrollTop
+    var x = e.target.scrollLeft,
+        y = e.target.scrollTop
 
     if (listenEls.length > 0) {
       var el = dom.get(listenEls[0]),
-        attr = el.getAttribute("scrolltoggle").split(";"),
-        attrX = attr[0],
-        attrY = attr[1]
-      if ((x >= attrX && y >= attrY) && !trigger) {
-        dom.hide(el)
-        trigger = true
-      }
-      if (y <= 0) {
-        dom.show(el)
-        trigger = false
+          attr = el.getAttribute("scroll").split(";"),
+          attrAction = attr[0],
+          attrX = attr[1],
+          attrY = attr[2]
+
+      switch (attrAction) {
+        case "toggle":
+          if ((x >= attrX && y >= attrY) && !trigger) {
+            dom.hide(el)
+            trigger = true
+          }
+          if (y <= 0) {
+            dom.show(el)
+            trigger = false
+          }
+          break
+        default:
+          dom.scrollTo(el, "bottom")
       }
     }
   })
@@ -564,8 +573,8 @@ var core = function () {
       var set = (val[1] == "false") ? dom.escape(content) : content
       e.innerHTML = set
     }
-    if (e.hasAttribute("scrolltoggle"))
-      listenEls.push(e)
+    if (e.hasAttribute("scroll"))
+      listenEls.push(e, "scroll")
     if (e.hasAttribute("bindvalue")) {
       var attr = e.getAttribute("bind").split(":"),
         target = attr[1],
@@ -1368,12 +1377,17 @@ var dom = function () {
     el.style.resize = "both"
   }
 
-  this.scrollInto = function (el, bool) {
-    var target = this.get(el)
-    if (!bool)
-      target.scrollIntoView()
-    else
-      target.scrollTop = bool
+  this.scrollTo = function (el, val) {
+    var target = this.get(el),
+        y = target.scrollHeight
+    switch(val) {
+      case "anchor":
+        target.scrollIntoView(val)
+        break
+      default:
+        val = (val == "top") ? 0 : (val == "bottom" ? y : val)
+        target.scrollTop = val
+      }
   }
 
   this.set = function (type, param, value) {
