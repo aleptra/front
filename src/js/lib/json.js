@@ -37,7 +37,7 @@ function json(aEl) {
     attrBind = e.getAttribute("bind1").split(".")
     bindEl = dom.get(attrBind[0])
     clnEl = jsonInitEl[bindEl.getAttribute("jsonindex")]
-    dom.scrollInto(attrBind[0], false)
+    dom.scrollTo(attrBind[0], "top")
   } else {
     var attr = document.createAttribute("jsonindex")
     attr.value = jsonIndex
