@@ -298,19 +298,15 @@ function dataForcePush(el) {
 function dataTransfer(el, arg) {
   var attr = el.getAttribute("data" + arg),
       interval = (attr < 1000) ? 1500 : attr
-  var i = setInterval(function () {
+  setInterval(function () {
     var newEl = dom.get(el.id)
-    if (newEl) {
-      switch (arg) {
-        case "push":
-          dataForcePush(newEl)
-          break
-        case "pull": 
-          console.info('pull not implemented!')
-          break
-      }
-    } else {
-      clearInterval(i)
+    switch (arg) {
+      case "push":
+        dataForcePush(newEl)
+        break
+      case "pull":
+        console.info('pull not implemented!')
+        break
     }
     app.debug("Interval: " + interval)
   }, interval)
