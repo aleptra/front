@@ -26,14 +26,15 @@ window.addEventListener("submit", function (e) {
 })
 
 var jsonInitEl = [],
-    jsonIndex = 0
+    jsonIndex = 0,
+    data
 
 function json(aEl) {
   var attr = aEl.getAttribute("json").split(";"),
       target = attr[0],
       loader = attr[1],
-    el = (target === "true") ? aEl : dom.get(target),
-    e = event && (event.target || event.srcElement)
+      el = (target === "true") ? aEl : dom.get(target),
+      e = event && (event.target || event.srcElement)
 
   if (e && e.attributes && e.attributes["bind1"]) {
     attrBind = e.getAttribute("bind1").split(".")
@@ -61,10 +62,10 @@ function json(aEl) {
       onempty = el.getAttribute("onempty")
 
   var xhr = new XMLHttpRequest()
-      xhr.el = clnEl
-      xhr.aEl = aEl
-      xhr.id = Date.now()
-      xhr.open("GET", url)
+  xhr.el = clnEl
+  xhr.aEl = aEl
+  xhr.id = Date.now()
+  xhr.open("GET", url)
 
   if (headers) {
     headers = headers.split(";")
@@ -104,8 +105,8 @@ function json(aEl) {
 
     jsonParseHeader(xhr.getAllResponseHeaders(), target)
 
-    var data = xhr.responseText,
-        json = JSON.parse(data)
+    data = xhr.responseText
+    json = JSON.parse(data)
 
     if (json.length == 0) eval(onempty)
 
@@ -295,6 +296,31 @@ function dataForcePush(el) {
   app.debug(payload)
 }
 
+function dataPullForce(el) {
+  var url = el.getAttribute("datasource"),
+    headers = el.getAttribute("dataheader"),
+    dataCurrent = ""
+
+  var xhr = new XMLHttpRequest()
+  xhr.open("GET", url)
+  if (headers) {
+    headers = headers.split(" ; ")
+    for (var i in headers) {
+      var header = headers[i].split(":")
+      xhr.setRequestHeader(header[0], header[1])
+    }
+  }
+  xhr.send()
+
+  xhr.onload = function () {
+    dataCurrent = xhr.responseText
+    
+    if (JSON.stringify(data) !== JSON.stringify(dataCurrent)) {
+      console.log("Data has been changed!")
+    }
+  }
+}
+
 function dataTransfer(el, arg) {
   var attr = el.getAttribute("data" + arg),
       interval = (attr < 1000) ? 1500 : attr
@@ -305,7 +331,7 @@ function dataTransfer(el, arg) {
         dataForcePush(newEl)
         break
       case "pull":
-        console.info('pull not implemented!')
+        dataPullForce(newEl)
         break
     }
     app.debug("Interval: " + interval)
