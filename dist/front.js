@@ -1,41 +1,41 @@
 var html,
-  front,
-  frontVariables = [],
-  frontEnums = [],
-  libAttribute = [],
-  libPreload = [],
-  listenEls = [],
-  bindEls = [],
-  xhrProgress,
-  appStorage,
-  load = false,
-  loadTemplate = false,
-  loadStorage = false,
-  debugMode = false,
-  isMobile = false,
+    front,
+    frontVariables = [],
+    frontEnums = [],
+    libAttribute = [],
+    libPreload = [],
+    listenEls = [],
+    bindEls = [],
+    xhrProgress,
+    appStorage,
+    load = false,
+    loadTemplate = false,
+    loadStorage = false,
+    debugMode = false,
+    isMobile = false,
 
-  urlDelimiter = "/",
-  elementDivider = /[?=]/,
-  bindDivider = ".",
-  varDivider = ":",
+    urlDelimiter = "/",
+    elementDivider = /[?=]/,
+    bindDivider = ".",
+    varDivider = ":",
 
-  hostName,
-  url,
-  title,
-  currentUrl,
-  currentPage,
-  currentModalUrl,
-  currentScriptUrl,
-  currentEnvName,
-  currentEnvUrl,
-  referrerUrl,
-  baseUrl,
-  startPage = "home.html",
-  pageType = "page",
+    hostName,
+    url,
+    title,
+    currentUrl,
+    currentPage,
+    currentModalUrl,
+    currentScriptUrl,
+    currentEnvName,
+    currentEnvUrl,
+    referrerUrl,
+    baseUrl,
+    startPage = "home.html",
+    pageType = "page",
 
-  pathLib = "lib",
-  pathPlug = "plug",
-  pathFont = "font"
+    pathLib = "lib",
+    pathPlug = "plug",
+    pathFont = "font"
 
 document.addEventListener("DOMContentLoaded", function () {
   html = document.documentElement
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var attr = currentScript.getAttribute("store").split(";")
     for (storefile in attr) {
       var file = attr[storefile].split(varDivider),
-        storeXhr = new xhr()
+          storeXhr = new xhr()
       storeXhr.addHeader("storeName", file[1])
       storeXhr.get(currentEnvUrl + file[0] + ".json", function (response, status, headers) {
         appStorage = response

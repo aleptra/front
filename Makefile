@@ -26,6 +26,7 @@ default:
 	cat src/css/*.css > ${OUTPUT_CSS}
 	rsync src/js/front.js ${COPY_JS}
 	rsync --exclude 'front.js' --exclude src/js/lib/* ${COPY_JS_LIBS}
+	#sed -i '' -e '/^[[:space:]]*\*[[:space:]]/d' ${COPY_JS}
 
 compress: default
 	cat ${OUTPUT_CSS} | tr -d "\t\n" | tr -s "[:blank:]" " " > ${OUTPUT_CSS_MINI}
