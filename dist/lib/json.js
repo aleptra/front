@@ -105,8 +105,8 @@ function json(aEl) {
 
     jsonParseHeader(xhr.getAllResponseHeaders(), target)
 
-    var data = xhr.responseText,
-        json = JSON.parse(data)
+    data = xhr.responseText
+    var json = JSON.parse(data)
 
     if (json.length == 0) eval(onempty)
 
@@ -206,7 +206,7 @@ function jsonParse(input, json) {
         isAssociative = (json.indexOf(".") > 0) ? true : false,
         value = "",
         orgJson = json,
-        parse
+        parse = ""
 
     if (isMod) json = json.split(" ")[0]
 
@@ -244,7 +244,7 @@ function jsonParseHeader(responseHeaders, target) {
     var id = bindEls[i]['e'].getAttribute("json")
     if (target == id) bindEls[i]['el'].innerHTML = bindEls[i]['el'].innerHTML.replace(re, function (e, out) {
       var first = out.split("=")[0].trim(),
-        isMod = (out.indexOf("=") > 0) ? true : false
+          isMod = (out.indexOf("=") > 0) ? true : false
       return core.callAttributes(responseHeader[first], out, isMod)
     })
   }
@@ -254,9 +254,9 @@ function jsonSerialize(inputs) {
   var pairs = {}
   for (var i = 0; i < inputs.length; i++) {
     var payload = inputs[i].getAttribute("payload"),
-      type = inputs[i].getAttribute("type"),
-      name = inputs[i].name,
-      value = inputs[i].value
+        type = inputs[i].getAttribute("type"),
+        name = inputs[i].name,
+        value = inputs[i].value
     if (name && (payload !== "false" || type !== "submit" || type !== "reset"))
       pairs[name] = value
   }
@@ -265,9 +265,9 @@ function jsonSerialize(inputs) {
 
 function jsonPush(payload, e) {
   var url = e.getAttribute("datasource"),
-    headers = e.getAttribute("dataheader"),
-    ondone = e.getAttribute("ondone"),
-    method = (e.hasAttribute("method")) ? e.getAttribute("method").toUpperCase() : "POST"
+      headers = e.getAttribute("dataheader"),
+      ondone = e.getAttribute("ondone"),
+      method = (e.hasAttribute("method")) ? e.getAttribute("method").toUpperCase() : "POST"
 
   var xhr = new XMLHttpRequest()
   xhr.open(method, url, true)
@@ -298,8 +298,8 @@ function dataForcePush(el) {
 
 function dataTransfer(el) {
   var attr = el.getAttribute("datapush"),
-    interval = (attr < 1000) ? 1500 : attr,
-    count = 0
+      interval = (attr < 1000) ? 1500 : attr,
+      count = 0
   var i = setInterval(function () {
     var newEl = dom.get(el.id)
     if (newEl) {
