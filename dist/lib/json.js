@@ -33,8 +33,8 @@ function json(aEl) {
   var attr = aEl.getAttribute("json").split(";"),
       target = attr[0],
       loader = attr[1],
-    el = (target === "true") ? aEl : dom.get(target),
-    e = event && (event.target || event.srcElement)
+      el = (target === "true") ? aEl : dom.get(target),
+      e = event && (event.target || event.srcElement)
 
   if (e && e.attributes && e.attributes["bind1"]) {
     attrBind = e.getAttribute("bind1").split(".")
