@@ -534,17 +534,19 @@ var core = function () {
       if (content.length == 8 && core.isNumber(content)) content = content.replace(/^(\d{4})/, '$1-').replace(/-(\d{2})/, '-$1-')
       var value = (content) ? new Date(content) : new Date()
 
-      if (format == "age") {
-        e.innerHTML = ~~((Date.now() - value.getTime()) / (31557600000))
-      } else {
-        var match = format.match(/\((.*)\)/gi)
-        var res = match[0].slice(1, -1)
-        e.innerHTML = res.replace(/Y/gi, value.getFullYear())
-          .replace(/M/gi, ("0" + (value.getMonth() + 1)).substr(-2))
-          .replace(/D/gi, ("0" + value.getDate()).substr(-2))
-          .replace(/H/gi, ("0" + value.getHours()).substr(-2))
-          .replace(/I/gi, ("0" + value.getMinutes()).substr(-2))
-          .replace(/S/gi, ("0" + value.getSeconds()).substr(-2))
+      switch(format) {
+        case "age":
+          e.innerHTML = ~~((Date.now() - value.getTime()) / (31557600000))
+          break
+        default:
+          var match = format.match(/\((.*)\)/gi),
+              res = match[0].slice(1, -1)
+          e.innerHTML = res.replace(/Y/gi, value.getFullYear())
+            .replace(/M/gi, ("0" + (value.getMonth() + 1)).substr(-2))
+            .replace(/D/gi, ("0" + value.getDate()).substr(-2))
+            .replace(/H/gi, ("0" + value.getHours()).substr(-2))
+            .replace(/I/gi, ("0" + value.getMinutes()).substr(-2))
+            .replace(/S/gi, ("0" + value.getSeconds()).substr(-2))
       }
     }
     if (e.hasAttribute("fixedpoint")) {
