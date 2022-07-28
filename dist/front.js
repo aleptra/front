@@ -432,10 +432,7 @@ var core = function () {
     if (e.hasAttribute("property") && e.hasAttribute("content")) {
 
       var attr = e.getAttribute("content")
-      //var increment = attr.split(";")
-      //attr.innerText = ""
 
-      //var increment = (variables) ? el.getAttribute("variable").split(";")[1] : 0
       test = attr.replace(/{{ (.*?) }}/ig, "$1")
       var test2 = test.split(";")
       try {
@@ -588,7 +585,6 @@ var core = function () {
       })
     }
     if (e.tagName == "CODE") {
-      //this.runCoreAttributesInElement(e)
     }
     if (e.hasAttribute("background")) {
       var val = e.getAttribute("background")
@@ -1219,7 +1215,6 @@ var dom = function () {
 
   this.update = function (el, arr) {
     var el = this.get(el)
-    //console.dir(el)
     var props = "el." + arr[0] + "('" + arr[1] + "', '" + arr[2] + "')"
     if (el) eval(props)
   }
@@ -1403,7 +1398,6 @@ var dom = function () {
       var func = resEl.getAttribute("datasourceonchange")
       window[func](resEl)
 
-      //eval(func)
 
     } else {
       dom.content(el.name, value)
@@ -1527,11 +1521,9 @@ var xhr = function () {
     }
 
     request.onerror = function () {
-      //callback("error")
     }
 
     request.ontimeout = function (e) {
-      //callback("timeout")
     }
 
     request.send(null)

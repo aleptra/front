@@ -23,10 +23,14 @@ CYPRESS_SERVE_PORT = 3030
 CYPRESS_ARGS = -P test -C cypress/cypress.config.js
 
 default:
-	cat src/css/*.css > ${OUTPUT_CSS}
-	rsync src/js/front.js ${COPY_JS}
-	rsync --exclude 'front.js' --exclude src/js/lib/* ${COPY_JS_LIBS}
-	#sed -i '' -e '/^[[:space:]]*\*[[:space:]]/d' ${COPY_JS}
+	@echo "[ Copying and merging CSS files ] ..."
+	@cat src/css/*.css > ${OUTPUT_CSS}
+	@echo "[ Copying JS files ] ..."
+	@rsync src/js/front.js ${COPY_JS}
+	@rsync --exclude 'front.js' --exclude src/js/lib/* ${COPY_JS_LIBS}
+	@echo "[ Removing comments ] ..."
+	@sed -i '' -e '/^[[:space:]]\*\//d' -e '/^\/\*\*/d' -e '/^[[:space:]]\*/d' ${COPY_JS}
+	@sed -i '' -e '/^[[:space:]]*\/\/[:space:]*/d' ${COPY_JS}
 
 compress: default
 	cat ${OUTPUT_CSS} | tr -d "\t\n" | tr -s "[:blank:]" " " > ${OUTPUT_CSS_MINI}
