@@ -745,7 +745,7 @@ var core = function () {
   this.split = function (str, sep, i) {
     return str.split(sep)[i]
   }
-  
+
   /**
    * Replace a string.
    * @function
@@ -757,7 +757,7 @@ var core = function () {
   this.replace = function (str, val1, val2) {
     return str.replace(new RegExp(val1, "gi"), val2)
   }
-  
+
   /**
    * Trim a string.
    * @function
@@ -880,12 +880,32 @@ var core = function () {
     }
   }
 
+  /**
+   * Check if object is a string.
+   * @function
+   * @param {object} obj - The object to check.
+   * @returns {boolean} True or False.
+   */
   this.isString = function (obj) {
     return Object.prototype.toString.call(obj) === "[object String]"
   }
+
+  /**
+   * Check if number.
+   * @function
+   * @param {string} str - The string to check.
+   * @returns {boolean} True or False.
+   */
   this.isNumber = function (str) {
     return /^\d+$/.test(str)
   }
+
+  /**
+   * Check if object.
+   * @function
+   * @param {object} obj - The object to check.
+   * @returns {boolean} True or False.
+   */
   this.isObject = function (obj) {
     return (typeof obj === "object" && !Array.isArray(obj) && obj !== null)
   }
