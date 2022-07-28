@@ -745,9 +745,25 @@ var core = function () {
   this.split = function (str, sep, i) {
     return str.split(sep)[i]
   }
+  
+  /**
+   * Replace a string.
+   * @function
+   * @param {string} str - The string to replace.
+   * @param {string} val1 - The value to replace.
+   * @param {string} val2 - The value to replace with.
+   * @returns {string} Replaced string.
+   */
   this.replace = function (str, val1, val2) {
     return str.replace(new RegExp(val1, "gi"), val2)
   }
+  
+  /**
+   * Trim a string.
+   * @function
+   * @param {string} str - The string to trim.
+   * @returns {string} Trimmed string.
+   */
   this.trim = function (str) {
     return str.trim()
   }
