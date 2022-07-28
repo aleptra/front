@@ -584,8 +584,6 @@ var core = function () {
         e: e
       })
     }
-    if (e.tagName == "CODE") {
-    }
     if (e.hasAttribute("background")) {
       var val = e.getAttribute("background")
       if (val.indexOf(".")) e.style.backgroundImage = "url('" + val + "')";

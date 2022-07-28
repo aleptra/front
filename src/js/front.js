@@ -595,9 +595,6 @@ var core = function () {
         e: e
       })
     }
-    if (e.tagName == "CODE") {
-      //this.runCoreAttributesInElement(e)
-    }
     if (e.hasAttribute("background")) {
       var val = e.getAttribute("background")
       if (val.indexOf(".")) e.style.backgroundImage = "url('" + val + "')";
