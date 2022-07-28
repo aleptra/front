@@ -29,7 +29,7 @@ default:
 	@rsync src/js/front.js ${COPY_JS}
 	@rsync --exclude 'front.js' --exclude src/js/lib/* ${COPY_JS_LIBS}
 	@echo "[ Removing comments ] ..."
-	@sed -i '' -e '/^[[:space:]]\*\//d' -e '/^\/\*\*/d' -e '/^[[:space:]]\*/d' ${COPY_JS}
+	@sed -i '' -e '/^[[:space:]]*\*\//d' -e '/^[[:space:]]*\/\*\*/d' -e '/^[[:space:]]*\*/d' ${COPY_JS}
 	@sed -i '' -e '/^[[:space:]]*\/\/[:space:]*/d' ${COPY_JS}
 
 compress: default

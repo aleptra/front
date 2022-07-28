@@ -713,6 +713,7 @@ var core = function () {
   this.toLower = function (str) {
     return str.toLowerCase()
   }
+
   this.toUpper = function (str, first) {
     return (first) ? str.charAt(0).toUpperCase() + str.slice(1) : str.toUpperCase()
   }

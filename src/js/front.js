@@ -722,9 +722,23 @@ var core = function () {
     return params
   }
 
+  /**
+   * Converts a string to lowercase letters.
+   * @function
+   * @param {string} str - The string to convert.
+   * @returns {string} Converted string.
+   */
   this.toLower = function (str) {
     return str.toLowerCase()
   }
+
+  /**
+   * Converts a string to uppercase letters.
+   * @function
+   * @param {string} str - The string to convert.
+   * @param {boolean} first - Only convert first character.
+   * @returns {string} Converted string.
+   */
   this.toUpper = function (str, first) {
     return (first) ? str.charAt(0).toUpperCase() + str.slice(1) : str.toUpperCase()
   }
