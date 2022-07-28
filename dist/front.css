@@ -127,10 +127,11 @@ div {
 
 code,
 .code {
+  direction: ltr;
   overflow: auto;
   word-wrap: normal !important;
   word-break: normal;
-  direction: ltr
+  white-space: nowrap
 }
 
 code *,
