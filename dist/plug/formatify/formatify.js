@@ -27,7 +27,7 @@ function formatify(el) {
     }
 
     result += indent + "<" + element + ">\r\n";
-    if (element.match(/^<?\w[^>]*[^\/]$/) && !element.match(/^doctype|meta|base|br|link|input|img|hr.*$/i))
+    if (element.match(/^<?\w[^>]*[^\/]$/) && !element.match(/^area|doctype|meta|base|br|col|embed|link|input|img|param|source|track|wbr|hr.*$/i))
       indent += tab
   })
 
