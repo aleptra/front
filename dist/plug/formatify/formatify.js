@@ -54,9 +54,9 @@ function formatify_colorize(text, attr) {
   })
 
   //Attribute
-  text = text.replace(/[\w]+&#0061;/ig, function (x) {
+  text = text.replace(/&#0032;[a-z&#0045;]+&#0061;+/ig, function (x) {
     var a = dom.insertAt(x, (x.length - 7), "</span>")
-    return '<span class="' + color[1] + '">' + a
+    return '&#0032;<span class="' + color[1] + '">' + a
   })
 
   //Value
