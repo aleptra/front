@@ -1943,7 +1943,7 @@ button[disabled=disabled], button:disabled,
   width: 100%;
 }
 
-.sidebar>* {
+.sidebar > * {
   flex-direction: column;
   -ms-flex-direction: column;
   padding-bottom: .3rem
@@ -1970,9 +1970,15 @@ button[disabled=disabled], button:disabled,
   padding-left: 2.2rem;
 }
 
+.sidebar details details * summary,
 .sidebar details * a {
   padding-left: 3rem;
   font-size: 87%;
+}
+
+.sidebar details details * a {
+  padding-left: 3.5rem;
+  font-size: 80%;
 }
 
 .sidebar ul li * {
