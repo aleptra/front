@@ -3236,7 +3236,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .lg_p05r{padding: .5rem}
   body .lg_p1r{padding: 1rem}
   body .lg_p2r{padding: 2rem}
-  body .lg_gap0, body .lg_gap0->*{ margin-left: unset;margin-right: unset }
+  body .lg_gap0->*{ margin-left: unset;margin-right: unset }
 }
 
 @media only screen and (max-width: 739px) and (min-width: 600px) {
@@ -3270,7 +3270,7 @@ body [class*='_dn'], body [class*='_du']{display: none}
   body .md_p1r{padding: 1rem}
   body .md_p2r{padding: 2rem}
   body .md_p10p{padding: 10%}
-  body .md_gap0, body .md_gap0->*{ margin-left: unset;margin-right: unset }
+  body .md_gap0->*{ margin-left: unset;margin-right: unset }
 }
 
 @media only screen and (max-width: 599px) {
