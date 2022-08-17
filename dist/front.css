@@ -2230,7 +2230,18 @@ nav[class*='gap'] figure {
 }
 
 
-nav.slider {
+progress,
+progress[value] {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-size: auto auto;
+  border: none;
+}
+
+progress::-ms-fill {
+  border: none;
+}nav.slider {
   justify-content: center;
   align-items: stretch;
   height: 100%;
@@ -2798,7 +2809,8 @@ body .br50,body .br50->* { border-radius: 50% }
 .mnauto.h100{flex: 0 0 calc(100% + 6rem)}
 .mnauto.h100 + *{margin-top: 6rem}
 .pauto1w{ padding: 3rem 1rem }
-
+body .h1px{height: 1px}
+body .h2px{height: 2px}
 body .h25{height: 25%}
 body .h50{height: 50%}
 body .h60{height: 60%}

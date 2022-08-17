@@ -1,0 +1,12 @@
+progress,
+progress[value] {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-size: auto auto;
+  border: none;
+}
+
+progress::-ms-fill {
+  border: none;
+}
