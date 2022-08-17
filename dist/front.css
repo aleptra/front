@@ -2237,10 +2237,24 @@ progress[value] {
   -webkit-appearance: none;
   background-size: auto auto;
   border: none;
+  z-index: 50;
+  width: 100%
+}
+
+progress::-webkit-progress-bar {
+  background-color: inherit
+}
+
+progress::-webkit-progress-value {
+  background-color: currentColor
+}
+
+progress::-moz-progress-bar {
+  background-color: currentColor
 }
 
 progress::-ms-fill {
-  border: none;
+  background-color: currentcolor
 }nav.slider {
   justify-content: center;
   align-items: stretch;
@@ -2809,8 +2823,8 @@ body .br50,body .br50->* { border-radius: 50% }
 .mnauto.h100{flex: 0 0 calc(100% + 6rem)}
 .mnauto.h100 + *{margin-top: 6rem}
 .pauto1w{ padding: 3rem 1rem }
-body .h1px{height: 1px}
-body .h2px{height: 2px}
+body .h1px, body .h1px *{height: 1px}
+body .h2px, body .h2px *{height: 2px}
 body .h25{height: 25%}
 body .h50{height: 50%}
 body .h60{height: 60%}

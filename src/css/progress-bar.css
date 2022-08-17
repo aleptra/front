@@ -5,8 +5,22 @@ progress[value] {
   -webkit-appearance: none;
   background-size: auto auto;
   border: none;
+  z-index: 50;
+  width: 100%
+}
+
+progress::-webkit-progress-bar {
+  background-color: inherit
+}
+
+progress::-webkit-progress-value {
+  background-color: currentColor
+}
+
+progress::-moz-progress-bar {
+  background-color: currentColor
 }
 
 progress::-ms-fill {
-  border: none;
+  background-color: currentcolor
 }
