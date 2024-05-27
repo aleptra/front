@@ -1439,6 +1439,9 @@ var app = {
             }
           })
         }
+
+        // Enable app if no vars are loaded.
+        if (app.vars.total === 0) app.disable(false)
       },
 
       /**
@@ -1472,7 +1475,7 @@ var app = {
           document.head.appendChild(script)
         }
 
-        // Run vars evem if no modules are loaded.
+        // Run vars even if no modules are loaded.
         if (app.modules.total === 0) app.assets.get.vars()
       },
 
