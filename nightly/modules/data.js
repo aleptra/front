@@ -381,6 +381,9 @@ app.module.data = {
     var attr = srcEl.attributes,
       headers = attr['data-header'],
       success = attr['data-success'],
+      error = attr['data-error'],
+      loader = attr['data-loader'],
+      empty = attr['data-empty'],
       url = attr['data-' + method]
 
     // Support header reference.
@@ -397,7 +400,9 @@ app.module.data = {
       url: url.value,
       method: method,
       srcEl: srcEl,
-      single: true, // Todo: Fix multi XHR bug caused by rerun. Single is needed.
+      error: error && error.value,
+      loader: loader && loader.value,
+      empty: empty && empty.value,
       success: success && success.value,
       headers: headers && headers.value
     })
