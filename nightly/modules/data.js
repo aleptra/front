@@ -24,7 +24,7 @@ app.module.data = {
     dom.setUniqueId(element, true)
     var interval = element.getAttribute('data-interval') || this.interval,
       loader = element.getAttribute('data-loader'),
-      error = element.getAttribute('data-error')
+      error = element.getAttribute('data-onerror')
 
     dom.hide(error)
 
@@ -68,11 +68,11 @@ app.module.data = {
   },
 
   _open: function (attr, options) {
-    var error = attr['data-error'],
+    var error = attr['data-onerror'],
       empty = attr['data-empty'],
       header = attr['data-header'],
       loader = attr['data-loader'],
-      success = attr['data-success'],
+      success = attr['data-onsuccess'],
       timeout = attr.timeout,
       target = attr.target,
       progresscontent = attr.progresscontent
@@ -118,7 +118,7 @@ app.module.data = {
       datasort = element.getAttribute('data-sort'),
       datastatus = element.getAttribute('data-status'),
       dataempty = element.getAttribute('data-empty'),
-      datasuccess = element.getAttribute('data-success'),
+      datasuccess = element.getAttribute('data-onsuccess'),
       selector = '*:not([data-iterate-skip]'
 
     if (responseData) {
@@ -380,8 +380,8 @@ app.module.data = {
   _request: function (method, srcEl) {
     var attr = srcEl.attributes,
       headers = attr['data-header'],
-      success = attr['data-success'],
-      error = attr['data-error'],
+      success = attr['data-onsuccess'],
+      error = attr['data-onerror'],
       loader = attr['data-loader'],
       empty = attr['data-empty'],
       url = attr['data-' + method]

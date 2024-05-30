@@ -2002,6 +2002,12 @@ var app = {
               //Todo: Move split to app.call. Check for Element reference "#"".
               var val = success.split(':')
               app.call(val[0], [val[1]])
+
+              // Clean up error element.
+              if (error) {
+                var val = error.split(':')
+                if (val[0] === 'show') dom.hide(val[1])
+              }
             }
 
           } else if (status.clientError || status.serverError) {
