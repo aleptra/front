@@ -69,7 +69,7 @@ app.module.data = {
 
   _open: function (attr, options) {
     var error = attr['data-onerror'],
-      empty = attr['data-empty'],
+      empty = attr['data-onempty'],
       header = attr['data-header'],
       loader = attr['data-loader'],
       success = attr['data-onsuccess'],
@@ -117,7 +117,7 @@ app.module.data = {
       dataiterate = element.getAttribute('data-iterate'),
       datasort = element.getAttribute('data-sort'),
       datastatus = element.getAttribute('data-status'),
-      dataempty = element.getAttribute('data-empty'),
+      dataempty = element.getAttribute('data-onempty'),
       datasuccess = element.getAttribute('data-onsuccess'),
       selector = '*:not([data-iterate-skip]'
 
@@ -383,7 +383,7 @@ app.module.data = {
       success = attr['data-onsuccess'],
       error = attr['data-onerror'],
       loader = attr['data-loader'],
-      empty = attr['data-empty'],
+      empty = attr['data-onempty'],
       url = attr['data-' + method]
 
     // Support header reference.
