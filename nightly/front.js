@@ -379,6 +379,7 @@ var dom = {
   },
 
   blur: function (element, value) {
+    console.dir(element)
     var target = value ? dom.get(value) : element
     if (target) target.blur()
   },
@@ -1940,8 +1941,8 @@ var app = {
         srcEl = options.srcEl || false,
         enctype = options.enctype ? options.enctype : 'application/json',
         onload = options.onload,
-        error = options.error,
-        success = options.success,
+        error = options.error && options.error.split(':'),
+        success = options.success && options.success.split(':'),
         loader = options.loader,
         type = options.type,
         run = onload && onload.run && onload.run.func ? onload.run.func : false,
@@ -1999,33 +2000,28 @@ var app = {
             }
 
             if (success) {
-              //Todo: Move split to app.call. Check for Element reference "#"".
-              var val = success.split(':')
-              app.call(val[0], [val[1]])
+               app.call(success[0], [success[1] || srcEl])
 
               // Clean up error element.
               if (error) {
-                var val = error.split(':')
-                if (val[0] === 'show') dom.hide(val[1])
+                if (error[0] === 'show') dom.hide(error[1])
               }
             }
 
           } else if (status.clientError || status.serverError) {
-            dom.show(error)
+            dom.show(error[1])
             dom.hide(loader)
-            if (error) dom.show(error)
+            if (error) dom.show(error[1])
           }
         }
 
         xhr.onerror = function () {
           if (srcEl) {
             if (error) {
-              //Todo: Move split to app.call. Check for Element reference "#"".
-              var val = error.split(':')
-              app.call(val[0], [val[1]])
+              app.call(error[0], [error[1]])
             }
           } else {
-            if (error) dom.show(error)
+            if (error) dom.show(error[1])
           }
         }
 
