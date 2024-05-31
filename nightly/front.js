@@ -373,6 +373,10 @@ var dom = {
     alert(value)
   },
 
+  confirm: function () {
+    return confirm('Continue?')
+  },
+
   focus: function (element, value) {
     var target = value ? dom.get(value) : element
     if (target) target.focus()
@@ -718,6 +722,8 @@ var dom = {
         })
         break
     }
+
+    return true
   },
 
   stop: function (element) {
@@ -904,6 +910,12 @@ var app = {
         clicktargetfield = link.attributes.clicktargetfield,
         onclickif = link.attributes.onclickif
 
+      if (onclickif) {
+        var val = onclickif.value.split(':'),
+          ret = app.call(val[0], val[1])
+        if (!ret) return
+      }
+
       if (click) {
         var val = click.value.split(':'),
           target = clicktargetfield && clicktargetfield.value.split(':'),
@@ -916,8 +928,6 @@ var app = {
         element.clicked = element
 
         app.call(val[0], [element, val[1]])
-
-        if (onclickif) dom.bindif(onclickif, { e: link })
       }
     })
 
@@ -2000,7 +2010,7 @@ var app = {
             }
 
             if (success) {
-               app.call(success[0], [success[1] || srcEl])
+              app.call(success[0], [success[1] || srcEl])
 
               // Clean up error element.
               if (error) {
