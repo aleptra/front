@@ -373,8 +373,9 @@ var dom = {
     alert(value)
   },
 
-  confirm: function () {
-    return confirm('Continue?')
+  confirm: function (element) {
+    var value = element.getAttribute('confirmtext') || ''
+    return confirm(value)
   },
 
   focus: function (element, value) {
@@ -383,7 +384,6 @@ var dom = {
   },
 
   blur: function (element, value) {
-    console.dir(element)
     var target = value ? dom.get(value) : element
     if (target) target.blur()
   },
@@ -912,7 +912,7 @@ var app = {
 
       if (onclickif) {
         var val = onclickif.value.split(':'),
-          ret = app.call(val[0], val[1])
+          ret = app.call(val[0], [link, val[1]])
         if (!ret) return
       }
 
