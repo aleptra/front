@@ -6,13 +6,13 @@ app.module.screen = {
     var self = this
 
     app.globals.screenHeight = screen.height,
-    app.globals.screenWidth = screen.width,
-    app.globals.windowHeight = window.innerHeight,
-    app.globals.windowWidth = window.innerWidth,
-    
-    app.listeners.add(document, 'resize', function () {
+      app.globals.screenWidth = screen.width,
       app.globals.windowHeight = window.innerHeight,
-      app.globals.windowWidth = window.innerWidth
-    })
+      app.globals.windowWidth = window.innerWidth,
+
+      app.listeners.add(window, 'resize', function () {
+        app.globals.windowHeight = window.innerHeight,
+          app.globals.windowWidth = window.innerWidth
+      })
   },
 }

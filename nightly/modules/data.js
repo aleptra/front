@@ -118,7 +118,7 @@ app.module.data = {
       datasort = element.getAttribute('data-sort'),
       datastatus = element.getAttribute('data-status'),
       dataempty = element.getAttribute('data-onempty'),
-      datasuccess = element.getAttribute('data-onsuccess'),
+      datasuccess = element.attributes['data-onsuccess'] && element.getAttribute('data-onsuccess').split(':'),
       selector = '*:not([data-iterate-skip]'
 
     if (responseData) {
@@ -129,7 +129,7 @@ app.module.data = {
       }
 
       if (datasuccess) {
-        responseData.status !== 200 ? dom.hide(datasuccess) : dom.show(datasuccess)
+        if (responseData.status === 200) app.call(datasuccess[0], [datasuccess[1]])
       }
 
       if (dataempty) {

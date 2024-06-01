@@ -823,6 +823,10 @@ var dom = {
   rerun: function (object, arg) {
     var el = arg || object
     app.attributes.run(el)
+  },
+
+  reload: function (object, value) {
+    dom.get(value).contentDocument.location.reload(true)
   }
 }
 
@@ -1027,7 +1031,8 @@ var app = {
 
     set: function (element, value, attr) {
       if (attr) {
-        attr = attr.replace('set', '')
+        attr = attr.replace('set', ''),
+          type = element.localName
 
         switch (attr) {
           case 'text':
@@ -1036,6 +1041,13 @@ var app = {
             break
           case 'html':
           case 'refhtml':
+            if (type === 'iframe') {
+              var y = (element.contentWindow || element.contentDocument)
+              if (y.document) y = y.document
+              y.body.innerHTML = '<html><body><b>sss</b></body></html>'
+              //dom.get(value).innerHTML
+              return
+            }
             element.innerHTML = attr === 'refhtml' ? dom.get(value).innerHTML : value
             break
           default:
