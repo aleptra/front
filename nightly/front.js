@@ -434,32 +434,13 @@ var dom = {
     // click or not
     if (object.clicked) {
       var value = object.value,
-        target = object.clicked,
-        tag = target.localName
+        target = object.clicked
     } else {
       var target = object instanceof Object ? object : dom.get(object),
-        tag = object.localName,
         value = strip ? value.replace(/<[^>]+>/g, '') : value || ''
     }
 
-    switch (tag) {
-      case 'img':
-        target.src = value
-        break
-      case 'a':
-        if (replace) value = target.href.replace(new RegExp('{' + replace + '}', 'g'), value)
-        target.innerHTML = value
-        break
-      case 'select':
-        target.setAttribute('select', value)
-        break
-      case 'title':
-        target.innerHTML = value
-        console.dir('weee')
-        break
-      default:
-        target.innerHTML = value
-    }
+    target.innerHTML = value
   },
 
   resize: function (object, value) {
@@ -576,6 +557,8 @@ var dom = {
   },
 
   set2: function (object, value) {
+    var object = typeof object === 'string' ? dom.get(object) : object
+
     var tag = object.localName,
       attr = object.callAttribute
 
