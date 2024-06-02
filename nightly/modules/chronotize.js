@@ -58,7 +58,7 @@ app.module.chronotize = {
         if (birthdateObject) {
           var age = new Date() - birthdateObject,
             calculatedAge = new Date(age).getUTCFullYear() - 1970
-          dom.set(element, calculatedAge)
+          app.element.set(element, calculatedAge)
         }
 
         break

@@ -576,8 +576,9 @@ var dom = {
   },
 
   set2: function (object, value) {
-    var tag = object.localName
-    attr = object.callAttribute
+    var tag = object.localName,
+      attr = object.callAttribute
+
     app.element.set(object, value, attr)
     app.element.onchange(object, attr)
 
@@ -993,6 +994,19 @@ var app = {
     }
   },
 
+  click: function (el, dbl) {
+    var event,
+      eventName = dbl ? 'dblclick' : 'click'
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents')
+      event.initEvent(eventName, true, true)
+    } else { // IE10 compatibility.
+      event = document.createEventObject()
+      event.eventType = eventName
+    }
+    el.dispatchEvent ? el.dispatchEvent(event) : el.fireEvent && el.fireEvent('on' + event.eventType, event)
+  },
+
   /**
    * @namespace element
    * @memberof app
@@ -1044,7 +1058,7 @@ var app = {
             if (type === 'iframe') {
               var y = (element.contentWindow || element.contentDocument)
               if (y.document) y = y.document
-              y.body.innerHTML = '<html><body><b>sss</b></body></html>'
+              y.body.innerHTML = value
               //dom.get(value).innerHTML
               return
             }

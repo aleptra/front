@@ -14,8 +14,8 @@ app.module.keyboard = {
     var self = this
 
     app.listeners.add(document, 'keyup', function (e) {
-      self._keypressed(e)      
-    }, true)
+      self._keypressed(e)
+    })
   },
 
   _keypressed: function (e) {
@@ -24,20 +24,16 @@ app.module.keyboard = {
       if (e.key === current.key) {
         var action = current.action,
           element = current.element,
-          targetUid = e.target.uniqueId,
-          scope = current.scope === '' ? element.uniqueId : current.scope
+          bodyScope = document.activeElement === document.body ? 'body' : false
 
-        if (scope && targetUid !== scope) continue
-
-        // Prevent reload.
-        element.setAttribute('onclick', 'return false')
+        if (bodyScope !== current.scope && current.scope) continue
 
         switch (action) {
           case 'click':
-            element.click()
+            app.click(element)
             break
           case 'dblclick':
-            element.dblclick()
+            app.click(element, true)
             break
           default:
             var action = action.split(':')
