@@ -50,12 +50,14 @@ app.module.keyboard = {
   },
 
   key: function (element) {
-    var key = element.getAttribute('keyboard-key'),
+    var key = element.getAttribute('keyboard-key').split(';'),
       action = element.getAttribute('keyboard-action'),
       scope = element.getAttribute('keyboard-scope')
 
     dom.setUniqueId(element, true)
 
-    this.keys.push({ key: key, action: action, scope: scope, element: element })
+    for (var i = 0; i < key.length; i++) {
+      this.keys.push({ key: key[i], action: action, scope: scope, element: element })
+    }
   },
 }
