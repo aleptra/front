@@ -19,16 +19,17 @@ app.module.keyboard = {
   },
 
   _keypressed: function (e) {
-    var bodyScope = document.activeElement === document.body ? 'body' : false
+    var currentScope = document.activeElement === document.body ? 'body' : false
 
-    for (var i = 0; i < this.keys.length; i++) {
-      var current = this.keys[i]
-      if (e.key === current.key) {
-        var action = current.action,
+    for (var current in this.keys) {
+      if (e.key === current) {
+        var current = this.keys[current],
+          action = current.action,
           element = current.element,
-          currentScope = current.scope === '' ? 'body' : current.scope
+          scope = current.scope,
+          targetScope = scope === '' ? 'body' : scope
 
-        if (bodyScope !== currentScope) continue
+        if (currentScope !== targetScope) continue
 
         switch (action) {
           case 'click':
@@ -51,13 +52,13 @@ app.module.keyboard = {
    * @function key
    * @memberof app.module.keyboard
    * @param {HTMLElement} element - The element with keyboard attributes to add.
-   * @description Adds a new keyboard action to the keys array.
+   * @desc Adds a new keyboard action to the keys array.
    */
   key: function (element) {
     var key = element.getAttribute('keyboard-key'),
       action = element.getAttribute('keyboard-action'),
       scope = element.getAttribute('keyboard-scope')
 
-    this.keys.push({ key: key, action: action, scope: scope, element: element })
+    this.keys[key] = { action: action, scope: scope, element: element }
   },
 }
