@@ -19,17 +19,18 @@ app.module.keyboard = {
   },
 
   _keypressed: function (e) {
-    var currentScope = document.activeElement === document.body ? 'body' : false
+    var isBodyScope = document.activeElement === document.body ? 'body' : false
 
-    for (var current in this.keys) {
-      if (e.key === current) {
-        var current = this.keys[current],
-          action = current.action,
+    for (var i = 0; i < this.keys.length; i++) {
+      var current = this.keys[i]
+      if (e.key === current.key) {
+        var action = current.action,
           element = current.element,
-          scope = current.scope,
-          targetScope = scope === '' ? 'body' : scope
+          targetUid = e.target.uniqueId,
+          scope = current.scope === '' ? element.uniqueId : current.scope
 
-        if (currentScope !== targetScope) continue
+        if (scope === isBodyScope) scope = false        
+        if (scope && targetUid !== scope) continue
 
         switch (action) {
           case 'click':
@@ -48,19 +49,13 @@ app.module.keyboard = {
     }
   },
 
-  /**
-   * @function key
-   * @memberof app.module.keyboard
-   * @param {HTMLElement} element - The element with keyboard attributes to add.
-   * @desc Adds a new keyboard action to the keys array.
-   */
   key: function (element) {
-    var key = element.getAttribute('keyboard-key').split(';'),
+    var key = element.getAttribute('keyboard-key'),
       action = element.getAttribute('keyboard-action'),
       scope = element.getAttribute('keyboard-scope')
 
-    for (var i = 0; i < key.length; i++) {
-      this.keys[key[i]] = { action: action, scope: scope, element: element }
-    }
+    dom.setUniqueId(element, true)
+
+    this.keys.push({ key: key, action: action, scope: scope, element: element })
   },
 }

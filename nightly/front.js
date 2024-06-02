@@ -1038,13 +1038,6 @@ var app = {
             break
           case 'html':
           case 'refhtml':
-            if (type === 'iframe') {
-              var y = (element.contentWindow || element.contentDocument)
-              if (y.document) y = y.document
-              y.body.innerHTML = value
-              //dom.get(value).innerHTML
-              return
-            }
             element.innerHTML = attr === 'refhtml' ? dom.get(value).innerHTML : value
             break
           default:
@@ -1053,9 +1046,14 @@ var app = {
         return
       }
 
-      switch (element.type) {
+      switch (element.type || element.localName) {
         case 'checkbox':
           element.checked = value === 'true' ? true : false
+          break
+        case 'iframe':
+          var y = (element.contentWindow || element.contentDocument)
+          if (y.document) y = y.document
+          y.body.innerHTML = '<html><b>Test</b></html>'
           break
         default:
           var property = this.propertyMap[element.localName] || 'textContent'
@@ -2019,7 +2017,9 @@ var app = {
             }
 
             if (success) {
-              app.call(success[0], [success[1] || srcEl])
+              if (srcEl) {
+                app.call(success[0], [success[1] || srcEl])
+              }
 
               // Clean up error element.
               if (error) {
