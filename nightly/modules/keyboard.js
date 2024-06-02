@@ -55,10 +55,12 @@ app.module.keyboard = {
    * @desc Adds a new keyboard action to the keys array.
    */
   key: function (element) {
-    var key = element.getAttribute('keyboard-key'),
+    var key = element.getAttribute('keyboard-key').split(';'),
       action = element.getAttribute('keyboard-action'),
       scope = element.getAttribute('keyboard-scope')
 
-    this.keys[key] = { action: action, scope: scope, element: element }
+    for (var i = 0; i < key.length; i++) {
+      this.keys[key[i]] = { action: action, scope: scope, element: element }
+    }
   },
 }
