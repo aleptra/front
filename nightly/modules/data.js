@@ -157,7 +157,6 @@ app.module.data = {
       }
 
       this._traverse(options, responseData, element, selector)
-      this._set(responseData, options) //Todo: Do something about this. Is needed for data-set outside loop
 
       // Support iterate inside parent.
       if (!dataiterate) {
@@ -214,6 +213,7 @@ app.module.data = {
         for (var i = 0, j = -1; i < elements.length; i++) {
           if (i % originalNodeCountAll === 0) j++
 
+          // Support bind.
           var attributes = elements[i].attributes
           for (var k = 0; k < attributes.length; k++) {
             var attr = attributes[k]
@@ -232,9 +232,12 @@ app.module.data = {
             }
           }
 
-          this._process('data-get', elements[i], responseObject[j], { fullObject: responseObject, index: j })
           this._process('data-set', elements[i], responseObject[j], { fullObject: responseObject, index: j })
+          this._process('data-get', elements[i], responseObject[j], { fullObject: responseObject, index: j })
         }
+
+        this._process('data-set', element, responseData.data)
+
       } else { // Select single.
         var elements = app.element.find(element, selector),
           arrayFromNodeList = [].slice.call(elements)
@@ -245,14 +248,8 @@ app.module.data = {
           var dataset = arrayFromNodeList[i].getAttribute('data-set'),
             dataget = arrayFromNodeList[i].getAttribute('data-get')
 
-          if (dataset) {
-            var value = app.element.getPropertyByPath(responseObject, dataset)
-            this._process('data-set', arrayFromNodeList[i], responseObject, value)
-          }
-
-          if (dataget) {
-            this._process('data-get', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
-          }
+          if (dataset) this._process('data-set', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
+          if (dataget) this._process('data-get', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
         }
       }
 
@@ -267,11 +264,14 @@ app.module.data = {
 
     for (var i = 0; i < values.length; i++) {
       if (value[i]) {
-        if (value[i].indexOf(':') !== -1) {
-          var keys = value[i].split(':')
-          app.variables.update.attributes(element, keys[0], this._get(responseObject, keys[1]), false)
+        var test = value[i].split(':')
+
+        if (test[1] && test[1][0] === '#') {
+          app.element.set(dom.get(test[1]), this._get(responseObject, test[0], options), false)
+        } else if (test[1]) {
+          app.variables.update.attributes(element, test[0], this._get(responseObject, test[1], options), false)
         } else {
-          app.element.set(element, this._get(responseObject, value[i], options), false)
+          app.element.set(element, this._get(responseObject, test[0], options), false)
         }
       }
     }
@@ -280,13 +280,17 @@ app.module.data = {
   _get: function (obj, value, options) {
 
     if (options) {
-      var keys = Object.keys(options.fullObject),
+      var fullObject = options.fullObject,
+        keys = Object.keys(fullObject),
         keyAtIndex = keys[options.index]
+
       if (value.indexOf('[*].') !== -1) {
         var key = value.replace('[*]', keyAtIndex)
-        return app.element.getPropertyByPath(options.fullObject, key)
+        return app.element.getPropertyByPath(fullObject, key)
       } else if (value === '[*]') {
         return keyAtIndex
+      } else if (value[0] === '#') {
+        return app.element.getPropertyByPath(fullObject, value.substring(1))
       }
     }
 
@@ -316,42 +320,6 @@ app.module.data = {
     }
 
     return result
-  },
-
-  _set: function (response, options) {
-    var set = options.element.getAttribute('data-set')
-    if (set) {
-      var keys = set.split(';')
-
-      for (var i = 0; i < keys.length; i++) {
-        var values = keys[i].split(':'),
-          element = values[1],
-          value = values[0]
-
-        if (values[0][0] === '^') {
-          value = response.headers[value.substring(1)]
-        } else if (values[0] === '*length') {
-          value = response.data.length
-        } else if (values[1][0] === '#') {
-          value = app.element.getPropertyByPath(response.data, value)
-        } else {
-
-          var pathSegments = element.split('.') || [],
-            replace = response.data
-
-          for (var j = 0; j < pathSegments.length; j++) {
-            replace = replace[pathSegments[j]] || ''
-          }
-
-          app.variables.update.attributes(options.element, value, replace, false)
-          var doctitle = options.element.attributes.doctitle || ''
-          if (doctitle.value) dom.doctitle(doctitle.value)
-          continue
-        }
-
-        dom.set(element, value)
-      }
-    }
   },
 
   patch: function (object) {
