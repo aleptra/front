@@ -233,7 +233,7 @@ app.module.data = {
           }
 
           this._process('data-get', elements[i], responseObject[j], { fullObject: responseObject, index: j })
-          this._process('data-set', elements[i], responseObject[j])
+          this._process('data-set', elements[i], responseObject[j], { fullObject: responseObject, index: j })
         }
       } else { // Select single.
         var elements = app.element.find(element, selector),
@@ -251,8 +251,7 @@ app.module.data = {
           }
 
           if (dataget) {
-            var value = app.element.getPropertyByPath(responseObject, dataget)
-            app.element.set(arrayFromNodeList[i], value, false)
+            this._process('data-get', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
           }
         }
       }
