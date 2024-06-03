@@ -157,6 +157,7 @@ app.module.data = {
       }
 
       this._traverse(options, responseData, element, selector)
+      this._set(responseData, options) //Todo: Do something about this. Is needed for data-set outside loop
 
       // Support iterate inside parent.
       if (!dataiterate) {
@@ -170,6 +171,11 @@ app.module.data = {
     }
   },
 
+  /**
+   * @function _traverse
+   * @desc Iterating over arrays in objects or selecting single objects as needed.
+   * @private
+   */
   _traverse: function (options, responseData, element, selector) {
     var iterate = options.iterate,
       responseObject = iterate === 'true' ? responseData.data : app.element.getPropertyByPath(responseData.data, iterate) || {},
@@ -229,9 +235,7 @@ app.module.data = {
           this._process('data-get', elements[i], responseObject[j], { fullObject: responseObject, index: j })
           this._process('data-set', elements[i], responseObject[j])
         }
-
-        this._set(responseData, options)
-      } else { // Select.
+      } else { // Select single.
         var elements = app.element.find(element, selector),
           arrayFromNodeList = [].slice.call(elements)
 
@@ -259,16 +263,17 @@ app.module.data = {
   },
 
   _process: function (accessor, element, responseObject, options) {
-    var value = element.getAttribute(accessor) || false
-    if (value) {
-      if (value.indexOf(':') !== -1) {
-        var keys = value.split(';')
-        for (var i = 0; i < keys.length; i++) {
-          var values = keys[i].split(':')
-          app.variables.update.attributes(element, values[0], this._get(responseObject, values[1]), false)
+    var values = element.getAttribute(accessor) || '',
+      value = values.split(';')
+
+    for (var i = 0; i < values.length; i++) {
+      if (value[i]) {
+        if (value[i].indexOf(':') !== -1) {
+          var keys = value[i].split(':')
+          app.variables.update.attributes(element, keys[0], this._get(responseObject, keys[1]), false)
+        } else {
+          app.element.set(element, this._get(responseObject, value[i], options), false)
         }
-      } else {
-        app.element.set(element, this._get(responseObject, value, options), false)
       }
     }
   },
@@ -294,22 +299,13 @@ app.module.data = {
         tempResult = []
 
       for (var j = 0; j < andPaths.length; j++) {
-        var tempObj = obj,
-          keys = andPaths[j].trim().split('.'),
-          valid = true
+        var path = andPaths[j].trim(),
+          tempObj = app.element.getPropertyByPath(obj, path)
 
-        for (var k = 0; k < keys.length; k++) {
-          if (tempObj !== null && tempObj !== undefined && tempObj.hasOwnProperty(keys[k])) {
-            tempObj = tempObj[keys[k]]
-          } else {
-            valid = false
-            break
-          }
-        }
-
-        if (valid) {
-          tempResult.push(tempObj)
+        if (tempObj !== undefined && tempObj !== null) {
+          tempResult.push(typeof tempObj === 'object' ? JSON.stringify(tempObj) : tempObj)
         } else {
+          tempResult = []
           break
         }
       }

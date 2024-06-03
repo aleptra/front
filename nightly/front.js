@@ -430,7 +430,6 @@ var dom = {
   set: function (object, value, strip, replace) {
     var target = object instanceof Object ? object : dom.get(object),
       value = strip ? value.replace(/<[^>]+>/g, '') : value || ''
-  
     target.innerHTML = value
   },
 
@@ -2017,7 +2016,6 @@ var app = {
             }
 
           } else if (status.clientError || status.serverError) {
-            dom.show(error[1])
             dom.hide(loader)
             if (error) dom.show(error[1])
           }
