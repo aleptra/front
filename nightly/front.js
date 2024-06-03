@@ -15,8 +15,6 @@ var dom = {
     'insertafterbegin': 'insert',
     'insertbeforeend': 'insert',
     'insertafterend': 'insert',
-    'refsettext': 'set2',
-    'refsethtml': 'set2',
     'settext': 'set2',
     'sethtml': 'set2',
     'sethref': 'set2',
@@ -430,16 +428,9 @@ var dom = {
    * @desc Sets the content of an element.
   */
   set: function (object, value, strip, replace) {
-
-    // click or not
-    if (object.clicked) {
-      var value = object.value,
-        target = object.clicked
-    } else {
-      var target = object instanceof Object ? object : dom.get(object),
-        value = strip ? value.replace(/<[^>]+>/g, '') : value || ''
-    }
-
+    var target = object instanceof Object ? object : dom.get(object),
+      value = strip ? value.replace(/<[^>]+>/g, '') : value || ''
+  
     target.innerHTML = value
   },
 
@@ -1033,12 +1024,10 @@ var app = {
 
         switch (attr) {
           case 'text':
-          case 'reftext':
-            element.textContent = attr === 'reftext' ? dom.get(value).textContent : value
+            element.textContent = value
             break
           case 'html':
-          case 'refhtml':
-            element.innerHTML = attr === 'refhtml' ? dom.get(value).innerHTML : value
+            element.innerHTML = value
             break
           default:
             element.setAttribute(attr, value)
