@@ -412,7 +412,7 @@ var dom = {
       element.uniqueId = id
   },
 
-  doctitle: function (value) {
+  doctitle: function (element, value) {
     if (!value) return
     var value = value instanceof Object ? value.attributes.doctitle.value : value
     app.title = value
@@ -1417,7 +1417,7 @@ var app = {
           modules = scriptAttr.module && scriptAttr.module.value.split(';') || [],
           vars = scriptAttr.var && scriptAttr.var.value.split(';') || []
 
-        dom.doctitle(document.title)
+        dom.doctitle(null, document.title)
 
         app.srcDocTemplate = document.body.innerHTML
 
@@ -1805,7 +1805,7 @@ var app = {
       }
 
       if (responsePageContentClass) document.body.className = responsePageContentClass
-      dom.doctitle(currentPageTitle)
+      dom.doctitle(null, currentPageTitle)
     }
   },
 
@@ -1885,7 +1885,7 @@ var app = {
                     page: true,
                     total: templateSrc.length + (templateSrcDoc ? 1 : 0)
                   }
-                  dom.doctitle(responsePageTitle)
+                  dom.doctitle(null, responsePageTitle)
                   dom.bind.include = ''
                   app.assets.get.templates()
                   break

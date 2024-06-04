@@ -128,12 +128,8 @@ app.module.data = {
           responseData = this._merge(responseData, responseDataJoin, datamerge)
       }
 
-      if (datasuccess) {
-        console.dir(element)
-        console.log(datasuccess[0])
-        if (responseData.status === 200) {
-          app.call(datasuccess[0], [element, datasuccess[1]])
-        }
+      if (datasuccess && responseData.status === 200) {
+        app.call(datasuccess[0], [element, datasuccess[1]])
       }
 
       if (dataempty) {
@@ -249,11 +245,8 @@ app.module.data = {
         arrayFromNodeList.push(element) // Support data-get on parent.
 
         for (var i = 0; i < arrayFromNodeList.length; i++) {
-          var dataset = arrayFromNodeList[i].getAttribute('data-set'),
-            dataget = arrayFromNodeList[i].getAttribute('data-get')
-
-          if (dataset) this._process('data-set', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
-          if (dataget) this._process('data-get', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
+          this._process('data-set', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
+          this._process('data-get', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
         }
       }
 
@@ -469,6 +462,9 @@ app.module.data = {
   },
 
   _finish: function (options) {
+    var finished = options.element.attributes['data-onfinish'] && options.element.getAttribute('data-onfinish').split(':')
+    if (finished) app.call(finished[0], [options.element, finished[1]])
+
     if (options.loader) {
       dom.hide(options.loader)
       dom.show(options.element)
