@@ -125,11 +125,15 @@ app.module.data = {
       if (datamerge) {
         var responseDataJoin = app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', '') + 'join')
         if (responseDataJoin)
-          responseData = this._merge(responseData.data, responseDataJoin.data, datamerge)
+          responseData = this._merge(responseData, responseDataJoin, datamerge)
       }
 
       if (datasuccess) {
-        if (responseData.status === 200) app.call(datasuccess[0], [datasuccess[1]])
+        console.dir(element)
+        console.log(datasuccess[0])
+        if (responseData.status === 200) {
+          app.call(datasuccess[0], [element, datasuccess[1]])
+        }
       }
 
       if (dataempty) {
@@ -372,8 +376,8 @@ app.module.data = {
   },
 
   _merge: function (response, responseJoin, merge) {
-    response[merge] = responseJoin[merge]
-    return { data: response }
+    response.data[merge] = responseJoin.data[merge]
+    return { data: response.data, status: response.status }
   },
 
   _filter: function (response, item, key) {

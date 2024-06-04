@@ -581,6 +581,10 @@ var dom = {
     }
   },
 
+  /**
+   * @function remove
+   * @memberof dom
+   */
   remove: function (object) {
     var target = typeof object === 'string' ? dom.get(object) : object
     if (target) target.remove()
@@ -700,6 +704,10 @@ var dom = {
     return true
   },
 
+  /**
+   * @function stop
+   * @memberof dom
+   */
   stop: function (element) {
     var children = element.childNodes
     for (var i = 0; i < children.length; i++) {
@@ -726,6 +734,10 @@ var dom = {
     }
   },
 
+  /**
+   * @function start
+   * @memberof dom
+   */
   start: function (element) {
     element.removeAttribute('stop')
     var children = element.childNodes
