@@ -911,7 +911,6 @@ var app = {
           target = clicktargetfield && clicktargetfield.value.split(':'),
           element = target ? dom.get(target[0]) : e.target
 
-
         element.callAttribute = val[0]
         element.targetAttribute = target && target[1]
         element.targetField = clicktargetfield
@@ -2029,7 +2028,7 @@ var app = {
 
           } else if (status.clientError || status.serverError) {
             dom.hide(loader)
-            if (error) dom.show(error[1])
+            if (error) app.call(error[0], [error[1] || srcEl])
           }
         }
 

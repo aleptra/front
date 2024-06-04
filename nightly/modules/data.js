@@ -26,7 +26,9 @@ app.module.data = {
       loader = element.getAttribute('data-loader'),
       error = element.getAttribute('data-onerror')
 
-    dom.hide(error)
+    if (error) {
+      app.call(error[0], [error[1]])
+    }
 
     if (loader) {
       dom.show(loader)
