@@ -234,8 +234,8 @@ app.module.data = {
             }
           }
 
-          this._process('data-set', elements[i], responseObject[j], { fullObject: responseObject, index: j })
-          this._process('data-get', elements[i], responseObject[j], { fullObject: responseObject, index: j })
+          this._process('data-set', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, index: j })
+          this._process('data-get', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, index: j })
         }
 
         this._process('data-set', element, responseData.data)
@@ -247,8 +247,8 @@ app.module.data = {
         arrayFromNodeList.push(element) // Support data-get on parent.
 
         for (var i = 0; i < arrayFromNodeList.length; i++) {
-          this._process('data-set', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
-          this._process('data-get', arrayFromNodeList[i], responseObject, { fullObject: responseObject, index: i })
+          this._process('data-set', arrayFromNodeList[i], responseObject)
+          this._process('data-get', arrayFromNodeList[i], responseObject)
         }
       }
 
@@ -266,27 +266,27 @@ app.module.data = {
         var test = value[i].split(':')
 
         if (test[1] && test[1][0] === '#') {
-          app.element.set(dom.get(test[1]), this._get(responseObject, test[0], options), false)
+          app.element.set(dom.get(test[1]), this._resolve(responseObject, test[0], options), false)
         } else if (test[1]) {
-          app.variables.update.attributes(element, test[0], this._get(responseObject, test[1], options), false)
+          app.variables.update.attributes(element, test[0], this._resolve(responseObject, test[1], options), false)
         } else {
-          app.element.set(element, this._get(responseObject, test[0], options), false)
+          app.element.set(element, this._resolve(responseObject, test[0], options), false)
         }
       }
     }
   },
 
-  _get: function (obj, value, options) {
-
+  _resolve: function (obj, value, options) {
     if (options) {
       var fullObject = options.fullObject,
-        keys = Object.keys(fullObject),
-        keyAtIndex = keys[options.index]
+        keys = options.keys,
+        keyAtIndex = keys && keys[options.index]
 
       if (value.indexOf('[*].') !== -1) {
         var key = value.replace('[*]', keyAtIndex)
         return app.element.getPropertyByPath(fullObject, key)
       } else if (value === '[*]') {
+        console.warn(keyAtIndex)
         return keyAtIndex
       } else if (value[0] === '#') {
         return app.element.getPropertyByPath(fullObject, value.substring(1))
