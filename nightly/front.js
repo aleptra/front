@@ -184,6 +184,10 @@ var dom = {
     }
   },
 
+  /**
+   * @function hide
+   * @memberof dom
+   */
   hide: function (object, prop) {
     var el = object instanceof Object ? object : dom.get(object)
     if (el) {
@@ -192,6 +196,10 @@ var dom = {
     }
   },
 
+  /**
+   * @function show
+   * @memberof dom
+   */
   show: function (object) {
     var el = object instanceof Object ? object : dom.get(object)
     if (el) {
@@ -241,6 +249,10 @@ var dom = {
     element.style[attr] = value + prefix
   },
 
+  /**
+   * @function bind
+   * @memberof dom
+   */
   bind: function (object, value) {
     var attr = object.callAttribute,
       bindings = value.split(';')
@@ -381,16 +393,21 @@ var dom = {
     if (target) target.focus()
   },
 
+  /**
+   * @function blur
+   * @memberof dom
+   */
   blur: function (element, value) {
     var target = value ? dom.get(value) : element
     if (target) target.blur()
   },
 
   /**
-   * Retrieves metadata from a meta tag with the specified name and sets it as the inner HTML of the specified object.
-   *
+   * @function metadata
+   * @memberof dom
    * @param {HTMLElement} object - The element object to modify.
    * @param {string} name - The name of the meta tag whose content will be retrieved.
+   * @desc Retrieves metadata from a meta tag with the specified name and sets it as the inner HTML of the specified object.
    */
   metadata: function (object, name) {
     var value = dom.get('meta[name=' + name + ']')
@@ -412,6 +429,11 @@ var dom = {
       element.uniqueId = id
   },
 
+  /**
+   * @function doctitle
+   * @memberof dom
+   * @desc Sets the title of the application.
+   */
   doctitle: function (element, value) {
     if (!value) return
     var value = value instanceof Object ? value.attributes.doctitle.value : value

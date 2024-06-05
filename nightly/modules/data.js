@@ -131,7 +131,7 @@ app.module.data = {
       }
 
       if (datasuccess && responseData.status === 200) {
-        app.call(datasuccess[0], [element, datasuccess[1]])
+        app.call(datasuccess[0], [datasuccess[1]])
       }
 
       if (dataempty) {
