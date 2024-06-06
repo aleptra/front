@@ -286,7 +286,6 @@ app.module.data = {
         var key = value.replace('[*]', keyAtIndex)
         return app.element.getPropertyByPath(fullObject, key)
       } else if (value === '[*]') {
-        console.warn(keyAtIndex)
         return keyAtIndex
       } else if (value[0] === '#') {
         return app.element.getPropertyByPath(fullObject, value.substring(1))

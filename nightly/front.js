@@ -29,6 +29,7 @@ var dom = {
     'ifbeforeend': 'if',
     'resetvalue': 'reset',
     'togglevalue': 'toggle',
+    'mapclass': 'map',
     'margintop': 'apply',
     'marginbottom': 'apply',
     'marginleft': 'apply',
@@ -566,6 +567,16 @@ var dom = {
     } else {
       object.insertAdjacentText(insert, value)
     }
+  },
+
+  /**
+   * @function map
+   * @memberof dom
+   */
+  map: function (object, value) {
+    var object = typeof object === 'string' ? dom.get(object) : object,
+      cache = app.caches.get('window', 'var', 'enum')
+    object.classList = cache.data[value] || ''
   },
 
   set2: function (object, value) {
