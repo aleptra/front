@@ -1679,13 +1679,28 @@ var app = {
         // Create a regular expression using the escaped variable pattern.
         var variableRegex = new RegExp('{' + escapedVariable + '(?::([^}]+))?}', 'g')
 
-        // Replace all occurrences of {variable} with the replacement value.
-        var originalContent = object.innerHTML
-        var modifiedContent = originalContent.replace(variableRegex, replaceValue === 0 ? '0' : replaceValue || '$1' || '')
+        // Create a stack for elements to process
+        var elementsToProcess = [object]
 
-        // Update element content only if there were replacements.
-        if (originalContent !== modifiedContent) {
-          object.innerHTML = modifiedContent
+        // Process elements in the stack
+        while (elementsToProcess.length > 0) {
+          var element = elementsToProcess.pop()
+
+          // If the element is an Element node, add its children to the stack
+          if (element.nodeType === 1) {
+            var childNodes = element.childNodes;
+            for (var i = childNodes.length - 1; i >= 0; i--) {
+              elementsToProcess.push(childNodes[i])
+            }
+            // If the element is a Text node, replace the variable pattern
+          } else if (element.nodeType === 3) {
+            var originalContent = element.nodeValue
+            var modifiedContent = originalContent.replace(variableRegex, replaceValue === 0 ? '0' : replaceValue || '$1' || '')
+
+            if (originalContent !== modifiedContent) {
+              element.nodeValue = modifiedContent
+            }
+          }
         }
       }
     },
