@@ -1636,7 +1636,7 @@ var app = {
             currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage]
 
           app.xhr.request({
-            url: app.script.path + currentTemplate + '.html',
+            url: '/' + currentTemplate + '.html',
             type: 'template',
             cache: {
               format: 'html',
