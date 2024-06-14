@@ -133,7 +133,7 @@ app.module.globalize = {
   },
 
   set: function (value) {
-    var value = value.clicked,
+    var value = value.exec.element,
       optionValue = value.options[value.selectedIndex].value
 
     var config = {

@@ -160,6 +160,7 @@ var dom = {
    * @memberof dom
    */
   toggle: function (el) {
+    if (el.exec) el = el.exec.element
     var ontoggle = el.attributes.ontoggle && el.attributes.ontoggle.value,
       tag = el.localName,
       type = el.type
@@ -175,7 +176,10 @@ var dom = {
       var normalize = ontoggle.replace(']', '').split('['),
         run = 'app.element.' + normalize[0]
       runargs = [el, normalize[1]]
-      app.call(run, runargs)
+      app.callOld(run, runargs)
+
+      /*runargs = {element: el, value: normalize[1] }
+      app.exec(run, runargs)*/
     }
 
     switch (tag) {
@@ -190,6 +194,7 @@ var dom = {
    * @memberof dom
    */
   hide: function (object, prop) {
+    if (object && object.exec) object = dom.get(object.exec.value)
     var el = object instanceof Object ? object : dom.get(object)
     if (el) {
       value = prop ? 'visibility: hidden' : 'display: none'
@@ -202,6 +207,7 @@ var dom = {
    * @memberof dom
    */
   show: function (object) {
+    if (object && object.exec) object = dom.get(object.exec.value)
     var el = object instanceof Object ? object : dom.get(object)
     if (el) {
       el.style.cssText = el.style.cssText.replace(/display\s*:\s*[^;]+;/gi, '')
@@ -344,7 +350,8 @@ var dom = {
                     if (target.startSubmit) {
                       var length = target.listeners['keyup'].length
                       if (object.bindfieldPos === length) {
-                        app.call(target.startSubmit, [target])
+                        console.error(target.startSubmit)
+                        app.callOld(target.startSubmit, [target])
                         target.startSubmit = false
                       }
                     }
@@ -381,15 +388,17 @@ var dom = {
    * @param {string} value - The message to display in the dialog box.
    */
   alert: function (element, value) {
-    alert(value)
+    alert(element.exec.value || value)
   },
 
   confirm: function (element) {
+    if (element.exec) element = element.exec.element
     var value = element.getAttribute('confirmtext') || ''
     return confirm(value)
   },
 
   focus: function (element, value) {
+    if (element.exec) element = dom.get(element.exec.value)
     var target = value ? dom.get(value) : element
     if (target) target.focus()
   },
@@ -399,6 +408,7 @@ var dom = {
    * @memberof dom
    */
   blur: function (element, value) {
+    if (element.exec) element = element.exec.element
     var target = value ? dom.get(value) : element
     if (target) target.blur()
   },
@@ -435,11 +445,12 @@ var dom = {
    * @memberof dom
    * @desc Sets the title of the application.
    */
-  doctitle: function (element, value) {
-    if (!value) return
-    var value = value instanceof Object ? value.attributes.doctitle.value : value
-    app.title = value
-    document.title = value
+  doctitle: function (value) {
+    if (value) {
+      var title = value.exec ? value.exec.value : value
+      app.title = title
+      document.title = title
+    }
   },
 
   /**
@@ -505,9 +516,17 @@ var dom = {
    * @desc Trims chars from the content of an element.
    */
   trim: function (element, value) {
-    var regex,
-      attr = element.callAttribute,
+    var regex, attr, char
+
+    if (element.exec) {
+      attr = element.exec.mapfunc
+      char = element.exec.value || ' '
+      element = element.exec.element
+    } else {
+      attr = element.callAttribute
       char = value || ' '
+    }
+
     switch (attr) {
       case 'trimleft':
         regex = '^[' + char + '\\t]+'
@@ -519,10 +538,14 @@ var dom = {
         regex = '^[' + char + '\\t]+|[' + char + '\\t]+$'
     }
 
-    element.innerHTML = element.innerHTML.replace(new RegExp(regex, 'g'), '')
+    app.element.set(element, app.element.get(element).replace(new RegExp(regex, 'g'), ''))
   },
 
   escape: function (element) {
+    if (element.exec) {
+      element = element.exec.element
+    }
+
     var escape = app.element.get(element),
       code = escape.charCodeAt(0)
 
@@ -535,9 +558,18 @@ var dom = {
   },
 
   insert: function (object, value) {
+    var insert
+    if (object.exec) {
+      value = object.exec.value
+      insert = object.exec.mapfunc
+      object = object.exec.element
+    } else {
+      insert = object.callAttribute
+    }
+
     var tag = object.localName,
       state = object.attributes.statevalue,
-      insert = object.callAttribute.replace('insert', '')
+      insert = insert.replace('insert', '')
 
     var normal = insert === '2' ? value : '',
       afterbegin = insert === 'afterbegin' ? value : '',
@@ -580,15 +612,19 @@ var dom = {
   },
 
   set2: function (object, value) {
-    var object = typeof object === 'string' ? dom.get(object) : object
-
-    var tag = object.localName,
+    var attr
+    if (object.exec) {
+      value = object.exec.value
+      attr = object.exec.mapfunc
+      object = object.exec.element
+    } else {
       attr = object.callAttribute
+    }
 
     app.element.set(object, value, attr)
     app.element.onchange(object, attr)
 
-    switch (tag) {
+    switch (object.localName) {
       case 'input':
         app.listeners.change('input', object, false)
         break
@@ -600,6 +636,10 @@ var dom = {
   },
 
   reset: function (object, value) {
+    if (object.exec) {
+      object = object.exec.element
+    }
+
     var tag = object.localName,
       stateValue = object.attributes.statevalue
     switch (tag) {
@@ -619,6 +659,7 @@ var dom = {
    * @memberof dom
    */
   remove: function (object) {
+    if (object.exec) object = dom.get(object.exec.value)
     var target = typeof object === 'string' ? dom.get(object) : object
     if (target) target.remove()
   },
@@ -648,14 +689,13 @@ var dom = {
   },
 
   sanitize: function (object, value) {
-    regex = object.value
-
-    if (object.clicked) {
-      var object = object.clicked,
-        value = object.value
+    var regex = value
+    if (object.exec) {
+      regex = object.exec.value
+      object = object.exec.element
     }
 
-    object.value = value.replace(new RegExp(regex, 'g'), '')
+    object.value = object.value.replace(new RegExp(regex, 'g'), '')
   },
 
   split: function (object, value) {
@@ -719,12 +759,8 @@ var dom = {
     switch (type) {
       case 'text':
         if (target.value === parts[1]) {
-          var identifier = condition.match(/([^[]+)\[(\S+)\]/)
-
-          console.dir(identifier)
-          console.log(condition)
-
-          app.call(identifier[1], { clicked: object, value: identifier[2] })
+          //var identifier = condition.match(/([^[]+)\[(\S+)\]/)
+          //app.call(identifier[1], { clicked: object, value: identifier[2] })
         }
         break
       case 'select-one':
@@ -839,8 +875,8 @@ var dom = {
     if (value) app.await[value] = { element: element, value: value, enable: true }
   }*/
 
-  rerun: function (object, arg) {
-    var el = arg || object
+  rerun: function (object) {
+    var el = object.exec ? object.exec.value : object
     app.attributes.run(el)
   },
 
@@ -909,11 +945,10 @@ var app = {
         click = link.attributes.click
       switch (e.key) {
         case 'Tab':
-          var tab = link.attributes.onchangetab
+          var tab = link.attributes.ontabchange
           if (tab) {
-            var val = !click ? tab : click
-            val = val.value.split(':')
-            app.call(val[0], [link, val[1]])
+            var val = click ? click.value : tab.value
+            app.call(val, { element: link })
           }
           break
         case 'Enter':
@@ -930,26 +965,27 @@ var app = {
     app.listeners.add(document, 'click', function (e) {
       var link = app.element.getTagLink(e.target) || e.target,
         click = link.attributes.click,
-        clicktargetfield = link.attributes.clicktargetfield,
         onclickif = link.attributes.onclickif
 
       if (onclickif) {
-        var val = onclickif.value.split(':'),
-          ret = app.call(val[0], [link, val[1]])
+        var ret = app.call(onclickif.value, { element: link })
         if (!ret) return
       }
 
       if (click) {
-        var val = click.value.split(':'),
+        var clicktargetfield = link.attributes.clicktargetfield,
           target = clicktargetfield && clicktargetfield.value.split(':'),
           element = target ? dom.get(target[0]) : e.target
 
-        element.callAttribute = val[0]
-        element.targetAttribute = target && target[1]
-        element.targetField = clicktargetfield
-        element.clicked = element
+        /* element.callAttribute = val[0]
+         element.targetAttribute = target && target[1]
+         element.targetField = clicktargetfield
+         element.clicked = element*/
 
-        app.call(val[0], [element, val[1]])
+        app.call(click.value, {
+          element: element,
+          src: e.target
+        })
       }
     })
 
@@ -964,7 +1000,69 @@ var app = {
    * @memberof app
    * @desc
    */
-  call: function (run, runargs, options) {
+  call: function (run, options) {
+    var runArray = run && run.split(';')
+    for (var i = 0; i < runArray.length; i++) {
+      var parts = runArray[i].split(':')
+      var args = options || {}
+
+      if (parts.length > 1) {
+        var escape = parts[1].indexOf('\\#') !== -1
+        var test = !escape && parts[1].split('#')
+
+        if (test.length === 3) {
+          var test2 = test[1].split('.')
+          var fromvalue = test2[0] === '' ? args.src : dom.get('#' + test2[0])
+          args.element = dom.get('#' + test[2])
+          args.value = options.value || app.element.get(fromvalue)
+          if (test2[1]) {
+            fromvalue = dom.get('#' + test2[0])
+            args.value = fromvalue.getAttribute(test2[1])
+          }
+        } else {
+          if (test[1]) {
+            var test2 = test[1].split('.')
+            args.element = dom.get('#' + test2[0])
+            args.targetattr = test2[1] || 'value'
+            app.element.onchange(args.element, args.targetattr)
+          }
+        }
+        //
+      }
+
+      if (parts[0].indexOf('-') !== -1) { // Call module.
+        parts = parts[0].split('-')
+        parts.unshift('app', 'module')
+      } else { // Call dom function.
+        parts.unshift('dom')
+        args.mapfunc = options.mapfunc || parts[1]
+        args.value = options.value || parts[2]
+        parts[1] = dom._replacementMap[parts[1]] || parts[1]
+        parts.splice(2, 1)
+      }
+
+      return this.exec(parts, { exec: args })
+    }
+  },
+
+  exec: function (run, args) {
+    run = typeof run === 'string' ? run.split('.') : run // Always convert to array.
+    switch (run.length) {
+      case 4:
+        return window[run[0]][run[1]][run[2]][run[3]](args)
+      case 3:
+        return window[run[0]][run[1]][run[2]](args)
+      case 2:
+        return window[run[0]][run[1]](args)
+    }
+  },
+
+  /**
+   * @namespace callOld
+   * @memberof app
+   * @desc
+   */
+  callOld: function (run, runargs, options) {
     options = options || { 'before': false, 'after': false }
     run = run.split('.') // convert string to array.
 
@@ -975,7 +1073,6 @@ var app = {
     // Before hook
     if (options.before) {
       console.error('calling before once')
-      app.call(options.before, runargs)
     }
 
     app.log.info()('Calling: ' + run + ' ' + runargs)
@@ -1006,22 +1103,21 @@ var app = {
       // After hook
       if (options.after) {
         console.error('calling after')
-        app.call(options.after, runargs)
       }
     }
   },
 
   click: function (el, dbl) {
-    var event,
-      eventName = dbl ? 'dblclick' : 'click'
-    if (document.createEvent) {
+    var event, eventName = dbl ? 'dblclick' : 'click'
+    try {
+      event = new CustomEvent(eventName, { bubbles: true, cancelable: true })
+    } catch (e) {
+      // Fallback for older browsers.
       event = document.createEvent('HTMLEvents')
       event.initEvent(eventName, true, true)
-    } else { // IE10 compatibility.
-      event = document.createEventObject()
-      event.eventType = eventName
     }
-    el.dispatchEvent ? el.dispatchEvent(event) : el.fireEvent && el.fireEvent('on' + event.eventType, event)
+
+    el.dispatchEvent(event)
   },
 
   /**
@@ -1054,23 +1150,25 @@ var app = {
 
     get: function (element, attr) {
       if (attr) return element.attributes[attr].value
-      var target = element.targetAttribute
+      var target = element.targetAttribute || ''
       if (target) return element.attributes[target].value
       var property = this.propertyMap[element.localName] || 'textContent'
       return element[property]
     },
 
     set: function (element, value, attr) {
+      attr = element.exec ? element.targetattr : attr
       if (attr) {
-        attr = attr.replace('set', ''),
-          type = element.localName
-
+        attr = attr.replace('set', '')
         switch (attr) {
           case 'text':
             element.textContent = value
             break
           case 'html':
             element.innerHTML = value
+            break
+          case 'value':
+            element.value = value
             break
           default:
             element.setAttribute(attr, value)
@@ -1118,7 +1216,7 @@ var app = {
 
     /**
      * @function find
-     * @memberof dom
+     * @memberof app
      * @param {Node} node - The node to search within.
      * @param {string} selector - The CSS selector used to select the elements.
      * @return {Element|Element[]} - Returns a single element if there is only one match, or a list of elements if there are multiple elements that match the selector.
@@ -1130,12 +1228,12 @@ var app = {
     },
 
     /**
-   * @function getTagLink
-   * @memberof app
-   * @param {Element} element - The element to start the search from.
-   * @return {Element|null} The found anchor element, or `null` if none was found.
-   * @desc Finds the first ancestor of the given element that is an anchor element (`<a>`).
-   */
+     * @function getTagLink
+     * @memberof app
+     * @param {Element} element - The element to start the search from.
+     * @return {Element|null} The found anchor element, or `null` if none was found.
+     * @desc Finds the first ancestor of the given element that is an anchor element (`<a>`).
+     */
     getTagLink: function (element) {
       for (var current = element; current; current = current.parentNode) {
         var type = current.localName
@@ -1144,6 +1242,10 @@ var app = {
       return null
     },
 
+    /**
+     * @function getPropertyByPath
+     * @memberof app
+     */
     getPropertyByPath: function (object, path) {
       var pathSegments = path && path.split('.') || [],
         value = object
@@ -1155,26 +1257,29 @@ var app = {
       return value
     },
 
+    /**
+     * @function onchange
+     * @memberof app
+     */
     onchange: function (object, value) {
-      var onchange = object.getAttribute('onchange' + value.replace('set', ''))
+      var onchange = object.getAttribute('on' + value.replace('set', '') + 'change')
       if (onchange) {
-        onchange = onchange.split(':')
-        console.log(onchange[0])
-        object.callAttribute = onchange[0]
-        console.log('onchange')
-        app.call(onchange[0], [object, onchange[1]])
+        app.call(onchange, { element: object })
       }
     },
 
+    /**
+     * @function onsubmit
+     * @memberof app
+     */
     onsubmit: function (e) {
       if (app.adf) app.adf._form(e)
       var srcEl = e.srcElement,
         attr = srcEl.getAttribute('onformsubmit'),
         submit = attr && attr.split(';')
       for (action in submit) {
-        var val = submit[action].split(':')
         console.log('onsubmit')
-        app.call(val[0], [srcEl, val[1]])
+        app.call(submit[action], { element: srcEl })
       }
     }
   },
@@ -1375,14 +1480,11 @@ var app = {
         changeStateValueIf = object.attributes.onstatevaluechangeif
 
       if (changeValue) {
-        var beforeChangeValue = object.attributes.onbeforevaluechange,
+        /*var beforeChangeValue = object.attributes.onbeforevaluechange,
           afterChangeValue = object.attributes.onaftervaluechange
-        var val = changeValue.value.split(':')
-
-        app.call(val[0],
-          { clicked: object, value: val[1] },
-          { 'before': beforeChangeValue, after: afterChangeValue ? afterChangeValue.value : false }
-        )
+        */
+        console.error('change')
+        app.call(changeValue.value, { element: object })
       }
 
       if (changeValueIf) {
@@ -1408,15 +1510,12 @@ var app = {
         if (!identifier[1] && attr !== newVal) {
           return
         } else {
-          text = statement[2]
-          action = statement[1]
-          app.call(action, { clicked: object, value: text })
+          app.call(statement[1] + ':' + statement[2], { element: object })
         }
       }
 
       if (changeStateValue) {
-        var val = changeStateValue.value.split(':')
-        app.call(val[0], { clicked: object, state: true, value: val[1] })
+        app.call(changeStateValue.value, { element: object, state: true })
       }
 
       if (changeStateValueIf) {
@@ -1449,7 +1548,7 @@ var app = {
           modules = scriptAttr.module && scriptAttr.module.value.split(';') || [],
           vars = scriptAttr.var && scriptAttr.var.value.split(';') || []
 
-        dom.doctitle(null, document.title)
+        dom.doctitle(document.title)
 
         app.srcDocTemplate = document.body.innerHTML
 
@@ -1852,7 +1951,7 @@ var app = {
       }
 
       if (responsePageContentClass) document.body.className = responsePageContentClass
-      dom.doctitle(null, currentPageTitle)
+      dom.doctitle(currentPageTitle)
     }
   },
 
@@ -1932,7 +2031,7 @@ var app = {
                     page: true,
                     total: templateSrc.length + (templateSrcDoc ? 1 : 0)
                   }
-                  dom.doctitle(null, responsePageTitle)
+                  dom.doctitle(responsePageTitle)
                   dom.bind.include = ''
                   app.assets.get.templates()
                   break
@@ -1955,9 +2054,7 @@ var app = {
                   self.currentAsset.loaded++
                   if (self.currentAsset.loaded === self.currentAsset.total) {
                     var run = this.options.onload2.run
-                    app.module[type]._run(run.arg) //Todo: Make app.call work.
-                    //app.call(run.func, run.arg)
-                    //console.error('run' + self.currentAsset.loaded + '/' + self.currentAsset.total)
+                    app.exec(run.func, run.arg)
                   }
                   break
                 case 'fetch':
@@ -2005,8 +2102,8 @@ var app = {
         srcEl = options.srcEl || false,
         enctype = options.enctype ? options.enctype : 'application/json',
         onload = options.onload,
-        error = options.error && options.error.split(':'),
-        success = options.success && options.success.split(':'),
+        error = options.error,
+        success = options.success,
         loader = options.loader,
         type = options.type,
         run = onload && onload.run && onload.run.func ? onload.run.func : false,
@@ -2060,34 +2157,29 @@ var app = {
             }
 
             if (onload) {
-              if (run) app.call(run, runarg)
+              if (run) app.exec(run, runarg)
             }
 
             if (success) {
               if (srcEl) {
-                app.call(success[0], [success[1] || srcEl])
+                app.call(success, { element: srcEl })
               }
 
               // Clean up error element.
               if (error) {
-                if (error[0] === 'show') dom.hide(error[1])
+                var val = error.split(':')
+                if (val[0] === 'show') dom.hide(val[1])
               }
             }
 
           } else if (status.clientError || status.serverError) {
             dom.hide(loader)
-            if (error) app.call(error[0], [error[1] || srcEl])
+            if (error) app.call(error, { element: options.element })
           }
         }
 
         xhr.onerror = function () {
-          if (srcEl) {
-            if (error) {
-              app.call(error[0], [error[1]])
-            }
-          } else {
-            if (error) dom.show(error[1])
-          }
+          if (error) app.call(error, { element: options.element })
         }
 
         xhr.open(method, url + urlExtension, true)

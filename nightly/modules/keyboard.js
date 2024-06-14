@@ -40,10 +40,7 @@ app.module.keyboard = {
             app.click(element, true)
             break
           default:
-            var action = action.split(':')
-            element.clicked = element
-            element.callAttribute = action[0]
-            app.call(action[0], [element, action[1]])
+            app.call(action, { element: element })
         }
       }
     }

@@ -7,10 +7,30 @@ app.module.math = {
   },
 
   compute: function (element, value) {
-    var field = element.targetField && !element.targetAttribute ? element.targetField.ownerElement : element
-    try {
+    /*var field
+    if (element.exec) {
+      field = element.exec.element
+      console.log(field)
+      element = field
+    } else {
+      field = element.targetField && !element.targetAttribute ? element.targetField.ownerElement : element
       var value = app.element.get(field)
+    }*/
 
+    if (element.exec) {
+      var targetField = element.exec.targetfield,
+        targetAttr = element.exec.targetattr,
+        fromValue = element.exec.value
+
+      element = targetField ? dom.get(targetField.value) : element.exec.element
+      value = fromValue ? fromValue : app.element.get(element)
+
+      if (element && targetAttr) {
+        value = element.getAttribute(targetAttr)
+      }
+    }
+
+    try {
       // Allow characters.
       value = value.replace(/[^0-9+\-*/.()^%π]/g, '')
 

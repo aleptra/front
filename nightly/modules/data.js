@@ -23,12 +23,7 @@ app.module.data = {
     var self = this
     dom.setUniqueId(element, true)
     var interval = element.getAttribute('data-interval') || this.interval,
-      loader = element.getAttribute('data-loader'),
-      error = element.getAttribute('data-onerror')
-
-    if (error) {
-      app.call(error[0], [error[1]])
-    }
+      loader = element.getAttribute('data-loader')
 
     if (loader) {
       dom.show(loader)
@@ -120,7 +115,7 @@ app.module.data = {
       datasort = element.getAttribute('data-sort'),
       datastatus = element.getAttribute('data-status'),
       dataempty = element.getAttribute('data-onempty'),
-      datasuccess = element.attributes['data-onsuccess'] && element.getAttribute('data-onsuccess').split(':'),
+      datasuccess = element.attributes['data-onsuccess'],
       selector = '*:not([data-iterate-skip]'
 
     if (responseData) {
@@ -131,7 +126,7 @@ app.module.data = {
       }
 
       if (datasuccess && responseData.status === 200) {
-        app.call(datasuccess[0], [datasuccess[1]])
+        app.call(datasuccess.value, { element: element })
       }
 
       if (dataempty) {
@@ -321,20 +316,20 @@ app.module.data = {
   },
 
   patch: function (object) {
-    if (object.clicked) {
-      this._request('patch', object.clicked)
+    if (object.exec) {
+      this._request('patch', object.exec.element)
     }
   },
 
   post: function (object) {
-    if (object.clicked) {
-      this._request('post', object.clicked)
+    if (object.exec) {
+      this._request('post', object.exec.element)
     }
   },
 
   delete: function (object) {
-    if (object.clicked) {
-      this._request('delete', object.clicked)
+    if (object.exec) {
+      this._request('delete', object.exec.element)
     }
   },
 
@@ -463,8 +458,8 @@ app.module.data = {
   },
 
   _finish: function (options) {
-    var finished = options.element.attributes['data-onfinish'] && options.element.getAttribute('data-onfinish').split(':')
-    if (finished) app.call(finished[0], [options.element, finished[1]])
+    var finished = options.element.attributes['data-onfinish']
+    if (finished) app.call(finished.value, { element: options.element })
 
     if (options.loader) {
       dom.hide(options.loader)
