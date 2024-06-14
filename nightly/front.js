@@ -1027,7 +1027,6 @@ var app = {
             app.element.onchange(args.element, args.targetattr)
           }
         }
-        //
       }
 
       if (parts[0].indexOf('-') !== -1) { // Call module.
@@ -1063,47 +1062,33 @@ var app = {
    * @desc
    */
   callOld: function (run, runargs, options) {
-    options = options || { 'before': false, 'after': false }
     run = run.split('.') // convert string to array.
 
     var run1,
       runargs = Array.isArray(runargs) ? runargs : [runargs], // Ensure runargs is an array
       context = null
 
-    // Before hook
-    if (options.before) {
-      console.error('calling before once')
+    app.log.info()('Calling: ' + run + ' ' + runargs)
+
+    if (run[0] === 'app') {
+      run1 = run[1]
+    } else if (run[0].indexOf('-') !== -1) {
+      run = run[0].split('-')
+      run.unshift('app', 'module')
+      run1 = 'module'
+      context = window[run[0]][run1][run[2]]
+    } else {
+      run.unshift('dom')
+      run1 = dom._replacementMap[run[1]] || run[1]
     }
 
-    app.log.info()('Calling: ' + run + ' ' + runargs)
-    try {
-      if (run[0] === 'app') {
-        run1 = run[1]
-      } else if (run[0].indexOf('-') !== -1) {
-        run = run[0].split('-')
-        run.unshift('app', 'module')
-        run1 = 'module'
-        context = window[run[0]][run1][run[2]]
-      } else {
-        run.unshift('dom')
-        run1 = dom._replacementMap[run[1]] || run[1]
-      }
-
-      switch (run.length) {
-        case 4:
-          return window[run[0]][run1][run[2]][run[3]].apply(context, runargs)
-        case 3:
-          return window[run[0]][run1][run[2]].apply(context, runargs)
-        case 2:
-          return window[run[0]][run1].apply(context, runargs)
-      }
-    } catch (error) {
-      app.log.error()('Syntax not found: ' + run1)
-    } finally {
-      // After hook
-      if (options.after) {
-        console.error('calling after')
-      }
+    switch (run.length) {
+      case 4:
+        return window[run[0]][run1][run[2]][run[3]].apply(context, runargs)
+      case 3:
+        return window[run[0]][run1][run[2]].apply(context, runargs)
+      case 2:
+        return window[run[0]][run1].apply(context, runargs)
     }
   },
 
