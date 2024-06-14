@@ -350,8 +350,7 @@ var dom = {
                     if (target.startSubmit) {
                       var length = target.listeners['keyup'].length
                       if (object.bindfieldPos === length) {
-                        console.error(target.startSubmit)
-                        app.callOld(target.startSubmit, [target])
+                        app.call(target.startSubmit, {element: target})
                         target.startSubmit = false
                       }
                     }
