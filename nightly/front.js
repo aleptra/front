@@ -1581,8 +1581,11 @@ var app = {
           })
         }
 
-        // Enable app if no vars are loaded.
-        if (app.vars.total === 0) app.disable(false)
+        // Continue if no vars are loaded.
+        if (app.vars.total === 0) {
+          app.disable(false)
+          app.attributes.run()
+        }
       },
 
       /**
