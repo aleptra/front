@@ -1640,7 +1640,7 @@ var app = {
 
           //TODO: fix path problem
           app.xhr.request({
-            url: app.script.path + currentTemplate + '.html',
+            url: window.location.origin + window.location.pathname + '/' + currentTemplate + '.html',
             type: 'template',
             cache: {
               format: 'html',
