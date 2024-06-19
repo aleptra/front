@@ -315,19 +315,25 @@ app.module.data = {
     return result
   },
 
-  patch: function (object) {
+  reqpatch: function (object) {
     if (object.exec) {
       this._request('patch', object.exec.element)
     }
   },
 
-  post: function (object) {
+  reqpost: function (object) {
     if (object.exec) {
       this._request('post', object.exec.element)
     }
   },
 
-  delete: function (object) {
+  reqget: function (object) {
+    if (object.exec) {
+      this._request('get', object.exec.element)
+    }
+  },
+
+  reqdelete: function (object) {
     if (object.exec) {
       this._request('delete', object.exec.element)
     }
@@ -340,15 +346,15 @@ app.module.data = {
       error = attr['data-onerror'],
       loader = attr['data-loader'],
       empty = attr['data-onempty'],
-      url = attr['data-' + method]
+      url = attr['data-req' + method]
 
     // Support header reference.
-    if (headers.value[0] === '#') {
+    if (headers && headers.value[0] === '#') {
       headers = dom.get(headers.value).attributes['data-header']
     }
 
     // Support action attribute.
-    if (srcEl.localName === 'form') {
+    if (srcEl && srcEl.localName === 'form') {
       url = attr['action']
     }
 

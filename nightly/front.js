@@ -350,7 +350,7 @@ var dom = {
                     if (target.startSubmit) {
                       var length = target.listeners['keyup'].length
                       if (object.bindfieldPos === length) {
-                        app.call(target.startSubmit, {element: target})
+                        app.call(target.startSubmit, { element: target })
                         target.startSubmit = false
                       }
                     }
@@ -1543,6 +1543,11 @@ var app = {
         app.vars.total = vars.length
 
         this.get.modules()
+        app.disable(false)
+
+        // Continue running application.
+        if (app.modules.total === 0) app.assets.get.vars()
+        if (app.vars.total === 0) app.attributes.run()
       } else {
         var templateElement = dom.get('template', true)[0], // Get only the first template element.
           templateAttr = templateElement && templateElement.attributes,
@@ -1580,12 +1585,6 @@ var app = {
             }
           })
         }
-
-        // Continue if no vars are loaded.
-        if (app.vars.total === 0) {
-          app.disable(false)
-          app.attributes.run()
-        }
       },
 
       /**
@@ -1611,16 +1610,11 @@ var app = {
                 name: this.name
               })
             }
-            if (app.modules.loaded === app.modules.total) {
-              app.assets.get.vars()
-            }
+            if (app.modules.loaded === app.modules.total) app.assets.get.vars()
           }
 
           document.head.appendChild(script)
         }
-
-        // Run vars even if no modules are loaded.
-        if (app.modules.total === 0) app.assets.get.vars()
       },
 
       /**
