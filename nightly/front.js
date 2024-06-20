@@ -478,6 +478,7 @@ var dom = {
    * @desc Converts the contents of an element to uppercase letters.
    */
   uppercase: function (object, first) {
+    if (object.exec) object = object.exec.element
     object.innerHTML = !first || first === 'true' ? object.innerHTML.toUpperCase() : object.innerHTML.charAt(0).toUpperCase() + object.innerHTML.slice(1)
   },
 
@@ -1141,7 +1142,9 @@ var app = {
     },
 
     set: function (element, value, attr) {
-      attr = element.exec ? element.targetattr : attr
+      attr = element.exec ? element.targetattr : attr,
+        type = element.type,
+        localName = element.localName
       if (attr) {
         attr = attr.replace('set', '')
         switch (attr) {
@@ -1149,7 +1152,14 @@ var app = {
             element.textContent = value
             break
           case 'html':
-            element.innerHTML = value
+            if (localName === 'iframe') {
+              var iframe = element.contentDocument || element.contentWindow.document
+              iframe.open()
+              iframe.write(value)
+              iframe.close()
+            } else {
+              element.innerHTML = value
+            }
             break
           case 'value':
             element.value = value
@@ -1160,17 +1170,12 @@ var app = {
         return
       }
 
-      switch (element.type || element.localName) {
+      switch (type) {
         case 'checkbox':
           element.checked = value === 'true' ? true : false
           break
-        case 'iframe':
-          var y = (element.contentWindow || element.contentDocument)
-          if (y.document) y = y.document
-          y.body.innerHTML = '<html><b>Test</b></html>'
-          break
         default:
-          var property = this.propertyMap[element.localName] || 'textContent'
+          var property = this.propertyMap[localName] || 'textContent'
           element[property] = value
       }
     },
@@ -1632,7 +1637,6 @@ var app = {
           var isStartpage = srcDoc && i === 0 ? true : false,
             currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage]
 
-          //TODO: fix path problem
           app.xhr.request({
             url: window.location.origin + window.location.pathname + '/' + currentTemplate + '.html',
             type: 'template',
