@@ -1547,7 +1547,7 @@ var app = {
         app.vars.name = vars
         app.vars.total = vars.length
 
-        this.get.modules()
+        this.get.extensions()
         app.disable(false)
 
         // Continue running application.
@@ -1598,8 +1598,8 @@ var app = {
        * @param {function} [runAttributes] - A flag to indicate if the runAttributes function should be called after all modules are loaded.
        * @desc Loads extensions(modules) from the `module` attribute of the script element and call autoload function if exists.
        */
-      modules: function () {
-        app.log.info()('Loading modules...')
+      extensions: function () {
+        app.log.info()('Loading extensions...')
         for (var i = 0; i < app.modules.total; i++) {
           var script = document.createElement('script')
           script.name = app.modules.name[i]
@@ -2030,7 +2030,7 @@ var app = {
                     app.isFrontpage = false
                     app.templates.render()
                     app.config.set()
-                    app.assets.get.modules()
+                    app.assets.get.extensions()
                   }
                   break
                 case 'data':
