@@ -1032,6 +1032,10 @@ var app = {
       if (parts[0].indexOf('-') !== -1) { // Call module.
         parts = parts[0].split('-')
         parts.unshift('app', 'module')
+      } else if (parts[0].indexOf('--') !== -1) { // Call module.
+        parts = parts[0].split('--')
+        parts.unshift('app', 'plugin')
+        alert('hej')
       } else { // Call dom function.
         parts.unshift('dom')
         args.mapfunc = options.mapfunc || parts[1]
@@ -1533,20 +1537,9 @@ var app = {
   assets: {
     load: function () {
       if (app.isFrontpage) {
-        var scriptAttr = app.script.element.attributes,
-          modules = scriptAttr.module && scriptAttr.module.value.split(';') || [],
-          vars = scriptAttr.var && scriptAttr.var.value.split(';') || []
-
-        dom.doctitle(document.title)
-
         app.srcDocTemplate = document.body.innerHTML
-
-        app.modules.name = modules
-        app.modules.total = modules.length
-
-        app.vars.name = vars
-        app.vars.total = vars.length
-
+        dom.doctitle(document.title)
+        this.set(app.script.element.attributes)
         this.get.extensions()
         app.disable(false)
 
@@ -1574,6 +1567,25 @@ var app = {
       }
     },
 
+    set: function (scriptAttr) {
+      var modules = scriptAttr.module && scriptAttr.module.value.split(';') || [],
+        plugins = scriptAttr.plugin && scriptAttr.plugin.value.split(';') || [],
+        vars = scriptAttr.var && scriptAttr.var.value.split(';') || []
+
+      app.extensions = {
+        module: modules,
+        plugin: plugins,
+        total: modules.length + plugins.length
+      }
+
+      // Todo: Remove in future.
+      app.modules.name = modules
+      app.modules.total = modules.length
+
+      app.vars.name = vars
+      app.vars.total = vars.length
+    },
+
     get: {
       vars: function () {
         app.log.info()('Loading vars...')
@@ -1599,26 +1611,48 @@ var app = {
        * @desc Loads extensions(modules) from the `module` attribute of the script element and call autoload function if exists.
        */
       extensions: function () {
-        app.log.info()('Loading extensions...')
-        for (var i = 0; i < app.modules.total; i++) {
-          var script = document.createElement('script')
-          script.name = app.modules.name[i]
-          script.src = app.script.path + 'modules/' + script.name + '.js'
-          script.async = true
-          script.onload = function () {
-            app.log.info(1)(this.name)
-            app.modules.loaded++
-            app.module[this.name].conf = function () { }
-            if (app.module[this.name].__autoload) {
-              app.module[this.name].__autoload({
-                element: app.script.element,
-                name: this.name
-              })
-            }
-            if (app.modules.loaded === app.modules.total) app.assets.get.vars()
-          }
+        app.log.info()('Loading extensions...');
 
-          document.head.appendChild(script)
+        var allExtensions = app.extensions.module.concat(app.extensions.plugin);
+
+        var modulesCount = app.extensions.module.length
+
+        for (var i = 0; i < app.extensions.total; i++) {
+          (function (i) {
+
+            // Determine if the current script is a module or a plugin
+            var isModule = i < modulesCount;
+            var folder = isModule ? 'modules' : 'plugins';
+
+            var script = document.createElement('script')
+            script.name = allExtensions[i]
+            script.src = app.script.path + folder + '/' + script.name + '.js'
+            script.async = true
+
+            script.onload = function () {
+              app.log.info(1)(this.name)
+              app.extensions.loaded++
+              app.modules.loaded++ //Todo: Remove in the future.
+              var name = isModule ? app.module[this.name] : app.plugin[this.name]
+
+              if (name) {
+                name.conf = function () { }
+
+                if (name.__autoload) {
+                  name.__autoload({
+                    element: app.script.element,
+                    name: this.name
+                  })
+                }
+              }
+
+              if (app.modules.loaded === app.extensions.total) {
+                app.assets.get.vars()
+              }
+            }
+
+            document.head.appendChild(script)
+          })(i)
         }
       },
 
@@ -1719,7 +1753,10 @@ var app = {
               if (!element.originalOuterHtml) element.originalOuterHtml = element.outerHTML
               if (!element.originalLabel) element.originalLabel = element.label
 
-              if (app.module[name[0]] && name[1]) {
+              if (app.plugin[name[0]] && name[1] === '' && name[2]) {
+                app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
+                app.plugin[name[0]][name[2]] ? app.plugin[name[0]][name[2]](element) : app.log.error(0)(name[0] + '--' + name[2])
+              } else if (app.module[name[0]] && name[1]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
                 app.module[name[0]][name[1]] ? app.module[name[0]][name[1]](element) : app.log.error(0)(name[0] + '-' + name[1])
               } else if (dom[name]) {
@@ -1885,18 +1922,9 @@ var app = {
         }
 
         if (!isReload) {
-          var scriptAttr = responsePageScript.attributes,
-            modules = scriptAttr.module && scriptAttr.module.value.split(';') || [],
-            vars = scriptAttr.var && scriptAttr.var.value.split(';') || []
-
+          app.assets.set(responsePageScript.attributes)
           app.language = responsePage.attributes.lang ? responsePage.attributes.lang.value : app.language
           app.script.element = responsePageScript
-
-          app.modules.name = modules
-          app.modules.total = modules.length
-
-          app.vars.name = vars
-          app.vars.total = vars.length
 
           if (app.docMode > 0 && app.docMode < 10) {
             document.open()
@@ -2051,7 +2079,7 @@ var app = {
               }
 
               if (app.vars.loaded === (app.vars.total + app.vars.totalStore)
-                && app.modules.loaded === app.modules.total
+                && app.modules.loaded === app.extensions.total
                 && type !== 'template' && type !== 'data') {
 
                 //console.log('Vars loaded:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
