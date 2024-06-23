@@ -30,6 +30,7 @@ var dom = {
     'resetvalue': 'reset',
     'togglevalue': 'toggle',
     'mapclass': 'map',
+    'bold': 'apply',
     'margintop': 'apply',
     'marginbottom': 'apply',
     'marginleft': 'apply',
@@ -226,7 +227,7 @@ var dom = {
   },
 
   apply: function (element, value) {
-    var prefix,
+    var prefix = '',
       attr = element.callAttribute.replace(/(top|bottom|left|right)$/g, function (match) {
         return match.charAt(0).toUpperCase() + match.slice(1)
       })
@@ -234,11 +235,13 @@ var dom = {
     switch (attr) {
       case 'wordbreak':
         attr = 'wordBreak'
-        prefix = ''
         break
       case 'whitespace':
         attr = 'whiteSpace'
-        prefix = ''
+        break
+      case 'bold':
+        attr = 'fontWeight'
+        value = 'bold'
         break
       default:
         // Extract the value and unit in the default case
@@ -490,10 +493,6 @@ var dom = {
    */
   lowercase: function (object) {
     object.innerHTML = object.innerHTML.toLowerCase()
-  },
-
-  bold: function (object, value) {
-    object.style.fontWeight = value ? value : 'bold'
   },
 
   /**
