@@ -217,16 +217,6 @@ var dom = {
     }
   },
 
-  /**
-   * @function setDisplay
-   * @memberof dom
-   * @param {string} action - The value to set for the display property. Valid values include 'none', 'block', 'inline', and others.
-   * @desc Sets the display property of the root element.
-   */
-  setDisplay: function (action) {
-    document.documentElement.style.display = action
-  },
-
   apply: function (element, value) {
     var prefix = '',
       attr = element.callAttribute.replace(/(top|bottom|left|right)$/g, function (match) {
