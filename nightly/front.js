@@ -1544,7 +1544,7 @@ var app = {
         app.disable(false)
 
         // Continue running application.
-        if (app.modules.total === 0) app.assets.get.vars()
+        if (app.extensions.total === 0) app.assets.get.vars()
         if (app.vars.total === 0) app.attributes.run()
       } else {
         var templateElement = dom.get('template', true)[0], // Get only the first template element.
@@ -1575,12 +1575,9 @@ var app = {
       app.extensions = {
         module: modules,
         plugin: plugins,
-        total: modules.length + plugins.length
+        total: modules.length + plugins.length,
+        loaded: 0
       }
-
-      // Todo: Remove in future.
-      app.modules.name = modules
-      app.modules.total = modules.length
 
       app.vars.name = vars
       app.vars.total = vars.length
@@ -1632,7 +1629,6 @@ var app = {
             script.onload = function () {
               app.log.info(1)(this.name)
               app.extensions.loaded++
-              app.modules.loaded++ //Todo: Remove in the future.
               var name = isModule ? app.module[this.name] : app.plugin[this.name]
 
               if (name) {
@@ -1646,7 +1642,7 @@ var app = {
                 }
               }
 
-              if (app.modules.loaded === app.extensions.total) {
+              if (app.extensions.loaded === app.extensions.total) {
                 app.assets.get.vars()
               }
             }
@@ -2031,12 +2027,11 @@ var app = {
                     templateSrcDoc = target !== 'main' ? elementSrcDoc || false : false,
                     templateSrc = elementSrc && elementSrc.split(';') || []
 
-                  app.modules.total = 0 // Without this. it creates duplicate xhr requests.
+                  self.currentAsset.loaded = 0
+                  app.vars.total = 0
                   app.extensions.total = 0 // Without this. it creates duplicate xhr requests.
                   app.templates.total = 0
                   app.templates.loaded = 0
-                  app.vars.total = 0
-                  self.currentAsset.loaded = 0
 
                   app.srcTemplate = {
                     url: {
@@ -2079,12 +2074,12 @@ var app = {
                   return
               }
 
-              if (app.modules.loaded === app.extensions.total
+              if (app.extensions.loaded === app.extensions.total
                 && app.vars.loaded === (app.vars.total + app.vars.totalStore)
                 && type !== 'template' && type !== 'data') {
 
-                //console.log('Extensions loaded:', app.modules.loaded + '/' + app.extensions.total)
-                //console.log('Vars loaded:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
+                /*console.log('Extensions loaded:', app.extensions.loaded + '/' + app.extensions.total)
+                console.log('Vars loaded:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))*/
 
                 app.disable(false)
                 app.attributes.run()
