@@ -932,8 +932,8 @@ var app = {
     }
 
     app.assets.set(element.attributes)
-    app.config.set()
     app.xhr.start()
+    app.config.set()
     app.assets.load()
 
     app.listeners.add(document, 'submit', function (e) {
@@ -1002,6 +1002,7 @@ var app = {
    */
   call: function (run, options) {
     var runArray = run && run.split(';')
+    console.error(runArray)
     for (var i = 0; i < runArray.length; i++) {
       var parts = runArray[i].split(':')
       var args = options || {}
@@ -2030,7 +2031,8 @@ var app = {
                     templateSrcDoc = target !== 'main' ? elementSrcDoc || false : false,
                     templateSrc = elementSrc && elementSrc.split(';') || []
 
-                  app.modules.total = 0
+                  app.modules.total = 0 // Without this. it creates duplicate xhr requests.
+                  app.extensions.total = 0 // Without this. it creates duplicate xhr requests.
                   app.templates.total = 0
                   app.templates.loaded = 0
                   app.vars.total = 0
@@ -2077,12 +2079,12 @@ var app = {
                   return
               }
 
-              if (app.vars.loaded === (app.vars.total + app.vars.totalStore)
-                && app.modules.loaded === app.extensions.total
+              if (app.modules.loaded === app.extensions.total
+                && app.vars.loaded === (app.vars.total + app.vars.totalStore)
                 && type !== 'template' && type !== 'data') {
 
+                //console.log('Extensions loaded:', app.modules.loaded + '/' + app.extensions.total)
                 //console.log('Vars loaded:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
-                //console.log('Modules loaded:', app.modules.loaded + '/' + app.modules.total)
 
                 app.disable(false)
                 app.attributes.run()
