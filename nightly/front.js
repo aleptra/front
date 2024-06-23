@@ -931,6 +931,7 @@ var app = {
       selector: selector
     }
 
+    app.assets.set(element.attributes)
     app.xhr.start()
     app.config.set()
     app.assets.load()
@@ -1538,7 +1539,6 @@ var app = {
       if (app.isFrontpage) {
         app.srcDocTemplate = document.body.innerHTML
         dom.doctitle(document.title)
-        this.set(app.script.element.attributes)
         this.get.extensions()
         app.disable(false)
 
