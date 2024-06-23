@@ -37,6 +37,7 @@ var dom = {
     'marginright': 'apply',
     'height': 'apply',
     'padding': 'apply',
+    'resize': 'apply',
     'width': 'apply',
     'wordbreak': 'apply',
     'whitespace': 'apply'
@@ -242,6 +243,9 @@ var dom = {
       case 'bold':
         attr = 'fontWeight'
         value = 'bold'
+        break
+      case 'resize':
+        attr = 'resize'
         break
       default:
         // Extract the value and unit in the default case
@@ -467,10 +471,6 @@ var dom = {
     var target = object instanceof Object ? object : dom.get(object),
       value = strip ? value.replace(/<[^>]+>/g, '') : value || ''
     target.innerHTML = value
-  },
-
-  resize: function (object, value) {
-    object.style.resize = value
   },
 
   /**
