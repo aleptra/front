@@ -932,8 +932,8 @@ var app = {
     }
 
     app.assets.set(element.attributes)
-    app.xhr.start()
     app.config.set()
+    app.xhr.start()
     app.assets.load()
 
     app.listeners.add(document, 'submit', function (e) {
