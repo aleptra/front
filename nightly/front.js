@@ -387,10 +387,12 @@ var dom = {
     alert(element.exec.value || value)
   },
 
-  confirm: function (element) {
-    if (element.exec) element = element.exec.element
-    var value = element.getAttribute('confirmtext') || ''
-    return confirm(value)
+  confirm: function (element, value) {
+    if (element.exec) {
+      value = element.exec.value
+      element = element.exec.element
+    }
+    return confirm(element.getAttribute('confirmtext') || value || '')
   },
 
   focus: function (element, value) {
@@ -991,8 +993,8 @@ var app = {
    * @desc
    */
   call: function (run, options) {
-    var runArray = run && run.split(';')
-    console.error(runArray)
+    var execResult = [],
+      runArray = run && run.split(';')
     for (var i = 0; i < runArray.length; i++) {
       var parts = runArray[i].split(':')
       var args = options || {}
@@ -1020,13 +1022,12 @@ var app = {
         }
       }
 
-      if (parts[0].indexOf('-') !== -1) { // Call module.
-        parts = parts[0].split('-')
-        parts.unshift('app', 'module')
-      } else if (parts[0].indexOf('--') !== -1) { // Call module.
+      if (parts[0].indexOf('--') !== -1) { // Call plugin.
         parts = parts[0].split('--')
         parts.unshift('app', 'plugin')
-        alert('hej')
+      } else if (parts[0].indexOf('-') !== -1) { // Call module.
+        parts = parts[0].split('-')
+        parts.unshift('app', 'module')
       } else { // Call dom function.
         parts.unshift('dom')
         args.mapfunc = options.mapfunc || parts[1]
@@ -1035,8 +1036,11 @@ var app = {
         parts.splice(2, 1)
       }
 
-      return this.exec(parts, { exec: args })
+      var exec = this.exec(parts, { exec: args })
+      execResult.push(exec)
     }
+
+    return execResult
   },
 
   exec: function (run, args) {
