@@ -960,7 +960,7 @@ var app = {
         onclickif = link.attributes.onclickif
 
       if (onclickif) {
-        var ret = app.call(onclickif.value, { element: link })
+        var ret = app.call(onclickif.value, { element: link })[0]
         if (!ret) return
       }
 
