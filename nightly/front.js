@@ -999,82 +999,16 @@ var app = {
   },
 
   /**
- * @namespace call2
- * @memberof app
- * @desc Parses and executes a series of commands based on a string input.
- */
-  call2: function (run, options) {
-    var execResult = [],
-      runArray = run && run.split(';'),
-      regex = /^([\w-]+):(?:#([\w.]+(?:\.[\w]+)?)|(\[(.*?)\]))(?::(?:#([\w.]+(?:\.[\w]+)?)?)?)?(?:\[(.*?)\])?$/,
-      regex2 = /^[^.#:]+$/
-
-    for (var i = 0; i < runArray.length; i++) {
-      var match = regex.exec(runArray[i])
-      if (match) {
-        var func = match[1],
-          targetElement = match[2] || '',
-          targetSubElement = match[5] || '',
-          value = match[4] || match[6] || ''
-
-        // Extract attributes if present
-        var targetAttribute = ''
-        var targetSubAttribute = ''
-
-        // Check if element contains a dot
-        if (targetElement && targetElement.indexOf('.') !== -1) {
-          var parts = targetElement.split('.')
-          targetElement = parts[0]
-          targetAttribute = parts[1]
-        }
-
-        // Check if subElement contains a dot
-        if (targetSubElement && targetSubElement.indexOf('.') !== -1) {
-          var parts = targetSubElement.split('.')
-          targetSubElement = parts[0]
-          targetSubAttribute = parts[1]
-        }
-
-        console.log(targetSubElement.length)
-        alert('2')
-
-        var parsedCall = {
-          func: func,
-          element: options && options.targetElement || options && options.element || targetElement && dom.get('#' + targetElement) || options && options.srcElement,
-          subElement: options && options.subElement || targetSubElement && dom.get('#' + targetSubElement),
-          attribute: targetAttribute || targetElement && app.element.get(dom.get('#' + targetElement), false, true) || '',
-          subAttribute: targetSubAttribute || targetSubElement && app.element.get(dom.get('#' + targetSubElement), false, true) || '',
-          value: targetSubElement ? app.element.get(dom.get('#' + targetSubElement)) : value || '',
-          subAttributeValue: targetSubAttribute ? app.element.get(dom.get('#' + targetSubElement), targetSubAttribute) : ''
-        }
-
-
-        console.error(parsedCall)
-        var exec = this.exec2(func, { exec: parsedCall })
-        execResult.push(exec)
-      } else if (regex2.test(runArray[i])) {
-        alert('3')
-        var parsedCall = {
-          attributes: app.element.get(options.targetElement, false, true),
-          element: options && options.targetElement || options && options.element || options && options.srcElement,
-        }
-        var exec = this.exec2(run, { exec: parsedCall })
-        execResult.push(exec)
-      } else {
-        console.error("Error:", runArray[i])
-      }
-    }
-
-    return execResult
-  },
-
+   * @namespace call
+   * @memberof app
+   * @desc Parses and executes a series of commands based on a string input.
+   */
   callBest: function (run, options) {
     var execResult = [],
       runArray = run && run.split(';')
 
     for (var i = 0; i < runArray.length; i++) {
-      var
-        string = runArray[i], 
+      var string = runArray[i],
         parts = string.split(":"),
         func = parts[0],
         element1 = parts[1] && parts[1][0] === "#" && (parts[1].split('.') || [])[0],
@@ -1083,15 +1017,11 @@ var app = {
         attribute2 = element2 && (parts[2].split('.') || [])[1],
         value = string.substring(string.indexOf('[') + 1, string.lastIndexOf(']'))
 
-        //console.log(value)
-
-      var
-        objElement1 = options && options.element ? options.element : element1 === '#' || !element1 ? options && options.srcElement : dom.get(element1)
+      var objElement1 = options && options.element ? options.element : element1 === '#' || !element1 ? options && options.srcElement : dom.get(element1),
         objElement2 = element2 === '#' ? options && options.srcElement : dom.get(element2),
-        
-        attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true), // Get attribute name of element 1.
-        attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true), // Get attribute name of element 2.
-        value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1, ) : value)
+        attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true),
+        attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),
+        value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1,) : value)
 
       // Return the parsed object
       parsedCall = {
@@ -1105,7 +1035,6 @@ var app = {
         value: value === undefined ? false : value
       }
 
-      console.dir(parsedCall)
       var exec = this.exec2(func, { exec: parsedCall })
       execResult.push(exec)
     }
