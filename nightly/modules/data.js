@@ -126,7 +126,7 @@ app.module.data = {
       }
 
       if (datasuccess && responseData.status === 200) {
-        app.call(datasuccess.value, { element: element })
+        app.callBest(datasuccess.value, { srcElement: element })
       }
 
       if (dataempty) {
@@ -242,8 +242,8 @@ app.module.data = {
         arrayFromNodeList.push(element) // Support data-get on parent.
 
         for (var i = 0; i < arrayFromNodeList.length; i++) {
-          this._process('data-set', arrayFromNodeList[i], responseObject)
-          this._process('data-get', arrayFromNodeList[i], responseObject)
+          this._process('data-set', arrayFromNodeList[i], responseObject, { single: true })
+          this._process('data-get', arrayFromNodeList[i], responseObject, { single: true })
         }
       }
 
@@ -269,6 +269,8 @@ app.module.data = {
         }
       }
     }
+
+    if (options && options.single) app.element.onload(element, accessor)
   },
 
   _resolve: function (obj, value, options) {
@@ -317,6 +319,7 @@ app.module.data = {
 
   reqpatch: function (object) {
     if (object.exec) {
+      console.dir(object)
       this._request('patch', object.exec.element)
     }
   },
@@ -465,8 +468,7 @@ app.module.data = {
 
   _finish: function (options) {
     var finished = options.element.attributes['data-onfinish']
-    if (finished) app.call(finished.value, { element: options.element })
-
+    if (finished) app.callBest(finished.value, { element: options.element })
     if (options.loader) {
       dom.hide(options.loader)
       dom.show(options.element)

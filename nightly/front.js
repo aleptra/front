@@ -5,6 +5,9 @@
  *
  * This source code is licensed under the MIT-style license found in the 
  * LICENSE file in the root directory of this source tree.
+ *
+ * This project is developed using ECMAScript 5 (2009) to ensure compatibility 
+ * with older JavaScript engines while adhering to established standards.
  */
 
 var dom = {
@@ -196,8 +199,8 @@ var dom = {
    * @memberof dom
    */
   hide: function (object, prop) {
-    if (object && object.exec) object = dom.get(object.exec.value)
-    var el = object instanceof Object ? object : dom.get(object)
+    if (object && object.exec) object = object.exec.element
+    var el = object instanceof Object ? object : dom.get(object) // Todo: Remove in future.
     if (el) {
       value = prop ? 'visibility: hidden' : 'display: none'
       el.style.cssText = value + ' !important'
@@ -209,8 +212,8 @@ var dom = {
    * @memberof dom
    */
   show: function (object) {
-    if (object && object.exec) object = dom.get(object.exec.value)
-    var el = object instanceof Object ? object : dom.get(object)
+    if (object.exec) object = object.exec.element
+    var el = object instanceof Object ? object : dom.get(object) // Todo: Remove in future.
     if (el) {
       el.style.cssText = el.style.cssText.replace(/display\s*:\s*[^;]+;/gi, '')
       el.removeAttribute('hide')
@@ -218,8 +221,17 @@ var dom = {
   },
 
   apply: function (element, value) {
+
+    if (element.exec) {
+      test = element.exec.func
+      value = element.exec.value
+      element = element.exec.element
+    } else {
+      test = element.callAttribute
+    }
+
     var prefix = '',
-      attr = element.callAttribute.replace(/(top|bottom|left|right)$/g, function (match) {
+      attr = test.replace(/(top|bottom|left|right)$/g, function (match) {
         return match.charAt(0).toUpperCase() + match.slice(1)
       })
 
@@ -347,7 +359,7 @@ var dom = {
                     if (target.startSubmit) {
                       var length = target.listeners['keyup'].length
                       if (object.bindfieldPos === length) {
-                        app.call(target.startSubmit, { element: target })
+                        app.callBest(target.startSubmit, { element: target })
                         target.startSubmit = false
                       }
                     }
@@ -383,8 +395,8 @@ var dom = {
    *
    * @param {string} value - The message to display in the dialog box.
    */
-  alert: function (element, value) {
-    alert(element.exec.value || value)
+  alert: function (object, value) {
+    alert(object.exec.value || value)
   },
 
   confirm: function (element, value) {
@@ -396,9 +408,11 @@ var dom = {
   },
 
   focus: function (element, value) {
-    if (element.exec) element = dom.get(element.exec.value)
-    var target = value ? dom.get(value) : element
-    if (target) target.focus()
+    if (element.exec) {
+      value = element.exec.value
+      element = element.exec.element
+    }
+    if (element) element.focus()
   },
 
   /**
@@ -443,9 +457,9 @@ var dom = {
    * @memberof dom
    * @desc Sets the title of the application.
    */
-  doctitle: function (value) {
-    if (value) {
-      var title = value.exec ? value.exec.value : value
+  doctitle: function (object, value) {
+    var title = object.exec ? object.exec.value : value
+    if (title) {
       app.title = title
       document.title = title
     }
@@ -484,6 +498,7 @@ var dom = {
    * @desc Converts the contents of an element to lowercase letters.
    */
   lowercase: function (object) {
+    if (object.exec) object = object.exec.element
     object.innerHTML = object.innerHTML.toLowerCase()
   },
 
@@ -510,7 +525,7 @@ var dom = {
     var regex, attr, char
 
     if (element.exec) {
-      attr = element.exec.mapfunc
+      attr = element.exec.func
       char = element.exec.value || ' '
       element = element.exec.element
     } else {
@@ -552,7 +567,7 @@ var dom = {
     var insert
     if (object.exec) {
       value = object.exec.value
-      insert = object.exec.mapfunc
+      insert = object.exec.func
       object = object.exec.element
     } else {
       insert = object.callAttribute
@@ -606,7 +621,7 @@ var dom = {
     var attr
     if (object.exec) {
       value = object.exec.value
-      attr = object.exec.mapfunc
+      attr = object.exec.func
       object = object.exec.element
     } else {
       attr = object.callAttribute
@@ -650,8 +665,7 @@ var dom = {
    * @memberof dom
    */
   remove: function (object) {
-    if (object.exec) object = dom.get(object.exec.value)
-    var target = typeof object === 'string' ? dom.get(object) : object
+    var target = object.exec ? object.exec.element : object
     if (target) target.remove()
   },
 
@@ -867,8 +881,8 @@ var dom = {
   }*/
 
   rerun: function (object) {
-    var el = object.exec ? object.exec.value : object
-    app.attributes.run(el)
+    var el = object.exec ? object.exec.element : object
+    app.attributes.run('#' + el.id)
   },
 
   reload: function (object, value) {
@@ -940,7 +954,7 @@ var app = {
           var tab = link.attributes.ontabchange
           if (tab) {
             var val = click ? click.value : tab.value
-            app.call(val, { element: link })
+            app.callBest(val, { element: link })
           }
           break
         case 'Enter':
@@ -960,24 +974,21 @@ var app = {
         onclickif = link.attributes.onclickif
 
       if (onclickif) {
-        var ret = app.call(onclickif.value, { element: link })[0]
+        var ret = app.callBest(onclickif.value, { element: link })[0]
         if (!ret) return
       }
 
       if (click) {
         var clicktargetfield = link.attributes.clicktargetfield,
-          target = clicktargetfield && clicktargetfield.value.split(':'),
-          element = target ? dom.get(target[0]) : e.target
+          target = clicktargetfield && clicktargetfield.value.split(':') || ''
+        //,
+        //element = target && dom.get(target[0]) || element
 
         /* element.callAttribute = val[0]
          element.targetAttribute = target && target[1]
          element.targetField = clicktargetfield
          element.clicked = element*/
-
-        app.call(click.value, {
-          element: element,
-          src: e.target
-        })
+        app.callBest(click.value, { srcElement: e.target, element: dom.get(target[0]) })
       }
     })
 
@@ -986,6 +997,147 @@ var app = {
       app.listeners.change('input', e.target, false, e)
     })
   },
+
+  /**
+ * @namespace call2
+ * @memberof app
+ * @desc Parses and executes a series of commands based on a string input.
+ */
+  call2: function (run, options) {
+    var execResult = [],
+      runArray = run && run.split(';'),
+      regex = /^([\w-]+):(?:#([\w.]+(?:\.[\w]+)?)|(\[(.*?)\]))(?::(?:#([\w.]+(?:\.[\w]+)?)?)?)?(?:\[(.*?)\])?$/,
+      regex2 = /^[^.#:]+$/
+
+    for (var i = 0; i < runArray.length; i++) {
+      var match = regex.exec(runArray[i])
+      if (match) {
+        var func = match[1],
+          targetElement = match[2] || '',
+          targetSubElement = match[5] || '',
+          value = match[4] || match[6] || ''
+
+        // Extract attributes if present
+        var targetAttribute = ''
+        var targetSubAttribute = ''
+
+        // Check if element contains a dot
+        if (targetElement && targetElement.indexOf('.') !== -1) {
+          var parts = targetElement.split('.')
+          targetElement = parts[0]
+          targetAttribute = parts[1]
+        }
+
+        // Check if subElement contains a dot
+        if (targetSubElement && targetSubElement.indexOf('.') !== -1) {
+          var parts = targetSubElement.split('.')
+          targetSubElement = parts[0]
+          targetSubAttribute = parts[1]
+        }
+
+        console.log(targetSubElement.length)
+        alert('2')
+
+        var parsedCall = {
+          func: func,
+          element: options && options.targetElement || options && options.element || targetElement && dom.get('#' + targetElement) || options && options.srcElement,
+          subElement: options && options.subElement || targetSubElement && dom.get('#' + targetSubElement),
+          attribute: targetAttribute || targetElement && app.element.get(dom.get('#' + targetElement), false, true) || '',
+          subAttribute: targetSubAttribute || targetSubElement && app.element.get(dom.get('#' + targetSubElement), false, true) || '',
+          value: targetSubElement ? app.element.get(dom.get('#' + targetSubElement)) : value || '',
+          subAttributeValue: targetSubAttribute ? app.element.get(dom.get('#' + targetSubElement), targetSubAttribute) : ''
+        }
+
+
+        console.error(parsedCall)
+        var exec = this.exec2(func, { exec: parsedCall })
+        execResult.push(exec)
+      } else if (regex2.test(runArray[i])) {
+        alert('3')
+        var parsedCall = {
+          attributes: app.element.get(options.targetElement, false, true),
+          element: options && options.targetElement || options && options.element || options && options.srcElement,
+        }
+        var exec = this.exec2(run, { exec: parsedCall })
+        execResult.push(exec)
+      } else {
+        console.error("Error:", runArray[i])
+      }
+    }
+
+    return execResult
+  },
+
+  callBest: function (run, options) {
+    var execResult = [],
+      runArray = run && run.split(';')
+
+    for (var i = 0; i < runArray.length; i++) {
+      var
+        string = runArray[i], 
+        parts = string.split(":"),
+        func = parts[0],
+        element1 = parts[1] && parts[1][0] === "#" && (parts[1].split('.') || [])[0],
+        element2 = parts[2] && parts[2][0] === "#" && (parts[2].split('.') || [])[0],
+        attribute1 = element1 && (parts[1].split('.') || [])[1],
+        attribute2 = element2 && (parts[2].split('.') || [])[1],
+        value = string.substring(string.indexOf('[') + 1, string.lastIndexOf(']'))
+
+        //console.log(value)
+
+      var
+        objElement1 = options && options.element ? options.element : element1 === '#' || !element1 ? options && options.srcElement : dom.get(element1)
+        objElement2 = element2 === '#' ? options && options.srcElement : dom.get(element2),
+        
+        attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true), // Get attribute name of element 1.
+        attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true), // Get attribute name of element 2.
+        value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1, ) : value)
+
+      // Return the parsed object
+      parsedCall = {
+        func: func,
+        element: objElement1 || false,
+        subElement: objElement2 || false,
+        attribute: attribute1Type || false,
+        hasAttribute: !!attribute1,
+        hasSubAttribute: !!attribute2,
+        subAttribute: attribute2Type || false,
+        value: value === undefined ? false : value
+      }
+
+      console.dir(parsedCall)
+      var exec = this.exec2(func, { exec: parsedCall })
+      execResult.push(exec)
+    }
+
+    return execResult
+  },
+
+  exec2: function (func, args) {
+    var funcKey = dom._replacementMap[func] || func
+
+    if (funcKey.indexOf('--') !== -1) {
+      var plugin = funcKey.split('--')
+      funcKey = 'app.plugin.' + plugin[0] + '.' + plugin[1]
+    } else if (funcKey.indexOf('-') !== -1) {
+      var module = funcKey.split('-')
+      funcKey = 'app.module.' + module[0] + '.' + module[1]
+    } else {
+      funcKey = 'dom.' + funcKey
+    }
+
+    var run = funcKey.split('.')
+
+    switch (run.length) {
+      case 4:
+        return window[run[0]][run[1]][run[2]][run[3]](args)
+      case 3:
+        return window[run[0]][run[1]][run[2]](args)
+      case 2:
+        return window[run[0]][run[1]](args)
+    }
+  },
+
 
   /**
    * @namespace call
@@ -1045,6 +1197,7 @@ var app = {
 
   exec: function (run, args) {
     run = typeof run === 'string' ? run.split('.') : run // Always convert to array.
+    console.log(run)
     switch (run.length) {
       case 4:
         return window[run[0]][run[1]][run[2]][run[3]](args)
@@ -1132,18 +1285,20 @@ var app = {
       'optgroup': 'label'
     },
 
-    get: function (element, attr) {
-      if (attr) return element.attributes[attr].value
+    get: function (element, attrValue, attrName) {
+      if (attrValue) return element.attributes[attrValue].value // Return attribute value.
       var target = element.targetAttribute || ''
       if (target) return element.attributes[target].value
       var property = this.propertyMap[element.localName] || 'textContent'
+      if (attrName) return property // Return attribute name.
       return element[property]
     },
 
     set: function (element, value, attr) {
-      attr = element.exec ? element.targetattr : attr,
+      attr = element.exec ? element.attribute : attr,
         type = element.type,
         localName = element.localName
+
       if (attr) {
         attr = attr.replace('set', '')
         switch (attr) {
@@ -1161,6 +1316,7 @@ var app = {
             }
             break
           case 'value':
+            element.setAttribute('value', value)
             element.value = value
             break
           default:
@@ -1250,10 +1406,31 @@ var app = {
      * @memberof app
      */
     onchange: function (object, value) {
-      var onchange = object.getAttribute('on' + value.replace('set', '') + 'change')
-      if (onchange) {
-        app.call(onchange, { element: object })
+      if (value) {
+        var onchange = object.getAttribute('on' + value.replace('set', '') + 'change')
+        if (onchange) app.callBest(onchange, { srcElement: object })
       }
+    },
+
+    /**
+     * @function onload
+     * @memberof app
+     */
+    onload: function (object, value) {
+      var part1 = '', part2 = value
+
+      if (value.indexOf('--') !== -1) {
+        var plugin = value.split('--')
+        part1 = plugin[0] + '--'
+        part2 = plugin[1]
+      } else if (value.indexOf('-') !== -1) {
+        var module = value.split('-')
+        part1 = module[0] + '-'
+        part2 = module[1]
+      }
+
+      var onload = object.getAttribute(part1 + 'on' + part2 + 'load')
+      if (onload) app.callBest(onload, { srcElement: object })
     },
 
     /**
@@ -1266,8 +1443,8 @@ var app = {
         attr = srcEl.getAttribute('onformsubmit'),
         submit = attr && attr.split(';')
       for (action in submit) {
-        console.log('onsubmit')
-        app.call(submit[action], { element: srcEl })
+        console.log('onsubmit: ', submit[action])
+        app.callBest(submit[action], { element: srcEl })
       }
     }
   },
@@ -1471,8 +1648,8 @@ var app = {
         /*var beforeChangeValue = object.attributes.onbeforevaluechange,
           afterChangeValue = object.attributes.onaftervaluechange
         */
-        console.error('change')
-        app.call(changeValue.value, { element: object })
+        console.error('change: ' + changeValue.value)
+        app.callBest(changeValue.value, { element: object })
       }
 
       if (changeValueIf) {
@@ -1498,12 +1675,12 @@ var app = {
         if (!identifier[1] && attr !== newVal) {
           return
         } else {
-          app.call(statement[1] + ':' + statement[2], { element: object })
+          app.callBest(statement[1] + ':' + statement[2], { element: object })
         }
       }
 
       if (changeStateValue) {
-        app.call(changeStateValue.value, { element: object, state: true })
+        app.callBest(changeStateValue.value, { element: object, state: true })
       }
 
       if (changeStateValueIf) {
@@ -1533,7 +1710,7 @@ var app = {
     load: function () {
       if (app.isFrontpage) {
         app.srcDocTemplate = document.body.innerHTML
-        dom.doctitle(document.title)
+        dom.doctitle(false, document.title)
         this.get.extensions()
         app.disable(false)
 
@@ -1602,9 +1779,9 @@ var app = {
        * @desc Loads extensions(modules) from the `module` attribute of the script element and call autoload function if exists.
        */
       extensions: function () {
-        app.log.info()('Loading extensions...');
+        app.log.info()('Loading extensions...')
 
-        var allExtensions = app.extensions.module.concat(app.extensions.plugin);
+        var allExtensions = app.extensions.module.concat(app.extensions.plugin)
 
         var modulesCount = app.extensions.module.length
 
@@ -1955,7 +2132,7 @@ var app = {
       }
 
       if (responsePageContentClass) document.body.className = responsePageContentClass
-      dom.doctitle(currentPageTitle)
+      dom.doctitle(false, currentPageTitle)
     }
   },
 
@@ -2035,7 +2212,7 @@ var app = {
                     page: true,
                     total: templateSrc.length + (templateSrcDoc ? 1 : 0)
                   }
-                  dom.doctitle(responsePageTitle)
+                  dom.doctitle(false, responsePageTitle)
                   dom.bind.include = ''
                   app.assets.get.templates()
                   break
@@ -2166,7 +2343,8 @@ var app = {
 
             if (success) {
               if (srcEl) {
-                app.call(success, { element: srcEl })
+                console.warn(success, srcEl)
+                app.callBest(success, { srcElement: srcEl }) // Strange?
               }
 
               // Clean up error element.
@@ -2178,12 +2356,12 @@ var app = {
 
           } else if (status.clientError || status.serverError) {
             dom.hide(loader)
-            if (error) app.call(error, { element: options.element })
+            if (error) app.callBest(error, { element: options.element })
           }
         }
 
         xhr.onerror = function () {
-          if (error) app.call(error, { element: options.element })
+          if (error) app.callBest(error, { element: options.element })
         }
 
         xhr.open(method, url + urlExtension, true)

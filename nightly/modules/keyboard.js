@@ -40,7 +40,8 @@ app.module.keyboard = {
             app.click(element, true)
             break
           default:
-            app.call(action, { element: element })
+            console.log(action)
+            app.callBest(action, { element: element })
         }
       }
     }

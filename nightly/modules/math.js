@@ -7,27 +7,22 @@ app.module.math = {
   },
 
   compute: function (element, value) {
-    /*var field
-    if (element.exec) {
-      field = element.exec.element
-      console.log(field)
-      element = field
-    } else {
-      field = element.targetField && !element.targetAttribute ? element.targetField.ownerElement : element
-      var value = app.element.get(field)
-    }*/
+    var attr = ''
 
     if (element.exec) {
-      var targetField = element.exec.targetfield,
-        targetAttr = element.exec.targetattr,
-        fromValue = element.exec.value
+      var target = element.exec,
+        value = target.value,
+        element = target.element,
+        subElement = target.subElement,
+        attribute = target.attribute
 
-      element = targetField ? dom.get(targetField.value) : element.exec.element
-      value = fromValue ? fromValue : app.element.get(element)
-
-      if (element && targetAttr) {
-        value = element.getAttribute(targetAttr)
+      if (element && !subElement) {
+        console.warn('only element')
+        value = app.element.get(element, attribute)
+        attr = attribute
       }
+    } else {
+      value = app.element.get(element)
     }
 
     try {
@@ -55,6 +50,7 @@ app.module.math = {
       console.error(error)
     }
 
-    app.element.set(element, value)
+    console.warn(element.id, value, attr)
+    app.element.set(element, value, attr)
   }
 }
