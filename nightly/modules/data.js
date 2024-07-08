@@ -126,7 +126,7 @@ app.module.data = {
       }
 
       if (datasuccess && responseData.status === 200) {
-        app.callBest(datasuccess.value, { srcElement: element })
+        app.call(datasuccess.value, { srcElement: element })
       }
 
       if (dataempty) {
@@ -468,7 +468,7 @@ app.module.data = {
 
   _finish: function (options) {
     var finished = options.element.attributes['data-onfinish']
-    if (finished) app.callBest(finished.value, { element: options.element })
+    if (finished) app.call(finished.value, { element: options.element })
     if (options.loader) {
       dom.hide(options.loader)
       dom.show(options.element)

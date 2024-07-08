@@ -359,7 +359,7 @@ var dom = {
                     if (target.startSubmit) {
                       var length = target.listeners['keyup'].length
                       if (object.bindfieldPos === length) {
-                        app.callBest(target.startSubmit, { element: target })
+                        app.call(target.startSubmit, { element: target })
                         target.startSubmit = false
                       }
                     }
@@ -954,7 +954,7 @@ var app = {
           var tab = link.attributes.ontabchange
           if (tab) {
             var val = click ? click.value : tab.value
-            app.callBest(val, { element: link })
+            app.call(val, { element: link })
           }
           break
         case 'Enter':
@@ -974,7 +974,7 @@ var app = {
         onclickif = link.attributes.onclickif
 
       if (onclickif) {
-        var ret = app.callBest(onclickif.value, { element: link })[0]
+        var ret = app.call(onclickif.value, { element: link })[0]
         if (!ret) return
       }
 
@@ -988,7 +988,7 @@ var app = {
          element.targetAttribute = target && target[1]
          element.targetField = clicktargetfield
          element.clicked = element*/
-        app.callBest(click.value, { srcElement: e.target, element: dom.get(target[0]) })
+        app.call(click.value, { srcElement: e.target, element: dom.get(target[0]) })
       }
     })
 
@@ -1003,7 +1003,7 @@ var app = {
    * @memberof app
    * @desc Parses and executes a series of commands based on a string input.
    */
-  callBest: function (run, options) {
+  call: function (run, options) {
     var execResult = [],
       runArray = run && run.split(';')
 
@@ -1035,89 +1035,19 @@ var app = {
         value: value === undefined ? false : value
       }
 
-      var exec = this.exec2(func, { exec: parsedCall })
-      execResult.push(exec)
-    }
+      var run = dom._replacementMap[func] || func
 
-    return execResult
-  },
-
-  exec2: function (func, args) {
-    var funcKey = dom._replacementMap[func] || func
-
-    if (funcKey.indexOf('--') !== -1) {
-      var plugin = funcKey.split('--')
-      funcKey = 'app.plugin.' + plugin[0] + '.' + plugin[1]
-    } else if (funcKey.indexOf('-') !== -1) {
-      var module = funcKey.split('-')
-      funcKey = 'app.module.' + module[0] + '.' + module[1]
-    } else {
-      funcKey = 'dom.' + funcKey
-    }
-
-    var run = funcKey.split('.')
-
-    switch (run.length) {
-      case 4:
-        return window[run[0]][run[1]][run[2]][run[3]](args)
-      case 3:
-        return window[run[0]][run[1]][run[2]](args)
-      case 2:
-        return window[run[0]][run[1]](args)
-    }
-  },
-
-
-  /**
-   * @namespace call
-   * @memberof app
-   * @desc
-   */
-  call: function (run, options) {
-    var execResult = [],
-      runArray = run && run.split(';')
-    for (var i = 0; i < runArray.length; i++) {
-      var parts = runArray[i].split(':')
-      var args = options || {}
-
-      if (parts.length > 1) {
-        var escape = parts[1].indexOf('\\#') !== -1
-        var test = !escape && parts[1].split('#')
-
-        if (test.length === 3) {
-          var test2 = test[1].split('.')
-          var fromvalue = test2[0] === '' ? args.src : dom.get('#' + test2[0])
-          args.element = dom.get('#' + test[2])
-          args.value = options.value || app.element.get(fromvalue)
-          if (test2[1]) {
-            fromvalue = dom.get('#' + test2[0])
-            args.value = fromvalue.getAttribute(test2[1])
-          }
-        } else {
-          if (test[1]) {
-            var test2 = test[1].split('.')
-            args.element = dom.get('#' + test2[0])
-            args.targetattr = test2[1] || 'value'
-            app.element.onchange(args.element, args.targetattr)
-          }
-        }
+      if (run.indexOf('--') !== -1) {
+        var plugin = run.split('--')
+        run = 'app.plugin.' + plugin[0] + '.' + plugin[1]
+      } else if (run.indexOf('-') !== -1) {
+        var module = run.split('-')
+        run = 'app.module.' + module[0] + '.' + module[1]
+      } else {
+        run = 'dom.' + run
       }
 
-      if (parts[0].indexOf('--') !== -1) { // Call plugin.
-        parts = parts[0].split('--')
-        parts.unshift('app', 'plugin')
-      } else if (parts[0].indexOf('-') !== -1) { // Call module.
-        parts = parts[0].split('-')
-        parts.unshift('app', 'module')
-      } else { // Call dom function.
-        parts.unshift('dom')
-        args.mapfunc = options.mapfunc || parts[1]
-        args.value = options.value || parts[2]
-        parts[1] = dom._replacementMap[parts[1]] || parts[1]
-        parts.splice(2, 1)
-      }
-
-      var exec = this.exec(parts, { exec: args })
+      var exec = this.exec(run, { exec: parsedCall })
       execResult.push(exec)
     }
 
@@ -1125,8 +1055,7 @@ var app = {
   },
 
   exec: function (run, args) {
-    run = typeof run === 'string' ? run.split('.') : run // Always convert to array.
-    console.log(run)
+    run = run.split('.')
     switch (run.length) {
       case 4:
         return window[run[0]][run[1]][run[2]][run[3]](args)
@@ -1337,7 +1266,7 @@ var app = {
     onchange: function (object, value) {
       if (value) {
         var onchange = object.getAttribute('on' + value.replace('set', '') + 'change')
-        if (onchange) app.callBest(onchange, { srcElement: object })
+        if (onchange) app.call(onchange, { srcElement: object })
       }
     },
 
@@ -1359,7 +1288,7 @@ var app = {
       }
 
       var onload = object.getAttribute(part1 + 'on' + part2 + 'load')
-      if (onload) app.callBest(onload, { srcElement: object })
+      if (onload) app.call(onload, { srcElement: object })
     },
 
     /**
@@ -1373,7 +1302,7 @@ var app = {
         submit = attr && attr.split(';')
       for (action in submit) {
         console.log('onsubmit: ', submit[action])
-        app.callBest(submit[action], { element: srcEl })
+        app.call(submit[action], { element: srcEl })
       }
     }
   },
@@ -1578,7 +1507,7 @@ var app = {
           afterChangeValue = object.attributes.onaftervaluechange
         */
         console.error('change: ' + changeValue.value)
-        app.callBest(changeValue.value, { element: object })
+        app.call(changeValue.value, { element: object })
       }
 
       if (changeValueIf) {
@@ -1604,12 +1533,12 @@ var app = {
         if (!identifier[1] && attr !== newVal) {
           return
         } else {
-          app.callBest(statement[1] + ':' + statement[2], { element: object })
+          app.call(statement[1] + ':' + statement[2], { element: object })
         }
       }
 
       if (changeStateValue) {
-        app.callBest(changeStateValue.value, { element: object, state: true })
+        app.call(changeStateValue.value, { element: object, state: true })
       }
 
       if (changeStateValueIf) {
@@ -2273,7 +2202,7 @@ var app = {
             if (success) {
               if (srcEl) {
                 console.warn(success, srcEl)
-                app.callBest(success, { srcElement: srcEl }) // Strange?
+                app.call(success, { srcElement: srcEl }) // Strange?
               }
 
               // Clean up error element.
@@ -2285,12 +2214,12 @@ var app = {
 
           } else if (status.clientError || status.serverError) {
             dom.hide(loader)
-            if (error) app.callBest(error, { element: options.element })
+            if (error) app.call(error, { element: options.element })
           }
         }
 
         xhr.onerror = function () {
-          if (error) app.callBest(error, { element: options.element })
+          if (error) app.call(error, { element: options.element })
         }
 
         xhr.open(method, url + urlExtension, true)

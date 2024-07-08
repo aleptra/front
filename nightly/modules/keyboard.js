@@ -41,7 +41,7 @@ app.module.keyboard = {
             break
           default:
             console.log(action)
-            app.callBest(action, { element: element })
+            app.call(action, { element: element })
         }
       }
     }
