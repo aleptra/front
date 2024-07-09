@@ -380,6 +380,11 @@ var dom = {
     }
   },
 
+  submit: function (object, value) {
+    var target = object.exec.value ? dom.get(object.exec.value) : value
+    if (target) target.submit()
+  },
+
   loader: function (object, value) {
     dom.hide(object)
     if (value) dom.show(value)
@@ -1050,14 +1055,19 @@ var app = {
   },
 
   exec: function (run, args) {
-    run = run.split('.')
-    switch (run.length) {
-      case 4:
-        return window[run[0]][run[1]][run[2]][run[3]](args)
-      case 3:
-        return window[run[0]][run[1]][run[2]](args)
-      case 2:
-        return window[run[0]][run[1]](args)
+    try {
+      run = run.split('.')
+      switch (run.length) {
+        case 4:
+          return window[run[0]][run[1]][run[2]][run[3]](args)
+        case 3:
+          return window[run[0]][run[1]][run[2]](args)
+        case 2:
+          return window[run[0]][run[1]](args)
+      }
+    } catch (e) {
+      if (e.message.indexOf('run[0]') !== -1) console.error('Command not found', run)
+      if (e.message.indexOf('object.exec') !== -1) console.error('Could not execute command', run)
     }
   },
 
@@ -1263,7 +1273,6 @@ var app = {
         attr = srcEl.getAttribute('onformsubmit'),
         submit = attr && attr.split(';')
       for (action in submit) {
-        console.log('onsubmit: ', submit[action])
         app.call(submit[action], { element: srcEl })
       }
     }
