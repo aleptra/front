@@ -1021,7 +1021,7 @@ var app = {
         objElement2 = element2 === '#' ? options && options.srcElement : dom.get(element2),
         attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true),
         attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),
-        value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1,) : value)
+        value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1, attribute1) : value)
 
       // Return the parsed object
       parsedCall = {

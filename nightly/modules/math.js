@@ -13,14 +13,7 @@ app.module.math = {
       var target = element.exec,
         value = target.value,
         element = target.element,
-        subElement = target.subElement,
-        attribute = target.attribute
-
-      if (element && !subElement) {
-        console.warn('only element')
-        value = app.element.get(element, attribute)
-        attr = attribute
-      }
+        attr = target.hasAttribute ? target.attribute : ''
     } else {
       value = app.element.get(element)
     }
@@ -50,7 +43,6 @@ app.module.math = {
       console.error(error)
     }
 
-    console.warn(element.id, value, attr)
     app.element.set(element, value, attr)
   }
 }
