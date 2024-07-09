@@ -319,7 +319,6 @@ app.module.data = {
 
   reqpatch: function (object) {
     if (object.exec) {
-      console.dir(object)
       this._request('patch', object.exec.element)
     }
   },

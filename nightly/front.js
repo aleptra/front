@@ -11,7 +11,7 @@
  */
 
 var dom = {
-  _replacementMap: {
+  _actionMap: {
     'trimleft': 'trim',
     'trimright': 'trim',
     'insertbeforebegin': 'insert',
@@ -45,6 +45,10 @@ var dom = {
     'wordbreak': 'apply',
     'whitespace': 'apply'
   },
+  _eventMap: {
+    'focus': 'focused',
+    'click': 'clicked'
+  },
   _uniqueId: 0,
   _bindfieldPos: 0,
 
@@ -54,7 +58,6 @@ var dom = {
    * @desc Object that contains functions for parsing strings and creating DOM nodes.
    */
   parse: {
-
     /**
      * @function attribute
      * @memberof dom.parse
@@ -215,6 +218,12 @@ var dom = {
     }
   },
 
+  /**
+   * @function apply
+   * @memberof dom
+   * @param {*} element 
+   * @param {*} value 
+   */
   apply: function (element, value) {
 
     if (element.exec) {
@@ -380,6 +389,12 @@ var dom = {
     }
   },
 
+  /**
+   * @function submit
+   * @memberof dom
+   * @param {*} object 
+   * @param {*} value 
+   */
   submit: function (object, value) {
     var target = object.exec.value ? dom.get(object.exec.value) : value
     if (target) target.submit()
@@ -392,13 +407,21 @@ var dom = {
 
   /**
    * Displays a message in a dialog box.
-   *
+   * @function alert
+   * @memberof dom
    * @param {string} value - The message to display in the dialog box.
    */
   alert: function (object, value) {
     alert(object.exec.value || value)
   },
 
+  /**
+   * @function confirm
+   * @memberof dom
+   * @param {*} element 
+   * @param {*} value 
+   * @returns 
+   */
   confirm: function (element, value) {
     if (element.exec) {
       value = element.exec.value
@@ -407,6 +430,12 @@ var dom = {
     return confirm(element.getAttribute('confirmtext') || value || '')
   },
 
+  /**
+   * @function focus
+   * @memberof dom
+   * @param {*} element 
+   * @param {*} value 
+   */
   focus: function (element, value) {
     if (element.exec) {
       value = element.exec.value
@@ -703,12 +732,32 @@ var dom = {
     object.value = object.value.replace(new RegExp(regex, 'g'), '')
   },
 
+  /**
+   * 
+   * @param {*} object 
+   * @param {*} value 
+   */
   split: function (object, value) {
     var parts = value.split(';'),
       pattern = parts[0],
       index = parts[1]
 
     dom.set(object, object.innerHTML.split(pattern)[index])
+  },
+
+  /**
+   * @function select
+   * @param {*} object 
+   * @param {*} value
+   */
+  select: function (object, value) {
+    var target = object
+    if (object.exec) {
+      target = object.exec.element,
+      value = object.exec.value
+    }
+    value = value.split(',')
+    if (target) target.setSelectionRange(value[0], value[1])
   },
 
   /**
@@ -793,7 +842,7 @@ var dom = {
         // Concatenate existing attribute names to the stopValue, excluding 'stop'
         for (var j = 0; j < existingAttributes.length; j++) {
           var attr = existingAttributes[j],
-            name = dom._replacementMap[attr.name] || attr.name
+            name = dom._actionMap[attr.name] || attr.name
           if (attr.name !== 'stop') {
             if (stopValue !== '') {
               stopValue += ';'
@@ -1035,7 +1084,7 @@ var app = {
         value: value === undefined ? false : value
       }
 
-      var run = dom._replacementMap[func] || func
+      var run = dom._actionMap[func] || func
 
       if (run.indexOf('--') !== -1) {
         var plugin = run.split('--')
@@ -1068,6 +1117,8 @@ var app = {
     } catch (e) {
       if (e.message.indexOf('run[0]') !== -1) console.error('Command not found', run)
       if (e.message.indexOf('object.exec') !== -1) console.error('Could not execute command', run)
+    } finally {
+      app.element.runevent(args) // check for element events.
     }
   },
 
@@ -1090,7 +1141,7 @@ var app = {
    * @desc
    */
   element: {
-    propertyMap: {
+    _propertyMap: {
       'input': 'value',
       'textarea': 'value',
       'progress': 'value',
@@ -1113,12 +1164,14 @@ var app = {
     },
 
     get: function (element, attrValue, attrName) {
-      if (attrValue) return element.attributes[attrValue].value // Return attribute value.
-      var target = element.targetAttribute || ''
-      if (target) return element.attributes[target].value
-      var property = this.propertyMap[element.localName] || 'textContent'
-      if (attrName) return property // Return attribute name.
-      return element[property]
+      if (element) {
+        if (attrValue) return element.attributes[attrValue].value // Return attribute value.
+        var target = element.targetAttribute || ''
+        if (target) return element.attributes[target].value
+        var property = this._propertyMap[element.localName] || 'textContent'
+        if (attrName) return property // Return attribute name.
+        return element[property]
+      }
     },
 
     set: function (element, value, attr) {
@@ -1157,7 +1210,7 @@ var app = {
           element.checked = value === 'true' ? true : false
           break
         default:
-          var property = this.propertyMap[localName] || 'textContent'
+          var property = this._propertyMap[localName] || 'textContent'
           element[property] = value
       }
     },
@@ -1229,6 +1282,18 @@ var app = {
       }
 
       return value
+    },
+
+    runevent: function (parsedCall) {
+      if (parsedCall.exec) {
+        var func = dom._eventMap[parsedCall.exec.func] || parsedCall.exec.func,
+          el = parsedCall.exec.element
+
+        var call = el && el.getAttribute('on' + func)
+        if (call) {
+          app.call(call, parsedCall.exec)
+        }
+      }
     },
 
     /**
@@ -1739,7 +1804,7 @@ var app = {
           for (var j = 0; j < attributes.length; j++) {
             var attrName = attributes[j].name,
               attrValue = attributes[j].value,
-              attrFullname = dom._replacementMap[attrName] || attrName
+              attrFullname = dom._actionMap[attrName] || attrName
             if (exclude.indexOf(attrFullname) === -1) {
               var name = attrFullname.split('-')
 
@@ -2098,8 +2163,8 @@ var app = {
     },
 
     /**
-     * @function xhr
-     * @memberof app
+     * @function request
+     * @memberof app.xhr
      * @desc Creates XHR requests and updates the DOM based on the response.
      */
     request: function (options) {
@@ -2174,6 +2239,7 @@ var app = {
               if (srcEl) {
                 console.warn(success, srcEl)
                 app.call(success, { srcElement: srcEl }) // Strange?
+
               }
 
               // Clean up error element.
@@ -2182,6 +2248,9 @@ var app = {
                 if (val[0] === 'show') dom.hide(val[1])
               }
             }
+
+            console.dir(options)
+            if (options.exec) app.element.onload(options.exec.element)
 
           } else if (status.clientError || status.serverError) {
             dom.hide(loader)
