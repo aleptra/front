@@ -2,7 +2,7 @@
 
 app.module.math = {
   round: function (element, value) {
-    var value = app.element.get(element)
+    value = app.element.get(element)
     app.element.set(element, Math.round(parseFloat(value)))
   },
 

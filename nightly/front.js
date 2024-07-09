@@ -178,13 +178,8 @@ var dom = {
     if (match) el.classList.toggle(match[0])
 
     if (ontoggle) {
-      var normalize = ontoggle.replace(']', '').split('['),
-        run = 'app.element.' + normalize[0]
-      runargs = [el, normalize[1]]
-      app.callOld(run, runargs)
-
-      /*runargs = {element: el, value: normalize[1] }
-      app.exec(run, runargs)*/
+      var normalize = ontoggle.replace(']', '').split('[')
+      app.exec('app.element.' + normalize[0], { element: el, value: normalize[1] })
     }
 
     switch (tag) {
@@ -1066,42 +1061,6 @@ var app = {
     }
   },
 
-  /**
-   * @namespace callOld
-   * @memberof app
-   * @desc
-   */
-  callOld: function (run, runargs, options) {
-    run = run.split('.') // convert string to array.
-
-    var run1,
-      runargs = Array.isArray(runargs) ? runargs : [runargs], // Ensure runargs is an array
-      context = null
-
-    app.log.info()('Calling: ' + run + ' ' + runargs)
-
-    if (run[0] === 'app') {
-      run1 = run[1]
-    } else if (run[0].indexOf('-') !== -1) {
-      run = run[0].split('-')
-      run.unshift('app', 'module')
-      run1 = 'module'
-      context = window[run[0]][run1][run[2]]
-    } else {
-      run.unshift('dom')
-      run1 = dom._replacementMap[run[1]] || run[1]
-    }
-
-    switch (run.length) {
-      case 4:
-        return window[run[0]][run1][run[2]][run[3]].apply(context, runargs)
-      case 3:
-        return window[run[0]][run1][run[2]].apply(context, runargs)
-      case 2:
-        return window[run[0]][run1].apply(context, runargs)
-    }
-  },
-
   click: function (el, dbl) {
     var event, eventName = dbl ? 'dblclick' : 'click'
     try {
@@ -1209,9 +1168,12 @@ var app = {
 
     toggle: {
       class: function (options, value) {
+        var el = options.element,
+          value = options.value
+
         var classes = value.split(' ')
         for (var i = 0; i < classes.length; i++) {
-          options.classList.toggle(classes[i])
+          el.classList.toggle(classes[i])
         }
       }
     },
