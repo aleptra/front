@@ -746,6 +746,13 @@ var dom = {
   },
 
   /**
+   * @function log
+   */
+  log: function (object, value) {
+    console.log(value || object.exec.value)
+  },
+
+  /**
    * @function select
    * @param {*} object 
    * @param {*} value
@@ -754,7 +761,7 @@ var dom = {
     var target = object
     if (object.exec) {
       target = object.exec.element,
-      value = object.exec.value
+        value = object.exec.value
     }
     value = value.split(',')
     if (target) target.setSelectionRange(value[0], value[1])
@@ -1038,6 +1045,7 @@ var app = {
          element.targetField = clicktargetfield
          element.clicked = element*/
         app.call(click.value, { srcElement: e.target, element: dom.get(target[0]) })
+        app.element.runevent({ exec: { func: 'click', element: e.target } })
       }
     })
 
@@ -2249,7 +2257,6 @@ var app = {
               }
             }
 
-            console.dir(options)
             if (options.exec) app.element.onload(options.exec.element)
 
           } else if (status.clientError || status.serverError) {
