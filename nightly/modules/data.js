@@ -255,8 +255,7 @@ app.module.data = {
   _process: function (accessor, element, responseObject, options) {
     var values = element.getAttribute(accessor) || '',
       value = values.split(';')
-
-    for (var i = 0; i < values.length; i++) {
+    for (var i = 0; i < value.length; i++) {
       if (value[i]) {
         var test = value[i].split(':')
 
@@ -344,6 +343,7 @@ app.module.data = {
   _request: function (method, srcEl) {
     var attr = srcEl.attributes,
       headers = attr['data-header'],
+      beforesuccess = attr['data-onbeforesuccess'],
       success = attr['data-onsuccess'],
       error = attr['data-onerror'],
       loader = attr['data-loader'],
@@ -367,9 +367,18 @@ app.module.data = {
       error: error && error.value,
       loader: loader && loader.value,
       empty: empty && empty.value,
+      beforesuccess: beforesuccess && beforesuccess.value,
       success: success && success.value,
       headers: headers && headers.value
     })
+  },
+
+  set: function (options) {
+    if (options.exec) {
+      var responseObject = options.options.response.data,
+        element = options.exec.element
+      this._process('id:word', element, responseObject, { single: true })
+    }
   },
 
   _merge: function (response, responseJoin, merge) {
