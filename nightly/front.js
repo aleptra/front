@@ -1767,6 +1767,7 @@ var app = {
       'alt',
       'checked',
       'class',
+      'content',
       'for',
       'id',
       'name',
