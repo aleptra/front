@@ -231,7 +231,7 @@ var dom = {
       value = element.exec.value
       element = element.exec.element
     } else {
-      test = element.callAttribute
+      test = element.lastRunAttribute
     }
 
     var prefix = '',
@@ -274,7 +274,7 @@ var dom = {
    * @memberof dom
    */
   bind: function (object, value) {
-    var attr = object.callAttribute,
+    var attr = object.lastRunAttribute,
       bindings = value.split(';')
 
     for (var i = 0; i < bindings.length; i++) {
@@ -558,7 +558,7 @@ var dom = {
       char = element.exec.value || ' '
       element = element.exec.element
     } else {
-      attr = element.callAttribute
+      attr = element.lastRunAttribute
       char = value || ' '
     }
 
@@ -599,7 +599,7 @@ var dom = {
       insert = object.exec.func
       object = object.exec.element
     } else {
-      insert = object.callAttribute
+      insert = object.lastRunAttribute
     }
 
     var tag = object.localName,
@@ -653,7 +653,7 @@ var dom = {
       attr = object.exec.func
       object = object.exec.element
     } else {
-      attr = object.callAttribute
+      attr = object.lastRunAttribute
     }
 
     app.element.set(object, value, attr)
@@ -792,7 +792,7 @@ var dom = {
 
   // TODO: Finish
   if: function (object, value) {
-    var attr = object.callAttribute
+    var attr = object.lastRunAttribute
     var value = value.split(';')
     var condition1 = value[0]
     var test = value[1].split(':'),
@@ -1040,7 +1040,7 @@ var app = {
         //,
         //element = target && dom.get(target[0]) || element
 
-        /* element.callAttribute = val[0]
+        /* element.lastRunAttribute = val[0]
          element.targetAttribute = target && target[1]
          element.targetField = clicktargetfield
          element.clicked = element*/
@@ -1816,7 +1816,7 @@ var app = {
             if (exclude.indexOf(attrFullname) === -1) {
               var name = attrFullname.split('-')
 
-              element.callAttribute = attrName
+              element.lastRunAttribute = attrName
               if (!element.originalText) element.originalText = element.textContent
               if (!element.originalHtml) element.originalHtml = element.innerHTML
               if (!element.originalOuterHtml) element.originalOuterHtml = element.outerHTML
