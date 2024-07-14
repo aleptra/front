@@ -18,10 +18,13 @@ var dom = {
     'insertafterbegin': 'insert',
     'insertbeforeend': 'insert',
     'insertafterend': 'insert',
+    'setaction': 'set2',
     'settext': 'set2',
     'sethtml': 'set2',
     'sethref': 'set2',
     'setvalue': 'set2',
+    'setid': 'set2',
+    'setname': 'set2',
     'setsrc': 'set2',
     'bindvar': 'bind',
     'bindquery': 'bind',
@@ -1208,6 +1211,7 @@ var app = {
             element.value = value
             break
           default:
+            console.log(attr, value)
             element.setAttribute(attr, value)
         }
         return
