@@ -253,8 +253,9 @@ app.module.data = {
   },
 
   _process: function (accessor, element, responseObject, options) {
-    var values = element.getAttribute(accessor) || '',
+    var values = options && options.value ? options.value : element.getAttribute(accessor) || '',
       value = values.split(';')
+
     for (var i = 0; i < value.length; i++) {
       if (value[i]) {
         var test = value[i].split(':')
@@ -344,6 +345,7 @@ app.module.data = {
     var attr = srcEl.attributes,
       headers = attr['data-header'],
       beforesuccess = attr['data-onbeforesuccess'],
+      aftersuccess = attr['data-onaftersuccess'],
       success = attr['data-onsuccess'],
       error = attr['data-onerror'],
       loader = attr['data-loader'],
@@ -367,8 +369,9 @@ app.module.data = {
       error: error && error.value,
       loader: loader && loader.value,
       empty: empty && empty.value,
-      beforesuccess: beforesuccess && beforesuccess.value,
+      beforesuccess: beforesuccess,
       success: success && success.value,
+      aftersuccess: aftersuccess,
       headers: headers && headers.value
     })
   },
@@ -376,8 +379,10 @@ app.module.data = {
   set: function (options) {
     if (options.exec) {
       var responseObject = options.options.response.data,
-        element = options.exec.element
-      this._process('id:word', element, responseObject, { single: true })
+        element = options.exec.element,
+        value = options.exec.value,
+        attribute = options.options.srcAttribute
+      this._process(attribute, element, responseObject, { single: true, value: value })
     }
   },
 

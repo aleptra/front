@@ -2189,6 +2189,7 @@ var app = {
         error = options.error,
         beforesuccess = options.beforesuccess,
         success = options.success,
+        aftersuccess = options.aftersuccess,
         loader = options.loader,
         type = options.type,
         run = onload && onload.run && onload.run.func ? onload.run.func : false,
@@ -2246,8 +2247,9 @@ var app = {
             }
 
             if (beforesuccess) {
-              app.call(beforesuccess, {
+              app.call(beforesuccess.value, {
                 srcElement: srcEl,
+                srcAttribute: beforesuccess.name,
                 response: {
                   data: dom.parse.json(responseData).value,
                   error: responseError
@@ -2257,8 +2259,7 @@ var app = {
 
             if (success) {
               if (srcEl) {
-                console.warn(success, srcEl)
-                app.call(success, { srcElement: srcEl }) // Strange?
+                app.call(success, { srcElement: srcEl })
               }
 
               // Clean up error element.
@@ -2266,6 +2267,17 @@ var app = {
                 var val = error.split(':')
                 if (val[0] === 'show') dom.hide(val[1])
               }
+            }
+
+            if (aftersuccess) {
+              app.call(aftersuccess.value, {
+                srcElement: srcEl,
+                srcAttribute: aftersuccess.name,
+                response: {
+                  data: dom.parse.json(responseData).value,
+                  error: responseError
+                }
+              })
             }
 
             if (options.exec) app.element.onload(options.exec.element)
