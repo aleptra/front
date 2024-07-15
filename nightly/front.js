@@ -41,6 +41,7 @@ var dom = {
     'marginbottom': 'apply',
     'marginleft': 'apply',
     'marginright': 'apply',
+    'flexdirection': 'apply',
     'height': 'apply',
     'padding': 'apply',
     'resize': 'apply',
@@ -255,6 +256,13 @@ var dom = {
         break
       case 'resize':
         attr = 'resize'
+        break
+      case 'flex':
+        attr = 'display'
+        value = 'flex'
+        break
+      case 'flexdirection':
+        attr = 'flexDirection'
         break
       default:
         // Extract the value and unit in the default case
