@@ -133,13 +133,10 @@ app.module.globalize = {
   },
 
   set: function (value) {
-    var value = value.exec.element,
-      optionValue = value.options[value.selectedIndex].value
-
     var config = {
       store: true,
       folder: this.defaultFolder,
-      language: optionValue,
+      language: value.exec.value,
     }
 
     this.locale.update(config, this)
