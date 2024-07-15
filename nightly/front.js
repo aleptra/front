@@ -1055,8 +1055,8 @@ var app = {
          element.targetAttribute = target && target[1]
          element.targetField = clicktargetfield
          element.clicked = element*/
-        app.call(click.value, { srcElement: e.target, element: dom.get(target[0]) })
-        app.element.runevent({ exec: { func: 'click', element: e.target } })
+        app.call(click.value, { srcElement: link, element: dom.get(target[0]) })
+        app.element.runevent({ exec: { func: 'click', element: link } })
       }
     })
 
