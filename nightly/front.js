@@ -1798,7 +1798,7 @@ var app = {
      * @param {Array} [exclude] - An array of items to be excluded from processing.
      * @desc Runs Front Text Markup Language in elements matching the given selector or provided object.
      */
-    run: function (selector, exclude) {
+    run: function (selector, exclude, ignore) {
       var selector = selector || 'html *',
         node = typeof selector === 'string' ? dom.get(selector, true) : selector,
         excludes = (exclude || []).concat(this.defaultExclude)
@@ -1809,7 +1809,7 @@ var app = {
           attributes = element.attributes,
 
           run = attributes.run ? attributes.run.value : false,
-          stop = attributes.stop ? attributes.stop.value.split(';') : [],
+          stop = attributes.stop && !ignore ? attributes.stop.value.split(';') : [],
           include = attributes.include ? attributes.include.value : '',
           exclude = stop && excludes.indexOf('stop') === -1 ? excludes.concat(stop) : excludes
 

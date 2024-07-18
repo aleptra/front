@@ -2,26 +2,19 @@
 app.module.chronotize = {
   _weekday: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   format: function (element) {
-    var value = app.element.get(element)
-
-    // Check if the value is already formatted by checking if it's a valid date
-    var date = new Date(value)
-    if (isNaN(date.getTime())) {
-      console.error('Invalid date:', value)
-      return
-    }
-
-    var format = element.getAttribute('chronotize-format')
-    var dateParts = {
-      'd': ('0' + date.getDate()).slice(-2),
-      'm': ('0' + (date.getMonth() + 1)).slice(-2),
-      'y': ('' + date.getFullYear()).slice(-2),
-      'Y': date.getFullYear(),
-      'H': ('0' + date.getHours()).slice(-2),
-      'i': ('0' + date.getMinutes()).slice(-2),
-      's': ('0' + date.getSeconds()).slice(-2),
-      'W': this._weekday[date.getDay()]
-    }
+    var value = app.element.get(element),
+      date = new Date(value),
+      format = element.getAttribute('chronotize-format'),
+      dateParts = {
+        'd': ('0' + date.getDate()).slice(-2),
+        'm': ('0' + (date.getMonth() + 1)).slice(-2),
+        'y': ('' + date.getFullYear()).slice(-2),
+        'Y': date.getFullYear(),
+        'H': ('0' + date.getHours()).slice(-2),
+        'i': ('0' + date.getMinutes()).slice(-2),
+        's': ('0' + date.getSeconds()).slice(-2),
+        'W': this._weekday[date.getDay()]
+      }
 
     // Use a more straightforward regular expression
     var formatted = format.replace(/[dmyYHisW]/g, function (match) {

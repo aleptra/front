@@ -30,7 +30,9 @@ app.module.data = {
       dom.hide(element)
     }
 
-    //if (!element.getAttribute('stop')) element.setAttribute('stop', '*')
+    //dom.stop(element, '*') // Stop attributes from running when traverse so they can be run in the end.
+    
+    if (!element.getAttribute('stop')) dom.stop(element, '*')
 
     if (!self._intervalTimers[element.uniqueId]) {
       self._intervalTimers[element.uniqueId] = setTimeout(function () {
@@ -247,7 +249,7 @@ app.module.data = {
         }
       }
 
-      app.attributes.run(elements, ['data-get', 'data-set'])
+      app.attributes.run(elements, ['data-get', 'data-set'], true)
       this._finish(options)
     }
   },
