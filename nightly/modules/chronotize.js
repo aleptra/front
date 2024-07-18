@@ -1,14 +1,17 @@
 'use strict'
 app.module.chronotize = {
   _weekday: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  format: function (element) {
-    var value = app.element.get(element),
+  _month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+
+  get: function (element) {
+    var value = app.element.get(element) || new Date(),
       date = new Date(value),
-      format = element.getAttribute('chronotize-format'),
+      format = element.getAttribute('chronotize-get'),
       dateParts = {
         'd': ('0' + date.getDate()).slice(-2),
         'm': ('0' + (date.getMonth() + 1)).slice(-2),
         'y': ('' + date.getFullYear()).slice(-2),
+        'F': this._month[date.getMonth()],
         'Y': date.getFullYear(),
         'H': ('0' + date.getHours()).slice(-2),
         'i': ('0' + date.getMinutes()).slice(-2),
@@ -17,29 +20,11 @@ app.module.chronotize = {
       }
 
     // Use a more straightforward regular expression
-    var formatted = format.replace(/[dmyYHisW]/g, function (match) {
+    var formatted = format.replace(/[dmyYHisWF]/g, function (match) {
       return dateParts[match] || match
     })
 
     app.element.set(element, formatted)
-  },
-
-  get: function (element) {
-    element = element.getAttribute('chronotize-get');
-    var date = new Date(),
-      dateParts = {
-        'd': ('0' + date.getDate()).slice(-2),
-        'm': ('0' + (date.getMonth() + 1)).slice(-2),
-        'y': ('0' + date.getFullYear()).slice(-2).slice(-2), // Getting last 2 digits of the year
-        'Y': date.getFullYear(),
-        'H': ('0' + date.getHours()).slice(-2),
-        'i': ('0' + date.getMinutes()).slice(-2),
-        's': ('0' + date.getSeconds()).slice(-2)
-      }
-
-    return element.replace(/[dmyYHis]/g, function (match) {
-      return dateParts[match] || match
-    })
   },
 
   _weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
