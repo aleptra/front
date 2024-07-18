@@ -67,7 +67,7 @@ app.module.globalize = {
         options.type = 'fetch'
         options.onload.run = {
           func: 'app.attributes.run',
-          arg: 'html *:not([include]'
+          arg: 'html [globalize-get],[globalize-onset]:not([include])'
         }
       }
 
@@ -133,6 +133,7 @@ app.module.globalize = {
   },
 
   set: function (value) {
+    console.log(value)
     var config = {
       store: true,
       folder: this.defaultFolder,
