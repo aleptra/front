@@ -386,6 +386,8 @@ app.module.data = {
         attribute = options.options.srcAttribute
       this._process(attribute, element, responseObject, { single: true, value: value })
     }
+
+    //options.setAttribute('data-set', 'josef')
   },
 
   _merge: function (response, responseJoin, merge) {

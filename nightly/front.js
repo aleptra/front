@@ -848,28 +848,30 @@ var dom = {
   /**
    * @function stop
    * @memberof dom
+   * @param {HTMLElement} element - The parent element whose children will be processed.
+   * @param {string} value
+   * @param {Array<string>} exclude - An array of attribute names to exclude from the 'stop' attribute value.
    */
-  stop: function (element) {
-    var children = element.childNodes
+  stop: function (element, value) {
+    var exclude = ['stop', 'bind'],
+      children = element.childNodes
     for (var i = 0; i < children.length; i++) {
       var child = children[i]
       if (child.nodeType === 1) { // Check if it's an element node
         var existingAttributes = child.attributes,
-          stopValue = ''
+          stopValueArray = []
 
-        // Concatenate existing attribute names to the stopValue, excluding 'stop'
+        // Concatenate existing attribute names to the stopValueArray, excluding specified attributes
         for (var j = 0; j < existingAttributes.length; j++) {
           var attr = existingAttributes[j],
             name = dom._actionMap[attr.name] || attr.name
-          if (attr.name !== 'stop') {
-            if (stopValue !== '') {
-              stopValue += ';'
-            }
-            stopValue += name
+          if (exclude.indexOf(name) === -1) {
+            stopValueArray.push(name)
           }
         }
 
-        // Set the 'stop' attribute with the concatenated value
+        // Join the stopValueArray with semicolons and set the 'stop' attribute with the resulting string
+        var stopValue = stopValueArray.join(';')
         child.setAttribute('stop', stopValue)
       }
     }
@@ -1219,7 +1221,6 @@ var app = {
             element.value = value
             break
           default:
-            console.log(attr, value)
             element.setAttribute(attr, value)
         }
         return
@@ -1875,6 +1876,7 @@ var app = {
             var attr = object.attributes[i]
             // Check if the regex is matched before updating the attribute.
             if (regex.test(attr.value)) {
+              attr.originalValue = attr.value
               // Update the attribute value directly.
               attr.value = attr.value.replace(regex, replaceValue === 0 ? '0' : replaceValue || '$1' || '')
             }
