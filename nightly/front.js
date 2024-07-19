@@ -1006,9 +1006,9 @@ var app = {
       selector: selector
     }
 
+    app.config.set()
     app.assets.set(element.attributes)
     app.xhr.start()
-    app.config.set()
     app.assets.load()
 
     app.listeners.add(document, 'submit', function (e) {
@@ -1441,12 +1441,22 @@ var app = {
         debugLocalhost: false,
         varsDir: 'assets/json/vars',
         storageKey: false,
+        frontSrcLocal: '',
         //fileExtension: '.html'
       }, scriptElement || app.script.element)
 
       for (var prop in config) {
         if (config.hasOwnProperty(prop)) {
           app[prop] = config[prop]
+        }
+      }
+
+      // TODO: Experimental feature
+      if (app.isLocalNetwork) {
+        app.script = {
+          element: app.script.element,
+          path: '../../front/',
+          selector: app.script.selector
         }
       }
     }
