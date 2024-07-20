@@ -1458,6 +1458,8 @@ var app = {
           path: '../../front/',
           selector: app.script.selector
         }
+
+        app.script.element.src = '../../front/front.js'
       }
     }
   },
