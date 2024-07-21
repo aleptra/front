@@ -93,7 +93,8 @@ var dom = {
     text: function (string, exclude) {
       var el = document.createElement('spot'),
         html = string.match(/<html\s+([^>]*)>/i),
-        body = string.match(/<body\s+class="([^"]*)"/i)
+        body = string.match(/<body\s+class="([^"]*)"/i),
+        doctype = string.match(/<!doctype\s+[^>]*>/i)
 
       if (html) {
         var attributes = html[1].trim(),
@@ -122,6 +123,7 @@ var dom = {
       }
 
       el.innerHTML = string
+      el.doctype = doctype ? doctype[0] : ''
 
       return el
     },
@@ -1225,10 +1227,9 @@ var app = {
             break
           case 'html':
             if (localName === 'iframe') {
-              var iframe = element.contentDocument || element.contentWindow.document
-              iframe.open()
-              iframe.write(value)
-              iframe.close()
+              var encoded = encodeURIComponent(value),
+                data = 'data:text/html;charset=utf-8,' + encoded
+              element.src = data
             } else {
               element.innerHTML = value
             }
