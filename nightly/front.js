@@ -992,15 +992,20 @@ var app = {
       // TODO: Experimental feature
       if (app.isLocalNetwork) {
         var selector = 'script[src*=front]',
-          element = dom.get(selector)
-        element.remove()
-        var script = document.createElement('script'),
-          attributes = element.attributes
-        for (var i = 0; i < attributes.length; i++) {
-          script.setAttribute(attributes[i].name, attributes[i].value)
+          element = dom.get(selector),
+          config = app.config.get(false, { frontSrcLocal: '' }, element)
+        if (config.frontSrcLocal.length > 0) {
+          element.remove()
+
+          var script = document.createElement('script'),
+            attributes = element.attributes
+          for (var i = 0; i < attributes.length; i++) {
+            script.setAttribute(attributes[i].name, attributes[i].value)
+          }
+
+          script.src = config.frontSrcLocal // Override front.js.
+          document.head.appendChild(script)
         }
-        script.src = '../../front/front.js' // Override front path with config.
-        document.head.appendChild(script)
       }
 
       window.addEventListener('load', app.start)
