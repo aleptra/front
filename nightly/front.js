@@ -982,7 +982,24 @@ var app = {
    */
   load: function () {
     this.disable(true)
-    window.addEventListener('load', app.start)
+    if (!window.frontLoaded) {
+      // TODO: Experimental feature
+      if (app.isLocalNetwork) {
+        var selector = 'script[src*=front]',
+          element = dom.get(selector)
+        element.remove()
+        var script = document.createElement('script'),
+          attributes = element.attributes
+        for (var i = 0; i < attributes.length; i++) {
+          script.setAttribute(attributes[i].name, attributes[i].value)
+        }
+        script.src = '../../front/front.js' // Override front path with config.
+        document.head.appendChild(script)
+      }
+
+      window.addEventListener('load', app.start)
+      window.frontLoaded = true
+    }
   },
 
   disable: function (bool) {
@@ -1449,17 +1466,6 @@ var app = {
         if (config.hasOwnProperty(prop)) {
           app[prop] = config[prop]
         }
-      }
-
-      // TODO: Experimental feature
-      if (app.isLocalNetwork) {
-        app.script = {
-          element: app.script.element,
-          path: '../../front/',
-          selector: app.script.selector
-        }
-
-        app.script.element.src = '../../front/front.js'
       }
     }
   },
