@@ -45,6 +45,10 @@ app.module.globalize = {
     }
   },
 
+  _run: function () {
+    app.attributes.run('html [globalize-get]:not([include])')
+  },
+
   locale: {
     load: function (config, _this, run) {
       var options = {
@@ -66,7 +70,7 @@ app.module.globalize = {
       if (run) {
         options.type = 'fetch'
         options.onload.run = {
-          func: 'app.module.' + _this.module + '.run',
+          func: 'app.module.' + _this.module + '._run',
           arg: {}
         }
       }
@@ -133,7 +137,6 @@ app.module.globalize = {
   },
 
   set: function (value) {
-    console.log(value)
     var config = {
       store: true,
       folder: this.defaultFolder,
@@ -143,9 +146,6 @@ app.module.globalize = {
     this.locale.update(config, this)
     this.locale.set(config, this)
     this.locale.load(config, this, true)
-  },
-
-  run: function () {
-    app.attributes.run('html [globalize-onset],[globalize-get]:not([include])')
+    app.element.onload(dom.get('[globalize-onsetload]'), 'globalize-set')
   }
 }

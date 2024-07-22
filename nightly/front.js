@@ -956,8 +956,9 @@ var dom = {
   }*/
 
   rerun: function (object) {
-    var el = object.exec ? object.exec.element : object
-    app.attributes.run('#' + el.id)
+    var el = object.exec ? object.exec.element : object,
+      target = el.id ? '#' + el.id : [el]
+    app.attributes.run(target)
   },
 
   reload: function (object, value) {
@@ -1829,7 +1830,7 @@ var app = {
      */
     run: function (selector, exclude, ignore) {
       var selector = selector || 'html *',
-        node = typeof selector === 'string' ? dom.get(selector, true) : selector,
+        node = typeof selector === 'object' ? selector : dom.get(selector, true),
         excludes = (exclude || []).concat(this.defaultExclude)
 
       app.log.info()('Running attributes (' + selector + ') ...')
