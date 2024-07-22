@@ -23,12 +23,12 @@ app.module.globalize = {
       {
         store: true,
         folder: this.defaultFolder + this.module,
-        language: this.locale.get(query, this),
+        language: this._locale.get(query, this),
       },
       options.element
     )
 
-    this.locale.update(config, this)
+    this._locale.update(config, this)
 
     var cache = app.caches.get(
       this.storageMechanism,
@@ -41,15 +41,15 @@ app.module.globalize = {
       this.cachedData = cache
     } else {
       app.vars.totalStore++
-      this.locale.load(config, this)
+      this._locale.load(config, this)
     }
   },
 
   _run: function () {
-    app.attributes.run('html [globalize-get]:not([include])')
+    app.attributes.run('html [globalize-get]:not([include])', false, true)
   },
 
-  locale: {
+  _locale: {
     load: function (config, _this, run) {
       var options = {
         url: config.folder + '/' + config.language + '.json',
@@ -143,9 +143,9 @@ app.module.globalize = {
       language: value.exec.value,
     }
 
-    this.locale.update(config, this)
-    this.locale.set(config, this)
-    this.locale.load(config, this, true)
+    this._locale.update(config, this)
+    this._locale.set(config, this)
+    this._locale.load(config, this, true)
     app.element.onload(dom.get('[globalize-onsetload]'), 'globalize-set')
   }
 }
