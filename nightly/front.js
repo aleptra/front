@@ -471,6 +471,21 @@ var dom = {
     if (target) target.blur()
   },
 
+  //Todo: Experimental
+  scroll: function (element, value) {
+    if (element.exec) element = element.exec.element
+    var target = value ? dom.get(value) : element
+
+    var target = dom.get('main'),
+      targetHeight = target.scrollHeight
+
+    if (target.scrollTo) {
+      target.scrollTo(0, targetHeight)
+    } else {
+      target.scrollTop = targetHeight
+    }
+  },
+
   /**
    * @function metadata
    * @memberof dom
@@ -2220,6 +2235,7 @@ var app = {
      * @desc Creates XHR requests and updates the DOM based on the response.
      */
     request: function (options) {
+      //console.warn(options)
       var method = options.method ? options.method.toUpperCase() : 'GET',
         url = options.url instanceof Array ? options.url : [options.url],
         target = options.target ? dom.get(options.target) : options.element,
@@ -2313,6 +2329,7 @@ var app = {
             }
 
             if (aftersuccess) {
+              console.warn(aftersuccess)
               app.call(aftersuccess.value, {
                 srcElement: srcEl,
                 srcAttribute: aftersuccess.name,

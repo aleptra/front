@@ -71,10 +71,13 @@ app.module.data = {
       empty = attr['data-onempty'],
       header = attr['data-header'],
       loader = attr['data-loader'],
+      beforesuccess = attr['data-onbeforesuccess'],
       success = attr['data-onsuccess'],
+      aftersuccess = attr['data-onaftersuccess'],
       timeout = attr.timeout,
       target = attr.target,
-      progresscontent = attr.progresscontent
+      progresscontent = attr.progresscontent,
+      srcEl = options.element
 
     app.xhr.request({
       url: attr[options.attribute].value,
@@ -103,7 +106,10 @@ app.module.data = {
       loader: loader && loader.value,
       error: error && error.value,
       empty: empty && empty.value,
-      success: success && success.value
+      beforesuccess: beforesuccess,
+      success: success && success.value,
+      aftersuccess: aftersuccess,
+      srcEl: srcEl
     })
   },
 
