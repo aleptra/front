@@ -66,8 +66,8 @@ app.module.globalize = {
       if (run) {
         options.type = 'fetch'
         options.onload.run = {
-          func: 'app.attributes.run',
-          arg: 'html [globalize-get],[globalize-onset]:not([include])'
+          func: 'app.module.' + _this.module + '.run',
+          arg: {}
         }
       }
 
@@ -143,5 +143,9 @@ app.module.globalize = {
     this.locale.update(config, this)
     this.locale.set(config, this)
     this.locale.load(config, this, true)
+  },
+
+  run: function () {
+    app.attributes.run('html [globalize-onset],[globalize-get]:not([include])')
   }
 }
