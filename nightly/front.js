@@ -475,8 +475,6 @@ var dom = {
   scroll: function (element, value) {
     if (element.exec) element = element.exec.element
     var target = value ? dom.get(value) : element
-
-    var target = dom.get('main'),
       targetHeight = target.scrollHeight
 
     if (target.scrollTo) {
@@ -1125,13 +1123,13 @@ var app = {
       var string = runArray[i],
         parts = string.split(":"),
         func = parts[0],
-        element1 = parts[1] && parts[1][0] === "#" && (parts[1].split('.') || [])[0],
-        element2 = parts[2] && parts[2][0] === "#" && (parts[2].split('.') || [])[0],
+        element1 = parts[1] && (parts[1][0] === "#" || parts[1][0] === "*") && (parts[1].split('.') || [])[0],
+        element2 = parts[2] && (parts[2][0] === "#" || parts[2][0] === "*") && (parts[2].split('.') || [])[0],
         attribute1 = element1 && (parts[1].split('.') || [])[1],
         attribute2 = element2 && (parts[2].split('.') || [])[1],
         value = string.substring(string.indexOf('[') + 1, string.lastIndexOf(']'))
 
-      var objElement1 = options && options.element ? options.element : element1 === '#' || !element1 ? options && options.srcElement : dom.get(element1),
+      var objElement1 = options && options.element ? options.element : element1 === '#' || !element1 ? options && options.srcElement : dom.get(element1.replace('*', '')),
         objElement2 = element2 === '#' ? options && options.srcElement : dom.get(element2),
         attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true),
         attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),
