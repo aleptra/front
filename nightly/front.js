@@ -475,7 +475,7 @@ var dom = {
   scroll: function (element, value) {
     if (element.exec) element = element.exec.element
     var target = value ? dom.get(value) : element
-      targetHeight = target.scrollHeight
+    targetHeight = target.scrollHeight
 
     if (target.scrollTo) {
       target.scrollTo(0, targetHeight)
@@ -969,9 +969,12 @@ var dom = {
   }*/
 
   rerun: function (object) {
-    var el = object.exec ? object.exec.element : object,
-      target = el.id ? '#' + el.id : [el]
-    app.attributes.run(target)
+    var el = object.exec ? object.exec.element : object
+    el.innerHTML = el.originalHtml
+    var target = el.id ? '#' + el.id : [el]
+    if (target) {
+      app.attributes.run(target, false, true)
+    }
   },
 
   reload: function (object, value) {

@@ -31,7 +31,7 @@ app.module.data = {
     }
 
     //dom.stop(element, '*') // Stop attributes from running when traverse so they can be run in the end.
-    
+
     if (!element.getAttribute('stop')) dom.stop(element, '*')
 
     if (!self._intervalTimers[element.uniqueId]) {
@@ -218,24 +218,7 @@ app.module.data = {
         for (var i = 0, j = -1; i < elements.length; i++) {
           if (i % originalNodeCountAll === 0) j++
 
-          // Support bind.
-          var attributes = elements[i].attributes
-          for (var k = 0; k < attributes.length; k++) {
-            var attr = attributes[k]
-            if (attr.name.indexOf('bind') === 0) {
-              var value = attr.value,
-                bindings = value ? value.split(';') : []
-
-              for (var l = 0; l < bindings.length; l++) {
-                var bindingParts = bindings[l].split(':') || [],
-                  replaceVariable = bindingParts[0].trim(),
-                  replaceValue = bindingParts[1].trim(),
-                  newReplaceValue = app.element.getPropertyByPath(app.globals, replaceValue)
-
-                app.variables.update.attributes(elements[i], replaceVariable, newReplaceValue, false)
-              }
-            }
-          }
+          this._runBefore('bind', elements[i])
 
           this._process('data-set', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, index: j })
           this._process('data-get', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, index: j })
@@ -250,13 +233,37 @@ app.module.data = {
         arrayFromNodeList.push(element) // Support data-get on parent.
 
         for (var i = 0; i < arrayFromNodeList.length; i++) {
-          this._process('data-set', arrayFromNodeList[i], responseObject, { single: true })
-          this._process('data-get', arrayFromNodeList[i], responseObject, { single: true })
+          var singleElement = arrayFromNodeList[i]
+
+          this._runBefore('bind', singleElement)
+
+          this._process('data-set', singleElement, responseObject, { single: true })
+          this._process('data-get', singleElement, responseObject, { single: true })
         }
       }
 
       app.attributes.run(elements, ['data-get', 'data-set'], true)
       this._finish(options)
+    }
+  },
+
+  _runBefore: function (run, el) {
+    var attributes = el.attributes
+    for (var k = 0; k < attributes.length; k++) {
+      var attr = attributes[k]
+      if (attr.name.indexOf(run) === 0) {
+        var value = attr.value,
+          bindings = value ? value.split(';') : []
+
+        for (var l = 0; l < bindings.length; l++) {
+          var bindingParts = bindings[l].split(':'),
+            replaceVariable = bindingParts[0].trim(),
+            replaceValue = bindingParts[1].trim(),
+            newReplaceValue = app.element.getPropertyByPath(app.globals, replaceValue)
+
+          app.variables.update.attributes(el, replaceVariable, newReplaceValue, false)
+        }
+      }
     }
   },
 
