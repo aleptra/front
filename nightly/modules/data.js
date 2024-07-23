@@ -218,8 +218,6 @@ app.module.data = {
         for (var i = 0, j = -1; i < elements.length; i++) {
           if (i % originalNodeCountAll === 0) j++
 
-          this._runBefore('bind', elements[i])
-
           this._process('data-set', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, index: j })
           this._process('data-get', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, index: j })
         }
@@ -234,15 +232,12 @@ app.module.data = {
 
         for (var i = 0; i < arrayFromNodeList.length; i++) {
           var singleElement = arrayFromNodeList[i]
-
-          this._runBefore('bind', singleElement)
-
           this._process('data-set', singleElement, responseObject, { single: true })
           this._process('data-get', singleElement, responseObject, { single: true })
         }
       }
 
-      app.attributes.run(elements, ['data-get', 'data-set'], true)
+      app.attributes.run(elements, false, true)
       this._finish(options)
     }
   },
@@ -268,6 +263,7 @@ app.module.data = {
   },
 
   _process: function (accessor, element, responseObject, options) {
+    this._runBefore('bind', element) // Call _runBefore.
     var values = options && options.value ? options.value : element.getAttribute(accessor) || '',
       value = values.split(';')
 
