@@ -1375,22 +1375,40 @@ var app = {
     /**
      * @function onload
      * @memberof app
+     * @desc Handles onload attributes for single elements or a NodeList.
+     * @param {HTMLElement | NodeList} object - The element or NodeList to process.
+     * @param {string} value - The attribute value to parse.
      */
     onload: function (object, value) {
+      var elements = []
+
+      if (object && object.nodeType) {
+        elements.push(object)
+      } else if (object.length !== undefined) {
+        for (var i = 0; i < object.length; i++) {
+          elements.push(object[i])
+        }
+      }
+
       var part1 = '', part2 = value
 
       if (value.indexOf('--') !== -1) {
-        var plugin = value.split('--')
-        part1 = plugin[0] + '--'
-        part2 = plugin[1]
+        var plugin = value.split('--'),
+          part1 = plugin[0] + '--',
+          part2 = plugin[1]
       } else if (value.indexOf('-') !== -1) {
-        var module = value.split('-')
-        part1 = module[0] + '-'
-        part2 = module[1]
+        var module = value.split('-'),
+          part1 = module[0] + '-',
+          part2 = module[1]
       }
 
-      var onload = object.getAttribute(part1 + 'on' + part2 + 'load')
-      if (onload) app.call(onload, { srcElement: object })
+      for (var j = 0; j < elements.length; j++) {
+        var element = elements[j],
+          onload = element.getAttribute(part1 + 'on' + part2 + 'load')
+        if (onload) {
+          app.call(onload, { srcElement: element })
+        }
+      }
     },
 
     /**
