@@ -488,7 +488,7 @@ app.module.data = {
       method = srcEl.getAttribute('method'),
       target = srcEl.getAttribute('target')
 
-    if (!allowedTargets.includes(target)) {
+    if (allowedTargets.indexOf(target) === -1) {
       this._request(method, srcEl)
       e.preventDefault()
     }
