@@ -37,12 +37,14 @@ var dom = {
     'togglevalue': 'toggle',
     'mapclass': 'map',
     'bold': 'apply',
+    'cursor': 'apply',
     'margintop': 'apply',
     'marginbottom': 'apply',
     'marginleft': 'apply',
     'marginright': 'apply',
     'flexdirection': 'apply',
     'height': 'apply',
+    'lineheight': 'apply',
     'padding': 'apply',
     'paddingtop': 'apply',
     'paddingbottom': 'apply',
@@ -269,6 +271,9 @@ var dom = {
         break
       case 'flexdirection':
         attr = 'flexDirection'
+        break
+      case 'lineheight':
+        attr = 'lineHeight'
         break
       default:
         // Extract the value and unit in the default case
