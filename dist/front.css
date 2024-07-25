@@ -1957,7 +1957,7 @@ button[disabled=disabled], button:disabled,
 .sidebar a,
 .sidebar summary *,
 .sidebar details details summary {
-  padding: .5rem 1rem .5rem 2.2rem;
+  padding: .5rem 1rem .5rem 2rem;
   font-size: 92%;
 }
 
@@ -1966,7 +1966,7 @@ button[disabled=disabled], button:disabled,
 }
 
 .sidebar details * summary {
-  padding-left: 2.2rem;
+  padding-left: 2rem;
 }
 
 .sidebar details details * summary,
