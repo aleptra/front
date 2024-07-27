@@ -1882,13 +1882,13 @@ var app = {
           include = attributes.include ? attributes.include.value : '',
           exclude = stop && excludes.indexOf('stop') === -1 ? excludes.concat(stop) : excludes
 
-        if (include) dom.setUniqueId(element)
-          
         // Fix IE attribute bug.
         if (app.docMode > 0 && app.docMode <= 11) {
           var array = Array.prototype.slice.call(attributes)
           attributes = array.reverse()
         }
+
+        if (include) dom.setUniqueId(element)
 
         if (run !== 'false') {
           for (var j = 0; j < attributes.length; j++) {
