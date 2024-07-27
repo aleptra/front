@@ -98,9 +98,9 @@ var dom = {
     */
     text: function (string, exclude) {
       var el = document.createElement('spot'),
-        html = string.match(/<html\s+([^>]*)>/i),
-        body = string.match(/<body\s+class="([^"]*)"/i),
-        doctype = string.match(/<!doctype\s+[^>]*>/i)
+        html = string && string.match(/<html\s+([^>]*)>/i) || '',
+        body = string && string.match(/<body\s+class="([^"]*)"/i) || '',
+        doctype = string && string.match(/<!doctype\s+[^>]*>/i) || ''
 
       if (html) {
         var attributes = html[1].trim(),
