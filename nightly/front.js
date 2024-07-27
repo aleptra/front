@@ -1486,8 +1486,8 @@ var app = {
      * @desc Gets the configuration from the DOM element and overrides the standard configuration.
      */
     get: function (module, standard, element) {
-      var value = module ? element.getAttribute(module + '-conf') : element && element.getAttribute('conf') || '',
-        override = value ? dom.parse.attribute(value) : {},
+      var value = module ? element && element.getAttribute(module + '-conf') : element && element.getAttribute('conf') || '',
+        override = value ? value && dom.parse.attribute(value) : {},
         final = {}
       for (var prop in standard) {
         final[prop] = override.hasOwnProperty(prop) ? override[prop] : standard[prop]
