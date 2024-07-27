@@ -1952,7 +1952,7 @@ var app = {
 
           if (reset) {
             var exclude = ['stop'].concat(runExclude || [])
-            app.attributes.run([object], exclude)
+            app.attributes.run([object], exclude, true)
           }
         }
       },

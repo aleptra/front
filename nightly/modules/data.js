@@ -242,46 +242,67 @@ app.module.data = {
     }
   },
 
-  _runBefore: function (run, el) {
+  _runBefore: function (run, el, callback) {
     var attributes = el.attributes
     for (var k = 0; k < attributes.length; k++) {
       var attr = attributes[k]
       if (attr.name.indexOf(run) === 0) {
         var value = attr.value,
-          bindings = value ? value.split(';') : []
-
+          bindings = value ? value.split(';') : [],
+          newReplaceValue
         for (var l = 0; l < bindings.length; l++) {
           var bindingParts = bindings[l].split(':'),
             replaceVariable = bindingParts[0].trim(),
-            replaceValue = bindingParts[1].trim(),
-            newReplaceValue = app.element.getPropertyByPath(app.globals, replaceValue)
+            replaceValue = bindingParts[1].trim()
+
+          switch (attr.name) {
+            case 'bindglobal':
+              newReplaceValue = app.element.getPropertyByPath(app.globals, replaceValue)
+              break
+            case 'bindquery':
+              newReplaceValue = app.querystrings.get(false, replaceValue)
+              break
+            default:
+              newReplaceValue = replaceValue
+              break
+          }
 
           app.variables.update.attributes(el, replaceVariable, newReplaceValue, false)
         }
       }
     }
+
+    // Ensure callback is executed after processing
+    if (typeof callback === 'function') {
+      callback()
+    }
   },
 
   _process: function (accessor, element, responseObject, options) {
-    this._runBefore('bind', element) // Call _runBefore.
-    var values = options && options.value ? options.value : element.getAttribute(accessor) || '',
-      value = values.split(';')
+    var self = this // Preserve reference to current context
 
-    for (var i = 0; i < value.length; i++) {
-      if (value[i]) {
-        var test = value[i].split(':')
+    this._runBefore('bind', element, function () {
+      var values = options && options.value ? options.value : element.getAttribute(accessor) || '',
+        value = values.split(';')
 
-        if (test[1] && test[1][0] === '#') {
-          app.element.set(dom.get(test[1]), this._resolve(responseObject, test[0], options), false)
-        } else if (test[1]) {
-          app.variables.update.attributes(element, test[0], this._resolve(responseObject, test[1], options), false)
-        } else {
-          app.element.set(element, this._resolve(responseObject, test[0], options), false)
+      for (var i = 0; i < value.length; i++) {
+        if (value[i]) {
+          var test = value[i].split(':')
+
+          if (test[1] && test[1][0] === '#') {
+            app.element.set(dom.get(test[1]), self._resolve(responseObject, test[0], options), false)
+          } else if (test[1]) {
+            app.variables.update.attributes(element, test[0], self._resolve(responseObject, test[1], options), false)
+          } else {
+            app.element.set(element, self._resolve(responseObject, test[0], options), false)
+          }
         }
       }
-    }
 
-    if (options && options.single) app.element.onload(element, accessor)
+      if (options && options.single) {
+        app.element.onload(element, accessor)
+      }
+    })
   },
 
   _resolve: function (obj, value, options) {
