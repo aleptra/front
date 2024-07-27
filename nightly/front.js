@@ -1873,38 +1873,32 @@ var app = {
         excludes = (exclude || []).concat(this.defaultExclude)
 
       app.log.info()('Running attributes (' + selector + ') ...')
+      for (var i = 0; i < node.length; i++) {
+        var element = node[i],
+          attributes = element.attributes,
 
-      function processAttributes(element) {
-        // Convert attributes to array and preserve their original order
-        var attributesArray = Array.prototype.slice.call(element.attributes)
-
-        // Function to get attribute value by name
-        function getAttributeValue(attrName) {
-          for (var i = 0; i < attributesArray.length; i++) {
-            if (attributesArray[i].name === attrName) {
-              return attributesArray[i].value
-            }
-          }
-          return ''
-        }
-
-        var run = getAttributeValue('run'),
-          stop = getAttributeValue('stop') && !ignore ? getAttributeValue('stop').split(';') : [],
-          include = getAttributeValue('include'),
+          run = attributes.run ? attributes.run.value : false,
+          stop = attributes.stop && !ignore ? attributes.stop.value.split(';') : [],
+          include = attributes.include ? attributes.include.value : '',
           exclude = stop && excludes.indexOf('stop') === -1 ? excludes.concat(stop) : excludes
 
         if (include) dom.setUniqueId(element)
+          
+        // Fix IE attribute bug.
+        if (app.docMode > 0 && app.docMode <= 11) {
+          var array = Array.prototype.slice.call(attributes)
+          attributes = array.reverse()
+        }
 
         if (run !== 'false') {
-          for (var j = 0; j < attributesArray.length; j++) {
-            var attrName = attributesArray[j].name,
-              attrValue = attributesArray[j].value,
+          for (var j = 0; j < attributes.length; j++) {
+            var attrName = attributes[j].name,
+              attrValue = attributes[j].value,
               attrFullname = dom._actionMap[attrName] || attrName
-
             if (exclude.indexOf(attrFullname) === -1) {
               var name = attrFullname.split('-')
 
-              element.lastRunAttribute = attrName;
+              element.lastRunAttribute = attrName
               if (!element.originalText) element.originalText = element.textContent
               if (!element.originalHtml) element.originalHtml = element.innerHTML
               if (!element.originalOuterHtml) element.originalOuterHtml = element.outerHTML
@@ -1926,497 +1920,493 @@ var app = {
           }
         }
       }
+    }
+  },
 
-      for (var i = 0; i < node.length; i++) {
-        processAttributes(node[i])
+  /**
+   * @namespace variables
+   * @memberof app
+   * @desc
+   */
+  variables: {
+    update: {
+      attributes: function (object, replaceVariable, replaceValue, reset, runExclude) {
+        if (replaceVariable) {
+          if (reset) {
+            var originalAttributes = dom.parse.text(object.originalOuterHtml).children[0].attributes,
+              originalHtml = object.originalHtml
+            app.variables.reset.attributes(object, originalAttributes)
+            app.variables.reset.content(object, originalHtml)
+          }
+
+          var regex = new RegExp('\\{\\s*' + replaceVariable + '\\s*(?::((?:{[^{}]*}|[^}])+))?\\}', 'g')
+          for (var i = 0; i < object.attributes.length; i++) {
+            var attr = object.attributes[i]
+            // Check if the regex is matched before updating the attribute.
+            if (regex.test(attr.value)) {
+              attr.originalValue = attr.value
+              // Update the attribute value directly.
+              attr.value = attr.value.replace(regex, replaceValue === 0 ? '0' : replaceValue || '$1' || '')
+            }
+          }
+
+          if (reset) {
+            var exclude = ['stop'].concat(runExclude || [])
+            app.attributes.run([object], exclude, true)
+          }
+        }
+      },
+
+      content: function (object, replaceVariable, replaceValue) {
+        // Escape special characters in the variable pattern to create a valid regular expression.
+        var escapedVariable = replaceVariable.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+
+        // Create a regular expression using the escaped variable pattern.
+        var variableRegex = new RegExp('{' + escapedVariable + '(?::([^}]+))?}', 'g')
+
+        // Create a stack for elements to process
+        var elementsToProcess = [object]
+
+        // Process elements in the stack
+        while (elementsToProcess.length > 0) {
+          var element = elementsToProcess.pop()
+
+          // If the element is an Element node, add its children to the stack
+          if (element.nodeType === 1) {
+            var childNodes = element.childNodes;
+            for (var i = childNodes.length - 1; i >= 0; i--) {
+              elementsToProcess.push(childNodes[i])
+            }
+            // If the element is a Text node, replace the variable pattern
+          } else if (element.nodeType === 3) {
+            var originalContent = element.nodeValue
+            var modifiedContent = originalContent.replace(variableRegex, replaceValue === 0 ? '0' : replaceValue || '$1' || '')
+
+            if (originalContent !== modifiedContent) {
+              element.nodeValue = modifiedContent
+            }
+          }
+        }
+      }
+    },
+
+    reset: {
+      attributes: function (object, original) {
+        for (var i = 0; i < original.length; i++) {
+          var attr = original[i]
+          object.setAttribute(attr.name, attr.value)
+        }
+      },
+
+      content: function (object, original) {
+        object.innerHTML = original
       }
     }
-    },
+  },
 
-    /**
-     * @namespace variables
-     * @memberof app
-     * @desc
-     */
-    variables: {
-      update: {
-        attributes: function (object, replaceVariable, replaceValue, reset, runExclude) {
-          if (replaceVariable) {
-            if (reset) {
-              var originalAttributes = dom.parse.text(object.originalOuterHtml).children[0].attributes,
-                originalHtml = object.originalHtml
-              app.variables.reset.attributes(object, originalAttributes)
-              app.variables.reset.content(object, originalHtml)
-            }
+  /**
+   * @namespace querystrings
+   * @memberof app
+   * @desc
+   */
+  querystrings: {
+    get: function (url, param) {
+      var parser = document.createElement('a')
+      parser.href = url || window.location.href
+      var query = parser.search.substring(1),
+        vars = query.split('&')
 
-            var regex = new RegExp('\\{\\s*' + replaceVariable + '\\s*(?::((?:{[^{}]*}|[^}])+))?\\}', 'g')
-            for (var i = 0; i < object.attributes.length; i++) {
-              var attr = object.attributes[i]
-              // Check if the regex is matched before updating the attribute.
-              if (regex.test(attr.value)) {
-                attr.originalValue = attr.value
-                // Update the attribute value directly.
-                attr.value = attr.value.replace(regex, replaceValue === 0 ? '0' : replaceValue || '$1' || '')
-              }
-            }
+      for (var i = 0, len = vars.length; i < len; i++) {
+        var pair = vars[i].split('='),
+          key = decodeURIComponent(pair[0]),
+          value = decodeURIComponent(pair[1] || '')
+        if (key === param) return value
+      }
 
-            if (reset) {
-              var exclude = ['stop'].concat(runExclude || [])
-              app.attributes.run([object], exclude, true)
-            }
-          }
-        },
+      return ''
+    }
+  },
 
-        content: function (object, replaceVariable, replaceValue) {
-          // Escape special characters in the variable pattern to create a valid regular expression.
-          var escapedVariable = replaceVariable.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+  /**
+   * @namespace templates
+   * @memberof app
+   * @desc
+   */
+  templates: {
+    loaded: 0,
+    total: 0,
+    elementSelectors: [
+      { name: 'header', class: '', content: '' },
+      { name: 'aside:nth-of-type(1)', class: '', content: '' },
+      { name: 'main', class: '', content: '' },
+      { name: 'aside:nth-of-type(2)', class: '', content: '' },
+      { name: 'footer', class: '', content: '' }
+    ],
+    originalClassList: [],
 
-          // Create a regular expression using the escaped variable pattern.
-          var variableRegex = new RegExp('{' + escapedVariable + '(?::([^}]+))?}', 'g')
+    render: function () {
+      app.log.info()('Rendering templates...')
+      var currentPageTitle = document.title,
+        currentPageBodyContent = document.body.innerHTML,
+        isReload = app.srcTemplate.page,
+        srcDoc = app.srcTemplate.url.srcDoc,
+        src = app.srcTemplate.url.src
 
-          // Create a stack for elements to process
-          var elementsToProcess = [object]
+      if (!app.srcDocTemplate) app.srcDocTemplate = app.caches.get('window', 'template', srcDoc).data
 
-          // Process elements in the stack
-          while (elementsToProcess.length > 0) {
-            var element = elementsToProcess.pop()
+      if (srcDoc) {
+        var cache = app.caches.get('window', 'template', srcDoc),
+          responsePage = dom.parse.text(cache.data, ['title']),
+          responsePageScript = app.element.find(responsePage, app.script.selector),
+          responsePageContent = responsePage.innerHTML,
+          responsePageContentClass = responsePage.className
 
-            // If the element is an Element node, add its children to the stack
-            if (element.nodeType === 1) {
-              var childNodes = element.childNodes;
-              for (var i = childNodes.length - 1; i >= 0; i--) {
-                elementsToProcess.push(childNodes[i])
-              }
-              // If the element is a Text node, replace the variable pattern
-            } else if (element.nodeType === 3) {
-              var originalContent = element.nodeValue
-              var modifiedContent = originalContent.replace(variableRegex, replaceValue === 0 ? '0' : replaceValue || '$1' || '')
+        for (var i = 0; i < this.elementSelectors.length; i++) {
+          var elSelector = this.elementSelectors[i],
+            parsedEl = app.element.find(responsePage, elSelector.name),
+            content = parsedEl.innerHTML
 
-              if (originalContent !== modifiedContent) {
-                element.nodeValue = modifiedContent
-              }
-            }
+          if (elSelector.name !== 'main') {
+            elSelector.content = content
+            dom.set(elSelector.name, content ? content : '')
+            app.attributes.run(elSelector.name + ' *')
           }
         }
-      },
 
-      reset: {
-        attributes: function (object, original) {
-          for (var i = 0; i < original.length; i++) {
-            var attr = original[i]
-            object.setAttribute(attr.name, attr.value)
+        if (!isReload) {
+          app.assets.set(responsePageScript.attributes)
+          app.language = responsePage.attributes.lang ? responsePage.attributes.lang.value : app.language
+          app.script.element = responsePageScript
+
+          if (app.docMode > 0 && app.docMode < 10) {
+            document.open()
+            document.write(responsePageContent)
+            document.close()
+          } else {
+            dom.set('html', responsePageContent)
           }
-        },
 
-        content: function (object, original) {
-          object.innerHTML = original
+          dom.set('main', currentPageBodyContent)
         }
       }
-    },
 
-    /**
-     * @namespace querystrings
-     * @memberof app
-     * @desc
-     */
-    querystrings: {
-      get: function (url, param) {
-        var parser = document.createElement('a')
-        parser.href = url || window.location.href
-        var query = parser.search.substring(1),
-          vars = query.split('&')
+      if (src) {
+        for (var i = 0; i < src.length; i++) {
+          var cache = app.caches.get('window', 'template', src[i]),
+            html = dom.parse.text(cache.data),
+            template = dom.parse.text(app.element.find(html, 'template').innerHTML),
+            srcDoc = dom.parse.text(app.srcDocTemplate)
 
-        for (var i = 0, len = vars.length; i < len; i++) {
-          var pair = vars[i].split('='),
-            key = decodeURIComponent(pair[0]),
-            value = decodeURIComponent(pair[1] || '')
-          if (key === param) return value
-        }
-
-        return ''
-      }
-    },
-
-    /**
-     * @namespace templates
-     * @memberof app
-     * @desc
-     */
-    templates: {
-      loaded: 0,
-      total: 0,
-      elementSelectors: [
-        { name: 'header', class: '', content: '' },
-        { name: 'aside:nth-of-type(1)', class: '', content: '' },
-        { name: 'main', class: '', content: '' },
-        { name: 'aside:nth-of-type(2)', class: '', content: '' },
-        { name: 'footer', class: '', content: '' }
-      ],
-      originalClassList: [],
-
-      render: function () {
-        app.log.info()('Rendering templates...')
-        var currentPageTitle = document.title,
-          currentPageBodyContent = document.body.innerHTML,
-          isReload = app.srcTemplate.page,
-          srcDoc = app.srcTemplate.url.srcDoc,
-          src = app.srcTemplate.url.src
-
-        if (!app.srcDocTemplate) app.srcDocTemplate = app.caches.get('window', 'template', srcDoc).data
-
-        if (srcDoc) {
-          var cache = app.caches.get('window', 'template', srcDoc),
-            responsePage = dom.parse.text(cache.data, ['title']),
-            responsePageScript = app.element.find(responsePage, app.script.selector),
-            responsePageContent = responsePage.innerHTML,
-            responsePageContentClass = responsePage.className
-
-          for (var i = 0; i < this.elementSelectors.length; i++) {
-            var elSelector = this.elementSelectors[i],
-              parsedEl = app.element.find(responsePage, elSelector.name),
-              content = parsedEl.innerHTML
+          for (var j = 0; j < this.elementSelectors.length; j++) {
+            var elSelector = this.elementSelectors[j],
+              parsedEl = app.element.find(template, elSelector.name),
+              content = parsedEl.innerHTML,
+              classAttr = parsedEl.attributes && parsedEl.attributes.class ? true : false,
+              className = parsedEl.className,
+              templateEl = dom.get(elSelector.name),
+              srcDocEl = app.element.find(srcDoc, elSelector.name)
 
             if (elSelector.name !== 'main') {
-              elSelector.content = content
-              dom.set(elSelector.name, content ? content : '')
-              app.attributes.run(elSelector.name + ' *')
-            }
-          }
-
-          if (!isReload) {
-            app.assets.set(responsePageScript.attributes)
-            app.language = responsePage.attributes.lang ? responsePage.attributes.lang.value : app.language
-            app.script.element = responsePageScript
-
-            if (app.docMode > 0 && app.docMode < 10) {
-              document.open()
-              document.write(responsePageContent)
-              document.close()
-            } else {
-              dom.set('html', responsePageContent)
+              dom.set(elSelector.name, parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML)
+              if (dom.get('template')) app.attributes.run(elSelector.name + ' *')
             }
 
-            dom.set('main', currentPageBodyContent)
+            templateEl.className = classAttr ? className : srcDocEl.className
           }
         }
+      }
 
-        if (src) {
-          for (var i = 0; i < src.length; i++) {
-            var cache = app.caches.get('window', 'template', src[i]),
-              html = dom.parse.text(cache.data),
-              template = dom.parse.text(app.element.find(html, 'template').innerHTML),
-              srcDoc = dom.parse.text(app.srcDocTemplate)
+      if (responsePageContentClass) document.body.className = responsePageContentClass
+      dom.doctitle(false, currentPageTitle)
+    }
+  },
 
-            for (var j = 0; j < this.elementSelectors.length; j++) {
-              var elSelector = this.elementSelectors[j],
-                parsedEl = app.element.find(template, elSelector.name),
-                content = parsedEl.innerHTML,
-                classAttr = parsedEl.attributes && parsedEl.attributes.class ? true : false,
-                className = parsedEl.className,
-                templateEl = dom.get(elSelector.name),
-                srcDocEl = app.element.find(srcDoc, elSelector.name)
+  /**
+   * @namespace xhr
+   * @memberof app
+   * @desc
+   */
+  xhr: {
+    currentRequest: null,
+    currentAsset: { loaded: 0, total: 1 },
 
-              if (elSelector.name !== 'main') {
-                dom.set(elSelector.name, parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML)
-                if (dom.get('template')) app.attributes.run(elSelector.name + ' *')
+    start: function () {
+      var self = this,
+        open = XMLHttpRequest.prototype.open,
+        send = XMLHttpRequest.prototype.send
+      XMLHttpRequest.prototype.open = function () {
+        this.onreadystatechange = function () {
+          if (this.readyState === 4) {
+            var statusType = {
+              informational: this.status >= 100 && this.status <= 199,
+              success: this.status >= 200 && this.status <= 299,
+              redirect: this.status >= 300 && this.status <= 399,
+              clientError: this.status >= 400 && this.status <= 499,
+              serverError: this.status >= 500 && this.status <= 599
+            }
+
+            this.statusType = statusType
+
+            var options = this.options,
+              type = options.type,
+              global = options.global,
+              cache = options.cache,
+              target = options.target,
+              module = options.module,
+              format = options.format
+
+            if (global) {
+              // Create an object to store all globals
+              var obj = {}
+              // Loop through the global array
+              for (var i = 0; i < global.length; i++) {
+                var globalName = global[i]
+                obj[globalName] = dom.parse.json(this.responseText).value[globalName]
+                app.globals.set(module, obj)
+              }
+            }
+
+            if (cache) {
+              //if (cache && (statusType.success || statusType.redirect)) {
+              app.caches.set(cache.type, cache.keyType, cache.key, this.responseText, this.status, cache.format)
+            }
+
+            if (type) {
+              switch (type) {
+                case 'page':
+                  var responsePage = dom.parse.text(this.responseText),
+                    responsePageTitle = app.element.find(responsePage, 'title').textContent,
+                    templateElement = app.element.find(responsePage, 'template'),
+                    templateAttr = templateElement && templateElement.attributes,
+                    elementSrcDoc = templateAttr && templateAttr.srcdoc && templateAttr.srcdoc.value,
+                    elementSrc = templateAttr && templateAttr.src && templateAttr.src.value,
+                    templateSrcDoc = target !== 'main' ? elementSrcDoc || false : false,
+                    templateSrc = elementSrc && elementSrc.split(';') || []
+
+                  self.currentAsset.loaded = 0
+                  app.vars.total = 0
+                  app.extensions.total = 0 // Without this. it creates duplicate xhr requests.
+                  app.templates.total = 0
+                  app.templates.loaded = 0
+
+                  app.srcTemplate = {
+                    url: {
+                      srcDoc: templateSrcDoc,
+                      src: templateSrc
+                    },
+                    page: true,
+                    total: templateSrc.length + (templateSrcDoc ? 1 : 0)
+                  }
+                  dom.doctitle(false, responsePageTitle)
+                  dom.bind.include = ''
+                  app.assets.get.templates()
+                  break
+                case 'var':
+                  app.vars.loaded++
+                  break
+                case 'template':
+                  app.templates.loaded++
+                  if (app.templates.loaded === app.srcTemplate.total) {
+                    app.isFrontpage = false
+                    app.templates.render()
+                    app.config.set()
+                    app.assets.get.extensions()
+                  }
+                  break
+                case 'data':
+                  if (self.currentAsset.total === 1) {
+                    self.currentAsset.loaded = 0
+                  }
+                  self.currentAsset.loaded++
+                  if (self.currentAsset.loaded === self.currentAsset.total) {
+                    var run = this.options.onload2.run
+                    app.exec(run.func, run.arg)
+                  }
+                  break
+                case 'fetch':
+                  // TODO: Make a function of format
+                  app.module[module].fetchedData = format === 'json' ? dom.parse.json(this.responseText).value : this.responseText
+                default:
+                  return
               }
 
-              templateEl.className = classAttr ? className : srcDocEl.className
+              if (app.extensions.loaded === app.extensions.total
+                && app.vars.loaded === (app.vars.total + app.vars.totalStore)
+                && type !== 'template' && type !== 'data') {
+
+                /*console.log('Extensions loaded:', app.extensions.loaded + '/' + app.extensions.total)
+                console.log('Vars loaded:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))*/
+
+                app.disable(false)
+                app.attributes.run()
+              }
             }
           }
         }
 
-        if (responsePageContentClass) document.body.className = responsePageContentClass
-        dom.doctitle(false, currentPageTitle)
+        open.apply(this, arguments)
+      }
+
+      XMLHttpRequest.prototype.send = function (data) {
+        if (data) app.log.info()('Data: ' + data)
+        send.apply(this, arguments)
       }
     },
 
     /**
-     * @namespace xhr
-     * @memberof app
-     * @desc
+     * @function request
+     * @memberof app.xhr
+     * @desc Creates XHR requests and updates the DOM based on the response.
      */
-    xhr: {
-      currentRequest: null,
-      currentAsset: { loaded: 0, total: 1 },
+    request: function (options) {
+      //console.warn(options)
+      var method = options.method ? options.method.toUpperCase() : 'GET',
+        url = options.url instanceof Array ? options.url : [options.url],
+        target = options.target ? dom.get(options.target) : options.element,
+        single = options.single,
+        cache = options.cache || false,
+        headers = options.headers ? dom.parse.attribute(options.headers) : {},
+        srcEl = options.srcEl || false,
+        enctype = options.enctype ? options.enctype : 'application/json',
+        onload = options.onload,
+        error = options.error,
+        beforesuccess = options.beforesuccess,
+        success = options.success,
+        aftersuccess = options.aftersuccess,
+        loader = options.loader,
+        type = options.type,
+        run = onload && onload.run && onload.run.func ? onload.run.func : false,
+        runarg = onload && onload.run && onload.run.arg
 
-      start: function () {
-        var self = this,
-          open = XMLHttpRequest.prototype.open,
-          send = XMLHttpRequest.prototype.send
-        XMLHttpRequest.prototype.open = function () {
-          this.onreadystatechange = function () {
-            if (this.readyState === 4) {
-              var statusType = {
-                informational: this.status >= 100 && this.status <= 199,
-                success: this.status >= 200 && this.status <= 299,
-                redirect: this.status >= 300 && this.status <= 399,
-                clientError: this.status >= 400 && this.status <= 499,
-                serverError: this.status >= 500 && this.status <= 599
-              }
+      if (false) {
+        console.dir('cache: ' + cache)
+      } else {
 
-              this.statusType = statusType
+        var xhr = new XMLHttpRequest(),
+          urlExtension = url.indexOf('.') !== -1 || url == '/' || options.urlExtension === false ? '' : app.fileExtension || ''
 
-              var options = this.options,
-                type = options.type,
-                global = options.global,
-                cache = options.cache,
-                target = options.target,
-                module = options.module,
-                format = options.format
+        xhr.options = options
 
-              if (global) {
-                // Create an object to store all globals
-                var obj = {}
-                // Loop through the global array
-                for (var i = 0; i < global.length; i++) {
-                  var globalName = global[i]
-                  obj[globalName] = dom.parse.json(this.responseText).value[globalName]
-                  app.globals.set(module, obj)
-                }
-              }
-
-              if (cache) {
-                //if (cache && (statusType.success || statusType.redirect)) {
-                app.caches.set(cache.type, cache.keyType, cache.key, this.responseText, this.status, cache.format)
-              }
-
-              if (type) {
-                switch (type) {
-                  case 'page':
-                    var responsePage = dom.parse.text(this.responseText),
-                      responsePageTitle = app.element.find(responsePage, 'title').textContent,
-                      templateElement = app.element.find(responsePage, 'template'),
-                      templateAttr = templateElement && templateElement.attributes,
-                      elementSrcDoc = templateAttr && templateAttr.srcdoc && templateAttr.srcdoc.value,
-                      elementSrc = templateAttr && templateAttr.src && templateAttr.src.value,
-                      templateSrcDoc = target !== 'main' ? elementSrcDoc || false : false,
-                      templateSrc = elementSrc && elementSrc.split(';') || []
-
-                    self.currentAsset.loaded = 0
-                    app.vars.total = 0
-                    app.extensions.total = 0 // Without this. it creates duplicate xhr requests.
-                    app.templates.total = 0
-                    app.templates.loaded = 0
-
-                    app.srcTemplate = {
-                      url: {
-                        srcDoc: templateSrcDoc,
-                        src: templateSrc
-                      },
-                      page: true,
-                      total: templateSrc.length + (templateSrcDoc ? 1 : 0)
-                    }
-                    dom.doctitle(false, responsePageTitle)
-                    dom.bind.include = ''
-                    app.assets.get.templates()
-                    break
-                  case 'var':
-                    app.vars.loaded++
-                    break
-                  case 'template':
-                    app.templates.loaded++
-                    if (app.templates.loaded === app.srcTemplate.total) {
-                      app.isFrontpage = false
-                      app.templates.render()
-                      app.config.set()
-                      app.assets.get.extensions()
-                    }
-                    break
-                  case 'data':
-                    if (self.currentAsset.total === 1) {
-                      self.currentAsset.loaded = 0
-                    }
-                    self.currentAsset.loaded++
-                    if (self.currentAsset.loaded === self.currentAsset.total) {
-                      var run = this.options.onload2.run
-                      app.exec(run.func, run.arg)
-                    }
-                    break
-                  case 'fetch':
-                    // TODO: Make a function of format
-                    app.module[module].fetchedData = format === 'json' ? dom.parse.json(this.responseText).value : this.responseText
-                  default:
-                    return
-                }
-
-                if (app.extensions.loaded === app.extensions.total
-                  && app.vars.loaded === (app.vars.total + app.vars.totalStore)
-                  && type !== 'template' && type !== 'data') {
-
-                  /*console.log('Extensions loaded:', app.extensions.loaded + '/' + app.extensions.total)
-                  console.log('Vars loaded:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))*/
-
-                  app.disable(false)
-                  app.attributes.run()
-                }
-              }
-            }
-          }
-
-          open.apply(this, arguments)
+        if (single) {
+          if (this.currentRequest) this.currentRequest.abort()
+          this.currentRequest = xhr
         }
 
-        XMLHttpRequest.prototype.send = function (data) {
-          if (data) app.log.info()('Data: ' + data)
-          send.apply(this, arguments)
+        xhr.onabort = function () {
+          if (app.spa && loader) app.spa._preloader.reset()
         }
-      },
 
-      /**
-       * @function request
-       * @memberof app.xhr
-       * @desc Creates XHR requests and updates the DOM based on the response.
-       */
-      request: function (options) {
-        //console.warn(options)
-        var method = options.method ? options.method.toUpperCase() : 'GET',
-          url = options.url instanceof Array ? options.url : [options.url],
-          target = options.target ? dom.get(options.target) : options.element,
-          single = options.single,
-          cache = options.cache || false,
-          headers = options.headers ? dom.parse.attribute(options.headers) : {},
-          srcEl = options.srcEl || false,
-          enctype = options.enctype ? options.enctype : 'application/json',
-          onload = options.onload,
-          error = options.error,
-          beforesuccess = options.beforesuccess,
-          success = options.success,
-          aftersuccess = options.aftersuccess,
-          loader = options.loader,
-          type = options.type,
-          run = onload && onload.run && onload.run.func ? onload.run.func : false,
-          runarg = onload && onload.run && onload.run.arg
+        xhr.onprogress = function (e) {
+          if (app.spa && type === 'page') app.spa._preloader.load(e, true)
+        }
 
-        if (false) {
-          console.dir('cache: ' + cache)
-        } else {
+        xhr.onload = function () {
+          var status = this.statusType
+          if (status.informational || status.success || status.redirect) {
 
-          var xhr = new XMLHttpRequest(),
-            urlExtension = url.indexOf('.') !== -1 || url == '/' || options.urlExtension === false ? '' : app.fileExtension || ''
+            /*var headers = xhr.getAllResponseHeaders().trim().split(/[\r\n]+/)
+            var headerMap = {}
+            for (var i = 0; i < headers.length; i++) {
+              var parts = headers[i].split(": ")
+              var header = parts[0]
+              var value = parts.slice(1).join(": ")
+              headerMap[header] = value
+            }*/
 
-          xhr.options = options
+            var responseData = this.responseText,
+              responseError = this.responseError // Get the parsing error message.
 
-          if (single) {
-            if (this.currentRequest) this.currentRequest.abort()
-            this.currentRequest = xhr
-          }
-
-          xhr.onabort = function () {
-            if (app.spa && loader) app.spa._preloader.reset()
-          }
-
-          xhr.onprogress = function (e) {
-            if (app.spa && type === 'page') app.spa._preloader.load(e, true)
-          }
-
-          xhr.onload = function () {
-            var status = this.statusType
-            if (status.informational || status.success || status.redirect) {
-
-              /*var headers = xhr.getAllResponseHeaders().trim().split(/[\r\n]+/)
-              var headerMap = {}
-              for (var i = 0; i < headers.length; i++) {
-                var parts = headers[i].split(": ")
-                var header = parts[0]
-                var value = parts.slice(1).join(": ")
-                headerMap[header] = value
-              }*/
-
-              var responseData = this.responseText,
-                responseError = this.responseError // Get the parsing error message.
-
-              if (target) {
-                dom.set(target, responseData)
-              }
-
-              //Todo: Fix so parsing problem shows. 
-              if (responseError) {
-                //dom.show(error)
-              }
-
-              if (onload) {
-                if (run) app.exec(run, runarg)
-              }
-
-              if (beforesuccess) {
-                app.call(beforesuccess.value, {
-                  srcElement: srcEl,
-                  srcAttribute: beforesuccess.name,
-                  response: {
-                    data: dom.parse.json(responseData).value,
-                    error: responseError
-                  }
-                })
-              }
-
-              if (success) {
-                if (srcEl) {
-                  app.call(success, { srcElement: srcEl })
-                }
-
-                // Clean up error element.
-                if (error) {
-                  var val = error.split(':')
-                  if (val[0] === 'show') dom.hide(val[1])
-                }
-              }
-
-              if (aftersuccess) {
-                console.warn(aftersuccess)
-                app.call(aftersuccess.value, {
-                  srcElement: srcEl,
-                  srcAttribute: aftersuccess.name,
-                  response: {
-                    data: dom.parse.json(responseData).value,
-                    error: responseError
-                  }
-                })
-              }
-
-              if (options.exec) app.element.onload(options.exec.element)
-
-            } else if (status.clientError || status.serverError) {
-              dom.hide(loader)
-              if (error) app.call(error, { element: options.element })
+            if (target) {
+              dom.set(target, responseData)
             }
-          }
 
-          xhr.onerror = function () {
+            //Todo: Fix so parsing problem shows. 
+            if (responseError) {
+              //dom.show(error)
+            }
+
+            if (onload) {
+              if (run) app.exec(run, runarg)
+            }
+
+            if (beforesuccess) {
+              app.call(beforesuccess.value, {
+                srcElement: srcEl,
+                srcAttribute: beforesuccess.name,
+                response: {
+                  data: dom.parse.json(responseData).value,
+                  error: responseError
+                }
+              })
+            }
+
+            if (success) {
+              if (srcEl) {
+                app.call(success, { srcElement: srcEl })
+              }
+
+              // Clean up error element.
+              if (error) {
+                var val = error.split(':')
+                if (val[0] === 'show') dom.hide(val[1])
+              }
+            }
+
+            if (aftersuccess) {
+              console.warn(aftersuccess)
+              app.call(aftersuccess.value, {
+                srcElement: srcEl,
+                srcAttribute: aftersuccess.name,
+                response: {
+                  data: dom.parse.json(responseData).value,
+                  error: responseError
+                }
+              })
+            }
+
+            if (options.exec) app.element.onload(options.exec.element)
+
+          } else if (status.clientError || status.serverError) {
+            dom.hide(loader)
             if (error) app.call(error, { element: options.element })
           }
-
-          xhr.open(method, url + urlExtension, true)
-
-          var payload
-          if (['POST', 'PUT', 'PATCH'].indexOf(method) !== -1) {
-            var json = {}
-            if (srcEl.elements) { // Iterate in form elements.
-              for (var i = 0; i < srcEl.elements.length; i++) {
-                var el = srcEl.elements[i]
-                json[el.name] = el.value
-              }
-            } else { // Single select form elements.
-              var name = srcEl.name ? srcEl.name : srcEl.attributes.name.value
-              json[name] = srcEl.name ? srcEl.value : srcEl.outerText
-            }
-
-            payload = JSON.stringify(json)
-          } else {
-            payload = null
-            enctype = 'application/x-www-form-urlencoded'
-          }
-
-          // Set headers
-          headers['Content-type'] = enctype
-          for (var header in headers) {
-            if (headers.hasOwnProperty(header)) xhr.setRequestHeader(header, headers[header])
-          }
-
-          xhr.send(payload)
         }
+
+        xhr.onerror = function () {
+          if (error) app.call(error, { element: options.element })
+        }
+
+        xhr.open(method, url + urlExtension, true)
+
+        var payload
+        if (['POST', 'PUT', 'PATCH'].indexOf(method) !== -1) {
+          var json = {}
+          if (srcEl.elements) { // Iterate in form elements.
+            for (var i = 0; i < srcEl.elements.length; i++) {
+              var el = srcEl.elements[i]
+              json[el.name] = el.value
+            }
+          } else { // Single select form elements.
+            var name = srcEl.name ? srcEl.name : srcEl.attributes.name.value
+            json[name] = srcEl.name ? srcEl.value : srcEl.outerText
+          }
+
+          payload = JSON.stringify(json)
+        } else {
+          payload = null
+          enctype = 'application/x-www-form-urlencoded'
+        }
+
+        // Set headers
+        headers['Content-type'] = enctype
+        for (var header in headers) {
+          if (headers.hasOwnProperty(header)) xhr.setRequestHeader(header, headers[header])
+        }
+
+        xhr.send(payload)
       }
-    },
-  }
+    }
+  },
+}
 
 app.load()
