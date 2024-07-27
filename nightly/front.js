@@ -427,6 +427,16 @@ var dom = {
     if (value) dom.show(value)
   },
 
+  // Experimental
+  dialog: function (object, value) {
+    var dialog = document.getElementById("favDialog")  
+    if (dialog.open) {
+      dialog.close()
+    } else {
+      dialog.showModal()
+    }
+  },
+
   /**
    * Displays a message in a dialog box.
    * @function alert
@@ -1882,7 +1892,7 @@ var app = {
           include = attributes.include ? attributes.include.value : '',
           exclude = stop && excludes.indexOf('stop') === -1 ? excludes.concat(stop) : excludes
 
-        // Fix IE attribute bug.
+        // Fix IE attribute bug. Not working on IE11
         if (app.docMode > 0 && app.docMode <= 11) {
           var array = Array.prototype.slice.call(attributes)
           attributes = array.reverse()
