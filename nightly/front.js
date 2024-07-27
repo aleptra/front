@@ -1722,9 +1722,9 @@ var app = {
     },
 
     set: function (scriptAttr) {
-      var modules = scriptAttr.module && scriptAttr.module.value.split(';') || [],
-        plugins = scriptAttr.plugin && scriptAttr.plugin.value.split(';') || [],
-        vars = scriptAttr.var && scriptAttr.var.value.split(';') || []
+      var modules = scriptAttr && scriptAttr.module && scriptAttr.module.value.split(';') || [],
+        plugins = scriptAttr && scriptAttr.plugin && scriptAttr.plugin.value.split(';') || [],
+        vars = scriptAttr && scriptAttr.var && scriptAttr.var.value.split(';') || []
 
       app.extensions = {
         module: modules,
