@@ -429,7 +429,7 @@ var dom = {
 
   // Experimental
   dialog: function (object, value) {
-    var dialog = document.getElementById("favDialog")  
+    var dialog = document.getElementById("favDialog")
     if (dialog.open) {
       dialog.close()
     } else {
@@ -1021,25 +1021,6 @@ var app = {
   load: function () {
     this.disable(true)
     if (!window.frontLoaded) {
-      // TODO: Experimental feature
-      if (app.isLocalNetwork) {
-        var selector = 'script[src*=front]',
-          element = dom.get(selector),
-          config = app.config.get(false, { frontSrcLocal: '' }, element)
-        if (config.frontSrcLocal.length > 0) {
-          element.remove()
-
-          var script = document.createElement('script'),
-            attributes = element.attributes
-          for (var i = 0; i < attributes.length; i++) {
-            script.setAttribute(attributes[i].name, attributes[i].value)
-          }
-
-          script.src = config.frontSrcLocal // Override front.js.
-          document.head.appendChild(script)
-        }
-      }
-
       window.addEventListener('load', app.start)
       window.frontLoaded = true
     }
@@ -1056,10 +1037,14 @@ var app = {
    * @desc
    */
   start: function () {
+    app.xhr.start()
+    app.assets.load()
+
     var selector = 'script[src*=front]',
       element = dom.get(selector),
       value = element.attributes.src.value
 
+      
     app.script = {
       element: element,
       path: (value.match(/^(.*\/)[^/]+$/) || ['', ''])[1],
@@ -1067,9 +1052,26 @@ var app = {
     }
 
     app.config.set()
+
+    // TODO: Experimental feature
+    if (app.isLocalNetwork) {
+      var config = app.config.get(false, { frontSrcLocal: '' }, element)
+      console.dir(app.script)
+      if (config.frontSrcLocal.length > 0) {
+        element.remove()
+
+        var script = document.createElement('script'),
+          attributes = element.attributes
+        for (var i = 0; i < attributes.length; i++) {
+          script.setAttribute(attributes[i].name, attributes[i].value)
+        }
+
+        script.src = config.frontSrcLocal // Override front.js.
+        document.head.appendChild(script)
+      }
+    }
+
     app.assets.set(element.attributes)
-    app.xhr.start()
-    app.assets.load()
 
     app.listeners.add(document, 'submit', function (e) {
       app.element.onsubmit(e)
@@ -1887,9 +1889,11 @@ var app = {
         var element = node[i],
           attributes = element.attributes,
 
+          runOrder = attributes.runorder ? attributes.runOrder.value.split(';') : false,
           run = attributes.run ? attributes.run.value : false,
           stop = attributes.stop && !ignore ? attributes.stop.value.split(';') : [],
           exclude = stop && excludes.indexOf('stop') === -1 ? excludes.concat(stop) : excludes
+        if (attributes.include) dom.setUniqueId(element) // Add ID to all includes.
 
         // Fix IE attribute bug. Not working on IE11
         if (app.docMode > 0 && app.docMode <= 11) {
@@ -1906,7 +1910,6 @@ var app = {
               var name = attrFullname.split('-')
 
               element.lastRunAttribute = attrName
-              if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
               if (!element.originalText) element.originalText = element.textContent
               if (!element.originalHtml) element.originalHtml = element.innerHTML
               if (!element.originalOuterHtml) element.originalOuterHtml = element.outerHTML
