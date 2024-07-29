@@ -1884,11 +1884,11 @@ var app = {
       for (var i = 0; i < node.length; i++) {
         var element = node[i],
           attributes = element.attributes,
-
           run = attributes.run ? attributes.run.value : false,
           stop = attributes.stop && !ignore ? attributes.stop.value.split(';') : [],
           exclude = stop && excludes.indexOf('stop') === -1 ? excludes.concat(stop) : excludes
 
+        if (attributes.include) dom.setUniqueId(element) // Add ID to all includes.
         // Fix IE attribute bug. Not working on IE11
         if (app.docMode > 0 && app.docMode <= 11) {
           var array = Array.prototype.slice.call(attributes)
@@ -1904,7 +1904,6 @@ var app = {
               var name = attrFullname.split('-')
 
               element.lastRunAttribute = attrName
-              if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
               if (!element.originalText) element.originalText = element.textContent
               if (!element.originalHtml) element.originalHtml = element.innerHTML
               if (!element.originalOuterHtml) element.originalOuterHtml = element.outerHTML
