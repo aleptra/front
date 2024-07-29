@@ -429,7 +429,7 @@ var dom = {
 
   // Experimental
   dialog: function (object, value) {
-    var dialog = document.getElementById("favDialog")  
+    var dialog = document.getElementById("favDialog")
     if (dialog.open) {
       dialog.close()
     } else {
@@ -1021,25 +1021,6 @@ var app = {
   load: function () {
     this.disable(true)
     if (!window.frontLoaded) {
-      // TODO: Experimental feature
-      if (app.isLocalNetwork) {
-        var selector = 'script[src*=front]',
-          element = dom.get(selector),
-          config = app.config.get(false, { frontSrcLocal: '' }, element)
-        if (config.frontSrcLocal.length > 0) {
-          element.remove()
-
-          var script = document.createElement('script'),
-            attributes = element.attributes
-          for (var i = 0; i < attributes.length; i++) {
-            script.setAttribute(attributes[i].name, attributes[i].value)
-          }
-
-          script.src = config.frontSrcLocal // Override front.js.
-          document.head.appendChild(script)
-        }
-      }
-
       window.addEventListener('load', app.start)
       window.frontLoaded = true
     }
@@ -1059,6 +1040,23 @@ var app = {
     var selector = 'script[src*=front]',
       element = dom.get(selector),
       value = element.attributes.src.value
+
+    // TODO: Experimental feature
+    if (app.isLocalNetwork) {
+      var config = app.config.get(false, { frontSrcLocal: '' }, element)
+      if (config.frontSrcLocal.length > 0) {
+        element.remove()
+
+        var script = document.createElement('script'),
+          attributes = element.attributes
+        for (var i = 0; i < attributes.length; i++) {
+          script.setAttribute(attributes[i].name, attributes[i].value)
+        }
+
+        script.src = config.frontSrcLocal // Override front.js.
+        document.head.appendChild(script)
+      }
+    }
 
     app.script = {
       element: element,
