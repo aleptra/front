@@ -47,6 +47,7 @@ app.module.globalize = {
 
   _run: function () {
     app.attributes.run('html [globalize-get]:not([include])', false, true)
+    app.element.onload(dom.get('[globalize-onsetload]'), 'globalize-set')
   },
 
   _locale: {
@@ -146,6 +147,5 @@ app.module.globalize = {
     this._locale.update(config, this)
     this._locale.set(config, this)
     this._locale.load(config, this, true)
-    app.element.onload(dom.get('[globalize-onsetload]'), 'globalize-set')
   }
 }
