@@ -429,7 +429,7 @@ var dom = {
 
   // Experimental
   dialog: function (object, value) {
-    var dialog = document.getElementById("favDialog")  
+    var dialog = document.getElementById("favDialog")
     if (dialog.open) {
       dialog.close()
     } else {
@@ -1880,21 +1880,36 @@ var app = {
     run: function (selector, exclude, ignore) {
       var selector = selector || 'html *',
         node = typeof selector === 'object' ? selector : dom.get(selector, true),
-        excludes = (exclude || []).concat(this.defaultExclude)
+        excludes = (exclude || []).concat(this.defaultExclude),
+        orderMap = {}
 
       app.log.info()('Running attributes (' + selector + ') ...')
       for (var i = 0; i < node.length; i++) {
         var element = node[i],
           attributes = element.attributes,
-
+          runorder = attributes.runorder ? attributes.runorder.value.split(';') : [],
           run = attributes.run ? attributes.run.value : false,
           stop = attributes.stop && !ignore ? attributes.stop.value.split(';') : [],
           exclude = stop && excludes.indexOf('stop') === -1 ? excludes.concat(stop) : excludes
 
-        // Fix IE attribute bug. Not working on IE11
+        attributes = [].slice.call(attributes)
+
+        // Normalize attributes for IE.
         if (app.docMode > 0 && app.docMode <= 11) {
-          var array = Array.prototype.slice.call(attributes)
           attributes = array.reverse()
+        }
+
+        if (runorder) {
+          for (var j = 0; j < runorder.length; j++) {
+            orderMap[runorder[j]] = j
+          }
+
+          // Sort attributes based on runorder.
+          attributes.sort(function (a, b) {
+            var indexA = orderMap[a.name] !== undefined ? orderMap[a.name] : Number.MAX_VALUE,
+              indexB = orderMap[b.name] !== undefined ? orderMap[b.name] : Number.MAX_VALUE
+            return indexA - indexB
+          })
         }
 
         if (run !== 'false') {
