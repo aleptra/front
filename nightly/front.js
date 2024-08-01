@@ -1019,8 +1019,8 @@ var app = {
    * @desc
    */
   load: function () {
-    this.disable(true)
     if (!window.frontLoaded) {
+      app.disable(true)
       // TODO: Experimental feature
       if (app.isLocalNetwork) {
         var selector = 'script[src*=front]',
@@ -1705,7 +1705,6 @@ var app = {
         app.srcDocTemplate = document.body.innerHTML
         dom.doctitle(false, document.title)
         this.get.extensions()
-        app.disable(false)
 
         // Continue running application.
         if (app.extensions.total === 0) app.assets.get.vars()
@@ -1729,6 +1728,7 @@ var app = {
 
         this.get.templates()
       }
+      if (app.extensions.total === 0) app.disable(false)
     },
 
     set: function (scriptAttr) {
