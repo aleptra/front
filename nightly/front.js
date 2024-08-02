@@ -1046,8 +1046,9 @@ var app = {
   },
 
   disable: function (bool) {
-    var val = bool ? 'hidden' : 'initial'
-    document.documentElement.style.cssText = 'visibility:' + val
+    var val = bool ? 'hidden' : 'initial',
+      isURI = (document.documentURI || document.location.href).indexOf('data:') !== 0 // Stops iframes.
+    if (isURI) document.documentElement.style.cssText = 'visibility:' + val
   },
 
   /**
