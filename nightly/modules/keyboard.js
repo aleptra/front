@@ -29,17 +29,15 @@ app.module.keyboard = {
       if (e.key === value[0]) {
         e.preventDefault() // Prevent default tab behavior.
 
-        var selection = window.getSelection()
-        var range = selection.getRangeAt(0)
+        var selection = window.getSelection(),
+          range = selection.getRangeAt(0),
+          spaceNode = document.createTextNode(value[1]) // Create a text node with the value.
 
-        // Create a text node with two spaces.
-        var spaceNode = document.createTextNode(value[1])
-
-        // Insert the spaces at the current caret position.
+        // Insert the value at the current caret position.
         range.deleteContents()
         range.insertNode(spaceNode)
 
-        // Move the caret after the inserted spaces.
+        // Move the caret after the inserted value.
         range.setStartAfter(spaceNode)
         range.setEndAfter(spaceNode)
         selection.removeAllRanges()
