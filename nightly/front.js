@@ -1123,6 +1123,24 @@ var app = {
       }
     })
 
+    app.listeners.add(document, 'mouseover', function (e) {
+      var link = app.element.getTagLink(e.target) || e.target,
+        mouseover = link.attributes.mouseover,
+        onmouseoverif = link.attributes.onmouseoverif
+
+      if (onmouseoverif) {
+        var ret = app.call(onclickif.value, { element: link })[0]
+        if (!ret) return
+      }
+
+      if (mouseover) {
+       var mouseovertargetfield = link.attributes.mouseovertargetfield,
+          target = mouseovertargetfield && mouseovertargetfield.value.split(':') || ''
+        app.call(mouseover.value, { srcElement: link, element: dom.get(target[0]) })
+        //app.element.runevent({ exec: { func: 'click', element: link } })*/
+      }
+    })
+
     // Listen for all input fields.
     app.listeners.add(document, 'input', function (e) {
       app.listeners.change('input', e.target, false, e)
