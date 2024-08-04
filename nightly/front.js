@@ -42,6 +42,8 @@ var dom = {
     'marginbottom': 'apply',
     'marginleft': 'apply',
     'marginright': 'apply',
+    'minheight': 'apply',
+    'minwidth': 'apply',
     'flexdirection': 'apply',
     'height': 'apply',
     'lineheight': 'apply',
@@ -275,6 +277,9 @@ var dom = {
       case 'lineheight':
         attr = 'lineHeight'
         break
+      case 'minwidth':
+        attr = 'minWidth'
+        break
       default:
         // Extract the value and unit in the default case
         var regex = /^(\d+)([a-z%]*)$/,
@@ -288,6 +293,7 @@ var dom = {
         }
     }
 
+    console.error(attr)
     element.style[attr] = value + prefix
   },
 
