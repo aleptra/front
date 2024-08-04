@@ -16,6 +16,36 @@ app.module.keyboard = {
     app.listeners.add(document, 'keyup', function (e) {
       self._keypressed(e)
     })
+
+    app.listeners.add(document, 'keydown', function (e) {
+      self._keytranslated(e)
+    })
+  },
+
+  _keytranslated: function (e) {
+    var translate = e.target.getAttribute('keyboard-translate')
+    if (translate) {
+      var value = translate.split(':')
+      if (e.key === value[0]) {
+        e.preventDefault() // Prevent default tab behavior.
+
+        var selection = window.getSelection()
+        var range = selection.getRangeAt(0)
+
+        // Create a text node with two spaces.
+        var spaceNode = document.createTextNode(value[1])
+
+        // Insert the spaces at the current caret position.
+        range.deleteContents()
+        range.insertNode(spaceNode)
+
+        // Move the caret after the inserted spaces.
+        range.setStartAfter(spaceNode)
+        range.setEndAfter(spaceNode)
+        selection.removeAllRanges()
+        selection.addRange(range)
+      }
+    }
   },
 
   _keypressed: function (e) {
@@ -29,7 +59,7 @@ app.module.keyboard = {
           targetUid = e.target.uniqueId,
           scope = current.scope === '' ? element.uniqueId : current.scope
 
-        if (scope === isBodyScope) scope = false        
+        if (scope === isBodyScope) scope = false
         if (scope && targetUid !== scope) continue
 
         switch (action) {
