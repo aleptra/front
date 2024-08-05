@@ -19,6 +19,7 @@ app.module.keyboard = {
 
     app.listeners.add(document, 'keydown', function (e) {
       self._keytranslated(e)
+      self._keyuntranslated(e)
     })
   },
 
@@ -42,6 +43,39 @@ app.module.keyboard = {
         range.setEndAfter(spaceNode)
         selection.removeAllRanges()
         selection.addRange(range)
+      }
+    }
+  },
+
+  _keyuntranslated: function (e) {
+    var untranslate = e.target.getAttribute('keyboard-untranslate')
+    if (untranslate && e.key === untranslate.split(':')[0]) {
+
+      var value = untranslate.split(':')[1],
+        selection = window.getSelection(),
+        range = selection.getRangeAt(0),
+        startNode = range.startContainer,
+        startOffset = range.startOffset,
+        text = startNode.textContent
+
+      if (startOffset >= 2) {
+        var twoSpacesBefore = text.substring(startOffset - 2, startOffset)
+        if (twoSpacesBefore === value) {
+          // Remove the two spaces
+          var newText = text.substring(0, startOffset - 2) + text.substring(startOffset)
+          startNode.textContent = newText
+
+          // Optionally, reposition the cursor to the start of the selection
+          var newRange = document.createRange()
+          newRange.setStart(startNode, startOffset - 2)
+          newRange.collapse(true)
+          selection.removeAllRanges()
+          selection.addRange(newRange)
+
+          e.preventDefault() // Prevent default backspace behavior.
+        } else {
+          console.log('skip')
+        }
       }
     }
   },
