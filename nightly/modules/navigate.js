@@ -34,9 +34,10 @@ app.module.navigate = {
   _click: function (event) {
     var link = app.element.getTagLink(event.target)
     if (link) {
+      var href = link.attributes.href // Support href in all elements.
       if (link.hash) {
         this._hash(link)
-      } else if (link.href) {
+      } else if (link.href || href) {
         if (link.target === '_blank') {
           return
         } else {
