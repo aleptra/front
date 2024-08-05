@@ -38,6 +38,7 @@ var dom = {
     'mapclass': 'map',
     'bold': 'apply',
     'cursor': 'apply',
+    'font': 'apply',
     'margintop': 'apply',
     'marginbottom': 'apply',
     'marginleft': 'apply',
@@ -279,6 +280,9 @@ var dom = {
         break
       case 'minwidth':
         attr = 'minWidth'
+        break
+      case 'font':
+        attr = 'fontFamily'
         break
       default:
         // Extract the value and unit in the default case
