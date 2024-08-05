@@ -2,8 +2,6 @@
 
 app.module.animate = {
   start: function (element, value) {
-
-    console.dir(element)
     var element = element.exec && element.exec.element || element,
       keyframePercentages = (element.getAttribute("animate-key") || '').replace(/\s*;\s*/g, ';').split(';'),
       transforms = (element.getAttribute("animate-transform") || '').replace(/\s*;\s*/g, ';').split(';'),
@@ -15,7 +13,7 @@ app.module.animate = {
       name = 'animate-' + element.id,
       keyframesCSS = '',
       animation = name + ' ' + duration + ' ' + easing + ' ' + delay + ' ' + iteration + ' ' + direction
-console.error(name)
+
     // Generate CSS for keyframes
     for (var j = 0; j < keyframePercentages.length; j++) {
       var percentage = keyframePercentages[j] || (j * (100 / (keyframePercentages.length - 1)))
@@ -38,5 +36,19 @@ console.error(name)
     element.style.animation = 'none' // Remove existing animation
     element.offsetHeight // Trigger reflow to reset animation
     element.style.animation = animation // Reapply animation
+  },
+
+  stop: function (element) {
+    var element = element.exec && element.exec.element || element,
+      name = 'animate-' + element.id
+
+    // Remove animation style from the element
+    element.style.animation = 'none'
+
+    // Remove the associated style element
+    var styleElement = document.getElementById(name)
+    if (styleElement) {
+      document.head.removeChild(styleElement)
+    }
   }
 }

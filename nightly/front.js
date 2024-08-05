@@ -1144,10 +1144,28 @@ var app = {
       }
 
       if (mouseover) {
-       var mouseovertargetfield = link.attributes.mouseovertargetfield,
+        var mouseovertargetfield = link.attributes.mouseovertargetfield,
           target = mouseovertargetfield && mouseovertargetfield.value.split(':') || ''
         app.call(mouseover.value, { srcElement: link, element: dom.get(target[0]) })
         //app.element.runevent({ exec: { func: 'click', element: link } })*/
+      }
+    })
+
+
+    app.listeners.add(document, 'mouseout', function (e) {
+      var link = app.element.getTagLink(e.target) || e.target,
+        mouseout = link.attributes.mouseout,
+        onmouseoutif = link.attributes.onmouseoutif
+
+      if (onmouseoutif) {
+        var ret = app.call(onmouseoutif.value, { element: link })[0]
+        if (!ret) return
+      }
+
+      if (mouseout) {
+        var mouseouttargetfield = link.attributes.mouseouttargetfield,
+          target = mouseouttargetfield && mouseouttargetfield.value.split(':') || ''
+        app.call(mouseout.value, { srcElement: link, element: dom.get(target[0]) })
       }
     })
 
