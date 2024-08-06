@@ -34,10 +34,16 @@ app.module.navigate = {
   _click: function (event) {
     var link = app.element.getTagLink(event.target)
     if (link) {
-      var href = link.attributes.href // Support href in all elements.
+      // Support href in all elements.
+      var href = link.attributes.href
+      if (href && link.localName !== 'a') {
+        link.href = href.value
+        link.pathname = link.baseURI + href.value
+      }
+
       if (link.hash) {
         this._hash(link)
-      } else if (link.href || href) {
+      } else if (link.href) {
         if (link.target === '_blank') {
           return
         } else {
@@ -153,7 +159,7 @@ app.module.navigate = {
     },
 
     load: function (e, onprogress) {
-      if (!this.element) return
+      if (!this.elementChild) return
       if (onprogress) this.eventCount++
       if (this.isFastPage) this.eventCount = 0
       this.isFastPage = true
