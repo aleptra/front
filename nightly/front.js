@@ -36,6 +36,7 @@ var dom = {
     'resetvalue': 'reset',
     'togglevalue': 'toggle',
     'mapclass': 'map',
+    'mapmargin': 'map',
     'bold': 'apply',
     'cursor': 'apply',
     'font': 'apply',
@@ -697,7 +698,15 @@ var dom = {
   map: function (object, value) {
     var object = typeof object === 'string' ? dom.get(object) : object,
       cache = app.caches.get('window', 'var', 'enum')
-    object.classList = cache.data[value] || ''
+
+    switch (object.originalAttribute) {
+      case 'mapclass':
+        object.classList = cache.data[value] || ''
+        break
+      case 'mapmargin':
+        console.log('mapmargin')
+        break
+    }
   },
 
   set2: function (object, value) {
