@@ -64,6 +64,7 @@ select {
 
 input[type=radio],
 input[type=checkbox] {
+  appearance: auto;
   min-height: .8rem;
   min-width: .8rem
 }
