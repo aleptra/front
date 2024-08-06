@@ -297,7 +297,6 @@ var dom = {
         }
     }
 
-    console.error(attr)
     element.style[attr] = value + prefix
   },
 
