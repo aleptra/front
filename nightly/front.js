@@ -1974,7 +1974,7 @@ var app = {
               attrFullname = dom._actionMap[attrName] || attrName
             if (exclude.indexOf(attrFullname) === -1) {
               var name = attrFullname.split('-')
-
+              element.orginalAttribute = dom._actionMap[attrName] && attrName
               element.lastRunAttribute = attrName
               if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
               if (!element.originalText) element.originalText = element.textContent
