@@ -698,14 +698,15 @@ var dom = {
   map: function (object, value) {
     var object = typeof object === 'string' ? dom.get(object) : object,
       cache = app.caches.get('window', 'var', 'enum'),
-      func = object.originalAttribute
+      func = object.originalAttribute || '',
+      data = cache.data[func.replace('map', '')][value] || ''
 
-    switch (object.originalAttribute) {
+    switch (func) {
       case 'mapclass':
-         object.style.margin = cache.data['class'][value] || ''
+        object.classList = data
         break
       case 'mapmargin':
-         object.style.margin = cache.data['margin'][value] || ''
+        object.style.margin = data
         break
     }
   },
