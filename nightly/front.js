@@ -697,14 +697,15 @@ var dom = {
    */
   map: function (object, value) {
     var object = typeof object === 'string' ? dom.get(object) : object,
-      cache = app.caches.get('window', 'var', 'enum')
+      cache = app.caches.get('window', 'var', 'enum'),
+      func = object.originalAttribute
 
     switch (object.originalAttribute) {
       case 'mapclass':
-        object.classList = cache.data[value] || ''
+         object.style.margin = cache.data['class'][value] || ''
         break
       case 'mapmargin':
-        console.log('mapmargin')
+         object.style.margin = cache.data['margin'][value] || ''
         break
     }
   },
