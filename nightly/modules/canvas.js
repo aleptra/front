@@ -18,15 +18,28 @@ app.module.canvas = {
 
     // Apply gradient if canvas-grad is present
     if (element.hasAttribute("canvas-grad")) {
-      var orientation = element.getAttribute("canvas-grad-orientation") || "horizontal";
-      var grad;
+      var orientation = element.getAttribute("canvas-grad-orientation") || "horizontal",
+        grad
       if (orientation === "vertical") {
-        grad = ctx.createLinearGradient(0, 0, 0, c.height);
+        grad = ctx.createLinearGradient(0, 0, 0, c.height)
       } else {
-        grad = ctx.createLinearGradient(0, 0, c.width, 0);
+        grad = ctx.createLinearGradient(0, 0, c.width, 0)
       }
-      grad.addColorStop(0, "lightblue");
-      grad.addColorStop(1, "darkblue");
+
+      // Apply gradient stops from canvas-grad-stops attribute
+      var gradStops = element.getAttribute("canvas-grad-stops");
+      if (gradStops) {
+        var stops = gradStops.split(',');
+        for (var i = 0; i < stops.length; i++) {
+          var stop = stops[i].split('[');
+          if (stop.length === 2) {
+            var color = stop[0];
+            var position = stop[1].replace(']', ''); // Remove the closing bracket
+            grad.addColorStop(parseFloat(position), color);
+          }
+        }
+      }
+
       ctx.fillStyle = grad;
     }
 
