@@ -55,10 +55,12 @@ var dom = {
     'paddingbottom': 'apply',
     'paddingleft': 'apply',
     'paddingright': 'apply',
+    'radius': 'apply',
     'resize': 'apply',
     'width': 'apply',
     'wordbreak': 'apply',
-    'whitespace': 'apply'
+    'whitespace': 'apply',
+    'zindex': 'apply'
   },
   _eventMap: {
     'focus': 'focused',
@@ -267,6 +269,9 @@ var dom = {
         attr = 'fontWeight'
         value = 'bold'
         break
+      case 'radius':
+        attr = 'borderRadius'
+        break
       case 'resize':
         attr = 'resize'
         break
@@ -285,6 +290,9 @@ var dom = {
         break
       case 'font':
         attr = 'fontFamily'
+        break
+      case 'zindex':
+        attr = 'zIndex'
         break
       default:
         // Extract the value and unit in the default case
