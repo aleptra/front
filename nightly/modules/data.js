@@ -17,6 +17,11 @@ app.module.data = {
     var value = element.getAttribute('data-bind')
     dom.bind(element, value, 'data-bind')
     app.variables.update.attributes(element, 'l', 'eng', false)
+
+    var target = value.split(':')
+    if (target && target[1][0] === '#') {
+      console.log(dom.get(target[1])) // Get the element
+    }
   },
 
   src: function (element) {
@@ -121,10 +126,12 @@ app.module.data = {
       datareplace = element.getAttribute('data-replace'),
       dataiterate = element.getAttribute('data-iterate'),
       datasort = element.getAttribute('data-sort'),
+      databind = element.getAttribute('data-bind'),
       datastatus = element.getAttribute('data-status'),
       dataempty = element.getAttribute('data-onempty'),
       datasuccess = element.attributes['data-onsuccess'],
       selector = '*:not([data-iterate-skip]'
+
 
     if (responseData) {
       if (datamerge) {
@@ -148,6 +155,13 @@ app.module.data = {
 
       if (datareplace) {
         this._replace(responseData.data, datareplace)
+      }
+
+      if (databind) {
+        var test = databind.split(':'),
+          realValue = app.element.getPropertyByPath(responseData.data, test[0]),
+          target = dom.get(test[1])
+        app.element.set(target, realValue)
       }
 
       if (datasort) {
