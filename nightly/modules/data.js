@@ -162,6 +162,7 @@ app.module.data = {
           realValue = app.element.getPropertyByPath(responseData.data, test[0]),
           target = dom.get(test[1])
         app.element.set(target, realValue)
+        app.element.onchange(target, 'data-bind')
       }
 
       if (datasort) {
