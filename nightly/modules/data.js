@@ -17,11 +17,6 @@ app.module.data = {
     var value = element.getAttribute('data-bind')
     dom.bind(element, value, 'data-bind')
     app.variables.update.attributes(element, 'l', 'eng', false)
-
-    var target = value.split(':')
-    if (target && target[1][0] === '#') {
-      console.log(dom.get(target[1])) // Get the element
-    }
   },
 
   src: function (element) {

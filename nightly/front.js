@@ -318,7 +318,7 @@ var dom = {
   bind: function (object, value, target) {
     var attr = object.lastRunAttribute,
       bindings = value.split(';')
-console.log(bindings)
+
     for (var i = 0; i < bindings.length; i++) {
       var binding = bindings[i].split(':'),
         replaceVariable = binding[0],

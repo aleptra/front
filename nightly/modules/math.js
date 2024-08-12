@@ -1,6 +1,10 @@
 'use strict'
 
 app.module.math = {
+  bind: function (element, value) {
+    console.log(element, value)
+  },
+
   round: function (element, value) {
     value = app.element.get(element)
     app.element.set(element, Math.round(parseFloat(value)))
