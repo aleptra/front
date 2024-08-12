@@ -428,6 +428,7 @@ var dom = {
 
       app.variables.update.attributes(object, replaceVariable, replaceValue, false)
       app.variables.update.content(object, replaceVariable, replaceValue, false)
+      app.element.onchange(object, attr, true)
     }
   },
 
@@ -1456,7 +1457,8 @@ var app = {
      * @function onchange
      * @memberof app
      */
-    onchange: function (object, value) {
+    onchange: function (object, value, once) {
+      console.dir(object)
       if (value) {
         var onchange = object.getAttribute('on' + value.replace('set', '') + 'change')
         if (onchange) app.call(onchange, { srcElement: object })
