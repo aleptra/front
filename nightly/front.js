@@ -69,6 +69,7 @@ var dom = {
   },
   _uniqueId: 0,
   _bindfieldPos: 0,
+  _changedAttributes: {},
 
   /**
    * @namespace parse
@@ -317,7 +318,14 @@ var dom = {
    */
   bind: function (object, value, target) {
     var attr = object.lastRunAttribute,
-      bindings = value.split(';')
+      bindings = value && value.split(';') || [],
+      target = object.getAttribute(target)
+
+    if (target) {
+      var value = target.split(':')
+      replaceVariable = value[0]
+      replaceValue = value[1]
+    }
 
     for (var i = 0; i < bindings.length; i++) {
       var binding = bindings[i].split(':'),
@@ -428,6 +436,7 @@ var dom = {
 
       app.variables.update.attributes(object, replaceVariable, replaceValue, false)
       app.variables.update.content(object, replaceVariable, replaceValue, false)
+      app.element.onchange(object, attr, true)
     }
   },
 
@@ -464,7 +473,7 @@ var dom = {
    * @param {string} value - The message to display in the dialog box.
    */
   alert: function (object, value) {
-    alert(object.exec.value || value)
+    alert(object.exec ? object.exec.value : value)
   },
 
   /**
@@ -540,10 +549,10 @@ var dom = {
   setUniqueId: function (element, internal) {
     this._uniqueId++
     var id = this._uniqueId
-    if (!internal)
-      element.id = 'id' + id
-    else
+    if (internal)
       element.uniqueId = id
+    else
+      element.id = 'id' + id
   },
 
   /**
@@ -722,9 +731,9 @@ var dom = {
         var test = value.split(':')
         console.log(test[0])
         data = cache.data[func.replace('map', '')][test[1]] || '',
-        data2 = data[test[0]] || ''
+          data2 = data[test[0]] || ''
         console.log(data2)
-        dom.bind(object, test[0]+':'+data2, 'mapbindvar')
+        dom.bind(object, test[0] + ':' + data2, 'mapbindvar')
         //console.log(object, value)
         break
     }
@@ -858,7 +867,6 @@ var dom = {
    * @desc * Loads the content of an external file and insert it into the DOM.
    */
   include: function (element) {
-
     //@TODO Fix ie bug with reversed attributes.
     var bindvar = element.attributes.bindvar
     if (bindvar) dom.bind.include = bindvar.value
@@ -1456,7 +1464,13 @@ var app = {
      * @function onchange
      * @memberof app
      */
-    onchange: function (object, value) {
+    onchange: function (object, value, once) {
+      var uid = value + object.uniqueId
+      if (once && !dom._changedAttributes[uid]) {
+        dom._changedAttributes[uid] = true
+        return
+      }
+
       if (value) {
         var onchange = object.getAttribute('on' + value.replace('set', '') + 'change')
         if (onchange) app.call(onchange, { srcElement: object })
@@ -1957,7 +1971,8 @@ var app = {
       var selector = selector || 'html *',
         node = typeof selector === 'object' ? selector : dom.get(selector, true),
         excludes = (exclude || []).concat(this.defaultExclude),
-        orderMap = {}
+        orderMap = {},
+        uid = 1
 
       app.log.info()('Running attributes (' + selector + ') ...')
       for (var i = 0; i < node.length; i++) {
@@ -1993,11 +2008,13 @@ var app = {
             var attrName = attributes[j].name,
               attrValue = attributes[j].value,
               attrFullname = dom._actionMap[attrName] || attrName
+
             if (exclude.indexOf(attrFullname) === -1) {
               var name = attrFullname.split('-')
               element.originalAttribute = dom._actionMap[attrName] && attrName
               element.lastRunAttribute = attrName
-              if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
+              attrName === 'include' ? element.id = 'id' + uid : element.uniqueId = uid
+
               if (!element.originalText) element.originalText = element.textContent
               if (!element.originalHtml) element.originalHtml = element.innerHTML
               if (!element.originalOuterHtml) element.originalOuterHtml = element.outerHTML
@@ -2016,6 +2033,7 @@ var app = {
             } else {
               app.log.warn(1)(name + " [Skipping]")
             }
+            uid++
           }
         }
       }

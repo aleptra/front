@@ -114,8 +114,6 @@ app.module.keyboard = {
       action = element.getAttribute('keyboard-action'),
       scope = element.getAttribute('keyboard-scope')
 
-    dom.setUniqueId(element, true)
-
     for (var i = 0; i < key.length; i++) {
       this.keys.push({ key: key[i], action: action, scope: scope, element: element })
     }
