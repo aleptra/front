@@ -2,7 +2,7 @@
 
 app.module.math = {
   bind: function (element, value) {
-    dom.bind(element, value, 'math-bind')
+    console.log(element, value)
   },
 
   round: function (element, value) {

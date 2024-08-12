@@ -1,6 +1,8 @@
 'use strict'
 
 app.module.data = {
+
+  _intervalTimers: {},
   storageMechanism: 'window',
   storageType: 'module',
   storageKey: '',
@@ -18,8 +20,9 @@ app.module.data = {
   },
 
   src: function (element) {
-    var self = this,
-      interval = element.getAttribute('data-interval') || this.defaultInterval,
+    var self = this
+    dom.setUniqueId(element, true)
+    var interval = element.getAttribute('data-interval') || this.interval,
       loader = element.getAttribute('data-loader')
 
     if (loader) {
@@ -31,18 +34,20 @@ app.module.data = {
 
     if (!element.getAttribute('stop')) dom.stop(element, '*')
 
-    setTimeout(function () {
-      try {
-        app.xhr.currentAsset.total = 1
-        self._handle(element)
-        if (element.getAttribute('data-srcjoin')) {
-          app.xhr.currentAsset.total = 2
-          self._handle(element, true)
+    if (!self._intervalTimers[element.uniqueId]) {
+      self._intervalTimers[element.uniqueId] = setTimeout(function () {
+        try {
+          app.xhr.currentAsset.total = 1
+          self._handle(element)
+          if (element.getAttribute('data-srcjoin')) {
+            app.xhr.currentAsset.total = 2
+            self._handle(element, true)
+          }
+        } catch (error) {
+          console.error('data-interval error:', error)
         }
-      } catch (error) {
-        console.error('data-interval error:', error)
-      }
-    }, interval)
+      }, interval)
+    }
   },
 
   _handle: function (element, join) {
