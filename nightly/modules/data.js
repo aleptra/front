@@ -6,7 +6,7 @@ app.module.data = {
   storageMechanism: 'window',
   storageType: 'module',
   storageKey: '',
-  defaultInterval: 500,
+  defaultInterval: 250,
 
   __autoload: function (options) {
     app.adf = this // Enable Ajax Data Form support using this module.
@@ -22,7 +22,7 @@ app.module.data = {
   src: function (element) {
     var self = this
     dom.setUniqueId(element, true)
-    var interval = element.getAttribute('data-interval') || this.interval,
+    var interval = element.getAttribute('data-interval') || this.defaultInterval,
       loader = element.getAttribute('data-loader')
 
     if (loader) {
