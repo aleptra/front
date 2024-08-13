@@ -1140,6 +1140,7 @@ var app = {
     })
 
     app.listeners.add(document, 'click', function (e) {
+      console.log(e.target)
       var link = app.element.getTagLink(e.target) || e.target,
         click = link.attributes.click,
         onclickif = link.attributes.onclickif
@@ -1442,7 +1443,7 @@ var app = {
     getTagLink: function (element) {
       for (var current = element; current; current = current.parentNode) {
         var type = current.localName
-        if (type === 'a' || type === 'button') return current
+        if (type === 'a' || type === 'button' || type === 'label') return current
       }
       return null
     },
