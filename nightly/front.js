@@ -22,6 +22,7 @@ var dom = {
     'settext': 'set2',
     'sethtml': 'set2',
     'sethref': 'set2',
+    'setqueryhref': 'set2',
     'setvalue': 'set2',
     'setid': 'set2',
     'setname': 'set2',
@@ -723,9 +724,9 @@ var dom = {
         var test = value.split(':')
         console.log(test[0])
         data = cache.data[func.replace('map', '')][test[1]] || '',
-        data2 = data[test[0]] || ''
+          data2 = data[test[0]] || ''
         console.log(data2)
-        dom.bind(object, test[0]+':'+data2, 'mapbindvar')
+        dom.bind(object, test[0] + ':' + data2, 'mapbindvar')
         //console.log(object, value)
         break
     }
@@ -1352,6 +1353,26 @@ var app = {
               element.innerHTML = value
             }
             break
+          case 'queryhref':
+            // EXPERIMENTAL
+            var href = element.getAttribute('href'),
+              value = value.split(':'),
+              query = value[0],
+              newValue = value[1]
+
+            if (newValue === '++') {
+              var regex = new RegExp('(\\b' + query + '=)(\\d+)', 'g')
+              var updatedUrl = href.replace(regex, function (match, prefix, currentValue) {
+                var incrementedValue = parseInt(currentValue, 10) + 1
+                return prefix + incrementedValue;
+              })
+            } else {
+              var regex = new RegExp('(\\b' + query + '=)[^&]*', 'g')
+              var updatedUrl = href.replace(regex, '$1' + newValue)
+            }
+
+            element.setAttribute('href', updatedUrl)
+            break
           case 'value':
             element.setAttribute('value', value)
             element.value = value
@@ -1458,7 +1479,6 @@ var app = {
      * @memberof app
      */
     onchange: function (object, value, once) {
-      console.dir(object)
       if (value) {
         var onchange = object.getAttribute('on' + value.replace('set', '') + 'change')
         if (onchange) app.call(onchange, { srcElement: object })
