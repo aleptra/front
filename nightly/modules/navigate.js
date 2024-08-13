@@ -32,11 +32,12 @@ app.module.navigate = {
    * @private
    */
   _click: function (event) {
-    var link = app.element.getTagLink(event.target)
-    if (link) {
+    var link = app.element.getTagLink(event.target),
+      href = link && link.attributes.href
+
+    if (link && href) {
       // Support href in all elements.
-      var href = link.attributes.href
-      if (href && link.localName !== 'a') {
+      if (link.localName !== 'a') {
         link.href = href.value
         link.pathname = link.baseURI + href.value
       }
