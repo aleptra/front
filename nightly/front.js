@@ -508,6 +508,16 @@ var dom = {
     if (target) target.blur()
   },
 
+  /**
+   * @function enable
+   * @memberof dom
+   */
+  enable: function (element, value) {
+    if (element.exec) element = element.exec.element
+    var target = value ? dom.get(value) : element
+    if (target) target.disabled = false
+  },
+
   //Todo: Experimental
   scroll: function (element, value) {
     if (element.exec) element = element.exec.element
