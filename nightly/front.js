@@ -39,6 +39,8 @@ var dom = {
     'mapclass': 'map',
     'mapmargin': 'map',
     'mapbindvar': 'map',
+    'color': 'apply',
+    'bgcolor': 'apply',
     'bold': 'apply',
     'cursor': 'apply',
     'margintop': 'apply',
@@ -65,8 +67,10 @@ var dom = {
     'zindex': 'apply'
   },
   _eventMap: {
-    'focus': 'focused',
-    'click': 'clicked'
+    'click': 'clicked',
+    'enable': 'enabled',
+    'disable': 'disabled',
+    'focus': 'focused'
   },
   _uniqueId: 0,
   _bindfieldPos: 0,
@@ -266,6 +270,9 @@ var dom = {
         break
       case 'whitespace':
         attr = 'whiteSpace'
+        break
+      case 'bgcolor':
+        attr = 'backgroundColor'
         break
       case 'bold':
         attr = 'fontWeight'
