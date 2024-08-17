@@ -15,6 +15,7 @@ app.plugin.responsivevoice = {
 
   speak: function (object) {
     var value = object.exec.value
+    responsiveVoice.cancel()
     responsiveVoice.speak(value, 'Arabic Male')
   }
 }
