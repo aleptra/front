@@ -42,6 +42,7 @@ var dom = {
     'color': 'apply',
     'bgcolor': 'apply',
     'bold': 'apply',
+    'boxshadow': 'apply',
     'cursor': 'apply',
     'margintop': 'apply',
     'marginbottom': 'apply',
@@ -274,15 +275,15 @@ var dom = {
       case 'bgcolor':
         attr = 'backgroundColor'
         break
+      case 'boxshadow':
+        attr = 'boxShadow'
+        break
       case 'bold':
         attr = 'fontWeight'
         value = 'bold'
         break
       case 'radius':
         attr = 'borderRadius'
-        break
-      case 'resize':
-        attr = 'resize'
         break
       case 'flex':
         attr = 'display'
@@ -779,7 +780,7 @@ var dom = {
     }
 
     var tag = object.localName,
-      stateValue = object.attributes.statevalue
+      stateValue = object.attributes.statevalue    
     switch (tag) {
       case 'form':
         object.reset()
@@ -1157,7 +1158,6 @@ var app = {
     })
 
     app.listeners.add(document, 'click', function (e) {
-      console.log(e.target)
       var link = app.element.getTagLink(e.target) || e.target,
         click = link.attributes.click,
         onclickif = link.attributes.onclickif
@@ -1218,8 +1218,7 @@ var app = {
       }
     })
 
-    // Listen for all input fields.
-    app.listeners.add(document, 'input', function (e) {
+    app.listeners.add(document, 'change', function (e) {
       app.listeners.change('input', e.target, false, e)
     })
   },
@@ -1752,6 +1751,8 @@ var app = {
         changeValueIf = object.attributes.onvaluechangeif,
         changeStateValue = object.attributes.onstatevaluechange,
         changeStateValueIf = object.attributes.onstatevaluechangeif
+        changeSelect = object.attributes.onselectchange
+        changeUnselect = object.attributes.onunselected
 
       if (changeValue) {
         /*var beforeChangeValue = object.attributes.onbeforevaluechange,
@@ -1762,34 +1763,12 @@ var app = {
       }
 
       if (changeValueIf) {
-        var val = changeValueIf.value.split(';'),
-          attr = object.value
-
-        var identifier = val[2].match(/(\w+)\[([^\]]+)\]/g) || []
-
-        var target = dom.get(val[1]),
-          object = target,
-          isNegative = val[0][0] === '!',
-          newVal = isNegative ? val[0].substring(1) : val[0],
-          regex = /(\w+)\[([^\]]+)\]/
-
-        var statement, text, action
-
-        if (attr === newVal && identifier[1]) {
-          statement = identifier[1].match(regex)
-        } else {
-          statement = identifier[0].match(regex)
-        }
-
-        if (!identifier[1] && attr !== newVal) {
-          return
-        } else {
-          app.call(statement[1] + ':' + statement[2], { element: object })
-        }
-      }
-
-      if (changeStateValue) {
-        app.call(changeStateValue.value, { element: object, state: true })
+        var value = changeValueIf.value.split(':'),
+        compareValue = object.value,
+        values = value.slice(1).join(':'),
+        call = values.split('?'),
+        result = compareValue === value[0] ? call[0] : call[1] || call[0]
+        app.call(result)
       }
 
       if (changeStateValueIf) {
@@ -1806,6 +1785,23 @@ var app = {
           // Keep the numeric part following the last operator in the input value
           element.value = match[2]
         }
+      }
+
+      if (changeStateValue) {
+        app.call(changeStateValue.value, { element: object, state: true })
+      }
+
+      // Experimental
+      if (changeSelect) {
+        app.call(changeSelect.value)
+        var previouslySelected = dom.get('input[type="radio"][selected="true"]')
+
+        if (previouslySelected) {
+          previouslySelected.removeAttribute('selected') // Clear the previous selection
+          app.call(previouslySelected.getAttribute('onunselected'))
+        }
+
+        object.setAttribute('selected', 'true') // Mark the current radio as selected
       }
     }
   },
