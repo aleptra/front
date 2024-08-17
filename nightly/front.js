@@ -1372,7 +1372,7 @@ var app = {
             break
           case 'queryhref':
             // EXPERIMENTAL
-            var href = element.getAttribute('href'),
+            var href = element.getAttribute('href') || '',
               value = value.split(':'),
               query = value[0],
               newValue = value[1]
