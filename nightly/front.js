@@ -1355,7 +1355,7 @@ var app = {
       attr = element.exec ? element.attribute : attr,
         type = element.type,
         localName = element.localName
-
+console.dir(attr)
       if (attr) {
         attr = attr.replace('set', '')
         switch (attr) {

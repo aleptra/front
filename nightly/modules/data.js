@@ -523,7 +523,7 @@ app.module.data = {
 
   _finish: function (options) {
     var finished = options.element.attributes['data-onfinish']
-    if (finished) app.call(finished.value, { element: options.element })
+    if (finished) app.call(finished.value)
     if (options.loader) {
       dom.hide(options.loader)
       dom.show(options.element)
