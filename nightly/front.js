@@ -19,6 +19,7 @@ var dom = {
     'insertbeforeend': 'insert',
     'insertafterend': 'insert',
     'setaction': 'set2',
+    'setmax': 'set2',
     'settext': 'set2',
     'sethtml': 'set2',
     'sethref': 'set2',
