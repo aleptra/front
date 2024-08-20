@@ -744,9 +744,8 @@ var dom = {
         console.log(test[0])
         data = cache.data[func.replace('map', '')][test[1]] || '',
           data2 = data[test[0]] || ''
-        console.log(data2)
+        //console.log(data2)
         dom.bind(object, test[0] + ':' + data2, 'mapbindvar')
-        //console.log(object, value)
         break
     }
   },
@@ -1355,7 +1354,7 @@ var app = {
       attr = element.exec ? element.attribute : attr,
         type = element.type,
         localName = element.localName
-console.dir(attr)
+
       if (attr) {
         attr = attr.replace('set', '')
         switch (attr) {
@@ -1483,11 +1482,16 @@ console.dir(attr)
     runevent: function (parsedCall) {
       if (parsedCall.exec) {
         var func = dom._eventMap[parsedCall.exec.func] || parsedCall.exec.func,
-          el = parsedCall.exec.element
+            el = parsedCall.exec.element,
+            exec = el.executed[func]
 
-        var call = el && el.getAttribute('on' + func)
-        if (call) {
-          app.call(call, parsedCall.exec)
+        if (!exec) {
+          var call = el && el.getAttribute('on' + func)
+    
+          if (call) {
+            el.executed[func] = true
+            app.call(call, parsedCall.exec)
+          }
         }
       }
     },
@@ -2034,6 +2038,7 @@ console.dir(attr)
               var name = attrFullname.split('-')
               element.originalAttribute = dom._actionMap[attrName] && attrName
               element.lastRunAttribute = attrName
+              element.executed = {}
               if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
               if (!element.originalText) element.originalText = element.textContent
               if (!element.originalHtml) element.originalHtml = element.innerHTML
