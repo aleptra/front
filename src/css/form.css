@@ -75,6 +75,9 @@ button,
   justify-content: center;
   flex: unset !important;
   -ms-flex: unset;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none
 }
 
 button.text,
