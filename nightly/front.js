@@ -741,7 +741,7 @@ var dom = {
         break
       case 'mapbindvar':
         var test = value.split(':')
-        console.log(test[0])
+        //console.log(test[0])
         data = cache.data[func.replace('map', '')][test[1]] || '',
           data2 = data[test[0]] || ''
         //console.log(data2)
@@ -780,7 +780,7 @@ var dom = {
     }
 
     var tag = object.localName,
-      stateValue = object.attributes.statevalue    
+      stateValue = object.attributes.statevalue
     switch (tag) {
       case 'form':
         object.reset()
@@ -1372,29 +1372,28 @@ var app = {
             break
           case 'queryhref':
             // EXPERIMENTAL
-            var href = element.getAttribute('href') || '',
-              value = value.split(':'),
-              query = value[0],
-              newValue = value[1]
+            var attr = element.getAttribute('href') || '',
+              values = value.split(':'),
+              query = values[0],
+              operation = values[1]
 
-            if (newValue === '++') {
-              var regex = new RegExp('(\\b' + query + '=)(\\d+)', 'g')
-              var updatedUrl = href.replace(regex, function (match, prefix, currentValue) {
-                var incrementedValue = parseInt(currentValue, 10) + 1
-                return prefix + incrementedValue;
-              })
-            } else {
-              var regex = new RegExp('(\\b' + query + '=)[^&]*', 'g')
-              var updatedUrl = href.replace(regex, '$1' + newValue)
-            }
-
-            element.setAttribute('href', updatedUrl)
+            element.setAttribute('href', app.element.operate(operation, query, attr))
             break
           case 'value':
             element.setAttribute('value', value)
             element.value = value
             break
           default:
+            var call = element.call
+            if (call) {
+              values = call.split(':'),
+                query = values[0],
+                operation = values[1],
+                test = element.getAttribute('max')
+
+              value = app.element.operate(operation, false, test)
+
+            }
             element.setAttribute(attr, value)
         }
         return
@@ -1421,6 +1420,31 @@ var app = {
         for (var i = 0; i < _.action.length; i++) {
           _.el.classList.add(_.action[i])
         }
+      }
+    },
+
+    operate: function (operation, query, attr) {
+      // Define a function to perform the operation
+      var apply = function (value) {
+        var num = parseFloat(value)
+        switch (operation) {
+          case '++': return num + 1
+          case '--': return num - 1
+          case '*': return num * 2
+          case '/': return num / 2
+          default: return value
+        }
+      }
+
+      if (query) {
+        // Modify specific query parameter in the URL
+        var regex = new RegExp('(\\b' + query + '=)(-?\\d+)', 'g')
+        return attr.replace(regex, function (match, prefix, currentValue) {
+          return prefix + apply(currentValue)
+        })
+      } else {
+        // Apply the operation directly to the entire attribute value
+        return apply(attr)
       }
     },
 
@@ -1482,14 +1506,15 @@ var app = {
     runevent: function (parsedCall) {
       if (parsedCall.exec) {
         var func = dom._eventMap[parsedCall.exec.func] || parsedCall.exec.func,
-            el = parsedCall.exec.element,
-            exec = el.executed[func]
+          el = parsedCall.exec.element,
+          exec = el.executed[func]
 
         if (!exec) {
           var call = el && el.getAttribute('on' + func)
-    
+
           if (call) {
             el.executed[func] = true
+            el.call = call
             app.call(call, parsedCall.exec)
           }
         }
@@ -1755,9 +1780,8 @@ var app = {
       var changeValue = object.attributes.onvaluechange,
         changeValueIf = object.attributes.onvaluechangeif,
         changeStateValue = object.attributes.onstatevaluechange,
-        changeStateValueIf = object.attributes.onstatevaluechangeif
+        changeStateValueIf = object.attributes.onstatevaluechangeif,
         changeSelect = object.attributes.onselectchange
-        changeUnselect = object.attributes.onunselected
 
       if (changeValue) {
         /*var beforeChangeValue = object.attributes.onbeforevaluechange,
@@ -1769,10 +1793,10 @@ var app = {
 
       if (changeValueIf) {
         var value = changeValueIf.value.split(':'),
-        compareValue = object.value,
-        values = value.slice(1).join(':'),
-        call = values.split('?'),
-        result = compareValue === value[0] ? call[0] : call[1] || call[0]
+          compareValue = object.value,
+          values = value.slice(1).join(':'),
+          call = values.split('?'),
+          result = compareValue === value[0] ? call[0] : call[1] || call[0]
         app.call(result)
       }
 
