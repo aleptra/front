@@ -72,7 +72,8 @@ var dom = {
     'click': 'clicked',
     'enable': 'enabled',
     'disable': 'disabled',
-    'focus': 'focused'
+    'focus': 'focused',
+    'submit': 'submitted'
   },
   _uniqueId: 0,
   _bindfieldPos: 0,
@@ -449,8 +450,15 @@ var dom = {
    * @param {*} value 
    */
   submit: function (object, value) {
-    var target = object.exec.value ? dom.get(object.exec.value) : value
-    if (target) target.submit()
+    var el = object.exec.value ? dom.get(object.exec.value) : value,
+      target = el.getAttribute('target')
+
+    if (el && target) {
+      el.submit()
+    }
+
+    el.srcElement = el
+    el.element = el
   },
 
   loader: function (object, value) {
@@ -742,8 +750,8 @@ var dom = {
       case 'mapbindvar':
         var test = value.split(':')
         //console.log(test[0])
-        data = cache.data[func.replace('map', '')][test[1]] || '',
-          data2 = data[test[0]] || ''
+        data = cache.data[func.replace('map', '')][test[1]] || ''
+        var data2 = data[test[0]] || ''
         //console.log(data2)
         dom.bind(object, test[0] + ':' + data2, 'mapbindvar')
         break
@@ -1218,7 +1226,7 @@ var app = {
       }
     })
 
-    app.listeners.add(document, 'change', function (e) {
+    app.listeners.add(document, 'input', function (e) {
       app.listeners.change('input', e.target, false, e)
     })
   },
@@ -1507,17 +1515,18 @@ var app = {
       if (parsedCall.exec) {
         var func = dom._eventMap[parsedCall.exec.func] || parsedCall.exec.func,
           el = parsedCall.exec.element,
-          exec = el.executed[func]
+          exec = el.executed && el.executed[func]
 
         if (!exec) {
           var call = el && el.getAttribute('on' + func)
-
           if (call) {
             el.executed[func] = true
             el.call = call
             app.call(call, parsedCall.exec)
           }
         }
+
+        el.executed = {} // Reset
       }
     },
 
@@ -1580,6 +1589,7 @@ var app = {
       var srcEl = e.srcElement,
         attr = srcEl.getAttribute('onformsubmit'),
         submit = attr && attr.split(';')
+
       for (action in submit) {
         app.call(submit[action], { element: srcEl })
       }
