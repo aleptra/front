@@ -456,9 +456,6 @@ var dom = {
     if (el && target) {
       el.submit()
     }
-
-    el.srcElement = el
-    el.element = el
   },
 
   loader: function (object, value) {
@@ -919,6 +916,48 @@ var dom = {
       }
     }
   },
+
+  /* Experimental */
+ifnew: function (value) {
+  // Updated regex to correctly match the entire action string, including any special characters
+  var regex = /\(\[(\d+)\]([:!><])\[(\d+)\]\):([^\?]+)(?:\?([^\?]+))?/,
+      match = value.match(regex)
+
+  // Extract values, operator, and actions
+  var leftValue = parseInt(match[1], 10),
+      operator = match[2],
+      rightValue = parseInt(match[3], 10),
+      trueAction = match[4].trim(),  // Action if the condition is true
+      falseAction = match[5] ? match[5].trim() : null;  // Action if the condition is false (optional)
+
+  // Evaluate the condition based on the operator
+  var result
+  switch (operator) {
+    case ':': // Equality check
+      result = (leftValue === rightValue);
+      break
+    case '!': // Inequality check
+      result = (leftValue !== rightValue);
+      break
+    case '>': // Greater than check
+      result = (leftValue > rightValue);
+      break
+    case '<': // Less than check
+      result = (leftValue < rightValue);
+      break
+  }
+
+  // Log the appropriate action to the console based on the condition's result
+  var actionToLog = result ? trueAction : falseAction;
+
+  if (actionToLog) {
+    // Log the entire action string to the console
+    console.log(actionToLog)
+    app.call(actionToLog)
+  }
+}
+,
+
 
   bindif: function (object, options) {
     var test = object.value,
@@ -1523,10 +1562,15 @@ var app = {
             el.executed[func] = true
             el.call = call
             app.call(call, parsedCall.exec)
+            el.executed = {} // Reset
+          }
+
+          var call = el && el.getAttribute('if' + func)
+          if (call) {
+            dom.ifnew(call)
+            el.setAttribute('if' + func, el.attributes['if' + func].originalValue) // Reset
           }
         }
-
-        el.executed = {} // Reset
       }
     },
 
@@ -2105,13 +2149,19 @@ var app = {
    */
   variables: {
     update: {
-      attributes: function (object, replaceVariable, replaceValue, reset, runExclude) {
+      attributes: function (object, replaceVariable, replaceValue, reset, runExclude, resetSoft, single) {
         if (replaceVariable) {
-          if (reset) {
+          if (reset && !resetSoft) {
             var originalAttributes = dom.parse.text(object.originalOuterHtml).children[0].attributes,
               originalHtml = object.originalHtml
             app.variables.reset.attributes(object, originalAttributes)
             app.variables.reset.content(object, originalHtml)
+          }
+
+          if (resetSoft) {
+            var originalAttributes = dom.parse.text(object.originalOuterHtml).children[0].attributes,
+              originalHtml = object.originalHtml
+            app.variables.reset.attribute(object, single)
           }
 
           var regex = new RegExp('\\{\\s*' + replaceVariable + '\\s*(?::((?:{[^{}]*}|[^}])+))?\\}', 'g')
@@ -2125,7 +2175,7 @@ var app = {
             }
           }
 
-          if (reset) {
+          if (reset && !resetSoft) {
             var exclude = ['stop'].concat(runExclude || [])
             app.attributes.run([object], exclude, true)
           }
@@ -2171,6 +2221,11 @@ var app = {
           var attr = original[i]
           object.setAttribute(attr.name, attr.value)
         }
+      },
+
+      attribute: function (object, original) {
+        var attr = original
+        object.setAttribute(attr.name, attr.value)
       },
 
       content: function (object, original) {

@@ -19,6 +19,13 @@ app.module.data = {
     app.variables.update.attributes(element, 'l', 'eng', false)
   },
 
+  bindpayload: function (object) {
+    var value = object.exec.value.split(':'),
+    element = object.exec.element,
+    bind = element.elements[value[1]].value
+    app.variables.update.attributes(element, value[0], bind, true, false, true, 'data-bindpayload')
+  },
+
   src: function (element) {
     var self = this
     dom.setUniqueId(element, true)
@@ -63,6 +70,7 @@ app.module.data = {
         attribute: join ? 'data-srcjoin' : 'data-src',
         storageKey: this.module + this._generateId(src.value) + joinSuffix
       }
+    element.storageKey = options.storageKey
     this._open(attr, options)
   },
 
