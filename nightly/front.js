@@ -229,7 +229,7 @@ var dom = {
     var el = object instanceof Object ? object : dom.get(object) // Todo: Remove in future.
     if (el) {
       value = prop ? 'visibility: hidden' : 'display: none'
-      el.style.cssText = value + ' !important'
+      el.style.cssText += value + ' !important'
     }
   },
 
