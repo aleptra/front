@@ -221,6 +221,21 @@ var dom = {
   },
 
   /**
+   * @function disable
+   * @memberof dom
+   */
+  disable: function (element) {
+    if (element.exec) element = element.exec.element
+    element.disabled = true
+    element.addEventListener('click', function (event) {
+      if (element.disabled) {
+        event.preventDefault()   // Prevent default behavior
+        event.stopPropagation()  // Stop the event from propagating further
+      }
+    })
+  },
+
+  /**
    * @function hide
    * @memberof dom
    */
@@ -918,46 +933,43 @@ var dom = {
   },
 
   /* Experimental */
-ifnew: function (value) {
-  // Updated regex to correctly match the entire action string, including any special characters
-  var regex = /\(\[(\d+)\]([:!><])\[(\d+)\]\):([^\?]+)(?:\?([^\?]+))?/,
+  ifnew: function (value) {
+    // Updated regex to correctly match the entire action string, including any special characters
+    var regex = /\(\[(\d+)\]([:!><])\[(\d+)\]\):([^\?]+)(?:\?([^\?]+))?/,
       match = value.match(regex)
 
-  // Extract values, operator, and actions
-  var leftValue = parseInt(match[1], 10),
+    // Extract values, operator, and actions
+    var leftValue = parseInt(match[1], 10),
       operator = match[2],
       rightValue = parseInt(match[3], 10),
       trueAction = match[4].trim(),  // Action if the condition is true
-      falseAction = match[5] ? match[5].trim() : null;  // Action if the condition is false (optional)
+      falseAction = match[5] ? match[5].trim() : null  // Action if the condition is false (optional)
 
-  // Evaluate the condition based on the operator
-  var result
-  switch (operator) {
-    case ':': // Equality check
-      result = (leftValue === rightValue);
-      break
-    case '!': // Inequality check
-      result = (leftValue !== rightValue);
-      break
-    case '>': // Greater than check
-      result = (leftValue > rightValue);
-      break
-    case '<': // Less than check
-      result = (leftValue < rightValue);
-      break
-  }
+    // Evaluate the condition based on the operator
+    var result
+    switch (operator) {
+      case ':': // Equality check
+        result = (leftValue === rightValue)
+        break
+      case '!': // Inequality check
+        result = (leftValue !== rightValue)
+        break
+      case '>': // Greater than check
+        result = (leftValue > rightValue)
+        break
+      case '<': // Less than check
+        result = (leftValue < rightValue)
+        break
+    }
 
-  // Log the appropriate action to the console based on the condition's result
-  var actionToLog = result ? trueAction : falseAction;
+    // Log the appropriate action to the console based on the condition's result
+    var actionToLog = result ? trueAction : falseAction;
 
-  if (actionToLog) {
-    // Log the entire action string to the console
-    console.log(actionToLog)
-    app.call(actionToLog)
-  }
-}
-,
-
+    if (actionToLog) {
+      // Log the entire action string to the console
+      app.call(actionToLog)
+    }
+  },
 
   bindif: function (object, options) {
     var test = object.value,
@@ -1289,7 +1301,7 @@ var app = {
         attribute2 = element2 && (parts[2].split('.') || [])[1],
         value = string.substring(string.indexOf('[') + 1, string.lastIndexOf(']'))
 
-      var objElement1 = options && options.element ? options.element : element1 === '#' || !element1 ? options && options.srcElement : dom.get(element1.replace('*', '')),
+      var objElement1 = !element1 && options.element ? options.element : element1 === '#' || !element1 && options.srcElement ? options.srcElement : element1 ? dom.get(element1.replace('*', '')) : '',
         objElement2 = element2 === '#' ? options && options.srcElement : dom.get(element2),
         attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true),
         attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),
