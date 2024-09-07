@@ -227,10 +227,19 @@ var dom = {
   disable: function (element) {
     if (element.exec) element = element.exec.element
     element.disabled = true
-    element.addEventListener('click', function (event) {
+    element.wheel = false
+
+    element.addEventListener('click', function (e) {
       if (element.disabled) {
-        event.preventDefault()   // Prevent default behavior
-        event.stopPropagation()  // Stop the event from propagating further
+        e.preventDefault()
+        e.stopPropagation()
+      }
+    })
+
+    element.addEventListener('wheel', function (e) {
+      if (!element.wheel) {
+        e.preventDefault()
+        e.stopPropagation()
       }
     })
   },
@@ -544,7 +553,10 @@ var dom = {
   enable: function (element, value) {
     if (element.exec) element = element.exec.element
     var target = value ? dom.get(value) : element
-    if (target) target.disabled = false
+    if (target) {
+      target.disabled = false
+      target.wheel = true
+    }
   },
 
   //Todo: Experimental
@@ -1163,6 +1175,11 @@ var app = {
     }
   },
 
+  /**
+   * @namespace disable
+   * @memberof app
+   * @desc
+   */
   disable: function (bool) {
     var val = bool ? 'hidden' : 'initial',
       isURI = (document.documentURI || document.location.href).indexOf('data:') !== 0 // Stops iframes.
@@ -1338,6 +1355,11 @@ var app = {
     return execResult
   },
 
+  /**
+   * @namespace exec
+   * @memberof app
+   * @desc
+   */
   exec: function (run, args) {
     try {
       run = run.split('.')
@@ -1357,6 +1379,11 @@ var app = {
     }
   },
 
+  /**
+   * @namespace click
+   * @memberof app
+   * @desc
+   */
   click: function (el, dbl) {
     var event, eventName = dbl ? 'dblclick' : 'click'
     try {
