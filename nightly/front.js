@@ -6,8 +6,7 @@
  * This source code is licensed under the MIT-style license found in the 
  * LICENSE file in the root directory of this source tree.
  *
- * This project is developed using ECMAScript 5 to ensure compatibility 
- * with older JavaScript engines while adhering to established standards.
+ * This project uses ECMAScript 5 for compatibility with older JavaScript engines.
  */
 
 var dom = {
