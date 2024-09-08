@@ -945,6 +945,7 @@ var dom = {
 
   /* Experimental */
   ifnew: function (value) {
+    console.warn(value)
     // Updated regex to correctly match the entire action string, including any special characters
     var regex = /\(\[(\d+)\]([:!><])\[(\d+)\]\):([^\?]+)(?:\?([^\?]+))?/,
       match = value.match(regex)
@@ -1253,7 +1254,7 @@ var app = {
          element.targetField = clicktargetfield
          element.clicked = element*/
         app.call(click.value, { srcElement: link, element: dom.get(target[0]) })
-        app.element.runevent({ exec: { func: 'click', element: link } })
+        app.element.runOnEvent({ exec: { func: 'click', element: link } })
       }
     })
 
@@ -1271,7 +1272,7 @@ var app = {
         var mouseovertargetfield = link.attributes.mouseovertargetfield,
           target = mouseovertargetfield && mouseovertargetfield.value.split(':') || ''
         app.call(mouseover.value, { srcElement: link, element: dom.get(target[0]) })
-        //app.element.runevent({ exec: { func: 'click', element: link } })*/
+        //app.element.runOnEvent({ exec: { func: 'click', element: link } })*/
       }
     })
 
@@ -1374,7 +1375,7 @@ var app = {
       if (e.message.indexOf('run[0]') !== -1) console.error('Command not found', run)
       if (e.message.indexOf('object.exec') !== -1) console.error('Could not execute command', run)
     } finally {
-      app.element.runevent(args) // check for element events.
+      app.element.runOnEvent(args) // check for element events.
     }
   },
 
@@ -1588,7 +1589,7 @@ var app = {
       return value
     },
 
-    runevent: function (parsedCall) {
+    runOnEvent: function (parsedCall) {
       if (parsedCall.exec) {
         var func = dom._eventMap[parsedCall.exec.func] || parsedCall.exec.func,
           el = parsedCall.exec.element,
@@ -1603,10 +1604,10 @@ var app = {
             el.executed = {} // Reset
           }
 
-          var call = el && el.getAttribute('if' + func)
+          var call = el && el.getAttribute('onif' + func)
           if (call) {
             dom.ifnew(call)
-            el.setAttribute('if' + func, el.attributes['if' + func].originalValue) // Reset
+            el.setAttribute('onif' + func, el.attributes['onif' + func].originalValue) // Reset
           }
         }
       }
