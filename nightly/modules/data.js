@@ -21,8 +21,8 @@ app.module.data = {
 
   bindpayload: function (object) {
     var value = object.exec.value.split(':'),
-    element = object.exec.element,
-    bind = element.elements[value[1]].value
+      element = object.exec.element,
+      bind = element.elements[value[1]].value
     app.variables.update.attributes(element, value[0], bind, true, false, true, 'data-bindpayload')
   },
 
