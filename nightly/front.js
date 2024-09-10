@@ -947,13 +947,13 @@ var dom = {
   ifnew: function (value) {
     console.warn(value)
     // Updated regex to correctly match the entire action string, including any special characters
-    var regex = /\(\[(\d+)\]([:!><])\[(\d+)\]\):([^\?]+)(?:\?([^\?]+))?/,
+    var regex = /\(\[(.*)\]([:!><])\[(.*)\]\):([^\?]+)(?:\?([^\?]+))?/,
       match = value.match(regex)
 
     // Extract values, operator, and actions
-    var leftValue = parseInt(match[1], 10),
+    var leftValue = match[1],
       operator = match[2],
-      rightValue = parseInt(match[3], 10),
+      rightValue = match[3],
       trueAction = match[4].trim(),  // Action if the condition is true
       falseAction = match[5] ? match[5].trim() : null  // Action if the condition is false (optional)
 
