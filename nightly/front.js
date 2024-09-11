@@ -945,7 +945,6 @@ var dom = {
 
   /* Experimental */
   ifnew: function (value) {
-    console.warn(value)
     // Updated regex to correctly match the entire action string, including any special characters
     var regex = /\(\[(.*)\]([:!><])\[(.*)\]\):([^\?]+)(?:\?([^\?]+))?/,
       match = value.match(regex)
@@ -974,13 +973,8 @@ var dom = {
         break
     }
 
-    // Log the appropriate action to the console based on the condition's result
-    var actionToLog = result ? trueAction : falseAction;
-
-    if (actionToLog) {
-      // Log the entire action string to the console
-      app.call(actionToLog)
-    }
+    var actionToLog = result ? trueAction : falseAction
+    if (actionToLog) app.call(actionToLog)
   },
 
   bindif: function (object, options) {
@@ -1605,11 +1599,13 @@ var app = {
           }
 
           var call = el && el.getAttribute('onif' + func)
-          if (call) {
-            dom.ifnew(call)
-            el.setAttribute('onif' + func, el.attributes['onif' + func].originalValue) // Reset
-          }
+          if (call) dom.ifnew(call)
         }
+      } else {
+        var func = parsedCall.attribute,
+          el = parsedCall.element,
+          call = el && el.getAttribute('onif' + func)
+        if (call) dom.ifnew(call)
       }
     },
 
