@@ -16,7 +16,6 @@ app.module.data = {
   bind: function (element) {
     var value = element.getAttribute('data-bind')
     dom.bind(element, value, 'data-bind')
-    app.variables.update.attributes(element, 'l', 'eng', false)
   },
 
   bindpayload: function (object) {
