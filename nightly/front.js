@@ -44,6 +44,7 @@ var dom = {
     'bold': 'apply',
     'boxshadow': 'apply',
     'cursor': 'apply',
+    'margin': 'apply',
     'margintop': 'apply',
     'marginbottom': 'apply',
     'marginleft': 'apply',
