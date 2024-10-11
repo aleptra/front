@@ -54,6 +54,7 @@ var dom = {
     'font': 'apply',
     'flex': 'apply',
     'flexdirection': 'apply',
+    'justifycontent': 'apply',
     'height': 'apply',
     'lineheight': 'apply',
     'padding': 'apply',
@@ -317,6 +318,9 @@ var dom = {
         break
       case 'flexdirection':
         attr = 'flexDirection'
+        break
+      case 'justifycontent':
+        attr = 'justifyContent'
         break
       case 'lineheight':
         attr = 'lineHeight'
