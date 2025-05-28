@@ -1127,7 +1127,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 272 },
+  version: { major: 1, minor: 0, patch: 0, build: 276 },
   module: {},
   plugin: {},
   var: {},
@@ -1317,7 +1317,7 @@ var app = {
         attribute2 = element2 && (parts[2].split('.') || [])[1],
         value = string.substring(string.indexOf('[') + 1, string.lastIndexOf(']'))
 
-      var objElement1 = !element1 && options.element ? options.element : element1 === '#' || !element1 && options.srcElement ? options.srcElement : element1 ? dom.get(element1.replace('*', '')) : '',
+      var objElement1 = !element1 && options && options.element ? options.element : element1 === '#' || !element1 && options && options.srcElement ? options.srcElement : element1 ? dom.get(element1.replace('*', '')) : '',
         objElement2 = element2 === '#' ? options && options.srcElement : dom.get(element2),
         attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true),
         attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),

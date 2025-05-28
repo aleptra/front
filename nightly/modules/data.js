@@ -327,9 +327,8 @@ app.module.data = {
       var fullObject = options.fullObject,
         keys = options.keys,
         keyAtIndex = keys && keys[options.index]
-
       if (value.indexOf('[*].') !== -1) {
-        var key = value.replace('[*]', keyAtIndex)
+        var key = value.replace(value.slice(-1) === '.' ? '[*].' : '[*]', keyAtIndex)
         return app.element.getPropertyByPath(fullObject, key)
       } else if (value === '[*]') {
         return keyAtIndex
@@ -436,7 +435,14 @@ app.module.data = {
   },
 
   _merge: function (response, responseJoin, merge) {
-    response.data[merge] = responseJoin.data[merge]
+    var keys = merge.split(';')
+    keys.forEach(function (key) {
+      if (responseJoin.data.hasOwnProperty(key)) {
+        response.data[key] = responseJoin.data[key]
+      } else {
+        console.warn('Missing key in responseJoin.data:', key)
+      }
+    })
     return { data: response.data, status: response.status }
   },
 
