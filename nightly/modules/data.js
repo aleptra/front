@@ -202,16 +202,6 @@ app.module.data = {
       responseObject = iterate === 'true' ? responseData.data : app.element.getPropertyByPath(responseData.data, iterate) || {},
       total = iterate && responseObject.length - 1 || 0
 
-    // --- General normalization for object/array inconsistency ---
-    if (iterate && responseObject && !Array.isArray(responseObject) && typeof responseObject === 'object') {
-      responseObject = Object.keys(responseObject).map(function (key) {
-        var obj = {}
-        obj[key] = responseObject[key]
-        return obj
-      })
-      total = responseObject.length - 1
-    }
-
     if (responseObject) {
       if (!responseObject.length) {
         var keys = Object.keys(responseObject)
@@ -336,26 +326,11 @@ app.module.data = {
     if (options) {
       var fullObject = options.fullObject,
         keys = options.keys,
-        keyAtIndex = keys && options.index !== undefined ? keys[options.index] : undefined
-
-      // Handle [*].prop for both array-of-objects and object-of-objects
+        keyAtIndex = keys && keys[options.index]
       if (value.indexOf('[*].') !== -1) {
-        var prop = value.split('[*].')[1]
-        // If fullObject is array of objects with a single key each
-        if (Array.isArray(fullObject) && fullObject[options.index]) {
-          var langObj = fullObject[options.index]
-          var langKey = Object.keys(langObj)[0]
-          return langObj[langKey][prop]
-        }
-        // If fullObject is object with language keys
-        if (keyAtIndex && fullObject[keyAtIndex]) {
-          return fullObject[keyAtIndex][prop]
-        }
+        var key = value.replace(value.slice(-1) === '.' ? '[*].' : '[*]', keyAtIndex)
+        return app.element.getPropertyByPath(fullObject, key)
       } else if (value === '[*]') {
-        // For [*], return the language key
-        if (Array.isArray(fullObject) && fullObject[options.index]) {
-          return Object.keys(fullObject[options.index])[0]
-        }
         return keyAtIndex
       } else if (value[0] === '#') {
         return app.element.getPropertyByPath(fullObject, value.substring(1))
