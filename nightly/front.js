@@ -796,7 +796,6 @@ var dom = {
       attr = object.lastRunAttribute
     }
 
-    console.error(value,attr)
     app.element.set(object, value, attr)
     app.element.onchange(object, attr)
 
@@ -1128,7 +1127,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 284 },
+  version: { major: 1, minor: 0, patch: 0, build: 285 },
   module: {},
   plugin: {},
   var: {},
