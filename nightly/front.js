@@ -1127,7 +1127,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 285 },
+  version: { major: 1, minor: 0, patch: 0, build: 286 },
   module: {},
   plugin: {},
   var: {},
@@ -1465,7 +1465,6 @@ var app = {
             element.setAttribute('href', app.element.operate(operation, query, attr))
             break
           case 'value':
-            console.log(value);
             element.setAttribute('value', value)
             element.value = value
             break
