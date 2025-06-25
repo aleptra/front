@@ -796,6 +796,7 @@ var dom = {
       attr = object.lastRunAttribute
     }
 
+    console.error(value,attr)
     app.element.set(object, value, attr)
     app.element.onchange(object, attr)
 
@@ -1127,7 +1128,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 282 },
+  version: { major: 1, minor: 0, patch: 0, build: 284 },
   module: {},
   plugin: {},
   var: {},
@@ -1465,6 +1466,7 @@ var app = {
             element.setAttribute('href', app.element.operate(operation, query, attr))
             break
           case 'value':
+            console.log(value);
             element.setAttribute('value', value)
             element.value = value
             break
@@ -2623,7 +2625,7 @@ var app = {
             }
 
             if (aftersuccess) {
-              console.warn(aftersuccess)
+              var initValue = aftersuccess.originalValue
               app.call(aftersuccess.value, {
                 srcElement: srcEl,
                 srcAttribute: aftersuccess.name,
@@ -2632,6 +2634,8 @@ var app = {
                   error: responseError
                 }
               })
+
+              initValue && (aftersuccess.value = initValue) // Reset value
             }
 
             if (options.exec) app.element.onload(options.exec.element)
