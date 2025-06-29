@@ -26,6 +26,11 @@ app.module.navigate = {
     app.listeners.add(window, 'hashchange', this._hash.bind())
   },
 
+  go: function (event) {
+    event.target = event.exec.element
+    this._click(event)
+  },
+
   /**
    * @function _click
    * @memberof app.module.navigate
