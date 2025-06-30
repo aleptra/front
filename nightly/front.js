@@ -53,6 +53,7 @@ var dom = {
     'minwidth': 'apply',
     'font': 'apply',
     'flex': 'apply',
+    'flexitem': 'apply',
     'flexdirection': 'apply',
     'justifycontent': 'apply',
     'height': 'apply',
@@ -315,6 +316,9 @@ var dom = {
       case 'flex':
         attr = 'display'
         value = 'flex'
+        break
+      case 'flexitem':
+        attr = 'flex'
         break
       case 'flexdirection':
         attr = 'flexDirection'
