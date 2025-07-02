@@ -953,37 +953,38 @@ var dom = {
   },
 
   /* Experimental */
-  ifnew: function (value) {
-    // Updated regex to correctly match the entire action string, including any special characters
-    var regex = /\(\[(.*)\]([:!><])\[(.*)\]\):([^\?]+)(?:\?([^\?]+))?/,
-      match = value.match(regex)
+  ifnew: function (object, value) {
+    // Split the condition and the action using semicolon
+    var parts = value.split(";")
+    if (parts.length < 2) return
 
-    // Extract values, operator, and actions
+    var conditionPart = parts[0]
+    var actionPart = parts[1]
+
+    // Match the condition: ([left][op][right])
+    var regex = /\(\[(.*)\]([:!><])\[(.*)\]\)/,
+      match = conditionPart.match(regex)
+
+    if (!match) return
+
     var leftValue = match[1],
       operator = match[2],
-      rightValue = match[3],
-      trueAction = match[4].trim(),  // Action if the condition is true
-      falseAction = match[5] ? match[5].trim() : null  // Action if the condition is false (optional)
+      rightValue = match[3]
 
-    // Evaluate the condition based on the operator
+    // Evaluate condition
     var result
     switch (operator) {
-      case ':': // Equality check
-        result = (leftValue === rightValue)
-        break
-      case '!': // Inequality check
-        result = (leftValue !== rightValue)
-        break
-      case '>': // Greater than check
-        result = (leftValue > rightValue)
-        break
-      case '<': // Less than check
-        result = (leftValue < rightValue)
-        break
+      case ':': result = (leftValue === rightValue); break
+      case '!': result = (leftValue !== rightValue); break
+      case '>': result = (leftValue > rightValue); break
+      case '<': result = (leftValue < rightValue); break
+      default: return
     }
 
-    var actionToLog = result ? trueAction : falseAction
-    if (actionToLog) app.call(actionToLog)
+    // If condition is true, execute the action
+    if (result && actionPart) {
+      app.call(actionPart, { srcElement: object })
+    }
   },
 
   bindif: function (object, options) {
@@ -1112,10 +1113,6 @@ var dom = {
     app.attributes.run(elements)
   },
 
-  /*await: function (element, value) {
-    if (value) app.await[value] = { element: element, value: value, enable: true }
-  }*/
-
   rerun: function (object) {
     var el = object.exec ? object.exec.element : object
     el.innerHTML = el.originalHtml
@@ -1144,7 +1141,6 @@ var app = {
   spa: false,
   vars: { total: 0, totalStore: 0, loaded: 0 },
   modules: { total: 0, loaded: 0 },
-  await: {},
 
   /**
    * @namespace load
@@ -1592,7 +1588,7 @@ var app = {
       return value
     },
 
-    runOnEvent: function (parsedCall) {
+    runOnEvent: function (parsedCall, options) {
       if (parsedCall.exec) {
         var func = dom._eventMap[parsedCall.exec.func] || parsedCall.exec.func,
           el = parsedCall.exec.element,
@@ -1608,13 +1604,13 @@ var app = {
           }
 
           var call = el && el.getAttribute('onif' + func)
-          if (call) dom.ifnew(call)
+          if (call) dom.ifnew(el, call)
         }
       } else {
         var func = parsedCall.attribute,
           el = parsedCall.element,
           call = el && el.getAttribute('onif' + func)
-        if (call) dom.ifnew(call)
+        if (call) dom.ifnew(el, call)
       }
     },
 

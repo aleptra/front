@@ -320,6 +320,8 @@ app.module.data = {
         app.element.onload(element, accessor)
       }
     })
+
+    app.element.runOnEvent({ exec: { func: accessor, element: element }})
   },
 
   _resolve: function (obj, value, options) {
