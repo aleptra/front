@@ -359,7 +359,9 @@ var dom = {
    * @memberof dom
    */
   bind: function (object, value, target) {
-    var attr = object.lastRunAttribute,
+    value = object.exec ? object.exec.value.join(':') : value,
+      object = object.exec ? object.exec.element : object,
+      attr = object.exec ? object.exec.func : object.lastRunAttribute,
       bindings = value.split(';')
 
     for (var i = 0; i < bindings.length; i++) {
@@ -954,14 +956,12 @@ var dom = {
 
   /* Experimental */
   ifnew: function (object, value) {
-    // Split the condition and the action using semicolon
     var parts = value.split(";")
     if (parts.length < 2) return
 
     var conditionPart = parts[0]
     var actionPart = parts[1]
 
-    // Match the condition: ([left][op][right])
     var regex = /\(\[(.*)\]([:!><])\[(.*)\]\)/,
       match = conditionPart.match(regex)
 
@@ -969,10 +969,9 @@ var dom = {
 
     var leftValue = match[1],
       operator = match[2],
-      rightValue = match[3]
+      rightValue = match[3],
+      result
 
-    // Evaluate condition
-    var result
     switch (operator) {
       case ':': result = (leftValue === rightValue); break
       case '!': result = (leftValue !== rightValue); break
@@ -981,10 +980,12 @@ var dom = {
       default: return
     }
 
-    // If condition is true, execute the action
-    if (result && actionPart) {
-      app.call(actionPart, { srcElement: object })
-    }
+    var actions = actionPart.split("?")
+    var trueAction = actions[0]
+    var falseAction = actions[1]
+
+    var toCall = result ? trueAction : falseAction
+    if (toCall) app.call(toCall, { srcElement: object })
   },
 
   bindif: function (object, options) {
@@ -1315,7 +1316,7 @@ var app = {
         element2 = parts[2] && (parts[2][0] === "#" || parts[2][0] === "*") && (parts[2].split('.') || [])[0],
         attribute1 = element1 && (parts[1].split('.') || [])[1],
         attribute2 = element2 && (parts[2].split('.') || [])[1],
-        value = string.substring(string.indexOf('[') + 1, string.lastIndexOf(']'))
+        value = app.element.extractBracketValues(string)
 
       var objElement1 = !element1 && options && options.element ? options.element : element1 === '#' || !element1 && options && options.srcElement ? options.srcElement : element1 ? dom.get(element1.replace('*', '')) : '',
         objElement2 = element2 === '#' ? options && options.srcElement : dom.get(element2),
@@ -1588,14 +1589,44 @@ var app = {
       return value
     },
 
+    extractBracketValues: function (str) {
+      var values = [],
+        start = -1,
+        depth = 0
+
+      for (var i = 0; i < str.length; i++) {
+        var ch = str[i]
+
+        if (ch === '[') {
+          if (depth === 0) start = i + 1 // start of new bracket content
+          depth++
+        } else if (ch === ']') {
+          depth--
+          if (depth === 0 && start !== -1) {
+            values.push(str.substring(start, i))
+            start = -1
+          }
+          if (depth < 0) {
+            // unbalanced bracket, reset
+            depth = 0
+            start = -1
+          }
+        }
+      }
+
+      // If only one value, return it as string, else array
+      return values.length ? (values.length === 1 ? values[0] : values) : ''
+    },
+
     runOnEvent: function (parsedCall, options) {
       if (parsedCall.exec) {
         var func = dom._eventMap[parsedCall.exec.func] || parsedCall.exec.func,
           el = parsedCall.exec.element,
-          exec = el.executed && el.executed[func]
+          exec = el.executed && el.executed[func],
+          hasAttr = el && el.getAttribute
 
         if (!exec) {
-          var call = el && el.getAttribute('on' + func)
+          var call = hasAttr && el.getAttribute('on' + func)
           if (call) {
             el.executed[func] = true
             el.call = call
@@ -1603,13 +1634,13 @@ var app = {
             el.executed = {} // Reset
           }
 
-          var call = el && el.getAttribute('onif' + func)
+          var call = hasAttr && el.getAttribute('onif' + func)
           if (call) dom.ifnew(el, call)
         }
       } else {
         var func = parsedCall.attribute,
           el = parsedCall.element,
-          call = el && el.getAttribute('onif' + func)
+          call = hasAttr && el.getAttribute('onif' + func)
         if (call) dom.ifnew(el, call)
       }
     },
