@@ -543,5 +543,7 @@ app.module.data = {
       dom.hide(options.loader)
       dom.show(options.element)
     }
+
+    app.element.runOnEvent({ exec: { func: 'data-onfinish', element: options.element }})
   }
 }

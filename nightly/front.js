@@ -984,8 +984,14 @@ var dom = {
     var trueAction = actions[0]
     var falseAction = actions[1]
 
+    // Support multiple actions separated by &
     var toCall = result ? trueAction : falseAction
-    if (toCall) app.call(toCall, { srcElement: object })
+    if (toCall) {
+      var cmds = toCall.split('&')
+      for (var i = 0; i < cmds.length; i++) {
+        app.call(cmds[i], { srcElement: object })
+      }
+    }
   },
 
   bindif: function (object, options) {
