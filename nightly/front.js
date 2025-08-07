@@ -40,6 +40,7 @@ var dom = {
     'mapmargin': 'map',
     'mapbindvar': 'map',
     'color': 'apply',
+    'bgimage': 'apply',
     'bgcolor': 'apply',
     'bold': 'apply',
     'boxshadow': 'apply',
@@ -289,6 +290,7 @@ var dom = {
     }
 
     var prefix = '',
+      suffix = '',
       attr = test.replace(/(top|bottom|left|right)$/g, function (match) {
         return match.charAt(0).toUpperCase() + match.slice(1)
       })
@@ -299,6 +301,11 @@ var dom = {
         break
       case 'whitespace':
         attr = 'whiteSpace'
+        break
+      case 'bgimage':
+        attr = 'backgroundImage'
+        suffix = 'url('
+        prefix = ')'
         break
       case 'bgcolor':
         attr = 'backgroundColor'
@@ -350,8 +357,7 @@ var dom = {
           prefix = unit
         }
     }
-
-    element.style[attr] = value + prefix
+    element.style[attr] = suffix + value + prefix
   },
 
   /**
@@ -1096,7 +1102,7 @@ var dom = {
   },
 
   iterate: function (element, value) {
-    dom.stop(element) // Stop all attributes in element .
+    dom.stop(element) // Stop all attributes in element.
     var values = value.split(';'),
       start = parseInt(values[0]),
       stop = parseInt(values[1]),
