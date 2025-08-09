@@ -121,7 +121,7 @@ var dom = {
     text: function (string, exclude) {
       var el = document.createElement('spot'),
         html = string && string.match(/<html\s+([^>]*)>/i) || '',
-        body = string && string.match(/<body\s+class="([^"]*)"/i) || '',
+        body = string && string.match(/<body\s+([^>]*)>/i) || '',
         doctype = string && string.match(/<!doctype\s+[^>]*>/i) || ''
 
       if (html) {
@@ -137,7 +137,18 @@ var dom = {
       }
 
       if (body) {
-        el.className = body[1]
+        var attr = {}
+        var attributes = body[1].trim(),
+          attributePairs = attributes.split(/\s+/)
+
+        for (var i = 0; i < attributePairs.length; i++) {
+          var pair = attributePairs[i].split('='),
+            name = pair[0],
+            value = pair[1].slice(1, -1)
+          attr[name] = value
+        }
+
+        el.attrList = attr
       }
 
       if (exclude) {
@@ -299,6 +310,9 @@ var dom = {
       })
 
     switch (attr) {
+      case 'align':
+        attr = 'textAlign'
+        break
       case 'alignitems':
         attr = 'alignItems'
         break
@@ -2384,13 +2398,15 @@ var app = {
           responsePage = dom.parse.text(cache.data, ['title']),
           responsePageScript = app.element.find(responsePage, app.script.selector),
           responsePageContent = responsePage.innerHTML,
-          responsePageContentClass = responsePage.className
+          responsePageBodyAttr = responsePage.attrList
 
         for (var i = 0; i < this.elementSelectors.length; i++) {
           var elSelector = this.elementSelectors[i],
             parsedEl = app.element.find(responsePage, elSelector.name),
             content = parsedEl.innerHTML
 
+            console.log(elSelector.name)
+            
           if (elSelector.name !== 'main') {
             elSelector.content = content
             dom.set(elSelector.name, content ? content : '')
@@ -2420,7 +2436,8 @@ var app = {
           var cache = app.caches.get('window', 'template', src[i]),
             html = dom.parse.text(cache.data),
             template = dom.parse.text(app.element.find(html, 'template').innerHTML),
-            srcDoc = dom.parse.text(app.srcDocTemplate)
+            srcDoc = dom.parse.text(app.srcDocTemplate),
+            hasMarkup = dom.get('template')
 
           for (var j = 0; j < this.elementSelectors.length; j++) {
             var elSelector = this.elementSelectors[j],
@@ -2431,18 +2448,23 @@ var app = {
 
             // Support attributes in the template.
             for (var key in attr) {
-              dom.get(elSelector.name).setAttribute(attr[key].name, attr[key].value)
+              if (attr.hasOwnProperty(key)) dom.get(elSelector.name).setAttribute(attr[key].name, attr[key].value)
             }
 
             if (elSelector.name !== 'main') {
               dom.set(elSelector.name, parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML)
-              if (dom.get('template')) app.attributes.run(elSelector.name + ' *')
+              if (hasMarkup) app.attributes.run(elSelector.name + ' *')
+            } else if (elSelector.name === 'main') {
+              if (hasMarkup) app.attributes.run(elSelector.name)
             }
           }
         }
       }
 
-      if (responsePageContentClass) document.body.className = responsePageContentClass
+      for (var key in responsePageBodyAttr) {
+        dom.get('body').setAttribute(key, responsePageBodyAttr[key])
+      }
+      
       dom.doctitle(false, currentPageTitle)
     }
   },
