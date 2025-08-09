@@ -39,6 +39,7 @@ var dom = {
     'mapclass': 'map',
     'mapmargin': 'map',
     'mapbindvar': 'map',
+    'align': 'apply',
     'color': 'apply',
     'bgimage': 'apply',
     'bgcolor': 'apply',
@@ -52,6 +53,7 @@ var dom = {
     'marginright': 'apply',
     'minheight': 'apply',
     'minwidth': 'apply',
+    'maxwidth': 'apply',
     'font': 'apply',
     'flex': 'apply',
     'flexitem': 'apply',
@@ -69,7 +71,8 @@ var dom = {
     'width': 'apply',
     'wordbreak': 'apply',
     'whitespace': 'apply',
-    'zindex': 'apply'
+    'zindex': 'apply',
+    'zoom': 'apply',
   },
   _eventMap: {
     'click': 'clicked',
@@ -296,6 +299,9 @@ var dom = {
       })
 
     switch (attr) {
+      case 'alignitems':
+        attr = 'alignItems'
+        break
       case 'wordbreak':
         attr = 'wordBreak'
         break
@@ -339,11 +345,17 @@ var dom = {
       case 'minwidth':
         attr = 'minWidth'
         break
+      case 'maxwidth':
+        attr = 'maxWidth'
+        break
       case 'font':
         attr = 'fontFamily'
         break
       case 'zindex':
         attr = 'zIndex'
+        break
+      case 'zoom':
+        element.style.lineHeight = 'normal'
         break
       default:
         // Extract the value and unit in the default case
@@ -2414,17 +2426,18 @@ var app = {
             var elSelector = this.elementSelectors[j],
               parsedEl = app.element.find(template, elSelector.name),
               content = parsedEl.innerHTML,
-              classAttr = parsedEl.attributes && parsedEl.attributes.class ? true : false,
-              className = parsedEl.className,
-              templateEl = dom.get(elSelector.name),
+              attr = parsedEl.attributes || [],
               srcDocEl = app.element.find(srcDoc, elSelector.name)
+
+            // Support attributes in the template.
+            for (var key in attr) {
+              dom.get(elSelector.name).setAttribute(attr[key].name, attr[key].value)
+            }
 
             if (elSelector.name !== 'main') {
               dom.set(elSelector.name, parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML)
               if (dom.get('template')) app.attributes.run(elSelector.name + ' *')
             }
-
-            templateEl.className = classAttr ? className : srcDocEl.className
           }
         }
       }
