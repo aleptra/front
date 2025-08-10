@@ -68,6 +68,7 @@ var dom = {
     'paddingright': 'apply',
     'radius': 'apply',
     'resize': 'apply',
+    'transform': 'apply',
     'width': 'apply',
     'wordbreak': 'apply',
     'whitespace': 'apply',
