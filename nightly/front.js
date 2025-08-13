@@ -2406,8 +2406,8 @@ var app = {
             parsedEl = app.element.find(responsePage, elSelector.name),
             content = parsedEl.innerHTML
 
-            console.log(elSelector.name)
-            
+          console.log(elSelector.name)
+
           if (elSelector.name !== 'main') {
             elSelector.content = content
             dom.set(elSelector.name, content ? content : '')
@@ -2465,7 +2465,7 @@ var app = {
       for (var key in responsePageBodyAttr) {
         dom.get('body').setAttribute(key, responsePageBodyAttr[key])
       }
-      
+
       dom.doctitle(false, currentPageTitle)
     }
   },
@@ -2484,6 +2484,7 @@ var app = {
         open = XMLHttpRequest.prototype.open,
         send = XMLHttpRequest.prototype.send
       XMLHttpRequest.prototype.open = function () {
+        var originalOnReadyStateChange = this.onreadystatechange
         this.onreadystatechange = function () {
           if (this.readyState === 4) {
             var statusType = {
@@ -2496,7 +2497,7 @@ var app = {
 
             this.statusType = statusType
 
-            var options = this.options,
+            var options = this.options || {},
               type = options.type,
               global = options.global,
               cache = options.cache,
@@ -2591,9 +2592,13 @@ var app = {
               }
             }
           }
-        }
 
-        open.apply(this, arguments)
+          // Call the original handler if it exists
+          if (originalOnReadyStateChange) {
+            originalOnReadyStateChange.apply(this, arguments)
+          }
+        }
+        open.apply(this, arguments);
       }
 
       XMLHttpRequest.prototype.send = function (data) {
@@ -2608,7 +2613,6 @@ var app = {
      * @desc Creates XHR requests and updates the DOM based on the response.
      */
     request: function (options) {
-      //console.warn(options)
       var method = options.method ? options.method.toUpperCase() : 'GET',
         url = options.url instanceof Array ? options.url : [options.url],
         target = options.target ? dom.get(options.target) : options.element,
@@ -2650,7 +2654,7 @@ var app = {
         }
 
         xhr.onload = function () {
-          var status = this.statusType
+          var status = this.statusType || {}
           if (status.informational || status.success || status.redirect) {
 
             /*var headers = xhr.getAllResponseHeaders().trim().split(/[\r\n]+/)
