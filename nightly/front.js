@@ -1798,14 +1798,14 @@ var app = {
     /**
      * @function get
      * @memberof app.config
-     * @param {string} module - The name of the module.
+     * @param {string} extension - The name of the extension (plugin or module).
      * @param {object} standard - The standard configuration object.
      * @param {object} element - The DOM element.
      * @returns {object} final - The final configuration object.
      * @desc Gets the configuration from the DOM element and overrides the standard configuration.
      */
-    get: function (module, standard, element) {
-      var value = module ? element && element.getAttribute(module + '-conf') : element && element.getAttribute('conf') || '',
+    get: function (extension, standard, element) {
+      var value = extension ? element && element.getAttribute(extension + '-conf') : element && element.getAttribute('conf') || '',
         override = value ? value && dom.parse.attribute(value) : {},
         final = {}
       for (var prop in standard) {
