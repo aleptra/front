@@ -17,12 +17,12 @@ app.plugin.map = {
     )
 
     var script = document.createElement('script')
-    script.src = 'https://maps.googleapis.com/maps/api/js?libraries=maps,marker&key=' + this.config.googleKey + '&loading=async&callback=window.app.plugin.map.initMap'
+    script.src = 'https://maps.googleapis.com/maps/api/js?libraries=maps,marker&key=' + this.config.googleKey + '&loading=async&callback=window.app.plugin.map._initMap'
     script.defer = true
     document.head.appendChild(script)
   },
 
-  initMap: function () {
+  _initMap: function () {
     var target = dom.get(this.config.googleTarget),
       lat = target.getAttribute(this.plugin + '-lat'),
       lng = target.getAttribute(this.plugin + '-lng')
