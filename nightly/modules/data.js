@@ -235,8 +235,8 @@ app.module.data = {
         for (var i = 0, j = -1; i < elements.length; i++) {
           if (i % originalNodeCountAll === 0) j++
 
-          this._process('data-set', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, index: j })
-          this._process('data-get', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, index: j })
+          this._process('data-set', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, data: responseData.data, index: j })
+          this._process('data-get', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, data: responseData.data, index: j })
         }
 
         this._process('data-set', element, responseData.data)
@@ -329,7 +329,9 @@ app.module.data = {
       var fullObject = options.fullObject,
         keys = options.keys,
         keyAtIndex = keys && keys[options.index]
-      if (value.indexOf('[*].') !== -1) {
+      if (value.indexOf('[].') !== -1) { // Root
+        return app.element.getPropertyByPath(options.data, value.substring(3))
+      }else if (value.indexOf('[*].') !== -1) {
         var key = value.replace(value.slice(-1) === '.' ? '[*].' : '[*]', keyAtIndex)
         return app.element.getPropertyByPath(fullObject, key)
       } else if (value === '[*]') {
