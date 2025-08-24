@@ -41,6 +41,7 @@ var dom = {
     'mapbindvar': 'map',
     'align': 'apply',
     'color': 'apply',
+    'border': 'apply',
     'bgimage': 'apply',
     'bgcolor': 'apply',
     'bold': 'apply',
@@ -2738,8 +2739,10 @@ var app = {
           var json = {}
           if (srcEl.elements) { // Iterate in form elements.
             for (var i = 0; i < srcEl.elements.length; i++) {
-              var el = srcEl.elements[i]
-              json[el.name] = el.value
+              var el = srcEl.elements[i],
+                name = el.name,
+                val = el.value
+              if (name && val) json[name] = val
             }
           } else { // Single select form elements.
             var name = srcEl.name ? srcEl.name : srcEl.attributes.name.value
