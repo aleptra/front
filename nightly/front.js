@@ -2737,16 +2737,55 @@ var app = {
         var payload
         if (['POST', 'PUT', 'PATCH'].indexOf(method) !== -1) {
           var json = {}
-          if (srcEl.elements) { // Iterate in form elements.
+          var groups = {}
+
+          if (srcEl.elements) {
             for (var i = 0; i < srcEl.elements.length; i++) {
               var el = srcEl.elements[i],
                 name = el.name,
                 val = el.value
-              if (name && val) json[name] = val
+
+              if (!name || !val) continue
+
+              var match = name.match(/^(.+)\[(\d+)\]$/)
+              if (match) {
+                var base = match[1],
+                  idx = parseInt(match[2], 10)
+                if (!groups[base]) groups[base] = []
+                groups[base][idx] = val
+              } else {
+                // dot notation support
+                var parts = name.split('.'),
+                  cur = json
+                for (var j = 0; j < parts.length - 1; j++) {
+                  if (!cur[parts[j]]) cur[parts[j]] = {}
+                  cur = cur[parts[j]]
+                }
+                cur[parts[parts.length - 1]] = val
+              }
             }
-          } else { // Single select form elements.
-            var name = srcEl.name ? srcEl.name : srcEl.attributes.name.value
-            json[name] = srcEl.name ? srcEl.value : srcEl.outerText
+
+            // merge bracket groups
+            for (var key in groups) {
+              var parts = key.split('.'),
+                cur = json
+              for (var j = 0; j < parts.length - 1; j++) {
+                if (!cur[parts[j]]) cur[parts[j]] = {}
+                cur = cur[parts[j]]
+              }
+              cur[parts[parts.length - 1]] = groups[key].join('')
+            }
+
+          } else {
+            var name = srcEl.name ? srcEl.name : srcEl.attributes.name.value,
+              val = srcEl.name ? srcEl.value : srcEl.outerText,
+              parts = name.split('.'),
+              cur = json
+            for (var j = 0; j < parts.length - 1; j++) {
+              if (!cur[parts[j]]) cur[parts[j]] = {}
+              cur = cur[parts[j]]
+            }
+            cur[parts[parts.length - 1]] = val
           }
 
           payload = JSON.stringify(json)
