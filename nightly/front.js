@@ -1132,9 +1132,12 @@ var dom = {
   iterate: function (element, value) {
     dom.stop(element) // Stop all attributes in element.
     var values = value.split(';'),
-      start = parseInt(values[0]),
-      stop = parseInt(values[1]),
+      startStr = values[0],
+      stopStr = values[1],
       varName = values[2],
+      start = parseInt(startStr, 10),
+      stop = parseInt(stopStr, 10),
+      padLength = startStr.length, // detect padding length
       originalNode = element,
       content = ''
 
@@ -1144,7 +1147,10 @@ var dom = {
       var innerHtml = originalNode.innerHTML,
         regex = new RegExp('\\{' + varName + '\\}', 'g')
 
-      innerHtml = innerHtml.replace(regex, i) // Todo: Use a function. app.varibales
+      // Format number with leading zeros if needed
+      var formatted = i.toString().padStart(padLength, '0')
+
+      innerHtml = innerHtml.replace(regex, formatted)
       content += innerHtml
     }
 
