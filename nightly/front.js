@@ -531,16 +531,6 @@ var dom = {
     if (value) dom.show(value)
   },
 
-  // Experimental
-  dialog: function (object, value) {
-    var dialog = document.getElementById("favDialog")
-    if (dialog.open) {
-      dialog.close()
-    } else {
-      dialog.showModal()
-    }
-  },
-
   /**
    * Displays a message in a dialog box.
    * @function alert
@@ -554,9 +544,9 @@ var dom = {
   /**
    * @function confirm
    * @memberof dom
-   * @param {*} element 
-   * @param {*} value 
-   * @returns 
+   * @param {*} element
+   * @param {*} value
+   * @returns
    */
   confirm: function (element, value) {
     if (element.exec) {
