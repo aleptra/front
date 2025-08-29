@@ -360,6 +360,9 @@ var dom = {
       case 'lineheight':
         attr = 'lineHeight'
         break
+      case 'minheight':
+        attr = 'minHeight'
+        break
       case 'minwidth':
         attr = 'minWidth'
         break
