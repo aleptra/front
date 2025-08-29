@@ -72,7 +72,7 @@ app.plugin.particles = {
       requestAnimationFrame(animateStars)
     }
 
-    container.addEventListener('mousemove', function(e) {
+    app.listeners.add(container, 'mousemove', function(e) {
       var rect = container.getBoundingClientRect()
       mouseX = e.clientX - rect.left
       mouseY = e.clientY - rect.top
