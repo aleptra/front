@@ -274,6 +274,7 @@ var dom = {
       value = prop ? 'visibility: hidden' : 'display: none'
       el.style.cssText += value + ' !important'
     }
+    app.element.runOnEvent({ exec: { func: 'hide', element: el } })
   },
 
   /**
@@ -287,6 +288,7 @@ var dom = {
       el.style.cssText = el.style.cssText.replace(/display\s*:\s*[^;]+;/gi, '')
       el.removeAttribute('hide')
     }
+    app.element.runOnEvent({ exec: { func: 'show', element: el } })
   },
 
   /**
@@ -1080,16 +1082,10 @@ var dom = {
    * @function start
    * @memberof dom
    */
-  start: function (element) {
-    element.removeAttribute('stop')
-    var children = element.childNodes
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i]
-      if (child.nodeType === 1) { // Check if it's an element node
-        child.removeAttribute('stop')
-        this.start(child) // Recursively remove 'stop' attribute from child's children
-      }
-    }
+  start: function (object) {
+    var el = object.exec ? object.exec.element : object
+    var elements = app.element.find(el, '*')
+    app.attributes.run(elements, ['stop'])
   },
 
   stopif: function (element, value) {
@@ -2164,6 +2160,7 @@ var app = {
       'for',
       'id',
       'name',
+      'open',
       'selected',
       'src',
       'style',
