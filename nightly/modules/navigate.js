@@ -57,7 +57,7 @@ app.module.navigate = {
             target = link.target === '_top' ? 'html' : link.target || this.config.target
 
           var state = {
-            'href': link.pathname,
+            'href': link.href,
             'target': target,
             'arg': { disableSrcdoc: true, runAttributes: true }
           }
