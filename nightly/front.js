@@ -2009,7 +2009,10 @@ var app = {
 
         // Continue running application.
         if (app.extensions.total === 0) app.assets.get.vars()
-        if (app.vars.total === 0) app.attributes.run()
+        if (app.vars.total === 0) {
+          app.disable(false)
+          app.attributes.run()
+        }
       } else {
         var templateElement = dom.get('template', true)[0], // Get only the first template element.
           templateAttr = templateElement && templateElement.attributes,
@@ -2581,8 +2584,8 @@ var app = {
                 && app.vars.loaded === (app.vars.total + app.vars.totalStore)
                 && type !== 'template' && type !== 'data') {
 
-                /*console.log('Extensions loaded:', app.extensions.loaded + '/' + app.extensions.total)
-                console.log('Vars loaded:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))*/
+                console.log('Extensions loaded:', app.extensions.loaded + '/' + app.extensions.total)
+                console.log('Vars loaded:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
 
                 app.disable(false)
                 app.attributes.run()
