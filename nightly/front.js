@@ -949,7 +949,6 @@ var dom = {
    * @desc * Loads the content of an external file and insert it into the DOM.
    */
   include: function (element) {
-
     //@TODO Fix ie bug with reversed attributes.
     var bindvar = element.attributes.bindvar
     if (bindvar) dom.bind.include = bindvar.value
@@ -2454,9 +2453,10 @@ var app = {
 
             if (elSelector.name !== 'main') {
               dom.set(elSelector.name, parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML)
-              if (hasMarkup) app.attributes.run(elSelector.name + ' *')
+              hasMarkup && app.attributes.run(elSelector.name) // Run attributes in parent
+              hasMarkup && app.attributes.run(elSelector.name + ' *') // Run attributes in children
             } else if (elSelector.name === 'main') {
-              if (hasMarkup) app.attributes.run(elSelector.name)
+              hasMarkup && app.attributes.run(elSelector.name, '*') // Run attributes in children
             }
           }
         }
