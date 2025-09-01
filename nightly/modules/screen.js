@@ -12,17 +12,23 @@ app.module.screen = {
     // keep track of active breakpoint
     this.currentBp = null
 
-    // re-check on resize
-    app.listeners.add(window, 'onload', function () {
+    function updateViewport() {
+      var vv = window.visualViewport || null
+      var h = (vv && vv.height) || window.innerHeight
+      var w = (vv && vv.width) || window.innerWidth
+      app.globals.windowHeight = h
+      app.globals.windowWidth = w
       self.checkBreakpoints()
-    })
+    }
 
-    // re-check on resize
-    app.listeners.add(window, 'resize', function () {
-      app.globals.windowHeight = window.innerHeight
-      app.globals.windowWidth = window.innerWidth
-      self.checkBreakpoints()
-    })
+    app.listeners.add(window, 'orientationchange', updateViewport)
+    app.listeners.add(window, 'resize', updateViewport)
+
+    // visualViewport is best on mobile
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', updateViewport)
+      window.visualViewport.addEventListener('scroll', updateViewport)
+    }
   },
 
   // define breakpoint ranges
