@@ -4,13 +4,26 @@ app.module.screen = {
   __autoload: function (options) {
     this.module = options.name
     this.currentBp = null
-    this.updateDimensions()
+    this._resizeTimer = null
 
+    this.updateDimensions()
     var self = this
-    app.listeners.add(window, 'resize', function () {
+    var onResize = function () {
       self.updateDimensions()
       self.checkBreakpoints()
-    })
+    }
+
+    var debounced = function () {
+      clearTimeout(self._resizeTimer)
+      self._resizeTimer = setTimeout(onResize, 100)
+    }
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', debounced)
+      window.visualViewport.addEventListener('scroll', debounced)
+    }
+    window.addEventListener('resize', debounced)
+    window.addEventListener('orientationchange', debounced)
   },
 
   breakpoints: {
@@ -21,19 +34,20 @@ app.module.screen = {
   bpOrder: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
 
   updateDimensions: function () {
-    app.globals.windowHeight = window.innerHeight
-    app.globals.windowWidth = window.innerWidth
+    var vv = window.visualViewport || null
+    app.globals.windowHeight = (vv && vv.height) || window.innerHeight
+    app.globals.windowWidth = (vv && vv.width) || window.innerWidth
   },
 
   getCurrentBreakpoint: function () {
-    var w = app.globals.windowWidth, bp = null
-    for (var k in this.breakpoints) {
-      if (this.breakpoints.hasOwnProperty(k)) {
-        var r = this.breakpoints[k]
-        if (w >= r[0] && w <= r[1]) { bp = k; break }
-      }
+    var w = app.globals.windowWidth
+    var order = this.bpOrder
+    for (var i = 0; i < order.length; i++) {
+      var k = order[i]
+      var r = this.breakpoints[k]
+      if (w >= r[0] && w <= r[1]) return k
     }
-    return bp
+    return null
   },
 
   checkBreakpoints: function () {
@@ -45,11 +59,13 @@ app.module.screen = {
   },
 
   applyForBreakpoint: function (bp) {
-    var selector = []
-    for (var i = 0; i < this.bpOrder.length; i++) {
-      selector.push('[' + this.module + '-' + this.bpOrder[i] + ']')
+    var order = this.bpOrder
+    var attrPrefix = this.module + '-'
+    var selParts = []
+    for (var i = 0; i < order.length; i++) {
+      selParts.push('[' + attrPrefix + order[i] + ']')
     }
-    var els = dom.get(selector.join(','), true)
+    var els = dom.get(selParts.join(','), true) || []
     for (var j = 0; j < els.length; j++) {
       var act = this.findClosestAttr(els[j], bp)
       if (act) app.call(act, { element: els[j] })
@@ -57,8 +73,11 @@ app.module.screen = {
   },
 
   findClosestAttr: function (el, bp) {
-    for (var i = this.bpOrder.indexOf(bp); i >= 0; i--) {
-      var val = el.getAttribute(this.module + '-' + this.bpOrder[i])
+    var idx = this.bpOrder.indexOf(bp)
+    var prefix = this.module + '-'
+    for (var i = idx; i >= 0; i--) {
+      var name = prefix + this.bpOrder[i]
+      var val = el.getAttribute && el.getAttribute(name)
       if (val) return val
     }
     return null
@@ -68,11 +87,14 @@ app.module.screen = {
     var bp = this.getCurrentBreakpoint()
     if (!bp) return
     var val = this.findClosestAttr(el, bp)
-    if (val) { this.currentBp = bp; app.call(val, { element: el }) }
+    if (val) {
+      this.currentBp = bp
+      app.call(val, { element: el })
+    }
   }
 }
 
-// auto-generate xs(), sm(), ... methods
+// generate xs(), sm(), ... methods
 for (var i = 0; i < app.module.screen.bpOrder.length; i++) {
   (function (bp) {
     app.module.screen[bp] = function (el) { this._initRun(el) }
