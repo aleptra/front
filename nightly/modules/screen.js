@@ -18,6 +18,9 @@ app.module.screen = {
       app.globals.windowWidth = window.innerWidth
       self.checkBreakpoints()
     })
+
+    // ensure first run
+    self.checkBreakpoints()
   },
 
   // define breakpoint ranges
@@ -46,10 +49,22 @@ app.module.screen = {
       }
     }
 
-    // fire event only if breakpoint changed
-    if (bp && bp !== this.currentBp) {
-      this.currentBp = bp
+    if (bp) {
+      // update current if changed
+      if (bp !== this.currentBp) {
+        this.currentBp = bp
+      }
+      // always apply (even if same bp, useful for DOM updates)
       this.applyForBreakpoint(bp)
+    }
+  },
+
+  // manual refresh API
+  refresh: function () {
+    if (this.currentBp) {
+      this.applyForBreakpoint(this.currentBp)
+    } else {
+      this.checkBreakpoints()
     }
   },
 
@@ -94,7 +109,6 @@ app.module.screen = {
 
     var value = this.findClosestAttr(element, bp)
     if (value) {
-      this.currentBp = bp
       app.call(value, { element: element })
     }
   },
