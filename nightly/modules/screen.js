@@ -4,7 +4,6 @@ app.module.screen = {
   __autoload: function (options) {
     this.module = options.name
     this.currentBp = null
-    this.updateDimensions()
 
     var self = this
     app.listeners.add(window, 'resize', function () {
