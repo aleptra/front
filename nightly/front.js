@@ -2408,9 +2408,10 @@ var app = {
           if (elSelector.name !== 'main') {
             elSelector.content = content
             dom.set(elSelector.name, content ? content : '')
-            app.attributes.run(elSelector.name)
-            app.attributes.run(elSelector.name + ' *')
           }
+          console.log('run');
+          app.attributes.run(elSelector.name)
+          app.attributes.run(elSelector.name + ' *')
         }
 
         if (!isReload) {
