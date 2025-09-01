@@ -1838,8 +1838,8 @@ var app = {
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
-    windowHeight: window.innerHeight,
-    windowWidth: window.innerWidth,
+    windowHeight: (window.visualViewport && window.visualViewport.height) || window.innerHeight,
+    windowWidth: (window.visualViewport && window.visualViewport.width) || window.innerWidth,
 
     set: function (name, value) {
       app.globals[name] = value
