@@ -6,18 +6,18 @@ app.module.screen = {
     var self = this
 
     // initialize globals
-    app.globals.windowHeight = window.innerHeight
-    app.globals.windowWidth = window.innerWidth
+    /*app.globals.windowHeight = window.innerHeight
+    app.globals.windowWidth = window.innerWidth*/
 
     // keep track of active breakpoint
     this.currentBp = null
 
     function updateViewport() {
-      var vv = window.visualViewport || null
+      /*var vv = window.visualViewport || null
       var h = (vv && vv.height) || window.innerHeight
       var w = (vv && vv.width) || window.innerWidth
       app.globals.windowHeight = h
-      app.globals.windowWidth = w
+      app.globals.windowWidth = w*/
       self.checkBreakpoints()
     }
 
