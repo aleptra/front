@@ -5,10 +5,6 @@ app.module.screen = {
     this.module = options.name
     var self = this
 
-    // initialize globals
-    app.globals.windowHeight = window.innerHeight
-    app.globals.windowWidth = window.innerWidth
-
     // keep track of active breakpoint
     this.currentBp = null
 
