@@ -13,11 +13,10 @@ app.module.screen = {
     this.currentBp = null
 
     function updateViewport() {
-      /*var vv = window.visualViewport || null
-      var h = (vv && vv.height) || window.innerHeight
-      var w = (vv && vv.width) || window.innerWidth
-      app.globals.windowHeight = h
-      app.globals.windowWidth = w*/
+
+      app.globals.windowHeight = (window.visualViewport && window.visualViewport.height) || window.innerHeight
+      app.globals.windowWidth = (window.visualViewport && window.visualViewport.width) || window.innerWidth
+
       self.checkBreakpoints()
     }
 
