@@ -26,8 +26,8 @@ app.module.screen = {
 
     // visualViewport is best on mobile
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', updateViewport)
-      window.visualViewport.addEventListener('scroll', updateViewport)
+      //window.visualViewport.addEventListener('resize', updateViewport)
+      //window.visualViewport.addEventListener('scroll', updateViewport)
     }
   },
 
