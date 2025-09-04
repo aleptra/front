@@ -37,8 +37,8 @@ app.module.screen = {
     sm: [400, 575],
     md: [576, 767],
     lg: [768, 991],
-    xl: [992, 1199],
-    xxl: [1200, Infinity]
+    xl: [992, 1399],
+    xxl: [1400, Infinity]
   },
 
   // ordered list of breakpoints (for fallback search)
