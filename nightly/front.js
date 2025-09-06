@@ -271,6 +271,13 @@ var dom = {
     if (object && object.exec) object = object.exec.element
     var el = object instanceof Object ? object : dom.get(object) // Todo: Remove in future.
     if (el) {
+      if (!el.initDisplay) {
+        if (el.attributes.hide) {
+          el.initDisplay = 'unset'
+        } else {
+          el.initDisplay = el.style.display || getComputedStyle(el).display
+        }
+      }
       value = prop ? 'visibility: hidden' : 'display: none'
       el.style.cssText += value + ' !important'
     }
@@ -285,7 +292,7 @@ var dom = {
     if (object.exec) object = object.exec.element
     var el = object instanceof Object ? object : dom.get(object) // Todo: Remove in future.
     if (el) {
-      el.style.cssText = el.style.cssText.replace(/display\s*:\s*[^;]+;/gi, '')
+      el.style.display = el.initDisplay
       el.removeAttribute('hide')
     }
     app.element.runOnEvent({ exec: { func: 'show', element: el } })
