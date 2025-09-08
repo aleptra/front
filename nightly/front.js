@@ -392,9 +392,9 @@ var dom = {
 
         if (match) {
           var numeric = parseFloat(match[1]), // Convert the value to a float
-            unit = match[2] || 'px'
-          value = numeric
-          prefix = unit
+            unit = match[2] || 'px',
+            value = numeric,
+            prefix = unit
         }
     }
     element.style[attr] = suffix + value + prefix
@@ -1830,6 +1830,7 @@ var app = {
         varsDir: 'assets/json/vars',
         storageKey: false,
         frontSrcLocal: '',
+        baseHref: '',
         //fileExtension: '.html'
       }, scriptElement || app.script.element)
 
@@ -2595,6 +2596,7 @@ var app = {
                 app.log.info()('Loaded extensions:', app.extensions.loaded + '/' + app.extensions.total +
                   ', vars:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
                 app.disable(false)
+                app.setBase()
                 app.attributes.run()
               }
             }
@@ -2809,6 +2811,27 @@ var app = {
         xhr.send(payload)
       }
     }
+  },
+
+  /**
+   * @namespace setBase
+   * @memberof app
+   * @desc Sets the base URL for the application.
+   */
+  setBase: function () {
+    var segments = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/')
+
+    var base = document.querySelector('base') || document.createElement('base');
+
+    if (segments[0] === app.baseHref) {
+      base.href = baseHref;
+    } else {
+      base.href = ''
+    }
+
+    //if (!document.querySelector('base')) {
+    document.head.appendChild(base);
+    //}
   },
 }
 
