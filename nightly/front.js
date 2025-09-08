@@ -2819,8 +2819,7 @@ var app = {
    * @desc Sets the base URL for the application.
    */
   setBase: function () {
-    alert('hej')
-    var segments = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/')
+    /*var segments = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/')
 
     var baseHref = segments.length === 0 ? '' : '/' + segments[0] + '/';
 
@@ -2828,7 +2827,7 @@ var app = {
     base.href = baseHref.endsWith('/') ? baseHref : baseHref + '';
 
     //if (!document.querySelector('base')) {
-    document.head.appendChild(base);
+    document.head.appendChild(base);*/
     //}
   },
 }
