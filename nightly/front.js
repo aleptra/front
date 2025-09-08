@@ -2819,12 +2819,16 @@ var app = {
    * @desc Sets the base URL for the application.
    */
   setBase: function () {
-    var segments = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/'),
-      base = document.querySelector('base') || document.createElement('base')
-    base.href = segments[0] === app.baseHref ? '/' + app.baseHref : ''
+    alert('hej')
+    var segments = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/')
+
+    var baseHref = segments.length === 0 ? '' : '/' + segments[0] + '/';
+
+    var base = document.querySelector('base') || document.createElement('base');
+    base.href = baseHref.endsWith('/') ? baseHref : baseHref + '';
 
     //if (!document.querySelector('base')) {
-    document.head.appendChild(base)
+    document.head.appendChild(base);
     //}
   },
 }
