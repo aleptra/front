@@ -2821,7 +2821,7 @@ var app = {
   setBase: function () {
     var segments = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/'),
       base = document.querySelector('base') || document.createElement('base')
-    base.href = segments[0] === app.baseHref ? app.baseHref : ''
+    base.href = segments[0] === app.baseHref ? '/' + app.baseHref : ''
 
     //if (!document.querySelector('base')) {
     document.head.appendChild(base)
