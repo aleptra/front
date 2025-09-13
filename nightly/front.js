@@ -154,12 +154,16 @@ var dom = {
       }
 
       if (exclude) {
-        var regexArray = exclude.map(function (tag) {
-          return new RegExp('<' + tag + '[^>]*>[\\s\\S]*?</' + tag + '>', 'g')
-        })
+        for (var k = 0; k < exclude.length; k++) {
+          var tag = exclude[k];
 
-        for (var i = 0; i < regexArray.length; i++) {
-          string = string.replace(regexArray[i], '')
+          // Remove paired tags: <tag> ... </tag>
+          var paired = new RegExp('<' + tag + '[^>]*>[\\s\\S]*?<\\/' + tag + '>', 'gi');
+          string = string.replace(paired, '');
+
+          // Remove single/self-closing tags: <tag ...>
+          var single = new RegExp('<' + tag + '[^>]*>', 'gi');
+          string = string.replace(single, '');
         }
       }
 
@@ -1184,6 +1188,19 @@ var app = {
   vars: { total: 0, totalStore: 0, loaded: 0 },
   modules: { total: 0, loaded: 0 },
 
+  setBase: function () {
+    var bases = document.getElementsByTagName('base')
+    var base
+
+    if (bases.length > 0) {
+      base = bases[0] // reuse the first <base>
+    } else {
+      base = document.createElement('base')
+      document.head.insertBefore(base, document.head.firstChild)
+    }
+
+    base.href = window.location.pathname.replace(/\/+$/, '');
+  },
   /**
    * @namespace load
    * @memberof app
@@ -1830,7 +1847,6 @@ var app = {
         varsDir: 'assets/json/vars',
         storageKey: false,
         frontSrcLocal: '',
-        baseHref: '',
         //fileExtension: '.html'
       }, scriptElement || app.script.element)
 
@@ -2142,10 +2158,11 @@ var app = {
 
         for (var i = 0; i < app.srcTemplate.total; i++) {
           var isStartpage = srcDoc && i === 0 ? true : false,
-            currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage]
+            currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage],
+            url = window.location.origin + window.location.pathname + '/' + currentTemplate + '.html'
 
           app.xhr.request({
-            url: window.location.origin + window.location.pathname + '/' + currentTemplate + '.html',
+            url: url,
             type: 'template',
             cache: {
               format: 'html',
@@ -2476,6 +2493,7 @@ var app = {
       }
 
       dom.doctitle(false, currentPageTitle)
+      app.setBase()
     }
   },
 
@@ -2596,7 +2614,6 @@ var app = {
                 app.log.info()('Loaded extensions:', app.extensions.loaded + '/' + app.extensions.total +
                   ', vars:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
                 app.disable(false)
-                app.setBase()
                 app.attributes.run()
               }
             }
@@ -2622,6 +2639,7 @@ var app = {
      * @desc Creates XHR requests and updates the DOM based on the response.
      */
     request: function (options) {
+      if (!options.url) return // Prevent empty requests.
       var method = options.method ? options.method.toUpperCase() : 'GET',
         url = options.url instanceof Array ? options.url : [options.url],
         target = options.target ? dom.get(options.target) : options.element,
@@ -2811,24 +2829,6 @@ var app = {
         xhr.send(payload)
       }
     }
-  },
-
-  /**
-   * @namespace setBase
-   * @memberof app
-   * @desc Sets the base URL for the application.
-   */
-  setBase: function () {
-    /*var segments = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/')
-
-    var baseHref = segments.length === 0 ? '' : '/' + segments[0] + '/';
-
-    var base = document.querySelector('base') || document.createElement('base');
-    base.href = baseHref.endsWith('/') ? baseHref : baseHref + '';
-
-    //if (!document.querySelector('base')) {
-    document.head.appendChild(base);*/
-    //}
   },
 }
 
