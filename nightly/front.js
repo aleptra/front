@@ -1203,7 +1203,9 @@ var app = {
   },
 
   getBase: function () {
-    return window.location.pathname.replace(/\/+$/, '')
+    var test = window.location.pathname.replace(/\/+$/, '')
+    console.warn(test)
+    return test
   },
   /**
    * @namespace load
