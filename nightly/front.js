@@ -1199,7 +1199,11 @@ var app = {
       document.head.insertBefore(base, document.head.firstChild)
     }
 
-    base.href = window.location.pathname.replace(/\/+$/, '');
+    base.href = this.getBase()
+  },
+
+  getBase: function () {
+    return window.location.pathname.replace(/\/+$/, '')
   },
   /**
    * @namespace load
@@ -2159,7 +2163,7 @@ var app = {
         for (var i = 0; i < app.srcTemplate.total; i++) {
           var isStartpage = srcDoc && i === 0 ? true : false,
             currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage],
-            url = window.location.origin + window.location.pathname + '/' + currentTemplate + '.html'
+            url = app.getBase() + '/' + currentTemplate + '.html'
 
           app.xhr.request({
             url: url,
@@ -2493,7 +2497,6 @@ var app = {
       }
 
       dom.doctitle(false, currentPageTitle)
-      app.setBase()
     }
   },
 
@@ -2586,6 +2589,7 @@ var app = {
                   if (app.templates.loaded === app.srcTemplate.total) {
                     app.isFrontpage = false
                     app.templates.render()
+                    app.setBase()
                     app.config.set()
                     app.assets.get.extensions()
                   }

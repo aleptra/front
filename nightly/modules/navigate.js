@@ -79,7 +79,7 @@ app.module.navigate = {
    */
   _pop: function (event) {
     var state = (event.state) ? event.state : {
-      'href': window.location.pathname,
+      'href': app.getBase(),
       'hash': window.location.hash,
       'target': !event.state ? this.config.target : 'html',
       'extension': false,
