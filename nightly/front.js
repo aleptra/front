@@ -156,7 +156,6 @@ var dom = {
       if (exclude) {
         for (var k = 0; k < exclude.length; k++) {
           var tag = exclude[k];
-
           // Remove paired tags: <tag> ... </tag>
           var paired = new RegExp('<' + tag + '[^>]*>[\\s\\S]*?<\\/' + tag + '>', 'gi');
           string = string.replace(paired, '');
@@ -1188,25 +1187,6 @@ var app = {
   vars: { total: 0, totalStore: 0, loaded: 0 },
   modules: { total: 0, loaded: 0 },
 
-  setBase: function () {
-    var bases = document.getElementsByTagName('base')
-    var base
-
-    if (bases.length > 0) {
-      base = bases[0] // reuse the first <base>
-    } else {
-      base = document.createElement('base')
-      document.head.insertBefore(base, document.head.firstChild)
-    }
-
-    base.href = this.getBase()
-  },
-
-  getBase: function () {
-    var test = window.location.pathname.replace(/\/+$/, '')
-    console.warn(test)
-    return test
-  },
   /**
    * @namespace load
    * @memberof app
@@ -1248,6 +1228,29 @@ var app = {
     var val = bool ? 'hidden' : 'initial',
       isURI = (document.documentURI || document.location.href).indexOf('data:') !== 0 // Stops iframes.
     if (isURI) document.documentElement.style.cssText = 'visibility:' + val
+  },
+
+  baseHref: function () {
+    var base = dom.get('head base'),
+      location = window.location
+
+    if (!base) {
+      base = document.createElement('base')
+    }
+
+    var parts = base.getAttribute('hrefhost').split(':'),
+      host = parts[0],
+      folder = parts[1].replace(/[\[\]]/g, "")
+
+    base.href = location.pathname.indexOf(folder) !== -1 && host === location.host ? '/' + folder + '/' : '/'
+
+    var head = dom.get('head')
+
+    if (head) {
+      head.appendChild(base)
+    }
+
+    return base
   },
 
   /**
@@ -2037,6 +2040,7 @@ var app = {
         app.srcDocTemplate = document.body.innerHTML
         dom.doctitle(false, document.title)
         this.get.extensions()
+        app.baseHref()
 
         // Continue running application.
         if (app.extensions.total === 0) app.assets.get.vars()
@@ -2165,7 +2169,7 @@ var app = {
         for (var i = 0; i < app.srcTemplate.total; i++) {
           var isStartpage = srcDoc && i === 0 ? true : false,
             currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage],
-            url = app.getBase() + '/' + currentTemplate + '.html'
+            url = '/' + currentTemplate + '.html'
 
           app.xhr.request({
             url: url,
@@ -2467,7 +2471,7 @@ var app = {
       if (src) {
         for (var i = 0; i < src.length; i++) {
           var cache = app.caches.get('window', 'template', src[i]),
-            html = dom.parse.text(cache.data),
+            html = dom.parse.text(cache.data, ['meta', 'base']),
             template = dom.parse.text(app.element.find(html, 'template').innerHTML),
             srcDoc = dom.parse.text(app.srcDocTemplate),
             hasMarkup = dom.get('template')
@@ -2556,7 +2560,7 @@ var app = {
             if (type) {
               switch (type) {
                 case 'page':
-                  var responsePage = dom.parse.text(this.responseText),
+                  var responsePage = dom.parse.text(this.responseText, ['base']),
                     responsePageTitle = app.element.find(responsePage, 'title').textContent,
                     templateElement = app.element.find(responsePage, 'template'),
                     templateAttr = templateElement && templateElement.attributes,
@@ -2591,8 +2595,8 @@ var app = {
                   if (app.templates.loaded === app.srcTemplate.total) {
                     app.isFrontpage = false
                     app.templates.render()
-                    app.setBase()
                     app.config.set()
+                    app.baseHref()
                     app.assets.get.extensions()
                   }
                   break
@@ -2645,7 +2649,7 @@ var app = {
      * @desc Creates XHR requests and updates the DOM based on the response.
      */
     request: function (options) {
-      if (!options.url) return // Prevent empty requests.
+      if (!options.url) return // prevent empty requests. example include=""
       var method = options.method ? options.method.toUpperCase() : 'GET',
         url = options.url instanceof Array ? options.url : [options.url],
         target = options.target ? dom.get(options.target) : options.element,
