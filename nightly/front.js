@@ -1244,7 +1244,6 @@ var app = {
       /*if (!base) {
         base = document.createElement('base')
       }*/
-      console.warn(this.value)
       if (this.value) base.href = this.get(this.value).test
       //var head = dom.get('head')
 
@@ -1258,10 +1257,10 @@ var app = {
         host = parts[0],
         folder = parts[1] && parts[1].replace(/[\[\]]/g, '')
       test = location.pathname.split('/')[1]
-      console.log(folder)
-      console.log(test)
+      //console.log(folder)
+      //console.log(test)
       var test = test.indexOf(folder) !== -1 && host === location.hostname ? '/' + folder + '/' : '/'
-      console.error(test)
+      //console.error(test)
       //console.log({ host: host, test: test, folder: folder })
       return { host: host, test: test, folder: folder }
     }
@@ -2206,9 +2205,10 @@ var app = {
         for (var i = 0; i < app.srcTemplate.total; i++) {
           var isStartpage = srcDoc && i === 0 ? true : false,
             currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage],
-            url = '/' + currentTemplate + '.html'
-          url = app.baseHrefNew.get().test + currentTemplate + '.html'
-          console.warn(url.test)
+            //url = '/' + currentTemplate + '.html'
+            url = app.baseHrefNew.get().test + currentTemplate + '.html'
+          console.warn(url)
+
           app.xhr.request({
             url: url,
             type: 'template',
