@@ -1242,8 +1242,7 @@ var app = {
       host = parts[0],
       folder = parts[1].replace(/[\[\]]/g, "")
 
-    base.href = location.pathname.indexOf(folder) !== -1 && host === location.host ? '/' + folder + '/' : '/'
-
+    base.href = location.pathname.indexOf(folder) !== -1 && host === location.hostname ? '/' + folder + '/' : '/'
     var head = dom.get('head')
 
     if (head) {
