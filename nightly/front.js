@@ -156,6 +156,7 @@ var dom = {
       if (exclude) {
         for (var k = 0; k < exclude.length; k++) {
           var tag = exclude[k];
+
           // Remove paired tags: <tag> ... </tag>
           var paired = new RegExp('<' + tag + '[^>]*>[\\s\\S]*?<\\/' + tag + '>', 'gi');
           string = string.replace(paired, '');
@@ -1230,6 +1231,41 @@ var app = {
     if (isURI) document.documentElement.style.cssText = 'visibility:' + val
   },
 
+  baseHrefNew: {
+    set: function (el) {
+      if (el) {
+        // console.error(el.getAttribute('hrefhost'))
+        var base = el
+        this.value = base && el.getAttribute('hrefhost')
+      } else {
+        var base = dom.get('base')
+        this.value = base && base.getAttribute('hrefhost')
+      }
+      /*if (!base) {
+        base = document.createElement('base')
+      }*/
+      console.warn(this.value)
+      if (this.value) base.href = this.get(this.value).test
+      //var head = dom.get('head')
+
+      /*if (head) {
+        head.appendChild(base)
+      }*/
+
+    },
+    get: function () {
+      var parts = this.value.split(':'),
+        host = parts[0],
+        folder = parts[1] && parts[1].replace(/[\[\]]/g, '')
+      test = location.pathname.split('/')[1]
+      console.log(folder)
+      console.log(test)
+      var test = test.indexOf(folder) !== -1 && host === location.hostname ? '/' + folder + '/' : '/'
+      console.error(test)
+      //console.log({ host: host, test: test, folder: folder })
+      return { host: host, test: test, folder: folder }
+    }
+  },
   baseHref: function () {
     var base = dom.get('head base'),
       location = window.location
@@ -1240,7 +1276,7 @@ var app = {
 
     var parts = base.getAttribute('hrefhost').split(':'),
       host = parts[0],
-      folder = parts[1].replace(/[\[\]]/g, "")
+      folder = parts[1].replace(/[\[\]]/g, '')
 
     base.href = location.pathname.indexOf(folder) !== -1 && host === location.hostname ? '/' + folder + '/' : '/'
     var head = dom.get('head')
@@ -1268,6 +1304,8 @@ var app = {
       selector: selector
     }
 
+    //app.baseHref.value = base && base.getAttribute('hrefhost')
+    app.baseHrefNew.set()
     app.config.set()
     app.assets.set(element.attributes)
     app.xhr.start()
@@ -2039,7 +2077,7 @@ var app = {
         app.srcDocTemplate = document.body.innerHTML
         dom.doctitle(false, document.title)
         this.get.extensions()
-        app.baseHref()
+        //app.baseHref()
 
         // Continue running application.
         if (app.extensions.total === 0) app.assets.get.vars()
@@ -2169,7 +2207,8 @@ var app = {
           var isStartpage = srcDoc && i === 0 ? true : false,
             currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage],
             url = '/' + currentTemplate + '.html'
-
+          url = app.baseHrefNew.get().test + currentTemplate + '.html'
+          console.warn(url.test)
           app.xhr.request({
             url: url,
             type: 'template',
@@ -2433,6 +2472,7 @@ var app = {
         var cache = app.caches.get('window', 'template', srcDoc),
           responsePage = dom.parse.text(cache.data, ['title']),
           responsePageScript = app.element.find(responsePage, app.script.selector),
+          responsePageBaseHref = app.element.find(responsePage, 'base'),
           responsePageContent = responsePage.innerHTML,
           responsePageBodyAttr = responsePage.attrList
 
@@ -2463,6 +2503,7 @@ var app = {
             dom.set('html', responsePageContent)
           }
 
+          app.baseHrefNew.set(responsePageBaseHref)
           dom.set('main', currentPageBodyContent)
         }
       }
@@ -2595,7 +2636,7 @@ var app = {
                     app.isFrontpage = false
                     app.templates.render()
                     app.config.set()
-                    app.baseHref()
+                    app.baseHrefNew.set()
                     app.assets.get.extensions()
                   }
                   break
