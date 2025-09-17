@@ -290,6 +290,7 @@ var dom = {
 
   hrefhost: function (el) {
     var value = el.getAttribute('hrefhost')
+    if (!value) return
     var parts = value.split(':'),
       host = parts[0],
       folder = parts[1] && parts[1].replace(/[\[\]]/g, '')
