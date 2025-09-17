@@ -2037,6 +2037,7 @@ var app = {
         app.srcDocTemplate = document.body.innerHTML
         dom.doctitle(false, document.title)
         this.get.extensions()
+
         // Continue running application.
         if (app.extensions.total === 0) app.assets.get.vars()
         if (app.vars.total === 0) {
@@ -2433,11 +2434,7 @@ var app = {
           responsePageScript = app.element.find(responsePage, app.script.selector),
           responsePageBaseHref = app.element.find(responsePage, 'base')
 
-        var test = responsePage.getElementsByTagName('base')[0]
-        if (test) {
-          var href = dom.hrefhost(test)
-          //test.setAttribute('href', '/front-front2-nu/')
-        }
+        dom.hrefhost(responsePageBaseHref)
 
         var responsePageContent = responsePage.innerHTML,
           responsePageBodyAttr = responsePage.attrList
