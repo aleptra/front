@@ -121,6 +121,8 @@ var dom = {
      * @desc Parses a string of HTML and return a DOM node.
     */
     text: function (string, exclude) {
+      /*string = string.replace('<base hrefhost="aleptra.github.io:[front-front2-nu]">', 
+                              '<base hrefhost="aleptra.github.io:[front-front2-nu]" href="/front-front2-nu/">')*/
       var el = document.createElement('spot'),
         html = string && string.match(/<html\s+([^>]*)>/i) || '',
         body = string && string.match(/<body\s+([^>]*)>/i) || '',
@@ -288,6 +290,23 @@ var dom = {
     app.element.runOnEvent({ exec: { func: 'hide', element: el } })
   },
 
+  hrefhost: function (el) {
+    var value = el.getAttribute('hrefhost');
+    var parts = value.split(':');
+    var host = parts[0];
+    var folder = parts[1] && parts[1].replace(/[\[\]]/g, '');
+
+    var test2 = location.pathname.split('/')[1];
+    console.log(test2);
+
+    // Check if the host from hrefhost matches the current location.host
+    if (host === location.hostname) {
+      el.href = test2 === '' ? '/' : '/' + folder + '/';
+    } else {
+      el.href = '/'; // Fallback or default value when hosts don't match
+    }
+    app.baseHref = el.href;
+  },
   /**
    * @function show
    * @memberof dom
@@ -1231,62 +1250,6 @@ var app = {
     if (isURI) document.documentElement.style.cssText = 'visibility:' + val
   },
 
-  baseHrefNew: {
-    set: function (el) {
-      if (el) {
-        // console.error(el.getAttribute('hrefhost'))
-        var base = el
-        this.value = base && el.getAttribute('hrefhost')
-      } else {
-        var base = dom.get('base')
-        this.value = base && base.getAttribute('hrefhost')
-      }
-      /*if (!base) {
-        base = document.createElement('base')
-      }*/
-      if (this.value) base.href = this.get(this.value).test
-      //var head = dom.get('head')
-
-      /*if (head) {
-        head.appendChild(base)
-      }*/
-
-    },
-    get: function () {
-      var parts = this.value.split(':'),
-        host = parts[0],
-        folder = parts[1] && parts[1].replace(/[\[\]]/g, '')
-      test = location.pathname.split('/')[1]
-      //console.log(folder)
-      //console.log(test)
-      var test = test.indexOf(folder) !== -1 && host === location.hostname ? '/' + folder + '/' : '/'
-      //console.error(test)
-      //console.log({ host: host, test: test, folder: folder })
-      return { host: host, test: test, folder: folder }
-    }
-  },
-  baseHref: function () {
-    var base = dom.get('head base'),
-      location = window.location
-
-    if (!base) {
-      base = document.createElement('base')
-    }
-
-    var parts = base.getAttribute('hrefhost').split(':'),
-      host = parts[0],
-      folder = parts[1].replace(/[\[\]]/g, '')
-
-    base.href = location.pathname.indexOf(folder) !== -1 && host === location.hostname ? '/' + folder + '/' : '/'
-    var head = dom.get('head')
-
-    if (head) {
-      head.appendChild(base)
-    }
-
-    return base
-  },
-
   /**
    * @namespace start
    * @memberof app
@@ -1303,8 +1266,6 @@ var app = {
       selector: selector
     }
 
-    //app.baseHref.value = base && base.getAttribute('hrefhost')
-    app.baseHrefNew.set()
     app.config.set()
     app.assets.set(element.attributes)
     app.xhr.start()
@@ -2076,8 +2037,6 @@ var app = {
         app.srcDocTemplate = document.body.innerHTML
         dom.doctitle(false, document.title)
         this.get.extensions()
-        //app.baseHref()
-
         // Continue running application.
         if (app.extensions.total === 0) app.assets.get.vars()
         if (app.vars.total === 0) {
@@ -2206,7 +2165,7 @@ var app = {
           var isStartpage = srcDoc && i === 0 ? true : false,
             currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage],
             //url = '/' + currentTemplate + '.html'
-            url = app.baseHrefNew.get().test + currentTemplate + '.html'
+            url = window.location.origin + window.location.pathname.replace(/\/+$/, '') + '/' + currentTemplate + '.html'
           console.warn(url)
 
           app.xhr.request({
@@ -2472,38 +2431,33 @@ var app = {
         var cache = app.caches.get('window', 'template', srcDoc),
           responsePage = dom.parse.text(cache.data, ['title']),
           responsePageScript = app.element.find(responsePage, app.script.selector),
-          responsePageBaseHref = app.element.find(responsePage, 'base'),
-          responsePageContent = responsePage.innerHTML,
+          responsePageBaseHref = app.element.find(responsePage, 'base')
+
+        var test = responsePage.getElementsByTagName('base')[0]
+        if (test) {
+          var href = dom.hrefhost(test)
+          //test.setAttribute('href', '/front-front2-nu/')
+        }
+
+        var responsePageContent = responsePage.innerHTML,
           responsePageBodyAttr = responsePage.attrList
-
-        /*for (var i = 0; i < this.elementSelectors.length; i++) {
-          var elSelector = this.elementSelectors[i],
-            parsedEl = app.element.find(responsePage, elSelector.name),
-            content = parsedEl.innerHTML
-
-          if (elSelector.name !== 'main') {
-            elSelector.content = content
-            dom.set(elSelector.name, content ? content : '')
-          }
-
-          app.attributes.run(elSelector.name)
-          app.attributes.run(elSelector.name + ' *')
-        }*/
-
         if (!isReload) {
           app.assets.set(responsePageScript.attributes)
           app.language = responsePage.attributes.lang ? responsePage.attributes.lang.value : app.language
           app.script.element = responsePageScript
+
+          console.log(responsePage)
 
           if (app.docMode > 0 && app.docMode < 10) {
             document.open()
             document.write(responsePageContent)
             document.close()
           } else {
+
+
+
             dom.set('html', responsePageContent)
           }
-
-          app.baseHrefNew.set(responsePageBaseHref)
           dom.set('main', currentPageBodyContent)
         }
       }
@@ -2543,6 +2497,7 @@ var app = {
       }
 
       dom.doctitle(false, currentPageTitle)
+
     }
   },
 
@@ -2636,7 +2591,6 @@ var app = {
                     app.isFrontpage = false
                     app.templates.render()
                     app.config.set()
-                    app.baseHrefNew.set()
                     app.assets.get.extensions()
                   }
                   break
