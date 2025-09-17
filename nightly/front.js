@@ -121,8 +121,6 @@ var dom = {
      * @desc Parses a string of HTML and return a DOM node.
     */
     text: function (string, exclude) {
-      /*string = string.replace('<base hrefhost="aleptra.github.io:[front-front2-nu]">', 
-                              '<base hrefhost="aleptra.github.io:[front-front2-nu]" href="/front-front2-nu/">')*/
       var el = document.createElement('spot'),
         html = string && string.match(/<html\s+([^>]*)>/i) || '',
         body = string && string.match(/<body\s+([^>]*)>/i) || '',
@@ -291,22 +289,22 @@ var dom = {
   },
 
   hrefhost: function (el) {
-    var value = el.getAttribute('hrefhost');
-    var parts = value.split(':');
-    var host = parts[0];
-    var folder = parts[1] && parts[1].replace(/[\[\]]/g, '');
+    var value = el.getAttribute('hrefhost')
+    var parts = value.split(':'),
+      host = parts[0],
+      folder = parts[1] && parts[1].replace(/[\[\]]/g, '')
 
-    var test2 = location.pathname.split('/')[1];
-    console.log(test2);
+    var test2 = location.pathname.split('/')[1]
 
-    // Check if the host from hrefhost matches the current location.host
+    // Check if the host from hrefhost matches the current location.hostname
     if (host === location.hostname) {
-      el.href = test2 === '' ? '/' : '/' + folder + '/';
+      el.href = test2 === '' ? '/' : '/' + folder + '/'
     } else {
-      el.href = '/'; // Fallback or default value when hosts don't match
+      el.href = '/'
     }
-    app.baseHref = el.href;
+    app.baseHref = el.href
   },
+
   /**
    * @function show
    * @memberof dom
@@ -2165,9 +2163,7 @@ var app = {
         for (var i = 0; i < app.srcTemplate.total; i++) {
           var isStartpage = srcDoc && i === 0 ? true : false,
             currentTemplate = isStartpage ? srcDoc : src[i + hasStartpage],
-            //url = '/' + currentTemplate + '.html'
             url = window.location.origin + window.location.pathname.replace(/\/+$/, '') + '/' + currentTemplate + '.html'
-          console.warn(url)
 
           app.xhr.request({
             url: url,
@@ -2431,30 +2427,27 @@ var app = {
       if (srcDoc) {
         var cache = app.caches.get('window', 'template', srcDoc),
           responsePage = dom.parse.text(cache.data, ['title']),
+          responsePageBodyAttr = responsePage.attrList,
           responsePageScript = app.element.find(responsePage, app.script.selector),
           responsePageBaseHref = app.element.find(responsePage, 'base')
 
         dom.hrefhost(responsePageBaseHref)
 
-        var responsePageContent = responsePage.innerHTML,
-          responsePageBodyAttr = responsePage.attrList
+        var responsePageContent = responsePage.innerHTML
+
         if (!isReload) {
           app.assets.set(responsePageScript.attributes)
           app.language = responsePage.attributes.lang ? responsePage.attributes.lang.value : app.language
           app.script.element = responsePageScript
-
-          console.log(responsePage)
 
           if (app.docMode > 0 && app.docMode < 10) {
             document.open()
             document.write(responsePageContent)
             document.close()
           } else {
-
-
-
             dom.set('html', responsePageContent)
           }
+
           dom.set('main', currentPageBodyContent)
         }
       }
@@ -2494,7 +2487,6 @@ var app = {
       }
 
       dom.doctitle(false, currentPageTitle)
-
     }
   },
 
