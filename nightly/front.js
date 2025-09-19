@@ -1910,7 +1910,6 @@ var app = {
     },
 
     set: function (mechanism, type, key, data, status, format) {
-      alert('set')
       if (app.storageKey) key = app.storageKey + '_' + key
       switch (format) {
         case 'xml':
@@ -1930,8 +1929,6 @@ var app = {
         'globals': app.globals
       }
 
-      console.error(cacheData)
-      alert(mechanism)
       app.caches[type][key] = cacheData
 
       switch (mechanism) {
@@ -1939,7 +1936,6 @@ var app = {
           localStorage.setItem(key, JSON.stringify(cacheData))
           break
         case 'session':
-          alert('set')
           sessionStorage.setItem(key, JSON.stringify(cacheData))
           break
         case 'cookie':
@@ -2657,7 +2653,6 @@ var app = {
         run = onload && onload.run && onload.run.func ? onload.run.func : false,
         runarg = onload && onload.run && onload.run.arg
 
-      console.error(cache)
       if (false) {
         console.dir('cache: ' + cache)
       } else {
