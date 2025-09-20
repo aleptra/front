@@ -1244,6 +1244,7 @@ var app = {
    * @desc
    */
   disable: function (bool) {
+    console.trace('App disable: ' + bool)
     var val = bool ? 'hidden' : 'initial',
       isURI = (document.documentURI || document.location.href).indexOf('data:') !== 0 // Stops iframes.
     if (isURI) document.documentElement.style.cssText = 'visibility:' + val
@@ -2040,8 +2041,8 @@ var app = {
         // Continue running application.
         if (app.extensions.total === 0) app.assets.get.vars()
         if (app.vars.total === 0) {
-          app.disable(false)
           app.attributes.run()
+          app.disable(false)
         }
       } else {
         var templateElement = dom.get('template', true)[0], // Get only the first template element.
@@ -2062,7 +2063,7 @@ var app = {
 
         this.get.templates()
       }
-      if (app.extensions.total === 0) app.disable(false)
+      //if (app.extensions.total === 0) app.disable(false)
     },
 
     set: function (scriptAttr) {
@@ -2610,8 +2611,8 @@ var app = {
 
                 app.log.info()('Loaded extensions:', app.extensions.loaded + '/' + app.extensions.total +
                   ', vars:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
-                app.disable(false)
                 app.attributes.run()
+                app.disable(false)
               }
             }
           }
