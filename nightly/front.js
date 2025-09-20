@@ -2171,6 +2171,7 @@ var app = {
             url: url,
             type: 'template',
             cache: {
+              mechanism: 'window',
               format: 'html',
               name: 'template',
               keyType: 'template',
@@ -2540,8 +2541,8 @@ var app = {
 
             if (cache) {
               //if (cache && (statusType.success || statusType.redirect)) {
-              // Todo: add cache.mechanism? cache.type is used?
-              app.caches.set(cache.type, cache.keyType, cache.key, this.responseText, this.status, cache.format)
+              // Todo: cache.mechanism? cache.type ?
+              app.caches.set(cache.type || cache.mechanism, cache.keyType, cache.key, this.responseText, this.status, cache.format)
             }
 
             if (type) {
