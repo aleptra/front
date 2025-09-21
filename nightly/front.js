@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 294 },
+  version: { major: 1, minor: 0, patch: 0, build: 295 },
   module: {},
   plugin: {},
   var: {},
@@ -2086,6 +2086,8 @@ var app = {
         app.log.info()('Loading vars...')
         for (var j = 0; j < app.vars.total; j++) {
           var name = app.vars.name[j]
+          var cache = app.caches.get('session', 'var', name)
+
           app.log.info(1)(name)
           app.xhr.request({
             url: app.varsDir + '/' + name + '.json',
