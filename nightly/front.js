@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 301 },
+  version: { major: 1, minor: 0, patch: 0, build: 302 },
   module: {},
   plugin: {},
   var: {},
@@ -2086,25 +2086,17 @@ var app = {
         app.log.info()('Loading vars...')
         for (var j = 0; j < app.vars.total; j++) {
           var name = app.vars.name[j]
-          var cache = app.caches.get('session', 'var', name)
-          if (cache && cache.data) {
-            app.log.info(1)('Cached: ' + name)
-            app.vars[name] = cache.data
-            app.vars.loaded++
-            app.xhr.finalize('var')
-          } else {
-            app.log.info(1)(name)
-            app.xhr.request({
-              url: app.varsDir + '/' + name + '.json',
-              type: 'var',
-              cache: {
-                mechanism: 'session',
-                format: 'json',
-                keyType: 'var',
-                key: name
-              }
-            })
-          }
+          app.log.info(1)(name)
+          app.xhr.request({
+            url: app.varsDir + '/' + name + '.json',
+            type: 'var',
+            cache: {
+              mechanism: 'session',
+              format: 'json',
+              keyType: 'var',
+              key: name
+            }
+          })
         }
       },
 
