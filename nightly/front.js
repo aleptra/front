@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 289 },
+  version: { major: 1, minor: 0, patch: 0, build: 290 },
   module: {},
   plugin: {},
   var: {},
@@ -1244,7 +1244,6 @@ var app = {
    * @desc
    */
   disable: function (bool) {
-    console.trace('App disable: ' + bool)
     var val = bool ? 'hidden' : 'initial',
       isURI = (document.documentURI || document.location.href).indexOf('data:') !== 0 // Stops iframes.
     if (isURI) document.documentElement.style.cssText = 'visibility:' + val
@@ -2088,16 +2087,26 @@ var app = {
         for (var j = 0; j < app.vars.total; j++) {
           var name = app.vars.name[j]
           app.log.info(1)(name)
-          app.xhr.request({
-            url: app.varsDir + '/' + name + '.json',
-            type: 'var',
-            cache: {
-              mechanism: 'session',
-              format: 'json',
-              keyType: 'var',
-              key: name
-            }
-          })
+          var cache = app.caches.get('session', 'var', name)
+
+          if (cache && cache.data) {
+            app.log.info(1)('Cache hit: ' + name)
+            app.vars[name] = cache.data // Store data like XHR
+            app.vars.loaded++ // Increment like XHR
+
+            app.xhr.finalize()
+          } else {
+            app.xhr.request({
+              url: app.varsDir + '/' + name + '.json',
+              type: 'var',
+              cache: {
+                mechanism: 'session',
+                format: 'json',
+                keyType: 'var',
+                key: name
+              }
+            })
+          }
         }
       },
 
@@ -2507,6 +2516,16 @@ var app = {
       var self = this,
         open = XMLHttpRequest.prototype.open,
         send = XMLHttpRequest.prototype.send
+
+      self.finalize = function () {
+        if (app.extensions.loaded === app.extensions.total && app.vars.loaded === (app.vars.total + app.vars.totalStore)) {
+          app.log.info()('Loaded extensions:', app.extensions.loaded + '/' + app.extensions.total +
+          ', vars:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
+          app.attributes.run()
+          app.disable(false)
+        }
+      }
+
       XMLHttpRequest.prototype.open = function () {
         var originalOnReadyStateChange = this.onreadystatechange
         this.onreadystatechange = function () {
@@ -2605,15 +2624,7 @@ var app = {
                   return
               }
 
-              if (app.extensions.loaded === app.extensions.total
-                && app.vars.loaded === (app.vars.total + app.vars.totalStore)
-                && type !== 'template' && type !== 'data') {
-
-                app.log.info()('Loaded extensions:', app.extensions.loaded + '/' + app.extensions.total +
-                  ', vars:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
-                app.attributes.run()
-                app.disable(false)
-              }
+              finalize()
             }
           }
 
