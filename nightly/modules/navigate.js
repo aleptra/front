@@ -99,10 +99,10 @@ app.module.navigate = {
       startpage = app.isLocalNetwork ? this.config.startpageLocal : this.config.startpage || '/'
 
     if (startpage && (state.href === '/' || state.href.replace(regex, '') === startpage.replace(regex, ''))) {
+      app.disable(true)
       app.isFrontpage = true
       state.target = 'html'
       state.extension = false
-      app.disable(true)
     }
 
     app.xhr.request({
@@ -213,10 +213,10 @@ app.module.navigate = {
     },
 
     finish: function () {
+      app.disable(false)
       cancelAnimationFrame(this.intervalId)
       clearInterval(this.intervalId)
       dom.hide(this.element)
-      app.disable(false)
     },
   },
 }

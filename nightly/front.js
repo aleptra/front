@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 304 },
+  version: { major: 1, minor: 0, patch: 0, build: 305 },
   module: {},
   plugin: {},
   var: {},
@@ -2036,7 +2036,6 @@ var app = {
         app.srcDocTemplate = document.body.innerHTML
         dom.doctitle(false, document.title)
         this.get.extensions()
-
         // Continue running application.
         if (app.extensions.total === 0) app.assets.get.vars()
         if (app.vars.total === 0) {
@@ -2173,10 +2172,8 @@ var app = {
             cache: {
               mechanism: 'window',
               format: 'html',
-              name: 'template',
               keyType: 'template',
-              key: currentTemplate,
-              extraData: { isStartPage: isStartpage }
+              key: currentTemplate
             },
           })
         }
@@ -2553,8 +2550,7 @@ var app = {
 
             if (cache) {
               //if (cache && (statusType.success || statusType.redirect)) {
-              // Todo: cache.mechanism? cache.type ?
-              app.caches.set(cache.type || cache.mechanism, cache.keyType, cache.key, this.responseText, this.status, cache.format)
+              app.caches.set(cache.mechanism, cache.keyType, cache.key, this.responseText, this.status, cache.format)
             }
 
             if (type) {
