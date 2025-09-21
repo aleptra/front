@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 302 },
+  version: { major: 1, minor: 0, patch: 0, build: 303 },
   module: {},
   plugin: {},
   var: {},
@@ -1245,7 +1245,7 @@ var app = {
    */
   disable: function (bool) {
     var val = bool ? 'hidden' : 'initial',
-      isURI = (document.documentURI || document.location.href).indexOf('data:') !== 0 // Stops iframes.
+      isURI = document.location.href.indexOf('data:') !== 0 // Stops iframes.
     if (isURI) document.documentElement.style.cssText = 'visibility:' + val
   },
 
