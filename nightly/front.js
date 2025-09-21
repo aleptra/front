@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 292 },
+  version: { major: 1, minor: 0, patch: 0, build: 293 },
   module: {},
   plugin: {},
   var: {},
@@ -1244,7 +1244,6 @@ var app = {
    * @desc
    */
   disable: function (bool) {
-    console.trace('App disable: ' + bool)
     var val = bool ? 'hidden' : 'initial',
       isURI = (document.documentURI || document.location.href).indexOf('data:') !== 0 // Stops iframes.
     if (isURI) document.documentElement.style.cssText = 'visibility:' + val
@@ -2342,7 +2341,7 @@ var app = {
 
           // If the element is an Element node, add its children to the stack
           if (element.nodeType === 1) {
-            var childNodes = element.childNodes;
+            var childNodes = element.childNodes
             for (var i = childNodes.length - 1; i >= 0; i--) {
               elementsToProcess.push(childNodes[i])
             }
