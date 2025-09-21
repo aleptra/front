@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 298 },
+  version: { major: 1, minor: 0, patch: 0, build: 299 },
   module: {},
   plugin: {},
   var: {},
@@ -2086,8 +2086,8 @@ var app = {
         app.log.info()('Loading vars...')
         for (var j = 0; j < app.vars.total; j++) {
           var name = app.vars.name[j]
-          var cache = app.caches.get('session', 'var', name)
-          console.log('test');
+          var cache = app.caches.get('session', 'var', name);
+          console.log('test')
 
           app.log.info(1)(name)
           app.xhr.request({
