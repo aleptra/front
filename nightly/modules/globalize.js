@@ -59,11 +59,10 @@ app.module.globalize = {
         format: 'json',
         global: _this.globals,
         cache: {
+          mechanism: _this.storageMechanism,
           format: 'json',
           keyType: _this.storageType,
-          type: _this.storageMechanism,
           key: _this.storeKey,
-          ttl: 300
         },
         onload: {}
       }
