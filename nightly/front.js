@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 308 },
+  version: { major: 1, minor: 0, patch: 0, build: 309 },
   module: {},
   plugin: {},
   var: {},
@@ -1930,6 +1930,7 @@ var app = {
       }
 
       app.caches[type][key] = cacheData
+      console.error(type, key)
 
       switch (mechanism) {
         case 'local':
@@ -2086,23 +2087,23 @@ var app = {
         for (var j = 0; j < app.vars.total; j++) {
           var name = app.vars.name[j]
           var cache = app.caches.get('session', 'var', name)
-          if (cache && cache.data) {
+          /*if (cache && cache.data) {
             console.log('cache')
             app.vars.loaded++
             app.xhr.finalize('var')
-          } else {
-            app.log.info(1)(name)
-            app.xhr.request({
-              url: app.varsDir + '/' + name + '.json',
-              type: 'var',
-              cache: {
-                mechanism: 'session',
-                format: 'json',
-                keyType: 'var',
-                key: name
-              }
-            })
-          }
+          } else {*/
+          app.log.info(1)(name)
+          app.xhr.request({
+            url: app.varsDir + '/' + name + '.json',
+            type: 'var',
+            cache: {
+              mechanism: 'session',
+              format: 'json',
+              keyType: 'var',
+              key: name
+            }
+          })
+          //}
         }
       },
 
