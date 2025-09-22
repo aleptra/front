@@ -464,7 +464,7 @@ var dom = {
           break
         case 'bindasset':
           var keys = replaceValue.split('.'),
-            cache = app.caches.get('window', 'var', keys[0])
+            cache = app.caches.get('session', 'var', keys[0])
           app.log.info()('Binding asset: ' + keys)
           if (cache && cache.data) {
             var value = cache.data
@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 309 },
+  version: { major: 1, minor: 0, patch: 0, build: 310 },
   module: {},
   plugin: {},
   var: {},
@@ -1930,7 +1930,6 @@ var app = {
       }
 
       app.caches[type][key] = cacheData
-      console.error(type, key)
 
       switch (mechanism) {
         case 'local':
@@ -2087,23 +2086,22 @@ var app = {
         for (var j = 0; j < app.vars.total; j++) {
           var name = app.vars.name[j]
           var cache = app.caches.get('session', 'var', name)
-          /*if (cache && cache.data) {
-            console.log('cache')
+          if (cache && cache.data) {
             app.vars.loaded++
             app.xhr.finalize('var')
-          } else {*/
-          app.log.info(1)(name)
-          app.xhr.request({
-            url: app.varsDir + '/' + name + '.json',
-            type: 'var',
-            cache: {
-              mechanism: 'session',
-              format: 'json',
-              keyType: 'var',
-              key: name
-            }
-          })
-          //}
+          } else {
+            app.log.info(1)(name)
+            app.xhr.request({
+              url: app.varsDir + '/' + name + '.json',
+              type: 'var',
+              cache: {
+                mechanism: 'session',
+                format: 'json',
+                keyType: 'var',
+                key: name
+              }
+            })
+          }
         }
       },
 
