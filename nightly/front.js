@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 310 },
+  version: { major: 1, minor: 0, patch: 0, build: 311 },
   module: {},
   plugin: {},
   var: {},
@@ -1871,11 +1871,11 @@ var app = {
     windowWidth: (window.visualViewport && window.visualViewport.width) || window.innerWidth,
 
     set: function (name, value) {
-      app.globals[name] = value
+      window.app.globals[name] = value
     },
 
     get: function (name) {
-      return app.globals[name]
+      return window.app.globals[name]
     }
   },
 
