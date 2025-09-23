@@ -460,8 +460,7 @@ var dom = {
           replaceValue = app.querystrings.get(false, replaceValue)
           break
         case 'bindglobal':
-          var globals = replaceValue.indexOf('.') !== -1 ? app.globals : app // Todo: Remove when globals are moved.
-          replaceValue = app.element.getPropertyByPath(globals, replaceValue)
+          replaceValue = app.element.getPropertyByPath(app.globals, replaceValue)
           break
         case 'bindasset':
           var keys = replaceValue.split('.'),
@@ -676,7 +675,7 @@ var dom = {
   doctitle: function (object, value) {
     var title = object.exec ? object.exec.value : value
     if (title) {
-      app.title = title
+      app.globals.set(title, title)
       document.title = title
     }
   },
