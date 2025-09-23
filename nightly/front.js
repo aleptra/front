@@ -34,6 +34,7 @@ var dom = {
     'bindfield': 'bind',
     'ifafterbegin': 'if',
     'ifbeforeend': 'if',
+    'ifopen': 'ifnew',
     'resetvalue': 'reset',
     'togglevalue': 'toggle',
     'mapclass': 'map',
