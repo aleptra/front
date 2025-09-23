@@ -675,7 +675,7 @@ var dom = {
   doctitle: function (object, value) {
     var title = object.exec ? object.exec.value : value
     if (title) {
-      app.globals.set(title, title)
+      app.globals.set('title', title)
       document.title = title
     }
   },
@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 311 },
+  version: { major: 1, minor: 0, patch: 0, build: 312 },
   module: {},
   plugin: {},
   var: {},
@@ -1871,6 +1871,7 @@ var app = {
     windowWidth: (window.visualViewport && window.visualViewport.width) || window.innerWidth,
 
     set: function (name, value) {
+      console.trace(name, value)
       window.app.globals[name] = value
     },
 
