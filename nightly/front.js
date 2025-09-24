@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 316 },
+  version: { major: 1, minor: 0, patch: 0, build: 317 },
   module: {},
   plugin: {},
   var: {},
@@ -2087,7 +2087,7 @@ var app = {
           var name = app.vars.name[j]
           var cache = app.caches.get('session', 'var', name)
           if (cache && cache.data) {
-            cache = cache.data
+            app.caches.set('window', 'var', name, cache.data)
             app.vars.loaded++
             app.xhr.finalize('var')
           } else {
@@ -2545,6 +2545,7 @@ var app = {
               format = options.format
 
             if (global) {
+              console.dir(module)
               // Create an object to store all globals
               var obj = {}
               // Loop through the global array
