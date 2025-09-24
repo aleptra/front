@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 317 },
+  version: { major: 1, minor: 0, patch: 0, build: 318 },
   module: {},
   plugin: {},
   var: {},
@@ -2545,7 +2545,6 @@ var app = {
               format = options.format
 
             if (global) {
-              console.dir(module)
               // Create an object to store all globals
               var obj = {}
               // Loop through the global array
