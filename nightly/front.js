@@ -1192,7 +1192,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 319 },
+  version: { major: 1, minor: 0, patch: 0, build: 320 },
   module: {},
   plugin: {},
   var: {},
@@ -1829,8 +1829,8 @@ var app = {
      * @desc Gets the configuration from the DOM element and overrides the standard configuration.
      */
     get: function (extension, standard, element) {
-      var value = extension ? element && element.getAttribute(extension + '-conf') : element && element.getAttribute('conf') || '',
-        override = value ? value && dom.parse.attribute(value) : {},
+      var value = extension && element ? element.getAttribute(extension + '-conf') : element && element.getAttribute('conf') || '',
+        override = value ? dom.parse.attribute(value) : {},
         final = {}
       for (var prop in standard) {
         final[prop] = override.hasOwnProperty(prop) ? override[prop] : standard[prop]
