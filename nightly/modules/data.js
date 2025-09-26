@@ -180,13 +180,26 @@ app.module.data = {
 
       this._traverse(options, responseData, element, selector)
 
-      // Support iterate inside parent.
+      // Support multiple iterates inside the same parent.
       if (!dataiterate) {
         var iterateInside = app.element.find(element, '[data-iterate]')
-        if (iterateInside.length !== 0) {
-          element = iterateInside
-          options.iterate = element.attributes['data-iterate'].value
-          this._traverse(options, responseData, element, selector)
+        if (iterateInside) {
+          // Normalize to array if a single element is returned
+          var iterArray = iterateInside.length ? iterateInside : [iterateInside]
+          for (var k = 0; k < iterArray.length; k++) {
+            var childIterate = iterArray[k]
+            if (!childIterate) continue
+
+            var childOptions = {}
+            for (var p in options) {
+              if (options.hasOwnProperty(p)) childOptions[p] = options[p]
+            }
+
+            childOptions.iterate = childIterate.getAttribute('data-iterate')
+            childOptions.element = childIterate
+
+            this._traverse(childOptions, responseData, childIterate, selector)
+          }
         }
       }
     }
