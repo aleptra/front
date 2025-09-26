@@ -321,7 +321,7 @@ app.module.data = {
       }
     })
 
-    app.element.runOnEvent({ exec: { func: accessor, element: element }})
+    app.element.runOnEvent({ exec: { func: accessor, element: element } })
   },
 
   _resolve: function (obj, value, options) {
@@ -331,7 +331,7 @@ app.module.data = {
         keyAtIndex = keys && keys[options.index]
       if (value.indexOf('[].') !== -1) { // Root
         return app.element.getPropertyByPath(options.data, value.substring(3))
-      }else if (value.indexOf('[*].') !== -1) {
+      } else if (value.indexOf('[*].') !== -1) {
         var key = value.replace(value.slice(-1) === '.' ? '[*].' : '[*]', keyAtIndex)
         return app.element.getPropertyByPath(fullObject, key)
       } else if (value === '[*]') {
@@ -546,6 +546,6 @@ app.module.data = {
       dom.show(options.element)
     }
 
-    app.element.runOnEvent({ exec: { func: 'data-onfinish', element: options.element }})
+    app.element.runOnEvent({ exec: { func: 'data-onfinish', element: options.element } })
   }
 }
