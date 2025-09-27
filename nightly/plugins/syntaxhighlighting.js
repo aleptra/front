@@ -2,11 +2,20 @@
 
 app.plugin.syntaxhighlighting = {
 
-  __autoload: function () { },
+  __autoload: function (options) {
+    this.plugin = options.name + '-'
+    this.config = app.config.get(
+      this.plugin,
+      {
+        colors: 'slategray,silver,cornsilk,navajowhite,green',
+      },
+      options.element
+    )
+  },
 
   set: function (object) {
     if (object.exec) object = object.exec.element
-    object.innerHTML = this._colorize(object.innerHTML, 'slategray,silver,cornsilk,navajowhite,green')
+    object.innerHTML = this._colorize(object.innerHTML, this.config.colors)
   },
 
   _colorize: function (text, colors) {
