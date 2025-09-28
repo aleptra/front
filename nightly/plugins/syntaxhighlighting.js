@@ -11,16 +11,36 @@ app.plugin.syntaxhighlighting = {
       },
       options.element
     )
+    this.markupElement = "display: inline; background: none; color:"
   },
 
   set: function (object) {
     if (object.exec) object = object.exec.element
-    object.innerHTML = this._colorize(object.innerHTML, this.config.colors)
+    var language = this._detectLanguage(object.innerHTML)
+
+    if (language === 'html') {
+      object.innerHTML = this._colorizeHtml(object.innerHTML, this.config.colors)
+    } else if (language === 'shell') {
+      object.innerHTML = this._colorizeShell(object.innerHTML, this.config.colors)
+    }
   },
 
-  _colorize: function (text, colors) {
+  _detectLanguage: function (text) {
+    text = text.trim()
+
+    // Shell scripts
+    if (/^#!(\w+)\/(\w+)/g.test(text)) return 'shell'
+
+    // HTML
+    if (/^&lt;!DOCTYPE html&gt;|^&lt;html&gt;/.test(text) || /&lt;[a-z]+\b/.test(text)) return 'html'
+
+    // Default fallback
+    return 'html'
+  },
+
+  _colorizeHtml: function (text, colors) {
     var color = colors.split(','),
-      style = "display: inline; background: none; color:"
+      style = this.markupElement
 
     // Tags and self-closing tags.
     var rep = text.replace(/(&lt;\/?)(\w+)([\s\S]*?)(\/?)&gt;/g, function (match, p1, tag, attributes, selfClosing) {
@@ -40,7 +60,7 @@ app.plugin.syntaxhighlighting = {
 
       // Colorize Attributes if they exist.
       if (attributes) {
-        attributes = attributes.replace(/(\w+)(=["'][^"']*["'])?/g, function (attrMatch, attrName, attrValue) {
+        attributes = attributes.replace(/([\w:-]+)(=(["'][^"']*["']|[^\s>]+))?/g, function (attrMatch, attrName, attrValue) {
           var equal = ''
           if (attrValue) {
             if (attrValue[0] === '=') {
@@ -61,6 +81,18 @@ app.plugin.syntaxhighlighting = {
     // Comments.
     rep = rep.replace(/(&lt;!--[\s\S]*?--&gt;)/g, function (match, comment) {
       return '<mark style="' + style + color[4] + '">' + comment + '</mark>'
+    })
+
+    return rep
+  },
+
+  _colorizeShell: function (text, colors) {
+    var color = colors.split(','),
+      style = this.markupElement
+
+    // Shebang.
+    var rep = text.replace(/^#!(\w+)\/(\w+)/g, function (match) {
+      return '<mark style="' + style + color[0] + '">' + match + '</mark>'
     })
 
     return rep
