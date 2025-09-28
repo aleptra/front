@@ -34,7 +34,6 @@ var dom = {
     'bindfield': 'bind',
     'ifafterbegin': 'if',
     'ifbeforeend': 'if',
-    'ifopen': 'ifnew',
     'resetvalue': 'reset',
     'togglevalue': 'toggle',
     'mapclass': 'map',
@@ -1215,7 +1214,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 326 },
+  version: { major: 1, minor: 0, patch: 0, build: 327 },
   module: {},
   plugin: {},
   var: {},
@@ -1892,6 +1891,7 @@ var app = {
     isFrontpage: document.doctype ? true : false,
     windowHeight: (window.visualViewport && window.visualViewport.height) || window.innerHeight,
     windowWidth: (window.visualViewport && window.visualViewport.width) || window.innerWidth,
+    href: location.href,
 
     set: function (name, value) {
       window.app.globals[name] = value
