@@ -18,6 +18,7 @@ var dom = {
     'insertbeforeend': 'insert',
     'insertafterend': 'insert',
     'setaction': 'set2',
+    'setattr': 'set2',
     'setmax': 'set2',
     'settext': 'set2',
     'sethtml': 'set2',
@@ -696,10 +697,7 @@ var dom = {
    */
   doctitle: function (object, value) {
     var title = object.exec ? object.exec.value : value
-    if (title) {
-      app.globals.set('title', title)
-      document.title = title
-    }
+    if (title) document.title = title
   },
 
   /**
@@ -1216,7 +1214,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 328 },
+  version: { major: 1, minor: 0, patch: 0, build: 329 },
   module: {},
   plugin: {},
   var: {},
@@ -1531,6 +1529,9 @@ var app = {
       if (attr) {
         attr = attr.replace('set', '')
         switch (attr) {
+          case 'attr':
+            element.setAttribute(value, '')
+            break
           case 'text':
             element.textContent = value
             break
@@ -1891,9 +1892,10 @@ var app = {
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
+    href: '',
+    title: '',
     windowHeight: (window.visualViewport && window.visualViewport.height) || window.innerHeight,
     windowWidth: (window.visualViewport && window.visualViewport.width) || window.innerWidth,
-    href: location.href,
 
     set: function (name, value) {
       window.app.globals[name] = value
@@ -1901,6 +1903,11 @@ var app = {
 
     get: function (name) {
       return window.app.globals[name]
+    },
+
+    refresh: function () {
+      this.href = location.href
+      this.title = document.title
     }
   },
 
@@ -2058,8 +2065,9 @@ var app = {
   assets: {
     load: function () {
       if (app.isFrontpage) {
-        app.srcDocTemplate = document.body.innerHTML
         dom.doctitle(false, document.title)
+        app.srcDocTemplate = document.body.innerHTML
+        app.globals.refresh()
         this.get.extensions()
         // Continue running application.
         if (app.extensions.total === 0) app.assets.get.vars()
@@ -2519,6 +2527,7 @@ var app = {
       }
 
       dom.doctitle(false, currentPageTitle)
+      app.globals.refresh()
     }
   },
 
@@ -2613,6 +2622,7 @@ var app = {
                   }
                   dom.doctitle(false, responsePageTitle)
                   dom.bind.include = ''
+                  app.globals.refresh()
                   app.assets.get.templates()
                   break
                 case 'var':
