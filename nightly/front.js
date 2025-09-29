@@ -1041,7 +1041,7 @@ var dom = {
     var conditionPart = parts[0]
     var actionPart = parts[1]
 
-    var regex = /\(\[(.*)\]([:!><])\[(.*)\]\)/,
+    var regex = /\(\[(.*)\]([:!><~!~])\[(.*)\]\)/,
       match = conditionPart.match(regex)
 
     if (!match) return
@@ -1056,12 +1056,14 @@ var dom = {
       case '!': result = (leftValue !== rightValue); break
       case '>': result = (leftValue > rightValue); break
       case '<': result = (leftValue < rightValue); break
+      case '~': result = (leftValue && leftValue.indexOf(rightValue) !== -1); break // contains
+      case '!~': result = (leftValue && leftValue.indexOf(rightValue) === -1); break // does not contain
       default: return
     }
 
-    var actions = actionPart.split("?")
-    var trueAction = actions[0]
-    var falseAction = actions[1]
+    var actions = actionPart.split("?"),
+      trueAction = actions[0],
+      falseAction = actions[1]
 
     // Support multiple actions separated by &
     var toCall = result ? trueAction : falseAction
@@ -1214,7 +1216,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 327 },
+  version: { major: 1, minor: 0, patch: 0, build: 328 },
   module: {},
   plugin: {},
   var: {},
