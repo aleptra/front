@@ -43,6 +43,10 @@ var dom = {
     'align': 'apply',
     'color': 'apply',
     'border': 'apply',
+    'borderleft': 'apply',
+    'borderright': 'apply',
+    'borderbottom': 'apply',
+    'bordertop': 'apply',
     'bgimage': 'apply',
     'bgcolor': 'apply',
     'bold': 'apply',
@@ -271,10 +275,8 @@ var dom = {
   },
 
   move: function (object, value) {
-    console.log(object)
     var from = object
     var to = dom.get(value)
-    console.log(value)
     if (from && to) {
       to.appendChild(from)
     }
@@ -1230,7 +1232,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 330 },
+  version: { major: 1, minor: 0, patch: 0, build: 331 },
   module: {},
   plugin: {},
   var: {},
