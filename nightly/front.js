@@ -1232,7 +1232,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 331 },
+  version: { major: 1, minor: 0, patch: 0, build: 332 },
   module: {},
   plugin: {},
   var: {},

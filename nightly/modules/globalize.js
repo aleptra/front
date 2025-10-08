@@ -16,7 +16,7 @@ app.module.globalize = {
   __autoload: function (options) {
     this.module = options.name
     var query = app.querystrings.get(false, 'locale')
-    if (query) this.locale.set({ language: query }, this)
+    if (query) this._locale.set({ language: query }, this)
 
     var config = app.config.get(
       this.module,
