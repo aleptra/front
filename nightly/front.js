@@ -1057,7 +1057,7 @@ var dom = {
     var conditionPart = parts[0]
     var actionPart = parts[1]
 
-    var regex = /\(\[(.*)\]([:!><~!~])\[(.*)\]\)/,
+    var regex = /\(\[(.*)\](:|!~|!|>|<|~)\[(.*)\]\)/,
       match = conditionPart.match(regex)
 
     if (!match) return
@@ -1232,7 +1232,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 332 },
+  version: { major: 1, minor: 0, patch: 0, build: 333 },
   module: {},
   plugin: {},
   var: {},
