@@ -37,6 +37,7 @@ var dom = {
     'ifbeforeend': 'if',
     'resetvalue': 'reset',
     'togglevalue': 'toggle',
+    'toggledisplay': 'toggle',
     'mapclass': 'map',
     'mapmargin': 'map',
     'mapbindvar': 'map',
@@ -76,6 +77,7 @@ var dom = {
     'paddingleft': 'apply',
     'paddingright': 'apply',
     'radius': 'apply',
+    'relative': 'apply',
     'resize': 'apply',
     'right': 'apply',
     'transform': 'apply',
@@ -230,10 +232,23 @@ var dom = {
    * @memberof dom
    */
   toggle: function (el) {
+    var func = el.exec.func
     if (el.exec) el = el.exec.element
     var ontoggle = el.attributes.ontoggle && el.attributes.ontoggle.value,
       tag = el.localName,
       type = el.type
+
+    switch (func) {
+      case 'toggledisplay':
+        // If element is hidden, show it; otherwise, hide it
+        if (el.style.display === 'none' || window.getComputedStyle(el).display === 'none') {
+          el.style.display = el._originalDisplay || '' // restore previous display or default
+        } else {
+          el._originalDisplay = window.getComputedStyle(el).display // remember original
+          el.style.display = 'none'
+        }
+        break
+    }
 
     if (!el.originalClassList) {
       el.originalClassList = [].slice.call(el.classList).join(' ')
@@ -1250,7 +1265,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 335 },
+  version: { major: 1, minor: 0, patch: 0, build: 336 },
   module: {},
   plugin: {},
   var: {},
