@@ -466,7 +466,7 @@ var dom = {
       case 'sticky':
         value = attr
         attr = 'position'
-        break;
+        break
       default:
         // Extract the value and unit in the default case
         var regex = /^(\d+)([a-z%]*)$/,
@@ -1250,7 +1250,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 334 },
+  version: { major: 1, minor: 0, patch: 0, build: 335 },
   module: {},
   plugin: {},
   var: {},
