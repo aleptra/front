@@ -43,6 +43,7 @@ var dom = {
     'align': 'apply',
     'color': 'apply',
     'border': 'apply',
+    'absolute': 'apply',
     'borderleft': 'apply',
     'borderright': 'apply',
     'borderbottom': 'apply',
@@ -61,6 +62,7 @@ var dom = {
     'minwidth': 'apply',
     'maxwidth': 'apply',
     'move': 'move',
+    'fixed': 'apply',
     'font': 'apply',
     'flex': 'apply',
     'flexitem': 'apply',
@@ -75,7 +77,9 @@ var dom = {
     'paddingright': 'apply',
     'radius': 'apply',
     'resize': 'apply',
+    'right': 'apply',
     'transform': 'apply',
+    'top': 'apply',
     'underline': 'apply',
     'width': 'apply',
     'wordbreak': 'apply',
@@ -398,22 +402,22 @@ var dom = {
         prefix = ')'
         break
       case 'bgcolor':
-        attr = 'backgroundColor'
         value = colorMap[value] || value
+        attr = 'backgroundColor'
         break
       case 'boxshadow':
         attr = 'boxShadow'
         break
       case 'bold':
-        attr = 'fontWeight'
         value = 'bold'
+        attr = 'fontWeight'
         break
       case 'radius':
         attr = 'borderRadius'
         break
       case 'flex':
-        attr = 'display'
         value = 'flex'
+        attr = 'display'
         break
       case 'flexitem':
         attr = 'flex'
@@ -447,8 +451,22 @@ var dom = {
         attr = 'zIndex'
         break
       case 'zoom':
-        element.style.lineHeight = 'normal'
+        value = 'normal'
+        attr = 'lineHeight'
         break
+      case 'Top':
+      case 'Bottom':
+      case 'Left':
+      case 'Right':
+        attr = attr.toLowerCase()
+        break
+      case 'fixed':
+      case 'absolute':
+      case 'relative':
+      case 'sticky':
+        value = attr
+        attr = 'position'
+        break;
       default:
         // Extract the value and unit in the default case
         var regex = /^(\d+)([a-z%]*)$/,
@@ -1232,7 +1250,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 333 },
+  version: { major: 1, minor: 0, patch: 0, build: 334 },
   module: {},
   plugin: {},
   var: {},
