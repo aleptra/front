@@ -1064,7 +1064,7 @@ var dom = {
   },
 
   // TODO: Finish
-  if: function (object, value) {
+  /*if: function (object, value) {
     var attr = object.lastRunAttribute
     var value = value.split(';')
     var condition1 = value[0]
@@ -1079,10 +1079,10 @@ var dom = {
           break
       }
     }
-  },
+  },*/
 
   /* Experimental */
-  ifnew: function (object, value) {
+  if: function (object, value) {
     var parts = value.split(";")
     if (parts.length < 2) return
 
@@ -1264,7 +1264,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 337 },
+  version: { major: 1, minor: 0, patch: 0, build: 338 },
   module: {},
   plugin: {},
   var: {},
@@ -1773,13 +1773,13 @@ var app = {
           }
 
           var call = hasAttr && el.getAttribute('onif' + func)
-          if (call) dom.ifnew(el, call)
+          if (call) dom.if(el, call)
         }
       } else {
         var func = parsedCall.attribute,
           el = parsedCall.element,
           call = hasAttr && el.getAttribute('onif' + func)
-        if (call) dom.ifnew(el, call)
+        if (call) dom.if(el, call)
       }
     },
 
