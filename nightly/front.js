@@ -466,8 +466,7 @@ var dom = {
         attr = 'zIndex'
         break
       case 'zoom':
-        value = 'normal'
-        attr = 'lineHeight'
+        element.style.lineHeight = 'normal'
         break
       case 'Top':
       case 'Bottom':
@@ -1265,7 +1264,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 336 },
+  version: { major: 1, minor: 0, patch: 0, build: 337 },
   module: {},
   plugin: {},
   var: {},
