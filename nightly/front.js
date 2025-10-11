@@ -879,7 +879,11 @@ var dom = {
           if (src) object.src = afterbegin + src + beforeend
           break
         case 'a':
-          object.href = afterbegin + object.href + beforeend
+          var insertContent = object.getAttribute('insertcontent') === 'true'
+          if (insertContent)
+            object.textContent = afterbegin + object.textContent + beforeend
+          else
+            object.href = afterbegin + object.href + beforeend
           break
         case 'select':
           object.setAttribute('select', value)
@@ -1264,7 +1268,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 338 },
+  version: { major: 1, minor: 0, patch: 0, build: 339 },
   module: {},
   plugin: {},
   var: {},
