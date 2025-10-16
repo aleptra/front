@@ -410,9 +410,16 @@ var dom = {
         attr = 'whiteSpace'
         break
       case 'bgimage':
-        attr = 'backgroundImage'
-        suffix = 'url('
-        prefix = ')'
+        var parts = value.split(' ')
+        var url = parts[0]
+        var size = parts[1]
+        var repeat = parts[2]
+        var position = parts[3]
+
+        element.style.backgroundImage = 'url(' + url + ')'
+        element.style.backgroundRepeat = repeat
+        element.style.backgroundSize = size
+        element.style.backgroundPosition = position
         break
       case 'bgcolor':
         value = colorMap[value] || value
@@ -1253,7 +1260,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 340 },
+  version: { major: 1, minor: 0, patch: 0, build: 341 },
   module: {},
   plugin: {},
   var: {},
