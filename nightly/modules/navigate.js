@@ -44,6 +44,7 @@ app.module.navigate = {
       // Support href in all elements.
       if (link.localName !== 'a') {
         link.href = href.value
+        link.pathname = link.baseURI + href.value
       }
 
       if (link.hash) {
@@ -56,7 +57,7 @@ app.module.navigate = {
             target = link.target === '_top' ? 'html' : link.target || this.config.target
 
           var state = {
-            'href': link.href,
+            'href': link.pathname,
             'target': target,
             'arg': { disableSrcdoc: true, runAttributes: true }
           }
@@ -97,16 +98,7 @@ app.module.navigate = {
     var regex = /^\/+|\/+$/g,
       startpage = app.isLocalNetwork ? this.config.startpageLocal : this.config.startpage || '/'
 
-    // normalize state.href to a path-only value for comparison with startpage
-    var hrefToCheck = state.href || ''
-    try {
-      if (hrefToCheck.indexOf(window.location.origin) === 0) {
-        hrefToCheck = hrefToCheck.slice(window.location.origin.length)
-      }
-    } catch (e) { }
-    hrefToCheck = hrefToCheck.split('?')[0].split('#')[0]
-
-    if (startpage && (hrefToCheck === '/' || hrefToCheck.replace(regex, '') === startpage.replace(regex, ''))) {
+    if (startpage && (state.href === '/' || state.href.replace(regex, '') === startpage.replace(regex, ''))) {
       app.disable(true)
       app.isFrontpage = true
       state.target = 'html'
