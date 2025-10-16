@@ -62,6 +62,7 @@ app.module.navigate = {
             'arg': { disableSrcdoc: true, runAttributes: true }
           }
 
+          // Prevent duplicate history entries.
           if (link.href !== window.location.href && pushState) history.pushState(state, '', link.href)
 
           this._scroll() // Reset scroll to top.
