@@ -319,7 +319,6 @@ var dom = {
       value = prop ? 'visibility: hidden' : 'display: none'
       el.style.cssText += value + ' !important'
     }
-    app.element.runOnEvent({ exec: { func: 'hide', element: el } })
   },
 
   hrefhost: function (el) {
@@ -351,7 +350,6 @@ var dom = {
       el.style.display = el.initDisplay
       el.removeAttribute('hide')
     }
-    app.element.runOnEvent({ exec: { func: 'show', element: el } })
   },
 
   /**
@@ -1067,25 +1065,12 @@ var dom = {
     })
   },
 
-  // TODO: Finish
-  /*if: function (object, value) {
-    var attr = object.lastRunAttribute
-    var value = value.split(';')
-    var condition1 = value[0]
-    var test = value[1].split(':'),
-      newAttr = test[0],
-      newValue = test[1]
-    var currentAttr = app.element.get(object, newAttr)
-    if (condition1) {
-      switch (attr) {
-        case 'ifbeforeend':
-          app.element.set(object, currentAttr + newValue, newAttr)
-          break
-      }
-    }
-  },*/
-
-  /* Experimental */
+  /**
+   * @function if
+   * @memberof dom
+   * @param {Object} element - The element to which the condition will be applied.
+   * @desc * Evaluates a condition and executes actions based on the result.
+   */
   if: function (object, value) {
     var parts = value.split(";")
     if (parts.length < 2) return
@@ -1268,7 +1253,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 339 },
+  version: { major: 1, minor: 0, patch: 0, build: 340 },
   module: {},
   plugin: {},
   var: {},
@@ -2367,6 +2352,8 @@ var app = {
                 app.log.info(1)('dom.' + name)
                 dom[name](element, attrValue)
               }
+              // Run onEvent for all attributes.
+              app.element.runOnEvent({ exec: { func: attrName, element: element } })
             } else {
               app.log.warn(1)(name + " [Skipping]")
             }
