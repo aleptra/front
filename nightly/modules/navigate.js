@@ -106,7 +106,6 @@ app.module.navigate = {
       state.extension = false
     }
 
-    console.error(state.href)
     app.xhr.request({
       url: state.href,
       urlExtension: state.extension,
