@@ -44,7 +44,7 @@ app.module.navigate = {
       // Support href in all elements.
       if (link.localName !== 'a') {
         link.href = href.value
-        link.pathname = link.baseURI + href.value
+        link.pathname = href.value
       }
 
       if (link.hash) {
@@ -106,6 +106,7 @@ app.module.navigate = {
       state.extension = false
     }
 
+    console.error(state.href)
     app.xhr.request({
       url: state.href,
       urlExtension: state.extension,
