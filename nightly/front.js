@@ -80,6 +80,7 @@ var dom = {
     'relative': 'apply',
     'resize': 'apply',
     'right': 'apply',
+    'textshadow': 'apply',
     'transform': 'apply',
     'top': 'apply',
     'underline': 'apply',
@@ -462,6 +463,9 @@ var dom = {
         break
       case 'font':
         attr = 'fontFamily'
+        break
+      case 'textshadow':
+        attr = 'textShadow'
         break
       case 'underline':
         element.style.textDecoration = 'underline'
@@ -1260,7 +1264,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 346 },
+  version: { major: 1, minor: 0, patch: 0, build: 347 },
   module: {},
   plugin: {},
   var: {},
