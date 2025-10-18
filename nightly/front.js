@@ -1191,29 +1191,6 @@ var dom = {
     app.attributes.run(elements, ['stop'])
   },
 
-  stopif: function (element, value) {
-    var elementValue = element.innerHTML || '',
-      values = value.split(':'),
-      condition = values[0],
-      attributes = values[1].split(';')
-
-    if (elementValue === condition) {
-      for (var i = 0; i < attributes.length; i++)
-        element.removeAttribute(attributes[i])
-    }
-  },
-
-  callif: function (element, value) {
-    var elementValue = element.innerHTML || '',
-      values = value.split(':'),
-      condition = values[0],
-      attributes = values[1].split(';')
-
-    if (elementValue === condition) {
-      alert('hej')
-    }
-  },
-
   var: function (element, value) {
     if (element.localName === 'script') return
   },
@@ -1264,7 +1241,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 347 },
+  version: { major: 1, minor: 0, patch: 0, build: 348 },
   module: {},
   plugin: {},
   var: {},
