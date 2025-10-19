@@ -483,7 +483,6 @@ var dom = {
       case 'Left':
       case 'Right':
         attr = attr.toLowerCase()
-        console.log(attr)
         break
       case 'fixed':
       case 'absolute':
@@ -908,15 +907,13 @@ var dom = {
   },
 
   prepend: function (element, value) {
-    var div = dom.get('#backdrop')
-    console.dir(div)
-    var aside = dom.get('#aside')
-    aside.insertBefore(div, aside.firstChild)
+    var div = dom.get(value)
+    element.insertBefore(div, element.firstChild)
   },
 
   append: function (element, value) {
-    var div = dom.get('#backdrop')
-    dom.get('#aside').appendChild(div)
+    var div = dom.get(value)
+    element.appendChild(div)
   },
 
   /**
@@ -1255,7 +1252,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 349 },
+  version: { major: 1, minor: 0, patch: 0, build: 350 },
   module: {},
   plugin: {},
   var: {},
