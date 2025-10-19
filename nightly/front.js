@@ -70,6 +70,7 @@ var dom = {
     'flexdirection': 'apply',
     'justifycontent': 'apply',
     'height': 'apply',
+    'left': 'apply',
     'lineheight': 'apply',
     'padding': 'apply',
     'paddingtop': 'apply',
@@ -482,6 +483,7 @@ var dom = {
       case 'Left':
       case 'Right':
         attr = attr.toLowerCase()
+        console.log(attr)
         break
       case 'fixed':
       case 'absolute':
@@ -905,6 +907,18 @@ var dom = {
     }
   },
 
+  prepend: function (element, value) {
+    var div = dom.get('#backdrop')
+    console.dir(div)
+    var aside = dom.get('#aside')
+    aside.insertBefore(div, aside.firstChild)
+  },
+
+  append: function (element, value) {
+    var div = dom.get('#backdrop')
+    dom.get('#aside').appendChild(div)
+  },
+
   /**
    * @function map
    * @memberof dom
@@ -1241,7 +1255,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 348 },
+  version: { major: 1, minor: 0, patch: 0, build: 349 },
   module: {},
   plugin: {},
   var: {},
