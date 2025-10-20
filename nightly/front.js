@@ -1252,7 +1252,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 350 },
+  version: { major: 1, minor: 0, patch: 0, build: 351 },
   module: {},
   plugin: {},
   var: {},
@@ -1960,8 +1960,9 @@ var app = {
     page: {},
     template: {},
 
-    get: function (mechanism, type, key) {
-      var data
+    get: function (mechanism, type, key, options) {
+      var options = options || {},
+        data
       if (app.storageKey) key = app.storageKey + '_' + key
       switch (mechanism) {
         case 'local':
@@ -1975,6 +1976,7 @@ var app = {
           break
         default:
           data = app.caches[type][key]
+          if (data && options.fetchJson) data = JSON.parse(data.data)
       }
       return data
     },

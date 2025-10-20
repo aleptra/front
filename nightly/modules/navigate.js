@@ -24,6 +24,42 @@ app.module.navigate = {
     }
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
+    app.listeners.add(window, 'beforeunload', this._saveScroll.bind(this))
+
+    // ✅ Restore scroll position immediately after load
+    this._restoreScroll()
+  },
+
+  /**
+   * Saves current scroll position to session storage before reload or navigation away.
+   */
+  _saveScroll: function () {
+    var target = dom.get('main') || dom.get('html')
+    if (!target) return
+    var scrollTop = target.scrollTop || 0,
+      key = '_' + window.location.pathname
+
+    app.caches.set('window', 'module', 'navigate' + key, '{ "top": ' + scrollTop + ' }')
+    // ✅ Save scroll before leaving the current page
+    this._saveScroll()
+  },
+
+  /**
+   * Restores scroll position when page is reloaded or navigated back.
+   */
+  _restoreScroll: function () {
+    var target = dom.get('main') || dom.get('html')
+    if (!target) return
+
+    var key = '_' + window.location.pathname
+    var saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true }) // Preload cache
+
+    if (saved) {
+      target.scrollTo({
+        top: parseInt(saved.top, 10),
+        behavior: 'instant'
+      })
+    }
   },
 
   go: function (event) {
@@ -88,6 +124,9 @@ app.module.navigate = {
     }
     this._load(state)
     if (state.hash) this._hash(state)
+
+    // ✅ Delay to allow new content injection before restoring scroll
+    //setTimeout(this._restoreScroll.bind(this), 50)
   },
 
   /**
