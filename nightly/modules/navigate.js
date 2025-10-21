@@ -24,10 +24,11 @@ app.module.navigate = {
     }
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
-    app.listeners.add(window, 'beforeunload', this._saveScroll.bind(this))
-
-    // ✅ Restore scroll position immediately after load
-    this._restoreScroll()
+    var target = dom.get('main') || dom.get('html')
+    if (!target) return
+    app.listeners.add(target, 'scroll', this._saveScroll.bind(this))
+    // Restore scroll position immediately after load
+    this._restoreScroll(target)
   },
 
   /**
@@ -40,19 +41,14 @@ app.module.navigate = {
       key = '_' + window.location.pathname
 
     app.caches.set('window', 'module', 'navigate' + key, '{ "top": ' + scrollTop + ' }')
-    // ✅ Save scroll before leaving the current page
-    this._saveScroll()
   },
 
   /**
    * Restores scroll position when page is reloaded or navigated back.
    */
-  _restoreScroll: function () {
-    var target = dom.get('main') || dom.get('html')
-    if (!target) return
-
-    var key = '_' + window.location.pathname
-    var saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true }) // Preload cache
+  _restoreScroll: function (target) {
+    var key = '_' + window.location.pathname,
+      saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true }) // Preload cache
 
     if (saved) {
       target.scrollTo({
