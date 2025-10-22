@@ -712,15 +712,23 @@ var dom = {
 
   //Todo: Experimental
   scroll: function (element, value) {
+    value = value ? value : element.exec.value
     if (element.exec) element = element.exec.element
-    var target = value ? dom.get(value) : element
-    targetHeight = target.scrollHeight
 
-    if (target.scrollTo) {
-      target.scrollTo(0, targetHeight)
-    } else {
-      target.scrollTop = targetHeight
-    }
+    // Resolve element if it's a selector string
+    var target = typeof element === 'string' ? dom.get(element) : element
+    // Determine scroll position
+    var scrollToValue
+    if (value === 'bottom')
+      scrollToValue = target.scrollHeight
+    else
+      scrollToValue = parseInt(value, 10) || 0
+
+    // Scroll
+    if (target.scrollTo)
+      target.scrollTo(0, scrollToValue)
+    else
+      target.scrollTop = scrollToValue
   },
 
   /**

@@ -18,6 +18,9 @@ app.module.navigate = {
       startpageLocal: false,
     }, options.element)
 
+    // Cache main container once
+    this.mainTarget = dom.get(this.config.target)
+
     if (history.pushState) {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
       app.listeners.add(document, 'click', this._click.bind(this))
@@ -45,20 +48,11 @@ app.module.navigate = {
   _restoreScroll: function () {
     var key = '_' + window.location.pathname,
       saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true })
-    if (!saved) return
 
-    var target = dom.get('main') || document.scrollingElement || dom.get('html')
-    var lastHeight = 0
-
-      (function scrollWhenReady() {
-        var height = target.scrollHeight
-        if (height !== lastHeight) {
-          lastHeight = height
-          requestAnimationFrame(scrollWhenReady) // wait for content to render
-        } else {
-          dom.scroll(target, saved.top) // use your dom.scroll function
-        }
-      })()
+    // Set height of main from globals.
+    var mainHeight = app.globals.get('mainScrollHeight')
+    if (mainHeight) this.mainTarget.style.height = mainHeight + 'px'
+    if (saved) dom.scroll('main', saved.top)
   },
 
   go: function (event) {
