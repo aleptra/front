@@ -43,16 +43,33 @@ app.module.navigate = {
   },
 
   /**
-   * Restores scroll position when page is reloaded or navigated back.
+   * Restores scroll position when page is reloaded or navigated back,
+   * waiting until the content is fully rendered or timeout reached.
    */
   _restoreScroll: function () {
-    var key = '_' + window.location.pathname,
+    var self = this,
+      key = '_' + window.location.pathname,
       saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true })
 
-    // Set height of main from globals.
-    var mainHeight = app.globals.get('mainScrollHeight')
-    if (mainHeight) this.mainTarget.style.height = mainHeight + 'px'
-    if (saved) dom.scroll('main', saved.top)
+    var mainTarget = self.mainTarget,
+      lastHeight = 0,
+      stable = 0,
+      waited = 0,
+      step = 200,
+      limit = 15000
+
+      ; (function check() {
+        var h = mainTarget.scrollHeight
+        stable = (h === lastHeight) ? stable + 1 : 0
+        lastHeight = h
+
+        if (stable >= 3 || waited >= limit) {
+          dom.scroll(self.config.target, parseInt(saved.top, 10))
+        } else {
+          waited += step
+          setTimeout(check, step)
+        }
+      })()
   },
 
   go: function (event) {
