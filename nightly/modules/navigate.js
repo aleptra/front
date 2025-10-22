@@ -18,26 +18,25 @@ app.module.navigate = {
       startpageLocal: false,
     }, options.element)
 
+    // Cache main container once
+    this.mainTarget = dom.get(this.config.target)
+
     if (history.pushState) {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
       app.listeners.add(document, 'click', this._click.bind(this))
     }
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
-    var target = dom.get('main') || dom.get('html')
-    if (!target) return
-    app.listeners.add(target, 'scroll', this._saveScroll.bind(this))
+    app.listeners.add(this.mainTarget, 'scroll', this._saveScroll.bind(this))
     // Restore scroll position immediately after load
-    this._restoreScroll(target)
+    this._restoreScroll()
   },
 
   /**
    * Saves current scroll position to session storage before reload or navigation away.
    */
   _saveScroll: function () {
-    var target = dom.get('main') || dom.get('html')
-    if (!target) return
-    var scrollTop = target.scrollTop || 0,
+    var scrollTop = this.mainTarget.scrollTop || 0,
       key = '_' + window.location.pathname
 
     app.caches.set('window', 'module', 'navigate' + key, '{ "top": ' + scrollTop + ' }')
@@ -46,15 +45,21 @@ app.module.navigate = {
   /**
    * Restores scroll position when page is reloaded or navigated back.
    */
-  _restoreScroll: function (target) {
+  _restoreScroll: function () {
+    var self = this
     var key = '_' + window.location.pathname,
-      saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true }) // Preload cache
+      saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true });
+
+    // Optionally set height
+    var mainHeight = app.globals.get('mainScrollHeight');
+    if (mainHeight) {
+      this.mainTarget.style.height = mainHeight + 'px';
+    }
 
     if (saved) {
-      target.scrollTo({
-        top: parseInt(saved.top, 10),
-        behavior: 'instant'
-      })
+      setTimeout(function () {
+        self.mainTarget.scrollTop = parseInt(saved.top, 10)
+      }, 0) // 0ms delay lets the browser finish rendering
     }
   },
 
@@ -121,8 +126,8 @@ app.module.navigate = {
     this._load(state)
     if (state.hash) this._hash(state)
 
-    // ✅ Delay to allow new content injection before restoring scroll
-    //setTimeout(this._restoreScroll.bind(this), 50)
+    // Restore scroll position immediately after load
+    this._restoreScroll()
   },
 
   /**

@@ -559,6 +559,7 @@ app.module.data = {
       dom.show(options.element)
     }
 
+    app.globals.set('mainScrollHeight', dom.get('main').scrollHeight) // Save main scroll height.
     app.element.runOnEvent({ exec: { func: 'data-onfinish', element: options.element } })
   }
 }
