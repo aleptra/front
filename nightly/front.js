@@ -1102,7 +1102,7 @@ var dom = {
    * @desc * Evaluates a condition and executes actions based on the result.
    */
   if: function (object, value) {
-    var parts = value.split(";")
+    var parts = value.split(';')
     if (parts.length < 2) return
 
     var conditionPart = parts[0]
@@ -1128,7 +1128,7 @@ var dom = {
       default: return
     }
 
-    var actions = actionPart.split("?"),
+    var actions = actionPart.split('?'),
       trueAction = actions[0],
       falseAction = actions[1]
 
@@ -1260,7 +1260,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 355 },
+  version: { major: 1, minor: 0, patch: 0, build: 356 },
   module: {},
   plugin: {},
   var: {},
@@ -1441,10 +1441,10 @@ var app = {
 
     for (var i = 0; i < runArray.length; i++) {
       var string = runArray[i],
-        parts = string.split(":"),
+        parts = string.split(':'),
         func = parts[0],
-        element1 = parts[1] && (parts[1][0] === "#" || parts[1][0] === "*") && (parts[1].split('.') || [])[0],
-        element2 = parts[2] && (parts[2][0] === "#" || parts[2][0] === "*") && (parts[2].split('.') || [])[0],
+        element1 = parts[1] && (parts[1][0] === '#' || parts[1][0] === '*') && (parts[1].split('.') || [])[0],
+        element2 = parts[2] && (parts[2][0] === '#' || parts[2][0] === '*') && (parts[2].split('.') || [])[0],
         attribute1 = element1 && (parts[1].split('.') || [])[1],
         attribute2 = element2 && (parts[2].split('.') || [])[1],
         value = app.element.extractBracketValues(string)
@@ -2364,7 +2364,7 @@ var app = {
               // Run onEvent for all attributes.
               app.element.runOnEvent({ exec: { func: attrName, element: element } })
             } else {
-              app.log.warn(1)(name + " [Skipping]")
+              app.log.warn(1)(name + ' [Skipping]')
             }
           }
         }
@@ -2727,7 +2727,7 @@ var app = {
      * @desc Creates XHR requests and updates the DOM based on the response.
      */
     request: function (options) {
-      if (!options.url) return // prevent empty requests. example include=""
+      if (!options.url) return // prevent empty requests. example in include attribute.
       var method = options.method ? options.method.toUpperCase() : 'GET',
         url = options.url instanceof Array ? options.url : [options.url],
         target = options.target ? dom.get(options.target) : options.element,
