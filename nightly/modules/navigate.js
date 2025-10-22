@@ -48,18 +48,16 @@ app.module.navigate = {
   _restoreScroll: function () {
     var self = this
     var key = '_' + window.location.pathname,
-      saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true });
+      saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true })
 
-    // Optionally set height
-    var mainHeight = app.globals.get('mainScrollHeight');
-    if (mainHeight) {
-      this.mainTarget.style.height = mainHeight + 'px';
-    }
+    // Set height of main from globals.
+    var mainHeight = app.globals.get('mainScrollHeight')
+    if (mainHeight) this.mainTarget.style.height = mainHeight + 'px'
 
     if (saved) {
       setTimeout(function () {
         self.mainTarget.scrollTop = parseInt(saved.top, 10)
-      }, 0) // 0ms delay lets the browser finish rendering
+      }, 0) // 0ms delay lets the browser finish rendering.
     }
   },
 
