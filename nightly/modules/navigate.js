@@ -50,6 +50,7 @@ app.module.navigate = {
     var self = this,
       key = '_' + window.location.pathname,
       saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true })
+    if (!saved) return
 
     var mainTarget = self.mainTarget,
       lastHeight = 0,

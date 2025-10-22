@@ -712,8 +712,10 @@ var dom = {
 
   //Todo: Experimental
   scroll: function (element, value) {
-    value = value ? value : element.exec.value
-    if (element.exec) element = element.exec.element
+    if (element.exec) {
+      value = element.exec.value
+      element = element.exec.element
+    }
 
     // Resolve element if it's a selector string
     var target = typeof element === 'string' ? dom.get(element) : element
@@ -1260,7 +1262,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 358 },
+  version: { major: 1, minor: 0, patch: 0, build: 359 },
   module: {},
   plugin: {},
   var: {},
