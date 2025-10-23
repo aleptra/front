@@ -63,6 +63,7 @@ var dom = {
     'minwidth': 'apply',
     'maxwidth': 'apply',
     'move': 'move',
+    'grid': 'apply',
     'fixed': 'apply',
     'font': 'apply',
     'flex': 'apply',
@@ -433,6 +434,9 @@ var dom = {
       case 'bold':
         value = 'bold'
         attr = 'fontWeight'
+        break
+      case 'grid':
+        attr = 'display'
         break
       case 'radius':
         attr = 'borderRadius'
@@ -1262,7 +1266,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 359 },
+  version: { major: 1, minor: 0, patch: 0, build: 360 },
   module: {},
   plugin: {},
   var: {},
