@@ -432,17 +432,18 @@ var dom = {
         attr = 'boxShadow'
         break
       case 'bold':
-        value = 'bold'
+        value = attr
         attr = 'fontWeight'
         break
       case 'grid':
+        value = attr
         attr = 'display'
         break
       case 'radius':
         attr = 'borderRadius'
         break
       case 'flex':
-        value = 'flex'
+        value = attr
         attr = 'display'
         break
       case 'flexitem':
@@ -1266,7 +1267,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 360 },
+  version: { major: 1, minor: 0, patch: 0, build: 361 },
   module: {},
   plugin: {},
   var: {},
