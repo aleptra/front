@@ -8,6 +8,8 @@ app.plugin.syntaxhighlighting = {
       this.plugin,
       {
         colors: 'slategray,silver,cornsilk,navajowhite,green',
+        javascriptColors: 'cornflowerblue,burlywood,green,mediumpurple,gray',
+        shellColors: 'slategray,silver,cornsilk,navajowhite,green',
       },
       options.element
     )
@@ -21,7 +23,9 @@ app.plugin.syntaxhighlighting = {
     if (language === 'html') {
       object.innerHTML = this._colorizeHtml(object.innerHTML, this.config.colors)
     } else if (language === 'shell') {
-      object.innerHTML = this._colorizeShell(object.innerHTML, this.config.colors)
+      object.innerHTML = this._colorizeShell(object.innerHTML, this.config.shellColors || this.config.colors)
+    } else if (language === 'javascript') {
+      object.innerHTML = this._colorizeJavaScript(object.innerHTML, this.config.javascriptColors || this.config.colors)
     }
   },
 
@@ -30,7 +34,8 @@ app.plugin.syntaxhighlighting = {
 
     // Shell scripts
     if (/^#!(\w+)\/(\w+)/g.test(text)) return 'shell'
-
+    // JavaScript
+    if (/function\s+|var\s+|let\s+|const\s+|if\s*\(/.test(text)) return 'javascript'
     // HTML
     if (/^&lt;!DOCTYPE html&gt;|^&lt;html&gt;/.test(text) || /&lt;[a-z]+\b/.test(text)) return 'html'
 
@@ -92,6 +97,28 @@ app.plugin.syntaxhighlighting = {
 
     // Shebang.
     var rep = text.replace(/^#!(\w+)\/(\w+)/g, function (match) {
+      return '<mark style="' + style + color[0] + '">' + match + '</mark>'
+    })
+
+    return rep
+  },
+
+  _colorizeJavaScript: function (text, colors) {
+    var color = colors.split(','),
+      style = this.markupElement
+
+    // Strings
+    var rep = text.replace(/(["'`])(.*?)\1/g, function (match, quote, content) {
+      return '<mark style="' + style + color[1] + '">' + quote + content + quote + '</mark>'
+    })
+
+    // Comments
+    rep = rep.replace(/(\/\/.*$|\/\*[\s\S]*?\*\/)/gm, function (match) {
+      return '<mark style="' + style + color[4] + '">' + match + '</mark>'
+    })
+
+    // Keywords
+    rep = rep.replace(/\b(function|var|let|const|if|else|for|while|return|true|false|null|undefined)\b/g, function (match) {
       return '<mark style="' + style + color[0] + '">' + match + '</mark>'
     })
 
