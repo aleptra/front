@@ -35,7 +35,7 @@ app.plugin.syntaxhighlighting = {
     // Shell scripts
     if (/^#!(\w+)\/(\w+)/g.test(text)) return 'shell'
     // JavaScript
-    if (/function\s+|var\s+|let\s+|const\s+|if\s*\(/.test(text)) return 'javascript'
+    if ((/function\s+|var\s+|let\s+|const\s+|if\s*\(/.test(text) || /^#/.test(text)) && !/<!--[\s\S]*?-->/.test(text)) return 'javascript'
     // HTML
     if (/^&lt;!DOCTYPE html&gt;|^&lt;html&gt;/.test(text) || /&lt;[a-z]+\b/.test(text)) return 'html'
 
