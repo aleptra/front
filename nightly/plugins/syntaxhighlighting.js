@@ -35,7 +35,7 @@ app.plugin.syntaxhighlighting = {
     // Shell scripts
     if (/^#!(\w+)\/(\w+)/g.test(text)) return 'shell'
     // JavaScript
-    if ((/function\s+|var\s+|let\s+|const\s+|if\s*\(/.test(text) || /^#/.test(text)) && !/<!--[\s\S]*?-->/.test(text)) return 'javascript'
+    if (/\bfunction\s*(\w*\s*)\(/.test(text)) return 'javascript'
     // HTML
     if (/^&lt;!DOCTYPE html&gt;|^&lt;html&gt;/.test(text) || /&lt;[a-z]+\b/.test(text)) return 'html'
 
@@ -118,7 +118,7 @@ app.plugin.syntaxhighlighting = {
     })
 
     // Keywords
-    rep = rep.replace(/\b(function|var|let|const|if|else|for|while|return|true|false|null|undefined)\b/g, function (match) {
+    rep = rep.replace(/\b(function|var|let|const|if|else|for|while|return|true|false|null|undefined|async|await)\b/g, function (match) {
       return '<mark style="' + style + color[0] + '">' + match + '</mark>'
     })
 
