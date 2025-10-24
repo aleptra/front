@@ -71,6 +71,7 @@ var dom = {
     'flexdirection': 'apply',
     'justifycontent': 'apply',
     'height': 'apply',
+    'inherit': 'apply',
     'left': 'apply',
     'lineheight': 'apply',
     'padding': 'apply',
@@ -85,6 +86,7 @@ var dom = {
     'textshadow': 'apply',
     'transform': 'apply',
     'top': 'apply',
+    'unset': 'apply',
     'underline': 'apply',
     'width': 'apply',
     'wordbreak': 'apply',
@@ -362,18 +364,17 @@ var dom = {
    * @param {*} value 
    */
   apply: function (element, value) {
-
     if (element.exec) {
-      test = element.exec.func
+      func = element.exec.func
       value = element.exec.value
       element = element.exec.element
     } else {
-      test = element.lastRunAttribute
+      func = element.lastRunAttribute
     }
 
     var prefix = '',
       suffix = '',
-      attr = test.replace(/(top|bottom|left|right)$/g, function (match) {
+      attr = func.replace(/(top|bottom|left|right)$/g, function (match) {
         return match.charAt(0).toUpperCase() + match.slice(1)
       })
 
@@ -436,15 +437,12 @@ var dom = {
         attr = 'fontWeight'
         break
       case 'grid':
+      case 'flex':
         value = attr
         attr = 'display'
         break
       case 'radius':
         attr = 'borderRadius'
-        break
-      case 'flex':
-        value = attr
-        attr = 'display'
         break
       case 'flexitem':
         attr = 'flex'
@@ -507,7 +505,15 @@ var dom = {
             value = numeric,
             prefix = unit
         }
+
+        // Handle "unset:property" or "inherit:property" syntax
+        var specialMatch = func.trim().match(/^(unset|inherit)$/i)
+        if (specialMatch) {
+          attr = value
+          value = func
+        }
     }
+
     element.style[attr] = suffix + value + prefix
   },
 
@@ -1267,7 +1273,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 361 },
+  version: { major: 1, minor: 0, patch: 0, build: 362 },
   module: {},
   plugin: {},
   var: {},

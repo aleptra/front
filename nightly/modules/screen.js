@@ -60,6 +60,7 @@ app.module.screen = {
     // fire event only if breakpoint changed
     if (bp && bp !== this.currentBp) {
       this.currentBp = bp
+      app.log.info()('Current breakpoint:', bp, 'Window width:', w)
       this.applyForBreakpoint(bp)
     }
   },
