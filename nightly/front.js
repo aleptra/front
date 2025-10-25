@@ -664,11 +664,8 @@ var dom = {
    * @param {*} value 
    */
   focus: function (element, value) {
-    if (element.exec) {
-      value = element.exec.value
-      element = element.exec.element
-    }
-    if (element) element.focus()
+    var target = app.element.resolveTarget(value || element)
+    if (target) target.focus()
   },
 
   /**
@@ -676,8 +673,7 @@ var dom = {
    * @memberof dom
    */
   blur: function (element, value) {
-    if (element.exec) element = element.exec.element
-    var target = value ? app.element.select(value) : element
+    var target = app.element.resolveTarget(value || element)
     if (target) target.blur()
   },
 
@@ -686,8 +682,7 @@ var dom = {
    * @memberof dom
    */
   enable: function (element, value) {
-    if (element.exec) element = element.exec.element
-    var target = value ? app.element.select(value) : element
+    var target = app.element.resolveTarget(value || element)
     if (target) {
       target.disabled = false
       target.wheel = true
@@ -1246,7 +1241,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 368 },
+  version: { major: 1, minor: 0, patch: 0, build: 369 },
   module: {},
   plugin: {},
   var: {},
@@ -1719,6 +1714,15 @@ var app = {
         if (type === 'a' || type === 'button' || type === 'label') return current
       }
       return null
+    },
+
+    /**
+     * @function resolveTarget
+     * @memberof app.element
+     */
+    resolveTarget: function (element) {
+      if (element && element.exec) element = element.exec.element
+      return typeof element === 'string' ? this.select(element) : element
     },
 
     /**
