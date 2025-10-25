@@ -19,7 +19,7 @@ app.module.navigate = {
     }, options.element)
 
     // Cache main container once
-    this.mainTarget = dom.get(this.config.target)
+    this.mainTarget = app.element.select(this.config.target)
 
     if (history.pushState) {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
@@ -178,13 +178,13 @@ app.module.navigate = {
   _hash: function (link) {
     var hash = link && link.hash
     if (hash) {
-      var targetElement = dom.get(hash)
+      var targetElement = app.element.select(hash)
       if (targetElement) this._scroll('smooth', targetElement.offsetTop)
     }
   },
 
   _scroll: function (behavior, top) {
-    var target = dom.get('main') || dom.get('html')
+    var target = app.element.select('main') || app.element.select('html')
 
     if (target.scrollTo) {
       target.scrollTo({
@@ -211,7 +211,7 @@ app.module.navigate = {
     isFastPage: true,
 
     set: function (selector) {
-      this.element = dom.get(selector)
+      this.element = app.element.select(selector)
       this.elementChild = this.element.firstChild
     },
 

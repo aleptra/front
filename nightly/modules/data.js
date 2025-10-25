@@ -162,7 +162,7 @@ app.module.data = {
       if (databind) {
         var test = databind.split(':'),
           realValue = app.element.getPropertyByPath(responseData.data, test[0]),
-          target = dom.get(test[1])
+          target = app.element.select(test[1])
         app.element.set(target, realValue)
         app.element.onchange(target, 'data-bind')
       }
@@ -320,7 +320,7 @@ app.module.data = {
           var test = value[i].split(':')
 
           if (test[1] && test[1][0] === '#') {
-            app.element.set(dom.get(test[1]), self._resolve(responseObject, test[0], options), false)
+            app.element.set(app.element.select(test[1]), self._resolve(responseObject, test[0], options), false)
           } else if (test[1]) {
             app.variables.update.attributes(element, test[0], self._resolve(responseObject, test[1], options), false)
           } else {
@@ -419,7 +419,7 @@ app.module.data = {
 
     // Support header reference.
     if (headers && headers.value[0] === '#') {
-      headers = dom.get(headers.value).attributes['data-header']
+      headers = app.element.select(headers.value).attributes['data-header']
     }
 
     // Support action attribute.

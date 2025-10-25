@@ -72,7 +72,7 @@ app.module.screen = {
       selector += (i > 0 ? ',' : '') + '[' + this.module + '-' + this.bpOrder[i] + ']'
     }
 
-    var elements = dom.get(selector, true)
+    var elements = app.element.select(selector, true)
     for (var i = 0; i < elements.length; i++) {
       var el = elements[i]
       var action = this.findClosestAttr(el, bp)

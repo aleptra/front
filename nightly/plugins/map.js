@@ -23,7 +23,7 @@ app.plugin.map = {
   },
 
   _initMap: function () {
-    var target = dom.get(this.config.googleTarget),
+    var target = app.element.select(this.config.googleTarget),
       lat = target.getAttribute(this.plugin + '-lat'),
       lng = target.getAttribute(this.plugin + '-lng')
 

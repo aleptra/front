@@ -206,33 +206,6 @@ var dom = {
   },
 
   /**
-   * @function get
-   * @memberof dom
-   * @param {string} selector - The CSS selector used to select the elements.
-   * @param {boolean} [list=undefined] - If true, always return a list of elements, even if only one element matches the selector.
-   * @return {Element|Element[]} - Returns a single element if there is only one match and "list" is not set to true, or a list of elements if "list" is set to true or if there are multiple elements that match the selector.
-   * @desc Retrieves elements from the document by selector.
-   */
-  get: function (selector, list) {
-    var regex = /\[(\d+)\]/,
-      match = selector && selector.match(regex)
-
-    if (match) {
-      var index = match[1],
-        selector = selector.replace(regex, '')
-    }
-
-    var elements = document.querySelectorAll(selector)
-
-    if (elements.length === 0)
-      return ''
-    else if (match)
-      return elements[index]
-    else
-      return list ? elements : (elements.length === 1 ? elements[0] : elements)
-  },
-
-  /**
    * @function toggle
    * @memberof dom
    */
@@ -300,7 +273,7 @@ var dom = {
 
   move: function (object, value) {
     var from = object
-    var to = dom.get(value)
+    var to = app.element.select(value)
     if (from && to) {
       to.appendChild(from)
     }
@@ -312,7 +285,7 @@ var dom = {
    */
   hide: function (object, prop) {
     if (object && object.exec) object = object.exec.element
-    var el = object instanceof Object ? object : dom.get(object) // Todo: Remove in future.
+    var el = object instanceof Object ? object : app.element.select(object) // Todo: Remove in future.
     if (el) {
       if (!el.initDisplay) {
         if (el.attributes.hide) {
@@ -350,7 +323,7 @@ var dom = {
    */
   show: function (object) {
     if (object.exec) object = object.exec.element
-    var el = object instanceof Object ? object : dom.get(object) // Todo: Remove in future.
+    var el = object instanceof Object ? object : app.element.select(object) // Todo: Remove in future.
     if (el) {
       el.style.display = el.initDisplay
       el.removeAttribute('hide')
@@ -584,7 +557,7 @@ var dom = {
               replaceVariable = bindingParts[0],
               replaceValue = bindingParts[1]
 
-            var target = dom.get(replaceValue),
+            var target = app.element.select(replaceValue),
               type = target.type,
               name = target.id || target.name,
               bindfieldif = target.attributes && target.attributes.bindfieldif
@@ -646,7 +619,7 @@ var dom = {
    * @param {*} value 
    */
   submit: function (object, value) {
-    var el = object.exec.value ? dom.get(object.exec.value) : value,
+    var el = object.exec.value ? app.element.select(object.exec.value) : value,
       target = el.getAttribute('target')
 
     if (el && target) {
@@ -704,7 +677,7 @@ var dom = {
    */
   blur: function (element, value) {
     if (element.exec) element = element.exec.element
-    var target = value ? dom.get(value) : element
+    var target = value ? app.element.select(value) : element
     if (target) target.blur()
   },
 
@@ -714,7 +687,7 @@ var dom = {
    */
   enable: function (element, value) {
     if (element.exec) element = element.exec.element
-    var target = value ? dom.get(value) : element
+    var target = value ? app.element.select(value) : element
     if (target) {
       target.disabled = false
       target.wheel = true
@@ -729,7 +702,7 @@ var dom = {
     }
 
     // Resolve element if it's a selector string
-    var target = typeof element === 'string' ? dom.get(element) : element
+    var target = typeof element === 'string' ? app.element.select(element) : element
     // Determine scroll position
     var scrollToValue
     if (value === 'bottom')
@@ -752,7 +725,7 @@ var dom = {
    * @desc Retrieves metadata from a meta tag with the specified name and sets it as the inner HTML of the specified object.
    */
   metadata: function (object, name) {
-    var value = dom.get('meta[name=' + name + ']')
+    var value = app.element.select('meta[name=' + name + ']')
     object.innerHTML = value.content
   },
 
@@ -790,7 +763,7 @@ var dom = {
    * @desc Sets the content of an element.
   */
   set: function (object, value, strip, replace) {
-    var target = object instanceof Object ? object : dom.get(object),
+    var target = object instanceof Object ? object : app.element.select(object),
       value = strip ? value.replace(/<[^>]+>/g, '') : value || ''
     target.innerHTML = value
   },
@@ -928,12 +901,12 @@ var dom = {
   },
 
   prepend: function (element, value) {
-    var div = dom.get(value)
+    var div = app.element.select(value)
     element.insertBefore(div, element.firstChild)
   },
 
   append: function (element, value) {
-    var div = dom.get(value)
+    var div = app.element.select(value)
     element.appendChild(div)
   },
 
@@ -942,7 +915,7 @@ var dom = {
    * @memberof dom
    */
   map: function (object, value) {
-    var object = typeof object === 'string' ? dom.get(object) : object,
+    var object = typeof object === 'string' ? app.element.select(object) : object,
       cache = app.caches.get('window', 'var', 'enum'),
       func = object.originalAttribute || '',
       data = cache.data[func.replace('map', '')][value] || ''
@@ -1160,7 +1133,7 @@ var dom = {
       test2 = test.split(';')
 
     var parts = test2[0].split(':'),
-      target = dom.get(parts[0]),
+      target = app.element.select(parts[0]),
       condition = test2[1],
       type = target.type
 
@@ -1268,12 +1241,12 @@ var dom = {
   },
 
   reload: function (object, value) {
-    dom.get(value).contentDocument.location.reload(true)
+    app.element.select(value).contentDocument.location.reload(true)
   }
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 365 },
+  version: { major: 1, minor: 0, patch: 0, build: 366 },
   module: {},
   plugin: {},
   var: {},
@@ -1298,7 +1271,7 @@ var app = {
       // TODO: Experimental feature
       if (app.isLocalNetwork) {
         var selector = 'script[src*=front]',
-          element = dom.get(selector),
+          element = app.element.select(selector),
           config = app.config.get(false, { frontSrcLocal: '' }, element)
         if (config.frontSrcLocal.length > 0) {
           element.remove()
@@ -1337,7 +1310,7 @@ var app = {
    */
   start: function () {
     var selector = 'script[src*=front]',
-      element = dom.get(selector),
+      element = app.element.select(selector),
       value = element.attributes.src.value
 
     app.script = {
@@ -1391,13 +1364,13 @@ var app = {
         var clicktargetfield = link.attributes.clicktargetfield,
           target = clicktargetfield && clicktargetfield.value.split(':') || ''
         //,
-        //element = target && dom.get(target[0]) || element
+        //element = target && app.element.select(target[0]) || element
 
         /* element.lastRunAttribute = val[0]
          element.targetAttribute = target && target[1]
          element.targetField = clicktargetfield
          element.clicked = element*/
-        app.call(click.value, { srcElement: link, element: dom.get(target[0]) })
+        app.call(click.value, { srcElement: link, element: app.element.select(target[0]) })
         app.element.runOnEvent({ exec: { func: 'click', element: link } })
       }
     })
@@ -1415,7 +1388,7 @@ var app = {
       if (mouseover) {
         var mouseovertargetfield = link.attributes.mouseovertargetfield,
           target = mouseovertargetfield && mouseovertargetfield.value.split(':') || ''
-        app.call(mouseover.value, { srcElement: link, element: dom.get(target[0]) })
+        app.call(mouseover.value, { srcElement: link, element: app.element.select(target[0]) })
         //app.element.runOnEvent({ exec: { func: 'click', element: link } })*/
       }
     })
@@ -1434,7 +1407,7 @@ var app = {
       if (mouseout) {
         var mouseouttargetfield = link.attributes.mouseouttargetfield,
           target = mouseouttargetfield && mouseouttargetfield.value.split(':') || ''
-        app.call(mouseout.value, { srcElement: link, element: dom.get(target[0]) })
+        app.call(mouseout.value, { srcElement: link, element: app.element.select(target[0]) })
       }
     })
 
@@ -1462,8 +1435,8 @@ var app = {
         attribute2 = element2 && (parts[2].split('.') || [])[1],
         value = app.element.extractBracketValues(string)
 
-      var objElement1 = !element1 && options && options.element ? options.element : element1 === '#' || !element1 && options && options.srcElement ? options.srcElement : element1 ? dom.get(element1.replace('*', '')) : '',
-        objElement2 = element2 === '#' ? options && options.srcElement : dom.get(element2),
+      var objElement1 = !element1 && options && options.element ? options.element : element1 === '#' || !element1 && options && options.srcElement ? options.srcElement : element1 ? app.element.select(element1.replace('*', '')) : '',
+        objElement2 = element2 === '#' ? options && options.srcElement : app.element.select(element2),
         attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true),
         attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),
         value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1, attribute1) : value)
@@ -1691,6 +1664,33 @@ var app = {
           el.classList.toggle(classes[i])
         }
       }
+    },
+
+    /**
+    * @function select
+    * @memberof dom
+    * @param {string} selector - The CSS selector used to select the elements.
+    * @param {boolean} [list=undefined] - If true, always return a list of elements, even if only one element matches the selector.
+    * @return {Element|Element[]} - Returns a single element if there is only one match and "list" is not set to true, or a list of elements if "list" is set to true or if there are multiple elements that match the selector.
+    * @desc Retrieves elements from the document by selector.
+    */
+    select: function (selector, list) {
+      var regex = /\[(\d+)\]/,
+        match = selector && selector.match(regex)
+
+      if (match) {
+        var index = match[1],
+          selector = selector.replace(regex, '')
+      }
+
+      var elements = document.querySelectorAll(selector)
+
+      if (elements.length === 0)
+        return ''
+      else if (match)
+        return elements[index]
+      else
+        return list ? elements : (elements.length === 1 ? elements[0] : elements)
     },
 
     /**
@@ -2087,7 +2087,7 @@ var app = {
         var val = changeStateValueIf.value.split(';'),
           attr = object.value
 
-        var element = dom.get('#result'),
+        var element = app.element.select('#result'),
           elValue = element.attributes.statevalue.value
 
         // Check if statevalue contains an operator followed by a number
@@ -2106,7 +2106,7 @@ var app = {
       // Experimental
       if (changeSelect) {
         app.call(changeSelect.value)
-        var previouslySelected = dom.get('input[type="radio"][selected="true"]')
+        var previouslySelected = app.element.select('input[type="radio"][selected="true"]')
 
         if (previouslySelected) {
           previouslySelected.removeAttribute('selected') // Clear the previous selection
@@ -2137,7 +2137,7 @@ var app = {
           app.disable(false)
         }
       } else {
-        var templateElement = dom.get('template', true)[0], // Get only the first template element.
+        var templateElement = app.element.select('template', true)[0], // Get only the first template element.
           templateAttr = templateElement && templateElement.attributes,
           elementSrcDoc = templateAttr && templateAttr.srcdoc && templateAttr.srcdoc.value,
           elementSrc = templateAttr && templateAttr.src && templateAttr.src.value,
@@ -2315,7 +2315,7 @@ var app = {
      */
     run: function (selector, exclude, ignore) {
       var selector = selector || 'html *',
-        node = typeof selector === 'object' ? selector : dom.get(selector, true),
+        node = typeof selector === 'object' ? selector : app.element.select(selector, true),
         excludes = (exclude || []).concat(this.defaultExclude),
         orderMap = {}
 
@@ -2560,7 +2560,7 @@ var app = {
             html = dom.parse.text(cache.data, ['meta', 'base']),
             template = dom.parse.text(app.element.find(html, 'template').innerHTML),
             srcDoc = dom.parse.text(app.srcDocTemplate),
-            hasMarkup = dom.get('template')
+            hasMarkup = app.element.select('template')
 
           for (var j = 0; j < this.elementSelectors.length; j++) {
             var elSelector = this.elementSelectors[j],
@@ -2571,7 +2571,7 @@ var app = {
 
             // Support attributes in the template.
             for (var key in attr) {
-              if (attr.hasOwnProperty(key)) dom.get(elSelector.name).setAttribute(attr[key].name, attr[key].value)
+              if (attr.hasOwnProperty(key)) app.element.select(elSelector.name).setAttribute(attr[key].name, attr[key].value)
             }
 
             if (elSelector.name !== 'main') {
@@ -2585,7 +2585,7 @@ var app = {
       }
 
       for (var key in responsePageBodyAttr) {
-        dom.get('body').setAttribute(key, responsePageBodyAttr[key])
+        app.element.select('body').setAttribute(key, responsePageBodyAttr[key])
       }
 
       dom.doctitle(false, currentPageTitle)
@@ -2743,7 +2743,7 @@ var app = {
       if (!options.url) return // prevent empty requests. example in include attribute.
       var method = options.method ? options.method.toUpperCase() : 'GET',
         url = options.url instanceof Array ? options.url : [options.url],
-        target = options.target ? dom.get(options.target) : options.element,
+        target = options.target ? app.element.select(options.target) : options.element,
         single = options.single,
         cache = options.cache || false,
         headers = options.headers ? dom.parse.attribute(options.headers) : {},
