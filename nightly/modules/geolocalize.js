@@ -31,18 +31,17 @@ app.module.geolocalize = {
       self._latitude = crd.latitude || 0
 
       /*if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
-        console.log("Congratulations, you reached the target")
+        app.log.info()("Congratulations, you reached the target")
         navigator.geolocation.clearWatch(id)
       }*/
 
       if (self._longitude && self._latitude) {
-        console.error('Success:', new Date(), self._latitude, self._longitude);
+        app.log.info('Success:', new Date(), self._latitude, self._longitude);
         var replaceVariable = element.attributes[func].value,
           replaceValue = self._latitude + ',' + self._longitude
         app.variables.update.attributes(element, replaceVariable, replaceValue, false)
       }
 
-      console.log(func)
       newFunction()
 
       navigator.geolocation.clearWatch(id)
@@ -50,7 +49,7 @@ app.module.geolocalize = {
 
     function newFunction() {
       var elAwait = app.await[func].element
-      console.log(elAwait)
+      app.log.info()(elAwait)
       app.await[func].enable = false
       app.attributes.run([elAwait], [func, 'await'])
     }
