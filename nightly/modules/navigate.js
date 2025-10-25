@@ -27,7 +27,7 @@ app.module.navigate = {
     }
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
-    app.listeners.add(this.mainTarget, 'scroll', this._saveScroll.bind(this))
+    if (this.mainTarget) app.listeners.add(this.mainTarget, 'scroll', this._saveScroll.bind(this))
     // Restore scroll position immediately after load
     this._restoreScroll()
   },
