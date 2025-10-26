@@ -320,7 +320,6 @@ var dom = {
 
     // Get the first segment of the current pathname.
     var test2 = location.pathname.split('/')[1]
-    console.log('test')
 
     // Check if the host from hrefhost matches the current location.hostname
     if (host === location.hostname) {
@@ -1255,7 +1254,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 382 },
+  version: { major: 1, minor: 0, patch: 0, build: 383 },
   module: {},
   plugin: {},
   var: {},
