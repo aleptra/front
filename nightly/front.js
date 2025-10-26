@@ -1241,7 +1241,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 371 },
+  version: { major: 1, minor: 0, patch: 0, build: 372 },
   module: {},
   plugin: {},
   var: {},
@@ -1663,7 +1663,7 @@ var app = {
 
     /**
     * @function select
-    * @memberof dom
+    * @memberof app.element
     * @param {string} selector - The CSS selector used to select the elements.
     * @param {boolean} [list=undefined] - If true, always return a list of elements, even if only one element matches the selector.
     * @return {Element|Element[]} - Returns a single element if there is only one match and "list" is not set to true, or a list of elements if "list" is set to true or if there are multiple elements that match the selector.
@@ -2205,8 +2205,8 @@ var app = {
       },
 
       /**
-       * @function load
-       * @memberof app
+       * @function extensions
+       * @memberof app.get
        * @param {function} [runAttributes] - A flag to indicate if the runAttributes function should be called after all modules are loaded.
        * @desc Loads extensions(modules) from the `module` attribute of the script element and call autoload function if exists.
        */
@@ -2256,8 +2256,8 @@ var app = {
       },
 
       /**
-       * @function load
-       * @memberof app
+       * @function templates
+       * @memberof app.get
        * 
        */
       templates: function () {
@@ -2312,7 +2312,7 @@ var app = {
 
     /**
      * @function run
-     * @memberof app
+     * @memberof app.attributes
      * @param {string|Object} [selector='html *'] - A CSS selector or an object representing elements to be processed.
      * @param {Array} [exclude] - An array of items to be excluded from processing.
      * @desc Runs Front Text Markup Language in elements matching the given selector or provided object.
