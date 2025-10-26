@@ -191,6 +191,10 @@ var dom = {
       return el
     },
 
+    /**
+     * @function json
+     * @memberof dom.parse
+     */
     json: function (string) {
       try {
         string = { value: JSON.parse(string) }
@@ -271,6 +275,10 @@ var dom = {
     })
   },
 
+  /**
+   * @function move
+   * @memberof dom
+   */
   move: function (object, value) {
     var from = object
     var to = app.element.select(value)
@@ -299,6 +307,10 @@ var dom = {
     }
   },
 
+  /**
+   * @function hrefhost
+   * @memberof dom
+   */
   hrefhost: function (el) {
     if (el.length < 1) return
     var value = el.getAttribute('hrefhost'),
@@ -1241,7 +1253,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 378 },
+  version: { major: 1, minor: 0, patch: 0, build: 379 },
   module: {},
   plugin: {},
   var: {},
