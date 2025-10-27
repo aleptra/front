@@ -105,111 +105,6 @@ var dom = {
   _bindfieldPos: 0,
 
   /**
-   * @namespace parse
-   * @memberof dom
-   * @desc Object that contains functions for parsing strings and creating DOM nodes.
-   */
-  parse: {
-    /**
-     * @function attribute
-     * @memberof dom.parse
-     * @param {string} string - The string to parse.
-     * @return {object} - An object containing key-value pairs parsed from the string.
-     * @desc Parses a string into an object by splitting the string by ';' and then by ':'.
-     */
-    attribute: function (string) {
-      var pairs = string ? string.split(';') : '',
-        object = {}
-
-      for (var i = 0; i < pairs.length; i++) {
-        var keyValue = pairs[i].split(':'),
-          key = keyValue[0],
-          value = keyValue[1]
-
-        object[key] = value
-      }
-      return object
-    },
-
-    /**
-     * @function text
-     * @memberof dom.parse
-     * @param {string} string - The HTML string to parse.
-     * @return {Node} - A DOM node representing the parsed HTML.
-     * @desc Parses a string of HTML and return a DOM node.
-    */
-    text: function (string, exclude) {
-      var el = document.createElement('spot'),
-        html = string && string.match(/<html\s+([^>]*)>/i) || '',
-        body = string && string.match(/<body\s+([^>]*)>/i) || '',
-        doctype = string && string.match(/<!doctype\s+[^>]*>/i) || ''
-
-      if (html) {
-        var attributes = html[1].trim(),
-          attributePairs = attributes.split(/\s+/)
-
-        for (var i = 0; i < attributePairs.length; i++) {
-          var pair = attributePairs[i].split('='),
-            name = pair[0],
-            value = pair[1].slice(1, -1)
-          el.setAttribute(name, value)
-        }
-      }
-
-      if (body) {
-        var attr = {}
-        var attributes = body[1].trim(),
-          attributePairs = attributes.split(/\s+/)
-
-        for (var i = 0; i < attributePairs.length; i++) {
-          var pair = attributePairs[i].split('='),
-            name = pair[0],
-            value = pair[1].slice(1, -1)
-          attr[name] = value
-        }
-
-        el.attrList = attr
-      }
-
-      if (exclude) {
-        for (var k = 0; k < exclude.length; k++) {
-          var tag = exclude[k]
-
-          // Remove paired tags: <tag> ... </tag>
-          var paired = new RegExp('<' + tag + '[^>]*>[\\s\\S]*?<\\/' + tag + '>', 'gi')
-          string = string.replace(paired, '')
-
-          // Remove single/self-closing tags: <tag ...>
-          var single = new RegExp('<' + tag + '[^>]*>', 'gi')
-          string = string.replace(single, '')
-        }
-      }
-
-      el.innerHTML = string
-      el.doctype = doctype ? doctype[0] : ''
-
-      return el
-    },
-
-    /**
-     * @function json
-     * @memberof dom.parse
-     */
-    json: function (string) {
-      try {
-        string = { value: JSON.parse(string) }
-      } catch (error) {
-        string = {
-          value: '',
-          errorName: error.name,
-          errorMessage: error.message
-        }
-      }
-      return string
-    }
-  },
-
-  /**
    * @function toggle
    * @memberof dom
    */
@@ -1254,7 +1149,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 383 },
+  version: { major: 1, minor: 0, patch: 0, build: 384 },
   module: {},
   plugin: {},
   var: {},
@@ -1520,6 +1415,111 @@ var app = {
     }
 
     el.dispatchEvent(event)
+  },
+
+  /**
+   * @namespace parse
+   * @memberof app
+   * @desc Object that contains functions for parsing strings and creating DOM nodes.
+   */
+  parse: {
+    /**
+     * @function attribute
+     * @memberof app.parse
+     * @param {string} string - The string to parse.
+     * @return {object} - An object containing key-value pairs parsed from the string.
+     * @desc Parses a string into an object by splitting the string by ';' and then by ':'.
+     */
+    attribute: function (string) {
+      var pairs = string ? string.split(';') : '',
+        object = {}
+
+      for (var i = 0; i < pairs.length; i++) {
+        var keyValue = pairs[i].split(':'),
+          key = keyValue[0],
+          value = keyValue[1]
+
+        object[key] = value
+      }
+      return object
+    },
+
+    /**
+     * @function text
+     * @memberof app.parse
+     * @param {string} string - The HTML string to parse.
+     * @return {Node} - A DOM node representing the parsed HTML.
+     * @desc Parses a string of HTML and return a DOM node.
+    */
+    text: function (string, exclude) {
+      var el = document.createElement('spot'),
+        html = string && string.match(/<html\s+([^>]*)>/i) || '',
+        body = string && string.match(/<body\s+([^>]*)>/i) || '',
+        doctype = string && string.match(/<!doctype\s+[^>]*>/i) || ''
+
+      if (html) {
+        var attributes = html[1].trim(),
+          attributePairs = attributes.split(/\s+/)
+
+        for (var i = 0; i < attributePairs.length; i++) {
+          var pair = attributePairs[i].split('='),
+            name = pair[0],
+            value = pair[1].slice(1, -1)
+          el.setAttribute(name, value)
+        }
+      }
+
+      if (body) {
+        var attr = {}
+        var attributes = body[1].trim(),
+          attributePairs = attributes.split(/\s+/)
+
+        for (var i = 0; i < attributePairs.length; i++) {
+          var pair = attributePairs[i].split('='),
+            name = pair[0],
+            value = pair[1].slice(1, -1)
+          attr[name] = value
+        }
+
+        el.attrList = attr
+      }
+
+      if (exclude) {
+        for (var k = 0; k < exclude.length; k++) {
+          var tag = exclude[k]
+
+          // Remove paired tags: <tag> ... </tag>
+          var paired = new RegExp('<' + tag + '[^>]*>[\\s\\S]*?<\\/' + tag + '>', 'gi')
+          string = string.replace(paired, '')
+
+          // Remove single/self-closing tags: <tag ...>
+          var single = new RegExp('<' + tag + '[^>]*>', 'gi')
+          string = string.replace(single, '')
+        }
+      }
+
+      el.innerHTML = string
+      el.doctype = doctype ? doctype[0] : ''
+
+      return el
+    },
+
+    /**
+     * @function json
+     * @memberof app.parse
+     */
+    json: function (string) {
+      try {
+        string = { value: JSON.parse(string) }
+      } catch (error) {
+        string = {
+          value: '',
+          errorName: error.name,
+          errorMessage: error.message
+        }
+      }
+      return string
+    }
   },
 
   /**
@@ -1931,7 +1931,7 @@ var app = {
      */
     get: function (extension, standard, element) {
       var value = extension && element ? element.getAttribute(extension + '-conf') : element && element.getAttribute('conf') || '',
-        override = value ? dom.parse.attribute(value) : {},
+        override = value ? app.parse.attribute(value) : {},
         final = {}
       for (var prop in standard) {
         final[prop] = override.hasOwnProperty(prop) ? override[prop] : standard[prop]
@@ -2026,7 +2026,7 @@ var app = {
           data = new DOMParser().parseFromString(data, 'text/xml')
           break
         case 'json':
-          var json = dom.parse.json(data)
+          var json = app.parse.json(data)
           data = json.value
           this.responseError = json.errorMessage
           break
@@ -2412,14 +2412,14 @@ var app = {
       attributes: function (object, replaceVariable, replaceValue, reset, runExclude, resetSoft, single) {
         if (replaceVariable) {
           if (reset && !resetSoft) {
-            var originalAttributes = dom.parse.text(object.originalOuterHtml).children[0].attributes,
+            var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
               originalHtml = object.originalHtml
             app.variables.reset.attributes(object, originalAttributes)
             app.variables.reset.content(object, originalHtml)
           }
 
           if (resetSoft) {
-            var originalAttributes = dom.parse.text(object.originalOuterHtml).children[0].attributes,
+            var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
               originalHtml = object.originalHtml
             app.variables.reset.attribute(object, single)
           }
@@ -2546,7 +2546,7 @@ var app = {
 
       if (srcDoc) {
         var cache = app.caches.get('window', 'template', srcDoc),
-          responsePage = dom.parse.text(cache.data, ['title']),
+          responsePage = app.parse.text(cache.data, ['title']),
           responsePageBodyAttr = responsePage.attrList,
           responsePageScript = app.element.find(responsePage, app.script.selector),
           responsePageBaseHref = app.element.find(responsePage, 'base')
@@ -2574,9 +2574,9 @@ var app = {
       if (src) {
         for (var i = 0; i < src.length; i++) {
           var cache = app.caches.get('window', 'template', src[i]),
-            html = dom.parse.text(cache.data, ['meta', 'base']),
-            template = dom.parse.text(app.element.find(html, 'template').innerHTML),
-            srcDoc = dom.parse.text(app.srcDocTemplate),
+            html = app.parse.text(cache.data, ['meta', 'base']),
+            template = app.parse.text(app.element.find(html, 'template').innerHTML),
+            srcDoc = app.parse.text(app.srcDocTemplate),
             hasMarkup = app.element.select('template')
 
           for (var j = 0; j < this.elementSelectors.length; j++) {
@@ -2663,7 +2663,7 @@ var app = {
               // Loop through the global array
               for (var i = 0; i < global.length; i++) {
                 var globalName = global[i]
-                obj[globalName] = dom.parse.json(this.responseText).value[globalName]
+                obj[globalName] = app.parse.json(this.responseText).value[globalName]
                 app.globals.set(module, obj)
               }
             }
@@ -2676,7 +2676,7 @@ var app = {
             if (type) {
               switch (type) {
                 case 'page':
-                  var responsePage = dom.parse.text(this.responseText, ['base']),
+                  var responsePage = app.parse.text(this.responseText, ['base']),
                     responsePageTitle = app.element.find(responsePage, 'title').textContent,
                     templateElement = app.element.find(responsePage, 'template'),
                     templateAttr = templateElement && templateElement.attributes,
@@ -2728,7 +2728,7 @@ var app = {
                   break
                 case 'fetch':
                   // TODO: Make a function of format
-                  app.module[module].fetchedData = format === 'json' ? dom.parse.json(this.responseText).value : this.responseText
+                  app.module[module].fetchedData = format === 'json' ? app.parse.json(this.responseText).value : this.responseText
                 default:
                   return
               }
@@ -2763,7 +2763,7 @@ var app = {
         target = options.target ? app.element.select(options.target) : options.element,
         single = options.single,
         cache = options.cache || false,
-        headers = options.headers ? dom.parse.attribute(options.headers) : {},
+        headers = options.headers ? app.parse.attribute(options.headers) : {},
         srcEl = options.srcEl || false,
         enctype = options.enctype ? options.enctype : 'application/json',
         onload = options.onload,
@@ -2832,7 +2832,7 @@ var app = {
                 srcElement: srcEl,
                 srcAttribute: beforesuccess.name,
                 response: {
-                  data: dom.parse.json(responseData).value,
+                  data: app.parse.json(responseData).value,
                   error: responseError
                 }
               })
@@ -2856,7 +2856,7 @@ var app = {
                 srcElement: srcEl,
                 srcAttribute: aftersuccess.name,
                 response: {
-                  data: dom.parse.json(responseData).value,
+                  data: app.parse.json(responseData).value,
                   error: responseError
                 }
               })
