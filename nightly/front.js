@@ -10,6 +10,9 @@
  */
 
 var dom = {
+  _uniqueId: 0,
+  _bindfieldPos: 0,
+
   _actionMap: {
     'trimleft': 'trim',
     'trimright': 'trim',
@@ -101,8 +104,6 @@ var dom = {
     'focus': 'focused',
     'submit': 'submitted'
   },
-  _uniqueId: 0,
-  _bindfieldPos: 0,
 
   /**
    * @function toggle
@@ -558,11 +559,8 @@ var dom = {
    * @returns
    */
   confirm: function (element, value) {
-    if (element.exec) {
-      value = element.exec.value
-      element = element.exec.element
-    }
-    return confirm(element.getAttribute('confirmtext') || value || '')
+    var target = app.element.resolveTarget(value || element)
+    return confirm(target.getAttribute('confirmtext') || value || '')
   },
 
   /**
@@ -1149,7 +1147,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 384 },
+  version: { major: 1, minor: 0, patch: 0, build: 385 },
   module: {},
   plugin: {},
   var: {},
