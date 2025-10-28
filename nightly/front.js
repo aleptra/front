@@ -242,8 +242,8 @@ var dom = {
   /**
    * @function apply
    * @memberof dom
-   * @param {*} element 
-   * @param {*} value 
+   * @param {*} element
+   * @param {*} value
    */
   apply: function (element, value) {
     if (element.exec) {
@@ -524,8 +524,8 @@ var dom = {
   /**
    * @function submit
    * @memberof dom
-   * @param {*} object 
-   * @param {*} value 
+   * @param {*} object
+   * @param {*} value
    */
   submit: function (object, value) {
     var el = object.exec.value ? app.element.select(object.exec.value) : value,
@@ -539,8 +539,8 @@ var dom = {
   /**
    * @function loader
    * @memberof dom
-   * @param {*} object 
-   * @param {*} value 
+   * @param {*} object
+   * @param {*} value
    */
   loader: function (object, value) {
     dom.hide(object)
@@ -1206,7 +1206,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 388 },
+  version: { major: 1, minor: 0, patch: 0, build: 389 },
   module: {},
   plugin: {},
   var: {},
