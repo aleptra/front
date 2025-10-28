@@ -536,16 +536,22 @@ var dom = {
     }
   },
 
+  /**
+   * @function loader
+   * @memberof dom
+   * @param {*} object 
+   * @param {*} value 
+   */
   loader: function (object, value) {
     dom.hide(object)
     if (value) dom.show(value)
   },
 
   /**
-   * Displays a message in a dialog box.
    * @function alert
    * @memberof dom
    * @param {string} value - The message to display in the dialog box.
+   * @desc Displays a message in a dialog box.
    */
   alert: function (object, value) {
     alert(object.exec ? object.exec.value : value)
@@ -595,7 +601,12 @@ var dom = {
     }
   },
 
-  //Todo: Experimental
+  /**
+   * @function scroll
+   * @memberof dom
+   * @param {*} object 
+   * @param {*} value 
+   */
   scroll: function (element, value) {
     if (element.exec) {
       value = element.exec.value
@@ -737,6 +748,11 @@ var dom = {
     app.element.set(element, app.element.get(element).replace(new RegExp(regex, 'g'), ''))
   },
 
+  /**
+   * @function escape
+   * @memberof dom
+   * @param {*} element
+   */
   escape: function (element) {
     if (element.exec) {
       element = element.exec.element
@@ -753,6 +769,12 @@ var dom = {
     if (code) app.element.set(element, '&#' + code + ';')
   },
 
+  /**
+   * @function insert
+   * @memberof dom
+   * @param {*} object 
+   * @param {*} value 
+   */
   insert: function (object, value) {
     var insert
     if (object.exec) {
@@ -801,11 +823,19 @@ var dom = {
     }
   },
 
+  /**
+   * @function prepend
+   * @memberof dom
+   */
   prepend: function (element, value) {
     var div = app.element.select(value)
     element.insertBefore(div, element.firstChild)
   },
 
+  /**
+   * @function append
+   * @memberof dom
+   */
   append: function (element, value) {
     var div = app.element.select(value)
     element.appendChild(div)
@@ -839,6 +869,13 @@ var dom = {
     }
   },
 
+  /**
+   * @function set2
+   * @memberof dom
+   * @param {*} object
+   * @param {*} value
+   * @todo Check if this is nessacary to have it named set2 instead of set?
+   */
   set2: function (object, value) {
     var attr
     if (object.exec) {
@@ -859,10 +896,22 @@ var dom = {
     }
   },
 
+  /**
+   * @function replace
+   * @memberof dom
+   * @param {*} object 
+   * @param {*} value 
+   */
   replace: function (object, value) {
     this.insert(object, value)
   },
 
+  /**
+   * @function reset
+   * @memberof dom
+   * @param {*} object 
+   * @param {*} value 
+   */
   reset: function (object, value) {
     if (object.exec) {
       object = object.exec.element
@@ -891,6 +940,10 @@ var dom = {
     if (target) target.remove()
   },
 
+  /**
+   * @function format
+   * @memberof dom
+   */
   format: function (object, value) {
     var tag = object.localName,
       stateValue = object.textContent
@@ -915,6 +968,12 @@ var dom = {
     }
   },
 
+  /**
+   * @function sanitize
+   * @memberof dom
+   * @param {*} object 
+   * @param {*} value 
+   */
   sanitize: function (object, value) {
     var regex = value
     if (object.exec) {
@@ -964,7 +1023,7 @@ var dom = {
    * @function include
    * @memberof dom
    * @param {Object} element - The element to which the external content will be added.
-   * @desc * Loads the content of an external file and insert it into the DOM.
+   * @desc Loads the content of an external file and insert it into the DOM.
    */
   include: function (element) {
     //@TODO Fix ie bug with reversed attributes.
@@ -1147,7 +1206,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 387 },
+  version: { major: 1, minor: 0, patch: 0, build: 388 },
   module: {},
   plugin: {},
   var: {},
@@ -2136,7 +2195,6 @@ var app = {
   /**
    * @namespace assets
    * @memberof app
-   * @desc
    */
   assets: {
     load: function () {
@@ -2269,7 +2327,6 @@ var app = {
       /**
        * @function templates
        * @memberof app.get
-       * 
        */
       templates: function () {
         app.log.info()('Loading templates...')
@@ -2403,10 +2460,21 @@ var app = {
   /**
    * @namespace variables
    * @memberof app
-   * @desc
    */
   variables: {
+
+    /**
+    * @namespace update
+    * @memberof app.variables
+    * @desc Update module for replacing variables in attributes and content.
+    */
     update: {
+
+      /**
+       * @function attributes
+       * @memberof app.variables.update
+       * @desc Replaces {var} in element attributes.
+       */
       attributes: function (object, replaceVariable, replaceValue, reset, runExclude, resetSoft, single) {
         if (replaceVariable) {
           if (reset && !resetSoft) {
@@ -2440,6 +2508,10 @@ var app = {
         }
       },
 
+      /**
+      * @function content
+      * @memberof app.variables.update
+      */
       content: function (object, replaceVariable, replaceValue) {
         // Escape special characters in the variable pattern to create a valid regular expression.
         var escapedVariable = replaceVariable.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
@@ -2473,7 +2545,16 @@ var app = {
       }
     },
 
+    /**
+    * @function reset
+    * @memberof app.variables
+    */
     reset: {
+
+      /**
+      * @function attributes
+      * @memberof app.variables.reset
+      */
       attributes: function (object, original) {
         for (var i = 0; i < original.length; i++) {
           var attr = original[i]
@@ -2481,11 +2562,19 @@ var app = {
         }
       },
 
+      /**
+      * @function attribute
+      * @memberof app.variables.reset
+      */
       attribute: function (object, original) {
         var attr = original
         object.setAttribute(attr.name, attr.value)
       },
 
+      /**
+      * @function content
+      * @memberof app.variables.reset
+      */
       content: function (object, original) {
         object.innerHTML = original
       }
@@ -2495,7 +2584,6 @@ var app = {
   /**
    * @namespace querystrings
    * @memberof app
-   * @desc
    */
   querystrings: {
     get: function (url, param) {
@@ -2518,7 +2606,6 @@ var app = {
   /**
    * @namespace templates
    * @memberof app
-   * @desc
    */
   templates: {
     loaded: 0,
@@ -2532,6 +2619,10 @@ var app = {
     ],
     originalClassList: [],
 
+    /**
+     * @function render
+     * @memberof app.templates
+     */
     render: function () {
       app.log.info()('Rendering templates...')
       var currentPageTitle = document.title,
@@ -2616,6 +2707,12 @@ var app = {
   xhr: {
     currentRequest: null,
     currentAsset: { loaded: 0, total: 1 },
+
+    /**
+     * @function start
+     * @memberof app.xhr
+     * @desc
+     */
     start: function () {
       var self = this,
         open = XMLHttpRequest.prototype.open,
