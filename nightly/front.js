@@ -1206,7 +1206,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 389 },
+  version: { major: 1, minor: 0, patch: 0, build: 390 },
   module: {},
   plugin: {},
   var: {},
@@ -1471,7 +1471,7 @@ var app = {
       event.initEvent(eventName, true, true)
     }
 
-    el.dispatchEvent(event)
+    return el.dispatchEvent(event)
   },
 
   /**
