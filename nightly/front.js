@@ -688,8 +688,8 @@ var dom = {
    * @desc Converts the contents of an element to uppercase letters.
    */
   uppercase: function (object, first) {
-    if (object.exec) object = object.exec.element
-    object.innerHTML = !first || first === 'true' ? object.innerHTML.toUpperCase() : object.innerHTML.charAt(0).toUpperCase() + object.innerHTML.slice(1)
+    var target = app.element.resolveTarget(object)
+    target.innerHTML = !first || first === 'true' ? target.innerHTML.toUpperCase() : target.innerHTML.charAt(0).toUpperCase() + target.innerHTML.slice(1)
   },
 
   /**
@@ -699,8 +699,8 @@ var dom = {
    * @desc Converts the contents of an element to lowercase letters.
    */
   lowercase: function (object) {
-    if (object.exec) object = object.exec.element
-    object.innerHTML = object.innerHTML.toLowerCase()
+    var target = app.element.resolveTarget(object)
+    target.innerHTML = target.innerHTML.toLowerCase()
   },
 
   /**
@@ -1220,7 +1220,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 397 },
+  version: { major: 1, minor: 0, patch: 0, build: 398 },
   module: {},
   plugin: {},
   var: {},
