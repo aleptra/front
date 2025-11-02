@@ -1042,48 +1042,48 @@ var dom = {
   },
 
   /**
-   * @function if
-   * @memberof dom
-   * @param {Object} element - The element to which the condition will be applied.
-   * @desc * Evaluates a condition and executes actions based on the result.
-   */
-  if: function (object, value) {
+  * @function if
+  * @memberof dom
+  * @param {Object} element - The element to which the condition will be applied.
+  * @param {string} value - Condition and actions: "([left]op[right]);trueAction?falseAction"
+  * @desc Evaluates a condition and executes app.call() actions based on the result.
+  */
+  if: function (element, value) {
     var parts = value.split(';')
     if (parts.length < 2) return
 
-    var conditionPart = parts[0]
-    var actionPart = parts[1]
+    var condition = parts[0],
+      action = parts[1]
 
-    var regex = /\(\[(.*)\](:|!~|!|>|<|~)\[(.*)\]\)/,
-      match = conditionPart.match(regex)
-
+    var match = condition.match(/\(\[(.*)\](:|!~|!|>|<|~)\[(.*)\]\)/)
     if (!match) return
 
-    var leftValue = match[1],
-      operator = match[2],
-      rightValue = match[3],
-      result
+    var left = match[1],
+      op = match[2],
+      right = match[3]
 
-    switch (operator) {
-      case ':': result = (leftValue === rightValue); break
-      case '!': result = (leftValue !== rightValue); break
-      case '>': result = (leftValue > rightValue); break
-      case '<': result = (leftValue < rightValue); break
-      case '~': result = (leftValue && leftValue.indexOf(rightValue) !== -1); break // contains
-      case '!~': result = (leftValue && leftValue.indexOf(rightValue) === -1); break // does not contain
+    var actions = action.split('?'),
+      trueActions = actions[0],
+      falseActions = actions[1] || ''
+
+    var result
+    switch (op) {
+      case ':': result = (left === right); break
+      case '!': result = (left !== right); break
+      case '>': result = (Number(left) > Number(right)); break
+      case '<': result = (Number(left) < Number(right)); break
+      case '~': result = (left && left.indexOf(right) !== -1); break
+      case '!~': result = (left && left.indexOf(right) === -1); break
       default: return
     }
 
-    var actions = actionPart.split('?'),
-      trueAction = actions[0],
-      falseAction = actions[1]
+    var commands = (result ? trueActions : falseActions).split('&')
+    var i, cmd
 
-    // Support multiple actions separated by &
-    var toCall = result ? trueAction : falseAction
-    if (toCall) {
-      var cmds = toCall.split('&')
-      for (var i = 0; i < cmds.length; i++) {
-        app.call(cmds[i], { srcElement: object })
+    for (i = 0; i < commands.length; i++) {
+      cmd = commands[i].trim()
+      if (cmd) {
+        app.call(cmd, { srcElement: element })
       }
     }
   },
@@ -1220,7 +1220,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 398 },
+  version: { major: 1, minor: 0, patch: 0, build: 399 },
   module: {},
   plugin: {},
   var: {},
