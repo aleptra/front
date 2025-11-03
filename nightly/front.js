@@ -16,10 +16,12 @@ var dom = {
   _actionMap: {
     'trimleft': 'trim',
     'trimright': 'trim',
-    'insertbeforebegin': 'insert',
+    'appendattr': 'insert',
     'insertafterbegin': 'insert',
-    'insertbeforeend': 'insert',
     'insertafterend': 'insert',
+    'insertbeforebegin': 'insert',
+    'insertbeforeend': 'insert',
+    'prependattr': 'insert',
     'setaction': 'set2',
     'setattr': 'set2',
     'setmax': 'set2',
@@ -36,8 +38,6 @@ var dom = {
     'bindasset': 'bind',
     'bindglobal': 'bind',
     'bindfield': 'bind',
-    'ifafterbegin': 'if',
-    'ifbeforeend': 'if',
     'resetvalue': 'reset',
     'togglevalue': 'toggle',
     'toggledisplay': 'toggle',
@@ -1220,7 +1220,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 399 },
+  version: { major: 1, minor: 0, patch: 0, build: 400 },
   module: {},
   plugin: {},
   var: {},
@@ -1237,7 +1237,7 @@ var app = {
   /**
    * @namespace load
    * @memberof app
-   * @desc
+   * @desc Handles the loading of the application.
    */
   load: function () {
     if (!window.frontLoaded) {
@@ -1269,7 +1269,7 @@ var app = {
   /**
    * @namespace disable
    * @memberof app
-   * @desc
+   * @desc Handles disabling and enabling the visibility of the application.
    */
   disable: function (bool) {
     var val = bool ? 'hidden' : 'initial',
@@ -1280,7 +1280,7 @@ var app = {
   /**
    * @namespace start
    * @memberof app
-   * @desc
+   * @desc Handles the initialization of the application.
    */
   start: function () {
     var selector = 'script[src*=front]',
@@ -1393,7 +1393,7 @@ var app = {
   /**
    * @namespace call
    * @memberof app
-   * @desc Parses and executes a series of commands based on a string input.
+   * @desc Handles parsing and executing commands based on a string input.
    */
   call: function (run, options) {
     var execResult = [],
@@ -1449,7 +1449,7 @@ var app = {
   /**
    * @namespace exec
    * @memberof app
-   * @desc
+   * @desc Handles the execution of functions based on a string input.
    */
   exec: function (run, args) {
     try {
@@ -1473,7 +1473,7 @@ var app = {
   /**
    * @namespace click
    * @memberof app
-   * @desc
+   * @desc Handles simulating click and double-click events on DOM elements.
    */
   click: function (el, dbl) {
     var event, eventName = dbl ? 'dblclick' : 'click'
@@ -1491,7 +1491,7 @@ var app = {
   /**
    * @namespace parse
    * @memberof app
-   * @desc Object that contains functions for parsing strings and creating DOM nodes.
+   * @desc Handles parsing of strings and creating DOM nodes.
    */
   parse: {
     /**
@@ -1596,7 +1596,7 @@ var app = {
   /**
    * @namespace element
    * @memberof app
-   * @desc
+   * @desc Handles manipulations of DOM elements.
    */
   element: {
     _propertyMap: {
@@ -1949,7 +1949,7 @@ var app = {
   /**
    @namespace log
    @memberof app
-   @desc Object that contains functions for logging information and errors to the console.
+   @desc Handles logging of information and errors.
    */
   log: {
 
@@ -1987,7 +1987,7 @@ var app = {
   /**
    * @namespace config
    * @memberof app
-   * @desc Object that contains functions to get and set configurations.
+   * @desc Handles configuration settings for the application.
    */
   config: {
 
@@ -2035,6 +2035,11 @@ var app = {
     }
   },
 
+  /**
+   * @namespace globals
+   * @memberof app
+   * @desc Handles global variables for the application.
+   */
   globals: {
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
@@ -2061,7 +2066,7 @@ var app = {
   /**
    * @namespace caches
    * @memberof app
-   * @desc
+   * @desc Handles caching mechanisms for different types of data.
    */
   caches: {
     module: {},
@@ -2129,7 +2134,7 @@ var app = {
   /**
    * @namespace listeners
    * @memberof app
-   * @desc
+   * @desc Handles event listeners for DOM elements.
    */
   listeners: {
     add: function (element, eventType, callback) {
@@ -2209,6 +2214,7 @@ var app = {
   /**
    * @namespace assets
    * @memberof app
+   * @desc Handles loading and managing application assets.
    */
   assets: {
     load: function () {
@@ -2474,6 +2480,7 @@ var app = {
   /**
    * @namespace variables
    * @memberof app
+   * @desc Handles updating variables in the application.
    */
   variables: {
 
@@ -2598,6 +2605,7 @@ var app = {
   /**
    * @namespace querystrings
    * @memberof app
+   * @desc Handles query string parameters in URLs.
    */
   querystrings: {
     get: function (url, param) {
@@ -2620,6 +2628,7 @@ var app = {
   /**
    * @namespace templates
    * @memberof app
+   * @desc Handles loading and rendering of templates.
    */
   templates: {
     loaded: 0,
@@ -2716,7 +2725,7 @@ var app = {
   /**
    * @namespace xhr
    * @memberof app
-   * @desc
+   * @desc Handles XMLHttpRequests (XHR) for loading resources.
    */
   xhr: {
     currentRequest: null,
