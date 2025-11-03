@@ -1220,7 +1220,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 400 },
+  version: { major: 1, minor: 0, patch: 0, build: 401 },
   module: {},
   plugin: {},
   var: {},
@@ -1641,7 +1641,7 @@ var app = {
         attr = attr.replace('set', '')
         switch (attr) {
           case 'attr':
-            element.setAttribute(value, '')
+            element.setAttribute(typeof value === 'string' ? value : value[0], value[1] || '')
             break
           case 'text':
             element.textContent = value
