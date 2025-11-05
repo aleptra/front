@@ -566,7 +566,12 @@ var dom = {
    */
   confirm: function (element, value) {
     var el = app.element.resolveCall(element)
-    return confirm(el.getAttribute('confirmtext') || el.call && el.call.value || value || '')
+    var result = confirm(el.getAttribute('confirmtext') || el.call && el.call.value || value || '')
+    var answer = el.getAttribute('onconfirmvalue')
+    if (answer) {
+      var parts = answer.split(';')
+      if (parts[0] === 'true' && result) app.call(parts[1], { element: el })
+    }
   },
 
   /**
@@ -1223,7 +1228,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 404 },
+  version: { major: 1, minor: 0, patch: 0, build: 405 },
   module: {},
   plugin: {},
   var: {},
@@ -1329,13 +1334,14 @@ var app = {
 
     app.listeners.add(document, 'click', function (e) {
       var link = app.element.getTagLink(e.target) || e.target,
-        click = link.attributes.click,
+        click = link.attributes.click
+        /*,
         onclickif = link.attributes.onclickif
 
       if (onclickif) {
         var ret = app.call(onclickif.value, { element: link })[0]
         if (!ret) return
-      }
+      }*/
 
       if (click) {
         var clicktargetfield = link.attributes.clicktargetfield,
@@ -1879,6 +1885,7 @@ var app = {
 
         if (!exec) {
           var call = hasAttr && el.getAttribute('on' + func)
+          console.error('on' + func)
           if (call) {
             el.executed[func] = true
             el.call = call
