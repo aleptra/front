@@ -565,8 +565,8 @@ var dom = {
    * @returns
    */
   confirm: function (element, value) {
-    var target = app.element.resolveTarget(value || element)
-    return confirm(target.getAttribute('confirmtext') || value || '')
+    var el = app.element.resolveCall(element)
+    return confirm(el.getAttribute('confirmtext') || el.call && el.call.value || value || '')
   },
 
   /**
@@ -575,29 +575,29 @@ var dom = {
    * @param {*} element 
    * @param {*} value 
    */
-  focus: function (element, value) {
-    var target = app.element.resolveTarget(value || element)
-    if (target) target.focus()
+  focus: function (element) {
+    var el = app.element.resolveCall(element)
+    if (el) el.focus()
   },
 
   /**
    * @function blur
    * @memberof dom
    */
-  blur: function (element, value) {
-    var target = app.element.resolveTarget(value || element)
-    if (target) target.blur()
+  blur: function (element) {
+    var el = app.element.resolveCall(element)
+    if (el) el.blur()
   },
 
   /**
    * @function enable
    * @memberof dom
    */
-  enable: function (element, value) {
-    var target = app.element.resolveTarget(value || element)
-    if (target) {
-      target.disabled = false
-      target.wheel = true
+  enable: function (element) {
+    var el = app.element.resolveCall(element)
+    if (el) {
+      el.disabled = false
+      el.wheel = true
     }
   },
 
@@ -607,7 +607,7 @@ var dom = {
    * @param {*} object 
    * @param {*} value 
    */
-  scroll: function (element, value) {
+  scroll: function (element, value, smooth) {
     if (element.exec) {
       value = element.exec.value
       element = element.exec.element
@@ -624,7 +624,10 @@ var dom = {
 
     // Scroll
     if (target.scrollTo)
-      target.scrollTo(0, scrollToValue)
+      target.scrollTo({
+        top: scrollToValue,
+        behavior: smooth ? 'smooth' : 'instant'
+      })
     else
       target.scrollTop = scrollToValue
   },
@@ -688,7 +691,7 @@ var dom = {
    * @desc Converts the contents of an element to uppercase letters.
    */
   uppercase: function (object, first) {
-    var target = app.element.resolveTarget(object)
+    var target = app.element.resolveCall(object)
     target.innerHTML = !first || first === 'true' ? target.innerHTML.toUpperCase() : target.innerHTML.charAt(0).toUpperCase() + target.innerHTML.slice(1)
   },
 
@@ -699,7 +702,7 @@ var dom = {
    * @desc Converts the contents of an element to lowercase letters.
    */
   lowercase: function (object) {
-    var target = app.element.resolveTarget(object)
+    var target = app.element.resolveCall(object)
     target.innerHTML = target.innerHTML.toLowerCase()
   },
 
@@ -1220,7 +1223,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 403 },
+  version: { major: 1, minor: 0, patch: 0, build: 404 },
   module: {},
   plugin: {},
   var: {},
@@ -1809,12 +1812,18 @@ var app = {
     },
 
     /**
-     * @function resolveTarget
+     * @function resolveCall
      * @memberof app.element
+     * @param {*} element - The element to resolve
+     * @returns {Object} - Element with its call context
      */
-    resolveTarget: function (element) {
-      if (element && element.exec) element = element.exec.element
-      return typeof element === 'string' ? this.select(element) : element
+    resolveCall: function (element) {
+      if (element.exec) {
+        var call = element.exec
+        element = call.element
+        element.call = call
+      }
+      return element
     },
 
     /**
