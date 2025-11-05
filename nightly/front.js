@@ -566,7 +566,7 @@ var dom = {
    */
   confirm: function (element, value) {
     var el = app.element.resolveCall(element)
-    var result = confirm(el.getAttribute('confirmtext') || el.call && el.call.value || value || '')
+    var result = confirm(el.call && el.call.value || value || '')
     var answer = el.getAttribute('onconfirmvalue')
     if (answer) {
       var parts = answer.split(';')
@@ -1228,7 +1228,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 406 },
+  version: { major: 1, minor: 0, patch: 0, build: 407 },
   module: {},
   plugin: {},
   var: {},
