@@ -16,7 +16,6 @@ var dom = {
   _actionMap: {
     'trimleft': 'trim',
     'trimright': 'trim',
-    'appendattr': 'insert',
     'insertafterbegin': 'insert',
     'insertafterend': 'insert',
     'insertbeforebegin': 'insert',
@@ -788,6 +787,7 @@ var dom = {
     if (object.exec) {
       value = object.exec.value
       insert = object.exec.func
+      attribute = object.exec.attribute
       object = object.exec.element
     } else {
       insert = object.lastRunAttribute
@@ -824,7 +824,12 @@ var dom = {
           object.setAttribute('select', value)
           break
         default:
-          object.textContent = afterbegin + object.textContent + beforeend
+          if (attribute) {
+            var currentAttr = object.getAttribute(attribute)
+            object.setAttribute(attribute, afterbegin + currentAttr + beforeend)
+          } else {
+            object.textContent = afterbegin + object.textContent + beforeend
+          }
       }
     } else {
       object.insertAdjacentText(insert, value)
@@ -1228,7 +1233,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 409 },
+  version: { major: 1, minor: 0, patch: 0, build: 410 },
   module: {},
   plugin: {},
   var: {},
@@ -1834,7 +1839,7 @@ var app = {
 
     /**
      * @function getPropertyByPath
-     * @memberof app
+     * @memberof app.element
      */
     getPropertyByPath: function (object, path) {
       var pathSegments = path && path.split('.') || [],
@@ -1847,6 +1852,10 @@ var app = {
       return value
     },
 
+    /**
+     * @function extractBracketValues
+     * @memberof app.element
+     */
     extractBracketValues: function (str) {
       var values = [],
         start = -1,
