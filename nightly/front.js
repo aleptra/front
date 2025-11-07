@@ -1234,7 +1234,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 411 },
+  version: { major: 1, minor: 0, patch: 0, build: 412 },
   module: {},
   plugin: {},
   var: {},
@@ -1511,22 +1511,26 @@ var app = {
    */
   parse: {
     /**
-     * @function attribute
-     * @memberof app.parse
-     * @param {string} string - The string to parse.
-     * @return {object} - An object containing key-value pairs parsed from the string.
-     * @desc Parses a string into an object by splitting the string by ';' and then by ':'.
-     */
+      * @function attribute
+      * @memberof app.parse
+      * @param {string} string - The string to parse.
+      * @return {object} - An object containing key-value pairs parsed from the string.
+      * @desc Parses a string into an object by splitting the string by ';' and then by the first ':' only.
+    */
     attribute: function (string) {
-      var pairs = string ? string.split(';') : '',
-        object = {}
-
+      var object = {},
+        pairs = string ? string.split(';') : []
       for (var i = 0; i < pairs.length; i++) {
-        var keyValue = pairs[i].split(':'),
-          key = keyValue[0],
-          value = keyValue[1]
+        var pair = pairs[i].trim()
+        if (!pair) continue  // skip empty pairs
 
-        object[key] = value
+        var colonIndex = pair.indexOf(':')
+        if (colonIndex === -1) continue  // skip if no colon
+
+        var key = pair.slice(0, colonIndex).trim(),
+          value = pair.slice(colonIndex + 1).trim()
+
+        if (key) object[key] = value
       }
       return object
     },
