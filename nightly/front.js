@@ -788,6 +788,7 @@ var dom = {
       value = object.exec.value
       insert = object.exec.func
       attribute = object.exec.attribute
+      hasAttribute = object.exec.hasAttribute // Todo: Remove in future.
       object = object.exec.element
     } else {
       insert = object.lastRunAttribute
@@ -824,7 +825,7 @@ var dom = {
           object.setAttribute('select', value)
           break
         default:
-          if (attribute) {
+          if (hasAttribute) {
             var currentAttr = object.getAttribute(attribute)
             object.setAttribute(attribute, afterbegin + currentAttr + beforeend)
           } else {
@@ -1233,7 +1234,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 410 },
+  version: { major: 1, minor: 0, patch: 0, build: 411 },
   module: {},
   plugin: {},
   var: {},
@@ -1430,6 +1431,7 @@ var app = {
         value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1, attribute1) : value)
 
       // Return the parsed object
+      // Todo: Remove hasAttribute and hasSubAttribute in future versions.
       parsedCall = {
         func: func,
         element: objElement1 || false,
