@@ -2,13 +2,13 @@
 
 app.module.overlay = {
   dialog: function (object) {
-    var dialog = app.element.select(object.exec.value)
+    var dialog = object.exec.element
     dialog.showModal()
     dom.show(dialog)
   },
 
   close: function (object) {
-    var overlay = app.element.select(object.exec.value)
+    var overlay = object.exec.element
     overlay.close()
     dom.hide(dialog)
   }
