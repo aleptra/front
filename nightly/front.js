@@ -783,7 +783,7 @@ var dom = {
    * @param {*} value 
    */
   insert: function (object, value) {
-    var insert
+    var insert, attribute, hasAttribute
     if (object.exec) {
       value = object.exec.value
       insert = object.exec.func
@@ -1056,12 +1056,12 @@ var dom = {
   },
 
   /**
-  * @function if
-  * @memberof dom
-  * @param {Object} element - The element to which the condition will be applied.
-  * @param {string} value - Condition and actions: "([left]op[right]);trueAction?falseAction"
-  * @desc Evaluates a condition and executes app.call() actions based on the result.
-  */
+   * @function if
+   * @memberof dom
+   * @param {Object} element - The element to which the condition will be applied.
+   * @param {string} value - Condition and actions: "([left]op[right]);trueAction?falseAction"
+   * @desc Evaluates a condition and executes app.call() actions based on the result.
+   */
   if: function (element, value) {
     var parts = value.split(';')
     if (parts.length < 2) return
@@ -1091,14 +1091,25 @@ var dom = {
       default: return
     }
 
-    var commands = (result ? trueActions : falseActions).split('&')
-    var i, cmd
-
-    for (i = 0; i < commands.length; i++) {
-      cmd = commands[i].trim()
-      if (cmd) {
-        app.call(cmd, { srcElement: element })
+    var str = result ? trueActions : falseActions
+    var commands = []
+    var buf = '', depth = 0
+    for (var i = 0; i < str.length; i++) {
+      var ch = str.charAt(i)
+      if (ch === '[') depth++
+      if (ch === ']') depth--
+      if (ch === '&' && depth === 0) {
+        commands.push(buf.trim())
+        buf = ''
+      } else {
+        buf += ch
       }
+    }
+    if (buf) commands.push(buf.trim())
+
+    for (var j = 0; j < commands.length; j++) {
+      var cmd = commands[j]
+      if (cmd) app.call(cmd, { srcElement: element })
     }
   },
 
@@ -1234,7 +1245,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 416 },
+  version: { major: 1, minor: 0, patch: 0, build: 417 },
   module: {},
   plugin: {},
   var: {},
