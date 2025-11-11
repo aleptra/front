@@ -456,7 +456,7 @@ var dom = {
           }
           break
         case 'bindfield':
-          var type = object.tagName.toLowerCase(),
+          var type = object.localName,
             binding = object.getAttribute('bindfield'),
             bindings = binding ? binding.split(';') : []
 
@@ -474,12 +474,9 @@ var dom = {
               replaceVariableNew = match ? match[1] : '',
               fieldif = bindfieldif && bindfieldif.value.split(':')
 
-            // Initialize content with default placeholder.
-            app.variables.update.content(
-              object,
-              replaceVariableNew,
-              target.value || (object.innerHTML.match(new RegExp("\\{" + replaceVariableNew + ":(.*?)\\}")) || [])[1] || ''
-            )
+            var resolvedValue = app.element.resolveBindingValue(object, replaceVariableNew, target.value)
+            app.variables.update.content(object, replaceVariableNew, resolvedValue)
+            app.variables.update.attributes(object, replaceVariableNew, resolvedValue, false)
 
             switch (type) {
               case 'text':
@@ -1252,7 +1249,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 419 },
+  version: { major: 1, minor: 0, patch: 0, build: 420 },
   module: {},
   plugin: {},
   var: {},
@@ -1859,6 +1856,21 @@ var app = {
         element.call = call
       }
       return element
+    },
+    /**
+     * 
+     * @param {*} resolveBindingValue
+     * @memberof app.element
+     * @returns 
+     */
+    resolveBindingValue: function (elem, variableName, targetValue) {
+      // Create a cached regex only once per variableName
+      var regex = new RegExp("\\{" + variableName + ":(.*?)\\}")
+      var html = elem.innerHTML || '',
+        match = html.match(regex),
+        defaultValue = match ? match[1].trim() : ''
+
+      return targetValue || defaultValue || ''
     },
 
     /**
