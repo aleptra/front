@@ -474,7 +474,7 @@ var dom = {
               replaceVariableNew = match ? match[1] : '',
               fieldif = bindfieldif && bindfieldif.value.split(':')
 
-            // Initialize content with default placeholder (ES5)
+            // Initialize content with default placeholder.
             app.variables.update.content(
               object,
               replaceVariableNew,
