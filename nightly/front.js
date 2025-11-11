@@ -474,6 +474,13 @@ var dom = {
               replaceVariableNew = match ? match[1] : '',
               fieldif = bindfieldif && bindfieldif.value.split(':')
 
+            // Initialize content with default placeholder (ES5)
+            app.variables.update.content(
+              object,
+              replaceVariableNew,
+              target.value || (object.innerHTML.match(new RegExp("\\{" + replaceVariableNew + ":(.*?)\\}")) || [])[1] || ''
+            )
+
             switch (type) {
               case 'text':
                 if (object.listener !== object) {
@@ -1245,7 +1252,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 418 },
+  version: { major: 1, minor: 0, patch: 0, build: 419 },
   module: {},
   plugin: {},
   var: {},
