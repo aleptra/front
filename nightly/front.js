@@ -1250,7 +1250,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 422 },
+  version: { major: 1, minor: 0, patch: 0, build: 423 },
   module: {},
   plugin: {},
   var: {},
@@ -2565,19 +2565,20 @@ var app = {
        * @memberof app.variables.update
        * @desc Replaces {var} in element attributes.
        */
-      attributes: function (object, replaceVariable, replaceValue, reset, options, resetSoft) {
+      attributes: function (object, replaceVariable, replaceValue, reset, options) {
+        options = options || {}
         if (replaceVariable) {
-          if (reset && !resetSoft) {
+          if (reset && !options.resetSoft) {
             var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
               originalHtml = object.originalHtml
             app.variables.reset.attributes(object, originalAttributes)
             app.variables.reset.content(object, originalHtml)
           }
 
-          if (resetSoft) {
+          if (options.resetSoft) {
             var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
               originalHtml = object.originalHtml
-            app.variables.reset.attribute(object, options && options.single)
+            app.variables.reset.attribute(object, options.single)
           }
 
           var regex = new RegExp('\\{\\s*' + replaceVariable + '\\s*(?::((?:{[^{}]*}|[^}])+))?\\}', 'g')
@@ -2591,8 +2592,8 @@ var app = {
             }
           }
 
-          if (reset && !resetSoft) {
-            var exclude = ['stop'].concat(options && options.exclude || [])
+          if (reset && !options.resetSoft) {
+            var exclude = ['stop'].concat(options.exclude || [])
             app.attributes.run([object], exclude, true)
           }
         }
