@@ -510,7 +510,7 @@ var dom = {
               case 'select-one':
                 app.listeners.add(target, 'change', function () {
                   var value = this.options[this.selectedIndex].value
-                  app.variables.update.attributes(object, replaceVariableNew, this.value, true, ['bind'])
+                  app.variables.update.attributes(object, replaceVariableNew, this.value, true, { exclude: ['bind'] })
                   app.variables.update.content(object, replaceVariableNew, value)
                 })
                 break
@@ -1250,7 +1250,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 421 },
+  version: { major: 1, minor: 0, patch: 0, build: 422 },
   module: {},
   plugin: {},
   var: {},
@@ -2565,7 +2565,7 @@ var app = {
        * @memberof app.variables.update
        * @desc Replaces {var} in element attributes.
        */
-      attributes: function (object, replaceVariable, replaceValue, reset, runExclude, resetSoft, single) {
+      attributes: function (object, replaceVariable, replaceValue, reset, options, resetSoft) {
         if (replaceVariable) {
           if (reset && !resetSoft) {
             var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
@@ -2577,7 +2577,7 @@ var app = {
           if (resetSoft) {
             var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
               originalHtml = object.originalHtml
-            app.variables.reset.attribute(object, single)
+            app.variables.reset.attribute(object, options && options.single)
           }
 
           var regex = new RegExp('\\{\\s*' + replaceVariable + '\\s*(?::((?:{[^{}]*}|[^}])+))?\\}', 'g')
@@ -2592,7 +2592,7 @@ var app = {
           }
 
           if (reset && !resetSoft) {
-            var exclude = ['stop'].concat(runExclude || [])
+            var exclude = ['stop'].concat(options && options.exclude || [])
             app.attributes.run([object], exclude, true)
           }
         }
