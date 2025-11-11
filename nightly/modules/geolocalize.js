@@ -39,7 +39,7 @@ app.module.geolocalize = {
         app.log.info('Success:', new Date(), self._latitude, self._longitude)
         var replaceVariable = element.attributes[func].value,
           replaceValue = self._latitude + ',' + self._longitude
-        app.variables.update.attributes(element, replaceVariable, replaceValue, false)
+        app.variables.update.attributes(element, replaceVariable, replaceValue)
       }
 
       newFunction()

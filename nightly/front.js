@@ -426,8 +426,8 @@ var dom = {
               replaceVariable = bindingParts[0].trim(),
               replaceValue = bindingParts.slice(1).join(':').trim()
 
-            app.variables.update.content(object, replaceVariable, replaceValue, false)
-            app.variables.update.attributes(object, replaceVariable, replaceValue, false)
+            app.variables.update.content(object, replaceVariable, replaceValue)
+            app.variables.update.attributes(object, replaceVariable, replaceValue)
           }
 
           return
@@ -477,7 +477,7 @@ var dom = {
             // Initialize update the values of variable.
             var resolvedValue = app.element.resolveBindingValue(object, replaceVariableNew, target.value)
             app.variables.update.content(object, replaceVariableNew, resolvedValue)
-            app.variables.update.attributes(object, replaceVariableNew, resolvedValue, false)
+            app.variables.update.attributes(object, replaceVariableNew, resolvedValue)
 
             switch (type) {
               case 'text':
@@ -492,7 +492,7 @@ var dom = {
                       target.lastPressedKey = false
                     }
                     if (target.startBind) {
-                      app.variables.update.attributes(object, replaceVariableNew, this.value, true)
+                      app.variables.update.attributes(object, replaceVariableNew, this.value, { reset: true })
                       app.variables.update.content(object, replaceVariableNew, this.value)
                     }
                     if (target.startSubmit) {
@@ -510,7 +510,7 @@ var dom = {
               case 'select-one':
                 app.listeners.add(target, 'change', function () {
                   var value = this.options[this.selectedIndex].value
-                  app.variables.update.attributes(object, replaceVariableNew, this.value, true, { exclude: ['bind'] })
+                  app.variables.update.attributes(object, replaceVariableNew, this.value, { reset: true, exclude: ['bind'] })
                   app.variables.update.content(object, replaceVariableNew, value)
                 })
                 break
@@ -519,8 +519,8 @@ var dom = {
           continue
       }
 
-      app.variables.update.attributes(object, replaceVariable, replaceValue, false)
-      app.variables.update.content(object, replaceVariable, replaceValue, false)
+      app.variables.update.attributes(object, replaceVariable, replaceValue)
+      app.variables.update.content(object, replaceVariable, replaceValue)
       app.element.onchange(object, attr, true)
     }
   },
@@ -1250,7 +1250,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 423 },
+  version: { major: 1, minor: 0, patch: 0, build: 424 },
   module: {},
   plugin: {},
   var: {},
@@ -2565,10 +2565,10 @@ var app = {
        * @memberof app.variables.update
        * @desc Replaces {var} in element attributes.
        */
-      attributes: function (object, replaceVariable, replaceValue, reset, options) {
+      attributes: function (object, replaceVariable, replaceValue, options) {
         options = options || {}
         if (replaceVariable) {
-          if (reset && !options.resetSoft) {
+          if (options.reset && !options.resetSoft) {
             var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
               originalHtml = object.originalHtml
             app.variables.reset.attributes(object, originalAttributes)
@@ -2592,7 +2592,7 @@ var app = {
             }
           }
 
-          if (reset && !options.resetSoft) {
+          if (options.reset && !options.resetSoft) {
             var exclude = ['stop'].concat(options.exclude || [])
             app.attributes.run([object], exclude, true)
           }

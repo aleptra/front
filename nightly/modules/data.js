@@ -22,7 +22,7 @@ app.module.data = {
     var value = object.exec.value.split(':'),
       element = object.exec.element,
       bind = element.elements[value[1]].value
-    app.variables.update.attributes(element, value[0], bind, true, { single: 'data-bindpayload', resetSoft: true })
+    app.variables.update.attributes(element, value[0], bind, { reset: true, resetSoft: true, single: 'data-bindpayload' })
   },
 
   src: function (element) {
@@ -297,7 +297,7 @@ app.module.data = {
               break
           }
 
-          app.variables.update.attributes(el, replaceVariable, newReplaceValue, false)
+          app.variables.update.attributes(el, replaceVariable, newReplaceValue)
         }
       }
     }
@@ -322,7 +322,7 @@ app.module.data = {
           if (test[1] && test[1][0] === '#') {
             app.element.set(app.element.select(test[1]), self._resolve(responseObject, test[0], options), false)
           } else if (test[1]) {
-            app.variables.update.attributes(element, test[0], self._resolve(responseObject, test[1], options), false)
+            app.variables.update.attributes(element, test[0], self._resolve(responseObject, test[1], options))
           } else {
             app.element.set(element, self._resolve(responseObject, test[0], options), false)
           }
