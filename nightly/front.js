@@ -1250,7 +1250,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 424 },
+  version: { major: 1, minor: 0, patch: 0, build: 425 },
   module: {},
   plugin: {},
   var: {},
@@ -2144,8 +2144,8 @@ var app = {
     template: {},
 
     get: function (mechanism, type, key, options) {
-      var options = options || {},
-        data
+      options = options || {}
+      var data
       if (app.storageKey) key = app.storageKey + '_' + key
       switch (mechanism) {
         case 'local':
