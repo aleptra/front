@@ -11,21 +11,9 @@ app.plugin.filtersearch = {
   },
 
   run: function (object) {
-    // Get input element and its current value
-    var el = object.exec && object.exec.element
-    if (!el) return
-
     var term = (object.exec && object.exec.value) || ''
-    var container = this.config.container || document
-
-    // If input is empty, clear all rows
-    if (!term) {
-      this.clear(container)
-      return
-    }
-
-    // Filter rows inside all <tbody data-iterate>
-    var rows = container.querySelectorAll('tbody[data-iterate] > tr')
+    // Filter rows
+    var rows = app.element.select('[' + this.plugin + '-select]')
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i]
       var text = row.textContent || row.innerText || ''
@@ -34,9 +22,8 @@ app.plugin.filtersearch = {
   },
 
   // Clear all filters
-  clear: function (container) {
-    container = container || this.config.container || document
-    var rows = container.querySelectorAll('tbody[data-iterate] > tr')
+  clear: function () {
+    var rows = app.element.select('[' + this.plugin + '-select] > tr')
     for (var i = 0; i < rows.length; i++) {
       rows[i].style.display = ''
     }
