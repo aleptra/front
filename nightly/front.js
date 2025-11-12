@@ -468,7 +468,8 @@ var dom = {
             var target = app.element.select(replaceValue),
               type = target.type,
               name = target.id || target.name,
-              bindfieldif = target.attributes && target.attributes.bindfieldif
+              bindfieldif = target.attributes && target.attributes.bindfieldif,
+              reloadContent = (target.getAttribute && target.getAttribute('bindfieldreloadcontent') === 'false') ? false : true
 
             var match = binding.match(new RegExp("([^:]+):[#.]" + name)),
               replaceVariableNew = match ? match[1] : '',
@@ -492,7 +493,7 @@ var dom = {
                       target.lastPressedKey = false
                     }
                     if (target.startBind) {
-                      app.variables.update.attributes(object, replaceVariableNew, this.value, { reset: true })
+                      app.variables.update.attributes(object, replaceVariableNew, this.value, { reset: true, reloadContent: reloadContent })
                       app.variables.update.content(object, replaceVariableNew, this.value)
                     }
                     if (target.startSubmit) {
@@ -1250,7 +1251,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 425 },
+  version: { major: 1, minor: 0, patch: 0, build: 426 },
   module: {},
   plugin: {},
   var: {},
@@ -2572,7 +2573,7 @@ var app = {
             var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
               originalHtml = object.originalHtml
             app.variables.reset.attributes(object, originalAttributes)
-            app.variables.reset.content(object, originalHtml)
+            options.reloadContent && app.variables.reset.content(object, originalHtml)
           }
 
           if (options.resetSoft) {
