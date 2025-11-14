@@ -1251,7 +1251,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 429 },
+  version: { major: 1, minor: 0, patch: 0, build: 430 },
   module: {},
   plugin: {},
   var: {},
@@ -2577,8 +2577,8 @@ var app = {
           }
 
           if (options.resetSoft) {
-            var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
-              originalHtml = object.originalHtml
+            /*var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
+              originalHtml = object.originalHtml*/
             app.variables.reset.attribute(object, options.single)
           }
 
