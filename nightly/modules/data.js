@@ -425,6 +425,7 @@ app.module.data = {
     // Support action attribute.
     if (srcEl && srcEl.localName === 'form') {
       url = attr['action']
+      if (!url) return // Stop form if action is empty.
     }
 
     app.xhr.request({
