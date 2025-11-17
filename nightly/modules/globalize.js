@@ -113,16 +113,21 @@ app.module.globalize = {
    */
   get: function (element) {
     var tag = element.localName,
-      target = element.getAttribute(this.module + '-target')
+      target = element.getAttribute(this.module + '-target'),
+      value = element.getAttribute(this.module + '-get')
 
-    if (tag === 'optgroup')
-      element.label = element.originalLabel
-    else
-      element.textContent = element.originalText
+    // Fallback to the element’s original text or label if `-get` is empty.
+    if (!value) {
+      if (tag === 'optgroup') {
+        element.label = element.originalLabel || element.label
+      } else {
+        element.textContent = element.originalText || element.textContent
+      }
+      //Todo: Find better solution
+      if (element.renderedText) element.textContent = element.renderedText
+    }
 
-    if (element.renderedText) element.textContent = element.renderedText
-
-    var value = element.getAttribute(this.module + '-get') || element.textContent,
+    var value = value || element.textContent,
       isRoot = value[0] == '/' ? true : false
 
     if (this.fetchedData) {

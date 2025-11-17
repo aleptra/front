@@ -10,48 +10,56 @@ app.plugin.filtersearch = {
   },
 
   run: function (object) {
-    var term = (object.exec && object.exec.value) || '',
-      termLower = term.trim().toLowerCase()
-
+    var term = (object.exec && object.exec.value || '').trim().toLowerCase()
     var rows = app.element.select('[' + this.plugin + '-select]')
+    var i, row, text, matches, countKey
 
-    // Reset
+    // Reset counts
     this.sectionMatches = {}
 
-    // Initialize counts
-    for (var i = 0; i < rows.length; i++) {
-      var countAttr = rows[i].getAttribute('filtersearch--count')
-      if (countAttr && !this.sectionMatches.hasOwnProperty(countAttr)) {
-        this.sectionMatches[countAttr] = 0
+    if (!rows || rows.length === 0) {
+      return
+    }
+
+    var totalMatches = 0
+
+    // Single pass: filter rows + count per section
+    for (i = 0; i < rows.length; i++) {
+      row = rows[i]
+      text = (row.textContent || '').trim()
+      matches = (term === '' || text.toLowerCase().indexOf(term) !== -1)
+
+      app.call(matches ? 'show' : 'hide', { element: row })
+
+      if (matches) {
+        totalMatches++
+      }
+
+      countKey = row.getAttribute('filtersearch--count')
+      if (countKey) {
+        if (!this.sectionMatches.hasOwnProperty(countKey)) {
+          this.sectionMatches[countKey] = 0
+        }
+        if (matches) {
+          this.sectionMatches[countKey]++
+        }
       }
     }
 
-    var matchCount = 0 // total matches for debug
-
-    // Filter + count
-    for (var i = 0; i < rows.length; i++) {
-      var row = rows[i]
-      var text = (row.textContent || row.innerText || '').trim()
-      var match = termLower === '' || text.toLowerCase().includes(termLower)
-
-      // Show/hide
-      app.call(match ? 'show' : 'hide', { element: row })
-
-      if (match) matchCount++
-
-      var countAttr = row.getAttribute('filtersearch--count')
-      if (countAttr && match) {
-        this.sectionMatches[countAttr]++
+    // Update all counter elements
+    var key
+    for (key in this.sectionMatches) {
+      if (this.sectionMatches.hasOwnProperty(key)) {
+        var count = this.sectionMatches[key]
+        var counters = app.element.select('[' + this.plugin + '-count="' + key + '"]')
+        for (i = 0; i < counters.length; i++) {
+          app.variables.update.attributes(counters[i], key, count, { reset: true })
+        }
       }
     }
 
-    // Update variables
-    for (var key in this.sectionMatches) {
-      var count = this.sectionMatches[key]
-      var elements = app.element.select('[' + this.plugin + '-count="' + key + '"]')
-      for (var e = 0; e < elements.length; e++) {
-        app.variables.update.attributes(elements[e], key, count, { reset: true })
-      }
-    }
-  },
+    // Optional clean debug
+    //console.log('Filter matches:', totalMatches, 'Term:', term)
+    //console.log('Section counts:', this.sectionMatches)
+  }
 }

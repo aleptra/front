@@ -33,7 +33,7 @@ app.module.chronotize = {
       dayIndex = date.getDay(),
       setValue = this._weekdays[dayIndex]
 
-    element.renderedText = setValue
+    element.renderedText = setValue //Todo: Find better solution
     app.element.set(element, setValue)
   },
 
