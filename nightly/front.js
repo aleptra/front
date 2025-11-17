@@ -1251,7 +1251,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 431 },
+  version: { major: 1, minor: 0, patch: 0, build: 432 },
   module: {},
   plugin: {},
   var: {},
@@ -1923,6 +1923,24 @@ var app = {
       return values.length ? (values.length === 1 ? values[0] : values) : ''
     },
 
+    captureOriginalAttributes: function (element) {
+      if (!element._originalCaptured) {
+        element._originalCaptured = true
+        var clone = []
+        for (var i = 0; i < element.attributes.length; i++) {
+          var a = element.attributes[i]
+          clone.push({ name: a.name, value: a.value, originalValue: a.value })
+        }
+        element.originalAttributes = clone
+
+        // Optionally store snapshots of text/html for completeness
+        element.originalText = element.textContent
+        element.originalHtml = element.innerHTML
+        element.originalOuterHtml = element.outerHTML
+        element.originalLabel = element.label
+      }
+    },
+
     runOnEvent: function (parsedCall, options) {
       if (parsedCall.exec) {
         var func = dom._eventMap[parsedCall.exec.func] || parsedCall.exec.func,
@@ -2521,10 +2539,7 @@ var app = {
               element.lastRunAttribute = attrName
               element.executed = {}
               if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
-              if (!element.originalText) element.originalText = element.textContent
-              if (!element.originalHtml) element.originalHtml = element.innerHTML
-              if (!element.originalOuterHtml) element.originalOuterHtml = element.outerHTML
-              if (!element.originalLabel) element.originalLabel = element.label
+              app.element.captureOriginalAttributes(element)
 
               if (app.plugin[name[0]] && name[1] === '' && name[2]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
@@ -2570,7 +2585,8 @@ var app = {
         options = options || {}
         if (replaceVariable) {
           if (options.reset && !options.resetSoft) {
-            var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
+            var originalAttributes = object.originalAttributes,
+              //var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
               originalHtml = object.originalHtml
             app.variables.reset.attributes(object, originalAttributes)
             options.reloadContent && app.variables.reset.content(object, originalHtml)
@@ -2650,7 +2666,7 @@ var app = {
       attributes: function (object, original) {
         for (var i = 0; i < original.length; i++) {
           var attr = original[i]
-          object.setAttribute(attr.name, attr.value)
+          object.setAttribute(attr.name, attr.originalValue || attr.value)
         }
       },
 

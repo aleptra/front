@@ -3,60 +3,55 @@ app.plugin.filtersearch = {
     this.plugin = options.name + '-'
     this.config = app.config.get(
       this.plugin,
-      { container: document }, // default container
+      { container: document },
       options.element
     )
-
-    // Initialize internal match count per section
     this.sectionMatches = {}
   },
 
   run: function (object) {
-    var term = (object.exec && object.exec.value) || ''
-    var rows = app.element.select('[' + this.plugin + '-select]')
-    var sections = app.element.select('[filtersearch--section]')
+    var term = (object.exec && object.exec.value) || '',
+      termLower = term.trim().toLowerCase()
 
-    // Reset match counts per section
+    var rows = app.element.select('[' + this.plugin + '-select]')
+
+    // Reset
     this.sectionMatches = {}
 
-    // Create a map from row to section index
-    var rowSectionMap = new Map()
-    for (var s = 0; s < sections.length; s++) {
-      var section = sections[s]
-      var sectionRows = section.querySelectorAll('[' + this.plugin + '-select]')
-      for (var r = 0; r < sectionRows.length; r++) {
-        rowSectionMap.set(sectionRows[r], s)
+    // Initialize counts
+    for (var i = 0; i < rows.length; i++) {
+      var countAttr = rows[i].getAttribute('filtersearch--count')
+      if (countAttr && !this.sectionMatches.hasOwnProperty(countAttr)) {
+        this.sectionMatches[countAttr] = 0
       }
-      // Initialize count for this section
-      this.sectionMatches[s] = 0
     }
 
+    var matchCount = 0 // total matches for debug
+
+    // Filter + count
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i]
-      var text = row.textContent || row.innerText || ''
-      var match = text.toLowerCase().indexOf(term.toLowerCase()) > -1
-      row.style.display = match || !term ? '' : 'none'
+      var text = (row.textContent || row.innerText || '').trim()
+      var match = termLower === '' || text.toLowerCase().includes(termLower)
 
-      var sectionIndex = rowSectionMap.get(row)
-      if (sectionIndex !== undefined && (match || !term)) {
-        this.sectionMatches[sectionIndex]++
+      // Show/hide
+      app.call(match ? 'show' : 'hide', { element: row })
+
+      if (match) matchCount++
+
+      var countAttr = row.getAttribute('filtersearch--count')
+      if (countAttr && match) {
+        this.sectionMatches[countAttr]++
       }
     }
 
+    // Update variables
+    for (var key in this.sectionMatches) {
+      var count = this.sectionMatches[key]
+      var elements = app.element.select('[' + this.plugin + '-count="' + key + '"]')
+      for (var e = 0; e < elements.length; e++) {
+        app.variables.update.attributes(elements[e], key, count, { reset: true })
+      }
+    }
   },
-
-  clear: function () {
-    var rows = app.element.select('[' + this.plugin + '-select]')
-    for (var i = 0; i < rows.length; i++) {
-      rows[i].style.display = ''
-    }
-
-    // Reset match counts per section based on section rows
-    var sections = app.element.select('[filtersearch--section]')
-    this.sectionMatches = {}
-    for (var s = 0; s < sections.length; s++) {
-      var sectionRows = sections[s].querySelectorAll('[' + this.plugin + '-select]')
-      this.sectionMatches[s] = sectionRows.length
-    }
-  }
 }
