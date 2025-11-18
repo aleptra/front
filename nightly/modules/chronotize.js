@@ -1,73 +1,106 @@
 'use strict'
+
 app.module.chronotize = {
   _weekday: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   _month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 
-  get: function (element) {
-    var value = app.element.get(element) || new Date(),
-      date = new Date(value),
-      format = element.getAttribute('chronotize-get'),
-      dateParts = {
-        'd': ('0' + date.getDate()).slice(-2),
-        'm': ('0' + (date.getMonth() + 1)).slice(-2),
-        'y': ('' + date.getFullYear()).slice(-2),
-        'F': this._month[date.getMonth()],
-        'Y': date.getFullYear(),
-        'H': ('0' + date.getHours()).slice(-2),
-        'i': ('0' + date.getMinutes()).slice(-2),
-        's': ('0' + date.getSeconds()).slice(-2),
-        'W': this._weekday[date.getDay()]
-      }
+  // Private marker property (never touches DOM)
+  _marker: '__chronotized',
 
-    // Use a more straightforward regular expression
-    var formatted = format.replace(/[dmyYHisWF]/g, function (match) {
-      return dateParts[match] || match
+  get: function (element) {
+    var format = element.getAttribute('chronotize-get')
+    if (!format) {
+      return
+    }
+
+    // Fast path: already processed?
+    if (element[this._marker]) {
+      return
+    }
+
+    var text = (element.textContent || '').trim()
+
+    // If it already looks like natural language → assume someone already formatted it
+    if (/[a-zA-Z]{5,}/.test(text)) {
+      return
+    }
+
+    var raw = app.element.get(element) || text || new Date()
+    var date = new Date(raw)
+    if (isNaN(date)) {
+      return
+    }
+
+    var parts = {
+      d: ('0' + date.getDate()).slice(-2),
+      m: ('0' + (date.getMonth() + 1)).slice(-2),
+      y: ('' + date.getFullYear()).slice(-2),
+      Y: date.getFullYear(),
+      F: this._month[date.getMonth()],
+      H: ('0' + date.getHours()).slice(-2),
+      i: ('0' + date.getMinutes()).slice(-2),
+      s: ('0' + date.getSeconds()).slice(-2),
+      W: this._weekday[date.getDay()]
+    }
+
+    var formatted = format.replace(/[dmyYFHisfW]/g, function (token) {
+      return (parts.hasOwnProperty(token) ? parts[token] : token)
     })
+
+    // Mark as done — invisible, zero overhead
+    element[this._marker] = true
+    element.renderedText = formatted
 
     app.element.set(element, formatted)
   },
 
-  _weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  weekday: function (element) {
-    var date = new Date(element.innerHTML),
-      dayIndex = date.getDay(),
-      setValue = this._weekdays[dayIndex]
-
-    element.renderedText = setValue //Todo: Find better solution
-    app.element.set(element, setValue)
-  },
-
   age: function (element) {
-    var input = element.innerHTML,
-      formats = [
-        /(\d{4})[\/.-](\d{1,2})[\/.-](\d{1,2})/,
-        /(\d{2})[\/.-](\d{1,2})[\/.-](\d{1,2})/,
-        /(\d{4})[\/.-](\d{1,2})[\/.-](\d{1,2})[ T](\d{1,2}):(\d{1,2}):(\d{1,2})/,
-        /(\d{4})[\/.-](\d{1,2})[\/.-](\d{1,2})[ T](\d{1,2}):(\d{1,2})/,
-        /(\d{4})[\/.-](\d{1,2})[\/.-](\d{1,2})[ T](\d{1,2})/,
-        /(\d{4})[\/.-](\d{1,2})[\/.-](\d{1,2})/,
-        /(\d{4}) ([a-zA-Z]+) (\d{1,2})/,
-        /(\d{4}) ([a-zA-Z]+)/,
-        /(\d{4}) (\d{1,2}) (\d{1,2})/,
-        /(\d{4})(\d{2})(\d{2})/
-      ]
+    if (element[this._marker]) {
+      return
+    }
 
-    for (var i = 0; i < formats.length; i++) {
-      var match = input.match(formats[i])
-      if (match) {
-        var year = parseInt(match[1], 10),
-          month = parseInt(match[2], 10) - 1,
-          day = parseInt(match[3], 10),
-          birthdateObject = new Date(year, month, day)
+    var input = (element.textContent || '').trim()
+    if (!input) {
+      return
+    }
 
-        if (birthdateObject) {
-          var age = new Date() - birthdateObject,
-            calculatedAge = new Date(age).getUTCFullYear() - 1970
-          app.element.set(element, calculatedAge)
-        }
+    var patterns = [
+      /^(\d{4})[\/.-](\d{1,2})[\/.-](\d{1,2})/,
+      /^(\d{4})(\d{2})(\d{2})$/,
+      /^(\d{4})[\/.-](\d{1,2})[\/.-](\d{1,2})[ T]/
+    ]
 
-        break
+    var i, regex, m, year, month, day, birth, age
+
+    for (i = 0; i < patterns.length; i++) {
+      regex = patterns[i]
+      m = input.match(regex)
+      if (!m) {
+        continue
       }
+
+      year = +m[1]
+      month = +m[2]
+      day = +(m[3] || 1)
+
+      // Handle ambiguous MM/DD vs DD/MM when month > 12
+      if (m[2].length === 2 && month > 12) {
+        // swap
+        month = +m[3]
+        day = +m[2]
+      }
+      month -= 1 // JS months are 0-based
+
+      birth = new Date(year, month, day)
+      if (isNaN(birth)) {
+        continue
+      }
+
+      age = new Date(Date.now() - birth).getUTCFullYear() - 1970
+
+      element[this._marker] = true
+      app.element.set(element, age)
+      return
     }
   }
 }

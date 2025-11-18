@@ -1251,7 +1251,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 433 },
+  version: { major: 1, minor: 0, patch: 0, build: 434 },
   module: {},
   plugin: {},
   var: {},
@@ -1658,6 +1658,11 @@ var app = {
       'optgroup': 'label'
     },
 
+    /**
+     * 
+     * @function get
+     * @memberof app.element
+     */
     get: function (element, attrValue, attrName) {
       if (element) {
         if (attrValue) return element.attributes[attrValue].value // Return attribute value.
@@ -1669,6 +1674,11 @@ var app = {
       }
     },
 
+    /**
+     * 
+     * @function set
+     * @memberof app.element
+     */
     set: function (element, value, attr) {
       attr = element.exec ? element.attribute : attr,
         type = element.type,
@@ -1731,6 +1741,11 @@ var app = {
       }
     },
 
+    /**
+     * 
+     * @function add
+     * @memberof app.element
+     */
     add: {
       style: function (options) {
         var _ = this._(options, ':')
@@ -1745,6 +1760,11 @@ var app = {
       }
     },
 
+    /**
+    * 
+    * @function operate
+    * @memberof app.element
+    */
     operate: function (operation, query, attr) {
       // Parse dynamic operation parts
       var op = operation[0],
@@ -1778,6 +1798,11 @@ var app = {
       }
     },
 
+    /**
+    * 
+    * @function toggle
+    * @memberof app.element
+    */
     toggle: {
       class: function (options, value) {
         var el = options.element,
