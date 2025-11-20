@@ -1251,7 +1251,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 434 },
+  version: { major: 1, minor: 0, patch: 0, build: 435 },
   module: {},
   plugin: {},
   var: {},
@@ -2187,6 +2187,11 @@ var app = {
     page: {},
     template: {},
 
+    /**
+     * 
+     * @function get
+     * @memberof app.caches
+     */
     get: function (mechanism, type, key, options) {
       options = options || {}
       var data
@@ -2208,7 +2213,12 @@ var app = {
       return data
     },
 
-    set: function (mechanism, type, key, data, status, format) {
+    /**
+     * 
+     * @function set
+     * @memberof app.caches
+     */
+    set: function (mechanism, type, key, data, status, format, ttl) {
       if (app.storageKey) key = app.storageKey + '_' + key
       switch (format) {
         case 'xml':
@@ -2225,7 +2235,9 @@ var app = {
         'data': data,
         'status': status ? status : '',
         'headers': '',
-        'globals': app.globals
+        'globals': app.globals,
+        'ttl': ttl ? ttl : false,
+        'expires': ttl ? ttl + Date.now() : false
       }
 
       app.caches[type][key] = cacheData
@@ -2239,6 +2251,22 @@ var app = {
           break
         case 'cookie':
           document.cookie = cacheData.data
+          break
+      }
+    },
+
+    /**
+     * 
+     * @function remove
+     * @memberof app.caches
+     */
+    remove: function (mechanism, key) {
+      switch (mechanism) {
+        case 'local':
+          localStorage.removeItem(key)
+          break
+        case 'session':
+          sessionStorage.removeItem(key)
           break
       }
     }
@@ -2899,8 +2927,11 @@ var app = {
             }
 
             if (cache) {
-              //if (cache && (statusType.success || statusType.redirect)) {
+              //if (cache && (statusType.success || statusType.redirect))
               app.caches.set(cache.mechanism, cache.keyType, cache.key, this.responseText, this.status, cache.format)
+
+              // Cache in local when ttl is provided.
+              if (cache.ttl > 0) app.caches.set('local', 'module', cache.key, this.responseText, this.status, cache.format, cache.ttl)
             }
 
             if (type) {
@@ -2993,6 +3024,7 @@ var app = {
         target = options.target ? app.element.select(options.target) : options.element,
         single = options.single,
         cache = options.cache || false,
+        cacheTtl = cache.ttl || false,
         headers = options.headers ? app.parse.attribute(options.headers) : {},
         srcEl = options.srcEl || false,
         enctype = options.enctype ? options.enctype : 'application/json',
@@ -3006,176 +3038,171 @@ var app = {
         run = onload && onload.run && onload.run.func ? onload.run.func : false,
         runarg = onload && onload.run && onload.run.arg
 
-      if (false) {
-        console.dir('cache: ' + cache)
-      } else {
+      var xhr = new XMLHttpRequest(),
+        urlExtension = url.indexOf('.') !== -1 || url == '/' || options.urlExtension === false ? '' : app.fileExtension || ''
 
-        var xhr = new XMLHttpRequest(),
-          urlExtension = url.indexOf('.') !== -1 || url == '/' || options.urlExtension === false ? '' : app.fileExtension || ''
+      xhr.options = options
 
-        xhr.options = options
+      if (single) {
+        if (this.currentRequest) this.currentRequest.abort()
+        this.currentRequest = xhr
+      }
 
-        if (single) {
-          if (this.currentRequest) this.currentRequest.abort()
-          this.currentRequest = xhr
-        }
+      xhr.onabort = function () {
+        if (app.spa && loader) app.spa._preloader.reset()
+      }
 
-        xhr.onabort = function () {
-          if (app.spa && loader) app.spa._preloader.reset()
-        }
+      xhr.onprogress = function (e) {
+        if (app.spa && type === 'page') app.spa._preloader.load(e, true)
+      }
 
-        xhr.onprogress = function (e) {
-          if (app.spa && type === 'page') app.spa._preloader.load(e, true)
-        }
+      xhr.onload = function () {
+        var status = this.statusType || {}
+        if (status.informational || status.success || status.redirect) {
 
-        xhr.onload = function () {
-          var status = this.statusType || {}
-          if (status.informational || status.success || status.redirect) {
+          /*var headers = xhr.getAllResponseHeaders().trim().split(/[\r\n]+/)
+          var headerMap = {}
+          for (var i = 0; i < headers.length; i++) {
+            var parts = headers[i].split(": ")
+            var header = parts[0]
+            var value = parts.slice(1).join(": ")
+            headerMap[header] = value
+          }*/
 
-            /*var headers = xhr.getAllResponseHeaders().trim().split(/[\r\n]+/)
-            var headerMap = {}
-            for (var i = 0; i < headers.length; i++) {
-              var parts = headers[i].split(": ")
-              var header = parts[0]
-              var value = parts.slice(1).join(": ")
-              headerMap[header] = value
-            }*/
+          var responseData = this.responseText,
+            responseError = this.responseError // Get the parsing error message.
 
-            var responseData = this.responseText,
-              responseError = this.responseError // Get the parsing error message.
-
-            if (target) {
-              dom.set(target, responseData)
-            }
-
-            //Todo: Fix so parsing problem shows. 
-            if (responseError) {
-              //dom.show(error)
-            }
-
-            if (onload) {
-              if (run) app.exec(run, runarg)
-            }
-
-            if (beforesuccess) {
-              app.call(beforesuccess.value, {
-                srcElement: srcEl,
-                srcAttribute: beforesuccess.name,
-                response: {
-                  data: app.parse.json(responseData).value,
-                  error: responseError
-                }
-              })
-            }
-
-            if (success) {
-              if (srcEl) {
-                app.call(success, { srcElement: srcEl })
-              }
-
-              // Clean up error element.
-              if (error) {
-                var val = error.split(':')
-                if (val[0] === 'show') dom.hide(val[1])
-              }
-            }
-
-            if (aftersuccess) {
-              var initValue = aftersuccess.originalValue
-              app.call(aftersuccess.value, {
-                srcElement: srcEl,
-                srcAttribute: aftersuccess.name,
-                response: {
-                  data: app.parse.json(responseData).value,
-                  error: responseError
-                }
-              })
-
-              initValue && (aftersuccess.value = initValue) // Reset value
-            }
-
-            if (options.exec) app.element.onload(options.exec.element)
-
-          } else if (status.clientError || status.serverError) {
-            dom.hide(loader)
-            if (error) app.call(error, { element: options.element })
+          if (target) {
+            dom.set(target, responseData)
           }
-        }
 
-        xhr.onerror = function () {
+          //Todo: Fix so parsing problem shows. 
+          if (responseError) {
+            //dom.show(error)
+          }
+
+          if (onload) {
+            if (run) app.exec(run, runarg)
+          }
+
+          if (beforesuccess) {
+            app.call(beforesuccess.value, {
+              srcElement: srcEl,
+              srcAttribute: beforesuccess.name,
+              response: {
+                data: app.parse.json(responseData).value,
+                error: responseError
+              }
+            })
+          }
+
+          if (success) {
+            if (srcEl) {
+              app.call(success, { srcElement: srcEl })
+            }
+
+            // Clean up error element.
+            if (error) {
+              var val = error.split(':')
+              if (val[0] === 'show') dom.hide(val[1])
+            }
+          }
+
+          if (aftersuccess) {
+            var initValue = aftersuccess.originalValue
+            app.call(aftersuccess.value, {
+              srcElement: srcEl,
+              srcAttribute: aftersuccess.name,
+              response: {
+                data: app.parse.json(responseData).value,
+                error: responseError
+              }
+            })
+
+            initValue && (aftersuccess.value = initValue) // Reset value
+          }
+
+          if (options.exec) app.element.onload(options.exec.element)
+
+        } else if (status.clientError || status.serverError) {
+          dom.hide(loader)
           if (error) app.call(error, { element: options.element })
         }
+      }
 
-        xhr.open(method, url + urlExtension, true)
+      xhr.onerror = function () {
+        if (error) app.call(error, { element: options.element })
+      }
 
-        var payload
-        if (['POST', 'PUT', 'PATCH'].indexOf(method) !== -1) {
-          var json = {}
-          var groups = {}
+      xhr.open(method, url + urlExtension, true)
 
-          if (srcEl.elements) {
-            for (var i = 0; i < srcEl.elements.length; i++) {
-              var el = srcEl.elements[i],
-                name = el.name,
-                val = el.value
+      var payload
+      if (['POST', 'PUT', 'PATCH'].indexOf(method) !== -1) {
+        var json = {}
+        var groups = {}
 
-              if (!name || !val) continue
+        if (srcEl.elements) {
+          for (var i = 0; i < srcEl.elements.length; i++) {
+            var el = srcEl.elements[i],
+              name = el.name,
+              val = el.value
 
-              var match = name.match(/^(.+)\[(\d+)\]$/)
-              if (match) {
-                var base = match[1],
-                  idx = parseInt(match[2], 10)
-                if (!groups[base]) groups[base] = []
-                groups[base][idx] = val
-              } else {
-                // dot notation support
-                var parts = name.split('.'),
-                  cur = json
-                for (var j = 0; j < parts.length - 1; j++) {
-                  if (!cur[parts[j]]) cur[parts[j]] = {}
-                  cur = cur[parts[j]]
-                }
-                cur[parts[parts.length - 1]] = val
-              }
-            }
+            if (!name || !val) continue
 
-            // merge bracket groups
-            for (var key in groups) {
-              var parts = key.split('.'),
+            var match = name.match(/^(.+)\[(\d+)\]$/)
+            if (match) {
+              var base = match[1],
+                idx = parseInt(match[2], 10)
+              if (!groups[base]) groups[base] = []
+              groups[base][idx] = val
+            } else {
+              // dot notation support
+              var parts = name.split('.'),
                 cur = json
               for (var j = 0; j < parts.length - 1; j++) {
                 if (!cur[parts[j]]) cur[parts[j]] = {}
                 cur = cur[parts[j]]
               }
-              cur[parts[parts.length - 1]] = groups[key].join('')
+              cur[parts[parts.length - 1]] = val
             }
+          }
 
-          } else {
-            var name = srcEl.name ? srcEl.name : srcEl.attributes.name.value,
-              val = srcEl.name ? srcEl.value : srcEl.outerText,
-              parts = name.split('.'),
+          // merge bracket groups
+          for (var key in groups) {
+            var parts = key.split('.'),
               cur = json
             for (var j = 0; j < parts.length - 1; j++) {
               if (!cur[parts[j]]) cur[parts[j]] = {}
               cur = cur[parts[j]]
             }
-            cur[parts[parts.length - 1]] = val
+            cur[parts[parts.length - 1]] = groups[key].join('')
           }
 
-          payload = JSON.stringify(json)
         } else {
-          payload = null
-          enctype = 'application/x-www-form-urlencoded'
+          var name = srcEl.name ? srcEl.name : srcEl.attributes.name.value,
+            val = srcEl.name ? srcEl.value : srcEl.outerText,
+            parts = name.split('.'),
+            cur = json
+          for (var j = 0; j < parts.length - 1; j++) {
+            if (!cur[parts[j]]) cur[parts[j]] = {}
+            cur = cur[parts[j]]
+          }
+          cur[parts[parts.length - 1]] = val
         }
 
-        // Set headers
-        headers['Content-type'] = enctype
-        for (var header in headers) {
-          if (headers.hasOwnProperty(header)) xhr.setRequestHeader(header, headers[header])
-        }
-
-        xhr.send(payload)
+        payload = JSON.stringify(json)
+      } else {
+        payload = null
+        enctype = 'application/x-www-form-urlencoded'
       }
+
+      // Set headers
+      headers['Content-type'] = enctype
+      for (var header in headers) {
+        if (headers.hasOwnProperty(header)) xhr.setRequestHeader(header, headers[header])
+      }
+
+      xhr.send(payload)
     }
   },
 }

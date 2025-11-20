@@ -61,13 +61,15 @@ app.module.data = {
       iterate = attr['data-iterate'],
       loader = attr['data-loader'],
       src = attr['data-src'],
+      ttl = attr['data-ttl'],
       joinSuffix = join ? 'join' : '',
       options = {
         loader: loader && loader.value,
         iterate: iterate && iterate.value,
         element: element,
         attribute: join ? 'data-srcjoin' : 'data-src',
-        storageKey: this.module + this._generateId(src.value) + joinSuffix
+        storageKey: this.module + this._generateId(src.value) + joinSuffix,
+        ttl: ttl && parseInt(ttl.value) || false
       }
     element.storageKey = options.storageKey
     this._open(attr, options)
@@ -85,6 +87,21 @@ app.module.data = {
       target = attr.target,
       progresscontent = attr.progresscontent,
       srcEl = options.element
+
+    if (options.ttl > 0) {
+      var cache = app.caches.get('local', options.keyType, options.storageKey)
+      var now = Date.now()
+
+      if (cache) {
+        if ((cache.expires && now < cache.expires) && options.ttl === cache.ttl) {
+          app.log.info()('Cache hit')
+          return this._run(options, cache)
+        }
+
+        // Cache expired.
+        app.caches.remove('local', options.keyType, options.storageKey)
+      }
+    }
 
     app.xhr.request({
       url: attr[options.attribute].value,
@@ -107,7 +124,8 @@ app.module.data = {
         mechanism: this.storageMechanism,
         format: 'json',
         keyType: this.storageType,
-        key: options.storageKey
+        key: options.storageKey,
+        ttl: options.ttl
       },
       onprogress: { content: (progresscontent) ? progresscontent.value : '' },
       loader: loader && loader.value,
@@ -120,8 +138,8 @@ app.module.data = {
     })
   },
 
-  _run: function (options) {
-    var responseData = app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', ''))
+  _run: function (options, cache) {
+    var responseData = cache ? cache : app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', ''))
     var element = options.element,
       datamerge = element.getAttribute('data-merge'),
       datafilteritem = element.getAttribute('data-filteritem'),
@@ -133,7 +151,6 @@ app.module.data = {
       dataempty = element.getAttribute('data-onempty'),
       datasuccess = element.attributes['data-onsuccess'],
       selector = '*:not([data-iterate-skip]'
-
 
     if (responseData) {
       if (datamerge) {
