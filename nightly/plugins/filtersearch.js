@@ -52,8 +52,11 @@ app.plugin.filtersearch = {
       if (this.sectionMatches.hasOwnProperty(key)) {
         var count = this.sectionMatches[key]
         var counters = app.element.select('[' + this.plugin + '-count="' + key + '"]')
-        for (i = 0; i < counters.length; i++) {
-          app.variables.update.attributes(counters[i], key, count, { reset: true })
+        if (counters) {
+          if (!counters.length) counters = [counters] // Normalize counters to an array to support single-element sections
+          for (i = 0; i < counters.length; i++) {
+            app.variables.update.attributes(counters[i], key, count, { reset: true })
+          }
         }
       }
     }
