@@ -71,7 +71,6 @@ app.module.data = {
         storageKey: this.module + this._generateId(src.value) + joinSuffix,
         ttl: ttl && parseInt(ttl.value) || false
       }
-    element.storageKey = options.storageKey
     this._open(attr, options)
   },
 
@@ -205,7 +204,7 @@ app.module.data = {
           var iterArray = iterateInside.length ? iterateInside : [iterateInside]
           for (var k = 0; k < iterArray.length; k++) {
             var childIterate = iterArray[k]
-            if (!childIterate) continue
+            if (!childIterate || !childIterate.getAttribute) continue
 
             var childOptions = {}
             for (var p in options) {
