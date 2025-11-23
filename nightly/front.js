@@ -1251,7 +1251,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 438 },
+  version: { major: 1, minor: 0, patch: 0, build: 439 },
   module: {},
   plugin: {},
   var: {},

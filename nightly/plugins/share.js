@@ -10,7 +10,7 @@ app.plugin.share = {
     var platform = el.getAttribute('share--platform')
     var title = el.getAttribute('share--title') || document.title
     var urlAttr = el.getAttribute('share--url') || window.location.href
-    var url = urlAttr[0] === '/' ? window.location.href : urlAttr
+    var url = urlAttr[0] === '/' ? window.origin + urlAttr.slice(0) : urlAttr
 
     var shareUrl = ''
     switch (platform) {
