@@ -862,7 +862,10 @@ var dom = {
     var from = element.call.subElement,
       to = element.call.element,
       i = from.children.length
-    while (i--) to.appendChild(from.children[i].cloneNode(true))
+    while (i--) {
+      dom.rerun(from.children[i])
+      to.appendChild(from.children[i].cloneNode(true))
+    }
   },
 
   /**
@@ -1255,7 +1258,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 442 },
+  version: { major: 1, minor: 0, patch: 0, build: 443 },
   module: {},
   plugin: {},
   var: {},
