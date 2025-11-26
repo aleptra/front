@@ -857,8 +857,10 @@ var dom = {
    * @memberof dom
    */
   append: function (element, value) {
-    var div = app.element.select(value)
-    element.appendChild(div)
+    element = app.element.resolveCall(element, value)
+    var to = element.call.subElement,
+      from = element.call.element
+    from.appendChild(to)
   },
 
   /**
@@ -1251,7 +1253,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 439 },
+  version: { major: 1, minor: 0, patch: 0, build: 440 },
   module: {},
   plugin: {},
   var: {},
@@ -1433,34 +1435,8 @@ var app = {
 
     for (var i = 0; i < runArray.length; i++) {
       var string = runArray[i],
-        parts = string.split(':'),
-        func = parts[0],
-        element1 = parts[1] && (parts[1][0] === '#' || parts[1][0] === '*') && (parts[1].split('.') || [])[0],
-        element2 = parts[2] && (parts[2][0] === '#' || parts[2][0] === '*') && (parts[2].split('.') || [])[0],
-        attribute1 = element1 && (parts[1].split('.') || [])[1],
-        attribute2 = element2 && (parts[2].split('.') || [])[1],
-        value = app.element.extractBracketValues(string)
-
-      var objElement1 = !element1 && options && options.element ? options.element : element1 === '#' || !element1 && options && options.srcElement ? options.srcElement : element1 ? app.element.select(element1.replace('*', '')) : '',
-        objElement2 = element2 === '#' ? options && options.srcElement : app.element.select(element2),
-        attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true),
-        attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),
-        value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1, attribute1) : value)
-
-      // Return the parsed object
-      // Todo: Remove hasAttribute and hasSubAttribute in future versions.
-      parsedCall = {
-        func: func,
-        element: objElement1 || false,
-        subElement: objElement2 || false,
-        attribute: attribute1Type || false,
-        hasAttribute: !!attribute1,
-        hasSubAttribute: !!attribute2,
-        subAttribute: attribute2Type || false,
-        value: value === undefined ? false : value
-      }
-
-      var run = dom._actionMap[func] || func
+        parsedCall = app.parse.callString(string, options),
+        run = dom._actionMap[parsedCall.func] || parsedCall.func
 
       if (run.indexOf('--') !== -1) {
         var plugin = run.split('--')
@@ -1527,13 +1503,45 @@ var app = {
    * @desc Handles parsing of strings and creating DOM nodes.
    */
   parse: {
+
     /**
-      * @function attribute
-      * @memberof app.parse
-      * @param {string} string - The string to parse.
-      * @return {object} - An object containing key-value pairs parsed from the string.
-      * @desc Parses a string into an object by splitting the string by ';' and then by the first ':' only.
-    */
+     * @function callString
+     * @memberof app.parse
+     */
+    callString: function (string, options) {
+      var parts = string.split(':'),
+        func = parts[0],
+        element1 = parts[1] && (parts[1][0] === '#' || parts[1][0] === '*') && (parts[1].split('.') || [])[0],
+        element2 = parts[2] && (parts[2][0] === '#' || parts[2][0] === '*') && (parts[2].split('.') || [])[0],
+        attribute1 = element1 && (parts[1].split('.') || [])[1],
+        attribute2 = element2 && (parts[2].split('.') || [])[1],
+        value = app.element.extractBracketValues(string)
+
+      var objElement1 = !element1 && options?.element ? options.element : element1 === '#' || (!element1 && options?.srcElement) ? options.srcElement : element1 ? app.element.select(element1.replace('*', '')) : '',
+        objElement2 = element2 === '#' ? options?.srcElement : app.element.select(element2),
+        attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true),
+        attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),
+        value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1, attribute1) : value)
+
+      return {
+        func: func,
+        element: objElement1 || false,
+        subElement: objElement2 || false,
+        attribute: attribute1Type || false,
+        hasAttribute: !!attribute1,
+        hasSubAttribute: !!attribute2,
+        subAttribute: attribute2Type || false,
+        value: value === undefined ? false : value
+      }
+    },
+
+    /**
+     * @function attribute
+     * @memberof app.parse
+     * @param {string} string - The string to parse.
+     * @return {object} - An object containing key-value pairs parsed from the string.
+     * @desc Parses a string into an object by splitting the string by ';' and then by the first ':' only.
+     */
     attribute: function (string) {
       var object = {},
         pairs = string ? string.split(';') : []
@@ -1558,7 +1566,7 @@ var app = {
      * @param {string} string - The HTML string to parse.
      * @return {Node} - A DOM node representing the parsed HTML.
      * @desc Parses a string of HTML and return a DOM node.
-    */
+     */
     text: function (string, exclude) {
       var el = document.createElement('spot'),
         html = string && string.match(/<html\s+([^>]*)>/i) || '',
@@ -1876,7 +1884,7 @@ var app = {
      * @param {*} element - The element to resolve
      * @returns {Object} - Element with its call context
      */
-    resolveCall: function (element) {
+    resolveCall: function (element, value) {
       if (element.exec) {
         var call = element.exec
         element = call.element
