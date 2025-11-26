@@ -855,12 +855,14 @@ var dom = {
   /**
    * @function append
    * @memberof dom
+   * @desc Clone children and append to element.
    */
   append: function (element, value) {
     element = app.element.resolveCall(element, value)
-    var to = element.call.subElement,
-      from = element.call.element
-    from.appendChild(to)
+    var from = element.call.subElement,
+      to = element.call.element,
+      i = from.children.length
+    while (i--) to.appendChild(from.children[i].cloneNode(true))
   },
 
   /**
@@ -1253,7 +1255,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 441 },
+  version: { major: 1, minor: 0, patch: 0, build: 442 },
   module: {},
   plugin: {},
   var: {},
@@ -3153,9 +3155,10 @@ var app = {
           for (var i = 0; i < srcEl.elements.length; i++) {
             var el = srcEl.elements[i],
               name = el.name,
-              val = el.value
+              val = el.value,
+              ignore = el.attributes.ignorepayload || false
 
-            if (!name || !val) continue
+            if (!name || !val || ignore) continue
 
             var match = name.match(/^(.+)\[(\d+)\]$/)
             if (match) {
