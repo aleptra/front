@@ -32,6 +32,7 @@ var dom = {
     'setid': 'set2',
     'setname': 'set2',
     'setsrc': 'set2',
+    'bindappend': 'bind',
     'bindvar': 'bind',
     'bindquery': 'bind',
     'bindasset': 'bind',
@@ -414,6 +415,16 @@ var dom = {
         replaceValue = binding[1]
 
       switch (attr) {
+        case 'bindappend':
+          var parts = replaceVariable.split('.'),
+            element = parts[0],
+            attr = parts[1]
+          var target = app.element.select(element),
+            content = target.options[target.selectedIndex].textContent
+
+          app.variables.reset.attributes(object, object.originalAttributes)
+          app.variables.update.attributes(object, replaceValue, content)
+          break
         case 'bindvar':
           var bindInclude = this.bind.include ? ';' + this.bind.include : '',
             binding = ((object.getAttribute('bindvar') || object.getAttribute('var')) || '') + bindInclude
@@ -1160,7 +1171,7 @@ var dom = {
    * @param {Array<string>} exclude - An array of attribute names to exclude from the 'stop' attribute value.
    */
   stop: function (element, value) {
-    var exclude = ['stop', 'bind'],
+    var exclude = ['stop'],
       children = element.childNodes
     for (var i = 0; i < children.length; i++) {
       var child = children[i]
@@ -1191,7 +1202,7 @@ var dom = {
   start: function (object) {
     var el = object.exec ? object.exec.element : object
     var elements = app.element.find(el, '*')
-    app.attributes.run(elements, ['stop'])
+    app.attributes.run(elements)
   },
 
   /**
@@ -1258,7 +1269,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 443 },
+  version: { major: 1, minor: 0, patch: 0, build: 444 },
   module: {},
   plugin: {},
   var: {},
@@ -2544,6 +2555,7 @@ var app = {
       'id',
       'name',
       'open',
+      'required',
       'selected',
       'src',
       'style',
