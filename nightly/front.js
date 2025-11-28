@@ -418,12 +418,13 @@ var dom = {
         case 'bindappend':
           var parts = replaceVariable.split('.'),
             element = parts[0],
-            attr = parts[1]
+            attrValue = parts[1]
           var target = app.element.select(element),
-            content = target.options[target.selectedIndex].textContent
+            selected = target.options[target.selectedIndex],
+            content = attrValue ? selected.value : selected.textContent
 
-          app.variables.reset.attributes(object)
           app.variables.update.attributes(object, replaceValue, content)
+          app.variables.reset.content(object.from)
           break
         case 'bindvar':
           var bindInclude = this.bind.include ? ';' + this.bind.include : '',
@@ -872,10 +873,14 @@ var dom = {
     element = app.element.resolveCall(element, value)
     var from = element.call.subElement,
       to = element.call.element,
-      i = from.children.length
+      i = from.children.length,
+      child, clone
     while (i--) {
-      dom.rerun(from.children[i])
-      to.appendChild(from.children[i].cloneNode(true))
+      child = from.children[i]
+      child.from = from
+      dom.rerun(child)
+      clone = child.cloneNode(true)
+      to.appendChild(clone)
     }
   },
 
@@ -1269,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 445 },
+  version: { major: 1, minor: 0, patch: 0, build: 446 },
   module: {},
   plugin: {},
   var: {},
