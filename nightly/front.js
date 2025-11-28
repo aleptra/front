@@ -422,7 +422,7 @@ var dom = {
           var target = app.element.select(element),
             content = target.options[target.selectedIndex].textContent
 
-          app.variables.reset.attributes(object, object.originalAttributes)
+          app.variables.reset.attributes(object)
           app.variables.update.attributes(object, replaceValue, content)
           break
         case 'bindvar':
@@ -1269,7 +1269,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 444 },
+  version: { major: 1, minor: 0, patch: 0, build: 445 },
   module: {},
   plugin: {},
   var: {},
@@ -2663,16 +2663,11 @@ var app = {
         options = options || {}
         if (replaceVariable) {
           if (options.reset && !options.resetSoft) {
-            var originalAttributes = object.originalAttributes,
-              //var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
-              originalHtml = object.originalHtml
-            app.variables.reset.attributes(object, originalAttributes)
-            options.reloadContent && app.variables.reset.content(object, originalHtml)
+            app.variables.reset.attributes(object)
+            options.reloadContent && app.variables.reset.content(object)
           }
 
           if (options.resetSoft) {
-            /*var originalAttributes = app.parse.text(object.originalOuterHtml).children[0].attributes,
-              originalHtml = object.originalHtml*/
             app.variables.reset.attribute(object, options.single)
           }
 
@@ -2741,7 +2736,8 @@ var app = {
       * @function attributes
       * @memberof app.variables.reset
       */
-      attributes: function (object, original) {
+      attributes: function (object) {
+        var original = object.originalAttributes
         for (var i = 0; i < original.length; i++) {
           var attr = original[i]
           object.setAttribute(attr.name, attr.originalValue || attr.value)
@@ -2761,8 +2757,8 @@ var app = {
       * @function content
       * @memberof app.variables.reset
       */
-      content: function (object, original) {
-        object.innerHTML = original
+      content: function (object) {
+        object.innerHTML = object.originalHtml
       }
     }
   },
