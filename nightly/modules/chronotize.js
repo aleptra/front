@@ -9,27 +9,14 @@ app.module.chronotize = {
 
   get: function (element) {
     var format = element.getAttribute('chronotize-get')
-    if (!format) {
-      return
-    }
 
     // Fast path: already processed?
     if (element[this._marker]) {
       return
     }
 
-    var text = (element.textContent || '').trim()
-
-    // If it already looks like natural language → assume someone already formatted it
-    if (/[a-zA-Z]{5,}/.test(text)) {
-      return
-    }
-
-    var raw = app.element.get(element) || text || new Date()
+    var raw = app.element.get(element) || new Date()
     var date = new Date(raw)
-    if (isNaN(date)) {
-      return
-    }
 
     var parts = {
       d: ('0' + date.getDate()).slice(-2),
@@ -49,8 +36,6 @@ app.module.chronotize = {
 
     // Mark as done — invisible, zero overhead
     element[this._marker] = true
-    element.renderedText = formatted
-
     app.element.set(element, formatted)
   },
 

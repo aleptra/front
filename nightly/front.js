@@ -1274,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 446 },
+  version: { major: 1, minor: 0, patch: 0, build: 447 },
   module: {},
   plugin: {},
   var: {},
@@ -1767,6 +1767,7 @@ var app = {
         default:
           var property = this._propertyMap[localName] || 'textContent'
           element[property] = value
+          element.renderedText = value //todo: Fix this. Strange rendering solution.
       }
     },
 

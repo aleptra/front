@@ -212,7 +212,7 @@ app.module.navigate = {
 
     set: function (selector) {
       this.element = app.element.select(selector)
-      this.elementChild = this.element.firstChild
+      this.elementChild = this.element.firstElementChild
     },
 
     load: function (e, onprogress) {
