@@ -7,8 +7,7 @@ app.plugin.seold = {
 
     this.nameValue = ''
     this.descValue = ''
-
-    var self = this
+    this.urlValue = ''
   },
 
   name: function (object) {
@@ -21,10 +20,16 @@ app.plugin.seold = {
     this._tryInject()
   },
 
+  url: function (object) {
+    this.urlValue = object.href
+    this._tryInject()
+  },
+
   _tryInject: function () {
     // Only inject when both name and description are available
     if (!this.nameValue) return
     if (!this.descValue) return
+    if (!this.urlValue) return
     this._injectJSONLD()
   },
 
@@ -37,7 +42,8 @@ app.plugin.seold = {
       "name": this.nameValue,
       "description": this.descValue || '',
       "inDefinedTermSet": window.location.href,
-      "dateCreated": date
+      "dateCreated": date,
+      "url": this.urlValue || ''
     }
 
     var script = document.createElement('script')
