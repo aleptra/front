@@ -1274,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 447 },
+  version: { major: 1, minor: 0, patch: 0, build: 448 },
   module: {},
   plugin: {},
   var: {},
@@ -1538,8 +1538,8 @@ var app = {
         attribute2 = element2 && (parts[2].split('.') || [])[1],
         value = app.element.extractBracketValues(string)
 
-      var objElement1 = !element1 && options?.element ? options.element : element1 === '#' || (!element1 && options?.srcElement) ? options.srcElement : element1 ? app.element.select(element1.replace('*', '')) : '',
-        objElement2 = element2 === '#' ? options?.srcElement : app.element.select(element2),
+      var objElement1 = !element1 && options && options.element ? options.element : element1 === '#' || (!element1 && options && options.srcElement) ? options.srcElement : element1 ? app.element.select(element1.replace('*', '')) : '',
+        objElement2 = element2 === '#' ? (options && options.srcElement) : app.element.select(element2),
         attribute1Type = attribute1 ? attribute1 : app.element.get(objElement1, false, true),
         attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),
         value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1, attribute1) : value)
