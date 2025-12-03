@@ -36,8 +36,7 @@ app.module.data = {
       dom.hide(element)
     }
 
-    //dom.stop(element, '*') // Stop attributes from running when traverse so they can be run in the end.
-
+    // Stop attributes from running when traverse so they can be run in the end.
     if (!element.getAttribute('stop')) dom.stop(element, '*')
 
     if (!self._intervalTimers[element.uniqueId]) {
