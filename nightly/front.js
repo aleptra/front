@@ -1274,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 451 },
+  version: { major: 1, minor: 0, patch: 0, build: 452 },
   module: {},
   plugin: {},
   var: {},
@@ -2677,7 +2677,6 @@ var app = {
             app.variables.reset.attribute(object, options.single)
           }
 
-          console.dir(object.attributes)
           var regex = new RegExp('\\{\\s*' + replaceVariable + '\\s*(?::((?:{[^{}]*}|[^}])+))?\\}', 'g')
           for (var i = 0; i < object.attributes.length; i++) {
             var attr = object.attributes[i]
