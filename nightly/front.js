@@ -1274,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 452 },
+  version: { major: 1, minor: 0, patch: 0, build: 453 },
   module: {},
   plugin: {},
   var: {},
@@ -2776,14 +2776,27 @@ var app = {
    */
   querystrings: {
     get: function (url, param) {
-      var parser = document.createElement('a')
-      parser.href = url || window.location.href
-      var query = parser.search.substring(1),
-        vars = query.split('&')
+      // Fallback to current location in SPA mode
+      var href = url || window.location.href
+
+      // Ensure we only parse from '?' and forward
+      var qIndex = href.indexOf('?')
+      if (qIndex === -1) return ''
+
+      var query = href.substring(qIndex + 1)
+
+      // Remove hash part (#...)
+      var hashIndex = query.indexOf('#')
+      if (hashIndex !== -1) {
+        query = query.substring(0, hashIndex)
+      }
+
+      // Split into pairs
+      var vars = query.split('&')
 
       for (var i = 0, len = vars.length; i < len; i++) {
         var pair = vars[i].split('='),
-          key = decodeURIComponent(pair[0]),
+          key = decodeURIComponent(pair[0] || ''),
           value = decodeURIComponent(pair[1] || '')
         if (key === param) return value
       }
