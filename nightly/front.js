@@ -1274,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 455 },
+  version: { major: 1, minor: 0, patch: 0, build: 456 },
   module: {},
   plugin: {},
   var: {},
@@ -2777,6 +2777,8 @@ var app = {
   querystrings: {
     get: function (url, param) {
       var parser = document.createElement('a')
+
+      //Todo: Add to fix Safari bug || window.history.state && window.history.state.href
       parser.href = url || window.location.href
       var query = parser.search.substring(1),
         vars = query.split('&')
