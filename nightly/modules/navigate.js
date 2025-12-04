@@ -104,7 +104,8 @@ app.module.navigate = {
             target = link.target === '_top' ? 'html' : link.target || this.config.target
 
           var state = {
-            'href': link.pathname,
+            'href': link.href,
+            'pathname': link.pathname,
             'target': target,
             'arg': { disableSrcdoc: true, runAttributes: true }
           }
@@ -127,7 +128,8 @@ app.module.navigate = {
    */
   _pop: function (event) {
     var state = (event.state) ? event.state : {
-      'href': window.location.pathname,
+      'href': window.location.href,
+      'pathname': window.location.pathname,
       'hash': window.location.hash,
       'target': !event.state ? this.config.target : 'html',
       'extension': false,
@@ -149,7 +151,7 @@ app.module.navigate = {
     var regex = /^\/+|\/+$/g,
       startpage = app.isLocalNetwork ? this.config.startpageLocal : this.config.startpage || '/'
 
-    if (startpage && (state.href === '/' || state.href.replace(regex, '') === startpage.replace(regex, ''))) {
+    if (startpage && (state.pathname === '/' || state.pathname.replace(regex, '') === startpage.replace(regex, ''))) {
       app.disable(true)
       app.isFrontpage = true
       state.target = 'html'
@@ -157,7 +159,7 @@ app.module.navigate = {
     }
 
     app.xhr.request({
-      url: state.href,
+      url: state.pathname,
       urlExtension: state.extension,
       target: state.target,
       single: true,
