@@ -104,7 +104,8 @@ app.module.navigate = {
             target = link.target === '_top' ? 'html' : link.target || this.config.target
 
           var state = {
-            'href': link.pathname,
+            'href': link.href,
+            'pathname': link.pathname,
             'target': target,
             'arg': { disableSrcdoc: true, runAttributes: true }
           }
@@ -149,7 +150,7 @@ app.module.navigate = {
     var regex = /^\/+|\/+$/g,
       startpage = app.isLocalNetwork ? this.config.startpageLocal : this.config.startpage || '/'
 
-    if (startpage && (state.href === '/' || state.href.replace(regex, '') === startpage.replace(regex, ''))) {
+    if (startpage && (state.pathname === '/' || state.pathname.replace(regex, '') === startpage.replace(regex, ''))) {
       app.disable(true)
       app.isFrontpage = true
       state.target = 'html'
