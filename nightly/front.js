@@ -1274,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 458 },
+  version: { major: 1, minor: 0, patch: 0, build: 459 },
   module: {},
   plugin: {},
   var: {},
@@ -2487,7 +2487,7 @@ var app = {
             var script = document.createElement('script')
             script.name = allExtensions[i]
             script.src = app.script.path + folder + '/' + script.name + '.js'
-            script.async = true
+            script.defer = true
 
             script.onload = function () {
               app.log.info(1)(this.name)
