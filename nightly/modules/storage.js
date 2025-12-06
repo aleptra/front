@@ -157,11 +157,11 @@ app.module.storage = {
 
   sessionadd: function (object) {
     var parts = object.exec.value
+    var unique = object.exec.unique
     var key = parts[0]
     var valueToAdd = parts[parts.length - 1]
 
     if (parts.length < 3) {
-      //console.error('Error: sessionadd requires at least a key, a property path, and a value to add.');
       return
     }
 
@@ -186,6 +186,21 @@ app.module.storage = {
       // Ensure the target property is an array.
       if (!Array.isArray(current[arrayKey])) {
         current[arrayKey] = []
+      }
+
+      // Check if unique flag is set and if value already exists
+      if (unique) {
+        var valueExists = false
+        for (var j = 0; j < current[arrayKey].length; j++) {
+          if (current[arrayKey][j] === valueToAdd) {
+            valueExists = true
+            break
+          }
+        }
+        if (valueExists) {
+          console.warn('Warning: Value already exists in array. Skipping add.')
+          return
+        }
       }
 
       // Add the new value to the array.

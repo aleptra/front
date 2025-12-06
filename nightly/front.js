@@ -1274,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 460 },
+  version: { major: 1, minor: 0, patch: 0, build: 461 },
   module: {},
   plugin: {},
   var: {},
@@ -1536,7 +1536,8 @@ var app = {
         element2 = parts[2] && (parts[2][0] === '#' || parts[2][0] === '*') && (parts[2].split('.') || [])[0],
         attribute1 = element1 && (parts[1].split('.') || [])[1],
         attribute2 = element2 && (parts[2].split('.') || [])[1],
-        value = app.element.extractBracketValues(string)
+        value = app.element.extractBracketValues(string),
+        unique = parts[1] && parts[1][0] === '!' ? true : false
 
       var objElement1 = !element1 && options && options.element ? options.element : element1 === '#' || (!element1 && options && options.srcElement) ? options.srcElement : element1 ? app.element.select(element1.replace('*', '')) : '',
         objElement2 = element2 === '#' ? (options && options.srcElement) : app.element.select(element2),
@@ -1552,7 +1553,8 @@ var app = {
         hasAttribute: !!attribute1,
         hasSubAttribute: !!attribute2,
         subAttribute: attribute2Type || false,
-        value: value === undefined ? false : value
+        value: value === undefined ? false : value,
+        unique: unique
       }
     },
 
