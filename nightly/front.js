@@ -1274,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 461 },
+  version: { major: 1, minor: 0, patch: 0, build: 462 },
   module: {},
   plugin: {},
   var: {},
@@ -2311,17 +2311,36 @@ var app = {
    */
   listeners: {
     add: function (element, eventType, callback) {
-
       element.removeEventListener(eventType, callback)
       element.addEventListener(eventType, callback)
-
-      // Track the listener
       element.listeners = element.listeners || {}
       element.listeners[eventType] = (element.listeners[eventType] || []).concat(callback)
     },
 
     remove: function (element, eventType, callback) {
       element.removeEventListener(eventType, callback)
+    },
+
+    dispatch: function (name, detail) {
+      try {
+        // Ensure CustomEvent exists (polyfill for old browsers)
+        if (typeof window.CustomEvent !== 'function') {
+          window.CustomEvent = function (event, params) {
+            params = params || { detail: undefined, bubbles: false, cancelable: false }
+            var evt = document.createEvent('CustomEvent')
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail)
+            return evt
+          }
+          window.CustomEvent.prototype = window.Event.prototype
+        }
+
+        var ev = new CustomEvent(name, { detail: detail, bubbles: true, cancelable: false })
+        // dispatch on window (listeners registered on window) or document fallback
+        if (window && window.dispatchEvent) window.dispatchEvent(ev)
+        else if (document && document.dispatchEvent) document.dispatchEvent(ev)
+      } catch (err) {
+        // silent failure for very old environments
+      }
     },
 
     change: function (type, object, test) {
