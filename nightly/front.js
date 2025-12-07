@@ -423,8 +423,8 @@ var dom = {
             selected = target.options[target.selectedIndex],
             content = attrValue ? selected.value : selected.textContent
 
-          app.variables.update.attributes(object, replaceValue, content)
           app.variables.reset.content(object.from)
+          app.variables.update.attributes(object, replaceValue, content)
           break
         case 'bindvar':
           var bindInclude = this.bind.include ? ';' + this.bind.include : '',
@@ -1274,7 +1274,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 462 },
+  version: { major: 1, minor: 0, patch: 0, build: 463 },
   module: {},
   plugin: {},
   var: {},
