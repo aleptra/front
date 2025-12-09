@@ -420,8 +420,7 @@ var dom = {
             element = parts[0],
             attrValue = parts[1]
           var target = app.element.select(element),
-            selected = target.options[target.selectedIndex],
-            content = attrValue ? selected.value : selected.textContent
+            content = app.element.get(target, false, false, attrValue ? attrValue : false)
 
           app.variables.reset.content(object.from)
           app.variables.update.attributes(object, replaceValue, content)
@@ -1274,7 +1273,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 465 },
+  version: { major: 1, minor: 0, patch: 0, build: 466 },
   module: {},
   plugin: {},
   var: {},
@@ -1379,15 +1378,22 @@ var app = {
     })
 
     app.listeners.add(document, 'click', function (e) {
-      var link = app.element.getTagLink(e.target) || e.target,
+      var bodyClick = document.body.attributes.click
+      var link, click
+      if (bodyClick) {
+        link = document.body
+        click = bodyClick
+      } else {
+        link = app.element.getTagLink(e.target) || e.target
         click = link.attributes.click
+      }
       /*,
-      onclickif = link.attributes.onclickif
+    onclickif = link.attributes.onclickif
 
-    if (onclickif) {
-      var ret = app.call(onclickif.value, { element: link })[0]
-      if (!ret) return
-    }*/
+  if (onclickif) {
+    var ret = app.call(onclickif.value, { element: link })[0]
+    if (!ret) return
+  }*/
 
       if (click) {
         var clicktargetfield = link.attributes.clicktargetfield,
@@ -1694,13 +1700,18 @@ var app = {
      * @function get
      * @memberof app.element
      */
-    get: function (element, attrValue, attrName) {
+    get: function (element, attrValue, attrName, customValue) {
       if (element) {
         if (attrValue) return element.attributes[attrValue].value // Return attribute value.
+
         var target = element.targetAttribute || ''
         if (target) return element.attributes[target].value
+
+        if (customValue) return customValue === 'label' ? element.options[element.selectedIndex].text : '' // Return attribute name.
+
         var property = this._propertyMap[element.localName] || 'textContent'
         if (attrName) return property // Return attribute name.
+
         return element[property]
       }
     },
