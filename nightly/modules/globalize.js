@@ -99,7 +99,7 @@ app.module.globalize = {
 
     update: function (config, _this) {
       _this.storeKey = _this.module + '.' + config.language
-      app.language = config.language
+      app.globals.set('language', config.language)
       document.documentElement.setAttribute('lang', config.language)
       document.documentElement.setAttribute('dir', 'ltr')
     }
