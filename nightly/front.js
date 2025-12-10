@@ -638,6 +638,8 @@ var dom = {
       element = element.exec.element
     }
 
+    if (element.localName === 'body') element = document.documentElement
+
     // Resolve element if it's a selector string
     var target = typeof element === 'string' ? app.element.select(element) : element
     // Determine scroll position
@@ -1293,7 +1295,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 471 },
+  version: { major: 1, minor: 0, patch: 0, build: 472 },
   module: {},
   plugin: {},
   var: {},
