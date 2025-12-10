@@ -1271,7 +1271,7 @@ var dom = {
   rerun: function (object, exclude) {
     var el = object.exec ? object.exec.element : object
 
-    //el.innerHTML = el.originalHtml // I don't think this is needed here.
+    if (el.originalHtml) el.innerHTML = el.originalHtml
 
     // Collect el + all descendants into one array
     var nodes = [el]
@@ -1293,7 +1293,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 470 },
+  version: { major: 1, minor: 0, patch: 0, build: 471 },
   module: {},
   plugin: {},
   var: {},
