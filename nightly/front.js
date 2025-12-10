@@ -416,13 +416,16 @@ var dom = {
 
       switch (attr) {
         case 'bindappend':
+          // FIX: Reset attributes on the first binding iteration to restore variables (e.g. {ph})
+          if (i === 0) app.variables.reset.attributes(object)
+
           var parts = replaceVariable.split('.'),
             element = parts[0],
             attrValue = parts[1]
           var target = app.element.select(element),
             content = app.element.get(target, false, false, attrValue ? attrValue : false)
 
-          app.variables.reset.content(object.from)
+          app.variables.update.content(object, replaceValue, content)
           app.variables.update.attributes(object, replaceValue, content)
           break
         case 'bindvar':
@@ -871,16 +874,22 @@ var dom = {
   append: function (element, value) {
     element = app.element.resolveCall(element, value)
     var from = element.call.subElement,
-      to = element.call.element,
-      i = from.children.length,
-      child, clone
-    while (i--) {
-      child = from.children[i]
+      to = element.call.element
+
+    /// Create a fragment to hold cloned/rerun children
+    var frag = document.createDocumentFragment()
+
+    // Iterate over children and rerun FTML
+    var children = from.children
+
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i]
       child.from = from
       dom.rerun(child)
-      clone = child.cloneNode(true)
-      to.appendChild(clone)
+      frag.appendChild(child.cloneNode(true)) // append cloned child to fragment
     }
+
+    to.appendChild(frag)
   },
 
   /**
@@ -1252,15 +1261,23 @@ var dom = {
     app.attributes.run(elements)
   },
 
-  /**
-   * @function rerun
+  /* @function rerun
    * @memberof dom
-   */
-  rerun: function (object) {
+  */
+  rerun: function (object, exclude) {
     var el = object.exec ? object.exec.element : object
+
+    // Restore original HTML
     el.innerHTML = el.originalHtml
-    var target = el.id ? '#' + el.id : [el]
-    if (target) app.attributes.run(target, false, true)
+
+    // Collect el + all descendants into one array
+    var nodes = [el]
+    var all = app.element.find(el, '*')
+    for (var i = 0, n = all.length; i < n; i++) {
+      nodes[nodes.length] = all[i]
+    }
+
+    app.attributes.run(nodes, exclude, true)
   },
 
   /**
@@ -1273,7 +1290,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 466 },
+  version: { major: 1, minor: 0, patch: 0, build: 467 },
   module: {},
   plugin: {},
   var: {},
