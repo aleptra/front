@@ -41,6 +41,7 @@ var dom = {
     'resetvalue': 'reset',
     'togglevalue': 'toggle',
     'toggledisplay': 'toggle',
+    'maprun': 'map',
     'mapclass': 'map',
     'mapmargin': 'map',
     'mapbindvar': 'map',
@@ -917,6 +918,9 @@ var dom = {
         //console.log(data2)
         dom.bind(object, test[0] + ':' + data2, 'mapbindvar')
         break
+      case 'maprun':
+        app.exec(data, { element: object })
+        break
     }
   },
 
@@ -1267,8 +1271,7 @@ var dom = {
   rerun: function (object, exclude) {
     var el = object.exec ? object.exec.element : object
 
-    // Restore original HTML
-    el.innerHTML = el.originalHtml
+    //el.innerHTML = el.originalHtml // I don't think this is needed here.
 
     // Collect el + all descendants into one array
     var nodes = [el]
@@ -1290,7 +1293,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 469 },
+  version: { major: 1, minor: 0, patch: 0, build: 470 },
   module: {},
   plugin: {},
   var: {},
