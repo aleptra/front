@@ -964,21 +964,31 @@ var dom = {
   },
 
   /**
+   * @function clear
+   * @memberof dom
+   */
+  clear: function (object) {
+    if (object.exec) object = object.exec.element
+    object.innerHTML = ''
+  },
+
+  /**
    * @function reset
    * @memberof dom
    * @param {*} object 
    * @param {*} value 
    */
   reset: function (object, value) {
-    if (object.exec) {
-      object = object.exec.element
-    }
+    if (object.exec) object = object.exec.element
 
     var tag = object.localName,
       stateValue = object.attributes.statevalue
     switch (tag) {
       case 'form':
+        var customReset = object.getAttribute('onreset')
+        customReset && object.removeAttribute('onreset')
         object.reset()
+        customReset && object.setAttribute('onreset', customReset)
         break
       case 'input':
         object.value = object.defaultValue
@@ -1295,7 +1305,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 472 },
+  version: { major: 1, minor: 0, patch: 0, build: 473 },
   module: {},
   plugin: {},
   var: {},
