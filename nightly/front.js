@@ -1309,7 +1309,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 474 },
+  version: { major: 1, minor: 0, patch: 0, build: 475 },
   module: {},
   plugin: {},
   var: {},
@@ -1911,7 +1911,11 @@ var app = {
           selector = selector.replace(regex, '')
       }
 
-      var elements = document.querySelectorAll(selector)
+      try {
+        var elements = document.querySelectorAll(selector)
+      } catch (e) {
+        return app.log.warn(1)('Invalid selector: ' + selector)
+      }
 
       if (elements.length === 0)
         return ''
