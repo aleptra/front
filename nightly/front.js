@@ -967,8 +967,12 @@ var dom = {
    * @function clear
    * @memberof dom
    */
-  clear: function (object) {
-    if (object.exec) object = object.exec.element
+  clear: function (object, value) {
+    if (value) {
+      object = app.element.select(value)
+    } else if (object.exec.element) {
+      object = object.exec.element
+    }
     object.innerHTML = ''
   },
 
@@ -1305,7 +1309,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 473 },
+  version: { major: 1, minor: 0, patch: 0, build: 474 },
   module: {},
   plugin: {},
   var: {},
