@@ -1309,7 +1309,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 477 },
+  version: { major: 1, minor: 0, patch: 0, build: 478 },
   module: {},
   plugin: {},
   var: {},
@@ -2031,7 +2031,7 @@ var app = {
       return values.length ? (values.length === 1 ? values[0] : values) : ''
     },
 
-    captureOriginalAttributes: function (element) {
+    saveOriginalValues: function (element) {
       if (!element._originalCaptured) {
         element._originalCaptured = true
         var clone = []
@@ -2699,7 +2699,7 @@ var app = {
               element.lastRunAttribute = attrName
               element.executed = {}
               if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
-              app.element.captureOriginalAttributes(element)
+              app.element.saveOriginalValues(element)
 
               if (app.plugin[name[0]] && name[1] === '' && name[2]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
