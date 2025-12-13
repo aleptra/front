@@ -982,7 +982,7 @@ var dom = {
    * @param {*} object 
    * @param {*} value 
    */
-  reset: function (object, value) {
+  reset: function (object) {
     if (object.exec) object = object.exec.element
 
     var tag = object.localName,
@@ -995,7 +995,7 @@ var dom = {
         customReset && object.setAttribute('onreset', customReset)
         break
       case 'input':
-        object.value = object.defaultValue
+        object.value = object.originalValue
         stateValue ? stateValue.value = object.defaultValue : false
         app.listeners.change('input', object, false)
         break
@@ -1309,7 +1309,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 478 },
+  version: { major: 1, minor: 0, patch: 0, build: 479 },
   module: {},
   plugin: {},
   var: {},
@@ -2046,6 +2046,8 @@ var app = {
         element.originalHtml = element.innerHTML
         element.originalOuterHtml = element.outerHTML
         element.originalLabel = element.label
+        element.originalValue = element.value
+        element.originalStyle = element.style
       }
     },
 
@@ -2630,17 +2632,20 @@ var app = {
       'checked',
       'class',
       'click',
+      'charset',
       'content',
       'defer',
       'href',
       'for',
       'id',
+      'module',
       'name',
       'open',
       'required',
       'selected',
       'src',
       'style',
+      'rel',
       'target',
       'type',
       'title',
@@ -2668,6 +2673,7 @@ var app = {
           stop = attributes.stop && !ignore ? attributes.stop.value.split(';') : [],
           exclude = stop && excludes.indexOf('stop') === -1 ? excludes.concat(stop) : excludes
 
+        app.element.saveOriginalValues(element)
         attributes = [].slice.call(attributes)
 
         // Normalize attributes for IE.
@@ -2699,7 +2705,6 @@ var app = {
               element.lastRunAttribute = attrName
               element.executed = {}
               if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
-              app.element.saveOriginalValues(element)
 
               if (app.plugin[name[0]] && name[1] === '' && name[2]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
