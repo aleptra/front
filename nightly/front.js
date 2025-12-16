@@ -994,6 +994,9 @@ var dom = {
         object.reset()
         customReset && object.setAttribute('onreset', customReset)
         break
+      case 'button':
+        object.textContent = object.originalText
+        break
       case 'input':
         object.value = object.originalValue
         stateValue ? stateValue.value = object.defaultValue : false
@@ -1299,6 +1302,21 @@ var dom = {
     app.attributes.run(nodes, exclude, true)
   },
 
+  rundelay: function (object, value) {
+    var el = app.element.resolveCall(object, value)
+
+    setTimeout(function () {
+      app.call(el.call.string, { element: object.exec.element })
+    }, parseInt(el.call.delayValue, 10) || 1000)
+  },
+
+  runrepeat: function (object, value) {
+    var el = app.element.resolveCall(object, value)
+    setInterval(function () {
+      app.call(el.call.string, { element: el.call.element })
+    }, parseInt(el.call.delayValue, 10) || 1000)
+  },
+
   /**
    * @function reload
    * @memberof dom
@@ -1309,7 +1327,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 479 },
+  version: { major: 1, minor: 0, patch: 0, build: 480 },
   module: {},
   plugin: {},
   var: {},
@@ -1572,7 +1590,15 @@ var app = {
      * @memberof app.parse
      */
     callString: function (string, options) {
+      options = options || {}
+
+      // Matches: [X]:... OR func[X]:...
+      var prefixMatch = string.match(/^((\w+)?\[(\d+)\]):(.*)$/)
+      if (prefixMatch) string = prefixMatch[4]
+
       var parts = string.split(':'),
+        delayValue,
+        delayFunc = prefixMatch && prefixMatch[2],
         func = parts[0],
         element1 = parts[1] && (parts[1][0] === '#' || parts[1][0] === '*') && (parts[1].split('.') || [])[0],
         element2 = parts[2] && (parts[2][0] === '#' || parts[2][0] === '*') && (parts[2].split('.') || [])[0],
@@ -1587,8 +1613,14 @@ var app = {
         attribute2Type = attribute2 ? attribute2 : app.element.get(objElement2, false, true),
         value = objElement2 && attribute2 ? app.element.get(objElement2, attribute2) : (objElement2 ? app.element.get(objElement2) : value === '' ? app.element.get(objElement1, attribute1) : value)
 
+      if (prefixMatch) {
+        delayFunc = func
+        func = prefixMatch[2] || objElement1.lastRunAttribute
+        delayValue = prefixMatch[3]
+      }
+
       return {
-        func: func,
+        func: func || false,
         element: objElement1 || false,
         subElement: objElement2 || false,
         attribute: attribute1Type || false,
@@ -1596,7 +1628,10 @@ var app = {
         hasSubAttribute: !!attribute2,
         subAttribute: attribute2Type || false,
         value: value === undefined ? false : value,
-        unique: unique
+        unique: unique,
+        delayValue: delayValue,
+        delayFunc: delayFunc || false,
+        string: string
       }
     },
 
@@ -1964,6 +1999,10 @@ var app = {
         var call = element.exec
         element = call.element
         element.call = call
+      } else if (value) {
+        var parsedCall = app.parse.callString(value, { srcElement: element })
+        element.call = parsedCall
+        element.autorun = true
       }
       return element
     },
@@ -2627,6 +2666,7 @@ var app = {
   attributes: {
 
     defaultExclude: [
+      'action',
       'async',
       'alt',
       'checked',
@@ -2701,21 +2741,26 @@ var app = {
               attrFullname = dom._actionMap[attrName] || attrName
             if (exclude.indexOf(attrFullname) === -1) {
               var name = attrFullname.split('-')
-              element.originalAttribute = dom._actionMap[attrName] && attrName
-              element.lastRunAttribute = attrName
-              element.executed = {}
+              element.originalAttribute = attrName && dom._actionMap[attrName]
+              //element.lastRunAttribute = attrName
+
               if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
 
               if (app.plugin[name[0]] && name[1] === '' && name[2]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
+                element.lastRunAttribute = attrName
                 app.plugin[name[0]][name[2]] ? app.plugin[name[0]][name[2]](element) : app.log.error(0)(name[0] + '--' + name[2])
               } else if (app.module[name[0]] && name[1]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
+                element.lastRunAttribute = attrName
                 app.module[name[0]][name[1]] ? app.module[name[0]][name[1]](element) : app.log.error(0)(name[0] + '-' + name[1])
               } else if (dom[name]) {
                 app.log.info(1)('dom.' + name)
+                element.lastRunAttribute = attrName
                 dom[name](element, attrValue)
               }
+              element.executed = {}
+
               // Run onEvent for all attributes.
               app.element.runOnEvent({ exec: { func: attrName, element: element } })
             } else {
