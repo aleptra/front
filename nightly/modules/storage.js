@@ -51,10 +51,11 @@ app.module.storage = {
     var element = options.element
     var data = options.data
     var iterate = element.getAttribute('storage-iterate')
-    var empty = element.getAttribute('data-onempty')
+    var empty = element.getAttribute('storage-onempty')
     var selector = '*:not([storage-iterate-skip])'
+    var targetData = iterate ? app.element.getPropertyByPath(data, iterate) : data
 
-    if (!data || (Array.isArray(data) && data.length === 0) || (typeof data === 'object' && Object.keys(data).length === 0)) {
+    if (!targetData || (Array.isArray(targetData) && targetData.length === 0) || (typeof targetData === 'object' && Object.keys(targetData).length === 0)) {
       if (empty) dom.show(empty)
     } else {
       if (empty) dom.hide(empty)
@@ -74,12 +75,9 @@ app.module.storage = {
     var isObjectIteration = typeof responseObject === 'object' && responseObject !== null && !Array.isArray(responseObject)
     var keys = []
 
-    if (isObjectIteration) {
-      keys = Object.keys(responseObject)
-      var total = (keys.length) ? keys.length - 1 : 0
-    } else {
-      var total = (responseObject && responseObject.length) ? responseObject.length - 1 : 0
-    }
+    // FIX: Set keys and total without the -1 offset so 0 actually means 0
+    keys = isObjectIteration ? Object.keys(responseObject) : []
+    var total = isObjectIteration ? keys.length : (responseObject ? responseObject.length : 0)
 
     if (responseObject) {
       if (!element.originalHtml) {
@@ -101,7 +99,7 @@ app.module.storage = {
       var content = ''
 
       if (iteratePath || Array.isArray(responseObject) || isObjectIteration) {
-        for (var i = 0; i <= total; i++) {
+        for (var i = 0; i < total; i++) {
           content += (i === 0 && elementsSkip.length > 0) ? originalClonedNode.innerHTML : originalNode.innerHTML
         }
       } else {
