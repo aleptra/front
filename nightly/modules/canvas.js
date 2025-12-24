@@ -1,131 +1,114 @@
-'use strict';
-
-//Experimental
+'use strict'
 
 app.module.canvas = {
   grad: function (element) {
-    // Ensure the correct element is selected
-    var element = element.exec && element.exec.element || element;
-    var target = element.getAttribute("canvas-target");
+    element = element.exec && element.exec.element || element
+    var target = element.getAttribute("canvas-target")
+    var c = document.querySelector(target)
+    var ctx = c.getContext("2d")
 
-    // Get the canvas and context
-    var c = document.querySelector(target); // Use querySelector for better compatibility
-    var ctx = c.getContext("2d");
+    function parseCanvasSize(value, parentSize) {
+      if (!value) return parentSize
+      if (value.toString().indexOf('%') !== -1) {
+        return parentSize * parseFloat(value) / 100
+      }
+      return parseInt(value, 10)
+    }
 
-    // Set canvas dimensions
-    c.width = parseInt(element.getAttribute("width"), 10);
-    c.height = parseInt(element.getAttribute("height"), 10);
+    function setCanvasSize() {
+      var parentWidth = c.parentElement.offsetWidth || window.innerWidth
+      var parentHeight = c.parentElement.offsetHeight || 500
 
-    // Apply gradient if canvas-grad is present
-    if (element.hasAttribute("canvas-grad")) {
-      var orientation = element.getAttribute("canvas-grad-orientation") || "horizontal",
-        grad
-      if (orientation === "vertical") {
-        grad = ctx.createLinearGradient(0, 0, 0, c.height)
-      } else {
-        grad = ctx.createLinearGradient(0, 0, c.width, 0)
+      c.width = parseCanvasSize(element.getAttribute("width"), parentWidth)
+      c.height = parseCanvasSize(element.getAttribute("height"), parentHeight)
+
+      ctx.clearRect(0, 0, c.width, c.height)
+
+      if (element.hasAttribute("canvas-grad")) {
+        var orientation = element.getAttribute("canvas-grad-orientation") || "horizontal"
+        var grad = orientation === "vertical" ? ctx.createLinearGradient(0, 0, 0, c.height) : ctx.createLinearGradient(0, 0, c.width, 0)
+        var gradStops = element.getAttribute("canvas-grad-stops")
+        if (gradStops) {
+          var stops = gradStops.split(',')
+          for (var i = 0; i < stops.length; i++) {
+            var stop = stops[i].split('[')
+            if (stop.length === 2) {
+              grad.addColorStop(parseFloat(stop[1].replace(']', '')), stop[0])
+            }
+          }
+        }
+        ctx.fillStyle = grad
+        ctx.fillRect(0, 0, c.width, c.height)
       }
 
-      // Apply gradient stops from canvas-grad-stops attribute
-      var gradStops = element.getAttribute("canvas-grad-stops");
-      if (gradStops) {
-        var stops = gradStops.split(',');
-        for (var i = 0; i < stops.length; i++) {
-          var stop = stops[i].split('[');
-          if (stop.length === 2) {
-            var color = stop[0];
-            var position = stop[1].replace(']', ''); // Remove the closing bracket
-            grad.addColorStop(parseFloat(position), color);
+      var rectAttr = element.getAttribute("canvas-rec")
+      if (rectAttr) {
+        var rects = rectAttr.split(';')
+        for (var i = 0; i < rects.length; i++) {
+          var rectValues = rects[i].split(',')
+          if (rectValues.length === 4) {
+            ctx.fillRect(parseInt(rectValues[0], 10), parseInt(rectValues[1], 10), parseInt(rectValues[2], 10), parseInt(rectValues[3], 10))
           }
         }
       }
 
-      ctx.fillStyle = grad;
-    }
+      var circleAttr = element.getAttribute("canvas-circle")
+      if (circleAttr) {
+        var circles = circleAttr.split(';')
+        for (var i = 0; i < circles.length; i++) {
+          var circleValues = circles[i].split(',')
+          if (circleValues.length === 3) {
+            ctx.beginPath()
+            ctx.arc(parseInt(circleValues[0], 10), parseInt(circleValues[1], 10), parseInt(circleValues[2], 10), 0, 2 * Math.PI)
+            ctx.fillStyle = "orange"
+            ctx.fill()
+          }
+        }
+      }
 
-    // Draw rectangles if canvas-rec is present
-    var rectAttr = element.getAttribute("canvas-rec");
-    if (rectAttr) {
-      var rects = rectAttr.split(';');
-      for (var i = 0; i < rects.length; i++) {
-        var rectValues = rects[i].split(',');
-        if (rectValues.length === 4) {
-          var x = parseInt(rectValues[0], 10);
-          var y = parseInt(rectValues[1], 10);
-          var width = parseInt(rectValues[2], 10);
-          var height = parseInt(rectValues[3], 10);
-          ctx.fillRect(x, y, width, height);
+      var textAttr = element.getAttribute("canvas-text")
+      if (textAttr) {
+        var texts = textAttr.split(';')
+        ctx.font = "20px Arial"
+        ctx.textAlign = "left"
+        ctx.textBaseline = "top"
+        for (var i = 0; i < texts.length; i++) {
+          var textValues = texts[i].split(',')
+          if (textValues.length === 4) {
+            ctx.fillStyle = textValues[3] || "black"
+            ctx.fillText(textValues[0], parseInt(textValues[1], 10), parseInt(textValues[2], 10))
+          }
+        }
+      }
+
+      var linesAttr = element.getAttribute("canvas-lines")
+      if (linesAttr) {
+        var lines = linesAttr.split(';')
+        for (var i = 0; i < lines.length; i++) {
+          var lineValues = lines[i].split(',')
+          if (lineValues.length === 6) {
+            ctx.beginPath()
+            ctx.moveTo(parseInt(lineValues[0], 10), parseInt(lineValues[1], 10))
+            ctx.lineTo(parseInt(lineValues[2], 10), parseInt(lineValues[3], 10))
+            ctx.lineWidth = parseFloat(lineValues[4]) || 1
+            ctx.strokeStyle = lineValues[5] || "black"
+            ctx.stroke()
+          }
         }
       }
     }
 
-    // Draw circles if canvas-circle is present
-    var circleAttr = element.getAttribute("canvas-circle");
-    if (circleAttr) {
-      var circles = circleAttr.split(';');
-      for (var i = 0; i < circles.length; i++) {
-        var circleValues = circles[i].split(',');
-        if (circleValues.length === 3) {
-          var x = parseInt(circleValues[0], 10);
-          var y = parseInt(circleValues[1], 10);
-          var radius = parseInt(circleValues[2], 10);
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, 2 * Math.PI);
-          ctx.fillStyle = "orange";  // Default color, can be made configurable
-          ctx.fill();
-        }
-      }
-    }
-
-    // Draw text if canvas-text is present
-    var textAttr = element.getAttribute("canvas-text");
-    if (textAttr) {
-      var texts = textAttr.split(';');
-      for (var i = 0; i < texts.length; i++) {
-        var textValues = texts[i].split(',');
-        if (textValues.length === 4) {
-          var text = textValues[0];
-          var x = parseInt(textValues[1], 10);
-          var y = parseInt(textValues[2], 10);
-          var color = textValues[3];
-          ctx.fillStyle = color || "black";  // Default color if not specified
-          ctx.font = "20px Arial";  // Default font style, can be customized
-          ctx.textAlign = "left";  // Align text to the left
-          ctx.textBaseline = "top";  // Set text baseline to the top
-          ctx.fillText(text, x, y);
-        }
-      }
-    }
-
-    // Draw multiple lines if canvas-lines is present
-    var linesAttr = element.getAttribute("canvas-lines");
-    if (linesAttr) {
-      var lines = linesAttr.split(';');
-      for (var i = 0; i < lines.length; i++) {
-        var lineValues = lines[i].split(',');
-        if (lineValues.length === 6) {
-          var x1 = parseInt(lineValues[0], 10);
-          var y1 = parseInt(lineValues[1], 10);
-          var x2 = parseInt(lineValues[2], 10);
-          var y2 = parseInt(lineValues[3], 10);
-          var width = parseFloat(lineValues[4]);
-          var color = lineValues[5];
-          ctx.beginPath();
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
-          ctx.lineWidth = width || 1;  // Default line width
-          ctx.strokeStyle = color || "black";  // Default color if not specified
-          ctx.stroke();
-        }
-      }
-    }
+    // Todo: Needs a better solution.
+    setTimeout(function () {
+      setCanvasSize()
+    }, 500)
+    window.addEventListener('resize', setCanvasSize)
   },
 
   clear: function (element) {
-    // Implement clear functionality if needed
-    var target = element.getAttribute("canvas-target");
-    var c = document.querySelector(target);
-    var ctx = c.getContext("2d");
-    ctx.clearRect(0, 0, c.width, c.height);
+    var target = element.getAttribute("canvas-target")
+    var c = document.querySelector(target)
+    var ctx = c.getContext("2d")
+    ctx.clearRect(0, 0, c.width, c.height)
   }
-};
+}

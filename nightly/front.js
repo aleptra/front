@@ -1327,7 +1327,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 482 },
+  version: { major: 1, minor: 0, patch: 0, build: 483 },
   module: {},
   plugin: {},
   var: {},
@@ -3250,9 +3250,9 @@ var app = {
           }
 
           if (success) {
-            if (srcEl) {
-              app.call(success, { srcElement: srcEl })
-            }
+            //if (srcEl) {
+            app.call(success, { srcElement: srcEl })
+            //}
 
             // Clean up error element.
             if (error) {
