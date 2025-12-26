@@ -33,7 +33,10 @@ app.module.canvas = {
           for (var i = 0; i < stops.length; i++) {
             var stop = stops[i].split('[')
             if (stop.length === 2) {
-              grad.addColorStop(parseFloat(stop[1].replace(']', '')), stop[0])
+              var pos = parseFloat(stop[1].replace(']', ''))
+              if (!isNaN(pos) && isFinite(pos)) {
+                grad.addColorStop(pos, stop[0])
+              }
             }
           }
         }
@@ -43,7 +46,7 @@ app.module.canvas = {
 
       var rectAttr = element.getAttribute("canvas-rec")
       if (rectAttr) {
-        var rects = rectAttr.split(';')
+        var rects = rectAttr.split('+')
         for (var i = 0; i < rects.length; i++) {
           var rectValues = rects[i].split(',')
           if (rectValues.length === 4) {
@@ -54,7 +57,7 @@ app.module.canvas = {
 
       var circleAttr = element.getAttribute("canvas-circle")
       if (circleAttr) {
-        var circles = circleAttr.split(';')
+        var circles = circleAttr.split('+')
         for (var i = 0; i < circles.length; i++) {
           var circleValues = circles[i].split(',')
           if (circleValues.length === 3) {
@@ -68,7 +71,7 @@ app.module.canvas = {
 
       var textAttr = element.getAttribute("canvas-text")
       if (textAttr) {
-        var texts = textAttr.split(';')
+        var texts = textAttr.split('+')
         ctx.font = "20px Arial"
         ctx.textAlign = "left"
         ctx.textBaseline = "top"
@@ -83,7 +86,7 @@ app.module.canvas = {
 
       var linesAttr = element.getAttribute("canvas-lines")
       if (linesAttr) {
-        var lines = linesAttr.split(';')
+        var lines = linesAttr.split('+')
         for (var i = 0; i < lines.length; i++) {
           var lineValues = lines[i].split(',')
           if (lineValues.length === 6) {

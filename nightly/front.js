@@ -913,12 +913,31 @@ var dom = {
         object.style.margin = data
         break
       case 'mapbindvar':
-        var test = value.split(':')
-        //console.log(test[0])
-        data = cache.data[func.replace('map', '')][test[1]] || ''
-        var data2 = data[test[0]] || ''
-        //console.log(data2)
-        dom.bind(object, test[0] + ':' + data2, 'mapbindvar')
+        var bindings = value.split(';'),
+          mapName = func.replace('map', ''),
+          mapRoot = cache.data[mapName] || {}
+
+        for (var b = 0; b < bindings.length; b++) {
+          var binding = bindings[b]
+          if (!binding) continue
+
+          var parts = binding.split(':')
+          if (parts.length !== 2) continue
+
+          var attrName = parts[0].trim()
+          var dataKey = parts[1].trim()
+
+          var dataObj = mapRoot[dataKey]
+          if (!dataObj || typeof dataObj !== 'object') continue
+
+          var finalValue = dataObj[attrName]
+          if (finalValue === undefined) continue
+
+          // IMPORTANT: ensure string, not object
+          finalValue = String(finalValue)
+
+          dom.bind(object, attrName + ':' + finalValue, 'mapbindvar')
+        }
         break
       case 'maprun':
         app.exec(data, { element: object })
@@ -1327,7 +1346,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 483 },
+  version: { major: 1, minor: 0, patch: 0, build: 484 },
   module: {},
   plugin: {},
   var: {},
