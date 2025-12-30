@@ -287,6 +287,11 @@ app.module.data = {
     }
   },
 
+  /**
+   * @function _runBefore
+   * @memberof app.module.data
+   * @private
+   */
   _runBefore: function (run, el, callback) {
     var attributes = el.attributes
     for (var k = 0; k < attributes.length; k++) {
@@ -307,9 +312,11 @@ app.module.data = {
             case 'bindquery':
               newReplaceValue = app.querystrings.get(false, replaceValue)
               break
-            default:
+            case 'bindvar':
               newReplaceValue = replaceValue
               break
+            default:
+              continue
           }
 
           app.variables.update.attributes(el, replaceVariable, newReplaceValue)
