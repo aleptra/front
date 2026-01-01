@@ -1,7 +1,7 @@
 'use strict'
 
 app.module.globalize = {
-  storageMechanism: 'local',
+  storageMechanism: 'session',
   storageType: 'module',
   defaultFolder: 'assets/json/locales',
   globals: ['direction', 'code', 'iso639'],
@@ -21,7 +21,7 @@ app.module.globalize = {
     var config = app.config.get(
       this.module,
       {
-        store: true,
+        storageMechanism: this.storageMechanism,
         folder: this.defaultFolder + this.module,
         language: this._locale.get(query, this),
       },
@@ -51,6 +51,11 @@ app.module.globalize = {
   },
 
   _locale: {
+    /**
+     * @function load
+     * @private
+     * @memberof app.module.globalize._locale
+    */
     load: function (config, _this, run) {
       var options = {
         url: config.folder + '/' + config.language + '.json',
@@ -78,6 +83,11 @@ app.module.globalize = {
       app.xhr.request(options)
     },
 
+    /**
+     * @function get
+     * @private
+     * @memberof app.module.globalize._locale
+    */
     get: function (query, _this) {
       var storedLanguage = app.caches.get(
         _this.storageMechanism,
@@ -87,6 +97,11 @@ app.module.globalize = {
       return (storedLanguage && storedLanguage.globals.language) || query || app.language
     },
 
+    /**
+     * @function set
+     * @private
+     * @memberof app.module.globalize._locale
+    */
     set: function (config, _this) {
       app.globals.set('language', config.language)
       app.caches.set(
@@ -97,6 +112,11 @@ app.module.globalize = {
       )
     },
 
+    /** 
+     * @function update
+     * @private
+     * @memberof app.module.globalize._locale
+     */
     update: function (config, _this) {
       _this.storeKey = _this.module + '.' + config.language
       app.globals.set('language', config.language)
@@ -139,9 +159,13 @@ app.module.globalize = {
     if (setValue) app.element.set(element, setValue, target ? target : 'settext')
   },
 
+  /**
+   * @function set
+   * @memberof app.module.globalize
+   */
   set: function (value) {
     var config = {
-      store: true,
+      storageMechanism: this.storageMechanism,
       folder: this.defaultFolder,
       language: value.exec.value,
     }
