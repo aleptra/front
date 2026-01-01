@@ -1,7 +1,7 @@
 'use strict'
 
 app.module.globalize = {
-  storageMechanism: 'session',
+  storageMechanism: 'local',
   storageType: 'module',
   defaultFolder: 'assets/json/locales',
   globals: ['direction', 'code', 'iso639'],
