@@ -24,7 +24,7 @@ app.module.keyboard = {
     var keyAttr = element.getAttribute('keyboard-key')
     if (!keyAttr) return
 
-    var keys = keyAttr.split(','),
+    var keys = keyAttr.split(';'),
       action = element.getAttribute('keyboard-action'),
       scope = element.getAttribute('keyboard-scope')
 
