@@ -2,102 +2,96 @@
 
 app.module.keyboard = {
   keys: [],
-  words: [], // Store registered words here
-  buffer: '', // Tracks the history of typed keys
+  words: [],
+  buffer: '',
+  _wordPendingAction: null,
 
-  // --- NEW PROPERTY ---
-  _wordPendingAction: null, // Stores the item data if a word match occurs
-
-  /**
-   * @function _autoload
-   * @memberof app.module.keyboard
-   * @param {object} options - The script element to load the configuration for.
-   * @private
-   */
   __autoload: function (options) {
     this.module = options.name
     var self = this
 
     app.listeners.add(document, 'keyup', function (e) {
-      self._keypressed(e)
+      self._keyup(e)
     })
 
     app.listeners.add(document, 'keydown', function (e) {
-      self._keytranslated(e)
-      self._keyuntranslated(e)
+      self._keydown(e)
     })
   },
 
-  _keytranslated: function (e) {
-    var translate = e.target.getAttribute('keyboard-translate')
-    if (translate) {
-      var value = translate.split(':')
-      if (e.key === value[0]) {
-        e.preventDefault()
+  // Registration for Single Keys
+  key: function (element) {
+    var keyAttr = element.getAttribute('keyboard-key')
+    if (!keyAttr) return
 
-        var selection = window.getSelection(),
-          range = selection.getRangeAt(0),
-          spaceNode = document.createTextNode(value[1])
+    var keys = keyAttr.split(','),
+      action = element.getAttribute('keyboard-action'),
+      scope = element.getAttribute('keyboard-scope')
 
-        range.deleteContents()
-        range.insertNode(spaceNode)
+    dom.setUniqueId(element, true)
 
-        range.setStartAfter(spaceNode)
-        range.setEndAfter(spaceNode)
-        selection.removeAllRanges()
-        selection.addRange(range)
-      }
-    }
-  },
-
-  _keyuntranslated: function (e) {
-    var untranslate = e.target.getAttribute('keyboard-untranslate')
-    if (untranslate && e.key === untranslate.split(':')[0]) {
-
-      var value = untranslate.split(':')[1],
-        selection = window.getSelection(),
-        range = selection.getRangeAt(0),
-        startNode = range.startContainer,
-        startOffset = range.startOffset,
-        text = startNode.textContent
-
-      if (startOffset >= value.length) { // Check length to be safe
-        var substringBefore = text.substring(startOffset - value.length, startOffset)
-        if (substringBefore === value) {
-
-          var newText = text.substring(0, startOffset - value.length) + text.substring(startOffset)
-          startNode.textContent = newText
-
-          var newRange = document.createRange()
-          newRange.setStart(startNode, startOffset - value.length)
-          newRange.collapse(true)
-          selection.removeAllRanges()
-          selection.addRange(newRange)
-
-          e.preventDefault()
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i].trim()
+      var exists = false
+      for (var j = 0; j < this.keys.length; j++) {
+        if (this.keys[j].element === element && this.keys[j].key === k) {
+          exists = true
+          break
         }
       }
+      if (!exists) {
+        this.keys.push({ key: k, action: action, scope: scope, element: element })
+      }
     }
   },
 
-  _keypressed: function (e) {
-    var isBodyScope = document.activeElement === document.body ? 'body' : false
-    var currentKey = e.key // Capture the key being pressed
+  // Registration for Word Sequences
+  word: function (element) {
+    var word = element.getAttribute('keyboard-word'),
+      action = element.getAttribute('keyboard-action'),
+      scope = element.getAttribute('keyboard-scope'),
+      finalizer = element.getAttribute('keyboard-finalizer')
 
-    // 1. CHECK FOR PENDING FINALIZER ACTION (e.g., 'hello' was typed, waiting for 'Enter')
-    if (this._wordPendingAction) {
-      if (currentKey === this._wordPendingAction.finalizer) {
-        // Finalizer matched! Execute the action.
-        this._execute(this._wordPendingAction, e, isBodyScope, 'Word Sequence + Finalizer')
-        this.buffer = ''
-        this._wordPendingAction = null // Reset the state
-        return // Stop processing
-      } else {
-        this._wordPendingAction = null // Invalidate the previous word match
+    dom.setUniqueId(element, true)
+
+    var exists = false
+    for (var i = 0; i < this.words.length; i++) {
+      if (this.words[i].element === element && this.words[i].word === word.toLowerCase()) {
+        exists = true
+        break
       }
     }
 
-    // 2. Update the typing buffer (only if we didn't execute a finalizer)
+    if (!exists) {
+      this.words.push({
+        word: word.toLowerCase(),
+        action: action,
+        scope: scope,
+        element: element,
+        finalizer: finalizer
+      })
+    }
+  },
+
+  _keyup: function (e) {
+    var active = document.activeElement
+    var isBodyFocused = active === document.body || active === document.documentElement
+    var currentKey = e.key
+
+    // 1. Check Pending Finalizers
+    if (this._wordPendingAction) {
+      if (currentKey === this._wordPendingAction.finalizer) {
+        if (this._execute(this._wordPendingAction, e, isBodyFocused)) {
+          this.buffer = ''
+          this._wordPendingAction = null
+          return
+        }
+      } else if (currentKey.length === 1 || currentKey === 'Backspace') {
+        this._wordPendingAction = null
+      }
+    }
+
+    // 2. Buffer Update
     if (currentKey.length === 1) {
       this.buffer += currentKey.toLowerCase()
       if (this.buffer.length > 50) {
@@ -105,48 +99,51 @@ app.module.keyboard = {
       }
     }
 
-    // 3. Check Single Keys (Existing Logic - No Change)
-    for (var i = 0; i < this.keys.length; i++) {
-      var currentKeyItem = this.keys[i]
-      if (currentKey === currentKeyItem.key) {
-        this._execute(currentKeyItem, e, isBodyScope, 'Single Key')
-        return
+    // 3. Single Key Match
+    for (var i = this.keys.length - 1; i >= 0; i--) {
+      var item = this.keys[i]
+      if (currentKey === item.key) {
+        if (this._execute(item, e, isBodyFocused)) return
       }
     }
 
-    // 4. Check Words (Updated Logic)
+    // 4. Word Sequence Match
     for (var j = 0; j < this.words.length; j++) {
-      var currentWord = this.words[j]
-
-      if (this.buffer.endsWith(currentWord.word)) {
-        if (currentWord.finalizer) {
-          // Word matched, but requires a final key (like Enter)
-          this._wordPendingAction = currentWord // Store the action and wait
-          this.buffer = '' // Clear buffer to prevent re-matching
-        } else {
-          // Word matched, execute immediately (original behavior)
-          this._execute(currentWord, e, isBodyScope, 'Word Sequence')
+      var wordItem = this.words[j]
+      var bufferEnd = this.buffer.substring(this.buffer.length - wordItem.word.length)
+      if (bufferEnd === wordItem.word) {
+        if (wordItem.finalizer) {
+          this._wordPendingAction = wordItem
           this.buffer = ''
+        } else {
+          if (this._execute(wordItem, e, isBodyFocused)) {
+            this.buffer = ''
+            return
+          }
         }
-        return // Optimization: stop after a word match
       }
     }
   },
 
-  // Helper to run the action (Click/Call) so we don't duplicate code
-  _execute: function (item, e, isBodyScope, type) {
-    var action = item.action,
-      element = item.element,
-      targetUid = e.target.uniqueId,
-      scope = item.scope === '' ? element.uniqueId : item.scope
+  _execute: function (item, e, isBodyFocused) {
+    var element = item.element
+    var scope = item.scope
 
-    if (scope === isBodyScope) scope = false
+    // ECMA5 way to check if element is in document
+    if (!document.body.contains(element)) return false
 
-    if (scope && targetUid !== scope) {
-      return
+    /**
+     * SCOPE LOGIC
+     */
+    if (scope === 'body') {
+      if (!isBodyFocused) return false
+    } else if (scope === '') {
+      if (e.target !== element) return false
+    } else if (scope !== null) {
+      if (e.target.getAttribute('uniqueid') !== scope) return false
     }
 
-    switch (action) {
+    switch (item.action) {
       case 'click':
         app.click(element)
         break
@@ -154,40 +151,56 @@ app.module.keyboard = {
         app.click(element, true)
         break
       default:
-        // Original console.log is replaced by debug check or removed if action is called
-        app.call(action, { element: element })
+        app.call(item.action, { element: element })
+    }
+
+    return true
+  },
+
+  _keydown: function (e) {
+    this._keytranslated(e)
+    this._keyuntranslated(e)
+  },
+
+  _keytranslated: function (e) {
+    var translate = e.target.getAttribute('keyboard-translate')
+    if (!translate) return
+    var value = translate.split(':')
+    if (e.key === value[0]) {
+      e.preventDefault()
+      var sel = window.getSelection(),
+        range = sel.getRangeAt(0),
+        node = document.createTextNode(value[1])
+      range.deleteContents()
+      range.insertNode(node)
+      range.setStartAfter(node)
+      range.setEndAfter(node)
+      sel.removeAllRanges()
+      sel.addRange(range)
     }
   },
 
-  // Register a single key
-  key: function (element) {
-    var key = element.getAttribute('keyboard-key').split(';'),
-      action = element.getAttribute('keyboard-action'),
-      scope = element.getAttribute('keyboard-scope')
+  _keyuntranslated: function (e) {
+    var untranslate = e.target.getAttribute('keyboard-untranslate')
+    if (!untranslate) return
+    var parts = untranslate.split(':')
+    if (e.key !== parts[0]) return
 
-    dom.setUniqueId(element, true)
+    var val = parts[1],
+      sel = window.getSelection(),
+      range = sel.getRangeAt(0),
+      node = range.startContainer,
+      offset = range.startOffset,
+      text = node.textContent
 
-    for (var i = 0; i < key.length; i++) {
-      this.keys.push({ key: key[i], action: action, scope: scope, element: element })
+    if (offset >= val.length && text.substring(offset - val.length, offset) === val) {
+      node.textContent = text.substring(0, offset - val.length) + text.substring(offset)
+      var newRange = document.createRange()
+      newRange.setStart(node, offset - val.length)
+      newRange.collapse(true)
+      sel.removeAllRanges()
+      sel.addRange(newRange)
+      e.preventDefault()
     }
-  },
-
-  // Register a word sequence
-  word: function (element) {
-    var word = element.getAttribute('keyboard-word'),
-      action = element.getAttribute('keyboard-action'),
-      scope = element.getAttribute('keyboard-scope'),
-      // --- NEW LINE ---
-      finalizer = element.getAttribute('keyboard-finalizer')
-
-    dom.setUniqueId(element, true)
-
-    this.words.push({
-      word: word.toLowerCase(),
-      action: action,
-      scope: scope,
-      element: element,
-      finalizer: finalizer // Store the final key (e.g., 'Enter')
-    })
   }
 }
