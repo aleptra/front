@@ -1348,7 +1348,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 490 },
+  version: { major: 1, minor: 0, patch: 0, build: 491 },
   module: {},
   plugin: {},
   var: {},
@@ -2193,14 +2193,18 @@ var app = {
      * @memberof app
      */
     onsubmit: function (e) {
-      if (app.adf) app.adf._form(e)
-      var srcEl = e.srcElement,
-        attr = srcEl.getAttribute('onformsubmit'),
-        submit = attr && attr.split(';')
+      if (app.adf) app.adf._form(e) // Ajax Data Form support via module.
 
-      for (action in submit) {
-        app.call(submit[action], { element: srcEl })
-      }
+      // Call actions with delay to allow key events to finish.
+      setTimeout(function () {
+        var srcEl = e.srcElement,
+          attr = srcEl.getAttribute('onformsubmit'),
+          submit = attr && attr.split(';')
+
+        for (action in submit) {
+          app.call(submit[action], { element: srcEl })
+        }
+      }, 50)
     }
   },
 
