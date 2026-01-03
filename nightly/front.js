@@ -1348,7 +1348,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 489 },
+  version: { major: 1, minor: 0, patch: 0, build: 490 },
   module: {},
   plugin: {},
   var: {},
@@ -2528,12 +2528,8 @@ var app = {
         app.srcDocTemplate = document.body.innerHTML
         app.globals.refresh()
         this.get.extensions()
-        // Continue running application.
-        if (app.extensions.total === 0) app.assets.get.vars()
-        if (app.vars.total === 0) {
-          app.attributes.run()
-          app.disable(false)
-        }
+        // Continue to show application when no assets to load
+        if (app.vars.total === 0 && app.extensions.total === 0) app.disable(false)
       } else {
         var templateElement = app.element.select('template', true)[0], // Get only the first template element.
           templateAttr = templateElement && templateElement.attributes,
@@ -2553,7 +2549,6 @@ var app = {
 
         this.get.templates()
       }
-      //if (app.extensions.total === 0) app.disable(false)
     },
 
     set: function (scriptAttr) {
@@ -2574,6 +2569,9 @@ var app = {
 
     get: {
       vars: function () {
+        // If no vars to load, proceed to finalize immediately.
+        if (app.vars.total === 0) return app.xhr.finalize('var')
+
         app.log.info()('Loading vars...')
         for (var j = 0; j < app.vars.total; j++) {
           var name = app.vars.name[j]
@@ -2605,11 +2603,13 @@ var app = {
        * @desc Loads extensions(modules) from the `module` attribute of the script element and call autoload function if exists.
        */
       extensions: function () {
+        // If no extensions to load, proceed to vars immediately.
+        if (app.extensions.total === 0) return app.assets.get.vars()
+
         app.log.info()('Loading extensions...')
 
-        var allExtensions = app.extensions.module.concat(app.extensions.plugin)
-
-        var modulesCount = app.extensions.module.length
+        var allExtensions = app.extensions.module.concat(app.extensions.plugin),
+          modulesCount = app.extensions.module.length
 
         for (var i = 0; i < app.extensions.total; i++) {
           (function (i) {
@@ -2691,6 +2691,7 @@ var app = {
       'async',
       'alt',
       'checked',
+      'conf',
       'class',
       'click',
       'charset',
@@ -2699,6 +2700,7 @@ var app = {
       'href',
       'for',
       'id',
+      'lang',
       'module',
       'name',
       'open',
