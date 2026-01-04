@@ -551,8 +551,11 @@ var dom = {
     var el = object.exec.value ? app.element.select(object.exec.value) : value,
       target = el.getAttribute('target')
 
+    //Todo: Is this the correct way to submit a form?
     if (el && target) {
       el.submit()
+    } else {
+      app.element.onsubmit({ srcElement: el })
     }
   },
 
@@ -1348,7 +1351,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 491 },
+  version: { major: 1, minor: 0, patch: 0, build: 492 },
   module: {},
   plugin: {},
   var: {},
@@ -1983,7 +1986,7 @@ var app = {
 
     /**
      * @function find
-     * @memberof app
+     * @memberof app.element
      * @param {Node} node - The node to search within.
      * @param {string} selector - The CSS selector used to select the elements.
      * @return {Element|Element[]} - Returns a single element if there is only one match, or a list of elements if there are multiple elements that match the selector.
@@ -1996,7 +1999,7 @@ var app = {
 
     /**
      * @function getTagLink
-     * @memberof app
+     * @memberof app.element
      * @param {Element} element - The element to start the search from.
      * @return {Element|null} The found anchor element, or `null` if none was found.
      * @desc Finds the first ancestor of the given element that is an anchor element (`<a>`).
@@ -2140,7 +2143,7 @@ var app = {
 
     /**
      * @function onchange
-     * @memberof app
+     * @memberof app.element
      */
     onchange: function (object, value, once) {
       if (value) {
@@ -2151,7 +2154,7 @@ var app = {
 
     /**
      * @function onload
-     * @memberof app
+     * @memberof app.element
      * @desc Handles onload attributes for single elements or a NodeList.
      * @param {HTMLElement | NodeList} object - The element or NodeList to process.
      * @param {string} value - The attribute value to parse.
@@ -2190,7 +2193,7 @@ var app = {
 
     /**
      * @function onsubmit
-     * @memberof app
+     * @memberof app.element
      */
     onsubmit: function (e) {
       if (app.adf) app.adf._form(e) // Ajax Data Form support via module.
