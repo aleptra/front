@@ -263,8 +263,15 @@ app.module.data = {
         for (var i = 0, j = -1; i < elements.length; i++) {
           if (i % originalNodeCountAll === 0) j++
 
-          this._process('data-set', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, data: responseData.data, index: j })
-          this._process('data-get', elements[i], responseObject[j], { keys: keys, fullObject: responseObject, data: responseData.data, index: j })
+          var params = {
+            keys: keys,
+            fullObject: responseObject,
+            data: responseData.data,
+            index: j
+          }
+
+          this._process('data-set', elements[i], responseObject[j], params)
+          this._process('data-get', elements[i], responseObject[j], params)
         }
 
         this._process('data-set', element, responseData.data)
