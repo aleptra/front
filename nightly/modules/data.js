@@ -142,7 +142,6 @@ app.module.data = {
       datamerge = element.getAttribute('data-merge'),
       datafilteritem = element.getAttribute('data-filteritem'),
       datareplace = element.getAttribute('data-replace'),
-      dataiterate = element.getAttribute('data-iterate'),
       datasort = element.getAttribute('data-sort'),
       databind = element.getAttribute('data-bind'),
       datastatus = element.getAttribute('data-status'),
@@ -194,29 +193,6 @@ app.module.data = {
       }
 
       this._traverse(options, responseData, element, selector)
-
-      // Support multiple iterates inside the same parent.
-      if (!dataiterate) {
-        var iterateInside = app.element.find(element, '[data-iterate]')
-        if (iterateInside) {
-          // Normalize to array if a single element is returned
-          var iterArray = iterateInside.length ? iterateInside : [iterateInside]
-          for (var k = 0; k < iterArray.length; k++) {
-            var childIterate = iterArray[k]
-            if (!childIterate || !childIterate.getAttribute) continue
-
-            var childOptions = {}
-            for (var p in options) {
-              if (options.hasOwnProperty(p)) childOptions[p] = options[p]
-            }
-
-            childOptions.iterate = childIterate.getAttribute('data-iterate')
-            childOptions.element = childIterate
-
-            this._traverse(childOptions, responseData, childIterate, selector)
-          }
-        }
-      }
     }
   },
 
@@ -289,7 +265,32 @@ app.module.data = {
         }
       }
 
+      // Run element attributes after processing data.
       app.attributes.run(elements, false, true)
+
+      // Support multiple iterates inside the same parent.
+      var dataiterate = element.getAttribute('data-iterate')
+      if (!dataiterate || dataiterate === 'true') {
+        var iterateInside = app.element.find(element, '[data-iterate]')
+        if (iterateInside) {
+          var iterArray = iterateInside.length ? iterateInside : [iterateInside]
+          for (var k = 0; k < iterArray.length; k++) {
+            var childIterate = iterArray[k]
+            if (!childIterate || !childIterate.getAttribute) continue
+
+            var childOptions = {}
+            for (var p in options) {
+              if (options.hasOwnProperty(p)) childOptions[p] = options[p]
+            }
+
+            childOptions.iterate = childIterate.getAttribute('data-iterate')
+            childOptions.element = childIterate
+
+            this._traverse(childOptions, responseData, childIterate, selector)
+          }
+        }
+      }
+
       this._finish(options)
     }
   },
