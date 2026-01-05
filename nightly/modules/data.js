@@ -203,7 +203,7 @@ app.module.data = {
    */
   _traverse: function (options, responseData, element, selector) {
     var iterate = options.iterate,
-      responseObject = iterate === 'true' ? responseData.data : app.element.getPropertyByPath(responseData.data, iterate) || {},
+      responseObject = iterate === 'true' ? responseData.data : app.element.getPropertyByPath(responseData.data, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate),
       total = iterate && responseObject.length - 1 || 0
 
     if (responseObject) {
@@ -278,13 +278,11 @@ app.module.data = {
             var childIterate = iterArray[k]
             if (!childIterate || !childIterate.getAttribute) continue
 
-            var childOptions = {}
-            for (var p in options) {
-              if (options.hasOwnProperty(p)) childOptions[p] = options[p]
+            var childOptions = {
+              iterate: childIterate.getAttribute('data-iterate'),
+              element: childIterate,
+              k: k
             }
-
-            childOptions.iterate = childIterate.getAttribute('data-iterate')
-            childOptions.element = childIterate
 
             this._traverse(childOptions, responseData, childIterate, selector)
           }
@@ -333,9 +331,7 @@ app.module.data = {
     }
 
     // Ensure callback is executed after processing
-    if (typeof callback === 'function') {
-      callback()
-    }
+    if (typeof callback === 'function') callback()
   },
 
   _process: function (accessor, element, responseObject, options) {
@@ -413,27 +409,19 @@ app.module.data = {
   },
 
   reqpatch: function (object) {
-    if (object.exec) {
-      this._request('patch', object.exec.element)
-    }
+    if (object.exec) this._request('patch', object.exec.element)
   },
 
   reqpost: function (object) {
-    if (object.exec) {
-      this._request('post', object.exec.element)
-    }
+    if (object.exec) this._request('post', object.exec.element)
   },
 
   reqget: function (object) {
-    if (object.exec) {
-      this._request('get', object.exec.element)
-    }
+    if (object.exec) this._request('get', object.exec.element)
   },
 
   reqdelete: function (object) {
-    if (object.exec) {
-      this._request('delete', object.exec.element)
-    }
+    if (object.exec) this._request('delete', object.exec.element)
   },
 
   _request: function (method, srcEl) {
