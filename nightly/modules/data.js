@@ -363,12 +363,32 @@ app.module.data = {
     app.element.runOnEvent({ exec: { func: accessor, element: element } })
   },
 
+  /**
+   * @function _resolve
+   * @desc Resolves property paths, supports root []. and lookup (key:val). syntax.
+   * @private
+   */
   _resolve: function (obj, value, options) {
+    // 1. Support for (key:val).path lookup syntax
+    if (value && value[0] === '(' && value.indexOf(').') !== -1) {
+      var endP = value.indexOf(').'),
+        cond = value.substring(1, endP).split('%'),
+        data = (options && options.data) ? options.data : obj
+
+      for (var i = 0; data && i < data.length; i++) {
+        if (String(data[i][cond[0]]) === cond[1]) {
+          return app.element.getPropertyByPath(data[i], value.substring(endP + 2))
+        }
+      }
+      return ''
+    }
+
+    // 2. Original context-based resolution
     if (options) {
       var fullObject = options.fullObject,
         keys = options.keys,
         keyAtIndex = keys && keys[options.index]
-      if (value.indexOf('[].') !== -1) { // Root
+      if (value.indexOf('[].') !== -1) { // Root level access.
         return app.element.getPropertyByPath(options.data, value.substring(3))
       } else if (value.indexOf('[*].') !== -1) {
         var key = value.replace(value.slice(-1) === '.' ? '[*].' : '[*]', keyAtIndex)
@@ -380,6 +400,7 @@ app.module.data = {
       }
     }
 
+    // 3. Original Fallback: logic for OR (||) and AND (&&) paths
     var result,
       orPaths = value.split('||')
 
