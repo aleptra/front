@@ -147,7 +147,7 @@ app.module.data = {
       datastatus = element.getAttribute('data-status'),
       dataempty = element.getAttribute('data-onempty'),
       datasuccess = element.attributes['data-onsuccess'],
-      selector = '*:not([data-iterate-skip]'
+      selector = '*:not([data-iterate-skip])'
 
     if (responseData) {
       if (datamerge) {
@@ -260,8 +260,11 @@ app.module.data = {
 
         for (var i = 0; i < arrayFromNodeList.length; i++) {
           var singleElement = arrayFromNodeList[i]
-          this._process('data-set', singleElement, responseObject, { single: true })
-          this._process('data-get', singleElement, responseObject, { single: true })
+          // SCOPE: Ensure we aren't touching children with their own data-src
+          if (this._isInScope(singleElement, element)) {
+            this._process('data-set', singleElement, responseObject, { single: true })
+            this._process('data-get', singleElement, responseObject, { single: true })
+          }
         }
       }
 
@@ -291,6 +294,17 @@ app.module.data = {
 
       this._finish(options)
     }
+  },
+
+  _isInScope: function (item, root) {
+    if (item === root) return true
+    var node = item.parentElement
+    while (node && node !== root) {
+      // Only block if a PARENT has these attributes, not the item itself
+      if (node.hasAttribute('data-src') || node.hasAttribute('data-iterate')) return false
+      node = node.parentElement
+    }
+    return node === root
   },
 
   /**
