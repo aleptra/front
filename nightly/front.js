@@ -1142,86 +1142,64 @@ var dom = {
   /**
  * @function if
  * @memberof dom
- * @param {Object} element - The element to which the condition will be applied.
- * @param {string} value - Condition and actions: "([left]op[right]&[left]op[right]);trueAction?falseAction"
- * @desc Evaluates multiple conditions and executes app.call() actions based on the result.
+ * @param {Object} element
+ * @param {string} value - "([l]op[r]&[l]op[r]);trueAction?falseAction"
  */
   if: function (element, value) {
-    //console.log(element)
-    var el = app.element.resolveCall(element, value)
-
-    var parts = el.call.string.split(';')
-
+    var el = app.element.resolveCall(element, value),
+      parts = el.call.string.split(';')
     if (parts.length < 2) return
-    // Extract the content inside the parentheses: ([1]:[1]&[2]:[2]) -> [1]:[1]&[2]:[2]
-    var conditionStr = parts[0].replace(/^\(|\)$/g, '')
-    var actionStr = parts[1]
 
-    /**
-     * Helper to evaluate a single [left]op[right] expression
-     */
-    var evaluateSingle = function (expr) {
-      var match = expr.match(/\[(.*)\](:|!~|!|>|<|~)\[(.*)\]/)
-      if (!match) return false
+    var conditionStr = parts[0].replace(/^\(|\)$/g, ''),
+      actionStr = parts[1]
 
-      var left = match[1], op = match[2], right = match[3]
+    function evalSingle(expr) {
+      var m = expr.match(/\[(.*)\](:|!~|!|>|<|~)\[(.*)\]/)
+      if (!m) return false
 
-      switch (op) {
-        case ':': return (left === right)
-        case '!': return (left !== right)
-        case '>': return (Number(left) > Number(right))
-        case '<': return (Number(left) < Number(right))
-        case '~': return (left && left.indexOf(right) !== -1)
-        case '!~': return (left && left.indexOf(right) === -1)
-        default: return false
-      }
+      var l = m[1], op = m[2], r = m[3]
+
+      if (op === ':') return l === r
+      if (op === '!') return l !== r
+      if (op === '>') return Number(l) > Number(r)
+      if (op === '<') return Number(l) < Number(r)
+      if (op === '~') return l && l.indexOf(r) !== -1
+      if (op === '!~') return l && l.indexOf(r) === -1
+      return false
     }
 
-    // 1. Split condition string by & or | while keeping the delimiters
-    var tokens = conditionStr.split(/([&|])/)
-
-    // 2. Evaluate the first condition as the starting point
-    var finalResult = evaluateSingle(tokens[0])
-
-    // 3. Process subsequent operators and conditions
+    // evaluate condition chain
+    var tokens = conditionStr.split(/([&|])/),
+      result = evalSingle(tokens[0])
     for (var i = 1; i < tokens.length; i += 2) {
-      var operator = tokens[i]
-      var nextCondition = tokens[i + 1]
-      var nextResult = evaluateSingle(nextCondition)
-
-      if (operator === '&') {
-        finalResult = finalResult && nextResult
-      } else if (operator === '|') {
-        finalResult = finalResult || nextResult
-      }
+      if (tokens[i] === '&') result = result && evalSingle(tokens[i + 1])
+      else result = result || evalSingle(tokens[i + 1])
     }
 
-    // 4. Determine which action set to run
-    var actions = actionStr.split('?'),
-      trueActions = actions[0],
-      falseActions = actions[1] || ''
+    // choose action set
+    var acts = actionStr.split('?'),
+      str = result ? acts[0] : (acts[1] || '')
 
-    var str = finalResult ? trueActions : falseActions
+    // split actions by & outside brackets
+    var cmds = [], buf = '', depth = 0
 
-    // 5. Parse and execute commands (handling the & delimiter in actions)
-    var commands = []
-    var buf = '', depth = 0
     for (var k = 0; k < str.length; k++) {
-      var ch = str.charAt(k)
-      if (ch === '[') depth++
-      if (ch === ']') depth--
-      if (ch === '&' && depth === 0) {
-        commands.push(buf.trim())
+      var c = str.charAt(k)
+      if (c === '[') depth++
+      else if (c === ']') depth--
+
+      if (c === '&' && depth === 0) {
+        if (buf) cmds.push(buf.trim())
         buf = ''
       } else {
-        buf += ch
+        buf += c
       }
     }
-    if (buf) commands.push(buf.trim())
+    if (buf) cmds.push(buf.trim())
 
-    for (var j = 0; j < commands.length; j++) {
-      var cmd = commands[j]
-      if (cmd) app.call(cmd, { srcElement: element })
+    // execute
+    for (var j = 0; j < cmds.length; j++) {
+      if (cmds[j]) app.call(cmds[j], { srcElement: element })
     }
   },
 
@@ -1379,7 +1357,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 498 },
+  version: { major: 1, minor: 0, patch: 0, build: 499 },
   module: {},
   plugin: {},
   var: {},
