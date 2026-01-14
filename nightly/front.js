@@ -1140,46 +1140,74 @@ var dom = {
   },
 
   /**
-   * @function if
-   * @memberof dom
-   * @param {Object} element - The element to which the condition will be applied.
-   * @param {string} value - Condition and actions: "([left]op[right]);trueAction?falseAction"
-   * @desc Evaluates a condition and executes app.call() actions based on the result.
-   */
+ * @function if
+ * @memberof dom
+ * @param {Object} element - The element to which the condition will be applied.
+ * @param {string} value - Condition and actions: "([left]op[right]&[left]op[right]);trueAction?falseAction"
+ * @desc Evaluates multiple conditions and executes app.call() actions based on the result.
+ */
   if: function (element, value) {
-    var parts = value.split(';')
+    //console.log(element)
+    var el = app.element.resolveCall(element, value)
+
+    var parts = el.call.string.split(';')
+
     if (parts.length < 2) return
+    // Extract the content inside the parentheses: ([1]:[1]&[2]:[2]) -> [1]:[1]&[2]:[2]
+    var conditionStr = parts[0].replace(/^\(|\)$/g, '')
+    var actionStr = parts[1]
 
-    var condition = parts[0],
-      action = parts[1]
+    /**
+     * Helper to evaluate a single [left]op[right] expression
+     */
+    var evaluateSingle = function (expr) {
+      var match = expr.match(/\[(.*)\](:|!~|!|>|<|~)\[(.*)\]/)
+      if (!match) return false
 
-    var match = condition.match(/\(\[(.*)\](:|!~|!|>|<|~)\[(.*)\]\)/)
-    if (!match) return
+      var left = match[1], op = match[2], right = match[3]
 
-    var left = match[1],
-      op = match[2],
-      right = match[3]
+      switch (op) {
+        case ':': return (left === right)
+        case '!': return (left !== right)
+        case '>': return (Number(left) > Number(right))
+        case '<': return (Number(left) < Number(right))
+        case '~': return (left && left.indexOf(right) !== -1)
+        case '!~': return (left && left.indexOf(right) === -1)
+        default: return false
+      }
+    }
 
-    var actions = action.split('?'),
+    // 1. Split condition string by & or | while keeping the delimiters
+    var tokens = conditionStr.split(/([&|])/)
+
+    // 2. Evaluate the first condition as the starting point
+    var finalResult = evaluateSingle(tokens[0])
+
+    // 3. Process subsequent operators and conditions
+    for (var i = 1; i < tokens.length; i += 2) {
+      var operator = tokens[i]
+      var nextCondition = tokens[i + 1]
+      var nextResult = evaluateSingle(nextCondition)
+
+      if (operator === '&') {
+        finalResult = finalResult && nextResult
+      } else if (operator === '|') {
+        finalResult = finalResult || nextResult
+      }
+    }
+
+    // 4. Determine which action set to run
+    var actions = actionStr.split('?'),
       trueActions = actions[0],
       falseActions = actions[1] || ''
 
-    var result
-    switch (op) {
-      case ':': result = (left === right); break
-      case '!': result = (left !== right); break
-      case '>': result = (Number(left) > Number(right)); break
-      case '<': result = (Number(left) < Number(right)); break
-      case '~': result = (left && left.indexOf(right) !== -1); break
-      case '!~': result = (left && left.indexOf(right) === -1); break
-      default: return
-    }
+    var str = finalResult ? trueActions : falseActions
 
-    var str = result ? trueActions : falseActions
+    // 5. Parse and execute commands (handling the & delimiter in actions)
     var commands = []
     var buf = '', depth = 0
-    for (var i = 0; i < str.length; i++) {
-      var ch = str.charAt(i)
+    for (var k = 0; k < str.length; k++) {
+      var ch = str.charAt(k)
       if (ch === '[') depth++
       if (ch === ']') depth--
       if (ch === '&' && depth === 0) {
@@ -1330,7 +1358,7 @@ var dom = {
     var el = app.element.resolveCall(object, value)
 
     setTimeout(function () {
-      app.call(el.call.string, { element: object.exec.element })
+      app.call(el.call.string, { element: el.call.element })
     }, parseInt(el.call.delayValue, 10) || 1000)
   },
 
@@ -1351,7 +1379,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 497 },
+  version: { major: 1, minor: 0, patch: 0, build: 498 },
   module: {},
   plugin: {},
   var: {},
@@ -1653,7 +1681,7 @@ var app = {
         subAttribute: attribute2Type || false,
         value: value === undefined ? false : value,
         unique: unique,
-        delayValue: delayValue,
+        delayValue: delayValue || false,
         delayFunc: delayFunc || false,
         string: string
       }
