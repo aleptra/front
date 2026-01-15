@@ -1140,56 +1140,73 @@ var dom = {
   },
 
   /**
- * @function if
- * @memberof dom
- * @param {Object} element
- * @param {string} value - "([l]op[r]&[l]op[r]);trueAction?falseAction"
- */
+  * @function if
+  * @memberof dom
+  * @param {Object} element
+  * @param {string} value - "([l]op[r]&[l]op[r]);trueAction?falseAction"
+  */
   if: function (element, value) {
     var el = app.element.resolveCall(element, value),
       parts = el.call.string.split(';')
+
     if (parts.length < 2) return
 
-    var conditionStr = parts[0].replace(/^\(|\)$/g, ''),
+    var conditionStr = parts[0].replace(/^\s*\(|\)\s*$/g, ''),
       actionStr = parts[1]
 
-    function evalSingle(expr) {
-      var m = expr.match(/\[(.*)\](:|!~|!|>|<|~)\[(.*)\]/)
-      if (!m) return false
-
-      var l = m[1], op = m[2], r = m[3]
-
-      if (op === ':') return l === r
-      if (op === '!') return l !== r
-      if (op === '>') return Number(l) > Number(r)
-      if (op === '<') return Number(l) < Number(r)
-      if (op === '~') return l && l.indexOf(r) !== -1
-      if (op === '!~') return l && l.indexOf(r) === -1
-      return false
+    var getValue = function (val) {
+      var clean = val.replace(/[\[\]]/g, '').trim()
+      if (clean.indexOf('#') === 0) {
+        var target = document.getElementById(clean.substring(1))
+        if (!target) return ''
+        return target.value !== undefined ? target.value : (target.textContent || target.innerText || '')
+      }
+      return clean
     }
 
-    // evaluate condition chain
+    var evalSingle = function (expr) {
+      var m = expr.match(/^(\[.*?\]|[^!~:><]+)(!~|~|:|!|>|<)(.*)/)
+      if (!m) return false
+
+      var l = getValue(m[1]), op = m[2], r = getValue(m[3])
+
+      var ops = {
+        ':': l === r,
+        '!': l !== r,
+        '>': Number(l) > Number(r),
+        '<': Number(l) < Number(r),
+        '~': l && l.indexOf(r) !== -1,
+        '!~': l && l.indexOf(r) === -1
+      }
+      return ops[op] || false
+    }
+
+    // Evaluate conditions
     var tokens = conditionStr.split(/([&|])/),
       result = evalSingle(tokens[0])
     for (var i = 1; i < tokens.length; i += 2) {
-      if (tokens[i] === '&') result = result && evalSingle(tokens[i + 1])
-      else result = result || evalSingle(tokens[i + 1])
+      var op = tokens[i]
+      var next = evalSingle(tokens[i + 1])
+      result = (op === '&') ? (result && next) : (result || next)
     }
 
-    // choose action set
+    // Determine result branch
     var acts = actionStr.split('?'),
-      str = result ? acts[0] : (acts[1] || '')
+      str = (result ? acts[0] : (acts[1] || '')).trim()
+    if (!str) return
 
-    // split actions by & outside brackets
+    // Parse and execute actions
     var cmds = [], buf = '', depth = 0
-
     for (var k = 0; k < str.length; k++) {
       var c = str.charAt(k)
-      if (c === '[') depth++
-      else if (c === ']') depth--
+      if (c === '[') {
+        depth++
+      } else if (c === ']') {
+        depth--
+      }
 
       if (c === '&' && depth === 0) {
-        if (buf) cmds.push(buf.trim())
+        cmds.push(buf.trim())
         buf = ''
       } else {
         buf += c
@@ -1197,7 +1214,6 @@ var dom = {
     }
     if (buf) cmds.push(buf.trim())
 
-    // execute
     for (var j = 0; j < cmds.length; j++) {
       if (cmds[j]) app.call(cmds[j], { srcElement: element })
     }
@@ -1357,7 +1373,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 499 },
+  version: { major: 1, minor: 0, patch: 0, build: 500 },
   module: {},
   plugin: {},
   var: {},
