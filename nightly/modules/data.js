@@ -37,7 +37,7 @@ app.module.data = {
     }
 
     // Stop attributes from running when traverse so they can be run in the end.
-    if (!element.getAttribute('stop')) dom.stop(element, '*')
+    //if (!element.getAttribute('stop')) dom.stop(element, '*')
 
     if (!self._intervalTimers[element.uniqueId]) {
       self._intervalTimers[element.uniqueId] = setTimeout(function () {
@@ -269,7 +269,7 @@ app.module.data = {
       }
 
       // Run element attributes after processing data.
-      app.attributes.run(elements, false, true)
+      app.attributes.run(elements, false)
 
       // Support multiple iterates inside the same parent.
       var dataiterate = element.getAttribute('data-iterate')

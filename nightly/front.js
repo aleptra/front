@@ -1373,7 +1373,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 502 },
+  version: { major: 1, minor: 0, patch: 0, build: 503 },
   module: {},
   plugin: {},
   var: {},
@@ -2791,6 +2791,7 @@ var app = {
             var attrName = attributes[j].name,
               attrValue = attributes[j].value,
               attrFullname = dom._actionMap[attrName] || attrName
+
             if (exclude.indexOf(attrFullname) === -1) {
               var name = attrFullname.split('-')
               element.originalAttribute = dom._actionMap[attrName] && attrName
