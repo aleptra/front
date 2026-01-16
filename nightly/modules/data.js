@@ -206,7 +206,7 @@ app.module.data = {
       responseObject = iterate === 'true' ? responseData.data : app.element.getPropertyByPath(responseData.data, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate),
       total = iterate && responseObject.length - 1 || 0
 
-    if (responseObject) {
+    if (responseObject !== undefined) {
       if (!responseObject.length) {
         var keys = Object.keys(responseObject)
         if (keys) total = keys.length - 1 || 0
