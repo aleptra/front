@@ -545,5 +545,4 @@ app.module.storage = {
       console.error('Error processing storage item for add:', e)
     }
   },
-  // ...existing code...
 }

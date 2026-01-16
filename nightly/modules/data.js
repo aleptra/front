@@ -291,9 +291,9 @@ app.module.data = {
           }
         }
       }
-
-      this._finish(options)
     }
+
+    this._finish(options)
   },
 
   _isInScope: function (item, root) {
