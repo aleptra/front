@@ -1252,6 +1252,8 @@ var dom = {
  * @param {string} value - Semi-colon separated attributes or patterns (e.g., "*.settext")
  */
   stop: function (element, value) {
+    element = app.element.resolveCall(element, value)
+
     var exclude = ['stop'],
       children = element.childNodes,
       wildcardAttrs = [],
@@ -1291,9 +1293,7 @@ var dom = {
         }
 
         var stopValue = stopValueArray.join(';')
-        if (stopValue) {
-          child.setAttribute('stop', stopValue)
-        }
+        if (stopValue) child.setAttribute('stop', stopValue)
 
         // 3. RECURSION: Pass the parent's wildcard rules down to the next level
         this.stop(child, value)
@@ -1397,7 +1397,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 505 },
+  version: { major: 1, minor: 0, patch: 0, build: 506 },
   module: {},
   plugin: {},
   var: {},
