@@ -1246,33 +1246,57 @@ var dom = {
   },
 
   /**
-   * @function stop
-   * @memberof dom
-   * @param {HTMLElement} element - The parent element whose children will be processed.
-   * @param {string} value
-   * @param {Array<string>} exclude - An array of attribute names to exclude from the 'stop' attribute value.
-   */
+ * @function stop
+ * @memberof dom
+ * @param {HTMLElement} element - The parent element whose children will be processed.
+ * @param {string} value - Semi-colon separated attributes or patterns (e.g., "*.settext")
+ */
   stop: function (element, value) {
     var exclude = ['stop'],
-      children = element.childNodes
+      children = element.childNodes,
+      wildcardAttrs = [],
+      stopAll = false
+
+    if (value) {
+      var patterns = value.split(';')
+      for (var k = 0; k < patterns.length; k++) {
+        var p = patterns[k].trim()
+        if (p === '*') {
+          stopAll = true
+        } else if (p.indexOf('*.') === 0) {
+          wildcardAttrs.push(p.slice(2))
+        }
+      }
+    }
+
     for (var i = 0; i < children.length; i++) {
       var child = children[i]
-      if (child.nodeType === 1) { // Check if it's an element node
-        var existingAttributes = child.attributes,
-          stopValueArray = []
 
-        // Concatenate existing attribute names to the stopValueArray, excluding specified attributes
+      if (child.nodeType === 1) {
+        // 1. Get current 'stop' value of the child to preserve existing manual stops
+        var currentStop = child.getAttribute('stop') || ''
+        var stopValueArray = currentStop ? currentStop.split(';') : []
+
+        // 2. Check all attributes on this child
+        var existingAttributes = child.attributes
         for (var j = 0; j < existingAttributes.length; j++) {
-          var attr = existingAttributes[j],
-            name = dom._actionMap[attr.name] || attr.name
-          if (exclude.indexOf(name) === -1) {
-            stopValueArray.push(name)
+          var attrName = existingAttributes[j].name
+
+          if (exclude.indexOf(attrName) !== -1) continue
+
+          // If pattern matches, add to stop list if not already there
+          if (stopAll || wildcardAttrs.indexOf(attrName) !== -1) {
+            if (stopValueArray.indexOf(attrName) === -1) stopValueArray.push(attrName)
           }
         }
 
-        // Join the stopValueArray with semicolons and set the 'stop' attribute with the resulting string
         var stopValue = stopValueArray.join(';')
-        child.setAttribute('stop', stopValue)
+        if (stopValue) {
+          child.setAttribute('stop', stopValue)
+        }
+
+        // 3. RECURSION: Pass the parent's wildcard rules down to the next level
+        this.stop(child, value)
       }
     }
   },
@@ -1373,7 +1397,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 504 },
+  version: { major: 1, minor: 0, patch: 0, build: 505 },
   module: {},
   plugin: {},
   var: {},
