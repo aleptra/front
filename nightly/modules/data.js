@@ -47,6 +47,11 @@ app.module.data = {
       dom.hide(element)
     }
 
+    // Clear existing timer to reset the "wait" period
+    if (self._intervalTimers[element.uniqueId]) {
+      clearTimeout(self._intervalTimers[element.uniqueId])
+    }
+
     self._intervalTimers[element.uniqueId] = setTimeout(function () {
       try {
         app.xhr.currentAsset.total = 1
