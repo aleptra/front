@@ -1246,57 +1246,58 @@ var dom = {
   },
 
   /**
- * @function stop
- * @memberof dom
- * @param {HTMLElement} element - The parent element whose children will be processed.
- * @param {string} value - Semi-colon separated attributes or patterns (e.g., "*.settext")
- */
+  * @function stop
+  * @memberof dom
+  * @param {HTMLElement} element - The parent element whose children will be processed.
+  * @param {string} value - Semi-colon separated attributes or patterns (e.g., "*.settext")
+  */
   stop: function (element, value) {
     element = app.element.resolveCall(element, value)
+    if (!element || !value) return
 
-    var exclude = ['stop'],
-      children = element.childNodes,
-      wildcardAttrs = [],
-      stopAll = false
+    var wildcards = {}
+    var stopAll = false
+    var parts = value.split(';')
 
-    if (value) {
-      var patterns = value.split(';')
-      for (var k = 0; k < patterns.length; k++) {
-        var p = patterns[k].trim()
-        if (p === '*') {
-          stopAll = true
-        } else if (p.indexOf('*.') === 0) {
-          wildcardAttrs.push(p.slice(2))
-        }
-      }
+    // Optimization: Map lookups are faster than array indexOf
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i].trim()
+      if (p === '*') stopAll = true
+      else if (p.indexOf('*.') === 0) wildcards[p.slice(2)] = true
     }
 
+    var children = element.getElementsByTagName('*')
     for (var i = 0; i < children.length; i++) {
       var child = children[i]
+      var start = child.getAttribute('start')
 
-      if (child.nodeType === 1) {
-        // 1. Get current 'stop' value of the child to preserve existing manual stops
-        var currentStop = child.getAttribute('stop') || ''
-        var stopValueArray = currentStop ? currentStop.split(';') : []
+      // Quick escape if element explicitly allows all
+      if (start === '*') continue
 
-        // 2. Check all attributes on this child
-        var existingAttributes = child.attributes
-        for (var j = 0; j < existingAttributes.length; j++) {
-          var attrName = existingAttributes[j].name
+      var allow = start ? start.split(';') : []
+      var currentStop = child.getAttribute('stop') || ''
+      var stops = currentStop ? currentStop.split(';') : []
+      var attrs = child.attributes
+      var modified = false
 
-          if (exclude.indexOf(attrName) !== -1) continue
+      for (var j = 0; j < attrs.length; j++) {
+        var name = attrs[j].name
 
-          // If pattern matches, add to stop list if not already there
-          if (stopAll || wildcardAttrs.indexOf(attrName) !== -1) {
-            if (stopValueArray.indexOf(attrName) === -1) stopValueArray.push(attrName)
-          }
+        // Filter out meta-attributes
+        if (name === 'stop' || name === 'start') continue
+
+        // Logical check: matches pattern AND not in allow list AND not already stopped
+        var isTarget = stopAll || wildcards[name]
+        if (isTarget && allow.indexOf(name) === -1 && stops.indexOf(name) === -1) {
+          stops.push(name)
+          modified = true
         }
+      }
 
-        var stopValue = stopValueArray.join(';')
-        if (stopValue) child.setAttribute('stop', stopValue)
-
-        // 3. RECURSION: Pass the parent's wildcard rules down to the next level
-        this.stop(child, value)
+      if (modified) {
+        // Join and clean up leading delimiters if they exist
+        var result = stops.join(';')
+        child.setAttribute('stop', result.charAt(0) === ';' ? result.slice(1) : result)
       }
     }
   },
@@ -1305,10 +1306,33 @@ var dom = {
    * @function start
    * @memberof dom
    */
-  start: function (object) {
-    var el = object.exec ? object.exec.element : object
-    var elements = app.element.find(el, '*')
-    app.attributes.run(elements)
+  start: function (element, value) {
+    element = app.element.resolveCall(element, value)
+
+    var attrs = value ? value.replace(/\*\./g, '').split(';') : [],
+      startAll = !attrs.length || attrs.indexOf('*') !== -1,
+      all = element.getElementsByTagName('*'),
+      exclude = ['stop', 'start'],
+      i, j, el, stopList
+
+    for (i = -1; ++i <= all.length;) {
+      el = i === all.length ? element : all[i]
+      if (el.nodeType !== 1) continue
+
+      if (startAll) {
+        el.removeAttribute('stop')
+        app.attributes.run([el], exclude, true)
+      } else {
+        stopList = (el.getAttribute('stop') || '').split(';')
+
+        for (j = attrs.length; j--;) {
+          stopList.splice(stopList.indexOf(attrs[j]), 1)
+        }
+
+        stopList[0] ? el.setAttribute('stop', stopList.join(';')) : el.removeAttribute('stop')
+        app.attributes.run([el], exclude.concat(stopList), true)
+      }
+    }
   },
 
   /**
@@ -1397,7 +1421,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 507 },
+  version: { major: 1, minor: 0, patch: 0, build: 508 },
   module: {},
   plugin: {},
   var: {},

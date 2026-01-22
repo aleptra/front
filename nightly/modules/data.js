@@ -27,7 +27,18 @@ app.module.data = {
 
   src: function (element) {
     var self = this
-    dom.setUniqueId(element, true)
+    // Ensure element has a unique ID for timer tracking, but don't re-assign it.
+    if (!element.uniqueId) dom.setUniqueId(element, true)
+
+    var src = element.getAttribute('data-src')
+
+    // 1. Stop making requests with unresolved variables.
+    if (src && src.indexOf('{') !== -1 && src.indexOf('}') !== -1) return
+
+    // 2. Stop re-fetching the same URL when the DOM is re-processed.
+    if (element._dataSrc === src) return
+    element._dataSrc = src
+
     var interval = element.getAttribute('data-interval') || this.defaultInterval,
       loader = element.getAttribute('data-loader')
 
@@ -36,23 +47,18 @@ app.module.data = {
       dom.hide(element)
     }
 
-    // Stop attributes from running when traverse so they can be run in the end.
-    //if (!element.getAttribute('stop')) dom.stop(element, '*')
-
-    if (!self._intervalTimers[element.uniqueId]) {
-      self._intervalTimers[element.uniqueId] = setTimeout(function () {
-        try {
-          app.xhr.currentAsset.total = 1
-          self._handle(element)
-          if (element.getAttribute('data-srcjoin')) {
-            app.xhr.currentAsset.total = 2
-            self._handle(element, true)
-          }
-        } catch (error) {
-          console.error('data-interval error:', error)
+    self._intervalTimers[element.uniqueId] = setTimeout(function () {
+      try {
+        app.xhr.currentAsset.total = 1
+        self._handle(element)
+        if (element.getAttribute('data-srcjoin')) {
+          app.xhr.currentAsset.total = 2
+          self._handle(element, true)
         }
-      }, interval)
-    }
+      } catch (error) {
+        console.error('data-interval error:', error)
+      }
+    }, interval)
   },
 
   _handle: function (element, join) {
@@ -606,13 +612,16 @@ app.module.data = {
   },
 
   _finish: function (options) {
-    var finished = options.element.attributes['data-onfinish']
+    var element = options.element,
+      finished = element.attributes['data-onfinish']
     if (finished) app.call(finished.value)
     if (options.loader) {
       dom.hide(options.loader)
       dom.show(options.element)
     }
 
-    app.element.runOnEvent({ exec: { func: 'data-onfinish', element: options.element } })
+    if (element._dataSrc) delete element._dataSrc
+
+    app.element.runOnEvent({ exec: { func: 'data-onfinish', element: element } })
   }
 }
