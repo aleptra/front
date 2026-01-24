@@ -32,9 +32,7 @@ app.module.navigate = {
     // Fix for iOS bfcache - restore event listeners when page is shown from cache
     app.listeners.add(window, 'pageshow', function (event) {
       if (event.persisted) {
-        setTimeout(function () {
-          app.attributes.run()
-        }, 50)
+        alert('test')
       }
     })
 
