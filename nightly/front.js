@@ -1421,7 +1421,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 515 },
+  version: { major: 1, minor: 0, patch: 0, build: 516 },
   module: {},
   plugin: {},
   var: {},
@@ -1526,6 +1526,7 @@ var app = {
     })
 
     app.listeners.add(document, 'click', function (e) {
+      alert('test')
       var bodyClick = document.body.attributes.click
       var link, click
       if (bodyClick) {
