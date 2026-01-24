@@ -24,14 +24,17 @@ app.module.navigate = {
 
     if (history.pushState) {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
-      // Use window instead of document as mobile browsers can drop document-level listeners on history navigation
+      // Mobile browsers handle delegated clicks on window more reliably than document during history transitions
       app.listeners.add(window, 'click', this._click.bind(this))
     }
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
-    // Handle mobile bfcache (Back-Forward Cache) to ensure the SPA reference stays alive
-    app.listeners.add(window, 'pageshow', function () {
+
+    // Fix for mobile bfcache: Refresh references and app state when page is restored
+    app.listeners.add(window, 'pageshow', function (event) {
       app.spa = self
+      self.mainTarget = app.element.select(self.config.target)
+      if (event.persisted) self._restoreScroll()
     })
 
     if (this.mainTarget) app.listeners.add(this.mainTarget, 'scroll', this._saveScroll.bind(this))
@@ -134,6 +137,9 @@ app.module.navigate = {
    * @private
    */
   _pop: function (event) {
+    // Refresh the target reference in case the DOM was swapped
+    this.mainTarget = app.element.select(this.config.target)
+
     var state = (event.state) ? event.state : {
       'href': window.location.href,
       'pathname': window.location.pathname,
