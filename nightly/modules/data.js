@@ -30,14 +30,14 @@ app.module.data = {
     // Ensure element has a unique ID for timer tracking, but don't re-assign it.
     if (!element.uniqueId) dom.setUniqueId(element, true)
 
-    //var src = element.getAttribute('data-src')
+    var src = element.getAttribute('data-src')
 
     // 1. Stop making requests with unresolved variables.
-    //if (src && src.indexOf('{') !== -1 && src.indexOf('}') !== -1) return
+    if (src && src.indexOf('{') !== -1 && src.indexOf('}') !== -1) return
 
     // 2. Stop re-fetching the same URL when the DOM is re-processed.
-    //if (element._dataSrc === src) return
-    //element._dataSrc = src
+    if (element._dataSrc === src) return
+    element._dataSrc = src
 
     var interval = element.getAttribute('data-interval') || this.defaultInterval,
       loader = element.getAttribute('data-loader')
