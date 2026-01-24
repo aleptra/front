@@ -24,6 +24,13 @@ app.module.navigate = {
     if (history.pushState) {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
       app.listeners.add(document, 'click', this._click.bind(this))
+
+      // FIX: Ensure the app is enabled and preloader is hidden when returning from bfcache
+      app.listeners.add(window, 'pageshow', function (event) {
+        if (event.persisted) {
+          this._preloader.finish()
+        }
+      }.bind(this))
     }
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
