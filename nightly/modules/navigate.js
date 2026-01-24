@@ -28,14 +28,6 @@ app.module.navigate = {
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
     if (this.mainTarget) app.listeners.add(this.mainTarget, 'scroll', this._saveScroll.bind(this))
-
-    // Fix for iOS bfcache - restore event listeners when page is shown from cache
-    app.listeners.add(window, 'pageshow', function (event) {
-      if (event.persisted) {
-        alert('test')
-      }
-    })
-
     // Restore scroll position immediately after load
     this._restoreScroll()
   },
