@@ -24,27 +24,28 @@ app.module.navigate = {
     if (history.pushState) {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
       app.listeners.add(document, 'click', this._click.bind(this))
-
-      // iOS Safari BFCache fix
-      app.listeners.add(window, 'pageshow', function (e) {
-        if (e.persisted) {
-
-          alert('persisted')
-          // 1. IMPORTANT: Remove the "blocking" listener from front.js
-          app.disable(false)
-
-          // 2. Refresh attributes for your target container
-          if (app.attributes && app.attributes.run) {
-            app.attributes.run(this.config.target + ' *')
-          }
-
-          // 3. Clear the preloader if it got stuck in the cache
-          if (this._preloader && this._preloader.finish) {
-            this._preloader.finish()
-          }
-        }
-      }.bind(this))
     }
+
+    // iOS Safari BFCache fix
+    app.listeners.add(window, 'pageshow', function (e) {
+      alert('test')
+      if (e.persisted) {
+
+        alert('persisted')
+        // 1. IMPORTANT: Remove the "blocking" listener from front.js
+        app.disable(false)
+
+        // 2. Refresh attributes for your target container
+        if (app.attributes && app.attributes.run) {
+          app.attributes.run(this.config.target + ' *')
+        }
+
+        // 3. Clear the preloader if it got stuck in the cache
+        if (this._preloader && this._preloader.finish) {
+          this._preloader.finish()
+        }
+      }
+    }.bind(this))
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
     if (this.mainTarget) app.listeners.add(this.mainTarget, 'scroll', this._saveScroll.bind(this))
