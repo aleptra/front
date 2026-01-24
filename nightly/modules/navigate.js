@@ -24,17 +24,20 @@ app.module.navigate = {
 
     if (history.pushState) {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
-      // Mobile browsers handle delegated clicks on window more reliably than document during history transitions
+      // Use window for click delegation on mobile to avoid issues with document-level event loss after history navigation
       app.listeners.add(window, 'click', this._click.bind(this))
     }
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
 
-    // Fix for mobile bfcache: Refresh references and app state when page is restored
+    // Fix for mobile bfcache: Refresh references and app state when page is restored from memory
     app.listeners.add(window, 'pageshow', function (event) {
       app.spa = self
       self.mainTarget = app.element.select(self.config.target)
-      if (event.persisted) self._restoreScroll()
+      // If restored from bfcache, re-run attribute listeners to ensure custom attributes like [click] are active
+      if (event.persisted && app.attributes && app.attributes.run) {
+        app.attributes.run(self.config.target + ' *')
+      }
     })
 
     if (this.mainTarget) app.listeners.add(this.mainTarget, 'scroll', this._saveScroll.bind(this))
@@ -46,7 +49,7 @@ app.module.navigate = {
    * Saves current scroll position to session storage before reload or navigation away.
    */
   _saveScroll: function () {
-    var scrollTop = this.mainTarget.scrollTop || 0,
+    var scrollTop = (this.mainTarget) ? this.mainTarget.scrollTop : 0,
       key = '_' + window.location.pathname
 
     app.caches.set('window', 'module', 'navigate' + key, '{ "top": ' + scrollTop + ' }')
@@ -62,12 +65,15 @@ app.module.navigate = {
       saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true })
     if (!saved) return
 
-    var mainTarget = self.mainTarget,
+    // Refresh target reference in case it was detached during navigation
+    var mainTarget = app.element.select(this.config.target),
       lastHeight = 0,
       stable = 0,
       waited = 0,
       step = 200,
       limit = 15000
+
+    if (!mainTarget) return
 
       ; (function check() {
         var h = mainTarget.scrollHeight
@@ -137,7 +143,8 @@ app.module.navigate = {
    * @private
    */
   _pop: function (event) {
-    // Refresh the target reference in case the DOM was swapped
+    // Re-assert module reference on popstate
+    app.spa = this
     this.mainTarget = app.element.select(this.config.target)
 
     var state = (event.state) ? event.state : {
