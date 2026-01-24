@@ -28,6 +28,8 @@ app.module.navigate = {
       // iOS Safari BFCache fix
       app.listeners.add(window, 'pageshow', function (e) {
         if (e.persisted) {
+
+          alert('persisted')
           // 1. IMPORTANT: Remove the "blocking" listener from front.js
           app.disable(false)
 
