@@ -23,7 +23,48 @@ app.module.navigate = {
 
     if (history.pushState) {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
-      app.listeners.add(document, 'click', this._click.bind(this))
+
+      // IE10-safe delegated click handler (supports desktop + mobile)
+      var lastTouchTime = 0
+
+      function delegatedClickHandler(e) {
+        // Prevent double-trigger: ignore click shortly after touch
+        if (e.type === 'touchend') lastTouchTime = Date.now()
+        if (e.type === 'click' && Date.now() - lastTouchTime < 500) return
+
+        var bodyClick = document.body && document.body.attributes && document.body.attributes.click
+        var link = null
+        var click = null
+
+        if (bodyClick) {
+          link = document.body
+          click = bodyClick
+        } else {
+          // Walk up DOM tree to find element with [click] attribute
+          var el = e.target
+          while (el && el !== document) {
+            if (el.attributes && el.attributes.click) {
+              link = el
+              click = el.attributes.click
+              break
+            }
+            el = el.parentElement
+          }
+        }
+
+        if (!link || !click) return
+
+        var clicktargetfield = link.attributes && link.attributes.clicktargetfield
+        var target = clicktargetfield && clicktargetfield.value ? clicktargetfield.value.split(':') : []
+
+        app.call(click.value, { srcElement: link, element: target[0] ? app.element.select(target[0]) : null })
+        app.element.runOnEvent({ exec: { func: 'click', element: link } })
+      }
+
+      // Desktop + IE10 fallback
+      app.listeners.add(document, 'click', delegatedClickHandler)
+      // Mobile touch
+      app.listeners.add(document, 'touchend', delegatedClickHandler)
     }
 
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
