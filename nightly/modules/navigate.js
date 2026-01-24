@@ -25,9 +25,22 @@ app.module.navigate = {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
       app.listeners.add(document, 'click', this._click.bind(this))
 
-      // THE FIX FOR IPHONE BACK/FORTH
-      app.listeners.add(window, 'pageshow', function (event) {
-        alert('test')
+      // iOS Safari BFCache fix
+      app.listeners.add(window, 'pageshow', function (e) {
+        if (e.persisted) {
+          // 1. IMPORTANT: Remove the "blocking" listener from front.js
+          app.disable(false)
+
+          // 2. Refresh attributes for your target container
+          if (app.attributes && app.attributes.run) {
+            app.attributes.run(this.config.target + ' *')
+          }
+
+          // 3. Clear the preloader if it got stuck in the cache
+          if (this._preloader && this._preloader.finish) {
+            this._preloader.finish()
+          }
+        }
       }.bind(this))
     }
 
