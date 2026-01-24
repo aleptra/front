@@ -25,11 +25,9 @@ app.module.navigate = {
       app.listeners.add(window, 'popstate', this._pop.bind(this))
       app.listeners.add(document, 'click', this._click.bind(this))
 
-      // FIX: Ensure the app is enabled and preloader is hidden when returning from bfcache
+      // THE FIX FOR IPHONE BACK/FORTH
       app.listeners.add(window, 'pageshow', function (event) {
-        if (event.persisted) {
-          this._preloader.finish()
-        }
+        alert('test')
       }.bind(this))
     }
 
