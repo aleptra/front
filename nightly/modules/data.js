@@ -35,6 +35,17 @@ app.module.data = {
     // 1. Stop making requests with unresolved variables.
     if (src && src.indexOf('{') !== -1 && src.indexOf('}') !== -1) return
 
+    // Force re-render on Back-Forward Cache restoration
+    if (!element._bfcacheFixed) {
+      window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+          element._dataSrc = null
+          self.src(element)
+        }
+        element._bfcacheFixed = true
+      })
+    }
+
     // 2. Stop re-fetching the same URL when the DOM is re-processed.
     if (element._dataSrc === src) return
     element._dataSrc = src
