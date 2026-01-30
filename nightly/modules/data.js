@@ -216,6 +216,8 @@ app.module.data = {
       }
 
       this._traverse(options, responseData, element, selector)
+    } else {
+      this._finish(options)
     }
   },
 
