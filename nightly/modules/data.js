@@ -26,15 +26,17 @@ app.module.data = {
   },
 
   src: function (element) {
-    var self = this
+    var self = this,
+      loader = element.getAttribute('data-loader'),
+      src = element.getAttribute('data-src'),
+      interval = element.getAttribute('data-interval')
+
     // Ensure element has a unique ID for timer tracking, but don't re-assign it.
     if (!element.uniqueId) dom.setUniqueId(element, true)
 
-    var src = element.getAttribute('data-src')
-
     // 1. Stop making requests with unresolved variables.
     if (src && src.indexOf('{') !== -1 && src.indexOf('}') !== -1) {
-      return dom.hide(element.getAttribute('data-loader'))
+      return loader && dom.hide(loader)
     }
 
     // Force re-render on Back-Forward Cache restoration
@@ -51,9 +53,6 @@ app.module.data = {
     // 2. Stop re-fetching the same URL when the DOM is re-processed.
     if (element._dataSrc === src) return
     element._dataSrc = src
-
-    var interval = element.getAttribute('data-interval') || this.defaultInterval,
-      loader = element.getAttribute('data-loader')
 
     if (loader) {
       dom.show(loader)
@@ -76,7 +75,7 @@ app.module.data = {
       } catch (error) {
         console.error('data-interval error:', error)
       }
-    }, interval)
+    }, interval || this.defaultInterval)
   },
 
   _handle: function (element, join) {
