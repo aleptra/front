@@ -51,8 +51,10 @@ app.module.data = {
     }
 
     // 2. Stop re-fetching the same URL when the DOM is re-processed.
-    //if (element._dataSrc === src) return
-    //element._dataSrc = src
+    if (element._dataSrc === src) {
+      return loader && dom.hide(loader)
+    }
+    element._dataSrc = src
 
     if (loader) {
       dom.show(loader)
