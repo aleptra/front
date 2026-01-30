@@ -33,7 +33,9 @@ app.module.data = {
     var src = element.getAttribute('data-src')
 
     // 1. Stop making requests with unresolved variables.
-    if (src && src.indexOf('{') !== -1 && src.indexOf('}') !== -1) return
+    if (src && src.indexOf('{') !== -1 && src.indexOf('}') !== -1) {
+      return dom.hide(element.getAttribute('data-loader'))
+    }
 
     // Force re-render on Back-Forward Cache restoration
     if (!element._bfcacheFixed) {
