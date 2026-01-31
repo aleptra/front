@@ -201,6 +201,7 @@ var dom = {
       }
       value = prop ? 'visibility: hidden' : 'display: none'
       el.style.cssText += value + ' !important'
+      el.offsetHeight
     }
   },
 
@@ -237,6 +238,7 @@ var dom = {
     if (el) {
       el.style.display = el.initDisplay
       el.removeAttribute('hide')
+      el.offsetHeight
     }
   },
 
@@ -2374,7 +2376,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 534 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 535 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
