@@ -622,9 +622,13 @@ app.module.data = {
     var element = options.element,
       finished = element.attributes['data-onfinish']
     if (finished) app.call(finished.value)
-    if (options.loader) {
-      dom.hide(options.loader)
-      dom.show(options.element)
+
+
+    if (loader) {
+      setTimeout(function () {
+        dom.hide(loader)
+        dom.show(element)
+      }, 1000)
     }
 
     if (element._dataSrc) delete element._dataSrc
