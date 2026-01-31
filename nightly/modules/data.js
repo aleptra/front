@@ -6,7 +6,7 @@ app.module.data = {
   storageMechanism: 'window',
   storageType: 'module',
   storageKey: '',
-  defaultInterval: 350,
+  defaultInterval: 500,
 
   __autoload: function (options) {
     app.adf = this // Enable Ajax Data Form support using this module.
@@ -57,7 +57,6 @@ app.module.data = {
     element._interval = setInterval(function () {
       execute()
     }, interval)
-
     if (loader) {
       dom.show(loader)
       dom.hide(element)
