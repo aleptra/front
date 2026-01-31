@@ -6,7 +6,7 @@ app.module.data = {
   storageMechanism: 'window',
   storageType: 'module',
   storageKey: '',
-  defaultInterval: 250,
+  defaultInterval: 350,
 
   __autoload: function (options) {
     app.adf = this // Enable Ajax Data Form support using this module.
