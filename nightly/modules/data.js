@@ -56,6 +56,7 @@ app.module.data = {
       dom.hide(element)
     }
 
+    alert('src')
     setTimeout(function () {
       try {
         app.xhr.currentAsset.total = 1
