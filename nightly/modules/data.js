@@ -35,21 +35,21 @@ app.module.data = {
     if (!element.uniqueId) dom.setUniqueId(element, true)
 
     // Stop making requests with unresolved variables.
-    //if (src && /\{[^}]+\}/.test(src)) return
+    if (src && /\{[^}]+\}/.test(src)) return
 
     // Force re-render on Back-Forward Cache restoration.
-    /*if (!window._bfCacheListenerAdded) {
+    if (!window._bfCacheListenerAdded) {
       window._bfCacheListenerAdded = true
       window.addEventListener('pageshow', function (event) {
         if (event.persisted) {
           self.src(element)
         }
       })
-    }*/
+    }
 
     // Stop re-fetching the same URL when the DOM is re-processed.
-    //if (element._dataSrc === src) return
-    //element._dataSrc = src
+    if (element._dataSrc === src) return
+    element._dataSrc = src
 
     if (loader) {
       dom.show(loader)
@@ -61,25 +61,16 @@ app.module.data = {
       try {
         app.xhr.currentAsset.total = 1
         self._handle(element)
-        alert('handling')
         if (element.getAttribute('data-srcjoin')) {
           app.xhr.currentAsset.total = 2
           self._handle(element, true)
         }
       } catch (error) {
         app.log.error(0)(error)
-        alert(error)
       }
     }
 
-    alert('src')
-
-    // If on iOS Safari, timers > 0 can be suspended during the 'click' phase.
-    // Try forcing execution if the interval is small, or use 0 to stay in the event loop.
-
     execute()
-
-
   },
 
   _handle: function (element, join) {
