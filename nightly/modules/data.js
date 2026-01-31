@@ -6,7 +6,7 @@ app.module.data = {
   storageMechanism: 'window',
   storageType: 'module',
   storageKey: '',
-  defaultInterval: 500,
+  defaultInterval: 250,
 
   __autoload: function (options) {
     app.adf = this // Enable Ajax Data Form support using this module.
@@ -29,6 +29,7 @@ app.module.data = {
     var self = this,
       loader = element.getAttribute('data-loader'),
       src = element.getAttribute('data-src'),
+      srcJoin = element.getAttribute('data-srcjoin'),
       interval = element.getAttribute('data-interval') || this.defaultInterval
 
     // Ensure element has a unique ID for timer tracking, but don't re-assign it.
@@ -54,29 +55,17 @@ app.module.data = {
     // Start polling interval (avoid duplicates)
     if (element._interval) clearInterval(element._interval)
 
-    element._interval = setInterval(function () {
-      execute()
-    }, interval)
     if (loader) {
       dom.show(loader)
       dom.hide(element)
     }
 
-    // Define the execution block separately
-    var execute = function () {
-      try {
-        app.xhr.currentAsset.total = 1
-        self._handle(element)
-        if (element.getAttribute('data-srcjoin')) {
-          app.xhr.currentAsset.total = 2
-          self._handle(element, true)
-        }
-      } catch (error) {
-        app.log.error(0)(error)
-      }
+    app.xhr.currentAsset.total = 1
+    self._handle(element)
+    if (srcJoin) {
+      app.xhr.currentAsset.total = 2
+      self._handle(element, true)
     }
-
-
   },
 
   _handle: function (element, join) {
@@ -630,11 +619,6 @@ app.module.data = {
   },
 
   _finish: function (options) {
-    // Stop polling interval
-    if (options.element && options.element._interval) {
-      clearInterval(options.element._interval)
-      options.element._interval = null
-    }
     var element = options.element,
       finished = element.attributes['data-onfinish']
     if (finished) app.call(finished.value)
