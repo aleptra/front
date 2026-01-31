@@ -623,21 +623,10 @@ app.module.data = {
       finished = element.attributes['data-onfinish']
     if (finished) app.call(finished.value)
 
-
-    var minTime = 500
-    var startTime = loader._startTime || Date.now()
-
-    // Use requestAnimationFrame to wait until 500ms has passed
-    var hideLoader = function () {
-      if (Date.now() - startTime >= minTime) {
-        dom.hide(loader)
-        dom.show(element)
-      } else {
-        requestAnimationFrame(hideLoader)
-      }
-    }
-
-    requestAnimationFrame(hideLoader)
+    app.wait(250, function () {
+      dom.hide(loader)
+      dom.show(element)
+    })
 
     if (element._dataSrc) delete element._dataSrc
 

@@ -1656,6 +1656,19 @@ var app = {
   },
 
   /**
+   * @namespace wait
+   * @memberof app
+   */
+  wait: function (duration, callback) {
+    var start = performance.now()
+    function tick(now) {
+      if (now - start >= duration) return callback()
+      requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  },
+
+  /**
    * @namespace click
    * @memberof app
    * @desc Handles simulating click and double-click events on DOM elements.
@@ -2376,7 +2389,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 551 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 552 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
