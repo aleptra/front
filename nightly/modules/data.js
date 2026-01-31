@@ -52,9 +52,6 @@ app.module.data = {
     if (element._dataSrc === src) return
     element._dataSrc = src
 
-    // Start polling interval (avoid duplicates)
-    if (element._interval) clearInterval(element._interval)
-
     if (loader) {
       dom.show(loader)
       dom.hide(element)
@@ -620,14 +617,15 @@ app.module.data = {
 
   _finish: function (options) {
     var element = options.element,
-      finished = element.attributes['data-onfinish']
-    if (finished) app.call(finished.value)
+      finished = element.attributes['data-onfinish'],
+      loader = options.loader
 
     app.wait(250, function () {
-      dom.hide(loader)
+      if (loader) dom.hide(loader)
       dom.show(element)
     })
 
+    if (finished) app.call(finished.value)
     if (element._dataSrc) delete element._dataSrc
 
     app.element.runOnEvent({ exec: { func: 'data-onfinish', element: element } })
