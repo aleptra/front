@@ -29,7 +29,7 @@ app.module.data = {
     var self = this,
       loader = element.getAttribute('data-loader'),
       src = element.getAttribute('data-src'),
-      interval = element.getAttribute('data-interval')
+      interval = element.getAttribute('data-interval') || this.defaultInterval
 
     // Ensure element has a unique ID for timer tracking, but don't re-assign it.
     if (!element.uniqueId) dom.setUniqueId(element, true)
@@ -56,8 +56,8 @@ app.module.data = {
       dom.hide(element)
     }
 
-    alert('src')
-    setTimeout(function () {
+    // Define the execution block separately
+    var execute = function () {
       try {
         app.xhr.currentAsset.total = 1
         self._handle(element)
@@ -70,7 +70,15 @@ app.module.data = {
         app.log.error(0)(error)
         alert(error)
       }
-    }, interval || this.defaultInterval)
+    }
+
+    alert('src')
+
+    // If on iOS Safari, timers > 0 can be suspended during the 'click' phase.
+    // Try forcing execution if the interval is small, or use 0 to stay in the event loop.
+
+    setTimeout(execute, interval)
+
   },
 
   _handle: function (element, join) {
