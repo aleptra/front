@@ -77,11 +77,8 @@ app.module.data = {
     // If on iOS Safari, timers > 0 can be suspended during the 'click' phase.
     // Try forcing execution if the interval is small, or use 0 to stay in the event loop.
 
-    if (interval < 10) {
-      execute()
-    } else {
-      setTimeout(execute, interval)
-    }
+    execute()
+
 
   },
 
