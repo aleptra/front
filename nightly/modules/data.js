@@ -35,7 +35,7 @@ app.module.data = {
     if (!element.uniqueId) dom.setUniqueId(element, true)
 
     // Stop making requests with unresolved variables.
-    if (src && /\{[^}]+\}/.test(src)) return
+    //if (src && /\{[^}]+\}/.test(src)) return
 
     // Force re-render on Back-Forward Cache restoration.
     if (!window._bfCacheListenerAdded) {
@@ -48,8 +48,8 @@ app.module.data = {
     }
 
     // Stop re-fetching the same URL when the DOM is re-processed.
-    if (element._dataSrc === src) return
-    element._dataSrc = src
+    //if (element._dataSrc === src) return
+    //element._dataSrc = src
 
     if (loader) {
       dom.show(loader)
