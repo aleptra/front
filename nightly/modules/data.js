@@ -623,9 +623,9 @@ app.module.data = {
     app.wait(250, function () {
       if (loader) dom.hide(loader)
       dom.show(element)
+      if (finished) app.call(finished.value)
     })
 
-    if (finished) app.call(finished.value)
     if (element._dataSrc) delete element._dataSrc
 
     app.element.runOnEvent({ exec: { func: 'data-onfinish', element: element } })
