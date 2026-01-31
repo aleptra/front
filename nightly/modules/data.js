@@ -57,11 +57,10 @@ app.module.data = {
     }
 
     setTimeout(function () {
-      if (!element.ownerDocument || !element.parentNode) return // Safety check
-
       try {
         app.xhr.currentAsset.total = 1
         self._handle(element)
+        alert('handling')
         if (element.getAttribute('data-srcjoin')) {
           app.xhr.currentAsset.total = 2
           self._handle(element, true)
