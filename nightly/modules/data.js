@@ -51,6 +51,13 @@ app.module.data = {
     if (element._dataSrc === src) return
     element._dataSrc = src
 
+    // Start polling interval (avoid duplicates)
+    if (element._interval) clearInterval(element._interval)
+
+    element._interval = setInterval(function () {
+      execute()
+    }, interval)
+
     if (loader) {
       dom.show(loader)
       dom.hide(element)
@@ -70,7 +77,7 @@ app.module.data = {
       }
     }
 
-    execute()
+
   },
 
   _handle: function (element, join) {
@@ -624,6 +631,11 @@ app.module.data = {
   },
 
   _finish: function (options) {
+    // Stop polling interval
+    if (options.element && options.element._interval) {
+      clearInterval(options.element._interval)
+      options.element._interval = null
+    }
     var element = options.element,
       finished = element.attributes['data-onfinish']
     if (finished) app.call(finished.value)
