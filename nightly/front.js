@@ -1421,7 +1421,7 @@ var dom = {
 }
 
 var app = {
-  version: { major: 1, minor: 0, patch: 0, build: 532 },
+  version: { major: 1, minor: 0, patch: 0, build: 533 },
   module: {},
   plugin: {},
   var: {},
@@ -2286,38 +2286,37 @@ var app = {
    @memberof app
    @desc Handles logging of information and errors.
    */
-  log: {
+  log: (function () {
+    var methods = ['info', 'error', 'warn'],
+      msg = {
+        100: 'Skipping attribute:',
+        400: 'Attribute not found:'
+      },
+      l = {}
 
-    /**
-     * @function info
-     * @memberof app.log
-     * @returns {function} - The console.info() function or a no-op function if app.debug is not set to 'true'.
-     * @desc Logs information to the console if app.debug is set to 'true'.
-     */
-    info: function (prefix) {
-      return app.debug === 'true' || app.debug === 'localhost' && app.isLocalNetwork ? console.info.bind(console, prefix ? ' ❱' : '❚') : function () { }
-    },
+    for (var i = 0; i < methods.length; i++) {
+      (function (m) {
+        l[m] = function (v) {
+          var ok = app.debug === 'true' || app.debug === 'localhost' && app.isLocalNetwork
+          if (!ok) return function () { }
 
-    /**
-     * @function error
-     * @memberof app.log
-     * @returns {function} - The console.error() function or a no-op function if app.debug is not set to 'true'.
-     * @desc Logs errors to the console if app.debug is set to 'true'.
-     */
-    error: function (code) {
-      return app.debug === 'true' || app.debug === 'localhost' && app.isLocalNetwork ? console.error.bind(console, code === 0 ? ' Syntax not found:' : '') : function () { }
-    },
+          var p = m === 'info' ? (v ? ' ❱' : '❚') : (msg[v] || '')
 
-    /**
-     * @function warn
-     * @memberof app.log
-     * @returns {function} - The console.warn() function or a no-op function if app.debug is not set to 'true'.
-     * @desc Logs warnings to the console if app.debug is set to 'true'.
-     */
-    warn: function (code) {
-      return app.debug === 'true' || app.debug === 'localhost' && app.isLocalNetwork ? console.warn.bind(console, code === 0 ? ' ?:' : '') : function () { }
+          return function () {
+            if (console && console[m]) {
+              // Convert arguments to array and prepend our prefix
+              var args = Array.prototype.slice.call(arguments)
+              args.unshift(p)
+              // IE10 requires apply to be called on console
+              Function.prototype.apply.call(console[m], console, args)
+            }
+          }
+        }
+      })(methods[i])
     }
-  },
+
+    return l
+  })(),
 
   /**
    * @namespace config
@@ -2849,11 +2848,11 @@ var app = {
               if (app.plugin[name[0]] && name[1] === '' && name[2]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
                 element.lastRunAttribute = attrName
-                app.plugin[name[0]][name[2]] ? app.plugin[name[0]][name[2]](element) : app.log.error(0)(name[0] + '--' + name[2])
+                app.plugin[name[0]][name[2]] ? app.plugin[name[0]][name[2]](element) : app.log.error(400)(name[0] + '--' + name[2])
               } else if (app.module[name[0]] && name[1]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
                 element.lastRunAttribute = attrName
-                app.module[name[0]][name[1]] ? app.module[name[0]][name[1]](element) : app.log.error(0)(name[0] + '-' + name[1])
+                app.module[name[0]][name[1]] ? app.module[name[0]][name[1]](element) : app.log.error(400)(name[0] + '-' + name[1])
               } else if (dom[name]) {
                 app.log.info(1)('dom.' + name)
                 element.lastRunAttribute = attrName
@@ -2864,7 +2863,7 @@ var app = {
               // Run onEvent for all attributes.
               app.element.runOnEvent({ exec: { func: attrName, element: element } })
             } else {
-              app.log.warn(1)(name + ' [Skipping]')
+              app.log.warn(100)(name + '')
             }
           }
         }
