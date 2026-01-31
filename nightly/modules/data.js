@@ -38,14 +38,14 @@ app.module.data = {
     //if (src && /\{[^}]+\}/.test(src)) return
 
     // Force re-render on Back-Forward Cache restoration.
-    if (!window._bfCacheListenerAdded) {
+    /*if (!window._bfCacheListenerAdded) {
       window._bfCacheListenerAdded = true
       window.addEventListener('pageshow', function (event) {
         if (event.persisted) {
           self.src(element)
         }
       })
-    }
+    }*/
 
     // Stop re-fetching the same URL when the DOM is re-processed.
     //if (element._dataSrc === src) return
