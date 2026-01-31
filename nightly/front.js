@@ -1660,12 +1660,12 @@ var app = {
    * @memberof app
    */
   wait: function (duration, callback) {
-    var start = performance.now()
-    function tick(now) {
+    var start
+    requestAnimationFrame(function tick(now) {
+      if (!start) start = now
       if (now - start >= duration) return callback()
       requestAnimationFrame(tick)
-    }
-    requestAnimationFrame(tick)
+    })
   },
 
   /**
@@ -2389,7 +2389,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 552 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 553 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
