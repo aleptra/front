@@ -34,26 +34,21 @@ app.module.data = {
     // Ensure element has a unique ID for timer tracking, but don't re-assign it.
     if (!element.uniqueId) dom.setUniqueId(element, true)
 
-    // 1. Stop making requests with unresolved variables.
-    if (src && src.indexOf('{') !== -1 && src.indexOf('}') !== -1) {
-      return loader && dom.hide(loader)
-    }
+    // Stop making requests with unresolved variables.
+    if (src && /\{[^}]+\}/.test(src)) return
 
-    // Force re-render on Back-Forward Cache restoration
-    if (!element._bfcacheFixed) {
+    // Force re-render on Back-Forward Cache restoration.
+    if (!window._bfCacheListenerAdded) {
+      window._bfCacheListenerAdded = true
       window.addEventListener('pageshow', function (event) {
         if (event.persisted) {
-          element._dataSrc = null
           self.src(element)
         }
-        element._bfcacheFixed = true
       })
     }
 
-    // 2. Stop re-fetching the same URL when the DOM is re-processed.
-    if (element._dataSrc === src) {
-      return loader && dom.hide(loader)
-    }
+    // Stop re-fetching the same URL when the DOM is re-processed.
+    if (element._dataSrc === src) return
     element._dataSrc = src
 
     if (loader) {
@@ -61,12 +56,7 @@ app.module.data = {
       dom.hide(element)
     }
 
-    // Clear existing timer to reset the "wait" period
-    if (self._intervalTimers[element.uniqueId]) {
-      clearTimeout(self._intervalTimers[element.uniqueId])
-    }
-
-    self._intervalTimers[element.uniqueId] = setTimeout(function () {
+    setTimeout(function () {
       try {
         app.xhr.currentAsset.total = 1
         self._handle(element)
@@ -218,8 +208,6 @@ app.module.data = {
       }
 
       this._traverse(options, responseData, element, selector)
-    } else {
-      this._finish(options)
     }
   },
 
