@@ -56,8 +56,6 @@ app.module.data = {
       dom.hide(element)
     }
 
-    var delay = interval || this.defaultInterval
-
     setTimeout(function () {
       if (!element.ownerDocument || !element.parentNode) return // Safety check
 
@@ -70,8 +68,9 @@ app.module.data = {
         }
       } catch (error) {
         app.log.error(0)(error)
+        alert(error)
       }
-    }, delay)
+    }, interval || this.defaultInterval)
   },
 
   _handle: function (element, join) {
