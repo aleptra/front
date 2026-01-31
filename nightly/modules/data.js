@@ -56,7 +56,11 @@ app.module.data = {
       dom.hide(element)
     }
 
+    var delay = interval || this.defaultInterval
+
     setTimeout(function () {
+      if (!element.ownerDocument || !element.parentNode) return // Safety check
+
       try {
         app.xhr.currentAsset.total = 1
         self._handle(element)
@@ -65,9 +69,9 @@ app.module.data = {
           self._handle(element, true)
         }
       } catch (error) {
-        console.error('data-interval error:', error)
+        app.log.error(0)(error)
       }
-    }, interval || this.defaultInterval)
+    }, delay)
   },
 
   _handle: function (element, join) {
