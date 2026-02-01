@@ -70,6 +70,8 @@ var dom = {
     'grid': 'apply',
     'fixed': 'apply',
     'font': 'apply',
+    'fontsize': 'apply',
+    'letterspacing': 'apply',
     'flex': 'apply',
     'flexitem': 'apply',
     'flexdirection': 'apply',
@@ -352,6 +354,12 @@ var dom = {
         break
       case 'font':
         attr = 'fontFamily'
+        break
+      case 'fontsize':
+        attr = 'fontSize'
+        break
+      case 'letterspacing':
+        attr = 'letterSpacing'
         break
       case 'textshadow':
         attr = 'textShadow'
@@ -2389,7 +2397,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 556 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 557 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
