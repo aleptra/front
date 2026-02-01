@@ -29,8 +29,7 @@ app.module.data = {
     var self = this,
       loader = element.getAttribute('data-loader'),
       src = element.getAttribute('data-src'),
-      srcJoin = element.getAttribute('data-srcjoin'),
-      interval = element.getAttribute('data-interval') || this.defaultInterval
+      wait = element.getAttribute('data-wait') || this.defaultInterval
 
     // Ensure element has a unique ID for timer tracking, but don't re-assign it.
     if (!element.uniqueId) dom.setUniqueId(element, true)
@@ -57,12 +56,18 @@ app.module.data = {
       dom.hide(element)
     }
 
-    app.xhr.currentAsset.total = 1
-    self._handle(element)
-    if (srcJoin) {
-      app.xhr.currentAsset.total = 2
-      self._handle(element, true)
-    }
+    app.wait(wait, function () {
+      try {
+        app.xhr.currentAsset.total = 1
+        self._handle(element)
+        if (element.getAttribute('data-srcjoin')) {
+          app.xhr.currentAsset.total = 2
+          self._handle(element, true)
+        }
+      } catch (error) {
+        app.log.error(0)(error)
+      }
+    })
   },
 
   _handle: function (element, join) {
@@ -147,8 +152,8 @@ app.module.data = {
   },
 
   _run: function (options, cache) {
-    var responseData = cache ? cache : app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', ''))
-    var selector = '*:not([data-iterate-skip])',
+    var responseData = cache ? cache : app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', '')),
+      selector = '*:not([data-iterate-skip])',
       element = options.element,
       datamerge = element.getAttribute('data-merge'),
       datafilteritem = element.getAttribute('data-filteritem'),
@@ -617,15 +622,12 @@ app.module.data = {
 
   _finish: function (options) {
     var element = options.element,
-      finished = element.getAttribute('data-onfinish'),
-      wait = element.getAttribute('data-wait') || this.defaultInterval,
-      loader = options.loader
-
-    app.wait(wait, function () {
-      if (loader) dom.hide(loader)
+      finished = element.attributes['data-onfinish']
+    if (finished) app.call(finished.value)
+    if (options.loader) {
+      dom.hide(options.loader)
       dom.show(element)
-      if (finished) app.call(finished)
-    })
+    }
 
     if (element._dataSrc) delete element._dataSrc
 
