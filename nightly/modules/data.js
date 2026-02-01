@@ -148,7 +148,8 @@ app.module.data = {
 
   _run: function (options, cache) {
     var responseData = cache ? cache : app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', ''))
-    var element = options.element,
+    var selector = '*:not([data-iterate-skip])',
+      element = options.element,
       datamerge = element.getAttribute('data-merge'),
       datafilteritem = element.getAttribute('data-filteritem'),
       datareplace = element.getAttribute('data-replace'),
@@ -156,8 +157,7 @@ app.module.data = {
       databind = element.getAttribute('data-bind'),
       datastatus = element.getAttribute('data-status'),
       dataempty = element.getAttribute('data-onempty'),
-      datasuccess = element.attributes['data-onsuccess'],
-      selector = '*:not([data-iterate-skip])'
+      datasuccess = element.attributes['data-onsuccess']
 
     if (responseData) {
       if (datamerge) {
@@ -617,13 +617,14 @@ app.module.data = {
 
   _finish: function (options) {
     var element = options.element,
-      finished = element.attributes['data-onfinish'],
+      finished = element.getAttribute('data-onfinish'),
+      wait = element.getAttribute('data-wait') || this.defaultInterval,
       loader = options.loader
 
-    app.wait(250, function () {
+    app.wait(wait, function () {
       if (loader) dom.hide(loader)
       dom.show(element)
-      if (finished) app.call(finished.value)
+      if (finished) app.call(finished)
     })
 
     if (element._dataSrc) delete element._dataSrc
