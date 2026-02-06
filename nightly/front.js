@@ -2408,7 +2408,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 559 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 560 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2510,12 +2510,30 @@ var app = {
       }
     },
 
+    validate: function (options) {
+      if (options.ttl > 0) {
+        var cache = app.caches.get('local', options.keyType, options.storageKey)
+        var now = Date.now()
+
+        if (cache) {
+          if ((cache.expires && now < cache.expires) && options.ttl === cache.ttl) {
+            app.log.info()('Cache hit')
+            return cache
+          }
+
+          // Cache expired.
+          this.remove('local', options.keyType, options.storageKey)
+        }
+      }
+    },
+
     /**
      * 
      * @function remove
      * @memberof app.caches
      */
     remove: function (mechanism, key) {
+      if (app.storageKey) key = app.storageKey + '_' + key
       switch (mechanism) {
         case 'local':
           localStorage.removeItem(key)

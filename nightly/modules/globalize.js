@@ -5,6 +5,7 @@ app.module.globalize = {
   storageType: 'module',
   defaultFolder: 'assets/json/locales',
   globals: ['direction', 'code', 'iso639'],
+  ttl: 0,
 
   /**
    * @function _autoload
@@ -24,6 +25,7 @@ app.module.globalize = {
         storageMechanism: this.storageMechanism,
         folder: this.defaultFolder + this.module,
         language: this._locale.get(query, this),
+        ttl: this.ttl
       },
       options.element
     )

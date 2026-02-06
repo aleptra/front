@@ -101,20 +101,8 @@ app.module.data = {
       progresscontent = attr.progresscontent,
       srcEl = options.element
 
-    if (options.ttl > 0) {
-      var cache = app.caches.get('local', options.keyType, options.storageKey)
-      var now = Date.now()
-
-      if (cache) {
-        if ((cache.expires && now < cache.expires) && options.ttl === cache.ttl) {
-          app.log.info()('Cache hit')
-          return this._run(options, cache)
-        }
-
-        // Cache expired.
-        app.caches.remove('local', options.keyType, options.storageKey)
-      }
-    }
+    var cache = app.caches.validate(options)
+    if (cache) return this._run(options, cache)
 
     app.xhr.request({
       url: attr[options.attribute].value,
