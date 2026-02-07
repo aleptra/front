@@ -2492,7 +2492,7 @@ var app = {
         'headers': '',
         'globals': app.globals,
         'ttl': ttl ? ttl : false,
-        'expires': ttl ? ttl + Date.now() : false
+        'expires': ttl ? Number(Date.now() + Number(ttl)) : false
       }
 
       app.caches[type][key] = cacheData
@@ -2516,7 +2516,7 @@ var app = {
         var now = Date.now()
 
         if (cache) {
-          if ((cache.expires && now < cache.expires) && options.ttl === cache.ttl) {
+          if (now < cache.expires && options.ttl === cache.ttl) {
             app.log.info()('Cache hit')
             return cache
           }

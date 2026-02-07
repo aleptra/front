@@ -83,7 +83,7 @@ app.module.data = {
         element: element,
         attribute: join ? 'data-srcjoin' : 'data-src',
         storageKey: this.module + this._generateId(src.value) + joinSuffix,
-        ttl: ttl && parseInt(ttl.value) || false
+        ttl: ttl && ttl.value
       }
     this._open(attr, options)
   },

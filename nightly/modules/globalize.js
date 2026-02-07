@@ -70,6 +70,7 @@ app.module.globalize = {
           format: 'json',
           keyType: _this.storageType,
           key: _this.storeKey,
+          ttl: config.ttl
         },
         onload: {}
       }
