@@ -23,6 +23,7 @@ app.module.globalize = {
       this.module,
       {
         storageMechanism: this.storageMechanism,
+        storageType: this.storageType,
         folder: this.defaultFolder + this.module,
         language: this._locale.get(query, this),
         ttl: this.ttl
@@ -35,7 +36,7 @@ app.module.globalize = {
     var cache = app.caches.get(
       this.storageMechanism,
       this.storageType,
-      this.storeKey
+      this.storageKey
     )
 
     if (cache) {
@@ -45,6 +46,10 @@ app.module.globalize = {
       app.vars.totalStore++
       this._locale.load(config, this)
     }
+
+    config.keyType = this.storageType
+    config.storageKey = this.storageKey
+    app.caches.validate(config)
   },
 
   _run: function () {
@@ -69,7 +74,7 @@ app.module.globalize = {
           mechanism: _this.storageMechanism,
           format: 'json',
           keyType: _this.storageType,
-          key: _this.storeKey,
+          key: _this.storageKey,
           ttl: config.ttl
         },
         onload: {}
@@ -111,7 +116,8 @@ app.module.globalize = {
         _this.storageMechanism,
         _this.storageType,
         _this.module + '.language',
-        config.language
+        config.language,
+        config.ttl
       )
     },
 
@@ -121,7 +127,7 @@ app.module.globalize = {
      * @memberof app.module.globalize._locale
      */
     update: function (config, _this) {
-      _this.storeKey = _this.module + '.' + config.language
+      _this.storageKey = _this.module + '.' + config.language
       app.globals.set('language', config.language)
       document.documentElement.setAttribute('lang', config.language)
       document.documentElement.setAttribute('dir', 'ltr')
@@ -155,7 +161,7 @@ app.module.globalize = {
       var fetchedData = this.fetchedData,
         setValue = app.element.getPropertyByPath(fetchedData, 'translations.' + value)
     } else {
-      var cachedData = this.cachedData || app.caches.get(this.storageMechanism, this.storageType, this.storeKey),
+      var cachedData = this.cachedData || app.caches.get(this.storageMechanism, this.storageType, this.storageKey),
         setValue = app.element.getPropertyByPath(cachedData.data, isRoot ? value.substring(1) : 'translations.' + value)
     }
 
