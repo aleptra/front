@@ -38,11 +38,12 @@ app.module.screen = {
     md: [576, 767],
     lg: [768, 991],
     xl: [992, 1399],
-    xxl: [1400, 9999]
+    xxl: [1400, 1599],
+    xxxl: [1600, 9999]
   },
 
   // ordered list of breakpoints (for fallback search)
-  bpOrder: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+  bpOrder: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
 
   checkBreakpoints: function () {
     var w = app.globals.windowWidth
@@ -116,5 +117,6 @@ app.module.screen = {
   md: function (element) { this._initRun('md', element) },
   lg: function (element) { this._initRun('lg', element) },
   xl: function (element) { this._initRun('xl', element) },
-  xxl: function (element) { this._initRun('xxl', element) }
+  xxl: function (element) { this._initRun('xxl', element) },
+  xxxl: function (element) { this._initRun('xxxl', element) }
 }
