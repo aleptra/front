@@ -39,11 +39,15 @@ app.module.screen = {
     lg: [768, 991],
     xl: [992, 1399],
     xxl: [1400, 1599],
-    xxxl: [1600, 9999]
+    xxxl: [1600, 1919],
+    wide: [1920, 2559],
+    ultra: [2560, 3439],
+    cinema: [3440, 3999],
+    mega: [4000, 9999],
   },
 
   // ordered list of breakpoints (for fallback search)
-  bpOrder: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl', 'xxxl'],
+  bpOrder: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl', 'xxxl', 'wide', 'ultra', 'cinema', 'mega'],
 
   checkBreakpoints: function () {
     var w = app.globals.windowWidth
@@ -118,5 +122,9 @@ app.module.screen = {
   lg: function (element) { this._initRun('lg', element) },
   xl: function (element) { this._initRun('xl', element) },
   xxl: function (element) { this._initRun('xxl', element) },
-  xxxl: function (element) { this._initRun('xxxl', element) }
+  xxxl: function (element) { this._initRun('xxxl', element) },
+  wide: function (element) { this._initRun('wide', element) },
+  ultra: function (element) { this._initRun('ultra', element) },
+  cinema: function (element) { this._initRun('cinema', element) },
+  mega: function (element) { this._initRun('mega', element) }
 }
