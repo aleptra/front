@@ -1160,6 +1160,7 @@ var dom = {
     var el = app.element.resolveCall(element, value),
       parts = el.call.string.split(')/')
 
+    console.dir(element)
     if (parts.length < 2) return
     parts[0] += ')'
     var conditionStr = parts[0].replace(/^\s*\(|\)\s*$/g, ''),
@@ -1622,6 +1623,12 @@ var app = {
       var string = runArray[i],
         parsedCall = app.parse.callString(string, options),
         run = dom._actionMap[parsedCall.func] || parsedCall.func
+
+      // Support "if:" prefix for conditional logic inside attributes.
+      if (string.substring(0, 3) === 'if:') {
+        dom.if(options.srcElement || options.element, string.substring(3))
+        continue
+      }
 
       if (run.indexOf('--') !== -1) {
         var plugin = run.split('--')
@@ -2409,7 +2416,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 566 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 567 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
