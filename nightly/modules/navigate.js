@@ -168,7 +168,8 @@ app.module.navigate = {
           func: 'app.attributes.run',
           arg: state.target + ' *'
         }
-      }
+      },
+      success: ''
     })
 
     this._preloader.set(this.config.preloader)
