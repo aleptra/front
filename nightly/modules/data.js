@@ -411,7 +411,7 @@ app.module.data = {
         var key = value.replace(value.slice(-1) === '.' ? '[*].' : '[*]', keyAtIndex)
         return app.element.getPropertyByPath(fullObject, key)
       } else if (value === '[*]') {
-        return keyAtIndex
+        return obj !== undefined ? obj : (keys && keys[options.index])
       } else if (value[0] === '#') {
         return app.element.getPropertyByPath(fullObject, value.substring(1))
       }
@@ -611,7 +611,7 @@ app.module.data = {
   _finish: function (options) {
     var element = options.element,
       finished = element.attributes['data-onfinish']
-    if (finished) app.call(finished.value)
+    if (finished) app.call(finished.value, { srcElement: element })
     if (options.loader) {
       dom.hide(options.loader)
       dom.show(element)
