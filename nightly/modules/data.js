@@ -207,7 +207,13 @@ app.module.data = {
   _traverse: function (options, responseData, element, selector) {
     var iterate = options.iterate,
       responseObject = iterate === 'true' ? responseData.data : app.element.getPropertyByPath(responseData.data, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate),
-      total = iterate && responseObject.length - 1 || 0
+      onkeyempty = options.onkeyempty,
+      total = iterate && responseObject && responseObject.length - 1 || 0
+
+    // Fire data-onkeyempty when the resolved key is missing or has no items.
+    if (onkeyempty && (!responseObject || responseObject.length === 0)) {
+      app.call(onkeyempty, { srcElement: element })
+    }
 
     if (responseObject !== undefined) {
       if (!responseObject.length) {
@@ -286,8 +292,9 @@ app.module.data = {
 
             var childOptions = {
               iterate: childIterate.getAttribute('data-iterate'),
+              onkeyempty: childIterate.getAttribute('data-onkeyempty'),
               element: childIterate,
-              k: k
+              k: k,
             }
 
             this._traverse(childOptions, responseData, childIterate, selector)
