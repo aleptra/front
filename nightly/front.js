@@ -79,6 +79,7 @@ var dom = {
     'justifycontent': 'apply',
     'height': 'apply',
     'inherit': 'apply',
+    'initial': 'apply',
     'left': 'apply',
     'lineheight': 'apply',
     'padding': 'apply',
@@ -1182,12 +1183,12 @@ var dom = {
       var l = getValue(m[1]), op = m[2], r = getValue(m[3])
 
       var ops = {
-        ':': l === r,
-        '!': l !== r,
-        '>': Number(l) > Number(r),
-        '<': Number(l) < Number(r),
-        '~': l && l.indexOf(r) !== -1,
-        '!~': l && l.indexOf(r) === -1
+        ':': l === r, // equal
+        '!': l !== r, // not-equal
+        '>': Number(l) > Number(r), // greater-than
+        '<': Number(l) < Number(r), // less-than
+        '~': l && l.indexOf(r) !== -1, // contains
+        '!~': l && l.indexOf(r) === -1 // does not contain
       }
       return ops[op] || false
     }
@@ -1387,6 +1388,14 @@ var dom = {
 
     var elements = app.element.find(element, '*')
     app.attributes.run(elements)
+  },
+
+  runattr: function (object, value) {
+    var el = app.element.resolveCall(object, value),
+      element = el.call.element,
+      func = el.call.value,
+      full = func + ':' + element.getAttribute(func)
+    if (el && full) app.call(full, { srcElement: element })
   },
 
   /* @function rerun
@@ -2415,7 +2424,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 570 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 571 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
