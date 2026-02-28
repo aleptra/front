@@ -236,9 +236,10 @@ var dom = {
    * @function show
    * @memberof dom
    */
-  show: function (object) {
-    if (object.exec) object = object.exec.element
-    var el = object instanceof Object ? object : app.element.select(object) // Todo: Remove in future.
+  show: function (element, value) {
+    element = element instanceof Object ? element : app.element.select(element) // Todo: Remove in future.
+    var el = app.element.resolveCall(element, value)
+
     if (el) {
       el.style.display = el.initDisplay
       el.removeAttribute('hide')
@@ -2427,7 +2428,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 574 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 575 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
