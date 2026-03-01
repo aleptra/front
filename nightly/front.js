@@ -2428,7 +2428,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 575 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 576 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3163,9 +3163,32 @@ var app = {
               attr = parsedEl.attributes || [],
               srcDocEl = app.element.find(srcDoc, elSelector.name)
 
-            // Support attributes in the template.
-            for (var key in attr) {
-              if (attr.hasOwnProperty(key)) app.element.select(elSelector.name).setAttribute(attr[key].name, attr[key].value)
+
+            // Resolve attributes using srcDoc as the inheritance base.
+            var targetElement = app.element.select(elSelector.name)
+            if (targetElement) {
+              var inheritMode = parsedEl.getAttribute && parsedEl.getAttribute('inherit')
+              var finalAttrs = {}
+
+              // 1. Merge attributes: inherit from srcDocEl (if not disabled) then template overrides
+              if (inheritMode !== 'none' && srcDocEl && srcDocEl.attributes) {
+                for (var a = 0; a < srcDocEl.attributes.length; a++) {
+                  finalAttrs[srcDocEl.attributes[a].name] = srcDocEl.attributes[a].value
+                }
+              }
+
+              for (var k = 0; k < attr.length; k++) {
+                if (attr[k].name !== 'inherit') finalAttrs[attr[k].name] = attr[k].value
+              }
+
+              // 2. Clear existing and apply final resolved set
+              while (targetElement.attributes.length) {
+                targetElement.removeAttribute(targetElement.attributes[0].name)
+              }
+
+              for (var key in finalAttrs) {
+                targetElement.setAttribute(key, finalAttrs[key])
+              }
             }
 
             if (elSelector.name !== 'main') {
