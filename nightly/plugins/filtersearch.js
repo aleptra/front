@@ -1,27 +1,35 @@
 app.plugin.filtersearch = {
   __autoload: function (options) {
     this.plugin = options.name + '-'
-    this.config = app.config.get(
-      this.plugin,
-      { container: document },
-      options.element
-    )
     this.sectionMatches = {}
+    this.totalMatches = 0
   },
 
   run: function (object) {
-    var term = (object.exec && object.exec.value || '').trim().toLowerCase()
-    var rows = app.element.select('[' + this.plugin + '-select]')
+    var srcElement = object.options && object.options.element
+    var term = (srcElement && srcElement.value !== undefined
+      ? srcElement.value
+      : object.exec && object.exec.value || ''
+    ).trim().toLowerCase()
+
+    var hasTarget = object.exec && object.exec.element && object.exec.element !== srcElement
+    var container = hasTarget ? object.exec.element : document
+
+    var found = hasTarget
+      ? app.element.find(container, '[' + this.plugin + '-select]')
+      : app.element.select('[' + this.plugin + '-select]', true)
+
+    // Normalize to a plain array
+    var rows = found ? (found.length !== undefined ? [].slice.call(found) : [found]) : []
     var i, row, text, matches, countKey
 
     // Reset counts
     this.sectionMatches = {}
+    this.totalMatches = 0
 
-    if (!rows || rows.length === 0) {
+    if (rows.length === 0) {
       return
     }
-
-    var totalMatches = 0
 
     // Single pass: filter rows + count per section
     for (i = 0; i < rows.length; i++) {
@@ -32,7 +40,7 @@ app.plugin.filtersearch = {
       app.call(matches ? 'show' : 'hide', { element: row })
 
       if (matches) {
-        totalMatches++
+        this.totalMatches++
       }
 
       countKey = row.getAttribute('filtersearch--count')
@@ -51,18 +59,23 @@ app.plugin.filtersearch = {
     for (key in this.sectionMatches) {
       if (this.sectionMatches.hasOwnProperty(key)) {
         var count = this.sectionMatches[key]
-        var counters = app.element.select('[' + this.plugin + '-count="' + key + '"]')
-        if (counters) {
-          if (!counters.length) counters = [counters] // Normalize counters to an array to support single-element sections
-          for (i = 0; i < counters.length; i++) {
-            app.variables.update.attributes(counters[i], key, count, { reset: true })
-          }
+        var found = hasTarget
+          ? app.element.find(container, '[' + this.plugin + '-count="' + key + '"]')
+          : app.element.select('[' + this.plugin + '-count="' + key + '"]', true)
+        var counters = found ? (found.length !== undefined ? [].slice.call(found) : [found]) : []
+        for (i = 0; i < counters.length; i++) {
+          app.variables.update.attributes(counters[i], key, count, { reset: true })
         }
       }
     }
 
-    // Optional clean debug
-    //console.log('Filter matches:', totalMatches, 'Term:', term)
-    //console.log('Section counts:', this.sectionMatches)
+    // data-onempty="#someElement" on the container — show when no matches, hide otherwise
+    var onempty = hasTarget && container.getAttribute(this.plugin + '-onempty')
+    if (onempty) {
+      var emptyEl = app.element.select(onempty)
+      if (emptyEl) {
+        app.call(this.totalMatches === 0 ? 'show' : 'hide', { element: emptyEl })
+      }
+    }
   }
 }
