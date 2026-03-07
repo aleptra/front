@@ -74,8 +74,10 @@ var dom = {
     'fontsize': 'apply',
     'letterspacing': 'apply',
     'flex': 'apply',
+    'flexgrow': 'apply',
     'flexitem': 'apply',
     'flexdirection': 'apply',
+    'float': 'apply',
     'justifycontent': 'apply',
     'height': 'apply',
     'inherit': 'apply',
@@ -329,6 +331,9 @@ var dom = {
       case 'bold':
         value = attr
         attr = 'fontWeight'
+        break
+      case 'flexgrow':
+        attr = 'flexGrow'
         break
       case 'grid':
       case 'flex':
@@ -2430,7 +2435,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 578 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 579 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
