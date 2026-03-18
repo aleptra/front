@@ -83,6 +83,7 @@ var dom = {
     'height': 'apply',
     'inherit': 'apply',
     'initial': 'apply',
+    'block': 'apply',
     'inlineblock': 'apply',
     'left': 'apply',
     'lineheight': 'apply',
@@ -2448,7 +2449,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 583 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 584 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
