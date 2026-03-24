@@ -468,16 +468,24 @@ var dom = {
           app.variables.update.attributes(object, replaceValue, content)
           break
         case 'bindvar':
-          var bindInclude = this.bind.include ? ';' + this.bind.include : '',
-            binding = ((object.getAttribute('bindvar') || object.getAttribute('var')) || '') + bindInclude
+          var ownBinding = (object.getAttribute('bindvar') || object.getAttribute('var')) || '',
+            bindings = ownBinding ? ownBinding.split(';') : [],
+            map = {}
 
-          // Set variable if colon is presented or update innerhtml.
-          var bindings = binding ? binding.split(';') : []
+          var sources = [app.srcTemplate.bindvar, this.bind.include]
+          for (var s = 0; s < sources.length; s++) {
+            if (!sources[s]) continue
+            var parts = sources[s].split(';')
+            for (var i = 0; i < parts.length; i++) {
+              var p = parts[i].split(':')
+              map[p[0].trim()] = p.slice(1).join(':').trim()
+            }
+          }
 
           for (var i = 0; i < bindings.length; i++) {
-            var bindingParts = bindings[i].split(':') || [],
-              replaceVariable = bindingParts[0].trim(),
-              replaceValue = bindingParts.slice(1).join(':').trim()
+            var bp = bindings[i].split(':'),
+              replaceVariable = bp[0].trim(),
+              replaceValue = bp.slice(1).join(':').trim() || map[replaceVariable] || ''
 
             app.variables.update.content(object, replaceVariable, replaceValue)
             app.variables.update.attributes(object, replaceVariable, replaceValue)
@@ -2450,7 +2458,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 585 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 586 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2706,7 +2714,8 @@ var app = {
           elementSrcDoc = templateAttr && templateAttr.srcdoc && templateAttr.srcdoc.value,
           elementSrc = templateAttr && templateAttr.src && templateAttr.src.value,
           templateSrcDoc = elementSrcDoc || false,
-          templateSrc = elementSrc && elementSrc.split(';') || []
+          templateSrc = elementSrc && elementSrc.split(';') || [],
+          bindvar = templateAttr && templateElement.getAttribute('bindvar') || ''
 
         app.srcTemplate = {
           url: {
@@ -2714,7 +2723,8 @@ var app = {
             src: templateSrc
           },
           page: false,
-          total: templateSrc.length + (templateSrcDoc ? 1 : 0)
+          total: templateSrc.length + (templateSrcDoc ? 1 : 0),
+          bindvar: bindvar
         }
 
         this.get.templates()
@@ -3328,7 +3338,8 @@ var app = {
                       src: templateSrc
                     },
                     page: true,
-                    total: templateSrc.length + (templateSrcDoc ? 1 : 0)
+                    total: templateSrc.length + (templateSrcDoc ? 1 : 0),
+                    bindvar: templateAttr && templateElement.getAttribute('bindvar') || ''
                   }
                   dom.doctitle(false, responsePageTitle)
                   dom.bind.include = ''

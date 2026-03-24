@@ -333,7 +333,7 @@ app.module.data = {
         for (var l = 0; l < bindings.length; l++) {
           var bindingParts = bindings[l].split(':'),
             replaceVariable = bindingParts[0].trim(),
-            replaceValue = bindingParts[1].trim()
+            replaceValue = bindingParts[1] ? bindingParts[1].trim() : null
 
           switch (attr.name) {
             case 'bindglobal':
@@ -343,6 +343,7 @@ app.module.data = {
               newReplaceValue = app.querystrings.get(false, replaceValue)
               break
             case 'bindvar':
+              if (!replaceValue) continue
               newReplaceValue = replaceValue
               break
             default:
