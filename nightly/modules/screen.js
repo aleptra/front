@@ -19,12 +19,12 @@ app.module.screen = {
       self._checkBreakpoints()
     }
 
-    app.listeners.add(window, 'orientationchange', handleUpdate)
-    app.listeners.add(window, 'resize', handleUpdate)
-
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', handleUpdate)
       window.visualViewport.addEventListener('scroll', handleUpdate)
+    } else {
+      app.listeners.add(window, 'resize', handleUpdate)
+      app.listeners.add(window, 'orientationchange', handleUpdate)
     }
   },
 
