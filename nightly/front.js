@@ -1840,30 +1840,34 @@ var app = {
         doctype = string && string.match(/<!doctype\s+[^>]*>/i) || ''
 
       if (html) {
-        var attributes = html[1].trim(),
+        var htmlAttr = {},
+          attributes = html[1].trim(),
           attributePairs = attributes.split(/\s+/)
 
         for (var i = 0; i < attributePairs.length; i++) {
           var pair = attributePairs[i].split('='),
             name = pair[0],
             value = pair[1].slice(1, -1)
+          htmlAttr[name] = value
           el.setAttribute(name, value)
         }
+
+        el.htmlAttr = htmlAttr
       }
 
       if (body) {
-        var attr = {}
-        var attributes = body[1].trim(),
+        var bodyAttr = {},
+          attributes = body[1].trim(),
           attributePairs = attributes.split(/\s+/)
 
         for (var i = 0; i < attributePairs.length; i++) {
           var pair = attributePairs[i].split('='),
             name = pair[0],
             value = pair[1].slice(1, -1)
-          attr[name] = value
+          bodyAttr[name] = value
         }
 
-        el.attrList = attr
+        el.bodyAttr = bodyAttr
       }
 
       if (exclude) {
@@ -2458,7 +2462,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 588 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 589 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3154,19 +3158,19 @@ var app = {
       if (!app.srcDocTemplate) app.srcDocTemplate = app.caches.get('window', 'template', srcDoc).data
 
       if (srcDoc) {
-        var cache = app.caches.get('window', 'template', srcDoc),
-          responsePage = app.parse.text(cache.data, ['title']),
-          responsePageBodyAttr = responsePage.attrList,
-          responsePageScript = app.element.find(responsePage, app.script.selector),
-          responsePageBaseHref = app.element.find(responsePage, 'base')
+        var srcDocCache = app.caches.get('window', 'template', srcDoc),
+          srcDocPage = app.parse.text(srcDocCache.data, ['title']),
+          srcDocPageBodyAttr = srcDocPage.bodyAttr,
+          srcDocPageScript = app.element.find(srcDocPage, app.script.selector),
+          srcDocPageBaseHref = app.element.find(srcDocPage, 'base')
 
-        dom.hrefhost(responsePageBaseHref)
-        var responsePageContent = responsePage.innerHTML
+        dom.hrefhost(srcDocPageBaseHref)
+        var responsePageContent = srcDocPage.innerHTML
 
         if (!isReload) {
-          app.assets.set(responsePageScript.attributes)
-          app.language = responsePage.attributes.lang ? responsePage.attributes.lang.value : app.language
-          app.script.element = responsePageScript
+          app.assets.set(srcDocPageScript.attributes)
+          app.language = srcDocPage.attributes.lang ? srcDocPage.attributes.lang.value : app.language
+          app.script.element = srcDocPageScript
 
           if (app.docMode > 0 && app.docMode < 10) {
             document.open()
@@ -3182,19 +3186,18 @@ var app = {
 
       if (src) {
         for (var i = 0; i < src.length; i++) {
-          var cache = app.caches.get('window', 'template', src[i]),
-            html = app.parse.text(cache.data, ['meta', 'base']),
-            template = app.parse.text(app.element.find(html, 'template').innerHTML),
+          var srcCache = app.caches.get('window', 'template', src[i]),
+            srcPage = app.parse.text(srcCache.data, ['meta', 'base']),
+            srcTemplate = app.parse.text(app.element.find(srcPage, 'template').innerHTML),
             srcDoc = app.parse.text(app.srcDocTemplate),
-            hasMarkup = app.element.select('template')
+            srcHasMarkup = app.element.select('template')
 
           for (var j = 0; j < this.elementSelectors.length; j++) {
             var elSelector = this.elementSelectors[j],
-              parsedEl = app.element.find(template, elSelector.name),
+              parsedEl = app.element.find(srcTemplate, elSelector.name),
               content = parsedEl.innerHTML,
               attr = parsedEl.attributes || [],
               srcDocEl = app.element.find(srcDoc, elSelector.name)
-
 
             // Resolve attributes using srcDoc as the inheritance base.
             var targetElement = app.element.select(elSelector.name)
@@ -3225,16 +3228,16 @@ var app = {
 
             if (elSelector.name !== 'main') {
               dom.set(elSelector.name, parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML)
-              hasMarkup && app.attributes.run(elSelector.name + ' *') // Run attributes in children
+              srcHasMarkup && app.attributes.run(elSelector.name + ' *') // Run attributes in children
             }
 
-            hasMarkup && app.attributes.run(elSelector.name) // Run attributes in parent
+            srcHasMarkup && app.attributes.run(elSelector.name) // Run attributes in parent
           }
         }
       }
 
-      for (var key in responsePageBodyAttr) {
-        app.element.select('body').setAttribute(key, responsePageBodyAttr[key])
+      for (var key in srcDocPageBodyAttr) {
+        app.element.select('body').setAttribute(key, srcDocPageBodyAttr[key])
       }
 
       dom.doctitle(false, currentPageTitle)
