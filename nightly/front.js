@@ -3,7 +3,7 @@
  * Copyright © 2020 Aleptra.
  * Josef Gabrielsson
  *
- * This source code is licensed under the MIT-style license found in the 
+ * This source code is licensed under the MIT-style license found in the
  * LICENSE file in the root directory of this source tree.
  *
  * This project uses ECMAScript 5 for compatibility with older JavaScript engines.
@@ -206,12 +206,8 @@ var dom = {
     if (object && object.exec) object = object.exec.element
     var el = object instanceof Object ? object : app.element.select(object) // Todo: Remove in future.
     if (el) {
-      if (!el.initDisplay) {
-        if (el.attributes.hide) {
-          el.initDisplay = 'unset'
-        } else {
-          el.initDisplay = el.style.display || getComputedStyle(el).display
-        }
+      if (typeof el.initDisplay === 'undefined') {
+        el.initDisplay = el.style.display || ''
       }
       value = prop ? 'visibility: hidden' : 'display: none'
       el.style.cssText += value + ' !important'
@@ -646,8 +642,8 @@ var dom = {
   /**
    * @function focus
    * @memberof dom
-   * @param {*} element 
-   * @param {*} value 
+   * @param {*} element
+   * @param {*} value
    */
   focus: function (element) {
     var el = app.element.resolveCall(element)
@@ -678,8 +674,8 @@ var dom = {
   /**
    * @function scroll
    * @memberof dom
-   * @param {*} object 
-   * @param {*} value 
+   * @param {*} object
+   * @param {*} value
    */
   scroll: function (element, value, smooth) {
     if (element.exec) {
@@ -853,8 +849,8 @@ var dom = {
   /**
    * @function insert
    * @memberof dom
-   * @param {*} object 
-   * @param {*} value 
+   * @param {*} object
+   * @param {*} value
    */
   insert: function (object, value) {
     var insert, attribute, hasAttribute
@@ -1026,8 +1022,8 @@ var dom = {
   /**
    * @function replace
    * @memberof dom
-   * @param {*} object 
-   * @param {*} value 
+   * @param {*} object
+   * @param {*} value
    */
   replace: function (object, value) {
     this.insert(object, value)
@@ -1049,8 +1045,8 @@ var dom = {
   /**
    * @function reset
    * @memberof dom
-   * @param {*} object 
-   * @param {*} value 
+   * @param {*} object
+   * @param {*} value
    */
   reset: function (object) {
     if (object.exec) object = object.exec.element
@@ -1115,8 +1111,8 @@ var dom = {
   /**
    * @function sanitize
    * @memberof dom
-   * @param {*} object 
-   * @param {*} value 
+   * @param {*} object
+   * @param {*} value
    */
   sanitize: function (object, value) {
     var regex = value
@@ -1129,9 +1125,9 @@ var dom = {
   },
 
   /**
-   * 
-   * @param {*} object 
-   * @param {*} value 
+   *
+   * @param {*} object
+   * @param {*} value
    */
   split: function (object, value) {
     var parts = value.split(';'),
@@ -1150,7 +1146,7 @@ var dom = {
 
   /**
    * @function select
-   * @param {*} object 
+   * @param {*} object
    * @param {*} value
    */
   select: function (object, value) {
@@ -1937,7 +1933,7 @@ var app = {
     },
 
     /**
-     * 
+     *
      * @function get
      * @memberof app.element
      */
@@ -1958,7 +1954,7 @@ var app = {
     },
 
     /**
-     * 
+     *
      * @function set
      * @memberof app.element
      */
@@ -2026,7 +2022,7 @@ var app = {
     },
 
     /**
-     * 
+     *
      * @function add
      * @memberof app.element
      */
@@ -2045,7 +2041,7 @@ var app = {
     },
 
     /**
-    * 
+    *
     * @function operate
     * @memberof app.element
     */
@@ -2083,7 +2079,7 @@ var app = {
     },
 
     /**
-    * 
+    *
     * @function toggle
     * @memberof app.element
     */
@@ -2188,10 +2184,10 @@ var app = {
       return element
     },
     /**
-     * 
+     *
      * @function resolveBindingValue
      * @memberof app.element
-     * @returns 
+     * @returns
      */
     resolveBindingValue: function (elem, variableName, targetValue) {
       // Create a cached regex only once per variableName
@@ -2462,7 +2458,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 589 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 590 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2497,7 +2493,7 @@ var app = {
     template: {},
 
     /**
-     * 
+     *
      * @function get
      * @memberof app.caches
      */
@@ -2523,7 +2519,7 @@ var app = {
     },
 
     /**
-     * 
+     *
      * @function set
      * @memberof app.caches
      */
@@ -2582,7 +2578,7 @@ var app = {
     },
 
     /**
-     * 
+     *
      * @function remove
      * @memberof app.caches
      */
@@ -3460,7 +3456,7 @@ var app = {
             dom.set(target, responseData)
           }
 
-          //Todo: Fix so parsing problem shows. 
+          //Todo: Fix so parsing problem shows.
           if (responseError) {
             //dom.show(error)
           }
