@@ -29,7 +29,8 @@ app.module.screen = {
   },
 
   _breakpoints: {
-    xs: [0, 399],
+    xxs: [0, 319],
+    xs: [320, 399],
     sm: [400, 575],
     md: [576, 767],
     lg: [768, 991],
@@ -42,7 +43,7 @@ app.module.screen = {
     mega: [4000, 9999]
   },
 
-  _bpOrder: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl', 'xxxl', 'wide', 'ultra', 'cinema', 'mega'],
+  _bpOrder: ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl', 'xxxl', 'wide', 'ultra', 'cinema', 'mega'],
 
   _getBpByWidth: function (w) {
     var keys = this._bpOrder
@@ -106,6 +107,7 @@ app.module.screen = {
     }
   },
 
+  xxs: function (el) { this._initRun('xxs', el) },
   xs: function (el) { this._initRun('xs', el) },
   sm: function (el) { this._initRun('sm', el) },
   md: function (el) { this._initRun('md', el) },
