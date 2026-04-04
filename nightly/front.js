@@ -1843,7 +1843,7 @@ var app = {
         for (var i = 0; i < attributePairs.length; i++) {
           var pair = attributePairs[i].split('='),
             name = pair[0],
-            value = pair[1].slice(1, -1)
+            value = pair[1] && pair[1].slice(1, -1)
           htmlAttr[name] = value
           el.setAttribute(name, value)
         }
@@ -1859,7 +1859,7 @@ var app = {
         for (var i = 0; i < attributePairs.length; i++) {
           var pair = attributePairs[i].split('='),
             name = pair[0],
-            value = pair[1].slice(1, -1)
+            value = pair[1] && pair[1].slice(1, -1)
           bodyAttr[name] = value
         }
 
@@ -2458,7 +2458,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 593 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 594 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
