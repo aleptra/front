@@ -2458,7 +2458,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 591 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 592 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3137,7 +3137,6 @@ var app = {
       { name: 'aside:nth-of-type(2)', class: '', content: '' },
       { name: 'footer', class: '', content: '' }
     ],
-    originalClassList: [],
 
     /**
      * @function render
@@ -3150,6 +3149,9 @@ var app = {
         isReload = app.srcTemplate.page,
         srcDoc = app.srcTemplate.url.srcDoc,
         src = app.srcTemplate.url.src
+
+      dom.doctitle(false, currentPageTitle)
+      app.globals.refresh()
 
       if (!app.srcDocTemplate) app.srcDocTemplate = app.caches.get('window', 'template', srcDoc).data
 
@@ -3177,6 +3179,10 @@ var app = {
           }
 
           dom.set('main', currentPageBodyContent)
+        }
+
+        for (var key in srcDocPageBodyAttr) {
+          app.element.select('body').setAttribute(key, srcDocPageBodyAttr[key])
         }
       }
 
@@ -3231,13 +3237,6 @@ var app = {
           }
         }
       }
-
-      for (var key in srcDocPageBodyAttr) {
-        app.element.select('body').setAttribute(key, srcDocPageBodyAttr[key])
-      }
-
-      dom.doctitle(false, currentPageTitle)
-      app.globals.refresh()
     }
   },
 
