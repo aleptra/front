@@ -2458,7 +2458,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 595 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 596 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3229,14 +3229,14 @@ var app = {
             srcHasMarkup && app.attributes.run(elSelector.name) // Run attributes in parent
           }
         }
-
-        for (var key in srcDocPageBodyAttr) {
-          app.element.select('body').setAttribute(key, srcDocPageBodyAttr[key])
-        }
-
-        dom.doctitle(false, currentPageTitle)
-        app.globals.refresh()
       }
+
+      for (var key in srcDocPageBodyAttr) {
+        app.element.select('body').setAttribute(key, srcDocPageBodyAttr[key])
+      }
+
+      dom.doctitle(false, currentPageTitle)
+      app.globals.refresh()
     }
   },
 
