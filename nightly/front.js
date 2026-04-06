@@ -2458,7 +2458,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 597 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 598 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3197,10 +3197,11 @@ var app = {
             // Resolve attributes using srcDoc as the inheritance base.
             var targetElement = app.element.select(elSelector.name)
             if (targetElement) {
-              var finalAttrs = {}
+              var finalAttrs = {},
+                inherit = parsedEl.getAttribute ? parsedEl.getAttribute('inherit') : true
 
-              // 1. Copy attributes from srcDocEl (base)
-              if (srcDocEl && srcDocEl.attributes) {
+              // 1. Copy attributes from srcDocEl (base) ONLY if inherit is not "false"
+              if (inherit !== 'false' && srcDocEl && srcDocEl.attributes) {
                 for (var a = 0; a < srcDocEl.attributes.length; a++) {
                   finalAttrs[srcDocEl.attributes[a].name] = srcDocEl.attributes[a].value
                 }
@@ -3208,7 +3209,9 @@ var app = {
 
               // 2. Override with template attributes
               for (var k = 0; k < attr.length; k++) {
-                finalAttrs[attr[k].name] = attr[k].value
+                if (attr[k].name !== 'inherit') {
+                  finalAttrs[attr[k].name] = attr[k].value
+                }
               }
 
               // 3. Clear and apply
