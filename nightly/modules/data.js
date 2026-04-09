@@ -148,6 +148,7 @@ app.module.data = {
       datareplace = element.getAttribute('data-replace'),
       datasort = element.getAttribute('data-sort'),
       databind = element.getAttribute('data-bind'),
+      databindheader = element.getAttribute('data-bindheader'),
       datastatus = element.getAttribute('data-status'),
       dataempty = element.getAttribute('data-onempty'),
       datasuccess = element.attributes['data-onsuccess']
@@ -182,6 +183,13 @@ app.module.data = {
           target = app.element.select(test[1])
         app.element.set(target, realValue)
         app.element.onchange(target, 'data-bind')
+      }
+
+      if (databindheader) {
+        var test2 = databindheader.split(':'),
+          realValue2 = responseData.headers[test2[0]],
+          target2 = app.element.select(test2[1])
+        app.element.set(target2, realValue2, 'alive')
       }
 
       if (datasort) {

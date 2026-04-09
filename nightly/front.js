@@ -2458,7 +2458,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 598 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 599 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2523,8 +2523,12 @@ var app = {
      * @function set
      * @memberof app.caches
      */
-    set: function (mechanism, type, key, data, status, format, ttl) {
+    set: function (mechanism, type, key, response, format, ttl) {
       if (app.storageKey) key = app.storageKey + '_' + key
+      var data = response.responseText,
+        status = response.status,
+        headers = response.headers
+
       switch (format) {
         case 'xml':
           data = new DOMParser().parseFromString(data, 'text/xml')
@@ -2539,7 +2543,7 @@ var app = {
       var cacheData = {
         'data': data,
         'status': status ? status : '',
-        'headers': '',
+        'headers': headers,
         'globals': app.globals,
         'ttl': ttl ? ttl : false,
         'expires': ttl ? Number(Date.now() + Number(ttl)) : false
@@ -2757,7 +2761,7 @@ var app = {
           var name = app.vars.name[j]
           var cache = app.caches.get('session', 'var', name)
           if (cache && cache.data) {
-            app.caches.set('window', 'var', name, cache.data)
+            app.caches.set('window', 'var', name, cache)
             app.vars.loaded++
             app.xhr.finalize('var')
           } else {
@@ -3288,6 +3292,14 @@ var app = {
 
             this.statusType = statusType
 
+            var headers = this.getAllResponseHeaders().trim().split(/\r?\n/).reduce(function (acc, line) {
+              var parts = line.split(': ')
+              acc[parts.shift().toLowerCase()] = parts.join(': ')
+              return acc
+            }, {})
+
+            this.headers = headers
+
             var options = this.options || {},
               type = options.type,
               global = options.global,
@@ -3309,10 +3321,10 @@ var app = {
 
             if (cache) {
               //if (cache && (statusType.success || statusType.redirect))
-              app.caches.set(cache.mechanism, cache.keyType, cache.key, this.responseText, this.status, cache.format)
+              app.caches.set(cache.mechanism, cache.keyType, cache.key, this, cache.format)
 
               // Cache in local when ttl is provided.
-              if (cache.ttl > 0) app.caches.set('local', 'module', cache.key, this.responseText, this.status, cache.format, cache.ttl)
+              if (cache.ttl > 0) app.caches.set('local', 'module', cache.key, this, cache.format, cache.ttl)
             }
 
             if (type) {
@@ -3441,15 +3453,6 @@ var app = {
       xhr.onload = function () {
         var status = this.statusType || {}
         if (status.informational || status.success || status.redirect) {
-
-          /*var headers = xhr.getAllResponseHeaders().trim().split(/[\r\n]+/)
-          var headerMap = {}
-          for (var i = 0; i < headers.length; i++) {
-            var parts = headers[i].split(": ")
-            var header = parts[0]
-            var value = parts.slice(1).join(": ")
-            headerMap[header] = value
-          }*/
 
           var responseData = this.responseText,
             responseError = this.responseError // Get the parsing error message.
