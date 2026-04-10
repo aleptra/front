@@ -189,7 +189,8 @@ app.module.data = {
         var test2 = databindheader.split(':'),
           realValue2 = responseData.headers[test2[0]],
           target2 = app.element.select(test2[1])
-        app.element.set(target2, realValue2, 'alive')
+        app.element.set(target2, realValue2)
+        app.element.onchange(target2, 'data-bindheader')
       }
 
       if (datasort) {

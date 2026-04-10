@@ -1130,10 +1130,9 @@ var dom = {
    * @param {*} value
    */
   split: function (object, value) {
-    var parts = value.split(';'),
+    var parts = value.split(':'),
       pattern = parts[0],
       index = parts[1]
-
     dom.set(object, object.innerHTML.split(pattern)[index])
   },
 
@@ -2458,7 +2457,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 599 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 600 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
