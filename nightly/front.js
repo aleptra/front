@@ -787,9 +787,10 @@ var dom = {
    * @param {string} value - A string representing the start and end indices of the slice.
    * @desc Slices the content of an element and replaces it with the sliced portion.
    */
-  slice: function (object, value) {
-    var values = value.replace(/\s+/g, '').split(',')
-    object.innerHTML = object.innerHTML.slice(values[0], values[1])
+  slice: function (element, value) {
+    element = app.element.resolveCall(element, value, 'commaSplit')
+    value = element.call.value
+    dom.set(element, element.innerHTML.slice(value[0], value[1]))
   },
 
   /**
@@ -1129,11 +1130,11 @@ var dom = {
    * @param {*} object
    * @param {*} value
    */
-  split: function (object, value) {
-    var parts = value.split(':'),
-      pattern = parts[0],
-      index = parts[1]
-    dom.set(object, object.innerHTML.split(pattern)[index])
+  split: function (element, value) {
+    element = app.element.resolveCall(element, value, 'bracketArray')
+    console.dir(element)
+    value = element.call.value
+    dom.set(element, element.innerHTML.split(value[0])[value[1]])
   },
 
   /**
@@ -2170,7 +2171,7 @@ var app = {
      * @param {*} element - The element to resolve
      * @returns {Object} - Element with its call context
      */
-    resolveCall: function (element, value) {
+    resolveCall: function (element, value, format) {
       if (element.exec) {
         var call = element.exec
         element = call.element
@@ -2178,10 +2179,28 @@ var app = {
       } else if (value) {
         var parsedCall = app.parse.callString(value, { srcElement: element })
         element.call = parsedCall
-        element.autorun = true
+        element.call.value = element.call.string
+
+        if (format === 'bracketArray') {
+
+          value = element.call.value
+          value = value.match(/\[([^\]]+)\]/g)
+          value = value ? value.map(function (s) {
+            return s.replace(/\[|\]/g, "")
+          }) : []
+
+          element.call.value = value
+        }
       }
+
+      if (format === 'commaSplit') {
+        value = element.call.value
+        element.call.value = value.replace(/\s+/g, '').split(',')
+      }
+
       return element
     },
+
     /**
      *
      * @function resolveBindingValue
@@ -2457,7 +2476,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 600 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 601 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
