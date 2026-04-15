@@ -160,7 +160,7 @@ app.module.data = {
           responseData = this._merge(responseData, responseDataJoin, datamerge)
       }
 
-      if (datasuccess && responseData.status === 200) {
+      if (datasuccess && responseData.status === 200 && cache) {
         app.call(datasuccess.value, { srcElement: element })
       }
 
