@@ -29,11 +29,8 @@ app.plugin.map = {
     }
   },
 
-  run: function (object) {
-    var target = (object && object.exec && object.exec.value)
-      ? app.element.select(object.exec.value)
-      : app.element.select(this.config.googleTarget)
-
+  run: function (object, value) {
+    var target = app.element.resolveCall(object, value)
     var lat = target.getAttribute(this.plugin + '-lat'),
       lng = target.getAttribute(this.plugin + '-lng')
 
@@ -47,14 +44,14 @@ app.plugin.map = {
   },
 
   _render: function (target, lat, lng) {
-    var center = new google.maps.LatLng(lat, lng),
+    var center = { lat: parseFloat(lat), lng: parseFloat(lng) },
       mapProp = {
         center: center,
-        zoom: 16,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoom: 15,
+        mapId: 'default'
       }
     var map = new google.maps.Map(target, mapProp)
-    new google.maps.Marker({
+    new google.maps.marker.AdvancedMarkerElement({
       position: center,
       map: map
     })
