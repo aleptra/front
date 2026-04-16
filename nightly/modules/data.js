@@ -560,19 +560,19 @@ app.module.data = {
       }
 
       return function (item) {
-        return item[filterKey] === filterValue
+        return item[filterKey] == filterValue
       }
     })
 
-    if (filteredResponse[key] && Array.isArray(filteredResponse[key])) {
-      var filtered = filteredResponse[key].filter(function (item) {
-        return filterConditions.every(function (condition) {
-          return condition(item)
-        })
-      })
+    var target = (key && filteredResponse[key]) ? filteredResponse[key] : filteredResponse
+    var result = Array.isArray(target) ? target.filter(function (item) {
+      return filterConditions.every(function (fn) { return fn(item) })
+    }) : target
 
-      // Update the key with the filtered data
-      filteredResponse[key] = filtered
+    if (key && filteredResponse[key]) {
+      filteredResponse[key] = result
+    } else {
+      filteredResponse = result
     }
 
     return { data: filteredResponse }
