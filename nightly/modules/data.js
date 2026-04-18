@@ -37,19 +37,21 @@ app.module.data = {
     // Stop making requests with unresolved variables.
     if (src && /\{[^}]+\}/.test(src)) return
 
+    // Stop re-fetching the same URL when the DOM is re-processed.
+    if (element._dataSrc === src) return
+    element._dataSrc = src
+    element._dataLoaded = false
+
     // Force re-render on Back-Forward Cache restoration.
     if (!window._bfCacheListenerAdded) {
       window._bfCacheListenerAdded = true
       window.addEventListener('pageshow', function (event) {
         if (event.persisted) {
+          element._dataSrc = null
           self.src(element)
         }
       })
     }
-
-    // Stop re-fetching the same URL when the DOM is re-processed.
-    if (element._dataSrc === src) return
-    element._dataSrc = src
 
     if (loader) {
       dom.show(loader)
@@ -204,6 +206,7 @@ app.module.data = {
         if (el) dom.show(el)
       }
 
+      element._dataLoaded = true
       this._traverse(options, responseData, element, selector)
     }
   },
@@ -287,7 +290,7 @@ app.module.data = {
       }
 
       // Run element attributes after processing data.
-      app.attributes.run(elements, false)
+      app.attributes.run(elements, ['data-get', 'data-set', 'data-src'])
 
       // Support multiple iterates inside the same parent.
       var dataiterate = element.getAttribute('data-iterate')
@@ -633,8 +636,6 @@ app.module.data = {
       dom.hide(options.loader)
       dom.show(element)
     }
-
-    if (element._dataSrc) delete element._dataSrc
 
     app.element.runOnEvent({ exec: { func: 'data-onfinish', element: element } })
   }

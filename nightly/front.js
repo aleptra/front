@@ -41,6 +41,7 @@ var dom = {
     'resetvalue': 'reset',
     'togglevalue': 'toggle',
     'toggledisplay': 'toggle',
+    'maptext': 'map',
     'maprun': 'map',
     'mapclass': 'map',
     'mapmargin': 'map',
@@ -952,7 +953,7 @@ var dom = {
       value = object.call.value,
       cache = app.caches.get('window', 'var', 'enum')
 
-    var func = object.originalAttribute || '',
+    var func = object.originalAttribute || object.call.func || '',
       data = cache.data[func.replace('map', '')][value] || ''
 
     switch (func) {
@@ -992,6 +993,9 @@ var dom = {
       case 'maprun':
         app.exec(data.run, { element: object })
         break
+      case 'maptext':
+        var value = app.element.getPropertyByPath(cache.data, 'text.' + value)
+        app.element.set(object, value)
     }
   },
 
@@ -2293,6 +2297,13 @@ var app = {
           exec = el.executed && el.executed[func],
           hasAttr = el && el.getAttribute
 
+        // Don't fire events if a parent hasn't loaded yet
+        var p = el.parentElement
+        while (p) {
+          if (p._dataLoaded === false) return
+          p = p.parentElement
+        }
+
         if (!exec) {
           var call = hasAttr && el.getAttribute('on' + func)
           if (call) {
@@ -2477,7 +2488,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 606 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 607 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
