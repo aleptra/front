@@ -631,11 +631,14 @@ app.module.data = {
   _finish: function (options) {
     var element = options.element,
       finished = element.attributes['data-onfinish']
+    element._dataLoaded = true
     if (finished) app.call(finished.value, { srcElement: element })
     if (options.loader) {
       dom.hide(options.loader)
       dom.show(element)
     }
+
+    if (element._dataSrc) delete element._dataSrc
 
     app.element.runOnEvent({ exec: { func: 'data-onfinish', element: element } })
   }
