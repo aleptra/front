@@ -537,9 +537,7 @@ var dom = {
               app.element.saveOriginalValues(target)
               var resolvedValue = app.element.resolveBindingValue(target, replaceVariableNew, object.value)
               app.variables.update.content(target, replaceVariableNew, resolvedValue)
-              if (resolvedValue) {
-                app.variables.update.attributes(target, replaceVariableNew, resolvedValue)
-              }
+              app.variables.update.attributes(target, replaceVariableNew, resolvedValue)
             }
 
             var listenerKey = '_bf_' + replaceVariableNew + '_' + replaceValue
@@ -2503,7 +2501,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 611 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 612 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
