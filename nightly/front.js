@@ -542,44 +542,51 @@ var dom = {
               }
             }
 
+            var listenerKey = '_bf_' + replaceVariableNew + '_' + replaceValue
             switch (type) {
               case 'text':
               case 'search':
               case '':
-                ; (function (rv, rvn, rc, ff) {
-                  object.addEventListener('keyup', function (e) {
-                    if ([9, 16, 17, 18, 20, 27, 37, 38, 39, 40, 91, 93].indexOf(e.keyCode) !== -1) return
-                    var obj = app.element.select(rv)
-                    if (!obj) return
-                    app.element.saveOriginalValues(obj)
-                    object.startBind = true
-                    if (ff && ff[1] !== object.lastPressedKey) {
-                      object.startBind = false
-                      object.lastPressedKey = false
-                    }
-                    if (object.startBind) {
-                      app.variables.update.attributes(obj, rvn, object.value, { reset: true, reloadContent: rc })
-                      app.variables.update.content(obj, rvn, object.value)
-                      app.element.runOnEvent({ exec: { func: 'bindfield', element: obj } })
-                    }
-                    if (object.startSubmit) {
-                      app.call(object.startSubmit, { element: object })
-                      object.startSubmit = false
-                    }
-                  })
-                })(replaceValue, replaceVariableNew, reloadContent, fieldif)
+                if (!object[listenerKey]) {
+                  object[listenerKey] = true
+                    ; (function (rv, rvn, rc, ff) {
+                      object.addEventListener('keyup', function (e) {
+                        if ([9, 16, 17, 18, 20, 27, 37, 38, 39, 40, 91, 93].indexOf(e.keyCode) !== -1) return
+                        var obj = app.element.select(rv)
+                        if (!obj) return
+                        app.element.saveOriginalValues(obj)
+                        object.startBind = true
+                        if (ff && ff[1] !== object.lastPressedKey) {
+                          object.startBind = false
+                          object.lastPressedKey = false
+                        }
+                        if (object.startBind) {
+                          app.variables.update.attributes(obj, rvn, object.value, { reset: true, reloadContent: rc })
+                          app.variables.update.content(obj, rvn, object.value)
+                          app.element.runOnEvent({ exec: { func: 'bindfield', element: obj } })
+                        }
+                        if (object.startSubmit) {
+                          app.call(object.startSubmit, { element: object })
+                          object.startSubmit = false
+                        }
+                      })
+                    })(replaceValue, replaceVariableNew, reloadContent, fieldif)
+                }
                 break
               case 'select-one':
-                ; (function (rv, rvn) {
-                  object.addEventListener('change', function () {
-                    var obj = app.element.select(rv)
-                    if (!obj) return
-                    var value = object.options[object.selectedIndex].value
-                    app.variables.update.attributes(obj, rvn, object.value, { reset: true, exclude: ['bind'] })
-                    app.variables.update.content(obj, rvn, value)
-                    app.element.runOnEvent({ exec: { func: 'bindfield', element: obj } })
-                  })
-                })(replaceValue, replaceVariableNew)
+                if (!object[listenerKey]) {
+                  object[listenerKey] = true
+                    ; (function (rv, rvn) {
+                      object.addEventListener('change', function () {
+                        var obj = app.element.select(rv)
+                        if (!obj) return
+                        var value = object.options[object.selectedIndex].value
+                        app.variables.update.attributes(obj, rvn, object.value, { reset: true, exclude: ['bind'] })
+                        app.variables.update.content(obj, rvn, value)
+                        app.element.runOnEvent({ exec: { func: 'bindfield', element: obj } })
+                      })
+                    })(replaceValue, replaceVariableNew)
+                }
                 break
             }
           }
@@ -2496,7 +2503,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 610 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 611 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
