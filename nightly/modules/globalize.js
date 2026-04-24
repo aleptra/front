@@ -121,7 +121,7 @@ app.module.globalize = {
       )
     },
 
-    /** 
+    /**
      * @function update
      * @private
      * @memberof app.module.globalize._locale
@@ -165,7 +165,7 @@ app.module.globalize = {
         setValue = app.element.getPropertyByPath(cachedData.data, isRoot ? value.substring(1) : 'translations.' + value)
     }
 
-    if (setValue) app.element.set(element, setValue, target ? target : 'settext')
+    if (setValue) app.element.set(element, setValue, target ? target : 'sethtml')
   },
 
   /**
