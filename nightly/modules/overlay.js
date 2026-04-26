@@ -3,14 +3,14 @@
 app.module.overlay = {
   dialog: function (object) {
     var dialog = object.exec.element
-    dialog.innerHTML = dialog.originalHtml // Reset dialog state onload.
+    dialog.innerHTML = dialog.originalHtml
     dialog.showModal()
-    dom.show(dialog)
+    dom.show(object)
   },
 
   close: function (object) {
-    var overlay = object.exec.element
-    overlay.close()
-    dom.hide(dialog)
+    var dialog = object.exec.element
+    dialog.close()
+    dom.hide(object)
   }
 }
