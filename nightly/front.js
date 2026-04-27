@@ -401,6 +401,12 @@ var dom = {
       case 'zindex':
         attr = 'zIndex'
         break
+      case 'overflowx':
+        attr = 'overflowX'
+        break
+      case 'overflowy':
+        attr = 'overflowY'
+        break
       case 'zoom':
         element.style.lineHeight = 'normal'
         break
@@ -2514,7 +2520,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 618 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 619 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
