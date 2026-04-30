@@ -2530,7 +2530,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 620 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 621 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3251,7 +3251,7 @@ var app = {
             dom.set('html', responsePageContent)
           }
 
-          dom.set('main', currentPageBodyContent)
+          dom.set('body > main', currentPageBodyContent)
         }
       }
 
@@ -3265,13 +3265,14 @@ var app = {
 
           for (var j = 0; j < this.elementSelectors.length; j++) {
             var elSelector = this.elementSelectors[j],
+              replaceElement = 'body > ' + elSelector.name,
               parsedEl = app.element.find(srcTemplate, elSelector.name),
               content = parsedEl.innerHTML,
               attr = parsedEl.attributes || [],
               srcDocEl = app.element.find(srcDoc, elSelector.name)
 
             // Resolve attributes using srcDoc as the inheritance base.
-            var targetElement = app.element.select(elSelector.name)
+            var targetElement = app.element.select(replaceElement)
             if (targetElement) {
               var finalAttrs = {},
                 inherit = parsedEl.getAttribute ? parsedEl.getAttribute('inherit') : true
@@ -3301,11 +3302,11 @@ var app = {
             }
 
             if (elSelector.content !== false) {
-              dom.set(elSelector.name, parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML)
-              srcHasMarkup && app.attributes.run(elSelector.name + ' *') // Run attributes in children
+              dom.set(replaceElement, parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML)
+              srcHasMarkup && app.attributes.run(replaceElement + ' *') // Run attributes in children
             }
 
-            srcHasMarkup && app.attributes.run(elSelector.name) // Run attributes in parent
+            srcHasMarkup && app.attributes.run(replaceElement) // Run attributes in parent
           }
         }
       }
