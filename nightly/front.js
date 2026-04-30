@@ -72,6 +72,7 @@ var dom = {
     'move': 'move',
     'gap': 'apply',
     'grid': 'apply',
+    'gridarea': 'apply',
     'fixed': 'apply',
     'font': 'apply',
     'fontsize': 'apply',
@@ -346,6 +347,9 @@ var dom = {
       case 'table':
         value = attr
         attr = 'display'
+        break
+      case 'gridarea':
+        attr = 'gridArea'
         break
       case 'inline':
         value = 'inline'
@@ -1198,6 +1202,8 @@ var dom = {
     //@TODO Fix ie bug with reversed attributes.
     var bindvar = element.attributes.bindvar
     if (bindvar) dom.bind.include = bindvar.value
+    var existingHTML = element.innerHTML.trim()
+    var mode = element.getAttribute('includeinherit')
     app.xhr.request({
       element: element,
       url: element.attributes.include.value,
@@ -1205,7 +1211,10 @@ var dom = {
         run: {
           func: 'app.attributes.run',
           arg: '#' + element.id + ' *'
-        }
+        },
+        prepend: existingHTML && mode === 'prepend' ? existingHTML : undefined,
+        append: existingHTML && mode !== 'prepend' ? existingHTML : undefined,
+        depend: false
       }
     })
   },
@@ -2160,7 +2169,7 @@ var app = {
       else if (match)
         return elements[index]
       else
-        return list ? elements : (elements.length === 1 ? elements[0] : elements)
+        return list ? elements : elements[0]
     },
 
     /**
@@ -2173,7 +2182,8 @@ var app = {
      */
     find: function (node, selector) {
       var element = node.querySelectorAll(selector)
-      return element.length === 1 && selector[0] !== '*' ? element[0] : element
+      if (element.length === 0) return element
+      return selector[0] === '*' ? element : element[0]
     },
 
     /**
@@ -2520,7 +2530,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 619 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 620 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3520,7 +3530,7 @@ var app = {
             responseError = this.responseError // Get the parsing error message.
 
           if (target) {
-            dom.set(target, responseData)
+            dom.set(target, (onload && onload.prepend || '') + responseData + (onload && onload.append || ''))
           }
 
           //Todo: Fix so parsing problem shows.
