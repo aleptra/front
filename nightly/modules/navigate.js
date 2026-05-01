@@ -112,6 +112,10 @@ app.module.navigate = {
           if (link.href !== window.location.href && pushState) history.pushState(state, '', link.href)
 
           this._scroll() // Reset scroll to top.
+
+          var onloaded = document.body.getAttribute('navigate-onloaded')
+          if (onloaded) app.call(onloaded)
+
           this._load(state) // Load page.
         }
       }
