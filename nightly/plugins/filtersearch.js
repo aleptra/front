@@ -16,7 +16,7 @@ app.plugin.filtersearch = {
     var container = hasTarget ? object.exec.element : document
 
     var found = hasTarget
-      ? app.element.find(container, '[' + this.plugin + '-select]')
+      ? app.element.find(container, '*[' + this.plugin + '-select]')
       : app.element.select('[' + this.plugin + '-select]', true)
 
     // Normalize to a plain array
@@ -60,7 +60,7 @@ app.plugin.filtersearch = {
       if (this.sectionMatches.hasOwnProperty(key)) {
         var count = this.sectionMatches[key]
         var found = hasTarget
-          ? app.element.find(container, '[' + this.plugin + '-count="' + key + '"]')
+          ? app.element.find(container, '*[' + this.plugin + '-count="' + key + '"]')
           : app.element.select('[' + this.plugin + '-count="' + key + '"]', true)
         var counters = found ? (found.length !== undefined ? [].slice.call(found) : [found]) : []
         for (i = 0; i < counters.length; i++) {

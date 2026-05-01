@@ -295,7 +295,7 @@ app.module.data = {
       // Support multiple iterates inside the same parent.
       var dataiterate = element.getAttribute('data-iterate')
       if (!dataiterate || dataiterate === 'true') {
-        var iterateInside = app.element.find(element, '[data-iterate]')
+        var iterateInside = app.element.find(element, '*[data-iterate]')
         if (iterateInside) {
           var iterArray = iterateInside.length ? iterateInside : [iterateInside]
           for (var k = 0; k < iterArray.length; k++) {
