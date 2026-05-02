@@ -463,6 +463,9 @@ app.module.data = {
       }
     }
 
+    // Return empty string for null/undefined.
+    if (result === undefined || result === null) result = ''
+
     return result
   },
 
