@@ -2,6 +2,7 @@
 
 app.module.data = {
 
+  _pending: {},
   _intervalTimers: {},
   storageMechanism: 'window',
   storageType: 'module',
@@ -106,6 +107,15 @@ app.module.data = {
     var cache = app.caches.validate(options)
     if (cache) return this._run(options, cache)
 
+    // If same URL is already being fetched, queue this element.
+    var key = options.storageKey
+    if (this._pending[key]) {
+      this._pending[key].push(options)
+      return
+    }
+    this._pending[key] = []
+
+    var self = this
     app.xhr.request({
       url: attr[options.attribute].value,
       type: 'data',
@@ -639,6 +649,16 @@ app.module.data = {
     }
 
     if (element._dataSrc) delete element._dataSrc
+
+    // Run queued elements that were waiting for the same data.
+    var key = options.storageKey,
+      queued = this._pending[key]
+    if (queued) {
+      delete this._pending[key]
+      for (var i = 0; i < queued.length; i++) {
+        this._run(queued[i])
+      }
+    }
 
     app.element.runOnEvent({ exec: { func: 'data-onfinish', element: element } })
   }
