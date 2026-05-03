@@ -257,6 +257,16 @@ var dom = {
   },
 
   /**
+   * @function selectoption
+   * @memberof dom
+   * @desc Selects an option in a select element by value.
+   */
+  selectoption: function (object, value) {
+    var el = app.element.resolveCall(object, value)
+    el.value = el.call.value
+  },
+
+  /**
    * @function apply
    * @memberof dom
    * @param {*} element
@@ -2530,7 +2540,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 627 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 628 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
