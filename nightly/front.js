@@ -509,6 +509,16 @@ var dom = {
           break
         case 'bindglobal':
           replaceValue = app.element.getPropertyByPath(app.globals, replaceValue)
+          if (object._live === undefined) {
+            var obg = object.getAttribute('onbindglobalchange')
+            if (obg) {
+              var attr = obg.split(':')[1]
+              object._live = { attr: attr, template: object.getAttribute(attr), callPrefix: attr + ':' }
+              app.globals._live.push(object)
+            } else {
+              object._live = null
+            }
+          }
           break
         case 'bindasset':
           var keys = replaceValue.split('.'),
@@ -1227,7 +1237,13 @@ var dom = {
   */
   if: function (element, value) {
     var el = app.element.resolveCall(element, value),
-      parts = el.call.string.split(')/')
+      str = el.call.string
+
+    // Strip function prefix (e.g. "if:") when called via app.call/runattr
+    var prefixEnd = str.indexOf(':(')
+    if (prefixEnd !== -1) str = str.substring(prefixEnd + 1)
+
+    var parts = str.split(')/')
 
     if (parts.length < 2) return
     parts[0] += ')'
@@ -2547,9 +2563,25 @@ var app = {
       return window.app.globals[name]
     },
 
+    _live: [],
+
     refresh: function () {
+      var prev = this.href
       this.href = location.href
+      if (prev === this.href) return
       this.title = document.title
+      var alive = [], el, live
+      for (var i = 0, len = this._live.length; i < len; i++) {
+        el = this._live[i]
+        if (!document.contains(el)) continue
+        alive.push(el)
+        live = el._live
+        el.setAttribute(live.attr, live.template)
+        el.lastRunAttribute = 'bindglobal'
+        dom.bind(el, el.getAttribute('bindglobal'))
+        app.call(live.callPrefix + el.getAttribute(live.attr), { srcElement: el })
+      }
+      this._live = alive
     }
   },
 
