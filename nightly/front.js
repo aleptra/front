@@ -2553,7 +2553,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 633 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 634 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3346,7 +3346,7 @@ var app = {
             }
 
             if (elSelector.content !== false) {
-              dom.set(replaceElement, parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML)
+              dom.set(replaceElement, this.resolveBase(parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML))
               srcHasMarkup && app.attributes.run(replaceElement + ' *') // Run attributes in children
             }
 
@@ -3364,7 +3364,7 @@ var app = {
     },
 
     resolveBase: function (html) {
-      return html.replace(/ __src="/g, ' src="').replace(/ src="(?!https?:\/\/|\/\/|\/|data:|#|\{)([^"]+)"/g, ' src="' + (app.baseHref || '/') + '$1"')
+      return html && html.replace(/ __src="/g, ' src="').replace(/ src="(?!https?:\/\/|\/\/|\/|data:|#|\{)([^"]+)"/g, ' src="' + (app.baseHref || '/') + '$1"')
     }
   },
 
