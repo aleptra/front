@@ -69,7 +69,6 @@ var dom = {
     'minwidth': 'apply',
     'maxheight': 'apply',
     'maxwidth': 'apply',
-    'move': 'move',
     'gap': 'apply',
     'grid': 'apply',
     'gridarea': 'apply',
@@ -194,10 +193,23 @@ var dom = {
    * @memberof dom
    */
   move: function (object, value) {
-    var from = object
-    var to = app.element.select(value)
+    var from = object,
+      to = app.element.select(value)
     if (from && to) {
       to.appendChild(from)
+    }
+  },
+
+  /**
+   * @function clone
+   * @memberof dom
+   */
+  clone: function (object, value) {
+    var from = object,
+      to = app.element.select(value)
+    if (from && to) {
+      var clone = to.cloneNode(true)
+      from.appendChild(clone)
     }
   },
 
@@ -2553,7 +2565,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 634 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 635 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
