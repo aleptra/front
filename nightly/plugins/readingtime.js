@@ -32,7 +32,7 @@ app.plugin.readingtime = {
     var targetEl = document.querySelector(targetSelector)
     if (!targetEl) return
 
-    var text = targetEl.innerText || targetEl.textContent || ''
+    var text = targetEl.textContent || targetEl.innerText || ''
     var words = text.trim().split(/\s+/)
     var totalWords = words[0] === '' ? 0 : words.length
     var wpm = parseInt(activeConfig.wpm, 10) || 200
