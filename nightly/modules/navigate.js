@@ -37,7 +37,7 @@ app.module.navigate = {
     var scrollTop = this.mainTarget.scrollTop || 0,
       key = '_' + window.location.pathname
 
-    app.caches.set('window', 'module', 'navigate' + key, '{ "top": ' + scrollTop + ' }')
+    app.caches.set('window', 'module', 'navigate' + key, { data: '{"top":' + scrollTop + '}' })
   },
 
   /**
