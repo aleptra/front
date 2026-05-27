@@ -25,17 +25,41 @@ app.module.navigate = {
     app.listeners.add(window, 'hashchange', this._hash.bind(this))
     app.listeners.add(document, 'click', this._click.bind(this))
 
-    if (this.mainTarget) app.listeners.add(this.mainTarget, 'scroll', this._saveScroll.bind(this))
-    // Restore scroll position immediately after load
+    this._bindScroll()
     this._restoreScroll()
   },
 
   /**
-   * Saves current scroll position to session storage before reload or navigation away.
+   * Attaches scroll listener to the current main target.
+   * Called on init and after any html-level load that replaces the DOM.
+   */
+  _bindScroll: function () {
+    var self = this
+    this.mainTarget = app.element.select(this.config.target)
+    if (!this.mainTarget) return
+    this._scrollHandler = function () {
+      if (self._scrollTimer) clearTimeout(self._scrollTimer)
+      self._scrollTimer = setTimeout(function () {
+        if (!self._restoring) self._saveScroll()
+      }, 500)
+    }
+    app.listeners.add(this.mainTarget, 'scroll', this._scrollHandler)
+  },
+
+  /**
+   * Returns the cache key for the current page (pathname + query string).
+   */
+  _scrollKey: function () {
+    return '_' + window.location.pathname + window.location.search
+  },
+
+  /**
+   * Saves current scroll position for the current page.
    */
   _saveScroll: function () {
+    if (!this.mainTarget) return
     var scrollTop = this.mainTarget.scrollTop || 0,
-      key = '_' + window.location.pathname
+      key = this._scrollKey()
 
     app.caches.set('window', 'module', 'navigate' + key, { data: '{"top":' + scrollTop + '}' })
   },
@@ -44,31 +68,36 @@ app.module.navigate = {
    * Restores scroll position when page is reloaded or navigated back,
    * waiting until the content is fully rendered or timeout reached.
    */
-  _restoreScroll: function () {
+  _restoreScroll: function (waitForChange) {
     var self = this,
-      key = '_' + window.location.pathname,
+      key = self._scrollKey(),
       saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true })
-    if (!saved) return
+
+    if (!saved) {
+      self._restoring = false
+      return
+    }
+
+    self._restoring = true
 
     var mainTarget = self.mainTarget,
       lastHeight = 0,
       stable = 0,
-      waited = 0,
       step = 200,
-      limit = 15000
+      minWait = waitForChange ? 600 : 0
 
-      ; (function check() {
-        var h = mainTarget.scrollHeight
-        stable = (h === lastHeight) ? stable + 1 : 0
-        lastHeight = h
+    app.wait(minWait, function poll() {
+      var h = mainTarget.scrollHeight
+      stable = (h === lastHeight) ? stable + 1 : 0
+      lastHeight = h
 
-        if (stable >= 3 || waited >= limit) {
-          dom.scroll(self.config.target, parseInt(saved.top, 10))
-        } else {
-          waited += step
-          setTimeout(check, step)
-        }
-      })()
+      if (stable >= 3) {
+        dom.scroll(self.config.target, parseInt(saved.top, 10))
+        self._restoring = false
+      } else {
+        app.wait(step, poll)
+      }
+    })
   },
 
   go: function (event) {
@@ -108,10 +137,18 @@ app.module.navigate = {
             'arg': { disableSrcdoc: true, runAttributes: true }
           }
 
+          // Save scroll position for current page before URL changes.
+          if (this._scrollTimer) clearTimeout(this._scrollTimer)
+          this._saveScroll()
+
           // Prevent duplicate history entries.
           if (link.href !== window.location.href && pushState) history.pushState(state, '', link.href)
 
+          this._restoring = true
           this._scroll() // Reset scroll to top.
+
+          var self = this
+          app.wait(300, function () { self._restoring = false })
 
           var onloaded = document.body.getAttribute('navigate-onloaded')
           if (onloaded) app.call(onloaded)
@@ -137,11 +174,13 @@ app.module.navigate = {
       'extension': false,
       'arg': { disableSrcdoc: true, runAttributes: true }
     }
+
+    this._restoring = true
     this._load(state)
     if (state.hash) this._hash(state)
 
-    // Restore scroll position immediately after load
-    this._restoreScroll()
+    // Restore scroll position after load
+    this._restoreScroll(true)
   },
 
   /**
@@ -150,7 +189,8 @@ app.module.navigate = {
    * @private
    */
   _load: function (state) {
-    var regex = /^\/+|\/+$/g,
+    var self = this,
+      regex = /^\/+|\/+$/g,
       startpage = app.isLocalNetwork ? this.config.startpageLocal : this.config.startpage || '/'
 
     if (startpage && (state.pathname === '/' || state.pathname.replace(regex, '') === startpage.replace(regex, ''))) {
@@ -175,6 +215,11 @@ app.module.navigate = {
       },
       success: ''
     })
+
+    // Re-bind scroll listener after html-level loads replace the DOM
+    if (state.target === 'html') {
+      app.wait(100, function () { self._bindScroll() })
+    }
 
     this._preloader.set(this.config.preloader)
     this._preloader.reset()
