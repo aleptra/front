@@ -208,6 +208,7 @@ var dom = {
     var from = object,
       to = app.element.select(value)
     if (from && to) {
+      from.innerHTML = ''
       var clone = to.cloneNode(true)
       from.appendChild(clone)
     }
@@ -2565,7 +2566,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 640 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 641 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3026,6 +3027,25 @@ var app = {
       'title',
       'value'],
 
+    deferredAttributes: ['clone'],
+
+    _deferred: [],
+
+    runDeferred: function () {
+      var queue = this._deferred
+      this._deferred = []
+      for (var i = 0; i < queue.length; i++) {
+        var d = queue[i]
+        if (!d.element.parentNode || !dom[d.name]) continue
+        var source = app.element.select(d.value)
+        if (source) {
+          dom[d.name](d.element, d.value)
+        } else {
+          this._deferred.push(d) // Re-queue if source not in DOM yet.
+        }
+      }
+    },
+
     /**
      * @function run
      * @memberof app.attributes
@@ -3078,6 +3098,12 @@ var app = {
             if (exclude.indexOf(attrName) === -1 && exclude.indexOf(attrFullname) === -1) {
               var name = attrFullname.split('-')
               element.originalAttribute = dom._actionMap[attrName] && attrName
+
+              // Defer attributes that depend on fully-processed DOM.
+              if (this.deferredAttributes.indexOf(attrName) !== -1) {
+                this._deferred.push({ element: element, name: attrName, value: attrValue })
+                continue
+              }
 
               if (attrName === 'include') dom.setUniqueId(element) // Add ID to all includes.
 
@@ -3373,6 +3399,9 @@ var app = {
 
       dom.doctitle(false, currentPageTitle)
       app.globals.refresh()
+
+      // Execute deferred attributes after template render (all sections in DOM).
+      app.attributes.runDeferred()
     },
 
     resolveBase: function (html) {
@@ -3402,11 +3431,16 @@ var app = {
       self.finalize = function (type) {
         if (app.extensions.loaded === app.extensions.total
           && app.vars.loaded === (app.vars.total + app.vars.totalStore)
-          && type !== 'template' && type !== 'data') {
+          && type !== 'template' && type !== 'data' && type !== 'page') {
 
           app.log.info()('Loaded extensions:', app.extensions.loaded + '/' + app.extensions.total +
             ', vars:', app.vars.loaded + '/' + (app.vars.total + app.vars.totalStore))
-          app.attributes.run()
+
+          if (!app.srcTemplate.page) app.attributes.run()
+
+          // Execute deferred attributes after all elements are processed.
+          app.attributes.runDeferred()
+
           app.disable(false)
         }
       }
