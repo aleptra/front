@@ -1,35 +1,35 @@
-[![Integration tests](https://github.com/aleptra/front/actions/workflows/main.yml/badge.svg)](https://github.com/aleptra/front/actions/workflows/main.yml)
-# Front (Experimental)
-## Powered by JavaScript ES5
+<p align="center">
+  <img src="https://www.front.nu/assets/img/icon_black.svg" width="100">
+</p>
 
-<img src="https://www.front.nu/assets/img/icon_black.svg" width="100">
+<h1 align="center">Front</h1>
 
-## [Explore documentation][0]
+<p align="center">Powered by JavaScript ES5</p>
 
-## Browser support
+<p align="center">
+  <a href="https://github.com/aleptra/front/actions/workflows/main.yml">
+    <img src="https://github.com/aleptra/front/actions/workflows/main.yml/badge.svg" alt="Integration tests">
+  </a>
+</p>
 
-| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_32x32.png"><br>Firefox | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_32x32.png"><br>IExplorer | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_32x32.png"><br>Chrome | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_32x32.png"><br>Edge | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_32x32.png"><br>Safari | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_32x32.png"><br>iOS Safari |
-| --------- | --------- | --------- | --------- | --------- | --------- |
-| Yes | 10 & 11 | Yes | Yes | Yes | Yes
+> ⚠️ **Nightly** — This is the nightly release channel. It contains the latest changes and may be unstable.
 
-## Development Environment
-### Requirements
-- [x] Visual Studio Code
-- [x] File Watcher for VS Code
+## Installation
 
-### IDE
-Visual Studio Code is recommended for this project.
+### CDN
 
-### Watcher
-A file watcher is recommended to be present and installed as an extension and the file watcher must run the command ```make``` for the JS and CSS to be rebuilt.
+```html
+<script src="https://cdn.front.nu/nightly/front.js"></script>
+```
 
-#### CLI
-```make serve```
+### Download
 
-```make compress```
+You can also download the [nightly folder](https://cdn.front.nu/nightly/) to run it locally.
 
-```make watch```
+## Documentation
 
-[0]:https://www.front.nu/documentation
-[1]:https://code.visualstudio.com
-[2]:https://marketplace.visualstudio.com/items?itemName=appulate.filewatcher
+Visit [front.nu/documentation](https://www.front.nu/documentation) for guides, API reference, and examples.
+
+## License
+
+[MIT](LICENSE)
