@@ -11,6 +11,12 @@ release:
 	@read -p "Confirm [y/n]: " ans && [ "$$ans" = "y" ] || exit 1
 	@mkdir -p dist/$(VERSION)
 	@cp -fr $(SRC)/* dist/$(VERSION)/
+	@echo ""
+	@echo "Prepared dist/$(VERSION):"
+	@ls dist/$(VERSION)/
+	@echo ""
+	@read -p "Commit and tag v$(VERSION)? [y/n]: " ans; \
+	if [ "$$ans" != "y" ]; then rm -rf dist/$(VERSION); echo "Reverted."; exit 1; fi
 	@git add . && git commit -m "Release $(VERSION)" && git push
 	@git tag -a v$(VERSION) -m "v$(VERSION)" && git push origin v$(VERSION)
 	@echo "Released $(VERSION)"
