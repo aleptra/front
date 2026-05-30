@@ -24,7 +24,7 @@
 
 ### Download
 
-You can also download the [nightly folder](https://cdn.front.nu/nightly/) to run it locally.
+You can also download the [nightly folder](/nightly/) to run it locally.
 
 ## Documentation
 
