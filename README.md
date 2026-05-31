@@ -12,19 +12,32 @@
   </a>
 </p>
 
-> ⚠️ **Nightly** — This is the nightly release channel. It contains the latest changes and may be unstable.
-
 ## Installation
 
 ### CDN
+
+#### Latest Stable (1.0.0)
+
+```html
+<script src="https://cdn.front.nu/1.0.0/front.js"></script>
+```
+
+_(Also available: `front.min.js`)_
+
+#### Nightly (Development)
+
+> ⚠️ **Nightly** — The latest changes. May be unstable.
 
 ```html
 <script src="https://cdn.front.nu/nightly/front.js"></script>
 ```
 
-### Download
+_(Also available: `front.min.js`)_
 
-You can also download the [nightly folder](/nightly/) to run it locally.
+### Download Locally
+
+- [Latest Stable (1.0.0)](/1.0.0/)
+- [Nightly (Development)](/nightly/)
 
 ## Documentation
 
