@@ -176,9 +176,10 @@ app.module.data = {
       }
 
       if (dataempty) {
-        var checkData = responseData.data
-        var isEmpty = Array.isArray(checkData) ? checkData.length === 0 : !checkData
-        isEmpty ? dom.show(dataempty) : dom.hide(dataempty)
+        var filterKey = element.getAttribute('data-filterkey'),
+          target = (filterKey && responseData.data[filterKey]) || responseData.data,
+          empty = !target || !target.length
+        empty ? dom.show(dataempty) : dom.hide(dataempty)
       }
 
       if (databind) {
