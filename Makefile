@@ -1,8 +1,11 @@
 SHELL := /bin/bash
 
+.PHONY: nightly
+
 SRC = src
 JS_FILE = $(SRC)/front.js
 JS_MIN_FILE = front.min.js
+TAG := $(shell grep -o 'build:[[:space:]]*[0-9]*' $(JS_FILE) | awk -F':' '{ print $$2+1 }')
 VERSION := $(shell grep 'frontVersion' $(JS_FILE) | grep -oE '[0-9]+' | head -3 | paste -sd '.' -)
 
 define minify
@@ -16,6 +19,16 @@ define minify
 	| perl -0777 -pe 's/}\n\s*}/}}/g' \
 	> $(2)
 endef
+
+nightly:
+	@sed -i '' -E 's/(build:[[:space:]]+)[0-9]+/\1$(TAG)/g' $(JS_FILE)
+	@echo "Build: $(TAG) (v$(VERSION))"
+	@cp -fr $(SRC)/* nightly/
+	@$(call minify,$(JS_FILE),nightly/$(JS_MIN_FILE))
+	@echo "Built nightly"
+	@read -p "Deploy? [y/n]: " ans && [ "$$ans" = "y" ] || exit 0
+	@git add . && git commit -m "Build $(TAG)" && git push
+	@echo "Deployed nightly"
 
 release:
 	@if ! command -v gh &> /dev/null; then echo "Error: gh (GitHub CLI) is required. Install with: brew install gh"; exit 1; fi

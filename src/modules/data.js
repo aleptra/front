@@ -166,10 +166,6 @@ app.module.data = {
         app.call(datasuccess.value, { srcElement: element })
       }
 
-      if (dataempty) {
-        responseData.data.length === 0 ? dom.show(dataempty) : dom.hide(dataempty)
-      }
-
       if (datafilteritem) {
         var datafilterkey = element.getAttribute('data-filterkey')
         responseData = this._filter(responseData.data, datafilteritem, datafilterkey)
@@ -177,6 +173,12 @@ app.module.data = {
 
       if (datareplace) {
         this._replace(responseData.data, datareplace)
+      }
+
+      if (dataempty) {
+        var checkData = responseData.data
+        var isEmpty = Array.isArray(checkData) ? checkData.length === 0 : !checkData
+        isEmpty ? dom.show(dataempty) : dom.hide(dataempty)
       }
 
       if (databind) {
