@@ -26,9 +26,18 @@ nightly:
 	@cp -fr $(SRC)/* nightly/
 	@$(call minify,$(JS_FILE),nightly/$(JS_MIN_FILE))
 	@echo "Built nightly"
-	@read -p "Deploy? [y/n]: " ans && [ "$$ans" = "y" ] || exit 0
+	@read -p "Deploy? [y/n]: " ans; \
+	if [ "$$ans" != "y" ]; then \
+		files=$$(git ls-files 'src/front*.js' 'nightly/front*.js'); \
+		if [ -n "$$files" ]; then \
+			git restore --staged -- $$files; \
+			git restore --worktree -- $$files; \
+		fi; \
+		echo "Reverted."; \
+		exit 1; \
+	fi
 	@git add . && git commit -m "Build $(TAG)" && git push
-	@echo "Deployed nightly"
+	@echo "✅ Deployed nightly"
 
 release:
 	@if ! command -v gh &> /dev/null; then echo "Error: gh (GitHub CLI) is required. Install with: brew install gh"; exit 1; fi
@@ -50,7 +59,7 @@ release:
 	@git tag -a v$(VERSION) -m "v$(VERSION)" && git push origin v$(VERSION)
 	@zip -r front-$(VERSION).zip $(VERSION)
 	@printf "## What's included\n- Runtime\n- Modules\n- Plugins\n\n## CDN\n- https://cdn.front.nu/$(VERSION)/front.js\n- https://cdn.front.nu/$(VERSION)/$(JS_MIN_FILE) (minified)\n\n## Documentation\nhttps://www.front.nu/documentation\n" | gh release create v$(VERSION) --title "$(VERSION)" --notes-file - front-$(VERSION).zip
-	@echo "Released $(VERSION)"
+	@echo "✅ Released $(VERSION)"
 
 app:
 	@echo "===================="
