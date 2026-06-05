@@ -1,23 +1,40 @@
 {
-  "makefile.extensionOutputFolder": "./.vscode",
-	"editor.insertSpaces": true,
-	"editor.tabSize": 2,
-  "files.exclude": {
-    "dist/front*": true,
-    "dist/lib": true,
+  "[html]": {
+    "editor.formatOnSave": false
   },
-  "filewatcher.commands" : [
-    {
-      "match": "\\.css*",
-      "isAsync": true,
-      "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
-      "event": "onFileChange"
-    },
-    {
-      "match": "\\.js*",
-      "isAsync": true,
-      "cmd": "echo '${file} file content Changed'; cd ${workspaceRoot} && make",
-      "event": "onFileChange"
-    }
-  ]
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.stickyScroll.enabled": false,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "git.openDiffOnClick": false,
+  "liveServer.settings.port": 5503,
+  "search.exclude": {
+    "**/*.log": true,
+    "**/*.min.js": true,
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/dist": true
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.activeBorder": "#fbbf24",
+    "activityBarBadge.background": "#f59e0b",
+    "activityBarBadge.foreground": "#0f172a",
+    "badge.background": "#f59e0b",
+    "badge.foreground": "#0f172a",
+    "editorCursor.foreground": "#fbbf24",
+    "statusBar.debuggingBackground": "#f59e0b",
+    "statusBarItem.hoverBackground": "#fbbf24",
+    "titleBar.activeForeground": "#fbbf24",
+    "titleBar.activeBackground": "#111827",
+    "tab.activeBorderTop": "#fbbf24"
+  }
 }
