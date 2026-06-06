@@ -48,7 +48,7 @@ app.plugin.syntaxhighlighting = {
       style = this.markupElement
 
     // Tags and self-closing tags.
-    var rep = text.replace(/(&lt;\/?)(\w+)([\s\S]*?)(\/?)&gt;/g, function (match, p1, tag, attributes, selfClosing) {
+    var rep = text.replace(/(&lt;\/?)(\w+)((?:"[^"]*"|'[^']*'|(?!>)[\s\S])*?)(\/?)&gt;/g, function (match, p1, tag, attributes, selfClosing) {
       var closed = '',
         selfClosingTag = '',
         colorTag = color[1], // Color for tag names.
