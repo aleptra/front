@@ -16,6 +16,11 @@ app.plugin.wave = {
   },
 
   load: function (container) {
+    // Destroy previous instance if one exists (prevents stacking on SPA navigation)
+    if (this._destroy) this._destroy()
+
+    var self = this
+
     // Read per-element config (attributes on the container override globals)
     var conf = app.config.get('wave-', this.config, container)
     var slices = parseInt(conf.slices, 10) || 40
@@ -157,7 +162,8 @@ app.plugin.wave = {
     window.addEventListener('resize', onResize)
     document.addEventListener('visibilitychange', onVisibility)
 
-    // Expose destroy for manual cleanup
+    // Expose destroy for manual cleanup and track on plugin instance
     container._waveDestroy = destroy
+    self._destroy = destroy
   }
 }
