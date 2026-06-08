@@ -48,30 +48,46 @@ app.plugin.wave = {
     var layout = {}
 
     function computeLayout() {
-      canvas.width = container.offsetWidth || window.innerWidth
-      canvas.height = container.offsetHeight || window.innerHeight
+      var w = container.offsetWidth || window.innerWidth
+      var h = container.offsetHeight || window.innerHeight
+
+      // Skip if container hasn't been laid out yet
+      if (!w || !h) return false
+
+      canvas.width = w
+      canvas.height = h
 
       var imgRatio = img.width / img.height
-      var canvasRatio = canvas.width / canvas.height
-      var renderWidth = canvas.width
-      var renderHeight = canvas.height
+      var canvasRatio = w / h
+      var renderWidth = w
+      var renderHeight = h
 
       if (canvasRatio > imgRatio) {
-        renderHeight = canvas.width / imgRatio
+        renderHeight = w / imgRatio
       } else {
-        renderWidth = canvas.height * imgRatio
+        renderWidth = h * imgRatio
       }
 
       layout.renderWidth = renderWidth
       layout.renderHeight = renderHeight
-      layout.offsetX = (canvas.width - renderWidth) / 2
-      layout.offsetY = (canvas.height - renderHeight) / 2
+      layout.offsetX = (w - renderWidth) / 2
+      layout.offsetY = (h - renderHeight) / 2
       layout.sliceHeight = renderHeight / slices
       layout.srcSliceHeight = img.height / slices
+      layout.ready = true
+      return true
     }
 
     function animate() {
       if (!running) return
+
+      // Retry layout if container wasn't ready on first attempt
+      if (!layout.ready) {
+        if (!computeLayout()) {
+          animId = requestAnimationFrame(animate)
+          return
+        }
+      }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       time += speed
@@ -153,8 +169,11 @@ app.plugin.wave = {
     }
 
     img.onload = function () {
-      computeLayout()
-      start()
+      // Delay slightly to let the DOM settle after SPA navigation
+      setTimeout(function () {
+        computeLayout()
+        start()
+      }, 50)
     }
 
     img.src = src
