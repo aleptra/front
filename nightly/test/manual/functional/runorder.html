@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h2>Runorder</h2>
+  <hr>
+  <section>
+    <h4>Hash:</h4>
+    <div settext="text" uppercase runorder="uppercase;settext">.</div>
+    <div uppercase settext="{test}" bindvar="test:test" runorder="bindvar;settext;uppercase"></div>
+  </section>
+</body>
+
+</html>

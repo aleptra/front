@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="data" var="api"></script>
+  <title>Bindappend</title>
+</head>
+
+<body>
+  <h1>Bindappend</h1>
+  <hr>
+
+  <section>
+    <h3>Select with input</h3>
+    <select id="language1"
+      data-src="https://api.aleptra.com/humanology/?table=human_language&order=language->>eng&where=isSign.eq(false),isExtinct.eq(null)&limit=30"
+      data-ttl="60000" data-iterate="true" onvaluechange="append:#to1:#from1" required>
+      <option data-get="language.eng" data-set="i:iso" value="{i}">...</option>
+    </select>
+    <div flex flexdirection="column" id="to1">...</div>
+    <div id="from1" stop="*" hide>
+      <input type="text" margintop=".5rem" padding=".5rem .5rem" bindappend="#language1.label:ph;#language1:iso"
+        placeholder="Word in {ph}" name="word.{iso}" autocomplete="off">
+    </div>
+  </section>
+
+  <section>
+    <h3>Input with Div</h3>
+    <form onformsubmit="append:#to2:#from2;reset">
+      <input type id="language2" value="" autocomplete="off">
+    </form>
+
+    <div flex flexdirection="column" id="to2">...</div>
+    <div id="from2" stop="*" hide>
+      <div type="text" bindappend="#language2:e" settext="{e}"></div>
+    </div>
+  </section>
+
+</body>
+
+</html>

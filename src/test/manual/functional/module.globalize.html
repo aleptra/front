@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="globalize" conf="debug:true" globalize-conf="folder:assets/json/locales">
+  </script>
+</head>
+
+<body>
+  <h1>Globalize</h1>
+  <hr>
+  <!--<span globalize-get="page" slice="1,2" lowercase uppercase>...</span><br>
+  <span globalize-get="Man" uppercase>...</span><br>
+  <span globalize-get="views" uppercase>...</span><br>
+  <span globalize-get="cache" slice="0,1">...</span><br>
+  <span globalize-get="age"></span><br>
+  <span globalize-get="name"></span>
+  -->
+  <br><br>
+  <select onvaluechange="globalize-set">
+    <option value="sv">Svenska</option>
+    <option value="en">English</option>
+    <option value="syc">ܐܪܡܝܐ</option>
+  </select>
+
+  <select name="dialects" class="tac z07 mt1">
+    <option value="" globalize-get="All dialects">All dialects</option>
+    <optgroup globalize-get="aramaic_modern" globalize-target="label">
+      <option value="syr">Suryoyo (Standard)</option>
+      <option value="syt">Surayt (Standard West)</option>
+    </optgroup>
+  </select>
+  <br>
+  <span globalize-get="/name"></span><br>
+  <span globalize-get="/code"></span><br>
+  <span globalize-get="/direction"></span><br>
+  <span globalize-get="app.name"></span>
+</body>
+
+</html>

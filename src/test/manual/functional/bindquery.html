@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Bindquery</h1>
+  <hr>
+  <a href="?a=1&b=2&c=3" click="">Try abc</a><br>
+  
+  <section>
+    <h3>Query</h3>
+    <span bindquery="a:a;b:b;c:c">{a:0}{b:0}{c:0}</span><br>
+    <span bindquery="a:a;b:b;c:c" test="{a:1}{b}{c}" settext="{a:0}{b:0}{c:0}">bindquery</span><br>
+    <h3>Query with asset</h3>
+    <span bindasset="api:api.themoviedb.popular" bindquery="a:a">{api}?p={a:0}</span><br>
+  </section>
+</body>
+
+</html>

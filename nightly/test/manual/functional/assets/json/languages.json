@@ -1,0 +1,22 @@
+{
+  "languages": [
+    {
+      "id": 1,
+      "name": "English",
+      "code": "en",
+      "translated": 100
+    },
+    {
+      "id": 2,
+      "name": "Svenska",
+      "code": "sv",
+      "translated": 5
+    },
+    {
+      "id": 3,
+      "name": "ܐܪܡܝܐ",
+      "code": "arc",
+      "translated": 1
+    }
+  ]
+}

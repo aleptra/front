@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="animate" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Animate</h1>
+  <hr>
+  
+  <!-- Rotate Animation -->
+  <button
+    id="animateRotate"
+    animate-key="0;50;100"
+    animate-transform="rotate(0deg);rotate(180deg);rotate(360deg)"
+    animate-easing="ease-in-out"
+    animate-duration="2s"
+    animate-delay="1s"
+    click="animate-start:#animateRotate"
+    mouseover="click">Rotate</button>
+
+  <!-- Translate Animation -->
+  <button
+    id="animateTranslate"
+    animate-key="100"
+    animate-transform="translateX(-100px) translateY(100px)"
+    animate-easing="ease-in-out"
+    animate-duration="1s"
+    animation-direction="reverse"
+    click="animate-start:#animateTranslate"
+    mouseover="animate-start:#animateTranslate">Translate</button>
+
+  <!-- Fade In/Out Animation -->
+  <button
+    id="animateFade"
+    animate-key="0;100"
+    animate-transform="opacity(0);opacity(1)"
+    animate-easing="ease-in-out"
+    animate-duration="2s"
+    click="animate-start:#animateFade">Fade In/Out</button>
+
+  <!-- Slide Up/Down Animation -->
+  <button
+    id="animateSlide"
+    animate-key="0;100"
+    animate-transform="translateY(100px);translateY(0)"
+    animate-easing="ease-in-out"
+    animate-duration="1.5s"
+    click="animate-start:#animateSlide">Slide Up/Down</button>
+
+  <!-- Slide Down/Up Animation -->
+  <button
+    id="animateSlideDownUp"
+    animate-key="0;50;100"
+    animate-transform="translateY(0);translateY(100px);translateY(0)"
+    animate-easing="ease-in-out"
+    animate-duration="1.5s"
+    click="animate-start:#animateSlideDownUp">Slide Down/Up</button>
+
+  <!-- Shake Animation -->
+  <button
+    id="animateShake"
+    animate-key="0;25;50;75;100"
+    animate-transform="translateX(0);translateX(-10px);translateX(10px);translateX(-10px);translateX(0)"
+    animate-easing="ease"
+    animate-duration="0.6s"
+    click="animate-start:#animateShake">Shake</button>
+
+  <!-- Bounce Animation -->
+  <button
+    id="animateBounce"
+    animate-key="0;20;50;80;100"
+    animate-transform="translateY(0);translateY(-30px);translateY(15px);translateY(-15px);translateY(0)"
+    animate-easing="ease"
+    animate-duration="1.5s"
+    click="animate-start:#animateBounce">Bounce</button>
+
+  <!-- Flip Animation -->
+  <button
+    id="animateFlip"
+    animate-key="0;100"
+    animate-transform="rotateY(0deg);rotateY(180deg)"
+    animate-easing="ease-in-out"
+    animate-duration="1.5s"
+    click="animate-start:#animateFlip">Flip</button>
+
+  <!-- Zoom In/Out Animation -->
+  <button
+    id="animateZoom"
+    animate-key="0;100"
+    animate-transform="scale(1);scale(1.5)"
+    animate-easing="ease-in-out"
+    animate-duration="1s"
+    click="animate-start:#animateZoom">Zoom In/Out</button>
+
+  <!-- Pulse Animation -->
+  <button
+    id="animatePulse"
+    animate-key="0;50;100"
+    animate-transform="scale(1);scale(1.2);scale(1)"
+    animate-easing="ease-in-out"
+    animate-duration="1s"
+    click="animate-start:#animatePulse">Pulse</button>
+
+  <hr>
+
+  <!-- Heart Icon Animation -->
+  <button
+    id="animateHeart"
+    color="red"
+    margin="5rem"
+    animate-key="0;50;100"
+    animate-transform="scale(2);scale(1.5);scale(2)"
+    animate-easing="ease-in-out"
+    animate-duration="1s"
+    animate-iteration="infinite"
+    animate-start="#animateHeart">&#9829;</button>
+  
+</body>
+
+</html>

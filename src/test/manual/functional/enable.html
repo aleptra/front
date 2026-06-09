@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Enable</h1>
+  <hr>
+  <h4>Input</h4>
+  <input type="text" id="field1" disable></input>
+  <input type="text" id="field2" disable></input>
+  <input type="text" id="field3" disable enable></input>
+  <h4>Button</h4>
+  <button click="enable:#field1">Enable field (1)</button>
+  <button ontabchange="enable:#field2">ontabchange enable field (2)</button>
+  <button ontabchange="click" click="disable:#field3">ontabchange disable (3)</button>
+</body>
+
+</html>
+

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script
+    src="../../../front.js"
+    module="data"
+    var="api"
+    conf="debug:true">
+  </script>
+</head>
+
+<body>
+  <h2>Navigation (Paging):</h2>
+  <section>
+    
+    <nav iterate="0;3;i">
+      <a href="?" settext="{i}" sethref="?page={i}"></a>
+    </nav>
+
+    <nav iterate="1;3;i">
+      <a href="?" settext="{i}" sethref="?page={i}"></a>
+    </nav>
+
+  </section>
+</body>
+
+</html>

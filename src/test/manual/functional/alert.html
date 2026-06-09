@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Alert</h1>
+  <hr>
+  <div alert="This is a message!" onalert="log:[alert(OK)]"></div>
+  <button click="confirm:[This is a message!]" onconfirm="log:[alert(OK)]">Trigger alert</button>
+</body>
+
+</html>
+

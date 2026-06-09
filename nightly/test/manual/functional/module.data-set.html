@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="globalize;data" var="api" conf="debug:false;varsDir:assets/json/vars"
+    globalize-conf="folder:assets/json/locales">
+    </script>
+</head>
+
+<body>
+  <h1>Data</h1>
+  <hr>
+  <h4>Set in self parent</h4>
+  <div data-src="https://dummyjson.com/products/1" data-set="t:title" data-onfinish="settext:#test:[Finished: {t}]">
+    <div id="test"></div>
+  </div>
+
+  <h4>Set inside parent</h4>
+  <div data-src="https://dummyjson.com/products/1">
+    <span data-set="i:images.0" sethtml="<b>url:</b> {i}" uppercase></span><br>
+    <img data-set="img:images.0" width="100" setsrc="{img}"></img>
+  </div>
+
+  <h4>Set with iterate</h4>
+  <div data-src="https://dummyjson.com/todos" data-iterate="todos">
+    <span data-set="i:id" settext="{i}" uppercase></span>
+  </div>
+
+  <h4>Set image</h4>
+  <div data-src="https://dummyjson.com/products/1">
+    <img data-set="img:images.0" width="100" setsrc="{img}"></img>
+  </div>
+
+  <div
+    data-src="https://api.themoviedb.org/3/trending/all/day?api_key=342c7c6976e9730798bc4bfbb2786cf7&include_adult=false&language=en-US&page=1&with_genres="
+    data-set="page:#page;total_pages:#pages;total_results:#results">
+  </div>
+  <h4>Set with headers</h4>
+  Page: <span id="page">0</span>
+  <br>
+  Total Pages: <span id="pages">0</span>
+  <br>
+  Total Results: <span id="results">0</span>
+  <br>
+
+  <h4>Set through another element by ID</h4>
+  <div data-src="https://dummyjson.com/products/20" data-set="var:id"
+    data-onfinish="settext:#element1:[Product ID: {var}]">
+  </div>
+  <div id="element1">Waiting for Product ID...</div>
+
+
+  <h4>Set through another element ID 2</h4>
+  <div data-src="https://dummyjson.com/products/20" data-set="var:id"
+    data-onfinish="if:([{var}]:[20])/settext:#element2:[if: Product ID {var}]">
+  </div>
+
+  <div id="element2">Waiting for Products...</div>
+</body>
+
+</html>

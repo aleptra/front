@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script
+    src="../../../front.js"
+    module="globalize;data"
+    var="api"
+    conf="debug:true;varsDir:assets/json/vars"
+    globalize-conf="folder:assets/json/locales">
+  </script>
+</head>
+
+<body>
+  <h1>Data</h1>
+  <hr>
+
+  <h4>Get with iterate</h4>
+  <div data-src="https://dummyjson.com/todos?limit=10" data-iterate="todos">
+    <span data-get="id" width="30"></span>
+    <input type="text" data-get="todo"></input>
+  </div>
+
+  <h4>Get with iterate key with wildcard</h4>
+  <div data-src="https://dummyjson.com/products/1" data-iterate="meta">
+    <p data-get="[*]"></p>
+  </div>
+
+  <h4>Get with iterate inside iterate</h4>
+  <div data-src="https://dummyjson.com/products?limit=10" data-iterate="products">
+    <b data-get="id"></b>
+    <div data-iterate="reviews">
+      <div data-get="rating"></div>
+    </div>
+  </div>
+
+  <h4>Get with iterate inside iterate (true)</h4>
+  <div
+    data-src="https://api.aleptra.com/humanology/?table=human_language_word&column=*&where=word-%3E%3Eeng.ilike(**)&limit=5"
+    data-iterate="true">
+    <b data-get="id"></b>
+
+    <div data-iterate="word">
+      <p data-get="[*]"></p>
+    </div>
+  </div>
+</body>
+
+</html>

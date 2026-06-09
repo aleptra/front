@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="navigate" conf="debug:true">
+  </script>
+</head>
+
+<body>
+  <!--<div id="navloader" class="navloader pa t0 w100 bcblack03 h2px" hide><div class="bcblack08"></div></div>-->
+  <h1>Href</h1>
+  <hr>
+  <section>
+    <a href="trim.html" target="_blank">Open link in new window</a><br>
+    <a href="assets/navigate_empty.html" target="#src" navigate-pushstate="false">Open link in div (no state)</a><br>
+    <div id="src"
+      style="border: 1px solid black; min-width: 256px; max-height: 150px; margin-top: 20px; overflow: scroll">
+    </div>
+  </section>
+  <section>
+    <a href="click.html">Open link in main</a> <a href="" click="clearvalue" clicktargetfield="#main">(Clear)</a><br>
+    <a href="navigate.html" target="_top">Open link in html</a><br>
+  </section>
+  <section>
+    <button href="click.html" target="#src">Open link in main</button>
+  </section>
+
+  <main></main>
+</body>
+
+</html>

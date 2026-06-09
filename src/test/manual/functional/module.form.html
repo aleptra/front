@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="data;form" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Form Module</h1>
+  <hr>
+
+  <!-- Test 1: Custom validation message with target -->
+  <h4>1. Custom message with target</h4>
+  <p>Click Submit with empty fields. Tips should appear in the target elements.</p>
+  <form method="post" action="#">
+    <div>
+      <label>First Name</label><br>
+      <input name="first_name" type="text" form-invalid="#first_name_tip:[Please enter your first name]" required>
+      <small id="first_name_tip" color="red"></small>
+    </div>
+    <div>
+      <label>Last Name</label><br>
+      <input name="last_name" type="text" form-invalid="#last_name_tip:[Please enter your last name]" required>
+      <small id="last_name_tip" color="red"></small>
+    </div>
+    <div>
+      <label>Email</label><br>
+      <input name="email" type="email" form-invalid="#email_tip:[Please enter a valid email]" required>
+      <small id="email_tip" color="red"></small>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+  <hr>
+
+  <!-- Test 2: Validation on select elements -->
+  <h4>2. Select validation</h4>
+  <p>Click Submit without selecting a value. Tip should appear.</p>
+  <form method="post" action="#">
+    <div>
+      <label>Country</label><br>
+      <select name="country" form-invalid="#country_tip:[Please select a country]" required>
+        <option value="">-</option>
+        <option value="se">Sweden</option>
+        <option value="us">United States</option>
+      </select>
+      <small id="country_tip" color="red"></small>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+  <hr>
+
+  <!-- Test 3: Checkbox validation -->
+  <h4>3. Checkbox validation</h4>
+  <p>Click Submit without checking the box. Tip should appear.</p>
+  <form method="post" action="#">
+    <div>
+      <input name="terms" type="checkbox" value="1" form-invalid="#terms_tip:[Please accept the terms]" required>
+      <span>I agree to the terms</span>
+      <small id="terms_tip" color="red"></small>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+  <hr>
+
+  <!-- Test 4: Tip clears on input -->
+  <h4>4. Tip clears on input</h4>
+  <p>Submit empty, then type in the field. The tip should disappear.</p>
+  <form method="post" action="#">
+    <div>
+      <input name="name" type="text" form-invalid="#clear_tip:[This field is required]" required>
+      <small id="clear_tip" color="red"></small>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+  <hr>
+
+  <!-- Test 5: No target (no tip shown) -->
+  <h4>5. No target fallback</h4>
+  <p>Submit empty. No tip element exists, so nothing should appear (no errors in console).</p>
+  <form method="post" action="#">
+    <div>
+      <input name="plain" type="text" required>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+  <hr>
+
+  <!-- Test 6: Focus on first invalid field -->
+  <h4>6. Focus first invalid field</h4>
+  <p>Submit with all fields empty. The first field should receive focus.</p>
+  <form method="post" action="#">
+    <div>
+      <input id="focus_first" name="field1" type="text" form-invalid="#focus_tip1:[Field 1 required]" required>
+      <small id="focus_tip1" color="red"></small>
+    </div>
+    <div>
+      <input name="field2" type="text" form-invalid="#focus_tip2:[Field 2 required]" required>
+      <small id="focus_tip2" color="red"></small>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+  <hr>
+
+  <!-- Test 7: Multiple fields in same parent -->
+  <h4>7. Multiple fields in same parent</h4>
+  <p>Submit empty. Each field should show its own tip, not overwrite siblings.</p>
+  <form method="post" action="#">
+    <div>
+      <input name="a" type="text" form-invalid="#multi_tip_a:[Enter A]" required>
+      <small id="multi_tip_a" color="red"></small>
+      <input name="b" type="text" form-invalid="#multi_tip_b:[Enter B]" required>
+      <small id="multi_tip_b" color="red"></small>
+      <input name="c" type="text" form-invalid="#multi_tip_c:[Enter C]" required>
+      <small id="multi_tip_c" color="red"></small>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+
+</body>
+
+</html>

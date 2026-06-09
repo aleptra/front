@@ -1,0 +1,22 @@
+{
+  "category": {
+    "0": {
+      "sv": "Full applikation",
+      "en": "Full application"
+    },
+    "1": {
+      "sv": "Tema",
+      "en": "Theme"
+    },
+    "2": {
+      "sv": "Ikoner",
+      "en": "Icons"
+    }
+  },
+  "pay": {
+    "0": {
+      "sv": "Gratis",
+      "en": "Free"
+    }
+  }
+}

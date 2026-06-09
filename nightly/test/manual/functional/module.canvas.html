@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="canvas" var="api"></script>
+</head>
+
+<body>
+  <h1>Canvas</h1>
+  <hr>
+  <canvas
+    id="canvas1"
+    width="1000"
+    height="500"
+    canvas-grad
+    canvas-target="#canvas1"
+    canvas-grad-orientation="vertical"
+    canvas-circle="200,200,50 + 400,300,75"
+    canvas-text="Hello, World!,20,300 + black+Welcome!,400,100,blue"
+    canvas-lines="20,100,10,red,round + 120,200,10,red,round">
+  </canvas>
+
+  <canvas
+    id="canvas2"
+    width="1000"
+    height="1000" 
+    canvas-grad
+    canvas-target="#canvas2" 
+    canvas-rec="300,400,200,100,rgba(255,255,255,0.1) + 10,10,50,50,red"
+    canvas-circle="200,200,50 + 400,300,75"
+    canvas-text="Hello, World!,20,300 + black+Welcome2!,400,100,blue"
+    canvas-lines="50,50,10,red,round+50,200,10,red,round ++ 300,50,20,blue,round+300,200,20,blue,round">
+  </canvas>
+
+<body>
+
+</html>

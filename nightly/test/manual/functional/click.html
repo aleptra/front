@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js"
+    module="math"
+    conf="debug:false;varsDir:assets/json/vars"
+    globalize-conf="folder:assets/json/locales"
+    navigate-conf="startpage:experimental">
+  </script>
+</head>
+
+<body>
+  <h1>Click</h1>
+  <hr>
+  <button click="alert:[Hello world]" onalert="log:[alert(OK)]">alert</button><br>
+  <button click="math-compute" onmath-compute="log:[math-compute(OK)]">5+5</button><br>
+  <button click="settext:[Hello]" onsettext="log:[settext(OK)]">settext</button><br>
+  <button click="trimright:[#]" ontrimright="log:[trimright(OK)]">#trimright#</button>
+  <button click="trimleft:[#]" ontrimleft="log:[trimleft(OK)]">#trimleft#</button>
+  <button click="trim:[#]" ontrim="log:[trim(OK)]">#trim#</button><br>
+  <input click="trim:[ ]" type="text" value=" Trim " ontrim="log:[trim(OK)]"><br>
+  <button click="escape" onescape="log:[escape(OK)]">&#36;</button><br>
+  <button click="confirm:[Confirm?]" onconfirm="log:[confirm(OK)]">confirm</button>
+
+  <h1>Click with target</h1>
+  <button click="setvalue:[Hello]" clicktargetfield="#test3">setvalue</button><input id="test3" value="" onsetvalue="log:[setvalue(OK)]">
+  <button click="setvalue:#test4:[Hello World]">setvalue</button><input id="test4" onsetvalue="log:[setvalue(OK)]">
+  <hr>
+
+  <h1>Click target element</h1>
+  <button click="click:#button2">Button1</button>
+  <button id="button2" onclicked="color:[red];disable;log:[Button1(OK)]">Button2</button>
+
+  <section>
+      <h1>Click onclicked</h1>
+      <button click="click:#button3" onclicked="alert:[clicked]">Button3</button>
+      <button id="button3" onclicked="settext:[Button4]"></button>
+  </section>
+</body>
+
+</html>

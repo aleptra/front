@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script
+    src="../../../front.js"
+    module="data"
+    var="api"
+    conf="debug:true">
+  </script>
+</head>
+
+<body>
+  <h1>Form</h1>
+  <hr>
+  <h4>Sort</h4>
+  <form id="searchForm" method="post" action="module.data-form.html" onformsubmit="reset:#">
+    <select
+      name="country"
+      data-src="https://restcountries.com/v3.1/all/?fields=name,flags"
+      data-iterate="true"
+      data-sort="name.common"
+      data-sortorder="asc"
+    >
+      <option data-get="name.common" setvalue="0" value="1"></option>
+    </select>
+    <input type="reset" value="Reset">
+    <input type="submit" value="Submit">
+  </form>
+<hr>
+  <form method="post" action="module-data-form.html" enctype="multipart/form-data">
+    <select name="selectOption">
+      <option data-get="name.common" setvalue="0" value="1">1</option>
+    </select>
+    <input type="reset" value="Reset">
+    <input type="submit" value="Submit">
+  </form>
+
+
+</body>
+
+</html>

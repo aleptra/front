@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="overlay" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Overlay Module</h1>
+  <hr>
+
+  <!-- Test 1: Open and close dialog -->
+  <h4>1. Open and close dialog</h4>
+  <p>Click Open to show the dialog. Click X to close it.</p>
+  <button click="overlay-dialog:#dialog1">Open Dialog</button>
+  <dialog id="dialog1" padding="1rem" border="1px solid black">
+    <button click="overlay-close:#dialog1" bgcolor="black" color="white" padding="0.25rem 0.5rem">X</button>
+    <h3>Dialog 1</h3>
+    <p>This is a basic dialog. Click X to close.</p>
+  </dialog>
+  <hr>
+
+  <!-- Test 2: Dialog with backdrop -->
+  <h4>2. Dialog with backdrop</h4>
+  <p>Click Open. The backdrop should appear behind the dialog.</p>
+  <button click="overlay-dialog:#dialog2">Open Dialog</button>
+  <dialog id="dialog2" padding="1rem" border="1px solid black">
+    <button click="overlay-close:#dialog2" bgcolor="black" color="white" padding="0.25rem 0.5rem">X</button>
+    <h3>Dialog 2</h3>
+    <p>A semi-transparent backdrop should be visible behind this dialog.</p>
+  </dialog>
+  <hr>
+
+  <!-- Test 3: Dialog resets content on reopen -->
+  <h4>3. Dialog resets on reopen</h4>
+  <p>Open the dialog, type in the input, close it, then reopen. The input should be empty again.</p>
+  <button click="overlay-dialog:#dialog3">Open Dialog</button>
+  <dialog id="dialog3" padding="1rem" border="1px solid black">
+    <button click="overlay-close:#dialog3" bgcolor="black" color="white" padding="0.25rem 0.5rem">X</button>
+    <h3>Dialog 3</h3>
+    <input type="text" placeholder="Type something, close, reopen">
+  </dialog>
+  <hr>
+
+  <!-- Test 4: Dialog is centered -->
+  <h4>4. Dialog centering</h4>
+  <p>Open the dialog. It should be centered on screen (showModal default).</p>
+  <button click="overlay-dialog:#dialog4">Open Dialog</button>
+  <dialog id="dialog4" padding="1rem" border="1px solid black">
+    <button click="overlay-close:#dialog4" bgcolor="black" color="white" padding="0.25rem 0.5rem">X</button>
+    <h3>Dialog 4</h3>
+    <p>This dialog should be centered horizontally and vertically.</p>
+  </dialog>
+  <hr>
+
+  <!-- Test 5: Multiple dialogs -->
+  <h4>5. Multiple independent dialogs</h4>
+  <p>Open Dialog A, close it, then open Dialog B. Each should work independently.</p>
+  <button click="overlay-dialog:#dialog5a">Open Dialog A</button>
+  <button click="overlay-dialog:#dialog5b">Open Dialog B</button>
+  <dialog id="dialog5a" padding="1rem" border="1px solid black">
+    <button click="overlay-close:#dialog5a" bgcolor="black" color="white" padding="0.25rem 0.5rem">X</button>
+    <h3>Dialog A</h3>
+    <p>This is dialog A.</p>
+  </dialog>
+  <dialog id="dialog5b" padding="1rem" border="1px solid black">
+    <button click="overlay-close:#dialog5b" bgcolor="black" color="white" padding="0.25rem 0.5rem">X</button>
+    <h3>Dialog B</h3>
+    <p>This is dialog B.</p>
+  </dialog>
+  <hr>
+
+  <!-- Test 6: Escape key closes dialog -->
+  <h4>6. Escape key closes dialog</h4>
+  <p>Open the dialog and press Escape. It should close (native dialog behavior).</p>
+  <button click="overlay-dialog:#dialog6">Open Dialog</button>
+  <dialog id="dialog6" padding="1rem" border="1px solid black">
+    <button click="overlay-close:#dialog6" bgcolor="black" color="white" padding="0.25rem 0.5rem">X</button>
+    <h3>Dialog 6</h3>
+    <p>Press Escape to close this dialog.</p>
+  </dialog>
+
+</body>
+
+</html>

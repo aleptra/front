@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Escape</h1>
+  <hr>
+
+  <section>
+    <div>Not escaped: &#36;</div>
+    <span escape>&#36;</span>
+    <div escape>&#36;</div>
+    <a href="&#36;" escape>&#36;</a>
+    <p escape>&#36;</p>
+    <i escape>&#36;</i>
+  </section>
+  <h2>Form</h2>
+  <section>
+    <input type="text" escape value="&#36;"><br>
+    <textarea escape>&#36;</textarea><br>
+    <button escape>&#36;</button><br>
+    <input type="button" escape value="&#36;"><br>
+    <select>
+      <option escape>&#36;</option>
+    </select>
+  </section>
+</body>
+
+</html>

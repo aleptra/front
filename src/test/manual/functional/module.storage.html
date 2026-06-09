@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="storage" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Storage Module Tests</h1>
+  <hr>
+
+  <h2>Data Setup (storage-sessionset)</h2>
+  <div id="hide1" onshow="storage-sessionset:[test1]:[user][profiles][name][[city][GB][country][SE]]" hide>Stored 1
+  </div>
+  <div id="hide2" onshow="storage-sessionset:[test2]:[user][profiles][name][[city][GB][country][[SE][DE]]]" hide>Stored
+    2
+  </div>
+  <div id="hide3" onshow="storage-sessionset:[test3]:[config][ui][[theme][dark][lang][en][fontsize][16]]" hide>Stored 3
+  </div>
+  <div id="hide4" onshow="storage-sessionset:[test4]:[player][stats][[level][100][gold][999999][rank][pro]]" hide>Stored
+    4
+  </div>
+  <div id="hide5" onshow="storage-sessionset:[test_add]:[myArray]:[[]];[myObject]:[[]]" hide>Stored 5 (ADD target)
+  </div>
+
+  <button click="show:#hide1;show:#hide2;show:#hide3;show:#hide4;show:#hide5">Store All Initial Data</button>
+
+  <hr>
+
+  <h2>Data Manipulation Commands</h2>
+
+  <button click="storage-sessionupdate:[test3]:[config][ui][lang]:[sv]">
+    **UPDATE:** Change 'lang' in 'test3' to 'sv'
+  </button>
+  <br><br>
+
+  <button click="storage-sessionadd:[test_add]:[myArray]:[item1]">
+    **ADD (Standard):** Push 'item1' to 'myArray'
+  </button>
+  <br>
+  <button click="storage-sessionadd:[test_add]:[myArray]:[[item2][item3]]">
+    **ADD (Multi):** Push 'item2' and 'item3' to 'myArray'
+  </button>
+  <br><br>
+
+  <button click="storage-sessionadd:![test_add]:[myObject][new_key][[version[1.0]][date[today]]]">
+    **ADD (Complex Object):** Create 'new_key: {version: 1.0, date: today}' in 'myObject'
+  </button>
+  <br><br>
+
+  <hr>
+
+  <h2>Data Removal Commands</h2>
+
+  <button click="storage-sessionremove:[test1]">
+    **REMOVE (Full Item):** Remove 'test1'
+  </button>
+  <br>
+  <button click="storage-sessionremove:[test3]:[config][ui][lang]">
+    **REMOVE (Deep Path):** Remove 'lang' key from 'test3'
+  </button>
+  <br>
+  <button click="storage-sessionremove:[test4]:[player][stats][gold]">
+    **REMOVE (Deep Path):** Remove 'gold' key from 'test4'
+  </button>
+  <br>
+  <button click="storage-sessionremove:[test_add]:[myArray]:[item2]">
+    **REMOVE (Array Value):** Remove 'item2' value from 'myArray'
+  </button>
+
+</body>
+
+</html>

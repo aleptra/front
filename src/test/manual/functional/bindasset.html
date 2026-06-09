@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="data" var="api" conf="varsDir:assets/json/vars"
+    globalize-conf="folder:assets/json/locales">
+    </script>
+  <title>Bindasset</title>
+</head>
+
+<body>
+  <h1>Bind</h1>
+  <hr>
+  <h3>Asset</h3>
+  <span bindasset="api:api.themoviedb.popular;page:api.page.page">{api}?page={page:0}</span><br>
+  <h3>Var + Asset</h3>
+  <span bindvar="var1:popular;var2:var2value"
+    bindasset="api:api.themoviedb.{var1};page:api.page.page">{api}?page={page:0}&{var1}&{var2}</span><br>
+  <h3>Var + Global + Asset</h3>
+  <span bindglobal="t:title" bindvar="var1:popular;var2:var2value"
+    bindasset="api:api.themoviedb.{var1};page:api.page.page">{api}?page={page:0}&{var1}&{var2}&title={t}</span><br>
+
+  <section>
+    <h3>Var + Global + Query + Asset</h3>
+    <span bindglobal="t:title" bindvar="var1:popular;var2:var2value" bindquery="page:page"
+      bindasset="api:api.themoviedb.{var1};page:api.page.page">{api}?page={page:0}&{var1}&{var2}&title={t}</span><br>
+  </section>
+
+  <section>
+    <h3>Var + Global + Asset + Assets inside</h3>
+    <form bindglobal="t:title" bindvar="var1:popular;var2:var2value" bindquery="page:page"
+      bindasset="api:api.themoviedb.{var1};page:api.page.page" src="{api}">
+      <span bindasset="page2:api.page.page" test="{page2}">{page2}</span>
+      <span bindasset="page2:api.page.page" test="{page2}">{page2}</span>
+    </form><br>
+  </section>
+</body>
+
+</html>

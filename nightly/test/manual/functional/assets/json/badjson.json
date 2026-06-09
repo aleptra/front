@@ -1,0 +1,15 @@
+{
+  "colors": [
+    {
+      "color": "lightsalmon",
+      "background": "bclightsalmon",
+      "hex": "#ffa07a"
+    },
+    {
+      color": "salmon",
+      "background": "bcsalmon",
+      "hex": "#fa8072"
+    },
+
+  ]
+}

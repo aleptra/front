@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="math" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Math</h1>
+  <section>
+    <hr>
+    <h4>Round:</h4>
+    <span math-round>16,1</span>
+    <h4>Compute:</h4>
+    <span math-compute>5+5-5+5*10/2*80-2000*90</span>
+  </section>
+  <section>
+    <h4>Round:</h4>
+    <input type="text" math-round value="18,1"><br>
+    <input type="text" math-compute value="5+5-5+5*10/2*80-2000*90"><br>
+    <textarea math-round>18,100000</textarea><br>
+    <button math-round>18,100000</button><br>
+    <input type="button" math-round value="18,000"><br>
+    <input type="radio" setvalue="1+1" math-compute><br>
+    <select math-round value="18,1"><option>1</option><option>2</option></select>
+    <h4>Compute:</h4>
+    <span math-compute>5(5)</span><br>
+    <span math-compute>5/1</span><br>
+    <span math-compute>(2*3.14+(8/2))^2</span><br>
+    <span math-compute>(10 + 5) / (2 - 1)</span><br>
+    <b>Modulo:</b> <span math-compute>15 % 7</span><br>
+    <b>PI:</b> <span math-compute>π</span><br>
+  </section>
+</body>
+
+</html>

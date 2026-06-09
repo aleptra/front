@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="keyboard" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Blur</h1>
+  <hr>
+  <h4>Input</h4>
+  <input type="text" id="field1" keyboard-key="Enter" keyboard-action="blur" keyboard-scope value="Press Enter to blur"></input>
+  <h4>Button</h4>
+  <button click="blur">Blur click (1)</button>
+  <button ontabchange="blur">ontabchange (2)</button>
+  <button ontabchange="blur" click="blur">ontabchange Blur (1)</button>
+</body>
+
+</html>

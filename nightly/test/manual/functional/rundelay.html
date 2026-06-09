@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Rundelay</h1>
+  <hr>
+
+  <h4>Settext with rundelay</h4>
+  <section>
+    Set label after 3 seconds<br>
+      <label id="label" rundelay="[3000]:settext:*label:[Running]">Not running</label><br><br>
+      <input type="button" value="Rerun" click="rundelay[2000]:settext:*label:[Rerunning]">
+  </section>
+</body>
+
+</html>

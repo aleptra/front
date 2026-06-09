@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="globalize;data" var="api" conf="debug:false;varsDir:assets/json/vars"
+    globalize-conf="folder:assets/json/locales">
+    </script>
+</head>
+
+<body>
+  <h1>If</h1>
+  <hr>
+  <h4>Set through another element ID and multi actions</h4>
+  <div data-src="https://dummyjson.com/products/20" data-set="var:id"
+    data-onfinish="if:[[{var}]:[20]];settext:#elementwait:[Product ID: {var}];insertbeforeend:#elementwait:[ & Another action {var}]">
+  </div>
+
+  <div id="elementwait">Waiting for Products...</div>
+
+  <h4>Set self directly with else (one condition)</h4>
+  <div if="([1]:[1])/settext:[True]?settext:[False]"></div>
+
+  <h4>Set self directly with else (two conditions)</h4>
+  <div if="([1]:[1]&[2]:[2])/settext:[True]?settext:[False]"></div>
+
+  <h4>Set self directly with else (two conditions)</h4>
+  <div if="([1]:[1]&[2]:[2])/settext:[True]?settext:[False]"></div>
+
+  <h4>Set self directly with else (three conditions)</h4>
+  <div if="([1]:[1]&[2]:[2]&[3]:[3])/settext:[True]"></div>
+
+  <h4>Set self directly with else (three conditions) but false</h4>
+  <div if="([1]:[1]&[2]:[2]&[3]:[2])/?settext:[False]"></div>
+
+  <h4>Set self directly with else (three conditions) but true</h4>
+  <div if="(#element1:[10])/settext:[True]?settext:[False]"></div>
+  <input id="element1" type="text" value="10">
+
+  <h4>Set self directly with else (two conditions) but true</h4>
+  <div if="(#element2:[20]&#element3:[30])/settext:[True]?settext:[False]"></div>
+  <input id="element2" type="text" value="20">
+  <input id="element3" type="text" value="30">
+
+  <h4>Set self directly with else (two conditions) but true and Test</h4>
+  <div if="(#element4:[40]&#element5:[50])/settext:[True]&insertbeforeend:[ Test]?settext:[False]"></div>
+  <input id="element4" type="text" value="40">
+  <input id="element5" type="text" value="50">
+
+  <h4>Click if (equal)</h4>
+  <button click="if:([1]:[1])/alert:[OK]?alert:[NOT OK]">Test</button>
+
+  <h4>Click if (not equal)</h4>
+  <button click="if:([1]:[2])/alert:[NOT OK]?alert:[OK]">Test</button>
+
+  <h4>Click if (not equal) with action first</h4>
+  <button click="alert:[test];if:([1]:[2])/alert:[NOT OK]?alert:[OK]">Test</button>
+</body>
+
+</html>

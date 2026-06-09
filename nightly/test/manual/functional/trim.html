@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Trim</h1>
+  <hr>
+  <h4>This will remove # on right and left</h4>
+  <span trim="#" ontrim="log:[trim(OK)]">#//#</span><br>
+  <h4>This will trim spaces on right and left</h4>
+  <span trim=" " ontrim="log:[trim(OK)]">     //    </span><br>
+  <h4>This will only trim spaces on left side</h4>
+  <span trimleft=" " ontrimleft="log:[trimleft(OK)]">     /left/      </span><br>
+  <h4>This will only trim spaces on right side</h4>
+  <span trimright=" " ontrimright="log:[trimright(OK)]">    /right/     </span><br>
+  <h4>This will only remove # on left side</h4>
+  <span trimleft="#" ontrimleft="log:[trimleft(OK)]">/left/#</span><br>
+  <h4>This will only remove # on right side</h4>
+  <span trimright="#" ontrim="log:[trimright(OK)]">#/right/#</span><br>
+</body>
+
+</html>

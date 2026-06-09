@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script
+    src="../../../front.js"
+    module="chronotize;data;globalize"
+    var="api"
+    conf="debug:false;varsDir:assets/json/vars"
+    globalize-conf="folder:assets/json/locales"
+  >
+  </script>
+</head>
+
+<body
+  data-src1="assets/json/vars/chronotize.json"
+  data-set1="birth:birth;birth:birth2">
+  <h1>Chronotize</h1>
+  <hr>
+  <h4>From text content:</h4>
+  <p><span globalize-get="age"></span>: <span chronotize-age>19870430</span></p>
+  <h4>From data source + beforebegin:</h4>
+  <p id="birth" chronotize-age insertafterbegin="Age(2): ">19870430</p>
+  <h4>From data source + bind + insert:</h4>
+  <p id="birth2" chronotize-age insertbeforeend=" years old" >1987-04-30</p>
+
+  <h4>Weekday</h4>
+  <p chronotize-get="W" globalize-get>1987-04-30</p>
+  <p chronotize-get="W" globalize-get uppercase>1987-04-29</p>
+  <hr>
+  <select class="h1 fs08" onvaluechange="globalize-set">
+    <option selected></option>
+    <option value="sv">Svenska</option>
+    <option value="en">English</option>
+  </select>
+
+</body>
+
+</html>

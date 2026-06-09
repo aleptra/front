@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script
+    src="../../../front.js"
+    module="globalize;data"
+    var="api">
+  </script>
+</head>
+
+<body>
+  <h1>Insert</h1>
+  <hr>
+
+  <h2>Afterbegin:</h2>
+  <h4>img:</h4>
+  <img bindquery="width:width;height:height" setsrc="placehold.co/{width:64}x{height:64}" insertafterbegin="https://">
+  <h4>div:</h4>
+  <div insertafterbegin="afterbegin-" href="">test</div>
+  <h4>span:</h4>
+  <span insertafterbegin="afterbegin-" href="">test</span>
+  <h4>p:</h4>
+  <p insertafterbegin="afterbegin-">test</p>
+  <h4>i:</h4>
+  <i insertafterbegin="afterbegin-" href="">test</i>
+  <h4>input:</h4>
+  <input insertafterbegin="afterbegin-" value="test"></input>
+  <h4>textarea:</h4>
+  <textarea insertafterbegin="afterbegin-">test</textarea>
+  <h4>a:</h4>
+  <a insertafterbegin="/" href="">test</a>
+  
+  <h2>Beforeend:</h2>
+  <h4>img:</h4>
+  <img insertbeforeend="?test=1" setsrc="https://placehold.co/{width:64}x{height:64}" bindquery="width:width;height:height" src="">
+  <h4>div:</h4>
+  <div insertbeforeend="-beforeend">test</div>
+  <h4>span:</h4>
+  <span insertbeforeend="-beforeend">test</span>
+  <h4>p:</h4>
+  <p insertbeforeend="-beforeend">test</p>
+  <h4>i:</h4>
+  <p insertbeforeend="-beforeend">test</p>
+  <h4>input:</h4>
+  <input insertbeforeend="-beforeend" value="test"></input>
+  <h4>textarea:</h4>
+  <textarea insertbeforeend="-beforeend">test</textarea>
+  <h4>a:</h4>
+  <a insertbeforeend="-beforeend" insertbeforeend="" href="">test</a>
+</body>
+
+</html>
+

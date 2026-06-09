@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="keyboard" conf="debug:true">
+  </script>
+</head>
+
+<body>
+  <h1>Keyboard</h1>
+  <hr>
+
+  <h2>No scope:</h2>
+  <section>
+    <a keyboard-key="a" keyboard-action="alert:[You pressed A]">Press A</a><br>
+  </section>
+  <h2>With scope:</h2>
+  <h3>Body</h3>
+  <a keyboard-key="b" keyboard-action="alert:[You pressed B]" keyboard-scope="body">Press B</a><br>
+  <a keyboard-key="c" keyboard-action="sethref:[https://www.microsoft.com]" keyboard-scope="body"
+    href="https://www.google.com" onhrefchange="settext:[Go to Microsoft]" target="_blank">Press C</a><br>
+  <span keyboard-key="d" keyboard-action="click" keyboard-scope="body" value="0" click="setvalue:[d]">Press D</span><br>
+
+  <div keyboard-key="e" keyboard-action="settext:[You pressed E]" keyboard-scope="body">Press E</div><br>
+  <a keyboard-key="f" keyboard-action="settext:[You pressed F]" keyboard-scope="body">Press F</a><br>
+  <a keyboard-key="g" keyboard-action="sethref:[#g]" onhrefchange="alert:[You pressed G];sethtml:[You pressed G]"
+    keyboard-scope="body" href="#">Press G</a><br>
+  <a keyboard-key="h;i" keyboard-action="settext:[You pressed H or I]" keyboard-scope="body">Press H or I</a><br>
+
+  <h3>Enter</h3>
+  <input type="text" statevalue="0" keyboard-key="Enter" keyboard-action="alert:[You pressed enter]" keyboard-scope>
+
+  <section margintop="1rem">
+    Type <code>hello</code>:
+    <span keyboard-word="hello" keyboard-action="settext:[Hello World Detected!]" keyboard-finalizer="Enter"
+      keyboard-scope="body">Waiting...</span>
+  </section>
+</body>
+
+</html>

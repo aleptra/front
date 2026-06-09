@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Reset</h1>
+  <hr>
+  <h4>Input reset</h4>
+  <section>
+    <input id="input" type="text" value="Click to set new value" click="setvalue:[New value]">
+    <input type="button" value="Reset value" click="reset:#input">
+  </section>
+
+  <h4>Form reset</h4>
+  <section>
+    <form onformsubmit="reset">
+      <input type="text" name="post1" placeholder="Type something" autocomplete="off">
+      <input type="text" name="post2" placeholder="Type something again" autocomplete="off">
+      <input type="submit" value="Submit">
+    </form>
+  </section>
+</body>
+
+</html>

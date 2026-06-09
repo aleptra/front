@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script
+    src="../../../front.js"
+    module="globalize;data;navigate;keyboard"
+    var="api"
+    conf="varsDir:assets/json/vars;debug:false"
+    globalize-conf="folder:assets/json/locales"
+    navigate-conf="startpage:experimental">
+  </script>
+</head>
+
+<body>
+  <h1>Bindfield</h1>
+
+  <h4>Input</h4>
+  <input
+    type="text"
+    class="bs1 p1 h3 br05 bcblack w100"
+    id="josefinput"
+    globalize-get="input_search"
+    globalize-target="placeholder"
+    keyboard-key="Enter"
+    keyboard-action
+    keyboard-scope
+    bindfieldif="lastPressedKey:Enter"
+    onsubmit="reset"
+    autocomplete="off"
+    bindfield="josef:#icondiv1">
+
+  <input
+    type="text"
+    class="bs1 p1 h3 br05 bcblack w100"
+    id="josefinput2"
+    globalize-get="input_search"
+    globalize-target="placeholder"
+    keyboard-key="Enter"
+    keyboard-action
+    keyboard-scope
+    autocomplete="off"
+    bindfield="josef2:#icondiv2">
+
+  <div id="error" hide>ERROR1</div>
+  <div
+    id="icondiv1"
+    stop="data-src"
+    data-src="assets/json/icons-material-{josef}.json"
+    data-iterate="icons"
+    data-loader="false"
+    data-onerror="#error"
+    data-onsuccess="show:#success"
+    data-onempty="#error"
+    preloader="true"
+  >
+    <figure class="p05" id="success">
+      <small data-get="title" slice="0,1" class="md_dn"></small><br>
+      <small data-get="html_entity"></small><br>
+    </figure>
+  </div>
+
+  <div id="error2" hide>ERROR2</div>
+  <div
+    id="icondiv2"
+    stop="data-src"
+    data-src="assets/json/icons-material-{josef2}.json"
+    data-iterate="icons"
+    data-onerror="#error2"
+    data-onsuccess="show:#success2"
+    data-onempty="#error2"
+  >
+    <figure class="p05" id="success2">
+      <small data-get="title" class="md_dn"></small><br>
+      <small data-get="title" slice="0,1" class="md_dn"></small><br>
+      <small data-get="html_entity"></small><br>
+    </figure>
+  </div>
+
+  <h4>Two-way data binding</h4>
+  <input type="text" id="content" bindfield="content:#contentdiv">
+  <div id="contentdiv">{content:it's empty}</div>
+  <br>
+  <input type="text" id="content2" bindfield="content2:#contentdiv2">
+  <div id="contentdiv2">{content2}</div>
+
+  <h4>Two-way data binding in attribute</h4>
+  <input type="text" id="content3" bindfield="josef:#linkanchor">
+  <div>
+    <a id="linkanchor" href="{josef:test}" target="_blank">Link</a>
+  </div>
+
+  <h4>Select with div:</h4>
+  <select
+    data-src="https://restcountries.com/v3.1/all?fields=name,flags"
+    data-iterate="true"
+    id="unicountry"
+    bindfield="test:#universitydiv"
+  >
+    <option data-get="name.common"></option>
+  </select>
+
+  <div
+    id="universitydiv"
+    stop="data-src"
+    data-src="http://universities.hipolabs.com/search?country={test}"
+    preloader="true"
+    data-iterate="true"
+  >
+    <figure class="p05">
+      <figcaption class="z08 md_dn" data-get="name"></figcaption>
+    </figure>
+  </div>
+
+  <h4>Select with Select:</h4>
+  <select
+    data-src="https://restcountries.com/v3.1/all?fields=name,flags"
+    data-iterate="true"
+    id="selectselect"
+    bindfield="test:#universityselect"
+  >
+    <option data-get="name.common"></option>
+  </select>
+
+  <select
+    id="universityselect"
+    stop="data-src"
+    data-src="http://universities.hipolabs.com/search?country={test}"
+    data-iterate="true"
+    preloader="true"
+  >
+    <option data-get="name"></option>
+  </select>
+
+  <section>
+    <h4>Bindfield with reloadcontent false</h4>
+    <form flex flexdirection="row" onformsubmit="alert:[OK];reset">
+      <input type="text" id="command" autocomplete="off" bindfieldreloadcontent="false" bindfield="test:#commandresult">
+    </form>
+    <div id="commandresult">{test}</div>
+  </section>
+
+</body>
+
+</html>

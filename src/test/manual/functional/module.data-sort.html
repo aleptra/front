@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="data" var="api" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Data</h1>
+  <hr>
+  <h4>Sort</h4>
+  <select
+    data-src="https://restcountries.com/v3.1/all?fields=name,flags"
+    data-iterate="true"
+    data-sort="name.common"
+    data-sortorder="asc"
+    >
+    <option data-get="name.common"></option>
+  </select>
+</body>
+
+</html>

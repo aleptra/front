@@ -167,8 +167,17 @@ app.module.data = {
       }
 
       if (datafilteritem) {
-        var datafilterkey = element.getAttribute('data-filterkey')
-        responseData = this._filter(responseData.data, datafilteritem, datafilterkey)
+        var datafilterkey = element.getAttribute('data-filterkey'),
+          filteredResponse = this._filter(responseData.data, datafilteritem, datafilterkey)
+
+        if (!options.iterate) {
+          var targetData = datafilterkey ? filteredResponse.data[datafilterkey] : filteredResponse.data
+          if (Array.isArray(targetData) && targetData.length === 1) {
+            filteredResponse.data = targetData[0]
+          }
+        }
+
+        responseData = filteredResponse
       }
 
       if (datareplace) {

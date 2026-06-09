@@ -1,0 +1,43 @@
+{
+  "icons": [
+    {
+      "title": "Number Sign",
+      "name": "tag, grid_3x3",
+      "html_entity": "&#35;",
+      "html_entity_2": "&#x23;",
+      "keywords": "hash"
+    },
+    {
+      "title": "Dollar Sign",
+      "name": "attach_money",
+      "html_entity": "&#36;",
+      "html_entity_2": "&#x24;",
+      "keywords": "dollar, money, cash"
+    },
+    {
+      "title": "Plus Sign",
+      "name": "add",
+      "html_entity": "&#43;",
+      "html_entity_2": "&#x2B;"
+    },
+    {
+      "title": "Question Mark",
+      "name": "help",
+      "html_entity": "&#63;",
+      "html_entity_2": "&#x3F;",
+      "keywords": "question"
+    },
+    {
+      "title": "Commercial At",
+      "name": "alternate_email",
+      "html_entity": "&#64;",
+      "html_entity_2": "&#x40;"
+    },
+    {
+      "title": "Copyright Sign",
+      "name": "copyright",
+      "html_entity": "&#169;",
+      "html_entity_2": "&#xA9;"
+    }
+  ]
+}

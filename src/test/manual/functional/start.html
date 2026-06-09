@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Start</title>
+  <script src="../../../front.js" conf="debug:false" module="data"></script>
+</head>
+
+<body>
+  <h1>Start</h1>
+  <hr>
+  <h4>1. </h4>
+  <div stop="*">
+    <div start="*" settext="OK" insertbeforeend=" OK">NOT OK</div>
+  </div>
+
+  <h4>2. </h4>
+  <div stop="*" start="*.settext">
+    <div settext="OK" bgcolor="green">NOT OK</div>
+  </div>
+
+  <h4>3. </h4>
+  <div stop="if" if="([1]:[1])/settext:[OK]" start="if">NOT OK</div>
+
+  <h4>4. </h4>
+  <div stop="bgcolor;*.bgcolor" bgcolor="green">
+    <div settext="OK" bgcolor="blue">NOT OK</div>
+  </div>
+
+  <h4>5. </h4>
+  <div stop="*;bgcolor" start="*" bgcolor="red">
+    <div settext="OK" stop="bgcolor" bgcolor="red">NOT OK</div>
+  </div>
+
+  <h4>6. </h4>
+  <div stop="*;bgcolor" start="*.settext" bgcolor="red">
+    <div settext="OK" stop="bgcolor" bgcolor="red">NOT OK</div>
+  </div>
+
+  <h4>7. </h4>
+  <div>
+    <div settext="OK" stop="bgcolor" bgcolor="red" bold>NOT OK</div>
+  </div>
+
+  <h4>8. </h4>
+  <div settext="OK" stop="bgcolor" onstop="start:[*]" bgcolor="green" bold>NOT OK</div>
+
+  <h4>9. </h4>
+  <div settext="OK" stop="bgcolor" onstop="start:[*]" bgcolor="red">
+    <div bgcolor="green">NOT OK</div>
+  </div>
+
+  <h4>10. </h4>
+  <div settext="OK" stop="*" onstop="start:[bgcolor]" bgcolor="green">
+    <div bgcolor="red">NOT OK</div>
+  </div>
+</body>
+
+</html>

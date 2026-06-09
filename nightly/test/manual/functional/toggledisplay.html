@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>toggledisplay</h1>
+  <hr>
+
+  <!-- Test 1: Toggle by ID -->
+  <h4>1. Toggle by ID</h4>
+  <p>Click the button to toggle the box on and off.</p>
+  <button click="toggledisplay:#box1">Toggle #box1</button>
+  <div id="box1" bgcolor="lavender" padding="1rem">Visible box</div>
+  <hr>
+
+  <!-- Test 2: Toggle by tag with index (*aside[0]) -->
+  <h4>2. Toggle by tag with index (*aside[0])</h4>
+  <p>Click the button to toggle the first aside element.</p>
+  <button click="toggledisplay:*aside[0]">Toggle *aside[0]</button>
+  <aside bgcolor="lavender" padding="1rem" margin="0.5rem 0">First aside</aside>
+  <aside bgcolor="lavender" padding="1rem">Second aside (should not toggle)</aside>
+  <hr>
+
+  <!-- Test 3: Toggle by tag with second index (*aside[1]) -->
+  <h4>3. Toggle by tag with index (*aside[1])</h4>
+  <p>Click the button to toggle the second aside element only.</p>
+  <button click="toggledisplay:*aside[1]">Toggle *aside[1]</button>
+  <hr>
+
+  <!-- Test 4: Toggle hidden element -->
+  <h4>4. Toggle initially hidden element</h4>
+  <p>The box starts hidden. Click to show it, click again to hide.</p>
+  <button click="toggledisplay:#box_hidden">Toggle hidden box</button>
+  <div id="box_hidden" bgcolor="lavender" padding="1rem" style="display:none">Was hidden, now visible</div>
+  <hr>
+
+  <!-- Test 5: Toggle preserves original display -->
+  <h4>5. Toggle preserves original display type</h4>
+  <p>The element is inline-block. After toggling off and on, it should remain inline-block.</p>
+  <button click="toggledisplay:#box_inline">Toggle inline-block</button>
+  <div id="box_inline" bgcolor="lavender" padding="1rem" style="display:inline-block">inline-block element</div>
+  <hr>
+
+  <!-- Test 6: Rapid toggle -->
+  <h4>6. Rapid toggle</h4>
+  <p>Click multiple times quickly. The box should toggle consistently.</p>
+  <button click="toggledisplay:#box_rapid">Toggle rapidly</button>
+  <div id="box_rapid" bgcolor="lavender" padding="1rem">Toggle me fast</div>
+
+</body>
+
+</html>

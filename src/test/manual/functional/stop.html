@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Stop</title>
+  <script src="../../../front.js" conf="debug:false" module="data"></script>
+</head>
+
+<body>
+  <h1>Stop</h1>
+  <hr>
+    <h4>0. Pattern: *.attr + stop nested in child</h4>
+    <div stop="*.settext" bgcolor="green">
+      <div settext="NOT OK" stop="bgcolor" bgcolor="red">OK</div>
+      <div settext="NOT OK" stop="bgcolor;bold" bgcolor="red" bold>OK
+        <div settext="NOT OK" stop="bgcolor;bold;settext" bgcolor="red" bold>OK</div>
+      </div>
+    </div>
+
+  <h4>1. Pattern: * (All attributes on children only)</h4>
+  <div stop="*" bgcolor="green">
+    <div settext="NOT OK" bgcolor="red">OK</div>
+  </div>
+
+  <h4>2. Pattern: *.attr (Specific attribute on children only)</h4>
+  <div stop="*.settext">
+    <div settext="NOT OK" bgcolor="green">OK</div>
+  </div>
+
+  <h4>3. Pattern: attr (Specific attribute on parent only)</h4>
+  <div stop="if" if="([1]:[1]/settext:[NOT OK..])">
+    <div settext="OK">NOT OK</div>
+  </div>
+
+  <h4>4. Pattern: *.* (All attributes on children AND parent)</h4>
+  <div stop="*;insertbeforeend" insertbeforeend="NOT OK">
+    <div settext="NOT OK" bgcolor="red">OK</div>
+  </div>
+
+  <h4>5. Pattern: Mixed (Specific parent, specific child)</h4>
+  <div stop="if;*.bgcolor" if="([1]:[1])/settext:[NOT OK]">
+    <div settext="OK" bgcolor="red" bold>NOT OK</div>
+  </div>
+
+  <h4>6. Pattern: Multiple Children targets</h4>
+  <div stop="*.settext;*.bgcolor">
+    <div settext="NOT OK" bgcolor="red">OK</div>
+  </div>
+
+  <h4>7. Pattern: Wrong - Multiple Children targets</h4>
+  <div stop="*.settex;*.bgcolor">
+    <div settext="OK" bgcolor="red">NOT OK</div>
+  </div>
+</body>
+
+</html>
