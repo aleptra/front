@@ -23,7 +23,7 @@ endef
 nightly:
 	@sed -i '' -E 's/(build:[[:space:]]+)[0-9]+/\1$(TAG)/g' $(JS_FILE)
 	@echo "Build: $(TAG) (v$(VERSION))"
-	@cp -fr $(SRC)/* nightly/
+	@rsync -av --exclude=test $(SRC)/ nightly/
 	@$(call minify,$(JS_FILE),nightly/$(JS_MIN_FILE))
 	@echo "Built nightly"
 	@read -p "Deploy? [y/n]: " ans; \
@@ -47,7 +47,7 @@ release:
 	@echo "Release $(VERSION) from $(SRC)?"
 	@read -p "Confirm [y/n]: " ans && [ "$$ans" = "y" ] || exit 1
 	@mkdir -p $(VERSION)
-	@cp -fr $(SRC)/* $(VERSION)/
+	@rsync -av --exclude=test $(SRC)/ $(VERSION)/
 	@$(call minify,$(JS_FILE),$(VERSION)/$(JS_MIN_FILE))
 	@echo ""
 	@echo "Prepared $(VERSION):"
