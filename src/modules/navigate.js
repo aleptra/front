@@ -101,8 +101,10 @@ app.module.navigate = {
   },
 
   go: function (event) {
-    event.target = event.exec.element
-    this._click(event)
+    var a = document.createElement('a')
+    a.href = event.exec.value || ''
+    document.body.appendChild(a).click()
+    a.remove()
   },
 
   /**
