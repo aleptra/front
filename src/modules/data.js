@@ -94,6 +94,7 @@ app.module.data = {
     var error = attr['data-onerror'],
       empty = attr['data-onempty'],
       header = attr['data-header'],
+      credentials = attr['data-credentials'],
       loader = attr['data-loader'],
       beforesuccess = attr['data-onbeforesuccess'],
       success = attr['data-onsuccess'],
@@ -137,6 +138,7 @@ app.module.data = {
       beforesuccess: beforesuccess,
       success: success && success.value,
       aftersuccess: aftersuccess,
+      credentials: credentials && credentials.value === 'true',
       srcEl: srcEl
     })
   },
@@ -504,6 +506,7 @@ app.module.data = {
       aftersuccess = attr['data-onaftersuccess'],
       success = attr['data-onsuccess'],
       error = attr['data-onerror'],
+      credentials = attr['data-credentials'],
       loader = attr['data-loader'],
       empty = attr['data-onempty'],
       url = attr['data-req' + method]
@@ -524,6 +527,7 @@ app.module.data = {
       method: method,
       srcEl: srcEl,
       error: error && error.value,
+      credentials: credentials && credentials.value === 'true',
       loader: loader && loader.value,
       empty: empty && empty.value,
       beforesuccess: beforesuccess,

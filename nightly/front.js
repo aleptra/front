@@ -2586,7 +2586,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 656 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 657 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3718,6 +3718,10 @@ var app = {
       }
 
       xhr.open(method, url + urlExtension, true)
+
+      if (options.credentials) {
+        xhr.withCredentials = true
+      }
 
       var payload
       if (['POST', 'PUT', 'PATCH'].indexOf(method) !== -1) {
