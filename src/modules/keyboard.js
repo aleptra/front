@@ -17,6 +17,11 @@ app.module.keyboard = {
     app.listeners.add(document, 'keydown', function (e) {
       self._keydown(e)
     })
+
+    app.listeners.add(document, 'focusin', function () {
+      self.buffer = ''
+      self._wordPendingAction = null
+    })
   },
 
   // Registration for Single Keys
@@ -74,9 +79,12 @@ app.module.keyboard = {
   },
 
   _keyup: function (e) {
-    var active = document.activeElement
-    var isBodyFocused = active === document.body || active === document.documentElement
-    var currentKey = e.key
+    var active = document.activeElement,
+      isBodyFocused = active === document.body || active === document.documentElement,
+      currentKey = e.key
+
+    // Prune detached elements
+    this._prune()
 
     // 1. Check Pending Finalizers
     if (this._wordPendingAction) {
@@ -134,12 +142,18 @@ app.module.keyboard = {
 
     /**
      * SCOPE LOGIC
+     * null/undefined = global (always fire)
+     * 'body'        = only when body/document is focused
+     * ''            = only when the element itself is focused
+     * other         = match target's uniqueid attribute
      */
-    if (scope === 'body') {
+    if (scope === null || scope === undefined) {
+      // No scope — always execute
+    } else if (scope === 'body') {
       if (!isBodyFocused) return false
     } else if (scope === '') {
       if (e.target !== element) return false
-    } else if (scope !== null) {
+    } else {
       if (e.target.getAttribute('uniqueid') !== scope) return false
     }
 
@@ -202,5 +216,11 @@ app.module.keyboard = {
       sel.addRange(newRange)
       e.preventDefault()
     }
+  },
+
+  _prune: function () {
+    var b = document.body
+    this.keys = this.keys.filter(function (k) { return b.contains(k.element) })
+    this.words = this.words.filter(function (w) { return b.contains(w.element) })
   }
 }
