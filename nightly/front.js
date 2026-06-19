@@ -118,6 +118,7 @@ var dom = {
     'whitespace': 'apply',
     'zindex': 'apply',
     'zoom': 'apply',
+    'placeholdercolor': 'apply',
   },
   _eventMap: {
     'click': 'clicked',
@@ -447,6 +448,15 @@ var dom = {
       case 'zoom':
         element.style.lineHeight = 'normal'
         break
+      case 'placeholdercolor':
+        if (!element.id) dom.setUniqueId(element)
+        var s = document.getElementById('ph-' + element.id)
+        if (s) s.parentNode.removeChild(s)
+        s = document.createElement('style')
+        s.id = 'ph-' + element.id
+        s.textContent = '#' + element.id + '::placeholder,#' + element.id + '::-webkit-input-placeholder,#' + element.id + '::-ms-input-placeholder{color:' + value + '}'
+        document.head.appendChild(s)
+        return
       case 'Top':
       case 'Bottom':
       case 'Left':
@@ -2586,7 +2596,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 657 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 658 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
