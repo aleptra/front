@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="form" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Form Throttle</h1>
+  <hr>
+
+  <h2>Test 1: Throttle 2000ms</h2>
+  <p>Click rapidly. Counter should only increment once every 2 seconds.</p>
+  <form form-throttle="2000" onformsubmit="log:[Form 1 fired]">
+    <input name="test" value="hello" type="text">
+    <button type="submit">Submit (2s)</button>
+    <span id="c1">0</span>
+  </form>
+
+  <h2>Test 2: Throttle 500ms</h2>
+  <form form-throttle="500" onformsubmit="log:[Form 2 fired]">
+    <input name="test2" value="world" type="text">
+    <button type="submit">Submit (500ms)</button>
+    <span id="c2">0</span>
+  </form>
+
+  <h2>Test 3: No throttle</h2>
+  <p>Every click should increment.</p>
+  <form onformsubmit="log:[Form 3 fired]">
+    <input name="test3" value="free" type="text">
+    <button type="submit">Submit (none)</button>
+    <span id="c3">0</span>
+  </form>
+
+  <script>
+    document.addEventListener('submit', function (e) {
+      e.preventDefault()
+      var form = e.target
+      var span = form.querySelector('span')
+      if (span) span.textContent = parseInt(span.textContent) + 1
+    })
+  </script>
+</body>
+
+</html>

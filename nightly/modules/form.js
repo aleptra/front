@@ -18,6 +18,21 @@ app.module.form = {
       }
       self._showTip(e.target)
     }, true)
+
+    document.addEventListener('submit', function (e) {
+      var form = e.target || e.srcElement
+      var ms = form && form.getAttribute && parseInt(form.getAttribute('form-throttle'), 10)
+      if (!ms) return
+
+      if (form._formThrottled) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+        return
+      }
+
+      form._formThrottled = true
+      app.wait(ms, function () { form._formThrottled = false })
+    }, true)
   },
 
   _showTip: function (el) {
