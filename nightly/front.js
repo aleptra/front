@@ -103,6 +103,7 @@ var dom = {
     'paddingbottom': 'apply',
     'paddingleft': 'apply',
     'paddingright': 'apply',
+    'placeholdercolor': 'apply',
     'radius': 'apply',
     'relative': 'apply',
     'resize': 'apply',
@@ -117,8 +118,7 @@ var dom = {
     'wordbreak': 'apply',
     'whitespace': 'apply',
     'zindex': 'apply',
-    'zoom': 'apply',
-    'placeholdercolor': 'apply',
+    'zoom': 'apply'
   },
   _eventMap: {
     'click': 'clicked',
@@ -2596,7 +2596,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 659 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 660 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
