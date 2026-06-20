@@ -377,81 +377,259 @@ app.module.storage = {
   localadd: function (object) { this._add('local', object) },
   localupdate: function (object) { this._update('local', object) },
 
-  _remove: function (mechanism, object) { /* ... (Logic unchanged) ... */ },
-  _set: function (mechanism, object) { /* ... (Logic unchanged) ... */ },
-  _update: function (mechanism, object) { /* ... (Logic unchanged) ... */ },
+  _remove: function (mechanism, object) {
+    if (mechanism === 'cookie') {
+      var name = (object && object.exec && object.exec.value !== undefined) ? object.exec.value : ''
+      var el = object.exec && object.exec.element
+      var path = el && el.getAttribute('storage-cookie-path') || '/'
+      document.cookie = encodeURIComponent(name) + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=' + path
+      try { app.listeners && app.listeners.dispatch && app.listeners.dispatch('storage-update', { mechanism: 'cookie', key: name }) } catch (e) { }
+      return
+    }
 
-  /**
-   * @function _add (Final Refinement supporting complex object creation AND standard array pushes)
-   * @desc Pushes values to arrays in storage OR creates complex objects at a specific key.
-   */
+    var store = mechanism === 'local' ? localStorage : sessionStorage
+    var val = (object && object.exec && object.exec.value !== undefined) ? object.exec.value : object.value
+    var parts = this._parseParts(val)
+
+    if (!parts || parts.length === 0) return
+    var key = parts[0]
+    if (!key) return
+
+    if (parts.length === 1) {
+      store.removeItem(key)
+      try { app.listeners && app.listeners.dispatch && app.listeners.dispatch('storage-update', { mechanism: mechanism, key: key }) } catch (e) { }
+      return
+    }
+
+    var raw = store.getItem(key)
+    if (!raw) return
+
+    try {
+      var json = JSON.parse(raw)
+      var current = json
+
+      for (var i = 1; i < parts.length - 1; i++) {
+        var p = parts[i]
+        if (current === undefined) return
+        if (Array.isArray(current)) {
+          p = /^\d+$/.test(p) ? parseInt(p, 10) : p
+          if (current[p] === undefined) return
+          current = current[p]
+        } else if (current[p] !== undefined) {
+          current = current[p]
+        } else { return }
+      }
+
+      var last = parts[parts.length - 1]
+
+      if (Array.isArray(current)) {
+        var idx = /^\d+$/.test(last) ? parseInt(last, 10) : current.indexOf(last)
+        if (idx > -1) current.splice(idx, 1)
+      } else if (current.hasOwnProperty(last)) {
+        delete current[last]
+      } else {
+        for (var k in current) {
+          if (current.hasOwnProperty(k) && Array.isArray(current[k])) {
+            var pidx = current[k].indexOf(last)
+            if (pidx > -1) { current[k].splice(pidx, 1); break }
+          }
+        }
+      }
+
+      store.setItem(key, JSON.stringify(json))
+      try { app.listeners && app.listeners.dispatch && app.listeners.dispatch('storage-update', { mechanism: mechanism, key: key }) } catch (e) { }
+    } catch (e) {
+      console.error('Storage _remove error:', e)
+    }
+  },
+
+  _set: function (mechanism, object) {
+    if (mechanism === 'cookie') {
+      var val = (object && object.exec && object.exec.value !== undefined) ? object.exec.value : ''
+      var cparts = val.split(':')
+      if (cparts.length < 2) return
+      var cname = cparts[0]
+      var cvalue = cparts.slice(1).join(':')
+      var el = object.exec && object.exec.element
+      var days = el && el.getAttribute('storage-cookie-days')
+      var cpath = el && el.getAttribute('storage-cookie-path') || '/'
+      var secure = el && el.getAttribute('storage-cookie-secure') === 'true'
+      var samesite = el && el.getAttribute('storage-cookie-samesite') || 'Lax'
+      var expires = ''
+      if (days) {
+        var d = new Date()
+        d.setTime(d.getTime() + (parseInt(days, 10) * 86400000))
+        expires = ';expires=' + d.toUTCString()
+      }
+      document.cookie = encodeURIComponent(cname) + '=' + encodeURIComponent(cvalue) + expires + ';path=' + cpath + (secure ? ';Secure' : '') + ';SameSite=' + samesite
+      try { app.listeners && app.listeners.dispatch && app.listeners.dispatch('storage-update', { mechanism: 'cookie', key: cname }) } catch (e) { }
+      return
+    }
+
+    var store = mechanism === 'local' ? localStorage : sessionStorage
+    var rawParts = (object && object.exec && object.exec.value !== undefined) ? object.exec.value : object.value
+    var parts = this._parseParts(rawParts)
+
+    if (!parts || parts.length < 1) return
+    var key = parts[0]
+    if (!key) return
+
+    // Simple set: [key]:[value] — store raw value as JSON
+    if (parts.length === 2) {
+      var simpleVal = parts[1]
+      // Check if value looks like pairs: name[val]name[val]
+      var pairs = this._extractPairs(simpleVal)
+      if (pairs.length > 0) {
+        var obj = {}
+        for (var p = 0; p < pairs.length; p++) obj[pairs[p].name] = pairs[p].value
+        store.setItem(key, JSON.stringify(obj))
+      } else {
+        store.setItem(key, JSON.stringify(simpleVal))
+      }
+      try { app.listeners && app.listeners.dispatch && app.listeners.dispatch('storage-update', { mechanism: mechanism, key: key }) } catch (e) { }
+      return
+    }
+
+    // Nested set: [key]:[path]:[path]:[value]
+    var raw = store.getItem(key)
+    var json
+    try { json = raw ? JSON.parse(raw) : {} } catch (e) { json = {} }
+
+    var current = json
+    // Navigate to parent (all parts except first=key and last=value)
+    for (var i = 1; i < parts.length - 2; i++) {
+      var seg = parts[i]
+      if (current[seg] === undefined || typeof current[seg] !== 'object') current[seg] = {}
+      current = current[seg]
+    }
+
+    var setKey = parts[parts.length - 2]
+    var setValue = parts[parts.length - 1]
+
+    // Check if value is composite pairs
+    var valuePairs = this._extractPairs(setValue)
+    if (valuePairs.length > 0) {
+      var valueObj = {}
+      for (var vp = 0; vp < valuePairs.length; vp++) valueObj[valuePairs[vp].name] = valuePairs[vp].value
+      current[setKey] = valueObj
+    } else {
+      current[setKey] = setValue
+    }
+
+    store.setItem(key, JSON.stringify(json))
+    try { app.listeners && app.listeners.dispatch && app.listeners.dispatch('storage-update', { mechanism: mechanism, key: key }) } catch (e) { }
+  },
+
+  _get: function (mechanism, object) {
+    if (mechanism === 'cookie') {
+      var el = object.exec && object.exec.element || object
+      var name = (object.exec && object.exec.value) || el.getAttribute('storage-cookieget') || ''
+      var cookies = document.cookie.split(';')
+      for (var i = 0; i < cookies.length; i++) {
+        var c = cookies[i].replace(/^\s+/, '')
+        if (c.indexOf(encodeURIComponent(name) + '=') === 0) {
+          var value = decodeURIComponent(c.substring(name.length + 1))
+          app.element.set(el, value)
+          return value
+        }
+      }
+      return ''
+    }
+  },
+
+  _update: function (mechanism, object) {
+    var store = mechanism === 'local' ? localStorage : sessionStorage
+    var rawParts = (object && object.exec && object.exec.value !== undefined) ? object.exec.value : object.value
+    var parts = this._parseParts(rawParts)
+
+    if (!parts || parts.length < 3) return
+    var key = parts[0]
+    if (!key) return
+
+    var raw = store.getItem(key)
+    if (!raw) return
+
+    try {
+      var json = JSON.parse(raw)
+      var current = json
+
+      // Navigate path (skip key and last two: target + value)
+      for (var i = 1; i < parts.length - 2; i++) {
+        var seg = parts[i]
+        if (current[seg] === undefined) return
+        current = current[seg]
+      }
+
+      var updateKey = parts[parts.length - 2]
+      var updateValue = parts[parts.length - 1]
+
+      current[updateKey] = updateValue
+
+      store.setItem(key, JSON.stringify(json))
+      try { app.listeners && app.listeners.dispatch && app.listeners.dispatch('storage-update', { mechanism: mechanism, key: key }) } catch (e) { }
+    } catch (e) {
+      console.error('Storage _update error:', e)
+    }
+  },
+
+  _parseParts: function (raw) {
+    if (Object.prototype.toString.call(raw) === '[object Array]') return raw.slice()
+    if (typeof raw !== 'string') return []
+
+    var out = [], buf = '', i = 0
+    while (i < raw.length) {
+      var ch = raw.charAt(i)
+      if (ch === ':' && buf === '') { i++; continue }
+      if (ch === ':') { out.push(buf); buf = ''; i++; continue }
+      if (ch === '[') {
+        var j = i + 1, bdepth = 1, sub = ''
+        while (j < raw.length && bdepth > 0) {
+          var cj = raw.charAt(j)
+          if (cj === '[') { bdepth++; sub += cj }
+          else if (cj === ']') { bdepth--; if (bdepth > 0) sub += cj }
+          else sub += cj
+          j++
+        }
+        if (sub !== '') out.push(sub)
+        i = j; continue
+      }
+      buf += ch; i++
+    }
+    if (buf !== '') out.push(buf)
+    for (var t = out.length - 1; t >= 0; t--) {
+      if (out[t] === '' || out[t] === undefined || out[t] === null) out.splice(t, 1)
+    }
+    return out
+  },
+
+  _extractPairs: function (str) {
+    var pairs = []
+    if (!str || typeof str !== 'string') return pairs
+    // Try standard format: name[value]name[value]
+    var re = /([^\[\]]+)\[([^\[\]]+)\]/g, m
+    while ((m = re.exec(str))) {
+      if (m[1] !== undefined && m[2] !== undefined) pairs.push({ name: m[1], value: m[2] })
+    }
+    // Try bracket format: [name][value][name][value]
+    if (pairs.length === 0 && str.charAt(0) === '[') {
+      var re2 = /\[([^\[\]]+)\]/g, tokens = [], m2
+      while ((m2 = re2.exec(str))) {
+        if (m2[1]) tokens.push(m2[1])
+      }
+      for (var i = 0; i < tokens.length - 1; i += 2) {
+        pairs.push({ name: tokens[i], value: tokens[i + 1] })
+      }
+    }
+    return pairs
+  },
+
   _add: function (mechanism, object) {
     var store = mechanism === 'local' ? localStorage : sessionStorage
 
-    // Parse a raw exec value into tokens, respecting nested brackets.
-    // Examples:
-    //  "[myObject][new_key][[version[1.0]][date[today]]]" =>
-    //    ['myObject','new_key','[version[1.0]][date[today]]']
-    //  "[myArray][item]" => ['myArray','item']
-    function parseParts(raw) {
-      if (Object.prototype.toString.call(raw) === '[object Array]') return raw.slice()
-      if (typeof raw !== 'string') return []
-
-      var out = []
-      var buf = ''
-      var depth = 0
-      var i = 0
-      while (i < raw.length) {
-        var ch = raw.charAt(i)
-        if (ch === ':' && depth === 0) {
-          if (buf !== '') { out.push(buf); buf = '' }
-          i++; continue
-        }
-        if (ch === '[') {
-          // start bracket capture (skip outer bracket)
-          var j = i + 1
-          var bdepth = 1
-          var sub = ''
-          while (j < raw.length && bdepth > 0) {
-            var cj = raw.charAt(j)
-            if (cj === '[') { bdepth++; sub += cj }
-            else if (cj === ']') { bdepth--; if (bdepth > 0) sub += cj }
-            else sub += cj
-            j++
-          }
-          if (sub !== '') out.push(sub)
-          i = j
-          continue
-        }
-        // plain text
-        buf += ch
-        i++
-      }
-      if (buf !== '') out.push(buf)
-      // trim empties
-      for (var t = out.length - 1; t >= 0; t--) {
-        if (out[t] === '' || out[t] === undefined || out[t] === null) out.splice(t, 1)
-      }
-      return out
-    }
-
-    // extract pairs like "version[1.0]" or "date[today]" from a composite string
-    // Accepts a string that may contain multiple "name[value]" occurrences.
-    function extractPairs(str) {
-      var pairs = []
-      if (!str || typeof str !== 'string') return pairs
-      var re = /([^\[\]]+)\[([^\[\]]+)\]/g
-      var m
-      while ((m = re.exec(str))) {
-        if (m[1] !== undefined && m[2] !== undefined) pairs.push({ name: m[1], value: m[2] })
-      }
-      return pairs
-    }
-
     var rawParts = (object && object.exec && object.exec.value !== undefined) ? object.exec.value : object.value
-    var parts = parseParts(rawParts)
+    var parts = this._parseParts(rawParts)
 
-    // detect unique flag (supports exec.unique and '!' in exec.name)
+    // detect unique flag
     var unique = !!(object && object.exec && object.exec.unique)
     try {
       if (!unique && object && object.exec && object.exec.name && typeof object.exec.name === 'string') {
@@ -462,8 +640,6 @@ app.module.storage = {
     if (!parts || parts.length < 1) return
     var key = parts[0]
     if (!key) return
-
-    // require at least key + one path + value
     if (parts.length < 3) return
 
     var raw = store.getItem(key)
@@ -475,11 +651,20 @@ app.module.storage = {
       var lastToken = parts[parts.length - 1]
       var secondLast = parts[parts.length - 2]
 
-      // If lastToken looks like a composite (contains "name[value]" pairs), treat as object creation.
-      var compositeDetected = (typeof lastToken === 'string' && /[^\[\]]+\[[^\[\]]+\]/.test(lastToken))
+      var compositeDetected = (typeof lastToken === 'string' && (/[^\[\]]+\[[^\[\]]+\]/.test(lastToken) || /^\[[^\[\]]+\]\[[^\[\]]+\]/.test(lastToken)))
+
+      // Check if target path resolves to an existing array — if so, treat as array push not composite
+      if (compositeDetected) {
+        var checkPath = parts.slice(1, parts.length - 1)
+        var checkCurrent = json
+        for (var ci = 0; ci < checkPath.length; ci++) {
+          if (checkCurrent && checkCurrent[checkPath[ci]] !== undefined) checkCurrent = checkCurrent[checkPath[ci]]
+          else { checkCurrent = undefined; break }
+        }
+        if (Array.isArray(checkCurrent)) compositeDetected = false
+      }
 
       if (compositeDetected) {
-        // Path segments between key and finalKey (exclusive)
         var pathSegments = parts.slice(1, parts.length - 2)
         for (var pi = 0; pi < pathSegments.length; pi++) {
           var pathKey = String(pathSegments[pi])
@@ -488,23 +673,15 @@ app.module.storage = {
         }
 
         var finalKey = String(secondLast)
-        // lastToken may already contain multiple pairs like "version[1.0]][date[today]" or "version[1.0]][date[today]"
-        // Ensure we have a string to scan for pairs
-        var compositeStr = String(lastToken)
-        // If the compositeStr does not include '[' at start, but contains '][' patterns, we still scan it directly.
-        var pairs = extractPairs(compositeStr)
+        var pairs = this._extractPairs(String(lastToken))
         if (pairs.length > 0) {
           var finalObj = {}
-          for (var k = 0; k < pairs.length; k++) {
-            finalObj[String(pairs[k].name)] = pairs[k].value
-          }
+          for (var k = 0; k < pairs.length; k++) finalObj[String(pairs[k].name)] = pairs[k].value
           current[finalKey] = finalObj
         } else {
-          // fallback: store raw token
-          current[finalKey] = compositeStr
+          current[finalKey] = String(lastToken)
         }
       } else {
-        // Standard array push path: path = parts[1..n-2], value = lastToken
         var pathSegments2 = parts.slice(1, parts.length - 1)
         for (var p = 0; p < pathSegments2.length; p++) {
           var pathKey2 = String(pathSegments2[p])
@@ -521,10 +698,8 @@ app.module.storage = {
         }
 
         var valuesToAdd = []
-        // lastToken may include multiple bracketed values merged; parse bracketed items if present
         if (typeof lastToken === 'string' && /\[[^\]]+\]/.test(lastToken)) {
-          var valRe = /\[([^\]]+)\]/g
-          var valMatch
+          var valRe = /\[([^\]]+)\]/g, valMatch
           while ((valMatch = valRe.exec(lastToken)) !== null) {
             if (valMatch[1]) valuesToAdd.push(valMatch[1])
           }
