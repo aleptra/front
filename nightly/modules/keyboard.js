@@ -83,6 +83,8 @@ app.module.keyboard = {
       isBodyFocused = active === document.body || active === document.documentElement,
       currentKey = e.key
 
+    if (!currentKey) return
+
     // Prune detached elements
     this._prune()
 
