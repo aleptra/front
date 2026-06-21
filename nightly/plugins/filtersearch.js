@@ -7,75 +7,81 @@ app.plugin.filtersearch = {
 
   run: function (object) {
     var srcElement = object.options && object.options.element
-    var term = (srcElement && srcElement.value !== undefined
-      ? srcElement.value
-      : object.exec && object.exec.value || ''
-    ).trim().toLowerCase()
-
     var hasTarget = object.exec && object.exec.element && object.exec.element !== srcElement
     var container = hasTarget ? object.exec.element : document
+    var term = ''
+
+    if (srcElement && srcElement.type === 'text') {
+      term = (srcElement.value || '').trim().toLowerCase()
+    } else if (hasTarget) {
+      var filterInput = app.element.select('[filtersearch--input]')
+      term = filterInput ? (filterInput.value || '').trim().toLowerCase() : ''
+    }
 
     var found = hasTarget
       ? app.element.find(container, '*[' + this.plugin + '-select]')
       : app.element.select('[' + this.plugin + '-select]', true)
 
-    // Normalize to a plain array
     var rows = found ? (found.length !== undefined ? [].slice.call(found) : [found]) : []
-    var i, row, text, matches, countKey
+    if (!rows.length) return
 
-    // Reset counts
+    var checkboxes = app.element.select('input[type="checkbox"][data-filter-group]', true)
+    var filters = {}
+    var hasActiveFilters = false
+    if (checkboxes) {
+      var cbs = checkboxes.length !== undefined ? [].slice.call(checkboxes) : [checkboxes]
+      for (var c = 0; c < cbs.length; c++) {
+        var group = cbs[c].getAttribute('data-filter-group')
+        if (group && cbs[c].checked) {
+          filters[group] = true
+          hasActiveFilters = true
+        }
+      }
+    }
+
     this.sectionMatches = {}
     this.totalMatches = 0
 
-    if (rows.length === 0) {
-      return
-    }
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i]
+      var matches = term === '' || (row.textContent || '').toLowerCase().indexOf(term) !== -1
 
-    // Single pass: filter rows + count per section
-    for (i = 0; i < rows.length; i++) {
-      row = rows[i]
-      text = (row.textContent || '').trim()
-      matches = (term === '' || text.toLowerCase().indexOf(term) !== -1)
-
-      app.call(matches ? 'show' : 'hide', { element: row })
-
-      if (matches) {
-        this.totalMatches++
+      if (matches && hasActiveFilters) {
+        var marker = row.querySelector('[filtersearch-marker]')
+        var hasMarker = marker && marker.textContent.trim().length > 0
+        matches = (filters._hasvalue && hasMarker) || (filters._empty && !hasMarker)
       }
 
-      countKey = row.getAttribute('filtersearch--count')
+      app.call(matches ? 'show' : 'hide', { element: row })
+      if (matches) this.totalMatches++
+
+      var countKey = row.getAttribute('filtersearch--count')
       if (countKey) {
         if (!this.sectionMatches.hasOwnProperty(countKey)) {
           this.sectionMatches[countKey] = 0
         }
-        if (matches) {
-          this.sectionMatches[countKey]++
-        }
+        if (matches) this.sectionMatches[countKey]++
       }
     }
 
-    // Update all counter elements
     var key
     for (key in this.sectionMatches) {
       if (this.sectionMatches.hasOwnProperty(key)) {
         var count = this.sectionMatches[key]
-        var found = hasTarget
+        var els = hasTarget
           ? app.element.find(container, '*[' + this.plugin + '-count="' + key + '"]')
           : app.element.select('[' + this.plugin + '-count="' + key + '"]', true)
-        var counters = found ? (found.length !== undefined ? [].slice.call(found) : [found]) : []
+        var counters = els ? (els.length !== undefined ? [].slice.call(els) : [els]) : []
         for (i = 0; i < counters.length; i++) {
           app.variables.update.attributes(counters[i], key, count, { reset: true })
         }
       }
     }
 
-    // data-onempty="#someElement" on the container — show when no matches, hide otherwise
     var onempty = hasTarget && container.getAttribute(this.plugin + '-onempty')
     if (onempty) {
       var emptyEl = app.element.select(onempty)
-      if (emptyEl) {
-        app.call(this.totalMatches === 0 ? 'show' : 'hide', { element: emptyEl })
-      }
+      if (emptyEl) app.call(this.totalMatches === 0 ? 'show' : 'hide', { element: emptyEl })
     }
   }
 }
