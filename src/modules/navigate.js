@@ -16,6 +16,8 @@ app.module.navigate = {
       preloader: '#navloader',
       startpage: false,
       startpageLocal: false,
+      error: false,
+      success: false,
     }, options.element)
 
     // Cache main container once
@@ -105,6 +107,14 @@ app.module.navigate = {
     a.href = event.exec.value || ''
     document.body.appendChild(a).click()
     a.remove()
+  },
+
+  back: function () {
+    history.back()
+  },
+
+  forward: function () {
+    history.forward()
   },
 
   /**
@@ -215,7 +225,8 @@ app.module.navigate = {
           arg: state.target + ' *'
         }
       },
-      success: ''
+      error: this.config.error || '',
+      success: this.config.success || ''
     })
 
     // Re-bind scroll listener after html-level loads replace the DOM
