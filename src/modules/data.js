@@ -507,6 +507,7 @@ app.module.data = {
       success = attr['data-onsuccess'],
       error = attr['data-onerror'],
       credentials = attr['data-credentials'],
+      csrf = attr['data-csrf'],
       loader = attr['data-loader'],
       empty = attr['data-onempty'],
       url = attr['data-req' + method]
@@ -514,6 +515,16 @@ app.module.data = {
     // Support header reference.
     if (headers && headers.value[0] === '#') {
       headers = app.element.select(headers.value).attributes['data-header']
+    }
+
+    // Auto-attach CSRF token from cookie
+    var headerValue = headers && headers.value || ''
+    if (csrf) {
+      var csrfCookie = csrf.value || 'csrf_token'
+      var csrfValue = app.module.storage._get('cookie', { exec: { value: csrfCookie, element: srcEl } })
+      if (csrfValue) {
+        headerValue = headerValue ? headerValue + ';X-CSRF-Token:' + csrfValue : 'X-CSRF-Token:' + csrfValue
+      }
     }
 
     // Support action attribute.
@@ -533,7 +544,7 @@ app.module.data = {
       beforesuccess: beforesuccess,
       success: success && success.value,
       aftersuccess: aftersuccess,
-      headers: headers && headers.value
+      headers: headerValue
     })
   },
 
@@ -545,6 +556,28 @@ app.module.data = {
         attribute = options.options.srcAttribute
       this._process(attribute, element, responseObject, { single: true, value: value })
     }
+  },
+
+  store: function (options) {
+    if (!options.options || !options.options.response) return
+    var response = options.options.response.data
+    var value = options.exec && options.exec.value
+    if (!value || !response) return
+
+    // value = ['mechanism', 'key', 'responseField'] e.g. ['session', 'auth', 'token']
+    var parts = Array.isArray(value) ? value : [value]
+    if (parts.length < 3) return
+
+    var mechanism = parts[0]
+    var storageKey = parts[1]
+    var responseKey = parts[2]
+    var data = app.element.getPropertyByPath(response, responseKey)
+
+    if (data === undefined) return
+
+    var store = mechanism === 'local' ? localStorage : sessionStorage
+    store.setItem(storageKey, typeof data === 'object' ? JSON.stringify(data) : data)
+    try { app.listeners && app.listeners.dispatch && app.listeners.dispatch('storage-update', { mechanism: mechanism, key: storageKey }) } catch (e) { }
   },
 
   _merge: function (response, responseJoin, merge) {
