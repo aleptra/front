@@ -258,6 +258,36 @@ app.module.storage = {
   },
 
   // Public Wrappers (unchanged)
+  bindlocal: function (element) {
+    element = element.exec ? element.exec.element : element
+    var value = element.getAttribute('storage-bindlocal')
+    if (!value) return
+    var parts = value.split(':')
+    var key = parts[0]
+    var variable = parts[1] || key
+    var raw = localStorage.getItem(key)
+    if (raw) {
+      try { raw = JSON.parse(raw) } catch (e) { }
+      app.variables.update.attributes(element, variable, raw)
+      app.variables.update.content(element, variable, raw)
+    }
+  },
+
+  bindsession: function (element) {
+    element = element.exec ? element.exec.element : element
+    var value = element.getAttribute('storage-bindsession')
+    if (!value) return
+    var parts = value.split(':')
+    var key = parts[0]
+    var variable = parts[1] || key
+    var raw = sessionStorage.getItem(key)
+    if (raw) {
+      try { raw = JSON.parse(raw) } catch (e) { }
+      app.variables.update.attributes(element, variable, raw)
+      app.variables.update.content(element, variable, raw)
+    }
+  },
+
   sessionremove: function (object) { this._remove('session', object) },
   sessionset: function (object) { this._set('session', object) },
   sessionadd: function (object) { this._add('session', object) },
