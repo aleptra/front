@@ -19,6 +19,12 @@ app.plugin.particles = {
   load: function (container) {
     var self = this
 
+    // Enforce safe limits
+    var count = Math.min(parseInt(self.config.particles, 10) || 50, 500)
+    var size = Math.min(parseInt(self.config.size, 10) || 2, 50)
+    self.config.particles = count
+    self.config.size = size
+
     // Ensure container has proper styles
     container.style.position = 'relative'
     container.style.overflow = 'hidden'

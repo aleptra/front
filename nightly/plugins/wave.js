@@ -23,9 +23,9 @@ app.plugin.wave = {
 
     // Read per-element config (attributes on the container override globals)
     var conf = app.config.get('wave-', this.config, container)
-    var slices = parseInt(conf.slices, 10) || 40
-    var speed = parseFloat(conf.speed) || 0.01
-    var amount = parseFloat(conf.amount) || 6
+    var slices = Math.min(parseInt(conf.slices, 10) || 40, 100)
+    var speed = Math.min(parseFloat(conf.speed) || 0.01, 0.1)
+    var amount = Math.min(parseFloat(conf.amount) || 6, 30)
     var src = conf.src || ''
 
     if (!src) return
