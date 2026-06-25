@@ -2596,7 +2596,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 668 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 669 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2696,6 +2696,13 @@ var app = {
           var json = app.parse.json(data)
           data = json.value
           this.responseError = json.errorMessage
+
+          // Resolve {key} references in var JSON using top-level values.
+          if (type === 'var' && data) {
+            var raw = JSON.stringify(data)
+            data = JSON.parse(raw.replace(/\{(\w+)\}/g, function (m, k) { return typeof data[k] === 'string' ? data[k] : m }))
+          }
+
           break
       }
 
