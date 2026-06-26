@@ -908,15 +908,21 @@ var dom = {
       element = element.exec.element
     }
 
-    var escape = app.element.get(element),
-      code = escape.charCodeAt(0)
+    var escape = app.element.get(element)
 
-    if (0xD800 <= code && code <= 0xDBFF) {
-      low = escape.charCodeAt(1)
-      code = ((code - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000
+    if (escape.length <= 1) {
+      // Original behavior: single character to numeric entity
+      var code = escape.charCodeAt(0)
+      if (0xD800 <= code && code <= 0xDBFF) {
+        var low = escape.charCodeAt(1)
+        code = ((code - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000
+      }
+      if (code) app.element.set(element, '&#' + code + ';')
+    } else {
+      // Full HTML escape for multi-character content
+      var text = element.textContent || ''
+      element.innerHTML = text.replace(/&/g, '&amp;').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"')
     }
-
-    if (code) app.element.set(element, '&#' + code + ';')
   },
 
   /**
@@ -2596,7 +2602,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 670 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 671 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
