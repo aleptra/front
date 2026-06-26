@@ -450,12 +450,14 @@ var dom = {
         break
       case 'placeholdercolor':
         if (!element.id) dom.setUniqueId(element)
+        var phColor = value || element.getAttribute('color') || ''
+        if (!phColor) return
         var s = document.getElementById('ph-' + element.id)
         if (s) s.parentNode.removeChild(s)
         s = document.createElement('style')
         s.id = 'ph-' + element.id
-        s.innerHTML = '#' + element.id + '::placeholder { color: ' + value + ' !important; }'
-        document.body.append(s)
+        s.innerHTML = '#' + element.id + '::placeholder { color: ' + phColor + ' !important; }'
+        document.body.appendChild(s)
         return
       case 'Top':
       case 'Bottom':
@@ -709,6 +711,40 @@ var dom = {
       var parts = answer.split(';')
       if (parts[0] === 'true' && result) app.call(parts[1], { element: el })
     }
+  },
+
+  /**
+   * @function placeholder
+   * @memberof dom
+   */
+  placeholder: function (element, value) {
+    var skip = { input: 1, textarea: 1, select: 1 }
+    if (skip[element.localName]) return
+
+    var placeholder = value
+    var style = element.style
+
+    if (!element.textContent.trim()) {
+      element.textContent = placeholder
+      element._placeholderActive = true
+      style.color = 'gray'
+    }
+
+    element.addEventListener('focus', function () {
+      if (element._placeholderActive) {
+        element.textContent = ''
+        element._placeholderActive = false
+        style.color = ''
+      }
+    })
+
+    element.addEventListener('blur', function () {
+      if (!element.textContent.trim()) {
+        element.textContent = placeholder
+        element._placeholderActive = true
+        style.color = 'gray'
+      }
+    })
   },
 
   /**
@@ -2602,7 +2638,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 672 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 673 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
