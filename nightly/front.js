@@ -1780,6 +1780,15 @@ var app = {
       app.call(mouseout, { srcElement: e.target, element: el })
     })
 
+    app.listeners.add(document, 'contextmenu', function (e) {
+      var el = app.element.getClosestWithAttr(e.target, 'rightclick')
+      if (!el) return
+
+      e.preventDefault()
+      var rightclick = el.getAttribute('rightclick')
+      app.call(rightclick, { srcElement: e.target, element: el })
+    })
+
     app.listeners.add(document, 'input', function (e) {
       app.listeners.change('input', e.target, false, e)
     })
@@ -2638,7 +2647,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 674 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 675 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,

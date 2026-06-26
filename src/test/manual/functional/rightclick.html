@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Rightclick</h1>
+  <hr>
+
+  <h2>Test 1: Alert on right-click</h2>
+  <div rightclick="alert:[Right-click detected!]" bgcolor="lightgray" padding="2rem" cursor="pointer">
+    Right-click me (shows alert)
+  </div>
+
+  <h2>Test 2: Show menu on right-click</h2>
+  <div rightclick="show:#menu" bgcolor="lightyellow" padding="2rem" cursor="pointer" margintop="1rem">
+    Right-click me (shows menu)
+  </div>
+
+  <ul id="menu" hide bgcolor="white" boxshadow="0 2px 8px rgba(0,0,0,0.2)" padding="0.5rem 0"
+    radius="4px" absolute zindex="9999">
+    <li click="alert:[Edit];hide:#menu" padding="0.5rem 1rem" mouseover="bgcolor:[#f0f0f0]"
+      mouseout="bgcolor:[inherit]" cursor="pointer">Edit</li>
+    <li click="alert:[Delete];hide:#menu" padding="0.5rem 1rem" mouseover="bgcolor:[#f0f0f0]"
+      mouseout="bgcolor:[inherit]" cursor="pointer">Delete</li>
+    <li click="alert:[Copy];hide:#menu" padding="0.5rem 1rem" mouseover="bgcolor:[#f0f0f0]"
+      mouseout="bgcolor:[inherit]" cursor="pointer">Copy</li>
+  </ul>
+
+  <h2>Test 3: Toggle visibility</h2>
+  <div rightclick="toggledisplay:#secret" bgcolor="lightblue" padding="2rem" cursor="pointer" margintop="1rem">
+    Right-click to toggle hidden content
+  </div>
+  <div id="secret" hide bgcolor="lightgreen" padding="1rem" margintop="0.5rem">
+    Secret content revealed!
+  </div>
+
+  <h2>Test 4: No rightclick (default browser menu)</h2>
+  <div bgcolor="lightcoral" padding="2rem" margintop="1rem">
+    Right-click me (normal browser menu)
+  </div>
+</body>
+
+</html>
