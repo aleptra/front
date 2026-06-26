@@ -10,6 +10,7 @@ app.plugin.syntaxhighlighting = {
         colors: 'slategray,silver,cornsilk,navajowhite,green',
         javascriptColors: 'cornflowerblue,burlywood,green,mediumpurple,gray',
         shellColors: 'slategray,silver,cornsilk,navajowhite,green',
+        errorColor: 'red',
       },
       options.element
     )
@@ -18,6 +19,7 @@ app.plugin.syntaxhighlighting = {
 
   set: function (object) {
     if (object.exec) object = object.exec.element
+    var self = this
     var language = this._detectLanguage(object.innerHTML)
 
     if (language === 'html') {
@@ -26,6 +28,112 @@ app.plugin.syntaxhighlighting = {
       object.innerHTML = this._colorizeShell(object.innerHTML, this.config.shellColors || this.config.colors)
     } else if (language === 'javascript') {
       object.innerHTML = this._colorizeJavaScript(object.innerHTML, this.config.javascriptColors || this.config.colors)
+    }
+
+    if (object.isContentEditable && !object._syntaxBound) {
+      object._syntaxBound = true
+      var timer = null
+      object.addEventListener('input', function () {
+        clearTimeout(timer)
+        timer = setTimeout(function () {
+          var sel = window.getSelection()
+          var range = sel.rangeCount ? sel.getRangeAt(0) : null
+          var textBefore = ''
+          if (range) {
+            var preRange = document.createRange()
+            preRange.selectNodeContents(object)
+            preRange.setEnd(range.startContainer, range.startOffset)
+            textBefore = preRange.toString()
+          }
+
+          var before = object.textContent
+          var escaped = before.replace(/&/g, '\x26amp;').replace(/</g, '\x26lt;').replace(/>/g, '\x26gt;')
+          var lang = self._detectLanguage(escaped)
+          var colorized = escaped
+
+          if (lang === 'html') {
+            colorized = self._colorizeHtml(escaped, self.config.colors)
+          } else if (lang === 'javascript') {
+            colorized = self._colorizeJavaScript(escaped, self.config.javascriptColors || self.config.colors)
+          } else if (lang === 'shell') {
+            colorized = self._colorizeShell(escaped, self.config.shellColors || self.config.colors)
+          }
+
+          object.innerHTML = colorized
+
+          // Validate and highlight errors
+          self._validate(object, escaped, before, lang)
+
+          // Restore cursor
+          var walker = document.createTreeWalker(object, NodeFilter.SHOW_TEXT)
+          var charCount = 0, node
+          while (node = walker.nextNode()) {
+            var next = charCount + node.textContent.length
+            if (next >= textBefore.length) {
+              var r = document.createRange()
+              r.setStart(node, textBefore.length - charCount)
+              r.collapse(true)
+              sel.removeAllRanges()
+              sel.addRange(r)
+              return
+            }
+            charCount = next
+          }
+        }, 500)
+      })
+    }
+  },
+
+  _validate: function (object, escaped, before, language) {
+    var errorLines = {}
+    var rawLines = escaped.split('\n')
+
+    for (var i = 0; i < rawLines.length; i++) {
+      var line = rawLines[i]
+
+      // Common: unclosed quotes
+      var dq = (line.match(/"/g) || []).length
+      var sq = (line.match(/'/g) || []).length
+      if (dq % 2 !== 0 || sq % 2 !== 0) errorLines[i] = true
+
+      if (language === 'html') {
+        // Invalid opening tag name (e.g. <div#>)
+        if (/&lt;[a-zA-Z]+[#!@$%^*~]+/.test(line)) errorLines[i] = true
+        // Invalid closing tag (e.g. </div#>)
+        if (/&lt;\/\w*[#!@$%^*~]+/.test(line)) errorLines[i] = true
+      }
+
+      if (language === 'javascript') {
+        // Unclosed brackets on a single line
+        var open = (line.match(/\(/g) || []).length
+        var close = (line.match(/\)/g) || []).length
+        if (open !== close) errorLines[i] = true
+      }
+    }
+
+    // If browser mangled it, fallback to escaped
+    if (object.textContent !== before) {
+      object.innerHTML = escaped
+      errorLines = {}
+      for (var i = 0; i < rawLines.length; i++) {
+        var dq = (rawLines[i].match(/"/g) || []).length
+        var sq = (rawLines[i].match(/'/g) || []).length
+        if (dq % 2 !== 0 || sq % 2 !== 0) errorLines[i] = true
+      }
+    }
+
+    // Apply error highlighting
+    var hasErrors = false
+    for (var k in errorLines) { hasErrors = true; break }
+    if (hasErrors) {
+      var outLines = object.innerHTML.split('\n')
+      for (var i in errorLines) {
+        if (outLines[i] !== undefined) {
+          console.error('Syntax error on line ' + (parseInt(i) + 1) + ':', rawLines[i])
+          outLines[i] = '<mark style="display:inline;background:' + this.config.errorColor + '">' + outLines[i] + '</mark>'
+        }
+      }
+      object.innerHTML = outLines.join('\n')
     }
   },
 
@@ -37,7 +145,7 @@ app.plugin.syntaxhighlighting = {
     // JavaScript
     if (/\bfunction\s*(\w*\s*)\(/.test(text)) return 'javascript'
     // HTML
-    if (/^&lt;!DOCTYPE html&gt;|^&lt;html&gt;/.test(text) || /&lt;[a-z]+\b/.test(text)) return 'html'
+    if (/^\x26lt;!DOCTYPE html\x26gt;|^\x26lt;html\x26gt;/.test(text) || /\x26lt;[a-z]+\b/.test(text)) return 'html'
 
     // Default fallback
     return 'html'
@@ -48,22 +156,21 @@ app.plugin.syntaxhighlighting = {
       style = this.markupElement
 
     // Tags and self-closing tags.
-    var rep = text.replace(/(&lt;\/?)(\w+)((?:"[^"]*"|'[^']*'|(?!>)[\s\S])*?)(\/?)&gt;/g, function (match, p1, tag, attributes, selfClosing) {
+    var rep = text.replace(/(\x26lt;\/?)(\w+)((?:"[^"]*"|'[^']*'|(?!\x26gt;)[\s\S])*?)(\/?)(\x26gt;)/g, function (match, p1, tag, attributes, selfClosing) {
       var closed = '',
         selfClosingTag = '',
-        colorTag = color[1], // Color for tag names.
-        colorSlash = color[0] // Color for angle brackets and self-closing slashes.
+        colorTag = color[1],
+        colorSlash = color[0]
 
-      if (p1 === '&lt;/') {
-        attributes = '' // Clear attributes for closing tag.
-        closed = '/' // Use the same color for the closing slash as for the opening bracket.
+      if (p1 === '\x26lt;/') {
+        attributes = ''
+        closed = '/'
       }
 
       if (selfClosing) {
-        selfClosingTag = '<mark style="' + style + colorSlash + '">/</mark>'; // Color for self-closing slash.
+        selfClosingTag = '<mark style="' + style + colorSlash + '">/</mark>';
       }
 
-      // Colorize Attributes if they exist.
       if (attributes) {
         attributes = attributes.replace(/([\w:-]+)(=(["'][^"']*["']|[^\s>]+))?/g, function (attrMatch, attrName, attrValue) {
           var equal = ''
@@ -79,12 +186,11 @@ app.plugin.syntaxhighlighting = {
         })
       }
 
-      // Apply the same color to closing slash as to opening bracket.
-      return '<mark style="' + style + colorSlash + '">&lt;' + closed + '</mark><mark style="' + style + colorTag + '">' + tag + '</mark>' + attributes + selfClosingTag + '<mark style="' + style + colorSlash + '">&gt;</mark>'
+      return '<mark style="' + style + colorSlash + '">\x26lt;' + closed + '</mark><mark style="' + style + colorTag + '">' + tag + '</mark>' + attributes + selfClosingTag + '<mark style="' + style + colorSlash + '">\x26gt;</mark>'
     })
 
     // Comments.
-    rep = rep.replace(/(&lt;!--[\s\S]*?--&gt;)/g, function (match, comment) {
+    rep = rep.replace(/(\x26lt;!--[\s\S]*?--\x26gt;)/g, function (match, comment) {
       return '<mark style="' + style + color[4] + '">' + comment + '</mark>'
     })
 
@@ -95,7 +201,6 @@ app.plugin.syntaxhighlighting = {
     var color = colors.split(','),
       style = this.markupElement
 
-    // Shebang.
     var rep = text.replace(/^#!(\w+)\/(\w+)/g, function (match) {
       return '<mark style="' + style + color[0] + '">' + match + '</mark>'
     })
@@ -107,17 +212,14 @@ app.plugin.syntaxhighlighting = {
     var color = colors.split(','),
       style = this.markupElement
 
-    // Strings
     var rep = text.replace(/(["'`])(.*?)\1/g, function (match, quote, content) {
       return '<mark style="' + style + color[1] + '">' + quote + content + quote + '</mark>'
     })
 
-    // Comments
     rep = rep.replace(/(\/\/.*$|\/\*[\s\S]*?\*\/)/gm, function (match) {
       return '<mark style="' + style + color[4] + '">' + match + '</mark>'
     })
 
-    // Keywords
     rep = rep.replace(/\b(function|var|let|const|if|else|for|while|return|true|false|null|undefined|async|await)\b/g, function (match) {
       return '<mark style="' + style + color[0] + '">' + match + '</mark>'
     })
