@@ -45,4 +45,4 @@ Visit [front.nu/documentation](https://www.front.nu/documentation) for guides, A
 
 ## License
 
-[MIT](https://github.com/aleptra/front/blob/main/LICENSE)
+[MIT](https://github.com/aleptra/front/blob/master/LICENSE)
