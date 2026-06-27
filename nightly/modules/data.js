@@ -1,7 +1,6 @@
 'use strict'
 
 app.module.data = {
-
   _intervalTimers: {},
   storageMechanism: 'window',
   storageType: 'module',
@@ -87,6 +86,7 @@ app.module.data = {
         storageKey: this.module + this._generateId(src.value) + joinSuffix,
         ttl: ttl && ttl.value
       }
+
     this._open(attr, options)
   },
 
@@ -155,6 +155,7 @@ app.module.data = {
       databindheader = element.getAttribute('data-bindheader'),
       datastatus = element.getAttribute('data-status'),
       dataempty = element.getAttribute('data-onempty'),
+      datanotempty = element.getAttribute('data-onnotempty'),
       datasuccess = element.attributes['data-onsuccess']
 
     if (responseData) {
@@ -171,14 +172,12 @@ app.module.data = {
       if (datafilteritem) {
         var datafilterkey = element.getAttribute('data-filterkey'),
           filteredResponse = this._filter(responseData.data, datafilteritem, datafilterkey)
-
         if (!options.iterate) {
           var targetData = datafilterkey ? filteredResponse.data[datafilterkey] : filteredResponse.data
           if (Array.isArray(targetData) && targetData.length === 1) {
             filteredResponse.data = targetData[0]
           }
         }
-
         responseData = filteredResponse
       }
 
@@ -186,11 +185,18 @@ app.module.data = {
         this._replace(responseData.data, datareplace)
       }
 
-      if (dataempty) {
+      if (dataempty || datanotempty) {
         var filterKey = element.getAttribute('data-filterkey'),
-          target = (filterKey && responseData.data[filterKey]) || responseData.data,
-          empty = !target || !target.length
-        empty ? dom.show(dataempty) : dom.hide(dataempty)
+            iterateKey = options.iterate,
+            target = (filterKey && responseData.data[filterKey])
+                    || (iterateKey && iterateKey !== 'true' && responseData.data[iterateKey])
+                    || responseData.data,
+            empty = !target || (Array.isArray(target) ? !target.length : (typeof target === 'object' ? !Object.keys(target).length : false))
+        if (empty && dataempty) {
+          app.call(dataempty, { srcElement: element })
+        } else if (!empty && datanotempty) {
+          app.call(datanotempty, { srcElement: element })
+        }
       }
 
       if (databind) {
@@ -271,9 +277,9 @@ app.module.data = {
         element.innerHTML = content
 
         var elements = app.element.find(element, selector)
+
         for (var i = 0, j = -1; i < elements.length; i++) {
           if (i % originalNodeCountAll === 0) j++
-
           var params = {
             keys: keys,
             fullObject: responseObject,
@@ -286,11 +292,9 @@ app.module.data = {
         }
 
         this._process('data-set', element, responseData.data)
-
       } else { // Select single.
         var elements = app.element.find(element, selector),
           arrayFromNodeList = [].slice.call(elements)
-
         arrayFromNodeList.push(element) // Support data-get on parent.
 
         for (var i = 0; i < arrayFromNodeList.length; i++) {
@@ -315,14 +319,12 @@ app.module.data = {
           for (var k = 0; k < iterArray.length; k++) {
             var childIterate = iterArray[k]
             if (!childIterate || !childIterate.getAttribute) continue
-
             var childOptions = {
               iterate: childIterate.getAttribute('data-iterate'),
               onkeyempty: childIterate.getAttribute('data-onkeyempty'),
               element: childIterate,
               k: k,
             }
-
             this._traverse(childOptions, responseData, childIterate, selector)
           }
         }
@@ -356,6 +358,7 @@ app.module.data = {
         var value = attr.value,
           bindings = value ? value.split(';') : [],
           newReplaceValue
+
         for (var l = 0; l < bindings.length; l++) {
           var bindingParts = bindings[l].split(':'),
             replaceVariable = bindingParts[0].trim(),
@@ -395,7 +398,6 @@ app.module.data = {
       for (var i = 0; i < value.length; i++) {
         if (value[i]) {
           var test = value[i].split(':')
-
           if (test[1] && test[1][0] === '#') {
             app.element.set(app.element.select(test[1]), self._resolve(responseObject, test[0], options), false)
           } else if (test[1]) {
@@ -439,6 +441,7 @@ app.module.data = {
       var fullObject = options.fullObject,
         keys = options.keys,
         keyAtIndex = keys && keys[options.index]
+
       if (value.indexOf('[].') !== -1) { // Root level access.
         return app.element.getPropertyByPath(options.data, value.substring(3))
       } else if (value.indexOf('[*].') !== -1) {
@@ -479,7 +482,6 @@ app.module.data = {
 
     // Return empty string for null/undefined.
     if (result === undefined || result === null) result = ''
-
     return result
   },
 
@@ -568,11 +570,11 @@ app.module.data = {
     var parts = Array.isArray(value) ? value : [value]
     if (parts.length < 3) return
 
-    var mechanism = parts[0]
-    var storageKey = parts[1]
-    var responseKey = parts[2]
-    var data = app.element.getPropertyByPath(response, responseKey)
+    var mechanism = parts[0],
+      storageKey = parts[1],
+      responseKey = parts[2]
 
+    var data = app.element.getPropertyByPath(response, responseKey)
     if (data === undefined) return
 
     var store = mechanism === 'local' ? localStorage : sessionStorage
@@ -601,6 +603,7 @@ app.module.data = {
       var keyValuePair = subParts.map(function (part) {
         return part.trim()
       })
+
       var filterKey = keyValuePair[0],
         filterValue = keyValuePair[1]
 
@@ -620,6 +623,7 @@ app.module.data = {
     })
 
     var target = (key && filteredResponse[key]) ? filteredResponse[key] : filteredResponse
+
     var result = Array.isArray(target) ? target.filter(function (item) {
       return filterConditions.every(function (fn) { return fn(item) })
     }) : target
@@ -642,7 +646,6 @@ app.module.data = {
         }
       })
     }
-
     return { data: response }
   },
 
@@ -651,7 +654,6 @@ app.module.data = {
       return response.sort(function (a, b) {
         var valueA = app.element.getPropertyByPath(a, sortKey),
           valueB = app.element.getPropertyByPath(b, sortKey)
-
         return (typeof valueA === 'string')
           ? (sortOrder === 'desc' ? valueB.localeCompare(valueA) : valueA.localeCompare(valueB))
           : (sortOrder === 'desc' ? valueB - valueA : valueA - valueB)
@@ -683,15 +685,17 @@ app.module.data = {
   _finish: function (options) {
     var element = options.element,
       finished = element.attributes['data-onfinish']
+
     element._dataLoaded = true
+
     if (finished) app.call(finished.value, { srcElement: element })
+
     if (options.loader) {
       dom.hide(options.loader)
       dom.show(element)
     }
 
     if (element._dataSrc) delete element._dataSrc
-
     app.element.runOnEvent({ exec: { func: 'data-onfinish', element: element } })
   }
 }
