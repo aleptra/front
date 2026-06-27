@@ -2,21 +2,31 @@
 
 app.plugin.clipboard = {
   _marker: '__clipboard_copied',
+  _lastSelection: '',
 
-  /**
-   * clipboard-copy
-   * Called by: click="clipboard-copy:#" or clipboard-copy=".selector"
-   *
-   * @param {HTMLElement} element - The element that triggered the event.
-   * @param {string} value - The selector or '#' for self-element.
-   */
+  __autoload: function (options) {
+    this.config = app.config.get(
+      options.name + '-',
+      { range: 'false' },
+      options.element
+    )
+
+    var self = this
+    document.addEventListener('selectionchange', function () {
+      var text = window.getSelection().toString()
+      if (text) self._lastSelection = text
+    })
+  },
+
   copy: function (element, value) {
     var target = app.element.resolveCall(element)
-
     // Avoid multiple executions on the same render cycle
     if (element[this._marker]) return
 
-    var text = target.textContent
+    // Check element-level override, fall back to global config
+    var range = target.getAttribute('clipboard--range') || this.config.range
+    var text = (range === 'true' && this._lastSelection) || target.textContent
+    this._lastSelection = ''
 
     if (!text) return
 
@@ -31,7 +41,7 @@ app.plugin.clipboard = {
       temp.style.opacity = '0'
       document.body.appendChild(temp)
       temp.select()
-      try { document.execCommand('copy'); } catch (e) { }
+      try { document.execCommand('copy') } catch (e) { }
       document.body.removeChild(temp)
     }
 
@@ -39,10 +49,6 @@ app.plugin.clipboard = {
     element[this._marker] = true
   },
 
-  /**
-   * clipboard-paste
-   * Called by: click="clipboard-paste:#" or clipboard-paste="input"
-   */
   paste: function (element, value) {
     // Determine target
     if (value && value !== '#') {
