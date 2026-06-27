@@ -36,8 +36,8 @@ _(Also available: `front.min.js`)_
 
 ### Download Locally
 
-- [Latest Stable (1.0.0)](/1.0.0/)
-- [Nightly (Development)](/nightly/)
+- [Latest Stable (1.0.0)](/1.0.0/front.js)
+- [Nightly (Development)](/nightly/front.js)
 
 ## Documentation
 
@@ -45,4 +45,4 @@ Visit [front.nu/documentation](https://www.front.nu/documentation) for guides, A
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/aleptra/front/blob/main/LICENSE)
