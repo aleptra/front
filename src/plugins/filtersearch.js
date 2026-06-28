@@ -48,8 +48,14 @@ app.plugin.filtersearch = {
 
       if (matches && hasActiveFilters) {
         var marker = row.querySelector('[' + this.plugin + 'marker]')
-        var hasMarker = marker && marker.textContent.trim().length > 0
-        matches = (filters._hasvalue && hasMarker) || (filters._empty && !hasMarker)
+        var markerText = marker ? marker.textContent.trim() : ''
+        var hasMarker = markerText.length > 0
+
+        if (filters._hasvalue || filters._empty) {
+          matches = (filters._hasvalue && hasMarker) || (filters._empty && !hasMarker)
+        } else {
+          matches = filters[markerText] || false
+        }
       }
 
       app.call(matches ? 'show' : 'hide', { element: row })
