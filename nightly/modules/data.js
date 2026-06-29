@@ -146,8 +146,9 @@ app.module.data = {
   _run: function (options, cache) {
     var responseData = cache ? cache : app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', '')),
       selector = '*:not([data-iterate-skip])',
-      element = options.element,
-      datamerge = element.getAttribute('data-merge'),
+      element = options.element
+
+    var datamerge = element.getAttribute('data-merge'),
       datafilteritem = element.getAttribute('data-filteritem'),
       datareplace = element.getAttribute('data-replace'),
       datasort = element.getAttribute('data-sort'),
@@ -178,6 +179,7 @@ app.module.data = {
             filteredResponse.data = targetData[0]
           }
         }
+        filteredResponse.status = responseData.status
         responseData = filteredResponse
       }
 
@@ -600,45 +602,55 @@ app.module.data = {
 
   _filter: function (response, item, key) {
     var parts = (item || '').split(';')
-    var filteredResponse = response // Create a deep copy of the response
 
-    var filterConditions = parts.map(function (part) {
-      var subParts = (part || '').split(':')
-      var keyValuePair = subParts.map(function (part) {
-        return part.trim()
-      })
+    var filterConditions = []
+    for (var i = 0; i < parts.length; i++) {
+      var part = parts[i].trim()
+      if (!part) continue
 
-      var filterKey = keyValuePair[0],
-        filterValue = keyValuePair[1]
+      // Split on first colon only to preserve colons in values.
+      var colonIndex = part.indexOf(':')
+      if (colonIndex === -1) continue
 
-      if (filterValue[0] === "'" && filterValue[filterValue.length - 1] === "'") {
+      var filterKey = part.substring(0, colonIndex).trim()
+      var filterValue = part.substring(colonIndex + 1).trim()
+
+      // Strip surrounding quotes.
+      if (filterValue.length >= 2 && filterValue[0] === "'" && filterValue[filterValue.length - 1] === "'") {
         filterValue = filterValue.slice(1, -1)
       }
 
-      // Check if the filterValue is a boolean condition
+      // Coerce booleans.
       if (filterValue === 'true' || filterValue === 'false') {
-        // Convert the filterValue to a boolean
         filterValue = filterValue === 'true'
       }
 
-      return function (item) {
-        return item[filterKey] == filterValue
-      }
-    })
-
-    var target = (key && filteredResponse[key]) ? filteredResponse[key] : filteredResponse
-
-    var result = Array.isArray(target) ? target.filter(function (item) {
-      return filterConditions.every(function (fn) { return fn(item) })
-    }) : target
-
-    if (key && filteredResponse[key]) {
-      filteredResponse[key] = result
-    } else {
-      filteredResponse = result
+      filterConditions.push({ key: filterKey, value: filterValue })
     }
 
-    return { data: filteredResponse }
+    // Resolve target array — avoid mutating the cached response.
+    var source = (key && response[key]) ? response[key] : response
+
+    var result = Array.isArray(source) ? source.filter(function (item) {
+      for (var i = 0; i < filterConditions.length; i++) {
+        var cond = filterConditions[i]
+        if (item[cond.key] != cond.value) return false
+      }
+      return true
+    }) : source
+
+    // Build a shallow copy of the response with filtered data.
+    var filtered = {}
+    if (key && response[key]) {
+      for (var prop in response) {
+        if (response.hasOwnProperty(prop)) filtered[prop] = response[prop]
+      }
+      filtered[key] = result
+    } else {
+      filtered = result
+    }
+
+    return { data: filtered }
   },
 
   _replace: function (response) {
