@@ -162,7 +162,7 @@ app.module.globalize = {
         setValue = app.element.getPropertyByPath(fetchedData, 'translations.' + value)
     } else {
       var cachedData = this.cachedData || app.caches.get(this.storageMechanism, this.storageType, this.storageKey),
-        setValue = app.element.getPropertyByPath(cachedData.data, isRoot ? value.substring(1) : 'translations.' + value)
+        setValue = cachedData ? app.element.getPropertyByPath(cachedData.data, isRoot ? value.substring(1) : 'translations.' + value) : ''
     }
 
     if (setValue) app.element.set(element, setValue, target ? target : 'sethtml')
