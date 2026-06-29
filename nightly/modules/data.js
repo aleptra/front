@@ -153,7 +153,7 @@ app.module.data = {
       datasort = element.getAttribute('data-sort'),
       databind = element.getAttribute('data-bind'),
       databindheader = element.getAttribute('data-bindheader'),
-      datastatus = element.getAttribute('data-status'),
+      datastatus = element.getAttribute('data-onstatus'),
       dataempty = element.getAttribute('data-onempty'),
       datanotempty = element.getAttribute('data-onnotempty'),
       datasuccess = element.attributes['data-onsuccess']
@@ -185,13 +185,13 @@ app.module.data = {
         this._replace(responseData.data, datareplace)
       }
 
-      if (dataempty || datanotempty) {
+      if ((dataempty || datanotempty) && responseData.status === 200) {
         var filterKey = element.getAttribute('data-filterkey'),
-            iterateKey = options.iterate,
-            target = (filterKey && responseData.data[filterKey])
-                    || (iterateKey && iterateKey !== 'true' && responseData.data[iterateKey])
-                    || responseData.data,
-            empty = !target || (Array.isArray(target) ? !target.length : (typeof target === 'object' ? !Object.keys(target).length : false))
+          iterateKey = options.iterate,
+          target = (filterKey && responseData.data[filterKey])
+            || (iterateKey && iterateKey !== 'true' && responseData.data[iterateKey])
+            || responseData.data,
+          empty = !target || (Array.isArray(target) ? !target.length : (typeof target === 'object' ? !Object.keys(target).length : false))
         if (empty && dataempty) {
           app.call(dataempty, { srcElement: element })
         } else if (!empty && datanotempty) {
@@ -220,10 +220,14 @@ app.module.data = {
         this._sort(responseData.data, datasort, datasortorder)
       }
 
-      if (datastatus && responseData.status !== 200) { //Todo: Fix dynamic status.
-        var status = datastatus.split(';')
-        var el = status.length > 0 ? status[1] : status[0]
-        if (el) dom.show(el)
+      if (datastatus && responseData.status !== 200) {
+        var parts = datastatus.split(')/'),
+          code = parseInt(parts[0].replace('(', ''), 10),
+          actions = parts[1]
+
+        if (responseData.status === code && actions) {
+          app.call(actions, { srcElement: element })
+        }
       }
 
       element._dataLoaded = true
