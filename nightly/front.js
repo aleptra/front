@@ -557,7 +557,7 @@ var dom = {
           break
         case 'bindasset':
           var keys = replaceValue.split('.'),
-            cache = app.caches.get('session', 'var', keys[0])
+            cache = app.caches.get('session', 'var', keys[0]) || app.caches.get('window', 'var', keys[0]) // Resolve from session cache or in-memory var cache.
           app.log.info()('Binding asset: ' + keys)
           if (cache && cache.data) {
             var value = cache.data
@@ -946,8 +946,8 @@ var dom = {
 
     var escape = app.element.get(element)
 
-    if (escape.length <= 1) {
-      // Original behavior: single character to numeric entity
+    if (escape.length <= 1 || (escape.length === 2 && 0xD800 <= escape.charCodeAt(0) && escape.charCodeAt(0) <= 0xDBFF)) {
+      // Single character or surrogate pair to numeric entity
       var code = escape.charCodeAt(0)
       if (0xD800 <= code && code <= 0xDBFF) {
         var low = escape.charCodeAt(1)
@@ -2647,7 +2647,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 682 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 683 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3585,8 +3585,7 @@ var app = {
               }
             }
 
-            if (cache) {
-              //if (cache && (statusType.success || statusType.redirect))
+            if (cache && (statusType.success || statusType.redirect)) {
               app.caches.set(cache.mechanism, cache.keyType, cache.key, this, cache.format)
 
               // Cache in local when ttl is provided.

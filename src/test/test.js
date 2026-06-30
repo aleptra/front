@@ -171,12 +171,14 @@
     console.log.apply(console, arguments)
   }
 
+  // Capture script reference at parse time (document.currentScript is null in event handlers).
+  var _testScript = document.currentScript || (function () {
+    var scripts = document.getElementsByTagName('script')
+    return scripts[scripts.length - 1]
+  }())
+
   function autoload() {
-    var s = document.currentScript || (function () {
-      var scripts = document.getElementsByTagName('script')
-      return scripts[scripts.length - 1]
-    }())
-    var attr = s && s.getAttribute('autoload')
+    var attr = _testScript && _testScript.getAttribute('autoload')
 
     // If ?test= is present, always load only that test.
     if (filterTest) {
@@ -190,7 +192,8 @@
     }
 
     // Otherwise, continue with the normal autoload logic.
-    if (attr.indexOf('.json') !== -1) {
+    if (!attr) return
+    if (attr && attr.indexOf('.json') !== -1) {
       var xhr = new XMLHttpRequest()
       xhr.open('GET', attr, true)
       xhr.onreadystatechange = function () {

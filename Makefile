@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: nightly
+.PHONY: nightly test test\:unit test\:integration test\:performance
 
 SRC = src
 JS_FILE = $(SRC)/front.js
@@ -68,6 +68,66 @@ app:
 	@echo "make app:create DIR=<dir>  - Create new app project in specified directory"
 	@echo "make app:run               - Start development server"
 	@echo ""
+
+test:
+	@FAIL=0; START=$$(date +%s); TOTAL=0; \
+	OUT=$$($(MAKE) test:unit 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
+	TOTAL=$$((TOTAL + $$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*'))); \
+	OUT=$$($(MAKE) test:integration 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
+	TOTAL=$$((TOTAL + $$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*'))); \
+	OUT=$$($(MAKE) test:performance 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
+	TOTAL=$$((TOTAL + $$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*'))); \
+	END=$$(date +%s); ELAPSED=$$((END - START)); \
+	if [ $$FAIL -eq 0 ]; then echo ""; echo "================================"; echo "✅ $$TOTAL tests passed in $${ELAPSED}s"; echo "================================"; \
+	else echo ""; echo "================================"; echo "❌ Some tests failed ($${ELAPSED}s)"; echo "================================"; exit 1; fi
+
+test\:unit:
+	@echo ""; echo "=== Unit Tests ==="; \
+	START=$$(date +%s); \
+	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
+	PORT=9225; \
+	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
+	sleep 0.5; \
+	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
+		"http://localhost:$$PORT/test/auto/unit/" 2>/dev/null | tr -d '\n' > /tmp/front_test_unit.html; \
+	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
+	END=$$(date +%s); ELAPSED=$$((END - START)); \
+	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_unit.html); \
+	grep -oE '(✅|❌)[^<]*' /tmp/front_test_unit.html; \
+	echo ""; echo "$$SUMMARY"; \
+	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ unit passed ($${ELAPSED}s)" || { echo "❌ unit failed ($${ELAPSED}s)"; exit 1; }
+
+test\:integration:
+	@echo ""; echo "=== Integration Tests ==="; \
+	START=$$(date +%s); \
+	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
+	PORT=9226; \
+	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
+	sleep 0.5; \
+	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
+		"http://localhost:$$PORT/test/auto/integration/" 2>/dev/null | tr -d '\n' > /tmp/front_test_integration.html; \
+	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
+	END=$$(date +%s); ELAPSED=$$((END - START)); \
+	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_integration.html); \
+	grep -oE '(✅|❌)[^<]*' /tmp/front_test_integration.html; \
+	echo ""; echo "$$SUMMARY"; \
+	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ integration passed ($${ELAPSED}s)" || { echo "❌ integration failed ($${ELAPSED}s)"; exit 1; }
+
+test\:performance:
+	@echo ""; echo "=== Performance Tests ==="; \
+	START=$$(date +%s); \
+	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
+	PORT=9227; \
+	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
+	sleep 0.5; \
+	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
+		"http://localhost:$$PORT/test/auto/performance/" 2>/dev/null | tr -d '\n' > /tmp/front_test_performance.html; \
+	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
+	END=$$(date +%s); ELAPSED=$$((END - START)); \
+	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_performance.html); \
+	grep -oE '(✅|❌)[^<]*' /tmp/front_test_performance.html; \
+	echo ""; echo "$$SUMMARY"; \
+	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ performance passed ($${ELAPSED}s)" || { echo "❌ performance failed ($${ELAPSED}s)"; exit 1; }
 
 app\:create:
 	@if [ -z "$(DIR)" ]; then \
