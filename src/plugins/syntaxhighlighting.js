@@ -107,8 +107,12 @@ app.plugin.syntaxhighlighting = {
     var text = object.textContent
     var voidTags = /^<(br|hr|img|input|meta|link|area|base|col|embed|source|track|wbr)\b/
 
-    // Split adjacent tags onto separate lines (but keep <tag>text</tag> together)
-    text = text.replace(/>(<[a-zA-Z\/])/g, '>\n$1')
+    // Split adjacent tags onto separate lines (but keep <tag></tag> pairs together)
+    text = text.replace(/>(<[a-zA-Z\/])/g, function (match, p1) {
+      // Don't break between opening and its immediate closing tag
+      if (p1.charAt(0) === '<' && p1.charAt(1) === '/') return '>' + p1
+      return '>\n' + p1
+    })
 
     var lines = text.split('\n')
     var level = 0
