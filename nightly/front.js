@@ -2647,7 +2647,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 684 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 685 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3150,8 +3150,12 @@ var app = {
       app.log.info()('Running attributes (' + selector + ') ...')
       for (var i = 0; i < node.length; i++) {
         var element = node[i],
-          attributes = element.attributes,
-          runorder = attributes.runorder ? attributes.runorder.value.split(';') : [],
+          attributes = element.attributes
+
+        // Skip elements removed from DOM (e.g. iterate replaced innerHTML).
+        if (!document.contains(element)) continue
+
+        var runorder = attributes.runorder ? attributes.runorder.value.split(';') : [],
           run = attributes.run ? attributes.run.value : false,
           stop = attributes.stop && !ignore ? attributes.stop.value.split(';') : [],
           exclude = stop && excludes.indexOf('stop') === -1 ? excludes.concat(stop) : excludes

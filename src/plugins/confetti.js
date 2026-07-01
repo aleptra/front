@@ -9,7 +9,10 @@ app.plugin.confetti = {
     speed: 1.5,
     direction: 'down',
     wobble: true,
-    rotate: true
+    rotate: true,
+    fade: false,
+    fadein: true,
+    fadeout: true
   },
 
   __autoload: function (options) {
@@ -27,10 +30,14 @@ app.plugin.confetti = {
     var src = container.getAttribute('confetti-src') || self.config.src
     var colors = (container.getAttribute('confetti-colors') || self.config.colors).split(';')
     var direction = container.getAttribute('confetti-direction') || self.config.direction
-    var wobble = container.getAttribute('confetti-wobble')
-    var rotate = container.getAttribute('confetti-rotate')
+    var fade = container.getAttribute('confetti-fade')
+    var fadein = container.getAttribute('confetti-fadein')
+    var fadeout = container.getAttribute('confetti-fadeout')
     wobble = wobble === null ? self.config.wobble : wobble !== 'false'
     rotate = rotate === null ? self.config.rotate : rotate !== 'false'
+    fade = fade === null ? self.config.fade : fade !== 'false'
+    fadein = fadein === null ? self.config.fadein : fadein !== 'false'
+    fadeout = fadeout === null ? self.config.fadeout : fadeout !== 'false'
 
     if (!src && !colors.length) return
 
@@ -65,6 +72,9 @@ app.plugin.confetti = {
       item.style.position = 'absolute'
       item.style.pointerEvents = 'none'
       item.style.opacity = 0.7 + Math.random() * 0.3
+      item._baseOpacity = parseFloat(item.style.opacity)
+      var zindex = container.getAttribute('confetti-zindex')
+      if (zindex) item.style.zIndex = zindex
       item._speed = (Math.random() * speed) + speed * 0.5
       item._wobble = (Math.random() - 0.5) * 2
       item._rot = Math.random() * 360
@@ -108,6 +118,20 @@ app.plugin.confetti = {
         if (rotate) {
           item._rot += item._rotSpeed
           item.style.transform = 'rotate(' + item._rot + 'deg)'
+        }
+
+        // Fade in at start, fade out near the end.
+        if (fade) {
+          var progress = 0
+          if (direction === 'down') progress = Math.max(0, item._y) / H
+          else if (direction === 'up') progress = 1 - (Math.min(H, Math.max(0, item._y)) / H)
+          else if (direction === 'left') progress = 1 - (Math.min(W, Math.max(0, item._x)) / W)
+          else if (direction === 'right') progress = Math.max(0, item._x) / W
+
+          var opacity = item._baseOpacity
+          if (fadein && progress < 0.3) opacity = item._baseOpacity * (progress / 0.3)
+          else if (fadeout && progress > 0.7) opacity = Math.max(0, item._baseOpacity * (1 - ((progress - 0.7) / 0.3)))
+          item.style.opacity = opacity
         }
 
         item.style.left = item._x + 'px'
