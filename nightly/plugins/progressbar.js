@@ -2,40 +2,38 @@
 
 app.plugin.progressbar = {
 
-  __autoload: function () {
-    var elements = document.querySelectorAll('progress')
-    for (var i = 0; i < elements.length; i++) {
-      this._apply(elements[i])
-    }
-  },
-
-  _apply: function (el) {
+  set: function (object) {
+    var el = object && object.exec ? object.exec.element : object
+    if (!el || el.localName !== 'progress') return
     if (!el.id) dom.setUniqueId(el)
 
-    var radius = el.getAttribute('radius')
-    var bgcolor = el.getAttribute('bgcolor') || el.getAttribute('color')
-    var height = el.getAttribute('height')
+    var radius = el.getAttribute('radius'),
+      fill = el.getAttribute('color'),
+      track = el.getAttribute('bgcolor')
 
-    if (!radius && !bgcolor && !height) return
+    if (!radius && !fill && !track) return
+
+    // Clear inline styles the core apply() set — plugin handles these via pseudo-elements
+    if (fill) el.style.color = ''
+    if (track) el.style.backgroundColor = ''
 
     var id = '#' + el.id
-    var rules = ''
+    var rules = id + '{-webkit-appearance:none;appearance:none}'
 
-    // Base + bar track
-    var base = ''
-    if (radius) base += 'border-radius:' + radius + ';overflow:hidden;'
-    if (height) base += 'height:' + height + ';'
-    if (base) {
-      rules += id + ',' + id + '::-webkit-progress-bar{' + base + '}'
-      rules += id + '::-moz-progress-bar{' + base + '}'
+    if (radius) {
+      rules += id + '{border-radius:' + radius + ';overflow:hidden}'
+      rules += id + '::-webkit-progress-bar{border-radius:' + radius + ';overflow:hidden}'
+      rules += id + '::-webkit-progress-value{border-radius:' + radius + '}'
+      rules += id + '::-moz-progress-bar{border-radius:' + radius + '}'
     }
 
-    // Fill color
-    if (bgcolor) {
-      rules += id + '::-webkit-progress-value{background:' + bgcolor + ';'
-      if (radius) rules += 'border-radius:' + radius + ';'
-      rules += '}'
-      rules += id + '::-moz-progress-bar{background:' + bgcolor + ';}'
+    if (track) {
+      rules += id + '::-webkit-progress-bar{background:' + track + '}'
+    }
+
+    if (fill) {
+      rules += id + '::-webkit-progress-value{background:' + fill + '}'
+      rules += id + '::-moz-progress-bar{background:' + fill + '}'
     }
 
     var s = document.getElementById('pb-' + el.id)
