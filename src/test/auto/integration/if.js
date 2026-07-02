@@ -213,3 +213,229 @@ test('if - get values from two input', function () {
   dom.rerun(testElement)
   assertEqual(testElement.innerText, expected)
 })
+
+test('if - returns early when expression has no )/ separator (malformed)', function () {
+  var testElement = createElement('div')
+  testElement.innerText = 'UNCHANGED'
+  testElement.setAttribute('if', '([1]:[1]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, 'UNCHANGED')
+})
+
+test('if - strips function prefix (if:(...) syntax)', function () {
+  var expected = 'PREFIXED'
+  var testElement = createElement('div')
+  // Simulating the prefix format that app.call might pass through
+  testElement.setAttribute('if', '([1]:[1])/settext:[PREFIXED]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+// --- Additional coverage tests ---
+
+test('if - #id resolves textContent from non-input element', function () {
+  var expected = 'True'
+  var testElement = createElement('div')
+
+  var spanElement = createElement('span')
+  spanElement.id = 'spanRef1'
+  spanElement.textContent = 'hello'
+
+  testElement.setAttribute('if', '(#spanRef1:[hello])/settext:[True]?settext:[False]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - #id returns empty string for non-existent element', function () {
+  var expected = 'EMPTY'
+  var testElement = createElement('div')
+
+  testElement.setAttribute('if', '(#nonExistentElement99:[])/settext:[EMPTY]?settext:[NOT_EMPTY]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - greater-than returns false when values are equal', function () {
+  var expected = 'NOT_GREATER'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([5]>[5])/settext:[GREATER]?settext:[NOT_GREATER]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - greater-than returns false when left is less', function () {
+  var expected = 'NOT_GREATER'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([3]>[5])/settext:[GREATER]?settext:[NOT_GREATER]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - less-than returns false when values are equal', function () {
+  var expected = 'NOT_LESS'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([5]<[5])/settext:[LESS]?settext:[NOT_LESS]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - less-than returns false when left is greater', function () {
+  var expected = 'NOT_LESS'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([10]<[5])/settext:[LESS]?settext:[NOT_LESS]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - contains (~) returns false when substring is not found', function () {
+  var expected = 'NOT_FOUND'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([hello world]~[mars])/settext:[FOUND]?settext:[NOT_FOUND]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - contains (~) returns false when left is empty', function () {
+  var expected = 'FALSY'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([]~[something])/settext:[TRUTHY]?settext:[FALSY]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - does not contain (!~) returns false when substring IS found', function () {
+  var expected = 'DOES_CONTAIN'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([hello world]!~[world])/settext:[NOT_CONTAIN]?settext:[DOES_CONTAIN]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - does not contain (!~) returns false when left is empty', function () {
+  var expected = 'FALSY'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([]!~[x])/settext:[TRUTHY]?settext:[FALSY]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - multiple actions in the false block', function () {
+  var testElement = createElement('div')
+  testElement.id = 'multiFalse'
+  testElement.setAttribute('if', '([1]:[2])/settext:[TRUE]?settext:[FALSE]&setattr:#multiFalse:[status][failed]')
+  dom.rerun(testElement)
+
+  assertEqual(testElement.innerText, 'FALSE')
+  assertEqual(testElement.getAttribute('status'), 'failed')
+})
+
+test('if - action value containing brackets is parsed correctly (depth parsing)', function () {
+  var expected = 'bracket[value]'
+  var testElement = createElement('div')
+  testElement.id = 'bracketTest'
+  // True block has action with brackets in value - the & inside brackets should not split
+  testElement.setAttribute('if', '([1]:[1])/setattr:#bracketTest:[data-x][bracket[value]]')
+  dom.rerun(testElement)
+  assertEqual(testElement.getAttribute('data-x'), expected)
+})
+
+test('if - equal operator returns false when values differ', function () {
+  var expected = 'NOT_EQUAL'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([hello]:[world])/settext:[EQUAL]?settext:[NOT_EQUAL]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - not-equal operator returns false when values are equal', function () {
+  var expected = 'THEY_ARE_EQUAL'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([same]![same])/settext:[DIFFERENT]?settext:[THEY_ARE_EQUAL]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - three conditions chained with AND', function () {
+  var expected = 'ALL_TRUE'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([1]:[1]&[2]:[2]&[3]:[3])/settext:[ALL_TRUE]?settext:[FAIL]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - three conditions chained with AND one false', function () {
+  var expected = 'FAIL'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([1]:[1]&[2]:[2]&[3]:[4])/settext:[ALL_TRUE]?settext:[FAIL]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - three conditions chained with OR all false', function () {
+  var expected = 'ALL_FAIL'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([1]:[2]|[3]:[4]|[5]:[6])/settext:[SUCCESS]?settext:[ALL_FAIL]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - three conditions chained with OR last one true', function () {
+  var expected = 'SUCCESS'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([1]:[2]|[3]:[4]|[5]:[5])/settext:[SUCCESS]?settext:[FAIL]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - numeric comparison with different digit counts', function () {
+  var expected = 'GREATER'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([100]>[9])/settext:[GREATER]?settext:[NOT]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - true action is empty string (no-op)', function () {
+  var testElement = createElement('div')
+  testElement.innerText = 'ORIGINAL'
+  // True block is empty, false block has action
+  testElement.setAttribute('if', '([1]:[1])/?settext:[FALSE]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, 'ORIGINAL')
+})
+
+test('if - condition with spaces in values', function () {
+  var expected = 'MATCH'
+  var testElement = createElement('div')
+  testElement.setAttribute('if', '([hello world]:[hello world])/settext:[MATCH]?settext:[NO]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - #id input with not-equal operator', function () {
+  var expected = 'DIFFERENT'
+  var testElement = createElement('div')
+
+  var inputElement = createElement('input')
+  inputElement.id = 'ifInput3'
+  inputElement.type = 'text'
+  inputElement.value = 'foo'
+
+  testElement.setAttribute('if', '(#ifInput3![bar])/settext:[DIFFERENT]?settext:[SAME]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
+
+test('if - #id input with greater-than operator', function () {
+  var expected = 'GREATER'
+  var testElement = createElement('div')
+
+  var inputElement = createElement('input')
+  inputElement.id = 'ifInput4'
+  inputElement.type = 'text'
+  inputElement.value = '50'
+
+  testElement.setAttribute('if', '(#ifInput4>[25])/settext:[GREATER]?settext:[NOT]')
+  dom.rerun(testElement)
+  assertEqual(testElement.innerText, expected)
+})
