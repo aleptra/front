@@ -132,6 +132,22 @@
     return withDescription(log(currentTest, 'object', el, isPass))
   }
 
+  global.assertType = function (val, expected) {
+    var actual = typeof val
+    var isPass = actual === expected
+    return withDescription(log(currentTest, expected, actual, isPass))
+  }
+
+  global.assertIsNumber = function (val) {
+    var isPass = typeof val === 'number'
+    return withDescription(log(currentTest, 'number', typeof val, isPass))
+  }
+
+  global.assertIsString = function (val) {
+    var isPass = typeof val === 'string'
+    return withDescription(log(currentTest, 'string', typeof val, isPass))
+  }
+
   global.createElement = function (tag, noWrapper) {
     // create the wrapper.
     var wrapper = document.createElement('template')

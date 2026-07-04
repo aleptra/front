@@ -217,9 +217,11 @@ app.module.navigate = {
 
     if (startpage && (state.pathname === '/' || state.pathname.replace(regex, '') === startpage.replace(regex, ''))) {
       app.disable(true)
-      app.isFrontpage = true
       state.target = 'html'
       state.extension = false
+      app.globals.set('isFrontpage', true)
+    } else {
+      app.globals.set('isFrontpage', false)
     }
 
     var isHtml = state.target === 'html',

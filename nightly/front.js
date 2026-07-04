@@ -1613,7 +1613,6 @@ var app = {
   var: {},
   language: document.documentElement.lang || 'en',
   docMode: document.documentMode || 0,
-  isFrontpage: document.doctype ? true : false,
   srcDocTemplate: '',
   srcTemplate: [],
   isLocalNetwork: /localhost|127\.0\.0\.1|::1|\.local|^$/i.test(location.hostname),
@@ -2647,7 +2646,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 690 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 691 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2922,7 +2921,7 @@ var app = {
    */
   assets: {
     load: function () {
-      if (app.isFrontpage) {
+      if (app.globals.get('isFrontpage')) {
         dom.doctitle(false, document.title)
         app.srcDocTemplate = document.body.innerHTML
         app.globals.refresh()
@@ -3634,7 +3633,7 @@ var app = {
                 case 'template':
                   app.templates.loaded++
                   if (app.templates.loaded === app.srcTemplate.total) {
-                    app.isFrontpage = false
+                    app.globals.set('isFrontpage', false)
                     app.templates.render()
                     app.config.set()
                     app.assets.get.extensions()
