@@ -2646,7 +2646,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 691 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 692 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2760,12 +2760,9 @@ var app = {
         'data': data,
         'status': status ? status : '',
         'headers': headers,
-        'globals': app.globals,
         'ttl': ttl ? ttl : false,
         'expires': ttl ? Number(Date.now() + Number(ttl)) : false
       }
-
-      app.caches[type][key] = cacheData
 
       switch (mechanism) {
         case 'local':
@@ -2778,6 +2775,9 @@ var app = {
           document.cookie = cacheData.data
           break
       }
+
+      cacheData.globals = app.globals
+      app.caches[type][key] = cacheData
     },
 
     validate: function (options) {
