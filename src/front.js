@@ -2646,7 +2646,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 693 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 694 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2784,6 +2784,11 @@ var app = {
       }
     },
 
+    /**
+     *
+     * @function validate
+     * @memberof app.caches
+     */
     validate: function (options) {
       if (options.ttl > 0) {
         var cache = app.caches.get('local', options.keyType, options.storageKey),
