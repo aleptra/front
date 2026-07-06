@@ -1643,7 +1643,9 @@ var app = {
    * @desc Injects a global CSS reset into the document head.
    */
   resetStyle: function () {
+    if (document.getElementById('front-reset')) return
     var style = document.createElement('style')
+    style.id = 'front-reset'
     style.textContent = '*, *::before, *::after { box-sizing: border-box; } ' +
       'body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol { margin: 0; } ' +
       'ul, ol { padding: 0; list-style: none; } ' +
@@ -1665,9 +1667,7 @@ var app = {
     if (!window.frontLoaded) {
       var selector = 'script[src*=front]',
         element = app.element.select(selector),
-        config = app.config.get(false, { resetStyle: 'false', frontSrcLocal: '' }, element)
-
-      if (config.resetStyle === 'true') app.resetStyle()
+        config = app.config.get(false, { frontSrcLocal: '' }, element)
 
       app.disable(true)
       // TODO: Experimental feature
@@ -2665,14 +2665,17 @@ var app = {
       var config = this.get(false, {
         debug: false,
         debugLocalhost: false,
+        resetStyle: 'false',
         varsDir: 'assets/json/vars',
         storageKey: false,
         frontSrcLocal: '',
         //fileExtension: '.html'
       }, scriptElement || app.script.element)
 
+      if (config.resetStyle === 'true') app.resetStyle()
+
       for (var prop in config) {
-        if (config.hasOwnProperty(prop)) {
+        if (config.hasOwnProperty(prop) && prop !== 'resetStyle') {
           app[prop] = config[prop]
         }
       }
@@ -2685,7 +2688,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 697 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 698 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
