@@ -56,6 +56,11 @@ var dom = {
     'borderright': 'apply',
     'borderbottom': 'apply',
     'bordertop': 'apply',
+    'outline': 'apply',
+    'outlinecolor': 'apply',
+    'outlineoffset': 'apply',
+    'outlinestyle': 'apply',
+    'outlinewidth': 'apply',
     'bgimage': 'apply',
     'bgcolor': 'apply',
     'bold': 'apply',
@@ -355,6 +360,18 @@ var dom = {
         break
       case 'boxshadow':
         attr = 'boxShadow'
+        break
+      case 'outlinecolor':
+        attr = 'outlineColor'
+        break
+      case 'outlineoffset':
+        attr = 'outlineOffset'
+        break
+      case 'outlinestyle':
+        attr = 'outlineStyle'
+        break
+      case 'outlinewidth':
+        attr = 'outlineWidth'
         break
       case 'bold':
         value = attr
@@ -2646,7 +2663,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 694 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 695 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
