@@ -1638,18 +1638,40 @@ var app = {
   modules: { total: 0, loaded: 0 },
 
   /**
+   * @function resetStyle
+   * @memberof app
+   * @desc Injects a global CSS reset into the document head.
+   */
+  resetStyle: function () {
+    var style = document.createElement('style')
+    style.textContent = '*, *::before, *::after { box-sizing: border-box; } ' +
+      'body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol { margin: 0; } ' +
+      'ul, ol { padding: 0; list-style: none; } ' +
+      'body { min-height: 100dvh; line-height: 1.5; -webkit-font-smoothing: antialiased; } ' +
+      'img, picture, video, canvas, svg { display: block; max-width: 100%; } ' +
+      'input, button, textarea, select { font: inherit; } ' +
+      'p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; } ' +
+      'a { text-decoration: none; color: inherit; } ' +
+      'table { border-collapse: collapse; }'
+    document.head.appendChild(style)
+  },
+
+  /**
    * @namespace load
    * @memberof app
    * @desc Handles the loading of the application.
    */
   load: function () {
     if (!window.frontLoaded) {
+      var selector = 'script[src*=front]',
+        element = app.element.select(selector),
+        config = app.config.get(false, { resetStyle: 'false', frontSrcLocal: '' }, element)
+
+      if (config.resetStyle === 'true') app.resetStyle()
+
       app.disable(true)
       // TODO: Experimental feature
       if (app.isLocalNetwork) {
-        var selector = 'script[src*=front]',
-          element = app.element.select(selector),
-          config = app.config.get(false, { frontSrcLocal: '' }, element)
         if (config.frontSrcLocal.length > 0) {
           element.remove()
 
@@ -2663,7 +2685,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 695 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 696 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
