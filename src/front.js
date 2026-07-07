@@ -1645,16 +1645,15 @@ var app = {
     if (document.getElementById('front-reset')) return
     var style = document.createElement('style')
     style.id = 'front-reset'
-    style.textContent = '* {display:flex;box-sizing:border-box}' +
-      '*::before, *::after {box-sizing:inherit} ' +
-      'body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol {margin:0} ' +
-      'ul, ol {padding:1rem 2rem} ' +
-      'body {height:100%;min-height:100%;line-height:1.5;-webkit-font-smoothing: antialiased} ' +
-      'img, picture, video, canvas, svg {display:block;max-width:100%} ' +
-      'input, button, textarea, select {font:inherit} ' +
-      'p, h1, h2, h3, h4, h5, h6 {overflow-wrap:break-word} ' +
-      'a,span {display:inline-flex;text-decoration:none;color:inherit} ' +
-      'table {display:table;border-collapse:collapse}'
+    style.textContent = '*, *::before, *::after {box-sizing:border-box} ' +
+      'body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol { margin: 0 } ' +
+      'ul, ol { padding: 1rem 2rem } ' +
+      'body { min-height: 100%; line-height: 1.5; -webkit-font-smoothing: antialiased } ' +
+      'img, picture, video, canvas, svg { display: block; max-width: 100% } ' +
+      'input, button, textarea, select { font: inherit } ' +
+      'p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word } ' +
+      'a {display:inline-flex;text-decoration: none; color: inherit } ' +
+      'table { display:table;border-collapse: collapse }'
     document.head.appendChild(style)
   },
 
