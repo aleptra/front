@@ -219,9 +219,8 @@ var dom = {
     var from = object,
       to = app.element.select(value)
     if (from && to) {
-      from.innerHTML = ''
-      var clone = to.cloneNode(true)
-      from.appendChild(clone)
+      from.innerHTML = from.getAttribute('inherit') === 'false' ? to.innerHTML : ''
+      if (from.getAttribute('inherit') !== 'false') from.appendChild(to.cloneNode(true))
     }
   },
 
@@ -2688,7 +2687,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 701 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 702 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
