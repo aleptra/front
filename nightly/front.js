@@ -1645,11 +1645,11 @@ var app = {
     if (document.getElementById('front-reset')) return
     var style = document.createElement('style')
     style.id = 'front-reset'
-    style.textContent = '*, *::before, *::after {box-sizing:border-box} ' +
-      'html {display:flex}' +
+    style.textContent = '*, *::before, *::after { box-sizing:border-box } ' +
+      'html { display:flex;height:100%;width:100% }' +
+      'body { min-height: 100%; line-height: 1.5; -webkit-font-smoothing: antialiased } ' +
       'body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol { margin: 0 } ' +
       'ul, ol { padding: 1rem 2rem } ' +
-      'body { min-height: 100%; line-height: 1.5; -webkit-font-smoothing: antialiased } ' +
       'img, picture, video, canvas, svg { display: block; max-width: 100% } ' +
       'input, button, textarea, select { font: inherit } ' +
       'p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word } ' +
@@ -2688,7 +2688,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 705 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 706 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
