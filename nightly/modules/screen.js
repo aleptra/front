@@ -124,7 +124,7 @@ app.module.screen = {
         'footer div': { flexBasis: '0', flexGrow: '1' }
       }
     },
-    lite: {
+    advanced: {
       display: 'grid',
       gridTemplateAreas: '"head head" "nav main" "foot foot"',
       gridTemplateRows: 'auto 1fr auto',
@@ -138,6 +138,28 @@ app.module.screen = {
         'footer div': { flexBasis: '0', flexGrow: '1' }
       }
     },
+    standard: {
+      display: 'grid',
+      gridTemplateAreas: '"head" "main" "foot"',
+      gridTemplateRows: 'auto 1fr auto',
+      gridTemplateColumns: '1fr',
+      height: '100%',
+      _children: {
+        header: { gridArea: 'head', zIndex: '10' },
+        main: { gridArea: 'main', overflow: 'auto', flexDirection: 'column' },
+        footer: { gridArea: 'foot' }
+      }
+    },
+    simple: {
+      display: 'grid',
+      gridTemplateRows: 'auto 1fr',
+      gridTemplateColumns: '1fr',
+      height: '100%',
+      _children: {
+        header: { zIndex: '10' },
+        main: { overflow: 'auto', flexDirection: 'column' }
+      }
+    },
     centered: {
       display: 'flex',
       flexDirection: 'column',
@@ -146,7 +168,7 @@ app.module.screen = {
       width: '100%',
       minHeight: '100vh'
     },
-    stack: {
+    stacked: {
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
@@ -173,18 +195,6 @@ app.module.screen = {
       gridTemplateRows: '1fr 1fr',
       height: '100%',
       width: '100%'
-    },
-    '3column': {
-      display: 'grid',
-      gridTemplateAreas: '"head" "main" "foot"',
-      gridTemplateRows: 'auto 1fr auto',
-      gridTemplateColumns: '1fr',
-      height: '100%',
-      _children: {
-        header: { gridArea: 'head', zIndex: '10' },
-        main: { gridArea: 'main', overflow: 'auto', flexDirection: 'column' },
-        footer: { gridArea: 'foot' }
-      }
     }
   },
 
