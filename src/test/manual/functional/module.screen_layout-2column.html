@@ -6,7 +6,7 @@
   <title>Layout: Splitscreen Test</title>
   <script src="../../../front.js" module="screen" conf="debug:true"></script>
   <style>
-    body > aside {
+    body > * {
       border: 2px solid #333;
       padding: 2rem;
       background: #f0f0f0;
@@ -15,8 +15,8 @@
     body > aside:last-child { background: #2196F3; color: white; }
   </style>
 </head>
-<body screen-layout="splitscreen">
+<body screen-layout="2column">
   <aside>Left Panel</aside>
-  <aside>Right Panel</aside>
+  <main>Right Panel</main>
 </body>
 </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Layout: Splitscreen Test</title>
+  <script src="../../../front.js" module="screen" conf="debug:true"></script>
+  <style>
+    body > * {
+      border: 2px solid #333;
+      padding: 2rem;
+      background: #f0f0f0;
+    }
+    body > aside:first-child { background: #4CAF50; color: white; }
+    body > aside:last-child { background: #2196F3; color: white; }
+  </style>
+</head>
+<body screen-layout="2row">
+  <aside>Stack 1</aside>
+  <aside>Stack 2</aside>
+</body>
+</html>

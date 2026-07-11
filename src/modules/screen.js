@@ -124,7 +124,7 @@ app.module.screen = {
         'footer div': { flexBasis: '0', flexGrow: '1' }
       }
     },
-    sidebar: {
+    lite: {
       display: 'grid',
       gridTemplateAreas: '"head head" "nav main" "foot foot"',
       gridTemplateRows: 'auto 1fr auto',
@@ -157,18 +157,24 @@ app.module.screen = {
       width: '100%',
       height: '100vh'
     },
-    splitscreen: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      height: '100%',
-      width: '100%'
-    },
     masonry: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
       gap: '1rem'
     },
-    navbar: {
+    '2column': {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      height: '100%',
+      width: '100%'
+    },
+    '2row': {
+      display: 'grid',
+      gridTemplateRows: '1fr 1fr',
+      height: '100%',
+      width: '100%'
+    },
+    '3column': {
       display: 'grid',
       gridTemplateAreas: '"head" "main" "foot"',
       gridTemplateRows: 'auto 1fr auto',

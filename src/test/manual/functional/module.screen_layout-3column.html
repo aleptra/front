@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Module.Screen: Layout Sidebar Test</title>
+  <title>Module.Screen: Layout 3Column Test</title>
   <script src="../../../front.js" module="screen" conf="debug:true"></script>
   <style>
-    header, nav, main, footer {
+    header, main, footer {
       border: 2px solid #333;
       padding: 1rem;
       background: #f0f0f0;
     }
     header { background: #4CAF50; color: white; }
-    nav { background: #2196F3; color: white; min-width: 200px; }
     main { background: #FFC107; }
     footer { background: #9C27B0; color: white; }
   </style>
 </head>
-<body screen-layout="sidebar">
-  <header>Header</header>
-  <nav>Navigation Sidebar</nav>
-  <main>Main Content</main>
+<body screen-layout="3column">
+  <header>Top Navigation Bar</header>
+  <main>Main Content Area</main>
   <footer>Footer</footer>
 </body>
 </html>
