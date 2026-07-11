@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Module.Screen: Layout Ultimate Test</title>
+  <script src="../../../front.js" module="screen" conf="debug:true"></script>
+  <style>
+    header, nav, main, aside, footer {
+      border: 2px solid #333;
+      padding: 1rem;
+      background: #f0f0f0;
+    }
+    header { background: #4CAF50; color: white; }
+    nav { background: #2196F3; color: white; }
+    main { background: #FFC107; }
+    aside { background: #FF9800; }
+    footer { background: #9C27B0; color: white; }
+  </style>
+</head>
+<body screen-layout="ultimate">
+  <header>Header</header>
+  <nav>Navigation</nav>
+  <aside>Sidebar Left</aside>
+  <main>Main Content</main>
+  <aside>Sidebar Right</aside>
+  <footer>Footer</footer>
+</body>
+</html>

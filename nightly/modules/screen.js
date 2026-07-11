@@ -107,6 +107,113 @@ app.module.screen = {
     }
   },
 
+  _layouts: {
+    ultimate: {
+      display: 'grid',
+      gridTemplateAreas: '"head head head" "nav nav nav" "left middle right" "foot foot foot"',
+      gridTemplateRows: 'auto auto 1fr auto',
+      gridTemplateColumns: 'auto 1fr auto',
+      height: '100%',
+      _children: {
+        header: { gridArea: 'head', zIndex: '10' },
+        nav: { gridArea: 'nav', zIndex: '10' },
+        'aside:first-of-type': { gridArea: 'left', overflow: 'auto', padding: '0' },
+        'aside:last-of-type': { gridArea: 'right', overflow: 'auto' },
+        main: { gridArea: 'middle', overflow: 'auto', flexDirection: 'column' },
+        footer: { gridArea: 'foot' },
+        'footer div': { flexBasis: '0', flexGrow: '1' }
+      }
+    },
+    sidebar: {
+      display: 'grid',
+      gridTemplateAreas: '"head head" "nav main" "foot foot"',
+      gridTemplateRows: 'auto 1fr auto',
+      gridTemplateColumns: 'auto 1fr',
+      height: '100%',
+      _children: {
+        header: { gridArea: 'head', zIndex: '10' },
+        nav: { gridArea: 'nav', overflow: 'auto', padding: '0' },
+        main: { gridArea: 'main', overflow: 'auto', flexDirection: 'column' },
+        footer: { gridArea: 'foot' },
+        'footer div': { flexBasis: '0', flexGrow: '1' }
+      }
+    },
+    centered: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      minHeight: '100vh'
+    },
+    stack: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      height: '100%'
+    },
+    fullscreen: {
+      display: 'flex',
+      width: '100%',
+      height: '100vh'
+    },
+    splitscreen: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      height: '100%',
+      width: '100%'
+    },
+    masonry: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+      gap: '1rem'
+    },
+    navbar: {
+      display: 'grid',
+      gridTemplateAreas: '"head" "main" "foot"',
+      gridTemplateRows: 'auto 1fr auto',
+      gridTemplateColumns: '1fr',
+      height: '100%',
+      _children: {
+        header: { gridArea: 'head', zIndex: '10' },
+        main: { gridArea: 'main', overflow: 'auto', flexDirection: 'column' },
+        footer: { gridArea: 'foot' }
+      }
+    }
+  },
+
+  _applyStyles: function (el, selector, styles) {
+    var elements = el.querySelectorAll(selector)
+    for (var i = 0; i < elements.length; i++) {
+      for (var prop in styles) {
+        if (styles.hasOwnProperty(prop)) elements[i].style[prop] = styles[prop]
+      }
+    }
+  },
+
+  layout: function (args) {
+    var resolved = app.element.resolveCall(args)
+    var el = resolved.element || resolved
+    var layoutType = resolved.call ? resolved.call.value : el.getAttribute('screen-layout')
+    var layoutDef = this._layouts[layoutType]
+
+    if (!layoutDef) return
+
+    for (var prop in layoutDef) {
+      if (prop !== '_children' && layoutDef.hasOwnProperty(prop)) el.style[prop] = layoutDef[prop]
+    }
+
+    el.setAttribute('data-layout', layoutType)
+
+    if (layoutDef._children) {
+      for (var selector in layoutDef._children) {
+        if (layoutDef._children.hasOwnProperty(selector)) {
+          this._applyStyles(el, selector, layoutDef._children[selector])
+        }
+      }
+    }
+  },
+
   xxs: function (el) { this._initRun('xxs', el) },
   xs: function (el) { this._initRun('xs', el) },
   sm: function (el) { this._initRun('sm', el) },

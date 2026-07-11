@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Layout: Fullscreen Test</title>
+  <script src="../../../front.js" module="screen" conf="debug:true"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+    }
+    body > * {
+      flex: 1;
+      border: 2px solid #333;
+      padding: 2rem;
+      background: #4CAF50;
+      color: white;
+    }
+    body > *:last-child {
+      background: #2196F3;
+    }
+  </style>
+</head>
+<body screen-layout="fullscreen">
+  <div>Panel 1</div>
+  <div>Panel 2</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Module.Screen: Layout Stack Test</title>
+  <script src="../../../front.js" module="screen" conf="debug:true"></script>
+  <style>
+    div {
+      border: 2px solid #333;
+      padding: 1rem;
+      background: #f0f0f0;
+      min-height: 100px;
+    }
+    div:nth-child(1) { background: #4CAF50; color: white; }
+    div:nth-child(2) { background: #2196F3; color: white; }
+    div:nth-child(3) { background: #FF9800; color: white; }
+    div:nth-child(4) { background: #9C27B0; color: white; }
+  </style>
+</head>
+<body screen-layout="stack">
+  <div>Stack Item 1</div>
+  <div>Stack Item 2</div>
+  <div>Stack Item 3</div>
+  <div>Stack Item 4</div>
+</body>
+</html>

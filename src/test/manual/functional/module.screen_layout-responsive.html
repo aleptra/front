@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Layout: Responsive Test</title>
+  <script src="../../../front.js" module="screen" conf="debug:true"></script>
+  <style>
+    header, nav, main, aside, footer {
+      border: 2px solid #333;
+      padding: 1rem;
+      background: #f0f0f0;
+    }
+    header { background: #4CAF50; color: white; }
+    nav { background: #2196F3; color: white; }
+    main { background: #FFC107; }
+    aside { background: #FF9800; }
+    footer { background: #9C27B0; color: white; }
+
+    body[data-layout] {
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body screen-xxs="screen-layout:[fullscreen]" screen-md="screen-layout:[splitscreen]" screen-lg="screen-layout:[ultimate]">
+  <header>Header</header>
+  <nav>Navigation</nav>
+  <aside>Sidebar 1</aside>
+  <main>Main Content - Resize to see layout change</main>
+  <aside>Sidebar 2</aside>
+  <footer>Footer</footer>
+</body>
+</html>
