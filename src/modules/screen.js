@@ -219,7 +219,10 @@ app.module.screen = {
       if (prop !== '_children' && layoutDef.hasOwnProperty(prop)) el.style[prop] = layoutDef[prop]
     }
 
-    el.setAttribute('data-layout', layoutType)
+    // Save the display value that layout set, so show() can restore it
+    if (layoutDef.display) {
+      el.initDisplay = layoutDef.display
+    }
 
     if (layoutDef._children) {
       for (var selector in layoutDef._children) {
