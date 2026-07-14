@@ -1637,11 +1637,11 @@ var app = {
   modules: { total: 0, loaded: 0 },
 
   /**
-   * @function resetStyle
+   * @function resetStyles
    * @memberof app
    * @desc Injects a global CSS reset into the document head.
    */
-  resetStyle: function () {
+  resetStyles: function () {
     if (document.getElementById('front-reset')) return
     var style = document.createElement('style')
     style.id = 'front-reset'
@@ -2672,10 +2672,10 @@ var app = {
         //fileExtension: '.html'
       }, scriptElement || app.script.element)
 
-      if (config.resetStyle === 'true') app.resetStyle()
+      app.resetStyles()
 
       for (var prop in config) {
-        if (config.hasOwnProperty(prop) && prop !== 'resetStyle') {
+        if (config.hasOwnProperty(prop)) {
           app[prop] = config[prop]
         }
       }
@@ -2688,7 +2688,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 714 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 715 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
