@@ -2679,6 +2679,8 @@ var app = {
           app[prop] = config[prop]
         }
       }
+
+      app.resetStyles()
     }
   },
 
@@ -2688,7 +2690,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 716 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 717 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2976,7 +2978,6 @@ var app = {
         dom.doctitle(false, document.title)
         app.srcDocTemplate = document.body.innerHTML
         app.globals.refresh()
-        app.resetStyles()
         this.get.extensions()
         // Continue to show application when no assets to load
         if (app.vars.total === 0 && app.extensions.total === 0) app.disable(false)
