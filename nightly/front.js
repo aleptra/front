@@ -1642,6 +1642,8 @@ var app = {
    * @desc Injects a global CSS reset into the document head.
    */
   resetStyles: function () {
+    var config = app.config.get(false, { resetStyle: 'false' }, app.script.element)
+    if (config.resetStyle !== 'true') return
     if (document.getElementById('front-reset')) return
     var style = document.createElement('style')
     style.id = 'front-reset'
@@ -2672,8 +2674,6 @@ var app = {
         //fileExtension: '.html'
       }, scriptElement || app.script.element)
 
-      app.resetStyles()
-
       for (var prop in config) {
         if (config.hasOwnProperty(prop)) {
           app[prop] = config[prop]
@@ -2688,7 +2688,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 715 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 716 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -2976,6 +2976,7 @@ var app = {
         dom.doctitle(false, document.title)
         app.srcDocTemplate = document.body.innerHTML
         app.globals.refresh()
+        app.resetStyles()
         this.get.extensions()
         // Continue to show application when no assets to load
         if (app.vars.total === 0 && app.extensions.total === 0) app.disable(false)
@@ -3118,6 +3119,7 @@ var app = {
           app.xhr.request({
             url: url,
             type: 'template',
+            isSrcDoc: isStartpage,
             cache: {
               mechanism: 'window',
               format: 'html',
@@ -3735,6 +3737,8 @@ var app = {
       var method = options.method ? options.method.toUpperCase() : 'GET',
         url = options.url instanceof Array ? options.url : [options.url],
         target = options.target ? app.element.select(options.target) : options.element,
+        targetName = options.target,
+        isSrcDoc = options.isSrcDoc,
         single = options.single,
         cache = options.cache || false,
         cacheTtl = cache.ttl || false,
@@ -3783,6 +3787,10 @@ var app = {
           //Todo: Fix so parsing problem shows.
           if (responseError) {
             //dom.show(error)
+          }
+
+          if (targetName === 'html' || isSrcDoc) {
+            app.resetStyles()
           }
 
           if (onload) {
