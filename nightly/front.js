@@ -1675,7 +1675,7 @@ var app = {
 
       // Load config file
       if (app.isLocalNetwork) {
-        var request = app.xhr.request({ url: 'config', sync: true })
+        var request = app.xhr.request({ url: '/config', sync: false })
         if (request && request.status === 200) {
           app.env = {}
           request.responseText.split('\n').forEach(function (line) {
@@ -2703,7 +2703,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 718 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 719 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3766,7 +3766,7 @@ var app = {
         aftersuccess = options.aftersuccess,
         loader = options.loader,
         type = options.type,
-        sync = options.sync !== false, // default true
+        sync = options.sync ? options.sync : false,
         run = onload && onload.run && onload.run.func ? onload.run.func : false,
         runarg = onload && onload.run && onload.run.arg
 
