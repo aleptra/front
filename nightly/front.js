@@ -1676,28 +1676,31 @@ var app = {
       // Load config file
       if (app.isLocalNetwork) {
         var request = app.xhr.request({ url: '/config', sync: false })
-        if (request && request.status === 200) {
-          app.env = {}
-          request.responseText.split('\n').forEach(function (line) {
-            if ((line = line.trim()) && line[0] !== '#') {
-              var p = line.split('='), k = p[0].trim(), v = p[1].trim()
-              if (p.length === 2) app.env[k] = v
-            }
-          })
-          config.frontSrcLocal = app.env.FRONT_JS_URL || config.frontSrcLocal
-          app.debug = /true|1/.test(app.env.DEBUG)
-        }
-        if (config.frontSrcLocal.length > 0) {
-          element.parentNode.removeChild(element)
-
-          var script = document.createElement('script'),
-            attributes = element.attributes
-          for (var i = 0; i < attributes.length; i++) {
-            script.setAttribute(attributes[i].name, attributes[i].value)
+        request.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            app.env = {}
+            request.responseText.split('\n').forEach(function (line) {
+              if ((line = line.trim()) && line[0] !== '#') {
+                var p = line.split('='), k = p[0].trim(), v = p[1].trim()
+                if (p.length === 2) app.env[k] = v
+              }
+            })
+            config.frontSrcLocal = app.env.FRONT_JS_URL || config.frontSrcLocal
+            app.debug = /true|1/.test(app.env.DEBUG)
           }
 
-          script.src = config.frontSrcLocal // Override front.js.
-          document.head.appendChild(script)
+          if (config.frontSrcLocal.length > 0) {
+            element.parentNode.removeChild(element)
+
+            var script = document.createElement('script'),
+              attributes = element.attributes
+            for (var i = 0; i < attributes.length; i++) {
+              script.setAttribute(attributes[i].name, attributes[i].value)
+            }
+
+            script.src = config.frontSrcLocal // Override front.js.
+            document.head.appendChild(script)
+          }
         }
       }
 
@@ -2703,7 +2706,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 721 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 723 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
