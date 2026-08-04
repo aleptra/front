@@ -9,6 +9,7 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+config
 dist/*.zip
 node_modules
 package-lock.json

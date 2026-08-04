@@ -1672,10 +1672,23 @@ var app = {
         config = app.config.get(false, { frontSrcLocal: '' }, element)
 
       app.disable(true)
-      // TODO: Experimental feature
+
+      // Load config file
       if (app.isLocalNetwork) {
+        var request = app.xhr.request({ url: 'config', sync: true })
+        if (request && request.status === 200) {
+          app.env = {}
+          request.responseText.split('\n').forEach(function (line) {
+            if ((line = line.trim()) && line[0] !== '#') {
+              var p = line.split('='), k = p[0].trim(), v = p[1].trim()
+              if (p.length === 2) app.env[k] = v
+            }
+          })
+          config.frontSrcLocal = app.env.FRONT_JS_URL || config.frontSrcLocal
+          app.debug = /true|1/.test(app.env.DEBUG)
+        }
         if (config.frontSrcLocal.length > 0) {
-          element.remove()
+          element.parentNode.removeChild(element)
 
           var script = document.createElement('script'),
             attributes = element.attributes
@@ -2690,7 +2703,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 717 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 718 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3753,6 +3766,7 @@ var app = {
         aftersuccess = options.aftersuccess,
         loader = options.loader,
         type = options.type,
+        sync = options.sync !== false, // default true
         run = onload && onload.run && onload.run.func ? onload.run.func : false,
         runarg = onload && onload.run && onload.run.arg
 
@@ -3850,7 +3864,7 @@ var app = {
         if (error) app.call(error, { element: options.element })
       }
 
-      xhr.open(method, url + urlExtension, true)
+      xhr.open(method, url + urlExtension, sync)
 
       if (options.credentials) {
         xhr.withCredentials = true
@@ -3924,6 +3938,7 @@ var app = {
       }
 
       xhr.send(payload)
+      return xhr
     }
   },
 }
