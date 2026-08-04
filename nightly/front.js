@@ -2703,7 +2703,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 719 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 721 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3766,7 +3766,7 @@ var app = {
         aftersuccess = options.aftersuccess,
         loader = options.loader,
         type = options.type,
-        sync = options.sync ? options.sync : false,
+        sync = options.sync ? options.sync : true,
         run = onload && onload.run && onload.run.func ? onload.run.func : false,
         runarg = onload && onload.run && onload.run.arg
 
