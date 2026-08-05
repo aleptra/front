@@ -244,8 +244,9 @@ app.module.data = {
    */
   _traverse: function (options, responseData, element, selector) {
     var iterate = options.iterate,
-      responseObject = iterate === 'true' ? responseData.data : app.element.getPropertyByPath(responseData.data, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate),
       onkeyempty = options.onkeyempty,
+      context = options.dataContext !== undefined ? options.dataContext : responseData.data,
+      responseObject = iterate === 'true' ? context : app.element.getPropertyByPath(context, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate),
       total = iterate && responseObject && responseObject.length - 1 || 0
 
     // Fire data-onkeyempty when the resolved key is missing or has no items.
@@ -263,7 +264,7 @@ app.module.data = {
         var originalNode = element,
           originalClonedNode = originalNode.cloneNode(true)
 
-        originalNode.innerHTML = element.originalHtml
+        originalNode.innerHTML = options.originalHtml !== undefined ? options.originalHtml : element.originalHtml
 
         var elementsSkip = originalNode.querySelectorAll('[data-iterate-skip]')
 
@@ -316,23 +317,59 @@ app.module.data = {
       // Run element attributes after processing data.
       app.attributes.run(elements, ['data-get', 'data-set', 'data-src'])
 
-      // Support multiple iterates inside the same parent.
-      var dataiterate = element.getAttribute('data-iterate')
-      if (!dataiterate || dataiterate === 'true') {
-        var iterateInside = app.element.find(element, '*[data-iterate]')
-        if (iterateInside) {
-          var iterArray = iterateInside.length ? iterateInside : [iterateInside]
-          for (var k = 0; k < iterArray.length; k++) {
-            var childIterate = iterArray[k]
-            if (!childIterate || !childIterate.getAttribute) continue
-            var childOptions = {
-              iterate: childIterate.getAttribute('data-iterate'),
-              onkeyempty: childIterate.getAttribute('data-onkeyempty'),
-              element: childIterate,
-              k: k,
+      // Process nested iterates in the context of each parent item.
+      var iterateInside = app.element.find(element, '*[data-iterate]')
+      if (iterateInside && iterateInside.length) {
+        var iterArray = [],
+          nestedTemplates = originalClonedNode && originalClonedNode.querySelectorAll('*[data-iterate]'),
+          nestedTemplateByName = {},
+          nestedIndexByName = {}
+
+        // Only process the nearest nested iterates here. Deeper levels are handled
+        // recursively when their immediate parent iterate is processed.
+        for (var k = 0; k < iterateInside.length; k++) {
+          var candidate = iterateInside[k],
+            ancestor = candidate.parentElement,
+            nested = false
+
+          while (ancestor && ancestor !== element) {
+            if (ancestor.hasAttribute('data-iterate')) {
+              nested = true
+              break
             }
-            this._traverse(childOptions, responseData, childIterate, selector)
+            ancestor = ancestor.parentElement
           }
+
+          if (!nested) iterArray.push(candidate)
+        }
+
+        if (nestedTemplates) {
+          for (var k = 0; k < nestedTemplates.length; k++) {
+            var templateName = nestedTemplates[k].getAttribute('data-iterate')
+            if (nestedTemplateByName[templateName] === undefined) {
+              nestedTemplateByName[templateName] = nestedTemplates[k].innerHTML
+            }
+          }
+        }
+
+        for (var k = 0; k < iterArray.length; k++) {
+          var childIterate = iterArray[k],
+            childName = childIterate.getAttribute('data-iterate'),
+            childIndex = nestedIndexByName[childName] || 0,
+            childContext = Array.isArray(responseObject) ? responseObject[childIndex] : responseObject
+
+          nestedIndexByName[childName] = childIndex + 1
+
+          if (childContext === undefined) continue
+
+          this._traverse({
+            iterate: childName,
+            onkeyempty: childIterate.getAttribute('data-onkeyempty'),
+            element: childIterate,
+            k: k,
+            dataContext: childContext,
+            originalHtml: nestedTemplateByName[childName]
+          }, responseData, childIterate, selector)
         }
       }
     }
