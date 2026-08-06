@@ -2706,7 +2706,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 724 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 725 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3645,7 +3645,8 @@ var app = {
               cache = options.cache,
               target = options.target,
               module = options.module,
-              format = options.format
+              format = options.format,
+              skipTemplates = options.skipTemplates === true
 
             if (global) {
               // Create an object to store all globals
@@ -3674,8 +3675,8 @@ var app = {
                     templateAttr = templateElement && templateElement.attributes,
                     elementSrcDoc = templateAttr && templateAttr.srcdoc && templateAttr.srcdoc.value,
                     elementSrc = templateAttr && templateAttr.src && templateAttr.src.value,
-                    templateSrcDoc = target !== 'main' ? elementSrcDoc || false : false,
-                    templateSrc = elementSrc && elementSrc.split(';') || []
+                    templateSrcDoc = skipTemplates ? false : target !== 'main' ? elementSrcDoc || false : false,
+                    templateSrc = skipTemplates ? [] : elementSrc && elementSrc.split(';') || []
 
                   self.currentAsset.loaded = 0
                   app.vars.total = 0
@@ -3695,7 +3696,7 @@ var app = {
                   dom.doctitle(false, responsePageTitle)
                   dom.bind.include = ''
                   app.globals.refresh()
-                  app.assets.get.templates()
+                  if (!skipTemplates) app.assets.get.templates()
                   break
                 case 'var':
                   app.vars.loaded++

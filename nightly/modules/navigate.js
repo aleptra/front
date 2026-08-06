@@ -151,12 +151,16 @@ app.module.navigate = {
         if (link.target === '_blank') return
 
         var pushState = link.getAttribute('navigate-pushstate') === 'false' ? false : true,
-          target = link.target === '_top' ? 'html' : link.target || this.config.target
+          target = link.target === '_top' ? 'html' : link.target || this.config.target,
+          explicitTarget = link.getAttribute('target')
 
         var state = {
           'href': link.href,
-          'pathname': link.pathname,
+          // Keep the query string because page navigation uses state.pathname as the XHR URL.
+          'pathname': link.pathname + (link.search || ''),
           'target': target,
+          // Targeted links load partial content and must not render page templates.
+          'skipTemplates': !!explicitTarget && target !== 'html',
           'arg': { disableSrcdoc: true, runAttributes: true }
         }
 
@@ -190,7 +194,7 @@ app.module.navigate = {
   _pop: function (event) {
     var state = (event.state) ? event.state : {
       'href': window.location.href,
-      'pathname': window.location.pathname,
+      'pathname': window.location.pathname + window.location.search,
       'hash': window.location.hash,
       'target': !event.state ? this.config.target : 'html',
       'extension': false,
@@ -249,6 +253,7 @@ app.module.navigate = {
       url: state.pathname,
       urlExtension: state.extension,
       target: state.target,
+      skipTemplates: state.skipTemplates,
       single: true,
       type: 'page',
       onprogress: { preloader: this.config.preloader },
