@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: nightly test test\:unit test\:integration test\:performance
+.PHONY: nightly release test test\:unit test\:integration test\:performance
 
 SRC = src
 JS_FILE = $(SRC)/front.js
@@ -20,7 +20,7 @@ define minify
 	> $(2)
 endef
 
-nightly:
+nightly: test
 	@sed -i '' -E 's/(build:[[:space:]]+)[0-9]+/\1$(TAG)/g' $(JS_FILE)
 	@echo "Build: $(TAG) (v$(VERSION))"
 	@rsync -av --exclude=test $(SRC)/ nightly/
@@ -39,7 +39,7 @@ nightly:
 	@git add . && git commit -m "Build $(TAG)" && git push
 	@echo "✅ Deployed nightly"
 
-release:
+release: test
 	@if ! command -v gh &> /dev/null; then echo "Error: gh (GitHub CLI) is required. Install with: brew install gh"; exit 1; fi
 	@if ! gh auth status &> /dev/null; then echo "Error: Not authenticated. Run: gh auth login"; exit 1; fi
 	@if [ -z "$(VERSION)" ]; then echo "Error: Could not extract version from $(JS_FILE)"; exit 1; fi
@@ -72,11 +72,11 @@ app:
 test:
 	@FAIL=0; START=$$(date +%s); TOTAL=0; \
 	OUT=$$($(MAKE) test:unit 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
-	TOTAL=$$((TOTAL + $$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*'))); \
+	PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
 	OUT=$$($(MAKE) test:integration 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
-	TOTAL=$$((TOTAL + $$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*'))); \
+	PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
 	OUT=$$($(MAKE) test:performance 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
-	TOTAL=$$((TOTAL + $$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*'))); \
+	PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
 	END=$$(date +%s); ELAPSED=$$((END - START)); \
 	if [ $$FAIL -eq 0 ]; then echo ""; echo "================================"; echo "✅ $$TOTAL tests passed in $${ELAPSED}s"; echo "================================"; \
 	else echo ""; echo "================================"; echo "❌ Some tests failed ($${ELAPSED}s)"; echo "================================"; exit 1; fi

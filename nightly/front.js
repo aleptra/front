@@ -1623,15 +1623,17 @@ var dom = {
   }
 }
 
+var previousApp = typeof window !== 'undefined' && window.app
+
 var app = {
-  module: {},
-  plugin: {},
+  module: previousApp && previousApp.module || {},
+  plugin: previousApp && previousApp.plugin || {},
   var: {},
   language: document.documentElement.lang || 'en',
   docMode: document.documentMode || 0,
   srcDocTemplate: '',
   srcTemplate: [],
-  isLocalNetwork: /localhost|127\.0\.0\.1|::1|\.local|^$/i.test(location.hostname),
+  isLocalNetwork: location.protocol === 'file:' || /localhost|127\.0\.0\.1|::1|\.local/i.test(location.hostname),
   spa: false,
   vars: { total: 0, totalStore: 0, loaded: 0 },
   modules: { total: 0, loaded: 0 },
@@ -2706,7 +2708,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 725 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 726 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
