@@ -1,6 +1,14 @@
 SHELL := /bin/bash
 
-.PHONY: nightly release test test\:unit test\:integration test\:performance
+.DEFAULT_GOAL := default
+.PHONY: default nightly release test test\:unit test\:integration test\:performance
+
+default:
+	@if git diff --quiet && git diff --cached --quiet && [ -z "$$(git ls-files --others --exclude-standard)" ]; then \
+		echo "Nothing to do"; \
+	else \
+		$(MAKE) nightly; \
+	fi
 
 SRC = src
 JS_FILE = $(SRC)/front.js
