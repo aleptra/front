@@ -20,6 +20,12 @@ var dom = {
     'insertafterend': 'insert',
     'insertbeforebegin': 'insert',
     'insertbeforeend': 'insert',
+    'movebefore': 'move',
+    'moveafter': 'move',
+    'movebeforebegin': 'move',
+    'moveafterbegin': 'move',
+    'movebeforeend': 'move',
+    'moveafterend': 'move',
     'prependattr': 'insert',
     'setaction': 'set2',
     'setattr': 'set2',
@@ -134,6 +140,39 @@ var dom = {
   },
 
   /**
+   * @function move
+   * @memberof dom
+   */
+  move: function (object, value) {
+    var move, to
+    if (object.exec) {
+      move = object.exec.func
+      to = object.exec.subElement
+      object = object.exec.element
+    } else {
+      move = object.lastRunAttribute
+      to = app.element.select(value)
+    }
+
+    move = move.replace('move', '')
+    switch (move) {
+      case 'before':
+      case 'beforebegin':
+        if (object && to && to.parentNode) to.parentNode.insertBefore(object, to)
+        break
+      case 'after':
+      case 'afterend':
+        if (object && to && to.parentNode) to.parentNode.insertBefore(object, to.nextSibling)
+        break
+      case 'afterbegin':
+        if (object && to) to.insertBefore(object, to.firstChild)
+        break
+      default:
+        if (object && to) to.appendChild(object)
+    }
+  },
+
+  /**
    * @function toggle
    * @memberof dom
    */
@@ -197,15 +236,6 @@ var dom = {
         e.stopPropagation()
       }
     })
-  },
-
-  /**
-   * @function move
-   * @memberof dom
-   */
-  move: function (element) {
-    var call = app.element.resolveCall(element).call
-    if (call.element && call.subElement) call.subElement.appendChild(call.element)
   },
 
   /**
@@ -2705,7 +2735,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 728 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 729 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
