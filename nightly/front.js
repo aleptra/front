@@ -2747,7 +2747,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 730 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 731 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3492,7 +3492,7 @@ var app = {
     total: 0,
     elementSelectors: [
       { name: 'header' },
-      { name: 'header+nav' },
+      { name: 'nav' },
       { name: 'aside:nth-of-type(1)' },
       { name: 'main', content: false },
       { name: 'aside:nth-of-type(2)' },
@@ -3551,48 +3551,52 @@ var app = {
           for (var j = 0; j < this.elementSelectors.length; j++) {
             var elSelector = this.elementSelectors[j],
               replaceElement = 'body > ' + elSelector.name,
-              parsedEl = app.element.find(srcTemplate, elSelector.name, true),
-              content = parsedEl.innerHTML,
-              attr = parsedEl.attributes || [],
-              srcDocEl = app.element.find(srcDoc, elSelector.name, true)
-            console.log(replaceElement, ', ' + elSelector.name)
-            console.dir(parsedEl.innerHTML)
-            // Resolve attributes using srcDoc as the inheritance base.
-            var targetElement = app.element.select(replaceElement)
-            if (targetElement) {
-              var finalAttrs = {},
-                inherit = parsedEl.getAttribute ? parsedEl.getAttribute('inherit') : true
+              parsedEl = this.resolveSection(srcTemplate, elSelector.name),
+              srcDocEl = this.resolveSection(srcDoc, elSelector.name),
+              targetElement = app.element.select(replaceElement)
 
-              // 1. Copy attributes from srcDocEl (base) ONLY if inherit is not "false"
-              if (inherit !== 'false' && srcDocEl && srcDocEl.attributes) {
-                for (var a = 0; a < srcDocEl.attributes.length; a++) {
-                  finalAttrs[srcDocEl.attributes[a].name] = srcDocEl.attributes[a].value
-                }
-              }
+            // Skip sections missing from both fragments or from the live document.
+            if ((!parsedEl && !srcDocEl) || !targetElement) continue
 
-              // 2. Override with template attributes
-              for (var k = 0; k < attr.length; k++) {
-                if (attr[k].name !== 'inherit') {
-                  finalAttrs[attr[k].name] = attr[k].value
-                }
-              }
+            // Use the template element when available, fall back to source document.
+            var activeEl = parsedEl || srcDocEl,
+              inheritContent = activeEl.hasAttribute('inheritcontent'),
+              content = inheritContent && srcDocEl ? srcDocEl.innerHTML : activeEl.innerHTML,
+              attr = activeEl.attributes,
+              inherit = activeEl.getAttribute('inherit') || activeEl.getAttribute('inheritattributes')
 
-              // 3. Clear and apply
-              while (targetElement.attributes.length) {
-                targetElement.removeAttribute(targetElement.attributes[0].name)
-              }
+            // Resolve attributes: srcDoc base + template overrides.
+            var finalAttrs = {}
 
-              for (var key in finalAttrs) {
-                targetElement.setAttribute(key, finalAttrs[key])
+            if (inherit !== 'false' && srcDocEl) {
+              for (var a = 0; a < srcDocEl.attributes.length; a++) {
+                finalAttrs[srcDocEl.attributes[a].name] = srcDocEl.attributes[a].value
               }
             }
 
+            if (parsedEl) {
+              for (var k = 0; k < attr.length; k++) {
+                if (attr[k].name !== 'inherit' && attr[k].name !== 'inheritcontent' && attr[k].name !== 'inheritattributes') {
+                  finalAttrs[attr[k].name] = attr[k].value
+                }
+              }
+            }
+
+            // Clear and apply attributes on live element.
+            while (targetElement.attributes.length) {
+              targetElement.removeAttribute(targetElement.attributes[0].name)
+            }
+
+            for (var key in finalAttrs) {
+              targetElement.setAttribute(key, finalAttrs[key])
+            }
+
             if (elSelector.content !== false) {
-              dom.set(replaceElement, this.resolveBase(parsedEl.nodeType === 1 ? content : srcDocEl.innerHTML))
-              srcHasMarkup && app.attributes.run(replaceElement + ' *') // Run attributes in children
+              dom.set(replaceElement, this.resolveBase(content))
+              srcHasMarkup && app.attributes.run(replaceElement + ' *')
             } else {
-              var contentMode = parsedEl.getAttribute ? parsedEl.getAttribute('content') : null
-              if (contentMode && targetElement) {
+              var contentMode = activeEl.getAttribute('content')
+              if (contentMode) {
                 var templateContent = this.resolveBase(content)
                 if (contentMode === 'prepend') {
                   targetElement.insertAdjacentHTML('afterbegin', templateContent)
@@ -3603,7 +3607,7 @@ var app = {
               }
             }
 
-            srcHasMarkup && app.attributes.run(replaceElement) // Run attributes in parent
+            srcHasMarkup && app.attributes.run(replaceElement)
           }
         }
       }
@@ -3621,6 +3625,14 @@ var app = {
 
     resolveBase: function (html) {
       return html && html.replace(/ __src="/g, ' src="').replace(/ src="(?!https?:\/\/|\/\/|\/|data:|#|\{)([^"]+)"/g, ' src="' + (app.baseHref || '/') + '$1"')
+    },
+
+    resolveSection: function (fragment, selector) {
+      var children = fragment.children
+      for (var i = 0; i < children.length; i++) {
+        if (children[i].matches && children[i].matches(selector)) return children[i]
+      }
+      return null
     }
   },
 
