@@ -2365,7 +2365,8 @@ var app = {
      * @return {Element|Element[]} - Returns a single element if there is only one match, or a list of elements if there are multiple elements that match the selector.
      * @desc Retrieves elements from a given node by selector.
      */
-    find: function (node, selector) {
+    find: function (node, selector, single) {
+      if (single) return node.querySelector(selector) || []
       var element = node.querySelectorAll(selector)
       if (element.length === 0) return element
       return selector[0] === '*' ? element : element[0]
@@ -2573,9 +2574,20 @@ var app = {
      * @memberof app.element
      */
     onchange: function (object, value, once) {
-      if (value) {
-        var onchange = object.getAttribute('on' + value.replace('set', '') + 'change')
-        if (onchange) app.call(onchange, { srcElement: object })
+      if (!value) return
+
+      var onchange = object.getAttribute('on' + value.replace('set', '') + 'change')
+      if (!onchange) return
+
+      // Prevent bind -> onchange -> rerun -> bind recursion while preserving
+      // the first change callback.
+      if (once && object._onchangeRunning) return
+      if (once) object._onchangeRunning = true
+
+      try {
+        app.call(onchange, { srcElement: object })
+      } finally {
+        if (once) object._onchangeRunning = false
       }
     },
 
@@ -2735,7 +2747,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 729 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 730 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3480,6 +3492,7 @@ var app = {
     total: 0,
     elementSelectors: [
       { name: 'header' },
+      { name: 'header+nav' },
       { name: 'aside:nth-of-type(1)' },
       { name: 'main', content: false },
       { name: 'aside:nth-of-type(2)' },
@@ -3504,8 +3517,8 @@ var app = {
         var srcDocCache = app.caches.get('window', 'template', srcDoc),
           srcDocPage = app.parse.text(srcDocCache.data, ['title']),
           srcDocPageBodyAttr = srcDocPage.bodyAttr,
-          srcDocPageScript = app.element.find(srcDocPage, app.script.selector),
-          srcDocPageBaseHref = app.element.find(srcDocPage, 'base')
+          srcDocPageScript = app.element.find(srcDocPage, app.script.selector, true),
+          srcDocPageBaseHref = app.element.find(srcDocPage, 'base', true)
 
         dom.hrefhost(srcDocPageBaseHref)
         var responsePageContent = srcDocPage.innerHTML
@@ -3538,11 +3551,12 @@ var app = {
           for (var j = 0; j < this.elementSelectors.length; j++) {
             var elSelector = this.elementSelectors[j],
               replaceElement = 'body > ' + elSelector.name,
-              parsedEl = app.element.find(srcTemplate, elSelector.name),
+              parsedEl = app.element.find(srcTemplate, elSelector.name, true),
               content = parsedEl.innerHTML,
               attr = parsedEl.attributes || [],
-              srcDocEl = app.element.find(srcDoc, elSelector.name)
-
+              srcDocEl = app.element.find(srcDoc, elSelector.name, true)
+            console.log(replaceElement, ', ' + elSelector.name)
+            console.dir(parsedEl.innerHTML)
             // Resolve attributes using srcDoc as the inheritance base.
             var targetElement = app.element.select(replaceElement)
             if (targetElement) {
