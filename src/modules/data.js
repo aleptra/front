@@ -356,7 +356,9 @@ app.module.data = {
           var childIterate = iterArray[k],
             childName = childIterate.getAttribute('data-iterate'),
             childIndex = nestedIndexByName[childName] || 0,
-            childContext = Array.isArray(responseObject) ? responseObject[childIndex] : responseObject
+            childContext = childName === 'true'
+              ? responseData.data
+              : Array.isArray(responseObject) ? responseObject[childIndex] : responseObject
 
           nestedIndexByName[childName] = childIndex + 1
 
