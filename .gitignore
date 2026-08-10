@@ -8,6 +8,7 @@
 *.log
 .DS_Store
 .AppleDouble
+.kiro
 .LSOverride
 config
 dist/*.zip
