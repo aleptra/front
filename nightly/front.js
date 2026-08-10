@@ -242,13 +242,16 @@ var dom = {
    * @function clone
    * @memberof dom
    */
-  clone: function (object, value) {
-    var from = object,
-      to = app.element.select(value)
-    if (from && to) {
-      from.innerHTML = from.getAttribute('inherit') === 'false' ? to.innerHTML : ''
-      if (from.getAttribute('inherit') !== 'false') from.appendChild(to.cloneNode(true))
-    }
+  clone: function (element, value) {
+    element = app.element.resolveCall(element, value)
+
+    var from = element.call.subElement,
+      to = element.call.element
+
+    if (!from || !to) return
+
+    to.innerHTML = to.getAttribute('inherit') === 'false' ? from.innerHTML : ''
+    if (to.getAttribute('inherit') !== 'false') to.appendChild(from.cloneNode(true))
   },
 
   /**
@@ -2747,7 +2750,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 732 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 733 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
