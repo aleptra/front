@@ -22,6 +22,7 @@ app.plugin.svgworldmap = {
     var lat = parseFloat(target.getAttribute(this.plugin + 'lat')),
       lng = parseFloat(target.getAttribute(this.plugin + 'lng')),
       zoom = parseFloat(target.getAttribute(this.plugin + 'zoom') || this.config.defaultZoom),
+      markersUrl = target.getAttribute(this.plugin + 'markers'),
       fixedMarkerSize = target.hasAttribute('fixed-marker')
         ? target.getAttribute('fixed-marker') === 'true'
         : this.config.fixedMarkerSize
@@ -113,46 +114,60 @@ app.plugin.svgworldmap = {
       target.appendChild(container.firstChild)
     }
 
-    this.loadMap(target, lat, lng, zoom, fixedMarkerSize, labelText, landColor, borderColor)
+    this.loadMap(target, lat, lng, zoom, fixedMarkerSize, labelText, landColor, borderColor, markersUrl)
   },
 
-  loadMap: function (target, lat, lng, zoom, fixedMarkerSize, labelText, landColor, borderColor) {
-    var viewport = target.querySelector('.svg-world-map-viewport')
+  load: function (url, callback) {
+    if (!url) {
+      callback(null)
+      return
+    }
+
     var xhr = new XMLHttpRequest()
-
-    xhr.open('GET', '/assets/maps/worldorg.svg', true)
-
+    xhr.open('GET', url, true)
     xhr.onreadystatechange = function () {
-      if (xhr.readyState !== 4) {
-        return
+      if (xhr.readyState === 4) {
+        callback(xhr.status >= 200 && xhr.status < 300 ? xhr.responseText : null)
+      }
+    }
+    xhr.send(null)
+  },
+
+  loadMap: function (target, lat, lng, zoom, fixedMarkerSize, labelText, landColor, borderColor, markersUrl) {
+    var self = this,
+      viewport = target.querySelector('.svg-world-map-viewport')
+
+    this.load(markersUrl, function (response) {
+      var markerData = null
+
+      if (response) {
+        try {
+          markerData = JSON.parse(response)
+          if (Array.isArray(markerData)) markerData = { markers: markerData }
+        } catch (error) { }
       }
 
-      if (xhr.status >= 200 && xhr.status < 300) {
+      self.load('/assets/maps/world.svg', function (svgText) {
+        if (!svgText) return
 
-        viewport.innerHTML = xhr.responseText
+        viewport.innerHTML = svgText
 
         var svg = viewport.querySelector('svg')
-
-        if (!svg) {
-          return
-        }
+        if (!svg) return
 
         svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
-
         svg.style.display = 'block'
         svg.style.width = '100%'
         svg.style.height = 'auto'
         svg.style.cursor = 'grab'
         svg.style.userSelect = 'none'
 
-        this.initMap(target, svg, lat, lng, zoom, fixedMarkerSize, labelText, landColor, borderColor)
-      }
-    }.bind(this)
-
-    xhr.send(null)
+        self.initMap(target, svg, lat, lng, zoom, fixedMarkerSize, labelText, landColor, borderColor, markerData)
+      })
+    })
   },
 
-  initMap: function (target, svg, lat, lng, zoom, fixedMarkerSize, labelText, landColor, borderColor) {
+  initMap: function (target, svg, lat, lng, zoom, fixedMarkerSize, labelText, landColor, borderColor, markerData) {
 
     var landElements = svg.querySelectorAll('.land')
     var landIndex
@@ -216,18 +231,51 @@ app.plugin.svgworldmap = {
     var X_OFFSET = 1270.5,
       Y_OFFSET = 787.0
 
-    /*
-     * Convert geographic coordinates to SVG coordinates.
-     */
-    var markerX = (lng * X_SCALE) + X_OFFSET,
-      markerY = (lat * Y_SCALE) + Y_OFFSET
+    function toPoint(markerLat, markerLng) {
+      var x = (markerLng * X_SCALE) + X_OFFSET,
+        y = (markerLat * Y_SCALE) + Y_OFFSET
 
-    /*
-     * Validate coordinates.
-     */
-    if (isNaN(markerX) || isNaN(markerY)) {
-      markerX = width / 2
-      markerY = height / 2
+      return isNaN(x) || isNaN(y) ? null : { x: x, y: y }
+    }
+
+    var markerDataItems = markerData && Array.isArray(markerData.markers) ? markerData.markers : [],
+      markerItems = [],
+      i
+
+    for (i = 0; i < markerDataItems.length; i++) {
+      var markerDataItem = markerDataItems[i],
+        markerPoint = markerDataItem && toPoint(parseFloat(markerDataItem.lat), parseFloat(markerDataItem.lng))
+
+      if (markerPoint) {
+        markerItems.push({
+          data: markerDataItem,
+          x: markerPoint.x,
+          y: markerPoint.y
+        })
+      }
+    }
+
+    if (!markerItems.length) {
+      var fallbackPoint = toPoint(lat, lng) || { x: width / 2, y: height / 2 }
+      markerItems.push({
+        data: { label: labelText },
+        x: fallbackPoint.x,
+        y: fallbackPoint.y
+      })
+    }
+
+    var centerPoint = markerData && markerData.center
+      ? toPoint(parseFloat(markerData.center.lat), parseFloat(markerData.center.lng))
+      : null
+
+    if (!centerPoint) {
+      centerPoint = { x: 0, y: 0 }
+      for (i = 0; i < markerItems.length; i++) {
+        centerPoint.x += markerItems[i].x
+        centerPoint.y += markerItems[i].y
+      }
+      centerPoint.x /= markerItems.length
+      centerPoint.y /= markerItems.length
     }
 
     /*
@@ -243,7 +291,6 @@ app.plugin.svgworldmap = {
      * Move original SVG content into mapGroup.
      */
     var children = []
-    var i
 
     for (i = 0; i < svg.childNodes.length; i++) {
       children.push(
@@ -284,12 +331,9 @@ app.plugin.svgworldmap = {
       svg.appendChild(markerLayer)
     }
 
-    /*
-     * Add marker.
-     */
-    var elements = this.addMarkerWithLabel(markerLayer, labelText),
-      marker = elements.marker,
-      textEl = elements.text
+    for (i = 0; i < markerItems.length; i++) {
+      markerItems[i].elements = this.addMarkerWithLabel(markerLayer, markerItems[i].data)
+    }
 
     /*
      * Map state.
@@ -306,54 +350,48 @@ app.plugin.svgworldmap = {
     /*
      * Put selected location in the center.
      */
-    function centerOnMarker() {
-      state.x = (width / 2) - (markerX * state.scale)
-      state.y = (height / 2) - (markerY * state.scale)
+    function centerOnMarkers() {
+      state.x = (width / 2) - (centerPoint.x * state.scale)
+      state.y = (height / 2) - (centerPoint.y * state.scale)
     }
 
-    centerOnMarker()
+    centerOnMarkers()
 
     /*
      * Update map.
      */
     function update() {
-
-      var scale = isNaN(state.scale) ? 1 : state.scale
-
-      var x = isNaN(state.x) ? 0 : state.x,
+      var scale = isNaN(state.scale) ? 1 : state.scale,
+        x = isNaN(state.x) ? 0 : state.x,
         y = isNaN(state.y) ? 0 : state.y
 
-      /*
-       * Transform map.
-       */
       mapGroup.setAttribute('transform', 'translate(' + x + ',' + y + ') scale(' + scale + ')')
 
-      /*
-       * Marker position.
-       *
-       * The marker itself is NOT inside mapGroup,
-       * therefore we calculate its transformed position.
-       */
-      var currentX = (markerX * scale) + x,
-        currentY = (markerY * scale) + y
+      for (var markerIndex = 0; markerIndex < markerItems.length; markerIndex++) {
+        var markerItem = markerItems[markerIndex],
+          marker = markerItem.elements.marker,
+          text = markerItem.elements.text,
+          currentX = (markerItem.x * scale) + x,
+          currentY = (markerItem.y * scale) + y
 
-      marker.setAttribute('cx', currentX)
-      marker.setAttribute('cy', currentY)
-      textEl.setAttribute('x', currentX)
-      textEl.setAttribute('y', currentY + 50)
+        marker.setAttribute('cx', currentX)
+        marker.setAttribute('cy', currentY)
+        text.setAttribute('x', currentX)
+        text.setAttribute('y', currentY + 50)
+      }
 
-      /*
-       * Keep marker the same visual size.
-       */
       if (fixedMarkerSize) {
-
-        var rect = svg.getBoundingClientRect()
-        var renderScale = rect.width / width
+        var rect = svg.getBoundingClientRect(),
+          renderScale = rect.width / width
 
         if (renderScale > 0 && !isNaN(renderScale)) {
-          marker.setAttribute('r', 8 / renderScale)
-          marker.setAttribute('stroke-width', 2.5 / renderScale)
-          textEl.setAttribute('font-size', (11 / renderScale) + 'px')
+          for (var markerSizeIndex = 0; markerSizeIndex < markerItems.length; markerSizeIndex++) {
+            marker = markerItems[markerSizeIndex].elements.marker
+            text = markerItems[markerSizeIndex].elements.text
+            marker.setAttribute('r', 8 / renderScale)
+            marker.setAttribute('stroke-width', 2.5 / renderScale)
+            text.setAttribute('font-size', (11 / renderScale) + 'px')
+          }
         }
       }
     }
@@ -365,20 +403,14 @@ app.plugin.svgworldmap = {
       zoomOut = target.querySelector('.svg-zoom-out'),
       reset = target.querySelector('.svg-zoom-reset')
 
-    /*
-     * Zoom around a point.
-     */
     function zoomAround(newScale, pointX, pointY) {
       var oldScale = state.scale
 
-      if (newScale === oldScale) {
-        return
-      }
+      if (newScale === oldScale) return
 
       state.x = pointX - (pointX - state.x) * (newScale / oldScale)
       state.y = pointY - (pointY - state.y) * (newScale / oldScale)
       state.scale = newScale
-
       update()
     }
 
@@ -403,7 +435,7 @@ app.plugin.svgworldmap = {
 
       state.scale = isNaN(zoom) ? 1 : zoom
 
-      centerOnMarker()
+      centerOnMarkers()
 
       update()
     }
@@ -482,32 +514,30 @@ app.plugin.svgworldmap = {
     update()
   },
 
-  addMarkerWithLabel: function (markerLayer, labelText) {
-    var ns = 'http://www.w3.org/2000/svg'
+  addMarkerWithLabel: function (markerLayer, data) {
+    var ns = 'http://www.w3.org/2000/svg',
+      marker = document.createElementNS(ns, 'circle'),
+      text = document.createElementNS(ns, 'text')
 
-    var marker = document.createElementNS(ns, 'circle')
+    data = data || {}
+    var label = data.label !== undefined ? data.label : (data.name || '')
+
     marker.setAttribute('r', '8')
-    marker.setAttribute('fill', '#e74c3c')
-    marker.setAttribute('stroke', '#ffffff')
+    marker.setAttribute('fill', data.color || '#e74c3c')
+    marker.setAttribute('stroke', data.borderColor || '#ffffff')
     marker.setAttribute('stroke-width', '2.5')
     marker.setAttribute('class', 'svg-world-map-marker')
-
     markerLayer.appendChild(marker)
 
-    var text = document.createElementNS(ns, 'text')
-    text.textContent = labelText
+    text.textContent = label
     text.setAttribute('font-size', '11px')
-    text.setAttribute('fill', '#1a365d')
+    text.setAttribute('fill', data.labelColor || '#1a365d')
     text.setAttribute('font-weight', 'bold')
     text.setAttribute('text-anchor', 'middle')
     text.setAttribute('font-family', 'sans-serif')
     text.setAttribute('pointer-events', 'none')
-
     markerLayer.appendChild(text)
 
-    return {
-      marker: marker,
-      text: text
-    }
+    return { marker: marker, text: text }
   }
 }
