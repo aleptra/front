@@ -39,11 +39,9 @@ test('clone - should clone via clone attribute selector', function () {
   var source = createElement('div')
   source.id = 'menuitems'
   source.innerHTML = '<a href="#">Menu item</a>'
-  document.body.appendChild(source)
 
   var target = createElement('div')
   target.setAttribute('clone', '#menuitems')
-  document.body.appendChild(target)
 
   app.attributes.run([target])
   app.attributes.runDeferred()

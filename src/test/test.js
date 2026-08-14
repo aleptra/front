@@ -247,5 +247,5 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', autoload)
+  window.addEventListener('load', autoload)
 }(this))
