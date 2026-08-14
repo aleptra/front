@@ -1567,8 +1567,50 @@ var dom = {
    */
   iterate: function (element, value) {
     dom.stop(element) // Stop all attributes in element.
-    var values = value.split(';'),
-      startStr = values[0],
+    var values = value.split(';')
+
+    // Repeat the template for every element matched by a deep CSS selector.
+    if (isNaN(parseInt(values[0], 10)) && values[1]) {
+      var sourceElements = app.element.select(values[0], true),
+        template = element.originalHtml !== undefined ? element.originalHtml : element.innerHTML,
+        content = '',
+        escapeText = function (text) {
+          return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
+        }
+
+      for (var sourceIndex = 0; sourceIndex < sourceElements.length; sourceIndex++) {
+        var source = sourceElements[sourceIndex],
+          sourceHtml = template
+
+        for (var fieldIndex = 1; fieldIndex < values.length; fieldIndex++) {
+          var field = values[fieldIndex]
+          if (!field) continue
+
+          var indexField = field === 'index' || field === 'i',
+            textField = field === 'name' || field === 'text' || field === 'textContent',
+            fieldValue = indexField ? sourceIndex + 1 : textField ? app.element.get(source) : source.getAttribute(field)
+
+          if (!indexField && fieldValue === null && typeof source[field] !== 'undefined') fieldValue = source[field]
+          fieldValue = String(fieldValue === null || fieldValue === undefined ? '' : fieldValue)
+          if (textField) fieldValue = fieldValue.replace(/^\s+|\s+$/g, '')
+
+          var escapedField = field.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'),
+            fieldRegex = new RegExp('\\{' + escapedField + '\\}', 'g')
+
+          sourceHtml = sourceHtml.replace(fieldRegex, function () {
+            return escapeText(fieldValue)
+          })
+        }
+
+        content += sourceHtml
+      }
+
+      element.innerHTML = content
+      app.attributes.run(app.element.find(element, '*'))
+      return
+    }
+
+    var startStr = values[0],
       stopStr = values[1],
       varName = values[2],
       start = parseInt(startStr, 10),
@@ -2751,7 +2793,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 738 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 739 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,

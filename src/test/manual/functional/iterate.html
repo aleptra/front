@@ -2,18 +2,14 @@
 <html lang="en">
 
 <head>
-  <script
-    src="../../../front.js"
-    module="data"
-    var="api"
-    conf="debug:true">
+  <script src="../../../front.js" module="data" var="api" conf="debug:true">
   </script>
 </head>
 
 <body>
   <h2>Navigation (Paging):</h2>
   <section>
-    
+
     <nav iterate="0;3;i">
       <a href="?" settext="{i}" sethref="?page={i}"></a>
     </nav>
@@ -22,7 +18,26 @@
       <a href="?" settext="{i}" sethref="?page={i}"></a>
     </nav>
 
-  </section>
+    <h2>Selector iteration:</h2>
+    <section>
+      <div id="menuitems">
+        <nav>
+          <ul>
+            <li><a href="research/ethnology">Ethnology</a></li>
+            <li>
+              <ul>
+                <li><a href="research/history">History</a></li>
+              </ul>
+            </li>
+            <li><a href="research/geography">Geography</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="menu-links" iterate="#menuitems a;index;name;href">
+        <a href="{href}"><span>{index}.</span> {name}</a>
+      </div>
+    </section>
 </body>
 
 </html>
