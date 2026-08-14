@@ -81,6 +81,16 @@ test('storage - sessionadd creates complex object', function () {
   assertEqual(result.meta.info.version, '2.0')
 })
 
+test('storage - sessionadd dispatches through app.call', function () {
+  sessionStorage.clear()
+  sessionStorage.setItem('cart', JSON.stringify({ items: [] }))
+
+  app.call('storage-sessionadd:[cart:items:Blue Shirt]')
+
+  var cart = JSON.parse(sessionStorage.getItem('cart'))
+  assertEqual(cart.items[0], 'Blue Shirt')
+})
+
 // --- storage-sessionremove ---
 
 test('storage - sessionremove full key', function () {

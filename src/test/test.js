@@ -34,7 +34,7 @@
     }
 
     var d = document.createElement('div')
-    d.textContent = (isPass ? '✅ ' : '❌ ') + title +
+    d.textContent = (isPass ? '✅ ' : '❌ ') + name +
       (isPass ? '' : ': expected "' + expected + '", got "' + actual + '"')
     d.style.color = isPass ? 'green' : 'red'
     getContainer().appendChild(d)
@@ -99,7 +99,7 @@
     }
 
     var d = document.createElement('div')
-    d.textContent = '⚠️ ' + title + ' (skipped)'
+    d.textContent = '⚠️ ' + name + ' (skipped)'
     d.style.color = 'orange'
     getContainer().appendChild(d)
 

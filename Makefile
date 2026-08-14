@@ -101,7 +101,7 @@ test\:unit:
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	END=$$(date +%s); ELAPSED=$$((END - START)); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_unit.html); \
-	grep -oE '(✅|❌)[^<]*' /tmp/front_test_unit.html; \
+	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_unit.html; \
 	echo ""; echo "$$SUMMARY"; \
 	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ unit passed ($${ELAPSED}s)" || { echo "❌ unit failed ($${ELAPSED}s)"; exit 1; }
 
@@ -117,7 +117,7 @@ test\:integration:
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	END=$$(date +%s); ELAPSED=$$((END - START)); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_integration.html); \
-	grep -oE '(✅|❌)[^<]*' /tmp/front_test_integration.html; \
+	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_integration.html; \
 	echo ""; echo "$$SUMMARY"; \
 	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ integration passed ($${ELAPSED}s)" || { echo "❌ integration failed ($${ELAPSED}s)"; exit 1; }
 
@@ -133,7 +133,7 @@ test\:performance:
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	END=$$(date +%s); ELAPSED=$$((END - START)); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_performance.html); \
-	grep -oE '(✅|❌)[^<]*' /tmp/front_test_performance.html; \
+	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_performance.html; \
 	echo ""; echo "$$SUMMARY"; \
 	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ performance passed ($${ELAPSED}s)" || { echo "❌ performance failed ($${ELAPSED}s)"; exit 1; }
 
