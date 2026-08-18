@@ -44,6 +44,7 @@ app.plugin.svgworldmap = {
       '<button type="button" class="svg-zoom-in" style="' + btnStyle + '">+</button>' +
       '<button type="button" class="svg-zoom-out" style="' + btnStyle + '">−</button>' +
       '<button type="button" class="svg-zoom-reset" style="' + btnStyle + 'font-size:11px;">Reset</button>' +
+      '<button type="button" class="svg-fullscreen-toggle" aria-pressed="false" style="' + btnStyle + 'font-size:11px;">Fullscreen</button>' +
       '</div>' +
       '<div class="svg-world-map-viewport" style="overflow:hidden;border-radius:8px;border:1px solid #b0d4e3;background:' + oceanColor + ';">' +
       '<div class="svg-world-map-loading" style="padding:40px;text-align:center;font-family:sans-serif;color:#555;">Loading map…</div>' +
@@ -62,8 +63,12 @@ app.plugin.svgworldmap = {
   load: function (url, callback) {
     if (!url) return callback(null)
     var req = app.xhr.request({ url: url, urlExtension: false })
-    req.addEventListener('load', function () { callback(req.status >= 200 && req.status < 300 ? req.responseText : null) })
-    req.addEventListener('error', function () { callback(null) })
+    req.addEventListener('load', function () {
+      callback(req.status >= 200 && req.status < 300 ? req.responseText : null)
+    })
+    req.addEventListener('error', function () {
+      callback(null)
+    })
   },
 
   loadMap: function (target, lat, lng, zoom, fixedMarkerSize, labelText, landColor, borderColor, markersUrl, renderToken) {
@@ -257,6 +262,50 @@ app.plugin.svgworldmap = {
       update()
     }
 
+    var mapFigure = target.querySelector('.svg-world-map'),
+      fullscreenButton = target.querySelector('.svg-fullscreen-toggle'),
+      fullscreenEvents = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'],
+      requestFullscreen = mapFigure && (mapFigure.requestFullscreen || mapFigure.webkitRequestFullscreen || mapFigure.mozRequestFullScreen || mapFigure.msRequestFullscreen),
+      exitFullscreen = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen
+
+    function getFullscreenElement() {
+      return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement
+    }
+
+    function updateFullscreenButton() {
+      if (!fullscreenButton) return
+      var active = getFullscreenElement() === mapFigure
+      fullscreenButton.textContent = active ? 'Exit fullscreen' : 'Fullscreen'
+      fullscreenButton.setAttribute('aria-pressed', active ? 'true' : 'false')
+      fullscreenButton.setAttribute('aria-label', active ? 'Exit fullscreen' : 'Enter fullscreen')
+    }
+
+    function invokeFullscreen(method, element) {
+      if (!method) return
+      try {
+        var result = method.call(element)
+        if (result && typeof result.catch === 'function') result.catch(updateFullscreenButton)
+      } catch (e) {
+        updateFullscreenButton()
+      }
+    }
+
+    function handleFullscreenChange() { updateFullscreenButton() }
+    function handleFullscreenClick() {
+      if (getFullscreenElement() === mapFigure) invokeFullscreen(exitFullscreen, document)
+      else invokeFullscreen(requestFullscreen, mapFigure)
+    }
+
+    if (!mapFigure || !fullscreenButton || !requestFullscreen || !exitFullscreen) {
+      if (fullscreenButton) fullscreenButton.style.display = 'none'
+    } else {
+      fullscreenButton.onclick = handleFullscreenClick
+      for (i = 0; i < fullscreenEvents.length; i++) {
+        document.addEventListener(fullscreenEvents[i], handleFullscreenChange)
+      }
+      updateFullscreenButton()
+    }
+
     var dragSensitivity = 1.5
 
     svg.onmousedown = function (e) {
@@ -311,6 +360,10 @@ app.plugin.svgworldmap = {
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseup', handleMouseUp)
+      for (var eventIndex = 0; eventIndex < fullscreenEvents.length; eventIndex++) {
+        document.removeEventListener(fullscreenEvents[eventIndex], handleFullscreenChange)
+      }
+      if (fullscreenButton) fullscreenButton.onclick = null
       if (rafPending && typeof cancelAnimationFrame === 'function') cancelAnimationFrame(rafId)
       svg.onmousedown = svg.onwheel = null
     }

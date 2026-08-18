@@ -246,7 +246,18 @@ app.module.data = {
     var iterate = options.iterate,
       onkeyempty = options.onkeyempty,
       context = options.dataContext !== undefined ? options.dataContext : responseData.data,
-      responseObject = iterate === 'true' ? context : app.element.getPropertyByPath(context, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate),
+      datafilteritem = !element.getAttribute('data-src') && element.getAttribute('data-filteritem'),
+      datafilterkey = element.getAttribute('data-filterkey')
+
+    // Nested iterate elements can filter the inherited response independently.
+    // Source elements are filtered in _run before traversal begins.
+    if (datafilteritem) {
+      context = this._filter(context, datafilteritem, datafilterkey).data
+    }
+
+    var responseObject = iterate === 'true'
+      ? context
+      : app.element.getPropertyByPath(context, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate),
       total = iterate && responseObject && responseObject.length - 1 || 0
 
     // Fire data-onkeyempty when the resolved key is missing or has no items.

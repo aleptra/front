@@ -431,3 +431,77 @@ test('data-iterate - data-set to external element by id', function () {
   assertEqual(words[0].textContent, 'Jesus')
   assertEqual(words[1].textContent, 'Jesus')
 })
+
+test('data-filter - nested child filters can share one named source array', function () {
+  if (!app.module.data) return
+
+  var mockData = {
+    excavations: [
+      { country: 'Syria', modern_name: 'Ebla' },
+      { country: 'Syria', modern_name: 'Mari' },
+      { country: 'Turkey', modern_name: 'Göbekli Tepe' }
+    ]
+  }
+
+  var parent = createElement('details')
+  parent.setAttribute('data-src', 'mock://archaeological-fieldwork')
+  parent.innerHTML =
+    '<ul data-filterkey="excavations" data-filteritem="country:\'Syria\'" data-iterate="excavations">' +
+    '<li><span data-get="modern_name"></span></li>' +
+    '</ul>' +
+    '<ul data-filterkey="excavations" data-filteritem="country:\'Turkey\'" data-iterate="excavations">' +
+    '<li><span data-get="modern_name"></span></li>' +
+    '</ul>'
+
+  app.element.saveOriginalValues(parent)
+  var filterLists = parent.querySelectorAll('ul')
+  for (var i = 0; i < filterLists.length; i++) app.element.saveOriginalValues(filterLists[i])
+
+  app.module.data._traverse(
+    { iterate: undefined, element: parent },
+    { data: mockData, status: 200 },
+    parent,
+    '*:not([data-iterate-skip])'
+  )
+
+  var lists = parent.querySelectorAll('ul'),
+    syriaItems = lists[0].querySelectorAll('li'),
+    turkeyItems = lists[1].querySelectorAll('li')
+
+  assertEqual(lists.length, 2)
+  assertEqual(syriaItems.length, 2)
+  assertEqual(syriaItems[0].textContent, 'Ebla')
+  assertEqual(syriaItems[1].textContent, 'Mari')
+  assertEqual(turkeyItems.length, 1)
+  assertEqual(turkeyItems[0].textContent, 'Göbekli Tepe')
+})
+
+test('data-filter - nested child filters handle single and empty matches', function () {
+  if (!app.module.data) return
+
+  var parent = createElement('details')
+  parent.setAttribute('data-src', 'mock://archaeological-fieldwork-single-empty')
+  parent.innerHTML =
+    '<ul data-filterkey="excavations" data-filteritem="country:\'Syria\'" data-iterate="excavations">' +
+    '<li><span data-get="modern_name"></span></li>' +
+    '</ul>' +
+    '<ul data-filterkey="excavations" data-filteritem="country:\'Egypt\'" data-iterate="excavations">' +
+    '<li><span data-get="modern_name"></span></li>' +
+    '</ul>'
+
+  app.element.saveOriginalValues(parent)
+  var filterLists = parent.querySelectorAll('ul')
+  for (var i = 0; i < filterLists.length; i++) app.element.saveOriginalValues(filterLists[i])
+
+  app.module.data._traverse(
+    { iterate: undefined, element: parent },
+    { data: { excavations: [{ country: 'Syria', modern_name: 'Ugarit' }] }, status: 200 },
+    parent,
+    '*:not([data-iterate-skip])'
+  )
+
+  var lists = parent.querySelectorAll('ul')
+  assertEqual(lists[0].querySelectorAll('li').length, 1)
+  assertEqual(lists[0].querySelector('li').textContent, 'Ugarit')
+  assertEqual(lists[1].querySelectorAll('li').length, 0)
+})

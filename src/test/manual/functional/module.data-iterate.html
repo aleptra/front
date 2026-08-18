@@ -44,6 +44,24 @@
       <p data-get="[*]"></p>
     </div>
   </div>
+
+  <h4>One source with nested child filters</h4>
+  <p>Each list below uses the same response, while its own <code>data-filteritem</code> selects a category.</p>
+  <div data-src="https://dummyjson.com/products?limit=10">
+    <details open>
+      <summary>Beauty</summary>
+      <ul data-filterkey="products" data-filteritem="category:'beauty'" data-iterate="products">
+        <li><span data-get="title"></span></li>
+      </ul>
+    </details>
+
+    <details open>
+      <summary>Fragrances</summary>
+      <ul data-filterkey="products" data-filteritem="category:'fragrances'" data-iterate="products">
+        <li><span data-get="title"></span></li>
+      </ul>
+    </details>
+  </div>
 </body>
 
 </html>
