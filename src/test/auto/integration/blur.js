@@ -8,3 +8,14 @@ test('blur - should blur the element', function () {
   app.call('blur:#' + testElement.id)
   assertTrue(blurred)
 })
+
+test.skip('blur - should run the normalized blurred callback', function () {
+  var target = createElement('div')
+  var element = createElement('input')
+  element.blur = function () { }
+  element.setAttribute('onblurred', 'settext:#' + target.id + ':[blurred]')
+
+  app.call('blur:#' + element.id)
+
+  assertEqual(target.textContent, 'blurred')
+})

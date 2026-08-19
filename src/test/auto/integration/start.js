@@ -12,3 +12,15 @@ test('start - should executes attributes on multiple child elements inside a par
   dom.start(parent)
   assertEqual(parent.innerText, 'YESYES')
 })
+
+test('start - should resume only the requested stopped attribute', function () {
+  var parent = createElement('div')
+  parent.innerHTML = '<div settext="YES" bgcolor="red">Original</div>'
+  dom.stop(parent, '*')
+
+  dom.start(parent, 'settext')
+
+  var child = parent.querySelector('div')
+  assertEqual(child.innerText, 'YES')
+  assertEqual(child.style.backgroundColor, '')
+})
