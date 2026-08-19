@@ -505,3 +505,427 @@ test('data-filter - nested child filters handle single and empty matches', funct
   assertEqual(lists[0].querySelector('li').textContent, 'Ugarit')
   assertEqual(lists[1].querySelectorAll('li').length, 0)
 })
+
+test('data-sort - random data with pagesize one refreshes from cache', function () {
+  if (!app.module.data) return
+
+  var data = app.module.data,
+    source = {
+      data: {
+        items: [{ id: 'one' }, { id: 'two' }, { id: 'three' }]
+      },
+      status: 200
+    },
+    element = createElement('div'),
+    selected = [],
+    originalTraverse = data._traverse,
+    originalRandom = Math.random
+
+  element.setAttribute('data-iterate', 'items')
+  element.setAttribute('data-sort', 'random')
+  element.setAttribute('data-pagesize', '1')
+  app.element.saveOriginalValues(element)
+
+  data._traverse = function (options, response) {
+    selected.push(response.data.items.map(function (item) { return item.id }))
+  }
+
+  try {
+    Math.random = function () { return 0 }
+    data._run({ storageKey: 'random-pagesize-refresh', iterate: 'items', element: element }, source)
+
+    Math.random = function () { return 0.999 }
+    data._run({ storageKey: 'random-pagesize-refresh', iterate: 'items', element: element }, source)
+  } finally {
+    data._traverse = originalTraverse
+    Math.random = originalRandom
+  }
+
+  assertEqual(selected.length, 2)
+  assertEqual(selected[0].length, 1)
+  assertEqual(selected[1].length, 1)
+  assertEqual(element._dataPaging.pageSize, 1)
+  assertEqual(element._dataPaging.totalItems, 3)
+  assertEqual(element._dataPaging.totalPages, 3)
+  assertTrue(element._dataPaging.hasNext)
+  assertTrue(selected[0][0] !== selected[1][0])
+  assertEqual(source.data.items.length, 3)
+  assertEqual(source.data.items[0].id, 'one')
+  assertEqual(source.data.items[1].id, 'two')
+  assertEqual(source.data.items[2].id, 'three')
+})
+
+test('data-sort - random data with pagesize one runs after filtering', function () {
+  if (!app.module.data) return
+
+  var data = app.module.data,
+    source = {
+      data: {
+        items: [
+          { id: 'syria-1', country: 'Syria' },
+          { id: 'turkey-1', country: 'Turkey' },
+          { id: 'syria-2', country: 'Syria' }
+        ]
+      },
+      status: 200
+    },
+    element = createElement('div'),
+    filteredResult,
+    originalTraverse = data._traverse,
+    originalRandom = Math.random
+
+  element.setAttribute('data-filterkey', 'items')
+  element.setAttribute('data-filteritem', "country:'Syria'")
+  element.setAttribute('data-iterate', 'items')
+  element.setAttribute('data-sort', 'random')
+  element.setAttribute('data-pagesize', '1')
+  app.element.saveOriginalValues(element)
+
+  data._traverse = function (options, response) {
+    filteredResult = response.data.items
+  }
+
+  try {
+    Math.random = function () { return 0.999 }
+    data._run({ storageKey: 'random-pagesize-filter', iterate: 'items', element: element }, source)
+  } finally {
+    data._traverse = originalTraverse
+    Math.random = originalRandom
+  }
+
+  assertEqual(filteredResult.length, 1)
+  assertEqual(filteredResult[0].country, 'Syria')
+  assertEqual(source.data.items.length, 3)
+})
+
+test('data-page - renders the requested page and publishes metadata', function () {
+  if (!app.module.data) return
+
+  var data = app.module.data,
+    source = {
+      data: {
+        items: [
+          { id: 1, title: 'One' },
+          { id: 2, title: 'Two' },
+          { id: 3, title: 'Three' },
+          { id: 4, title: 'Four' },
+          { id: 5, title: 'Five' }
+        ]
+      },
+      status: 200
+    },
+    element = createElement('div'),
+    rendered,
+    originalTraverse = data._traverse
+
+  element.setAttribute('data-iterate', 'items')
+  element.setAttribute('data-page', '2')
+  element.setAttribute('data-pagesize', '2')
+  app.element.saveOriginalValues(element)
+
+  data._traverse = function (options, response) {
+    rendered = response
+  }
+
+  try {
+    data._run({ storageKey: 'paging-page-two', iterate: 'items', element: element }, source)
+  } finally {
+    data._traverse = originalTraverse
+  }
+
+  assertEqual(rendered.data.items.length, 2)
+  assertEqual(rendered.data.items[0].title, 'Three')
+  assertEqual(rendered.data.items[1].title, 'Four')
+  assertEqual(element._dataPaging.page, 2)
+  assertEqual(element._dataPaging.pageSize, 2)
+  assertEqual(element._dataPaging.totalItems, 5)
+  assertEqual(element._dataPaging.totalPages, 3)
+  assertTrue(element._dataPaging.hasPrevious)
+  assertTrue(element._dataPaging.hasNext)
+  assertEqual(element._dataPaging.start, 3)
+  assertEqual(element._dataPaging.end, 4)
+})
+
+test('data-page - named arrays are paged without mutating cached data', function () {
+  if (!app.module.data) return
+
+  var data = app.module.data,
+    source = {
+      data: {
+        records: [{ id: 'a' }, { id: 'b' }, { id: 'c' }, { id: 'd' }]
+      },
+      status: 200
+    },
+    element = createElement('div'),
+    pages = [],
+    originalTraverse = data._traverse
+
+  element.setAttribute('data-iterate', 'records')
+  element.setAttribute('data-pagesize', '2')
+  app.element.saveOriginalValues(element)
+
+  data._traverse = function (options, response) {
+    pages.push(response.data.records.map(function (record) { return record.id }))
+  }
+
+  try {
+    element.setAttribute('data-page', '2')
+    data._run({ storageKey: 'paging-named-array', iterate: 'records', element: element }, source)
+    element.setAttribute('data-page', '1')
+    data._run({ storageKey: 'paging-named-array', iterate: 'records', element: element }, source)
+  } finally {
+    data._traverse = originalTraverse
+  }
+
+  assertEqual(pages[0].join(','), 'c,d')
+  assertEqual(pages[1].join(','), 'a,b')
+  assertEqual(source.data.records.length, 4)
+  assertEqual(source.data.records[0].id, 'a')
+  assertEqual(source.data.records[3].id, 'd')
+})
+
+test('data-page - navigation helpers rerender pages and stop at boundaries', function () {
+  if (!app.module.data) return
+
+  var data = app.module.data,
+    source = {
+      data: {
+        items: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]
+      },
+      status: 200
+    },
+    element = createElement('div'),
+    renderedPages = [],
+    reruns = 0,
+    originalTraverse = data._traverse,
+    originalRerun = data._rerun
+
+  element.setAttribute('data-iterate', 'items')
+  element.setAttribute('data-page', '1')
+  element.setAttribute('data-pagesize', '2')
+  app.element.saveOriginalValues(element)
+
+  data._traverse = function (options, response) {
+    renderedPages.push(response.data.items.map(function (item) { return item.id }).join(','))
+  }
+  data._rerun = function (target) {
+    reruns++
+    return this._run({ storageKey: 'paging-navigation', iterate: 'items', element: target }, source)
+  }
+
+  try {
+    data._run({ storageKey: 'paging-navigation', iterate: 'items', element: element }, source)
+    var rerunsAtFirstPage = reruns
+    data.previous(element)
+    data.next(element)
+    data.next(element)
+    var rerunsAtLastPage = reruns
+    data.next(element)
+    data.previous(element)
+    data['goto']({ exec: { element: element, value: [3] } })
+    data.goTo(element, 99)
+  } finally {
+    data._traverse = originalTraverse
+    data._rerun = originalRerun
+  }
+
+  assertEqual(renderedPages.join('|'), '1,2|3,4|5|3,4|5|5')
+  assertEqual(rerunsAtFirstPage, 0)
+  assertEqual(rerunsAtLastPage, 2)
+  assertEqual(element._dataPaging.page, 3)
+  assertTrue(!element._dataPaging.hasNext)
+  assertTrue(element._dataPaging.hasPrevious)
+})
+
+test('data-limit - caps a named collection without mutating the source', function () {
+  if (!app.module.data) return
+
+  var data = app.module.data,
+    source = {
+      data: {
+        items: [{ id: 'one' }, { id: 'two' }, { id: 'three' }]
+      },
+      status: 200
+    },
+    element = createElement('div'),
+    limitedItems,
+    originalTraverse = data._traverse
+
+  element.setAttribute('data-iterate', 'items')
+  element.setAttribute('data-limit', '2')
+  app.element.saveOriginalValues(element)
+
+  data._traverse = function (options, response) {
+    limitedItems = response.data.items
+  }
+
+  try {
+    data._run({ storageKey: 'limit-cap', iterate: 'items', element: element }, source)
+  } finally {
+    data._traverse = originalTraverse
+  }
+
+  assertEqual(limitedItems.length, 2)
+  assertEqual(limitedItems[0].id, 'one')
+  assertEqual(limitedItems[1].id, 'two')
+  assertEqual(source.data.items.length, 3)
+  assertEqual(source.data.items[2].id, 'three')
+})
+
+test('data-sort - random ordering is applied before data-limit', function () {
+  if (!app.module.data) return
+
+  var data = app.module.data,
+    source = {
+      data: {
+        items: [{ id: 'one' }, { id: 'two' }, { id: 'three' }]
+      },
+      status: 200
+    },
+    element = createElement('div'),
+    selectedItems,
+    originalTraverse = data._traverse,
+    originalRandom = Math.random
+
+  element.setAttribute('data-iterate', 'items')
+  element.setAttribute('data-sort', 'random')
+  element.setAttribute('data-limit', '2')
+  app.element.saveOriginalValues(element)
+
+  data._traverse = function (options, response) {
+    selectedItems = response.data.items
+  }
+
+  try {
+    Math.random = function () { return 0 }
+    data._run({ storageKey: 'random-limit-order', iterate: 'items', element: element }, source)
+  } finally {
+    data._traverse = originalTraverse
+    Math.random = originalRandom
+  }
+
+  assertEqual(selectedItems.length, 2)
+  assertEqual(selectedItems[0].id, 'two')
+  assertEqual(selectedItems[1].id, 'three')
+  assertEqual(source.data.items.length, 3)
+  assertEqual(source.data.items[0].id, 'one')
+  assertEqual(source.data.items[1].id, 'two')
+  assertEqual(source.data.items[2].id, 'three')
+})
+
+test('data-page - supports pagesize 1 and 4', function () {
+  if (!app.module.data) return
+
+  var data = app.module.data,
+    source = {
+      data: {
+        items: [
+          { id: 1 },
+          { id: 2 },
+          { id: 3 },
+          { id: 4 },
+          { id: 5 }
+        ]
+      },
+      status: 200
+    },
+    element = createElement('div'),
+    rendered = [],
+    originalTraverse = data._traverse
+
+  element.setAttribute('data-iterate', 'items')
+  element.setAttribute('data-page', '1')
+  app.element.saveOriginalValues(element)
+
+  data._traverse = function (options, response) {
+    rendered.push({
+      ids: response.data.items.map(function (item) { return item.id }),
+      paging: {
+        pageSize: element._dataPaging.pageSize,
+        totalPages: element._dataPaging.totalPages,
+        start: element._dataPaging.start,
+        end: element._dataPaging.end
+      }
+    })
+  }
+
+  try {
+    element.setAttribute('data-pagesize', '1')
+    data._run({ storageKey: 'paging-size-one', iterate: 'items', element: element }, source)
+
+    element.setAttribute('data-pagesize', '4')
+    data._run({ storageKey: 'paging-size-four', iterate: 'items', element: element }, source)
+  } finally {
+    data._traverse = originalTraverse
+  }
+
+  assertEqual(rendered[0].ids.join(','), '1')
+  assertEqual(rendered[0].paging.pageSize, 1)
+  assertEqual(rendered[0].paging.totalPages, 5)
+  assertEqual(rendered[0].paging.start, 1)
+  assertEqual(rendered[0].paging.end, 1)
+  assertEqual(rendered[1].ids.join(','), '1,2,3,4')
+  assertEqual(rendered[1].paging.pageSize, 4)
+  assertEqual(rendered[1].paging.totalPages, 2)
+  assertEqual(rendered[1].paging.start, 1)
+  assertEqual(rendered[1].paging.end, 4)
+  assertEqual(source.data.items.length, 5)
+})
+
+test('data-page - boundary events update declarative navigation controls', function () {
+  if (!app.module.data) return
+
+  var data = app.module.data,
+    source = {
+      data: {
+        items: [{ id: 1 }, { id: 2 }, { id: 3 }]
+      },
+      status: 200
+    },
+    paging = createElement('div'),
+    previous = createElement('button'),
+    next = createElement('button'),
+    originalTraverse = data._traverse,
+    originalRerun = data._rerun
+
+  paging.setAttribute('data-iterate', 'items')
+  paging.setAttribute('data-page', '1')
+  paging.setAttribute('data-pagesize', '2')
+  previous.setAttribute('click', 'data-previous:#' + paging.id)
+  previous.setAttribute('ondata-firstpage', 'disabled')
+  previous.setAttribute('ondata-notfirstpage', 'enabled')
+  next.setAttribute('click', 'data-next:#' + paging.id)
+  next.setAttribute('ondata-lastpage', 'disabled')
+  next.setAttribute('ondata-notlastpage', 'enabled')
+  app.element.saveOriginalValues(paging)
+  app.element.saveOriginalValues(previous)
+  app.element.saveOriginalValues(next)
+
+  data._traverse = function (options) {
+    this._finish(options)
+  }
+  data._rerun = function (element) {
+    return this._run({ storageKey: 'paging-boundary-events', iterate: 'items', element: element }, source)
+  }
+
+  try {
+    data._run({ storageKey: 'paging-boundary-events', iterate: 'items', element: paging }, source)
+    assertTrue(previous.disabled)
+    assertTrue(!next.disabled)
+    data.next({ exec: { element: paging }, options: { srcElement: next } })
+
+    assertEqual(paging._dataPaging.page, 2)
+    assertTrue(!paging._dataPaging.hasNext)
+    assertTrue(next.disabled)
+
+    data.previous({ exec: { element: paging }, options: { srcElement: previous } })
+
+    assertEqual(paging._dataPaging.page, 1)
+    assertTrue(paging._dataPaging.hasNext)
+    assertTrue(previous.disabled)
+    assertTrue(!next.disabled)
+  } finally {
+    data._traverse = originalTraverse
+    data._rerun = originalRerun
+  }
+})

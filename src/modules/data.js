@@ -12,6 +12,173 @@ app.module.data = {
     this.module = options.name
   },
 
+  _pagingTarget: function (object) {
+    if (object && object.exec) return object.exec.element || (object.options && object.options.element)
+    return object && object.nodeType ? object : null
+  },
+
+  _pagingValue: function (object) {
+    var value = object && object.exec ? object.exec.value : object
+    if (Array.isArray(value)) value = value[0]
+    return value
+  },
+
+  _registerPagingControl: function (element, object) {
+    var control = object && object.options && object.options.srcElement
+    if (!element || !control || control === element) return
+
+    if (!element._dataPagingControls) element._dataPagingControls = []
+    if (element._dataPagingControls.indexOf(control) === -1) {
+      element._dataPagingControls.push(control)
+    }
+  },
+
+  _registerPagingControls: function (element) {
+    if (!element || !element.id || typeof document === 'undefined') return
+
+    var target = '#' + element.id,
+      controls = document.querySelectorAll('[click]')
+
+    for (var i = 0; i < controls.length; i++) {
+      var commands = controls[i].getAttribute('click').split(';')
+      for (var j = 0; j < commands.length; j++) {
+        var parts = commands[j].trim().split(':')
+        if ((parts[0] === 'data-next' || parts[0] === 'data-previous' || parts[0] === 'data-goto') && parts[1] === target) {
+          this._registerPagingControl(element, { options: { srcElement: controls[i] } })
+          break
+        }
+      }
+    }
+  },
+
+  _dispatchPagingEvent: function (element, event) {
+    if (!element || !element.getAttribute) return
+
+    var attribute = 'on' + event,
+      callback = element.getAttribute(attribute)
+    if (!callback) return
+
+    // Accept the natural declarative values used by paging controls while
+    // retaining Front's action names for all other callbacks.
+    if (callback === 'disabled') callback = 'disable'
+    if (callback === 'enabled') callback = 'enable'
+
+    if (!element.executed) element.executed = {}
+    if (callback === 'disable' || callback === 'enable') {
+      app.call(callback, { srcElement: element, element: element })
+    } else {
+      app.element.runOnEvent({ exec: { func: event, element: element } })
+    }
+  },
+
+  _updatePagingControls: function (element) {
+    var paging = element && element._dataPaging
+    if (!paging) return
+    this._registerPagingControls(element)
+
+    var targets = [element].concat(element._dataPagingControls || []),
+      isFirstPage = paging.page === 1,
+      isLastPage = paging.totalPages > 0 && !paging.hasNext
+
+    for (var i = 0; i < targets.length; i++) {
+      var target = targets[i],
+        state = target._dataPagingBoundary || {}
+
+      if (state.first !== isFirstPage) {
+        this._dispatchPagingEvent(target, isFirstPage ? 'data-firstpage' : 'data-notfirstpage')
+      }
+      if (state.last !== isLastPage) {
+        this._dispatchPagingEvent(target, isLastPage ? 'data-lastpage' : 'data-notlastpage')
+      }
+
+      target._dataPagingBoundary = { first: isFirstPage, last: isLastPage }
+    }
+  },
+
+  _sourceOptions: function (element, join) {
+    var attr = element && element.attributes,
+      iterate = attr && attr['data-iterate'],
+      loader = attr && attr['data-loader'],
+      src = attr && attr['data-src'],
+      ttl = attr && attr['data-ttl'],
+      joinSuffix = join ? 'join' : ''
+
+    if (!src) return null
+
+    return {
+      loader: loader && loader.value,
+      iterate: iterate && iterate.value,
+      element: element,
+      attribute: join ? 'data-srcjoin' : 'data-src',
+      storageKey: this.module + this._generateId(src.value) + joinSuffix,
+      ttl: ttl && ttl.value
+    }
+  },
+
+  _rerun: function (element) {
+    var options = this._sourceOptions(element)
+    if (!options) return
+
+    var cache = app.caches.get(this.storageMechanism, this.storageType, options.storageKey)
+    if (cache) return this._run(options, cache)
+
+    element._dataSrc = null
+    return this.src(element)
+  },
+
+  page: function (object) {
+    if (!object || !object.exec) return object
+    return this.goTo(this._pagingTarget(object), this._pagingValue(object), object)
+  },
+
+  pagesize: function (object) {
+    if (!object || !object.exec) return object
+    var element = this._pagingTarget(object),
+      value = parseInt(this._pagingValue(object), 10)
+    if (!element || isNaN(value) || value < 1) return
+    element.setAttribute('data-pagesize', value)
+    return this.goTo(element, 1, object)
+  },
+
+  next: function (object) {
+    var element = this._pagingTarget(object)
+    if (!element) return
+    this._registerPagingControl(element, object)
+
+    var paging = element._dataPaging,
+      currentPage = paging ? paging.page : parseInt(element.getAttribute('data-page'), 10) || 1
+    if (paging && !paging.hasNext) return paging
+    return this.goTo(element, currentPage + 1, object)
+  },
+
+  previous: function (object) {
+    var element = this._pagingTarget(object)
+    if (!element) return
+    this._registerPagingControl(element, object)
+
+    var paging = element._dataPaging,
+      currentPage = paging ? paging.page : parseInt(element.getAttribute('data-page'), 10) || 1
+    if (currentPage <= 1) return paging || { page: 1 }
+    return this.goTo(element, currentPage - 1, object)
+  },
+
+  'goto': function (object) {
+    return this.goTo(this._pagingTarget(object), this._pagingValue(object), object)
+  },
+
+  goTo: function (element, page, object) {
+    if (!element) return
+    this._registerPagingControl(element, object)
+
+    page = parseInt(page, 10)
+    if (isNaN(page) || page < 1) page = 1
+
+    var paging = element._dataPaging
+    if (paging && paging.totalPages > 0) page = Math.min(page, paging.totalPages)
+    element.setAttribute('data-page', page)
+    return this._rerun(element)
+  },
+
   bind: function (element) {
     var value = element.getAttribute('data-bind')
     dom.bind(element, value, 'data-bind')
@@ -72,22 +239,8 @@ app.module.data = {
   },
 
   _handle: function (element, join) {
-    var attr = element.attributes,
-      iterate = attr['data-iterate'],
-      loader = attr['data-loader'],
-      src = attr['data-src'],
-      ttl = attr['data-ttl'],
-      joinSuffix = join ? 'join' : '',
-      options = {
-        loader: loader && loader.value,
-        iterate: iterate && iterate.value,
-        element: element,
-        attribute: join ? 'data-srcjoin' : 'data-src',
-        storageKey: this.module + this._generateId(src.value) + joinSuffix,
-        ttl: ttl && ttl.value
-      }
-
-    this._open(attr, options)
+    var options = this._sourceOptions(element, join)
+    if (options) this._open(element.attributes, options)
   },
 
   _open: function (attr, options) {
@@ -152,6 +305,12 @@ app.module.data = {
       datafilteritem = element.getAttribute('data-filteritem'),
       datareplace = element.getAttribute('data-replace'),
       datasort = element.getAttribute('data-sort'),
+      dataLimit = element.getAttribute('data-limit'),
+      dataPage = element.getAttribute('data-page'),
+      dataPagesize = element.getAttribute('data-pagesize'),
+      dataLimitValue = dataLimit === null ? null : parseInt(dataLimit, 10),
+      dataPageValue = dataPage === null ? null : parseInt(dataPage, 10),
+      dataPagesizeValue = dataPagesize === null ? null : parseInt(dataPagesize, 10),
       databind = element.getAttribute('data-bind'),
       databindheader = element.getAttribute('data-bindheader'),
       datastatus = element.getAttribute('data-onstatus'),
@@ -159,11 +318,18 @@ app.module.data = {
       datanotempty = element.getAttribute('data-onnotempty'),
       datasuccess = element.attributes['data-onsuccess']
 
+    if (dataLimitValue !== null && (isNaN(dataLimitValue) || dataLimitValue < 0)) dataLimitValue = null
+    if (dataPageValue !== null && (isNaN(dataPageValue) || dataPageValue < 1)) dataPageValue = null
+    if (dataPagesizeValue !== null && (isNaN(dataPagesizeValue) || dataPagesizeValue < 1)) dataPagesizeValue = null
+
+    var pagingEnabled = dataPageValue !== null || dataPagesizeValue !== null
+
     if (responseData) {
+      if (datasort || dataLimitValue !== null || pagingEnabled) responseData = this._cloneResponse(responseData)
       if (datamerge) {
         var responseDataJoin = app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', '') + 'join')
         if (responseDataJoin)
-          responseData = this._merge(responseData, responseDataJoin, datamerge)
+          responseData = this._merge(responseData, this._cloneResponse(responseDataJoin), datamerge)
       }
 
       if (datasuccess && responseData.status === 200 && cache) {
@@ -173,18 +339,38 @@ app.module.data = {
       if (datafilteritem) {
         var datafilterkey = element.getAttribute('data-filterkey'),
           filteredResponse = this._filter(responseData.data, datafilteritem, datafilterkey)
-        if (!options.iterate) {
-          var targetData = datafilterkey ? filteredResponse.data[datafilterkey] : filteredResponse.data
-          if (Array.isArray(targetData) && targetData.length === 1) {
-            filteredResponse.data = targetData[0]
-          }
-        }
         filteredResponse.status = responseData.status
         responseData = filteredResponse
       }
 
       if (datareplace) {
         this._replace(responseData.data, datareplace)
+      }
+
+      var dataPath = element.getAttribute('data-filterkey') ||
+        (options.iterate && options.iterate !== 'true' ? options.iterate : '')
+      if (datasort || dataLimitValue !== null || pagingEnabled) {
+        responseData = this._transformCollection(
+          responseData,
+          dataPath,
+          datasort,
+          element.getAttribute('data-sortorder'),
+          dataLimitValue,
+          dataPageValue,
+          dataPagesizeValue,
+          element
+        )
+      } else {
+        element._dataPaging = null
+      }
+
+      if (datafilteritem && !options.iterate) {
+        var filteredData = element.getAttribute('data-filterkey')
+          ? responseData.data[element.getAttribute('data-filterkey')]
+          : responseData.data
+        if (Array.isArray(filteredData) && filteredData.length === 1) {
+          responseData.data = filteredData[0]
+        }
       }
 
       if ((dataempty || datanotempty) && responseData.status === 200) {
@@ -217,11 +403,6 @@ app.module.data = {
         app.element.onchange(target2, 'data-bindheader')
       }
 
-      if (datasort) {
-        var datasortorder = element.getAttribute('data-sortorder')
-        this._sort(responseData.data, datasort, datasortorder)
-      }
-
       if (datastatus && responseData.status !== 200) {
         var parts = datastatus.split(')/'),
           code = parseInt(parts[0].replace('(', ''), 10),
@@ -245,14 +426,45 @@ app.module.data = {
   _traverse: function (options, responseData, element, selector) {
     var iterate = options.iterate,
       onkeyempty = options.onkeyempty,
-      context = options.dataContext !== undefined ? options.dataContext : responseData.data,
-      datafilteritem = !element.getAttribute('data-src') && element.getAttribute('data-filteritem'),
-      datafilterkey = element.getAttribute('data-filterkey')
+      dataSource = element.getAttribute('data-src'),
+      datafilteritem = !dataSource && element.getAttribute('data-filteritem'),
+      datafilterkey = element.getAttribute('data-filterkey'),
+      datasort = !dataSource && element.getAttribute('data-sort'),
+      dataLimit = !dataSource && element.getAttribute('data-limit'),
+      dataPage = !dataSource && element.getAttribute('data-page'),
+      dataPagesize = !dataSource && element.getAttribute('data-pagesize'),
+      dataLimitValue = dataLimit === null ? null : parseInt(dataLimit, 10),
+      dataPageValue = dataPage === null ? null : parseInt(dataPage, 10),
+      dataPagesizeValue = dataPagesize === null ? null : parseInt(dataPagesize, 10),
+      context = options.dataContext !== undefined ? options.dataContext : responseData.data
 
-    // Nested iterate elements can filter the inherited response independently.
-    // Source elements are filtered in _run before traversal begins.
+    if (dataLimitValue !== null && (isNaN(dataLimitValue) || dataLimitValue < 0)) dataLimitValue = null
+    if (dataPageValue !== null && (isNaN(dataPageValue) || dataPageValue < 1)) dataPageValue = null
+    if (dataPagesizeValue !== null && (isNaN(dataPagesizeValue) || dataPagesizeValue < 1)) dataPagesizeValue = null
+
+    var pagingEnabled = dataPageValue !== null || dataPagesizeValue !== null
+
+    // Nested iterate elements can filter and transform the inherited response independently.
+    // Source elements are transformed in _run before traversal begins.
     if (datafilteritem) {
       context = this._filter(context, datafilteritem, datafilterkey).data
+    }
+
+    if (datasort || dataLimitValue !== null || pagingEnabled) {
+      var localPath = datafilterkey || (iterate && iterate !== 'true' ? iterate : ''),
+        localResponse = this._transformCollection(
+          this._cloneResponse({ data: context }),
+          localPath,
+          datasort,
+          element.getAttribute('data-sortorder'),
+          dataLimitValue,
+          dataPageValue,
+          dataPagesizeValue,
+          element
+        )
+      context = localResponse.data
+    } else if (!dataSource) {
+      element._dataPaging = null
     }
 
     var responseObject = iterate === 'true'
@@ -715,16 +927,102 @@ app.module.data = {
     return { data: response }
   },
 
-  _sort: function (response, sortKey, sortOrder) {
-    if (Array.isArray(response)) {
-      return response.sort(function (a, b) {
-        var valueA = app.element.getPropertyByPath(a, sortKey),
-          valueB = app.element.getPropertyByPath(b, sortKey)
-        return (typeof valueA === 'string')
-          ? (sortOrder === 'desc' ? valueB.localeCompare(valueA) : valueA.localeCompare(valueB))
-          : (sortOrder === 'desc' ? valueB - valueA : valueA - valueB)
-      })
+  _cloneResponse: function (response) {
+    if (!response) return response
+
+    var copy = {}
+    for (var prop in response) {
+      if (response.hasOwnProperty(prop)) copy[prop] = response[prop]
     }
+
+    if (response.data && typeof response.data === 'object') {
+      try {
+        copy.data = JSON.parse(JSON.stringify(response.data))
+      } catch (e) {
+        copy.data = response.data
+      }
+    }
+
+    return copy
+  },
+
+  _transformCollection: function (response, path, sortKey, sortOrder, limit, page, pagesize, element) {
+    var collection = path ? app.element.getPropertyByPath(response.data, path) : response.data,
+      pagingEnabled = page !== null || pagesize !== null
+    if (!Array.isArray(collection)) {
+      if (element) element._dataPaging = null
+      return response
+    }
+
+    collection = collection.slice()
+    if (sortKey) this._sort(collection, sortKey, sortOrder)
+    if (limit !== null) collection = collection.slice(0, limit)
+
+    if (pagingEnabled) {
+      page = page === null ? 1 : page
+      pagesize = pagesize === null ? 10 : pagesize
+
+      var totalItems = collection.length,
+        totalPages = totalItems ? Math.ceil(totalItems / pagesize) : 0
+
+      page = totalPages > 0 ? Math.min(page, totalPages) : 1
+      if (element) element.setAttribute('data-page', page)
+
+      var start = totalItems ? (page - 1) * pagesize + 1 : 0,
+        offset = totalItems ? start - 1 : 0,
+        pagedCollection = collection.slice(offset, offset + pagesize)
+
+      if (element) {
+        element._dataPaging = {
+          page: page,
+          pageSize: pagesize,
+          totalItems: totalItems,
+          totalPages: totalPages,
+          hasPrevious: page > 1,
+          hasNext: totalPages > 0 && page < totalPages,
+          start: start,
+          end: totalItems ? start + pagedCollection.length - 1 : 0
+        }
+      }
+      collection = pagedCollection
+    } else if (element) {
+      element._dataPaging = null
+    }
+
+    if (!path) {
+      response.data = collection
+      return response
+    }
+
+    var parts = path.split('.'), target = response.data
+    for (var i = 0; i < parts.length - 1; i++) {
+      if (!target || target[parts[i]] === undefined) return response
+      target = target[parts[i]]
+    }
+    if (target) target[parts[parts.length - 1]] = collection
+    return response
+  },
+
+  _sort: function (response, sortKey, sortOrder) {
+    if (!Array.isArray(response)) return response
+
+    if (String(sortKey).toLowerCase() === 'random') {
+      for (var i = response.length - 1; i > 0; i--) {
+        var randomIndex = Math.floor(Math.random() * (i + 1)),
+          randomValue = response[i]
+        response[i] = response[randomIndex]
+        response[randomIndex] = randomValue
+      }
+      return response
+    }
+
+    return response.sort(function (a, b) {
+      var valueA = app.element.getPropertyByPath(a, sortKey),
+        valueB = app.element.getPropertyByPath(b, sortKey)
+      return (typeof valueA === 'string')
+        ? (sortOrder === 'desc' ? valueB.localeCompare(valueA) : valueA.localeCompare(valueB))
+        : (sortOrder === 'desc' ? valueB - valueA : valueA - valueB)
+    })
   },
 
   _generateId: function (str) {
@@ -762,6 +1060,7 @@ app.module.data = {
     }
 
     if (element._dataSrc) delete element._dataSrc
+    this._updatePagingControls(element)
     app.element.runOnEvent({ exec: { func: 'data-onfinish', element: element } })
   }
 }

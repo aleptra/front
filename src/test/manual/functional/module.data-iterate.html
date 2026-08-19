@@ -45,6 +45,38 @@
     </div>
   </div>
 
+  <h4>Client-side paging</h4>
+  <p>Paging is applied after the response is loaded. This example shows one todo per page and reuses the cached response.</p>
+  <p>
+    <button type="button" ondata-firstpage="disabled" ondata-notfirstpage="enabled" click="data-previous:#todo-pages">Previous</button>
+    <button type="button" ondata-lastpage="disabled" ondata-notlastpage="enabled" click="data-next:#todo-pages">Next</button>
+    <button type="button" click="data-goto:#todo-pages:[2]">Go to page 2</button>
+  </p>
+  <div
+    id="todo-pages"
+    data-src="https://dummyjson.com/todos?limit=10"
+    data-iterate="todos"
+    data-page="1"
+    data-pagesize="1">
+    <p><strong data-get="id"></strong>: <span data-get="todo"></span></p>
+  </div>
+
+  <h4>Client-side paging (4 todos per page)</h4>
+  <p>This second example uses <code>data-pagesize="4"</code> with the same cached response.</p>
+  <p>
+    <button type="button" ondata-firstpage="disabled" ondata-notfirstpage="enabled" click="data-previous:#todo-pages-four">Previous</button>
+    <button type="button" ondata-lastpage="disabled" ondata-notlastpage="enabled" click="data-next:#todo-pages-four">Next</button>
+    <button type="button" click="data-goto:#todo-pages-four:[2]">Go to page 2</button>
+  </p>
+  <div
+    id="todo-pages-four"
+    data-src="https://dummyjson.com/todos?limit=10"
+    data-iterate="todos"
+    data-page="1"
+    data-pagesize="4">
+    <p><strong data-get="id"></strong>: <span data-get="todo"></span></p>
+  </div>
+
   <h4>One source with nested child filters</h4>
   <p>Each list below uses the same response, while its own <code>data-filteritem</code> selects a category.</p>
   <div data-src="https://dummyjson.com/products?limit=10">
