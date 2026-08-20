@@ -122,7 +122,10 @@ app.plugin.svgworldmap = {
     function hasValue(v) { return v !== undefined && v !== null && String(v).trim() !== '' }
 
     var markerDataItems = markerData && Array.isArray(markerData.markers) ? markerData.markers : [],
+      filterField = target.getAttribute('svgworldmap-filter-field') || 'tags',
       markerItems = []
+
+    filterField = filterField.trim() || 'tags'
 
     for (i = 0; i < markerDataItems.length; i++) {
       var item = markerDataItems[i],
@@ -131,13 +134,13 @@ app.plugin.svgworldmap = {
         hasCircle = item && String(item.symbol || '').trim().toLowerCase() === 'circle'
 
       if (pt && (hasCircle || hasValue(label))) {
-        markerItems.push({ data: item, hasMarker: hasCircle, tags: this.normalizeTags(item.tags), x: pt.x, y: pt.y })
+        markerItems.push({ data: item, hasMarker: hasCircle, tags: this.normalizeTags(item[filterField]), symbolSize: this.getSymbolSize(item.symbolSize), x: pt.x, y: pt.y })
       }
     }
 
     if (!markerItems.length && hasValue(labelText)) {
       var fallback = toPoint(lat, lng) || { x: width / 2, y: height / 2 }
-      markerItems.push({ data: { label: labelText }, hasMarker: false, tags: [], x: fallback.x, y: fallback.y })
+      markerItems.push({ data: { label: labelText }, hasMarker: false, tags: [], symbolSize: 8, x: fallback.x, y: fallback.y })
     }
 
     var centerPoint = markerData && markerData.center ? toPoint(parseFloat(markerData.center.lat), parseFloat(markerData.center.lng)) : null
@@ -181,7 +184,7 @@ app.plugin.svgworldmap = {
       filterDefinitions = this.parseFilterDefinitions(filterValue)
 
     target._svgWorldMap = {
-      markerItems: markerItems, filterTags: [], activeFilters: filterDefinitions.length ? [] : null,
+      markerItems: markerItems, filterField: filterField, filterTags: [], activeFilters: filterDefinitions.length ? [] : null,
       filterDefinitions: filterDefinitions, filterButtons: []
     }
 
@@ -195,7 +198,7 @@ app.plugin.svgworldmap = {
     }
     centerOnMarkers()
 
-    var renderScale = 1, lastScale, lastX, lastY,
+    var renderScale = 1, lastScale, lastX, lastY, lastRenderScale,
       maxZoom = 1000
 
     function updateMarkerSizes() {
@@ -203,7 +206,7 @@ app.plugin.svgworldmap = {
       for (var idx = 0; idx < markerItems.length; idx++) {
         var m = markerItems[idx], labelSize = parseFloat(m.data.labelSize)
         if (isNaN(labelSize)) labelSize = 11
-        m.elements.marker.setAttribute('r', 8 / renderScale)
+        m.elements.marker.setAttribute('r', m.symbolSize / renderScale)
         m.elements.marker.setAttribute('stroke-width', 2.5 / renderScale)
         m.elements.text.setAttribute('font-size', (labelSize / renderScale) + 'px')
       }
@@ -223,16 +226,17 @@ app.plugin.svgworldmap = {
         x = isNaN(state.x) ? 0 : state.x,
         y = isNaN(state.y) ? 0 : state.y
 
-      if (scale === lastScale && x === lastX && y === lastY) return
-      lastScale = scale; lastX = x; lastY = y
+      if (scale === lastScale && x === lastX && y === lastY && renderScale === lastRenderScale) return
+      lastScale = scale; lastX = x; lastY = y; lastRenderScale = renderScale
       mapGroup.setAttribute('transform', 'translate(' + x + ',' + y + ') scale(' + scale + ')')
 
       for (var idx = 0; idx < markerItems.length; idx++) {
-        var item = markerItems[idx], cx = (item.x * scale) + x, cy = (item.y * scale) + y
+        var item = markerItems[idx], cx = (item.x * scale) + x, cy = (item.y * scale) + y,
+          labelOffset = (item.symbolSize + 10) / (renderScale > 0 ? renderScale : 1)
         item.elements.marker.setAttribute('cx', cx)
         item.elements.marker.setAttribute('cy', cy)
         item.elements.text.setAttribute('x', cx)
-        item.elements.text.setAttribute('y', cy + 50)
+        item.elements.text.setAttribute('y', cy + labelOffset)
       }
     }
 
@@ -263,13 +267,63 @@ app.plugin.svgworldmap = {
     }
 
     var mapFigure = target.querySelector('.svg-world-map'),
+      mapViewport = target.querySelector('.svg-world-map-viewport'),
       fullscreenButton = target.querySelector('.svg-fullscreen-toggle'),
       fullscreenEvents = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'],
       requestFullscreen = mapFigure && (mapFigure.requestFullscreen || mapFigure.webkitRequestFullscreen || mapFigure.mozRequestFullScreen || mapFigure.msRequestFullscreen),
-      exitFullscreen = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen
+      exitFullscreen = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen,
+      originalFullscreenStyles = {
+        figure: mapFigure ? {
+          width: mapFigure.style.width,
+          height: mapFigure.style.height,
+          display: mapFigure.style.display,
+          flexDirection: mapFigure.style.flexDirection,
+          margin: mapFigure.style.margin,
+          boxSizing: mapFigure.style.boxSizing
+        } : null,
+        viewport: mapViewport ? {
+          height: mapViewport.style.height,
+          flex: mapViewport.style.flex,
+          minHeight: mapViewport.style.minHeight
+        } : null,
+        svg: {
+          width: svg.style.width,
+          height: svg.style.height
+        }
+      }
 
     function getFullscreenElement() {
       return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement
+    }
+
+    function applyFullscreenLayout(active) {
+      if (!mapFigure || !mapViewport) return
+
+      if (active) {
+        mapFigure.style.width = '100vw'
+        mapFigure.style.height = '100vh'
+        mapFigure.style.display = 'flex'
+        mapFigure.style.flexDirection = 'column'
+        mapFigure.style.margin = '0'
+        mapFigure.style.boxSizing = 'border-box'
+        mapViewport.style.height = '100%'
+        mapViewport.style.flex = '1 1 auto'
+        mapViewport.style.minHeight = '0'
+        svg.style.width = '100%'
+        svg.style.height = '100%'
+      } else {
+        mapFigure.style.width = originalFullscreenStyles.figure.width
+        mapFigure.style.height = originalFullscreenStyles.figure.height
+        mapFigure.style.display = originalFullscreenStyles.figure.display
+        mapFigure.style.flexDirection = originalFullscreenStyles.figure.flexDirection
+        mapFigure.style.margin = originalFullscreenStyles.figure.margin
+        mapFigure.style.boxSizing = originalFullscreenStyles.figure.boxSizing
+        mapViewport.style.height = originalFullscreenStyles.viewport.height
+        mapViewport.style.flex = originalFullscreenStyles.viewport.flex
+        mapViewport.style.minHeight = originalFullscreenStyles.viewport.minHeight
+        svg.style.width = originalFullscreenStyles.svg.width
+        svg.style.height = originalFullscreenStyles.svg.height
+      }
     }
 
     function updateFullscreenButton() {
@@ -290,7 +344,12 @@ app.plugin.svgworldmap = {
       }
     }
 
-    function handleFullscreenChange() { updateFullscreenButton() }
+    function handleFullscreenChange() {
+      var active = getFullscreenElement() === mapFigure
+      applyFullscreenLayout(active)
+      updateFullscreenButton()
+      handleResize()
+    }
     function handleFullscreenClick() {
       if (getFullscreenElement() === mapFigure) invokeFullscreen(exitFullscreen, document)
       else invokeFullscreen(requestFullscreen, mapFigure)
@@ -303,7 +362,7 @@ app.plugin.svgworldmap = {
       for (i = 0; i < fullscreenEvents.length; i++) {
         document.addEventListener(fullscreenEvents[i], handleFullscreenChange)
       }
-      updateFullscreenButton()
+      handleFullscreenChange()
     }
 
     var dragSensitivity = 1.5
@@ -357,6 +416,7 @@ app.plugin.svgworldmap = {
     }
 
     target._svgWorldMapCleanup = function () {
+      applyFullscreenLayout(false)
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseup', handleMouseUp)
@@ -382,6 +442,11 @@ app.plugin.svgworldmap = {
       }
     }
     return normalized
+  },
+
+  getSymbolSize: function (value) {
+    var size = parseFloat(value)
+    return isFinite(size) && size > 0 ? size : 8
   },
 
   parseFilterDefinitions: function (value) {
@@ -539,7 +604,7 @@ app.plugin.svgworldmap = {
 
     tags = tags || this.normalizeTags(data.tags)
 
-    marker.setAttribute('r', '8')
+    marker.setAttribute('r', this.getSymbolSize(data.symbolSize))
     marker.setAttribute('fill', data.color || 'transparent')
     marker.setAttribute('stroke', data.borderColor || '#ffffff')
     marker.setAttribute('stroke-width', '2.5')
