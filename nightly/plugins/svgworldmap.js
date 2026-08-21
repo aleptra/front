@@ -413,22 +413,62 @@ app.plugin.svgworldmap = {
     window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('mouseup', handleMouseUp)
 
+    function getSvgPoint(clientX, clientY) {
+      var rect = svg.getBoundingClientRect()
+      if (!rect.width || !rect.height) return null
+      return {
+        x: (clientX - rect.left) * width / rect.width,
+        y: (clientY - rect.top) * height / rect.height
+      }
+    }
+
+    function getTouchDistance(first, second) {
+      var x = second.clientX - first.clientX, y = second.clientY - first.clientY
+      return Math.sqrt((x * x) + (y * y))
+    }
+
+    var pinchDistance = 0, pinchScale = 1, pinchX = 0, pinchY = 0
+
     svg.onwheel = function (e) {
       e.preventDefault()
 
-      var rect = svg.getBoundingClientRect()
-      if (!rect.width || !rect.height) return
-
-      var scaleX = width / rect.width
-      var scaleY = height / rect.height
-
-      var mouseX = (e.clientX - rect.left) * scaleX
-      var mouseY = (e.clientY - rect.top) * scaleY
+      var point = getSvgPoint(e.clientX, e.clientY)
+      if (!point) return
 
       var zoomFactor = e.deltaY < 0 ? 1.2 : 0.833
       var newScale = Math.min(Math.max(state.scale * zoomFactor, 0.5), maxZoom)
 
-      zoomAround(newScale, mouseX, mouseY)
+      zoomAround(newScale, point.x, point.y)
+    }
+
+    svg.ontouchstart = function (e) {
+      if (!e.touches || e.touches.length < 2) return
+
+      var first = e.touches[0], second = e.touches[1],
+        center = getSvgPoint((first.clientX + second.clientX) / 2, (first.clientY + second.clientY) / 2)
+      if (!center) return
+
+      e.preventDefault()
+      state.dragging = false
+      pinchDistance = getTouchDistance(first, second)
+      pinchScale = state.scale
+      pinchX = center.x
+      pinchY = center.y
+    }
+
+    svg.ontouchmove = function (e) {
+      if (!e.touches || e.touches.length < 2 || !pinchDistance) return
+
+      var first = e.touches[0], second = e.touches[1], distance = getTouchDistance(first, second)
+      if (!distance) return
+
+      e.preventDefault()
+      var newScale = Math.min(Math.max(pinchScale * distance / pinchDistance, 0.5), maxZoom)
+      zoomAround(newScale, pinchX, pinchY)
+    }
+
+    svg.ontouchend = svg.ontouchcancel = function (e) {
+      if (!e.touches || e.touches.length < 2) pinchDistance = 0
     }
 
     target._svgWorldMapCleanup = function () {
@@ -441,7 +481,7 @@ app.plugin.svgworldmap = {
       }
       if (fullscreenButton) fullscreenButton.onclick = null
       if (rafPending && typeof cancelAnimationFrame === 'function') cancelAnimationFrame(rafId)
-      svg.onmousedown = svg.onwheel = null
+      svg.onmousedown = svg.onwheel = svg.ontouchstart = svg.ontouchmove = svg.ontouchend = svg.ontouchcancel = null
     }
 
     update()

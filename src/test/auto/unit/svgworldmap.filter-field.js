@@ -1,6 +1,10 @@
 var svgworldmap = app.plugin.svgworldmap
 svgworldmap.__autoload({ name: 'svgworldmap', element: document.body })
 
+function touchPoint(x, y) {
+  return { clientX: x, clientY: y }
+}
+
 function createSvgWorldMapFilterFixture(field, forceFallback) {
   var target = createElement('div')
   var zoomClasses = ['svg-zoom-in', 'svg-zoom-out', 'svg-zoom-reset']
@@ -77,6 +81,44 @@ test('svgworldmap - should update label offsets when the render scale changes', 
   assertEqual(state.markerItems[0].elements.marker.getAttribute('r'), '7')
   assertEqual(parseFloat(state.markerItems[0].elements.text.getAttribute('y')) - parseFloat(state.markerItems[0].elements.marker.getAttribute('cy')), 12)
 
+  target._svgWorldMapCleanup()
+})
+
+test('svgworldmap - should zoom in with a two-finger pinch', function () {
+  var target = createSvgWorldMapFilterFixture('settlementType')
+  var svg = target.querySelector('svg')
+  var mapGroup = target.querySelector('.world-map')
+  var prevented = 0
+  var event = { preventDefault: function () { prevented++ } }
+
+  svg.getBoundingClientRect = function () { return { left: 0, top: 0, width: 100, height: 100 } }
+  svg.ontouchstart({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: event.preventDefault })
+  svg.ontouchmove({ touches: [touchPoint(10, 50), touchPoint(50, 50)], preventDefault: event.preventDefault })
+
+  assertTrue(mapGroup.getAttribute('transform').indexOf('scale(2)') !== -1)
+  assertEqual(prevented, 2)
+
+  var transform = mapGroup.getAttribute('transform')
+  svg.ontouchend({ touches: [touchPoint(30, 50)] })
+  svg.ontouchmove({ touches: [touchPoint(10, 50), touchPoint(50, 50)], preventDefault: event.preventDefault })
+  assertEqual(mapGroup.getAttribute('transform'), transform)
+
+  assertTrue(typeof svg.ontouchstart === 'function')
+  target._svgWorldMapCleanup()
+  assertEqual(svg.ontouchstart, null)
+  assertEqual(svg.ontouchmove, null)
+})
+
+test('svgworldmap - should zoom out with a two-finger pinch', function () {
+  var target = createSvgWorldMapFilterFixture('settlementType')
+  var svg = target.querySelector('svg')
+  var mapGroup = target.querySelector('.world-map')
+
+  svg.getBoundingClientRect = function () { return { left: 0, top: 0, width: 100, height: 100 } }
+  svg.ontouchstart({ touches: [touchPoint(10, 50), touchPoint(50, 50)], preventDefault: function () { } })
+  svg.ontouchmove({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: function () { } })
+
+  assertTrue(mapGroup.getAttribute('transform').indexOf('scale(0.5)') !== -1)
   target._svgWorldMapCleanup()
 })
 
