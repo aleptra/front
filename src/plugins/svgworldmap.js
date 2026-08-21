@@ -46,7 +46,7 @@ app.plugin.svgworldmap = {
       '<button type="button" class="svg-zoom-reset" style="' + btnStyle + 'font-size:11px;">Reset</button>' +
       '<button type="button" class="svg-fullscreen-toggle" aria-pressed="false" style="' + btnStyle + 'font-size:11px;">Fullscreen</button>' +
       '</div>' +
-      '<div class="svg-world-map-viewport" style="overflow:hidden;height:inherit!important;border-radius:8px;border:1px solid #b0d4e3;background:' + oceanColor + ';">' +
+      '<div class="svg-world-map-viewport" style="overflow:hidden;height:inherit!important;background:' + oceanColor + ';">' +
       '<div class="svg-world-map-loading" style="padding:40px;text-align:center;font-family:sans-serif;color:#555;">Loading map…</div>' +
       '</div>' +
       '<div class="svg-world-map-filters" style="position:absolute;bottom:12px;left:12px;z-index:10;display:none;flex-wrap:wrap;gap:4px;max-width:calc(100% - 24px);padding:0.25rem;border-radius:6px;background:transparent;box-shadow:0 2px 6px rgba(0,0,0,0.15);"></div>' +
@@ -427,7 +427,7 @@ app.plugin.svgworldmap = {
       return Math.sqrt((x * x) + (y * y))
     }
 
-    var pinchDistance = 0, pinchScale = 1, pinchX = 0, pinchY = 0
+    var pinchDistance = 0, pinchScale = 1, pinchX = 0, pinchY = 0, pinchOriginX = 0, pinchOriginY = 0
 
     svg.onwheel = function (e) {
       e.preventDefault()
@@ -454,17 +454,24 @@ app.plugin.svgworldmap = {
       pinchScale = state.scale
       pinchX = center.x
       pinchY = center.y
+      pinchOriginX = state.x
+      pinchOriginY = state.y
     }
 
     svg.ontouchmove = function (e) {
       if (!e.touches || e.touches.length < 2 || !pinchDistance) return
 
-      var first = e.touches[0], second = e.touches[1], distance = getTouchDistance(first, second)
-      if (!distance) return
+      var first = e.touches[0], second = e.touches[1], distance = getTouchDistance(first, second),
+        center = getSvgPoint((first.clientX + second.clientX) / 2, (first.clientY + second.clientY) / 2)
+      if (!distance || !center) return
 
       e.preventDefault()
-      var newScale = Math.min(Math.max(pinchScale * distance / pinchDistance, 0.5), maxZoom)
-      zoomAround(newScale, pinchX, pinchY)
+      var newScale = Math.min(Math.max(pinchScale * distance / pinchDistance, 0.5), maxZoom),
+        scaleRatio = newScale / pinchScale
+      state.scale = newScale
+      state.x = pinchX - ((pinchX - pinchOriginX) * scaleRatio) + (center.x - pinchX)
+      state.y = pinchY - ((pinchY - pinchOriginY) * scaleRatio) + (center.y - pinchY)
+      update()
     }
 
     svg.ontouchend = svg.ontouchcancel = function (e) {

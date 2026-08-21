@@ -109,6 +109,22 @@ test('svgworldmap - should zoom in with a two-finger pinch', function () {
   assertEqual(svg.ontouchmove, null)
 })
 
+test('svgworldmap - should pan with two fingers', function () {
+  var target = createSvgWorldMapFilterFixture('settlementType')
+  var svg = target.querySelector('svg')
+  var mapGroup = target.querySelector('.world-map')
+  var before
+
+  svg.getBoundingClientRect = function () { return { left: 0, top: 0, width: 100, height: 100 } }
+  before = mapGroup.getAttribute('transform')
+  svg.ontouchstart({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: function () { } })
+  svg.ontouchmove({ touches: [touchPoint(30, 50), touchPoint(50, 50)], preventDefault: function () { } })
+
+  assertTrue(mapGroup.getAttribute('transform').indexOf('scale(1)') !== -1)
+  assertTrue(mapGroup.getAttribute('transform') !== before)
+  target._svgWorldMapCleanup()
+})
+
 test('svgworldmap - should zoom out with a two-finger pinch', function () {
   var target = createSvgWorldMapFilterFixture('settlementType')
   var svg = target.querySelector('svg')
