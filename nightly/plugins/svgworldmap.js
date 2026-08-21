@@ -272,66 +272,70 @@ app.plugin.svgworldmap = {
       fullscreenEvents = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'],
       requestFullscreen = mapFigure && (mapFigure.requestFullscreen || mapFigure.webkitRequestFullscreen || mapFigure.mozRequestFullScreen || mapFigure.msRequestFullscreen),
       exitFullscreen = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen,
-      originalFullscreenStyles = {
-        figure: mapFigure ? {
-          width: mapFigure.style.width,
-          height: mapFigure.style.height,
-          display: mapFigure.style.display,
-          flexDirection: mapFigure.style.flexDirection,
-          margin: mapFigure.style.margin,
-          boxSizing: mapFigure.style.boxSizing
-        } : null,
-        viewport: mapViewport ? {
-          height: mapViewport.style.height,
-          flex: mapViewport.style.flex,
-          minHeight: mapViewport.style.minHeight
-        } : null,
-        svg: {
-          width: svg.style.width,
-          height: svg.style.height
-        }
+      nativeFullscreenSupported = !!requestFullscreen && !!exitFullscreen,
+      fallbackFullscreen = false,
+      styleNames = {
+        figure: ['width', 'height', 'display', 'flexDirection', 'margin', 'boxSizing', 'position', 'top', 'right', 'bottom', 'left', 'zIndex', 'backgroundColor', 'overflow'],
+        viewport: ['height', 'flex', 'minHeight'],
+        svg: ['width', 'height']
       }
+
+    function readStyles(element, names) {
+      var styles = {}, i
+      if (!element) return styles
+      for (i = 0; i < names.length; i++) styles[names[i]] = element.style[names[i]]
+      return styles
+    }
+
+    function setStyles(element, styles) {
+      var name
+      if (!element) return
+      for (name in styles) {
+        if (Object.prototype.hasOwnProperty.call(styles, name)) element.style[name] = styles[name]
+      }
+    }
+
+    var originalFullscreenStyles = {
+      figure: readStyles(mapFigure, styleNames.figure),
+      viewport: readStyles(mapViewport, styleNames.viewport),
+      svg: readStyles(svg, styleNames.svg),
+      htmlOverflow: document.documentElement.style.overflow,
+      bodyOverflow: document.body.style.overflow
+    }
 
     function getFullscreenElement() {
       return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement
     }
 
-    function applyFullscreenLayout(active) {
+    function applyFullscreenLayout(active, fallback) {
       if (!mapFigure || !mapViewport) return
 
       if (active) {
-        mapFigure.style.width = '100vw'
-        mapFigure.style.height = '100vh'
-        mapFigure.style.display = 'flex'
-        mapFigure.style.flexDirection = 'column'
-        mapFigure.style.margin = '0'
-        mapFigure.style.boxSizing = 'border-box'
-        mapViewport.style.height = '100%'
-        mapViewport.style.flex = '1 1 auto'
-        mapViewport.style.minHeight = '0'
-        svg.style.width = '100%'
-        svg.style.height = '100%'
+        setStyles(mapFigure, { width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', margin: '0', boxSizing: 'border-box' })
+        setStyles(mapViewport, { height: '100%', flex: '1 1 auto', minHeight: '0' })
+        setStyles(svg, { width: '100%', height: '100%' })
+        if (fallback) {
+          setStyles(mapFigure, { position: 'fixed', top: '0', right: '0', bottom: '0', left: '0', zIndex: '2147483647', backgroundColor: '#fff', overflow: 'hidden' })
+          setStyles(document.documentElement, { overflow: 'hidden' })
+          setStyles(document.body, { overflow: 'hidden' })
+        }
       } else {
-        mapFigure.style.width = originalFullscreenStyles.figure.width
-        mapFigure.style.height = originalFullscreenStyles.figure.height
-        mapFigure.style.display = originalFullscreenStyles.figure.display
-        mapFigure.style.flexDirection = originalFullscreenStyles.figure.flexDirection
-        mapFigure.style.margin = originalFullscreenStyles.figure.margin
-        mapFigure.style.boxSizing = originalFullscreenStyles.figure.boxSizing
-        mapViewport.style.height = originalFullscreenStyles.viewport.height
-        mapViewport.style.flex = originalFullscreenStyles.viewport.flex
-        mapViewport.style.minHeight = originalFullscreenStyles.viewport.minHeight
-        svg.style.width = originalFullscreenStyles.svg.width
-        svg.style.height = originalFullscreenStyles.svg.height
+        setStyles(mapFigure, originalFullscreenStyles.figure)
+        setStyles(mapViewport, originalFullscreenStyles.viewport)
+        setStyles(svg, originalFullscreenStyles.svg)
+        setStyles(document.documentElement, { overflow: originalFullscreenStyles.htmlOverflow })
+        setStyles(document.body, { overflow: originalFullscreenStyles.bodyOverflow })
       }
     }
 
     function updateFullscreenButton() {
       if (!fullscreenButton) return
-      var active = getFullscreenElement() === mapFigure
-      fullscreenButton.textContent = active ? 'Exit fullscreen' : 'Fullscreen'
+      var active = getFullscreenElement() === mapFigure || fallbackFullscreen,
+        enterLabel = nativeFullscreenSupported ? 'Fullscreen' : 'Expand map',
+        activeLabel = nativeFullscreenSupported ? 'Exit fullscreen' : 'Collapse map'
+      fullscreenButton.textContent = active ? activeLabel : enterLabel
       fullscreenButton.setAttribute('aria-pressed', active ? 'true' : 'false')
-      fullscreenButton.setAttribute('aria-label', active ? 'Exit fullscreen' : 'Enter fullscreen')
+      fullscreenButton.setAttribute('aria-label', active ? activeLabel : enterLabel)
     }
 
     function invokeFullscreen(method, element) {
@@ -346,23 +350,35 @@ app.plugin.svgworldmap = {
 
     function handleFullscreenChange() {
       var active = getFullscreenElement() === mapFigure
-      applyFullscreenLayout(active)
+      fallbackFullscreen = false
+      applyFullscreenLayout(active, false)
       updateFullscreenButton()
       handleResize()
     }
     function handleFullscreenClick() {
-      if (getFullscreenElement() === mapFigure) invokeFullscreen(exitFullscreen, document)
-      else invokeFullscreen(requestFullscreen, mapFigure)
+      if (nativeFullscreenSupported) {
+        if (getFullscreenElement() === mapFigure) invokeFullscreen(exitFullscreen, document)
+        else invokeFullscreen(requestFullscreen, mapFigure)
+      } else {
+        fallbackFullscreen = !fallbackFullscreen
+        applyFullscreenLayout(fallbackFullscreen, fallbackFullscreen)
+        updateFullscreenButton()
+        handleResize()
+      }
     }
 
-    if (!mapFigure || !fullscreenButton || !requestFullscreen || !exitFullscreen) {
+    if (!mapFigure || !fullscreenButton) {
       if (fullscreenButton) fullscreenButton.style.display = 'none'
     } else {
       fullscreenButton.onclick = handleFullscreenClick
-      for (i = 0; i < fullscreenEvents.length; i++) {
-        document.addEventListener(fullscreenEvents[i], handleFullscreenChange)
+      if (nativeFullscreenSupported) {
+        for (i = 0; i < fullscreenEvents.length; i++) {
+          document.addEventListener(fullscreenEvents[i], handleFullscreenChange)
+        }
+        handleFullscreenChange()
+      } else {
+        updateFullscreenButton()
       }
-      handleFullscreenChange()
     }
 
     var dragSensitivity = 1.5
