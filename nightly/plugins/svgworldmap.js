@@ -134,13 +134,13 @@ app.plugin.svgworldmap = {
         hasCircle = item && String(item.symbol || '').trim().toLowerCase() === 'circle'
 
       if (pt && (hasCircle || hasValue(label))) {
-        markerItems.push({ data: item, hasMarker: hasCircle, tags: this.normalizeTags(item[filterField]), symbolSize: this.getSymbolSize(item.symbolSize), x: pt.x, y: pt.y })
+        markerItems.push({ data: item, hasMarker: hasCircle, tags: this.normalizeTags(item[filterField]), symbolSize: this.getSymbolSize(item.symbolSize), labelPosition: this.getLabelPosition(item.labelPosition), x: pt.x, y: pt.y })
       }
     }
 
     if (!markerItems.length && hasValue(labelText)) {
       var fallback = toPoint(lat, lng) || { x: width / 2, y: height / 2 }
-      markerItems.push({ data: { label: labelText }, hasMarker: false, tags: [], symbolSize: 8, x: fallback.x, y: fallback.y })
+      markerItems.push({ data: { label: labelText }, hasMarker: false, tags: [], symbolSize: 8, labelPosition: 'bottom', x: fallback.x, y: fallback.y })
     }
 
     var centerPoint = markerData && markerData.center ? toPoint(parseFloat(markerData.center.lat), parseFloat(markerData.center.lng)) : null
@@ -232,11 +232,15 @@ app.plugin.svgworldmap = {
 
       for (var idx = 0; idx < markerItems.length; idx++) {
         var item = markerItems[idx], cx = (item.x * scale) + x, cy = (item.y * scale) + y,
-          labelOffset = (item.symbolSize + 10) / (renderScale > 0 ? renderScale : 1)
+          labelOffset = (item.symbolSize + 10) / (renderScale > 0 ? renderScale : 1),
+          labelX = cx, labelY = cy + labelOffset
+        if (item.labelPosition === 'top') labelY = cy - labelOffset
+        else if (item.labelPosition === 'right') { labelX = cx + labelOffset; labelY = cy }
+        else if (item.labelPosition === 'left') { labelX = cx - labelOffset; labelY = cy }
         item.elements.marker.setAttribute('cx', cx)
         item.elements.marker.setAttribute('cy', cy)
-        item.elements.text.setAttribute('x', cx)
-        item.elements.text.setAttribute('y', cy + labelOffset)
+        item.elements.text.setAttribute('x', labelX)
+        item.elements.text.setAttribute('y', labelY)
       }
     }
 
@@ -398,15 +402,22 @@ app.plugin.svgworldmap = {
       svg.style.cursor = 'grabbing'
     }
 
-    var rafPending = false, rafId = 0
+    var rafPending = false, rafId = 0, destroyed = false
+    function scheduleUpdate() {
+      if (rafPending) return
+      rafPending = true
+      rafId = requestAnimationFrame(function () {
+        rafPending = false
+        rafId = 0
+        if (!destroyed) update()
+      })
+    }
+
     function handleMouseMove(e) {
       if (!state.dragging) return
       state.x = state.originX + ((e.clientX - state.startX) * dragSensitivity * state.dragScaleX)
       state.y = state.originY + ((e.clientY - state.startY) * dragSensitivity * state.dragScaleY)
-      if (!rafPending) {
-        rafPending = true
-        rafId = requestAnimationFrame(function () { rafPending = false; rafId = 0; update() })
-      }
+      scheduleUpdate()
     }
 
     function handleMouseUp() { state.dragging = false; svg.style.cursor = 'grab' }
@@ -472,7 +483,7 @@ app.plugin.svgworldmap = {
       state.scale = newScale
       state.x = pinchX - ((pinchX - pinchOriginX) * scaleRatio) + ((center.x - pinchX) * dragSensitivity)
       state.y = pinchY - ((pinchY - pinchOriginY) * scaleRatio) + ((center.y - pinchY) * dragSensitivity)
-      update()
+      scheduleUpdate()
     }
 
     svg.ontouchend = svg.ontouchcancel = function (e) {
@@ -489,6 +500,9 @@ app.plugin.svgworldmap = {
       }
       if (fullscreenButton) fullscreenButton.onclick = null
       if (rafPending && typeof cancelAnimationFrame === 'function') cancelAnimationFrame(rafId)
+      destroyed = true
+      rafPending = false
+      rafId = 0
       svg.onmousedown = svg.onwheel = svg.ontouchstart = svg.ontouchmove = svg.ontouchend = svg.ontouchcancel = null
     }
 
@@ -511,6 +525,11 @@ app.plugin.svgworldmap = {
   getSymbolSize: function (value) {
     var size = parseFloat(value)
     return isFinite(size) && size > 0 ? size : 8
+  },
+
+  getLabelPosition: function (value) {
+    var position = String(value || 'bottom').trim().toLowerCase()
+    return position === 'top' || position === 'right' || position === 'bottom' || position === 'left' ? position : 'bottom'
   },
 
   parseFilterDefinitions: function (value) {
@@ -664,7 +683,9 @@ app.plugin.svgworldmap = {
     data = data || {}
     var label = data.label !== undefined ? data.label : (data.name || ''),
       hasMarker = String(data.symbol || '').trim().toLowerCase() === 'circle',
-      labelSize = data.labelSize && String(data.labelSize).trim() !== '' ? data.labelSize : '11px'
+      labelSize = data.labelSize && String(data.labelSize).trim() !== '' ? data.labelSize : '11px',
+      labelPosition = this.getLabelPosition(data.labelPosition),
+      labelAnchor = labelPosition === 'right' ? 'start' : (labelPosition === 'left' ? 'end' : 'middle')
 
     tags = tags || this.normalizeTags(data.tags)
 
@@ -682,7 +703,8 @@ app.plugin.svgworldmap = {
     text.setAttribute('font-size', String(labelSize))
     text.setAttribute('fill', data.labelColor || '#1a365d')
     text.setAttribute('font-weight', 'bold')
-    text.setAttribute('text-anchor', 'middle')
+    text.setAttribute('text-anchor', labelAnchor)
+    if (labelPosition === 'left' || labelPosition === 'right') text.setAttribute('dominant-baseline', 'middle')
     text.setAttribute('font-family', 'sans-serif')
     text.setAttribute('pointer-events', 'none')
     markerLayer.appendChild(text)

@@ -5,8 +5,12 @@ function touchPoint(x, y) {
   return { clientX: x, clientY: y }
 }
 
-function createSvgWorldMapFilterFixture(field, forceFallback, dragSensitivity) {
+function createSvgWorldMapFilterFixture(field, forceFallback, dragSensitivity, deferFrames, markers) {
   var target = createElement('div')
+  var frameCallback
+  var frameRequests = 0
+  var originalRequestAnimationFrame
+  var originalCancelAnimationFrame
   var zoomClasses = ['svg-zoom-in', 'svg-zoom-out', 'svg-zoom-reset']
   var zoomControls = document.createElement('div')
   var mapFigure = document.createElement('figure')
@@ -43,12 +47,43 @@ function createSvgWorldMapFilterFixture(field, forceFallback, dragSensitivity) {
     mapFigure.mozRequestFullScreen = null
     mapFigure.msRequestFullscreen = null
   }
+  if (deferFrames) {
+    originalRequestAnimationFrame = window.requestAnimationFrame
+    originalCancelAnimationFrame = window.cancelAnimationFrame
+    window.requestAnimationFrame = function (callback) {
+      frameRequests++
+      frameCallback = callback
+      return 1
+    }
+    window.cancelAnimationFrame = function () { frameCallback = null }
+  }
+
   svgworldmap.initMap(target, svg, 0, 0, 1, true, '', '', '', {
-    markers: [
+    markers: markers || [
       { lat: 0, lng: 0, label: 'City marker', symbol: 'circle', symbolSize: 14, tags: 'place', settlementType: 'city' },
       { lat: 1, lng: 1, label: 'Place marker', symbol: 'circle', symbolSize: '', tags: 'city', settlementType: 'place' }
     ]
   })
+
+  if (deferFrames) {
+    var cleanup = target._svgWorldMapCleanup
+    target._svgWorldMapFlush = function () {
+      var callback = frameCallback
+      frameCallback = null
+      if (callback) callback()
+    }
+    target._svgWorldMapCaptureFrame = function () {
+      var callback = frameCallback
+      frameCallback = null
+      return callback
+    }
+    target._svgWorldMapFrameRequests = function () { return frameRequests }
+    target._svgWorldMapCleanup = function () {
+      cleanup()
+      window.requestAnimationFrame = originalRequestAnimationFrame
+      window.cancelAnimationFrame = originalCancelAnimationFrame
+    }
+  }
 
   return target
 }
@@ -71,22 +106,49 @@ test('svgworldmap - should use a selected JSON field for filters', function () {
   assertEqual(state.markerItems[1].elements.marker.style.display, 'none')
 })
 
-test('svgworldmap - should update label offsets when the render scale changes', function () {
-  var target = createSvgWorldMapFilterFixture('settlementType')
-  var svg = target.querySelector('svg')
-  var state = target._svgWorldMap
+test('svgworldmap - should position labels from marker JSON', function () {
+  var target = createSvgWorldMapFilterFixture('settlementType', false, undefined, false, [
+    { lat: 0, lng: 0, label: 'Top', labelPosition: 'top', symbol: 'circle', symbolSize: 10 },
+    { lat: 1, lng: 1, label: 'Right', labelPosition: 'right', symbol: 'circle', symbolSize: 10 },
+    { lat: 2, lng: 2, label: 'Bottom', labelPosition: 'bottom', symbol: 'circle', symbolSize: 10 },
+    { lat: 3, lng: 3, label: 'Left', labelPosition: 'left', symbol: 'circle', symbolSize: 10 },
+    { lat: 4, lng: 4, label: 'Invalid', labelPosition: 'diagonal', symbol: 'circle', symbolSize: 10 }
+  ])
+  var items = target._svgWorldMap.markerItems
+  var i, cx, cy, labelX, labelY
 
-  svg.getBoundingClientRect = function () { return { width: 200, height: 200 } }
-  window.dispatchEvent(new Event('resize'))
+  for (i = 0; i < 4; i++) {
+    cx = parseFloat(items[i].elements.marker.getAttribute('cx'))
+    cy = parseFloat(items[i].elements.marker.getAttribute('cy'))
+    labelX = parseFloat(items[i].elements.text.getAttribute('x'))
+    labelY = parseFloat(items[i].elements.text.getAttribute('y'))
+    assertEqual(items[i].labelPosition, ['top', 'right', 'bottom', 'left'][i])
+    if (i === 0) {
+      assertEqual(labelX, cx)
+      assertEqual(cy - labelY, 20)
+    } else if (i === 1) {
+      assertEqual(labelX - cx, 20)
+      assertEqual(labelY, cy)
+      assertEqual(items[i].elements.text.getAttribute('text-anchor'), 'start')
+      assertEqual(items[i].elements.text.getAttribute('dominant-baseline'), 'middle')
+    } else if (i === 2) {
+      assertEqual(labelX, cx)
+      assertEqual(labelY - cy, 20)
+    } else {
+      assertEqual(cx - labelX, 20)
+      assertEqual(labelY, cy)
+      assertEqual(items[i].elements.text.getAttribute('text-anchor'), 'end')
+      assertEqual(items[i].elements.text.getAttribute('dominant-baseline'), 'middle')
+    }
+  }
 
-  assertEqual(state.markerItems[0].elements.marker.getAttribute('r'), '7')
-  assertEqual(parseFloat(state.markerItems[0].elements.text.getAttribute('y')) - parseFloat(state.markerItems[0].elements.marker.getAttribute('cy')), 12)
-
+  assertEqual(items[4].labelPosition, 'bottom')
   target._svgWorldMapCleanup()
 })
 
+
 test('svgworldmap - should zoom in with a two-finger pinch', function () {
-  var target = createSvgWorldMapFilterFixture('settlementType')
+  var target = createSvgWorldMapFilterFixture('settlementType', false, undefined, true)
   var svg = target.querySelector('svg')
   var mapGroup = target.querySelector('.world-map')
   var prevented = 0
@@ -94,10 +156,13 @@ test('svgworldmap - should zoom in with a two-finger pinch', function () {
 
   svg.getBoundingClientRect = function () { return { left: 0, top: 0, width: 100, height: 100 } }
   svg.ontouchstart({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: event.preventDefault })
+  svg.ontouchmove({ touches: [touchPoint(15, 50), touchPoint(45, 50)], preventDefault: event.preventDefault })
   svg.ontouchmove({ touches: [touchPoint(10, 50), touchPoint(50, 50)], preventDefault: event.preventDefault })
+  target._svgWorldMapFlush()
 
+  assertEqual(target._svgWorldMapFrameRequests(), 1)
   assertTrue(mapGroup.getAttribute('transform').indexOf('scale(2)') !== -1)
-  assertEqual(prevented, 2)
+  assertEqual(prevented, 3)
 
   var transform = mapGroup.getAttribute('transform')
   svg.ontouchend({ touches: [touchPoint(30, 50)] })
@@ -111,7 +176,7 @@ test('svgworldmap - should zoom in with a two-finger pinch', function () {
 })
 
 test('svgworldmap - should pan with two fingers', function () {
-  var target = createSvgWorldMapFilterFixture('settlementType')
+  var target = createSvgWorldMapFilterFixture('settlementType', false, undefined, true)
   var svg = target.querySelector('svg')
   var mapGroup = target.querySelector('.world-map')
   var before
@@ -120,27 +185,47 @@ test('svgworldmap - should pan with two fingers', function () {
   before = mapGroup.getAttribute('transform')
   svg.ontouchstart({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: function () { } })
   svg.ontouchmove({ touches: [touchPoint(30, 50), touchPoint(50, 50)], preventDefault: function () { } })
+  target._svgWorldMapFlush()
 
   assertTrue(mapGroup.getAttribute('transform').indexOf('scale(1)') !== -1)
   assertTrue(mapGroup.getAttribute('transform') !== before)
   target._svgWorldMapCleanup()
 })
 
+test('svgworldmap - should ignore a queued touch update after cleanup', function () {
+  var target = createSvgWorldMapFilterFixture('settlementType', false, undefined, true)
+  var svg = target.querySelector('svg')
+  var mapGroup = target.querySelector('.world-map')
+  var before
+  var staleFrame
+
+  svg.getBoundingClientRect = function () { return { left: 0, top: 0, width: 100, height: 100 } }
+  before = mapGroup.getAttribute('transform')
+  svg.ontouchstart({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: function () { } })
+  svg.ontouchmove({ touches: [touchPoint(30, 50), touchPoint(50, 50)], preventDefault: function () { } })
+  staleFrame = target._svgWorldMapCaptureFrame()
+  target._svgWorldMapCleanup()
+  if (staleFrame) staleFrame()
+
+  assertEqual(mapGroup.getAttribute('transform'), before)
+})
+
 test('svgworldmap - should zoom out with a two-finger pinch', function () {
-  var target = createSvgWorldMapFilterFixture('settlementType')
+  var target = createSvgWorldMapFilterFixture('settlementType', false, undefined, true)
   var svg = target.querySelector('svg')
   var mapGroup = target.querySelector('.world-map')
 
   svg.getBoundingClientRect = function () { return { left: 0, top: 0, width: 100, height: 100 } }
   svg.ontouchstart({ touches: [touchPoint(10, 50), touchPoint(50, 50)], preventDefault: function () { } })
   svg.ontouchmove({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: function () { } })
+  target._svgWorldMapFlush()
 
   assertTrue(mapGroup.getAttribute('transform').indexOf('scale(0.5)') !== -1)
   target._svgWorldMapCleanup()
 })
 
 test('svgworldmap - should configure drag sensitivity', function () {
-  var target = createSvgWorldMapFilterFixture('settlementType', false, 2)
+  var target = createSvgWorldMapFilterFixture('settlementType', false, 2, true)
   var svg = target.querySelector('svg')
   var mapGroup = target.querySelector('.world-map')
   var before
@@ -150,8 +235,9 @@ test('svgworldmap - should configure drag sensitivity', function () {
   before = parseFloat(mapGroup.getAttribute('transform').match(/^translate\(([^,]+)/)[1])
   svg.ontouchstart({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: function () { } })
   svg.ontouchmove({ touches: [touchPoint(30, 50), touchPoint(50, 50)], preventDefault: function () { } })
-  after = parseFloat(mapGroup.getAttribute('transform').match(/^translate\(([^,]+)/)[1])
+  target._svgWorldMapFlush()
 
+  after = parseFloat(mapGroup.getAttribute('transform').match(/^translate\(([^,]+)/)[1])
   assertEqual(after - before, 20)
   target._svgWorldMapCleanup()
 })
