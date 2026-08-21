@@ -5,7 +5,7 @@ function touchPoint(x, y) {
   return { clientX: x, clientY: y }
 }
 
-function createSvgWorldMapFilterFixture(field, forceFallback) {
+function createSvgWorldMapFilterFixture(field, forceFallback, dragSensitivity) {
   var target = createElement('div')
   var zoomClasses = ['svg-zoom-in', 'svg-zoom-out', 'svg-zoom-reset']
   var zoomControls = document.createElement('div')
@@ -35,6 +35,7 @@ function createSvgWorldMapFilterFixture(field, forceFallback) {
   svg.setAttribute('viewBox', '0 0 100 100')
   target.setAttribute('svgworldmap-filter', 'City:[city];Place:[place]')
   if (field) target.setAttribute('svgworldmap-filter-field', field)
+  if (dragSensitivity) target.setAttribute('svgworldmap-drag-sensitivity', dragSensitivity)
 
   if (forceFallback) {
     mapFigure.requestFullscreen = null
@@ -135,6 +136,23 @@ test('svgworldmap - should zoom out with a two-finger pinch', function () {
   svg.ontouchmove({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: function () { } })
 
   assertTrue(mapGroup.getAttribute('transform').indexOf('scale(0.5)') !== -1)
+  target._svgWorldMapCleanup()
+})
+
+test('svgworldmap - should configure drag sensitivity', function () {
+  var target = createSvgWorldMapFilterFixture('settlementType', false, 2)
+  var svg = target.querySelector('svg')
+  var mapGroup = target.querySelector('.world-map')
+  var before
+  var after
+
+  svg.getBoundingClientRect = function () { return { left: 0, top: 0, width: 100, height: 100 } }
+  before = parseFloat(mapGroup.getAttribute('transform').match(/^translate\(([^,]+)/)[1])
+  svg.ontouchstart({ touches: [touchPoint(20, 50), touchPoint(40, 50)], preventDefault: function () { } })
+  svg.ontouchmove({ touches: [touchPoint(30, 50), touchPoint(50, 50)], preventDefault: function () { } })
+  after = parseFloat(mapGroup.getAttribute('transform').match(/^translate\(([^,]+)/)[1])
+
+  assertEqual(after - before, 20)
   target._svgWorldMapCleanup()
 })
 

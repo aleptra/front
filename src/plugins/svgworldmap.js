@@ -4,7 +4,7 @@ app.plugin.svgworldmap = {
 
   __autoload: function (options) {
     this.plugin = options.name + '--'
-    this.config = app.config.get(options.name + '-', { defaultZoom: '1', fixedMarkerSize: true, hideFilterAll: false }, options.element)
+    this.config = app.config.get(options.name + '-', { defaultZoom: '1', fixedMarkerSize: true, hideFilterAll: false, dragSensitivity: '1.5' }, options.element)
   },
 
   render: function (target) {
@@ -381,7 +381,8 @@ app.plugin.svgworldmap = {
       }
     }
 
-    var dragSensitivity = 1.5
+    var dragSensitivity = parseFloat(target.getAttribute('svgworldmap-drag-sensitivity') || this.config.dragSensitivity)
+    if (!isFinite(dragSensitivity) || dragSensitivity <= 0) dragSensitivity = 1.5
 
     svg.onmousedown = function (e) {
       e.preventDefault()
@@ -469,8 +470,8 @@ app.plugin.svgworldmap = {
       var newScale = Math.min(Math.max(pinchScale * distance / pinchDistance, 0.5), maxZoom),
         scaleRatio = newScale / pinchScale
       state.scale = newScale
-      state.x = pinchX - ((pinchX - pinchOriginX) * scaleRatio) + (center.x - pinchX)
-      state.y = pinchY - ((pinchY - pinchOriginY) * scaleRatio) + (center.y - pinchY)
+      state.x = pinchX - ((pinchX - pinchOriginX) * scaleRatio) + ((center.x - pinchX) * dragSensitivity)
+      state.y = pinchY - ((pinchY - pinchOriginY) * scaleRatio) + ((center.y - pinchY) * dragSensitivity)
       update()
     }
 
