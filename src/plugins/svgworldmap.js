@@ -39,14 +39,14 @@ app.plugin.svgworldmap = {
     var btnStyle = 'padding:6px 10px;font-weight:bold;cursor:pointer;color:' + btnColor + ';background:' + btnBg + ';border:' + btnBorder + ';border-radius:4px;'
 
     target.innerHTML =
-      '<figure class="svg-world-map" style="position:relative;display:block">' +
+      '<figure class="svg-world-map" style="position:relative;display:block;height:inherit;">' +
       '<div class="svg-world-map-controls" style="position:absolute;top:12px;right:12px;z-index:10;display:flex;gap:4px;padding:4px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,0.15);">' +
       '<button type="button" class="svg-zoom-in" style="' + btnStyle + '">+</button>' +
       '<button type="button" class="svg-zoom-out" style="' + btnStyle + '">−</button>' +
       '<button type="button" class="svg-zoom-reset" style="' + btnStyle + 'font-size:11px;">Reset</button>' +
       '<button type="button" class="svg-fullscreen-toggle" aria-pressed="false" style="' + btnStyle + 'font-size:11px;">Fullscreen</button>' +
       '</div>' +
-      '<div class="svg-world-map-viewport" style="overflow:hidden;border-radius:8px;border:1px solid #b0d4e3;background:' + oceanColor + ';">' +
+      '<div class="svg-world-map-viewport" style="overflow:hidden;height:inherit!important;border-radius:8px;border:1px solid #b0d4e3;background:' + oceanColor + ';">' +
       '<div class="svg-world-map-loading" style="padding:40px;text-align:center;font-family:sans-serif;color:#555;">Loading map…</div>' +
       '</div>' +
       '<div class="svg-world-map-filters" style="position:absolute;bottom:12px;left:12px;z-index:10;display:none;flex-wrap:wrap;gap:4px;max-width:calc(100% - 24px);padding:0.25rem;border-radius:6px;background:transparent;box-shadow:0 2px 6px rgba(0,0,0,0.15);"></div>' +
@@ -92,7 +92,7 @@ app.plugin.svgworldmap = {
 
         svg.style.display = 'block'
         svg.style.width = '100%'
-        svg.style.height = 'auto'
+        svg.style.height = 'inherit'
         svg.style.cursor = 'grab'
         svg.style.userSelect = 'none'
         svg.style.pointerEvents = 'all'
