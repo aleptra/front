@@ -11,6 +11,7 @@ default:
 	fi
 
 SRC = src
+TEST_QUERY = $(if $(TEST),?test=$(TEST),)
 JS_FILE = $(SRC)/front.js
 JS_MIN_FILE = front.min.js
 TAG := $(shell grep -o 'build:[[:space:]]*[0-9]*' $(JS_FILE) | awk -F':' '{ print $$2+1 }')
@@ -97,7 +98,7 @@ test\:unit:
 	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
 	sleep 0.5; \
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
-		"http://localhost:$$PORT/test/auto/unit/" 2>/dev/null | tr -d '\n' > /tmp/front_test_unit.html; \
+		"http://localhost:$$PORT/test/auto/unit/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_unit.html; \
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	END=$$(date +%s); ELAPSED=$$((END - START)); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_unit.html); \
@@ -113,7 +114,7 @@ test\:integration:
 	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
 	sleep 0.5; \
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
-		"http://localhost:$$PORT/test/auto/integration/" 2>/dev/null | tr -d '\n' > /tmp/front_test_integration.html; \
+		"http://localhost:$$PORT/test/auto/integration/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_integration.html; \
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	END=$$(date +%s); ELAPSED=$$((END - START)); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_integration.html); \
@@ -129,7 +130,7 @@ test\:performance:
 	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
 	sleep 0.5; \
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
-		"http://localhost:$$PORT/test/auto/performance/" 2>/dev/null | tr -d '\n' > /tmp/front_test_performance.html; \
+		"http://localhost:$$PORT/test/auto/performance/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_performance.html; \
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	END=$$(date +%s); ELAPSED=$$((END - START)); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_performance.html); \

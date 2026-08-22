@@ -1,4 +1,4 @@
-test('unset - should set style property to unset', function () {
+test('unset - should unset style property in element', function () {
   var testElement = createElement('div')
   testElement.style.color = 'red'
   app.call('unset:#' + testElement.id + ':[color]')

@@ -53,6 +53,7 @@ var dom = {
     'mapmargin': 'map',
     'mapbindvar': 'map',
     'align': 'apply',
+    'valign': 'apply',
     'alignitems': 'apply',
     'alignself': 'apply',
     'color': 'apply',
@@ -61,6 +62,7 @@ var dom = {
     'borderleft': 'apply',
     'borderright': 'apply',
     'borderbottom': 'apply',
+    'bottom': 'apply',
     'bordertop': 'apply',
     'outline': 'apply',
     'outlinecolor': 'apply',
@@ -117,6 +119,7 @@ var dom = {
     'placeholdercolor': 'apply',
     'radius': 'apply',
     'relative': 'apply',
+    'sticky': 'apply',
     'resize': 'apply',
     'right': 'apply',
     'table': 'apply',
@@ -2793,7 +2796,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 752 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 753 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
