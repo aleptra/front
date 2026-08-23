@@ -299,7 +299,8 @@ app.module.data = {
   _run: function (options, cache) {
     var responseData = cache ? cache : app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', '')),
       selector = '*:not([data-iterate-skip])',
-      element = options.element
+      element = options.element,
+      rootData
 
     var datamerge = element.getAttribute('data-merge'),
       datafilteritem = element.getAttribute('data-filteritem'),
@@ -331,6 +332,8 @@ app.module.data = {
         if (responseDataJoin)
           responseData = this._merge(responseData, this._cloneResponse(responseDataJoin), datamerge)
       }
+
+      rootData = responseData.data
 
       if (datasuccess && responseData.status === 200 && cache) {
         app.call(datasuccess.value, { srcElement: element })
@@ -414,6 +417,7 @@ app.module.data = {
       }
 
       element._dataLoaded = true
+      options.dataRoot = rootData
       this._traverse(options, responseData, element, selector)
     }
   },
@@ -436,7 +440,8 @@ app.module.data = {
       dataLimitValue = dataLimit === null ? null : parseInt(dataLimit, 10),
       dataPageValue = dataPage === null ? null : parseInt(dataPage, 10),
       dataPagesizeValue = dataPagesize === null ? null : parseInt(dataPagesize, 10),
-      context = options.dataContext !== undefined ? options.dataContext : responseData.data
+      context = options.dataContext !== undefined ? options.dataContext : responseData.data,
+      dataRoot = options.dataRoot !== undefined ? options.dataRoot : responseData.data
 
     if (dataLimitValue !== null && (isNaN(dataLimitValue) || dataLimitValue < 0)) dataLimitValue = null
     if (dataPageValue !== null && (isNaN(dataPageValue) || dataPageValue < 1)) dataPageValue = null
@@ -447,7 +452,11 @@ app.module.data = {
     // Nested iterate elements can filter and transform the inherited response independently.
     // Source elements are transformed in _run before traversal begins.
     if (datafilteritem) {
-      context = this._filter(context, datafilteritem, datafilterkey).data
+      var filterContext = context
+      if (datafilterkey && (!context || context[datafilterkey] === undefined) && dataRoot && dataRoot[datafilterkey] !== undefined) {
+        filterContext = dataRoot
+      }
+      context = this._filter(filterContext, datafilteritem, datafilterkey).data
     }
 
     if (datasort || dataLimitValue !== null || pagingEnabled) {
@@ -469,7 +478,7 @@ app.module.data = {
 
     var responseObject = iterate === 'true'
       ? context
-      : app.element.getPropertyByPath(context, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate),
+      : app.element.getPropertyByPath(context, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate) || app.element.getPropertyByPath(dataRoot, iterate),
       total = iterate && responseObject && responseObject.length - 1 || 0
 
     // Fire data-onkeyempty when the resolved key is missing or has no items.
@@ -593,6 +602,7 @@ app.module.data = {
             element: childIterate,
             k: k,
             dataContext: childContext,
+            dataRoot: dataRoot,
             originalHtml: nestedTemplateByName[childName]
           }, responseData, childIterate, selector)
         }

@@ -476,6 +476,43 @@ test('data-filter - nested child filters can share one named source array', func
   assertEqual(turkeyItems[0].textContent, 'Göbekli Tepe')
 })
 
+test('data-iterate - nested child can use a root collection without data-src', function () {
+  if (!app.module.data) return
+
+  var mockData = {
+    locations: [
+      { id: 'site-1', name: 'Example site' }
+    ],
+    location_evidence: [
+      { location_id: 'site-1', title: 'Inscribed tablet' },
+      { location_id: 'site-2', title: 'Unrelated evidence' }
+    ]
+  }
+
+  var parent = createElement('section')
+  parent.setAttribute('data-src', 'mock://archaeology-root-context')
+  parent.setAttribute('data-filterkey', 'locations')
+  parent.setAttribute('data-filteritem', "id:'site-1'")
+  parent.innerHTML =
+    '<h1 data-get="name"></h1>' +
+    '<div data-filterkey="location_evidence" data-filteritem="location_id:\'site-1\'" data-iterate="location_evidence">' +
+    '<span data-get="title"></span>' +
+    '</div>'
+
+  app.element.saveOriginalValues(parent)
+  app.element.saveOriginalValues(parent.querySelector('[data-iterate]'))
+
+  app.module.data._run(
+    { storageKey: 'mock-root-context', iterate: undefined, element: parent },
+    { data: mockData, status: 200 }
+  )
+
+  var evidence = parent.querySelector('[data-iterate]')
+  assertEqual(parent.querySelector('h1').textContent, 'Example site')
+  assertEqual(evidence.querySelectorAll('span').length, 1)
+  assertEqual(evidence.querySelector('span').textContent, 'Inscribed tablet')
+})
+
 test('data-filter - nested child filters handle single and empty matches', function () {
   if (!app.module.data) return
 
@@ -928,4 +965,109 @@ test('data-page - boundary events update declarative navigation controls', funct
     data._traverse = originalTraverse
     data._rerun = originalRerun
   }
+})
+
+test('data-iterate - root collection fallback supports sort and limit', function () {
+  if (!app.module.data) return
+
+  var mockData = {
+    locations: [{ id: 'site-1' }],
+    location_evidence: [
+      { location_id: 'site-1', title: 'Zeta' },
+      { location_id: 'site-1', title: 'Alpha' },
+      { location_id: 'site-2', title: 'Other' }
+    ]
+  }
+  var parent = createElement('section')
+  parent.setAttribute('data-src', 'mock://archaeology-root-sort-limit')
+  parent.setAttribute('data-filterkey', 'locations')
+  parent.setAttribute('data-filteritem', "id:'site-1'")
+  parent.innerHTML = '<div data-filterkey="location_evidence" data-filteritem="location_id:\'site-1\'" data-iterate="location_evidence" data-sort="title" data-limit="1"><span data-get="title"></span></div>'
+
+  app.element.saveOriginalValues(parent)
+  app.element.saveOriginalValues(parent.querySelector('[data-iterate]'))
+  app.module.data._run({ storageKey: 'mock-root-sort-limit', iterate: undefined, element: parent }, { data: mockData, status: 200 })
+
+  var evidence = parent.querySelector('[data-iterate]')
+  assertEqual(evidence.querySelectorAll('span').length, 1)
+  assertEqual(evidence.querySelector('span').textContent, 'Alpha')
+})
+
+test('data-iterate - root collection fallback supports pagination', function () {
+  if (!app.module.data) return
+
+  var mockData = {
+    locations: [{ id: 'site-1' }],
+    location_evidence: [
+      { location_id: 'site-1', title: 'First' },
+      { location_id: 'site-1', title: 'Second' },
+      { location_id: 'site-1', title: 'Third' }
+    ]
+  }
+  var parent = createElement('section')
+  parent.setAttribute('data-src', 'mock://archaeology-root-pagination')
+  parent.setAttribute('data-filterkey', 'locations')
+  parent.setAttribute('data-filteritem', "id:'site-1'")
+  parent.innerHTML = '<div data-filterkey="location_evidence" data-filteritem="location_id:\'site-1\'" data-iterate="location_evidence" data-page="2" data-pagesize="1"><span data-get="title"></span></div>'
+
+  app.element.saveOriginalValues(parent)
+  app.element.saveOriginalValues(parent.querySelector('[data-iterate]'))
+  app.module.data._run({ storageKey: 'mock-root-pagination', iterate: undefined, element: parent }, { data: mockData, status: 200 })
+
+  var evidence = parent.querySelector('[data-iterate]')
+  assertEqual(evidence.querySelectorAll('span').length, 1)
+  assertEqual(evidence.querySelector('span').textContent, 'Second')
+  assertEqual(evidence._dataPaging.page, 2)
+})
+
+test('data-iterate - root collection fallback works through deeper nesting', function () {
+  if (!app.module.data) return
+
+  var mockData = {
+    locations: [{ id: 'site-1' }],
+    location_evidence: [{ id: 'evidence-1', location_id: 'site-1', title: 'Tablet' }],
+    evidence_details: [{ evidence_id: 'evidence-1', text: 'Cuneiform inscription' }]
+  }
+  var parent = createElement('section')
+  parent.setAttribute('data-src', 'mock://archaeology-root-deep')
+  parent.setAttribute('data-filterkey', 'locations')
+  parent.setAttribute('data-filteritem', "id:'site-1'")
+  parent.innerHTML =
+    '<div data-filterkey="location_evidence" data-filteritem="location_id:\'site-1\'" data-iterate="location_evidence">' +
+    '<span data-get="title"></span>' +
+    '<section data-filterkey="evidence_details" data-filteritem="evidence_id:\'evidence-1\'" data-iterate="evidence_details"><span data-get="text"></span></section>' +
+    '</div>'
+
+  app.element.saveOriginalValues(parent)
+  var iterates = parent.querySelectorAll('[data-iterate]')
+  for (var i = 0; i < iterates.length; i++) app.element.saveOriginalValues(iterates[i])
+  app.module.data._run({ storageKey: 'mock-root-deep', iterate: undefined, element: parent }, { data: mockData, status: 200 })
+
+  var evidence = parent.querySelectorAll('[data-iterate]')[0]
+  var details = parent.querySelectorAll('[data-iterate]')[1]
+  assertEqual(evidence.querySelector('span').textContent, 'Tablet')
+  assertEqual(details.querySelector('span').textContent, 'Cuneiform inscription')
+})
+
+test('data-iterate - local child collection takes precedence over root collection', function () {
+  if (!app.module.data) return
+
+  var mockData = {
+    locations: [{
+      id: 'site-1',
+      location_evidence: [{ title: 'Nested evidence' }]
+    }],
+    location_evidence: [{ title: 'Root evidence' }]
+  }
+  var parent = createElement('section')
+  parent.setAttribute('data-src', 'mock://archaeology-local-precedence')
+  parent.setAttribute('data-filterkey', 'locations')
+  parent.setAttribute('data-filteritem', "id:'site-1'")
+  parent.innerHTML = '<div data-filterkey="location_evidence" data-iterate="location_evidence"><span data-get="title"></span></div>'
+
+  app.element.saveOriginalValues(parent)
+  app.element.saveOriginalValues(parent.querySelector('[data-iterate]'))
+  app.module.data._run({ storageKey: 'mock-local-precedence', iterate: undefined, element: parent }, { data: mockData, status: 200 })
+
+  assertEqual(parent.querySelector('[data-iterate] span').textContent, 'Nested evidence')
 })
