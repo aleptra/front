@@ -965,7 +965,10 @@ app.module.data = {
     }
 
     collection = collection.slice()
-    if (sortKey) this._sort(collection, sortKey, sortOrder)
+
+    // Resolve the sort path relative to the selected collection.
+    var localSortKey = app.element.getRelativePath(path, sortKey)
+    if (localSortKey) this._sort(collection, localSortKey, sortOrder)
     if (limit !== null) collection = collection.slice(0, limit)
 
     if (pagingEnabled) {

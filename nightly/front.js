@@ -1713,6 +1713,7 @@ var app = {
   spa: false,
   vars: { total: 0, totalStore: 0, loaded: 0 },
   modules: { total: 0, loaded: 0 },
+  extensions: {},
 
   /**
    * @function resetStyles
@@ -2515,6 +2516,18 @@ var app = {
     },
 
     /**
+     * @function getRelativePath
+     * @memberof app.element
+     * @desc Removes a parent path prefix from a nested property path.
+     */
+    getRelativePath: function (path, value) {
+      var prefix = path ? path + '.' : ''
+      return prefix && value && value.indexOf(prefix) === 0
+        ? value.substring(prefix.length)
+        : value
+    },
+
+    /**
      * @function extractBracketValues
      * @memberof app.element
      */
@@ -2796,7 +2809,7 @@ var app = {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 0, patch: 0, build: 754 },
+    frontVersion: { major: 1, minor: 0, patch: 0, build: 755 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
