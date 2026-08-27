@@ -1,13 +1,13 @@
 SHELL := /bin/bash
 
 .DEFAULT_GOAL := default
-.PHONY: default nightly release test test\:unit test\:integration test\:performance
+.PHONY: default latest release test test\:unit test\:integration test\:performance
 
 default:
 	@if git diff --quiet && git diff --cached --quiet && [ -z "$$(git ls-files --others --exclude-standard)" ]; then \
 		echo "Nothing to do"; \
 	else \
-		$(MAKE) nightly; \
+		$(MAKE) latest; \
 	fi
 
 SRC = src
@@ -29,12 +29,12 @@ define minify
 	> $(2)
 endef
 
-nightly: test
+latest: test
 	@sed -i '' -E 's/(build:[[:space:]]+)[0-9]+/\1$(TAG)/g' $(JS_FILE)
 	@echo "Build: $(TAG) (v$(VERSION))"
 	@rsync -av --exclude=test $(SRC)/ nightly/
 	@$(call minify,$(JS_FILE),nightly/$(JS_MIN_FILE))
-	@echo "Built nightly"
+	@echo "Built latest"
 	@read -p "Deploy? [y/n]: " ans; \
 	if [ "$$ans" != "y" ]; then \
 		files=$$(git ls-files 'src/front*.js' 'nightly/front*.js'); \
@@ -46,7 +46,7 @@ nightly: test
 		exit 1; \
 	fi
 	@git add . && git commit -m "Build $(TAG)" && git push
-	@echo "✅ Deployed nightly"
+	@echo "✅ Deployed latest: $(TAG)"
 
 release: test
 	@if ! command -v gh &> /dev/null; then echo "Error: gh (GitHub CLI) is required. Install with: brew install gh"; exit 1; fi
