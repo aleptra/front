@@ -216,7 +216,7 @@ app.plugin.syntaxhighlighting = {
     text = text.trim()
 
     // Shell scripts
-    if (/^#!(\w+)\/(\w+)/g.test(text)) return 'shell'
+    if (/^#!\/?(\w+)\/(\w+)/g.test(text)) return 'shell'
     // JavaScript
     if (/\bfunction\s*(\w*\s*)\(/.test(text)) return 'javascript'
     // HTML
@@ -276,7 +276,7 @@ app.plugin.syntaxhighlighting = {
     var color = colors.split(','),
       style = this.markupElement
 
-    var rep = text.replace(/^#!(\w+)\/(\w+)/g, function (match) {
+    var rep = text.replace(/^#!\/?(\w+)\/(\w+)/g, function (match) {
       return '<mark style="' + style + color[0] + '">' + match + '</mark>'
     })
 

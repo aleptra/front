@@ -177,6 +177,86 @@
     return { get get() { return lastCall } }
   }
 
+  /**
+   * Temporarily replaces an object method and always restores it.
+   */
+  global.withStub = function (obj, method, replacement, callback) {
+    var original = obj[method]
+    obj[method] = replacement
+    try {
+      return callback(original)
+    } finally {
+      obj[method] = original
+    }
+  }
+
+  /**
+   * Temporarily replaces a property, including browser globals, and restores its descriptor.
+   */
+  global.withProperty = function (obj, property, value, callback) {
+    var descriptor = Object.getOwnPropertyDescriptor(obj, property)
+    var hadProperty = Object.prototype.hasOwnProperty.call(obj, property)
+    try {
+      Object.defineProperty(obj, property, {
+        configurable: true,
+        enumerable: descriptor ? descriptor.enumerable : true,
+        writable: true,
+        value: value
+      })
+    } catch (e) {
+      obj[property] = value
+    }
+
+    try {
+      return callback(descriptor)
+    } finally {
+      try {
+        if (hadProperty) Object.defineProperty(obj, property, descriptor)
+        else delete obj[property]
+      } catch (e) {
+        obj[property] = descriptor && descriptor.value
+      }
+    }
+  }
+
+  /**
+   * Temporarily sets a local/session storage value and restores the previous value afterward.
+   */
+  global.withStorage = function (mechanism, key, value, callback) {
+    var store = mechanism === 'session' ? sessionStorage : localStorage
+    var previous = store.getItem(key)
+    if (value === null || value === undefined) store.removeItem(key)
+    else store.setItem(key, typeof value === 'string' ? value : JSON.stringify(value))
+
+    try {
+      return callback(store)
+    } finally {
+      if (previous === null) store.removeItem(key)
+      else store.setItem(key, previous)
+    }
+  }
+
+  /**
+   * Creates a test element with optional attributes and inner HTML.
+   */
+  global.createFixture = function (tag, attributes, html) {
+    var element = createElement(tag)
+    attributes = attributes || {}
+    for (var name in attributes) {
+      if (attributes.hasOwnProperty(name)) element.setAttribute(name, attributes[name])
+    }
+    if (html !== undefined) element.innerHTML = html
+    return element
+  }
+
+  global.assertContains = function (actual, expected) {
+    return assertTrue(String(actual).indexOf(expected) !== -1)
+  }
+
+  global.assertNotContains = function (actual, expected) {
+    return assertFalse(String(actual).indexOf(expected) !== -1)
+  }
+
   global.measure = function (fn) {
     var startTime = performance.now()
     fn()
@@ -193,6 +273,22 @@
     return scripts[scripts.length - 1]
   }())
 
+  function loadExtraTests() {
+    var extra = _testScript && _testScript.getAttribute('extra'),
+      files = extra && extra.split(';') || []
+
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i].replace(/^\s+|\s+$/g, '')
+      if (f) {
+        var sc = document.createElement('script')
+        sc.src = f + '.js'
+        sc.async = false
+        sc.onerror = function () { missing++ }
+        document.head.appendChild(sc)
+      }
+    }
+  }
+
   function autoload() {
     var attr = _testScript && _testScript.getAttribute('autoload')
 
@@ -206,6 +302,9 @@
       app.log.info('Loaded filtered script (priority):', filterTest)
       return
     }
+
+    // Otherwise, load explicitly listed local coverage before the normal manifest.
+    loadExtraTests()
 
     // Otherwise, continue with the normal autoload logic.
     if (!attr) return

@@ -642,6 +642,7 @@ app.plugin.svgworldmap = {
   },
 
   filter: function (object, tags) {
+    if (tags === undefined && object && object.exec) tags = object.exec.value
     var target = object && object.exec ? object.exec.element || (object.options && object.options.element) : object
     if (!target || !target.nodeType) return
 

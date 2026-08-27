@@ -1,0 +1,12 @@
+test('progressbar-set - creates pseudo-element styles through progressbar--set', function () {
+  var progress = createElement('progress')
+  progress.setAttribute('radius', '4px')
+  progress.setAttribute('color', 'red')
+  progress.setAttribute('bgcolor', 'black')
+  progress.setAttribute('progressbar--set', '')
+  app.call('rerun', { element: progress })
+  var style = document.getElementById('pb-' + progress.id)
+  assertTrue(!!style)
+  assertContains(style.textContent, 'red')
+  style.remove()
+})
