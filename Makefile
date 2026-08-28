@@ -32,7 +32,7 @@ endef
 latest: test
 	@sed -i '' -E 's/(build:[[:space:]]+)[0-9]+/\1$(TAG)/g' $(JS_FILE)
 	@echo "Build: $(TAG) (v$(VERSION))"
-	@rsync -av --exclude=test $(SRC)/ nightly/
+	@rsync -av --exclude='/test/' --delete --delete-excluded $(SRC)/ nightly/
 	@$(call minify,$(JS_FILE),nightly/$(JS_MIN_FILE))
 	@echo "Built latest"
 	@read -p "Deploy? [y/n]: " ans; \
