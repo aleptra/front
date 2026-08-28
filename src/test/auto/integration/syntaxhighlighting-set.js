@@ -7,3 +7,13 @@ test('syntaxhighlighting-set - highlights markup through syntaxhighlighting--set
   app.call('rerun', { element: element })
   assertTrue(element.querySelectorAll('mark').length > 0)
 })
+
+test('syntaxhighlighting-set - highlights JSON values through syntaxhighlighting--set', function () {
+  var plugin = app.plugin.syntaxhighlighting
+  plugin.__autoload({ name: 'syntaxhighlighting', element: document.body })
+  var element = createElement('code')
+  element.textContent = '{"name":"Front","enabled":true,"version":1}'
+  element.setAttribute('syntaxhighlighting--set', '')
+  app.call('rerun', { element: element })
+  assertTrue(element.querySelectorAll('mark').length >= 4)
+})

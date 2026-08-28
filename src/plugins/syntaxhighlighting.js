@@ -29,6 +29,8 @@ app.plugin.syntaxhighlighting = {
       object.innerHTML = this._colorizeShell(object.innerHTML, this.config.shellColors || this.config.colors)
     } else if (language === 'javascript') {
       object.innerHTML = this._colorizeJavaScript(object.innerHTML, this.config.javascriptColors || this.config.colors)
+    } else if (language === 'json') {
+      object.innerHTML = this._colorizeJson(object.innerHTML, this.config.javascriptColors || this.config.colors)
     }
 
     if (object.isContentEditable) {
@@ -73,6 +75,8 @@ app.plugin.syntaxhighlighting = {
               colorized = self._colorizeJavaScript(escaped, self.config.javascriptColors || self.config.colors)
             } else if (lang === 'shell') {
               colorized = self._colorizeShell(escaped, self.config.shellColors || self.config.colors)
+            } else if (lang === 'json') {
+              colorized = self._colorizeJson(escaped, self.config.javascriptColors || self.config.colors)
             }
 
             object.innerHTML = colorized
@@ -217,6 +221,14 @@ app.plugin.syntaxhighlighting = {
 
     // Shell scripts
     if (/^#!\/?(\w+)\/(\w+)/g.test(text)) return 'shell'
+    // JSON
+    try {
+      JSON.parse(text)
+      return 'json'
+    } catch (e) {
+      // Continue with the other language detectors.
+    }
+
     // JavaScript
     if (/\bfunction\s*(\w*\s*)\(/.test(text)) return 'javascript'
     // HTML
@@ -300,5 +312,20 @@ app.plugin.syntaxhighlighting = {
     })
 
     return rep
+  },
+
+  _colorizeJson: function (text, colors) {
+    var color = colors.split(','),
+      style = this.markupElement
+
+    return text.replace(/"(?:\\.|[^"\\])*"(?:\s*:)?|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|\b(?:true|false|null)\b/g, function (match) {
+      var key = match.match(/^("(?:\\.|[^"\\])*")(\s*:)?$/)
+      if (key) {
+        return '<mark style="' + style + (key[2] ? color[0] : color[1]) + '">' + key[1] + '</mark>' + (key[2] || '')
+      }
+
+      var valueColor = /^-?\d/.test(match) ? color[2] : color[3]
+      return '<mark style="' + style + valueColor + '">' + match + '</mark>'
+    })
   }
 }
