@@ -1,0 +1,360 @@
+'use strict'
+
+app.module.navigate = {
+
+  /**
+   * @function _autoload
+   * @memberof app.module.navigate
+   * @param {object} options - The script element to load the configuration for.
+   * @private
+   */
+  __autoload: function (options) {
+    app.spa = this // Enable Single Page Application support using this module.
+
+    this.config = app.config.get('navigate', {
+      target: 'main',
+      preloader: '#navloader',
+      startpage: false,
+      startpageLocal: false,
+      error: false,
+      success: false,
+      onleave: false,
+      onenter: false,
+      transition: 'fade',
+      duration: 400,
+    }, options.element)
+
+    // Fresh page load: hide instantly, fade in when framework is ready.
+    document.documentElement.style.opacity = '0'
+    var _originalDisable = app.disable.bind(app)
+    app.disable = function (bool) {
+      _originalDisable(bool)
+      if (!bool) app.spa._effect(document.documentElement)
+    }
+
+    this.mainTarget = app.element.select(this.config.target)
+
+    app.listeners.add(window, 'popstate', this._pop.bind(this))
+    app.listeners.add(window, 'hashchange', this._hash.bind(this))
+    app.listeners.add(document, 'click', this._click.bind(this))
+
+    this._bindScroll()
+    this._restoreScroll()
+  },
+
+  go: function (event) {
+    var a = document.createElement('a')
+    a.href = event.exec.value || ''
+    document.body.appendChild(a).click()
+    a.remove()
+  },
+
+  back: function () {
+    history.back()
+  },
+
+  forward: function () {
+    history.forward()
+  },
+
+  _effect: function (el) {
+    var duration = (this.config.duration) + 'ms',
+      transition = this.config.transition || 'fade'
+
+    if (transition === 'none') { el.style.opacity = '1'; return }
+    el.style.transition = 'opacity ' + duration + ' ease'
+    el.style.opacity = '1'
+  },
+
+  _bindScroll: function () {
+    var self = this
+    this.mainTarget = app.element.select(this.config.target)
+    if (!this.mainTarget) return
+    this._scrollHandler = function () {
+      if (self._scrollTimer) clearTimeout(self._scrollTimer)
+      self._scrollTimer = setTimeout(function () {
+        if (!self._restoring) self._saveScroll()
+      }, 500)
+    }
+    app.listeners.add(this.mainTarget, 'scroll', this._scrollHandler)
+  },
+
+  /**
+   * Returns the cache key for the current page (pathname + query string).
+   */
+  _scrollKey: function () {
+    return '_' + window.location.pathname + window.location.search
+  },
+
+  /**
+   * Saves current scroll position for the current page.
+   */
+  _saveScroll: function () {
+    if (!this.mainTarget) return
+    var scrollTop = this.mainTarget.scrollTop || 0,
+      key = this._scrollKey()
+
+    app.caches.set('window', 'module', 'navigate' + key, { data: '{"top":' + scrollTop + '}' })
+  },
+
+  /**
+   * Restores scroll position when page is reloaded or navigated back,
+   * waiting until the content is fully rendered or timeout reached.
+   */
+  _restoreScroll: function (waitForChange) {
+    var self = this,
+      key = self._scrollKey(),
+      saved = app.caches.get('window', 'module', 'navigate' + key, { fetchJson: true }),
+      step = 200,
+      delay = 600
+
+    if (!saved) {
+      self._restoring = false
+      return
+    }
+
+    self._restoring = true
+    var mainTarget = self.mainTarget, lastHeight = 0, stable = 0
+
+    app.wait(waitForChange ? delay : 0, function poll() {
+      var h = mainTarget.scrollHeight
+      stable = (h === lastHeight) ? stable + 1 : 0
+      lastHeight = h
+      if (stable >= 3) {
+        dom.scroll(self.config.target, parseInt(saved.top, 10))
+        self._restoring = false
+      } else {
+        app.wait(step, poll)
+      }
+    })
+  },
+
+  /**
+   * @function _click
+   * @memberof app.module.navigate
+   * @private
+   */
+  _click: function (event) {
+    var link = app.element.getTagLink(event.target),
+      href = link && link.attributes.href
+
+    if (link && href) {
+      // Support href in all elements.
+      if (link.localName !== 'a') {
+        link.href = href.value
+        link.pathname = href.value
+      }
+
+      if (link.hash) {
+        this._hash(link)
+      } else if (link.href) {
+        if (link.target === '_blank') return
+
+        var pushState = link.getAttribute('navigate-pushstate') === 'false' ? false : true,
+          target = link.target === '_top' ? 'html' : link.target || this.config.target,
+          explicitTarget = link.getAttribute('target')
+
+        var state = {
+          'href': link.href,
+          // Keep the query string because page navigation uses state.pathname as the XHR URL.
+          'pathname': link.pathname + (link.search || ''),
+          'target': target,
+          // Targeted links load partial content and must not render page templates.
+          'skipTemplates': !!explicitTarget && target !== 'html',
+          'arg': { disableSrcdoc: true, runAttributes: true }
+        }
+
+        // Save scroll position for current page before URL changes.
+        if (this._scrollTimer) clearTimeout(this._scrollTimer)
+        this._saveScroll()
+
+        // Prevent duplicate history entries.
+        if (link.href !== window.location.href && pushState) history.pushState(state, '', link.href)
+
+        this._restoring = true
+        this._scroll() // Reset scroll to top.
+
+        var self = this
+        app.wait(300, function () { self._restoring = false })
+
+        var onloaded = document.body.getAttribute('navigate-onloaded')
+        if (onloaded) app.call(onloaded)
+
+        this._load(state) // Load page
+      }
+      return event.preventDefault()
+    }
+  },
+
+  /**
+   * @function _pop
+   * @memberof app.module.navigate
+   * @private
+   */
+  _pop: function (event) {
+    var state = (event.state) ? event.state : {
+      'href': window.location.href,
+      'pathname': window.location.pathname + window.location.search,
+      'hash': window.location.hash,
+      'target': !event.state ? this.config.target : 'html',
+      'extension': false,
+      'arg': { disableSrcdoc: true, runAttributes: true }
+    }
+
+    this._restoring = true
+    this._load(state)
+    if (state.hash) this._hash(state)
+
+    // Restore scroll position after load
+    this._restoreScroll(true)
+  },
+
+  /**
+   * @function _load
+   * @memberof app.module.navigate
+   * @private
+   */
+  _load: function (state) {
+    var self = this,
+      regex = /^\/+|\/+$/g,
+      startpage = app.isLocalNetwork ? this.config.startpageLocal : this.config.startpage || '/'
+
+    if (startpage && (state.pathname === '/' || state.pathname.replace(regex, '') === startpage.replace(regex, ''))) {
+      app.disable(true)
+      state.target = 'html'
+      state.extension = false
+      app.globals.set('isFrontpage', true)
+    } else {
+      app.globals.set('isFrontpage', false)
+    }
+
+    var isHtml = state.target === 'html',
+      fadeEl = isHtml ? document.documentElement : app.element.select(state.target)
+
+    // Hide the target.
+    if (fadeEl) { fadeEl.style.transition = 'none'; fadeEl.style.opacity = '0' }
+
+    if (this.config.onleave) app.call(this.config.onleave)
+
+    var successFn = this.config.onenter || this.config.success || ''
+
+    // For non-html: fade in from success (fires after dom.set).
+    if (!this.config.onenter && !isHtml) {
+      app.module.navigate._enterCallback = function () {
+        var el = app.element.select(state.target)
+        if (el) self._effect(el)
+        if (self.config.success) app.call(self.config.success)
+      }
+      successFn = 'navigate-_enterCallback'
+    }
+    // For html/startpage: app.disable(false) from finalize() handles fade-in via the patch.
+
+    app.xhr.request({
+      url: state.pathname,
+      urlExtension: state.extension,
+      target: state.target,
+      skipTemplates: state.skipTemplates,
+      single: true,
+      type: 'page',
+      onprogress: { preloader: this.config.preloader },
+      onload: {
+        run: {
+          func: 'app.attributes.run',
+          arg: state.target + ' *'
+        }
+      },
+      error: this.config.error || '',
+      success: successFn,
+    })
+
+    if (isHtml) app.wait(100, function () { self._bindScroll() })
+
+    this._preloader.set(this.config.preloader)
+    this._preloader.reset()
+  },
+
+  _hash: function (link) {
+    var hash = link && link.hash
+    if (hash) {
+      var targetElement = app.element.select(hash)
+      if (targetElement) this._scroll('smooth', targetElement.offsetTop)
+    }
+  },
+
+  _scroll: function (behavior, top) {
+    var target = app.element.select('main') || app.element.select('html')
+    if (target.scrollTo) target.scrollTo({ top: top || 0, behavior: behavior || 'instant' })
+    else target.scrollTop = top || 0
+  },
+
+  /**
+   * @function _preloader
+   * @memberof app.module.navigate
+   * @private
+   */
+  _preloader: {
+    intervalId: null,
+    treshold: 10000,
+    increment: 5,
+    element: null,
+    elementChild: null,
+    eventCount: 0,
+    isFastPage: true,
+
+    set: function (selector) {
+      this.element = app.element.select(selector)
+      this.elementChild = this.element.firstElementChild
+    },
+
+    load: function (e, onprogress) {
+      if (!this.elementChild) return
+      if (onprogress) this.eventCount++
+      if (this.isFastPage) this.eventCount = 0
+      this.isFastPage = true
+
+      var loaded = e.loaded || 0,
+        total = e.total || (e.target.getResponseHeader('Content-Length') || e.target.getResponseHeader('content-length')) || 0,
+        percent = Math.round((loaded / total) * 100) || 0
+
+      if (loaded !== total && total >= this.treshold) { // Slow page
+        this.isFastPage = false
+        if (percent <= 100 && this.eventCount > 0) this.progress(percent)
+      } else { // Fast page
+        if (this.isFastPage && this.eventCount < 3)
+          this.intervalId = requestAnimationFrame(this.animate.bind(this))
+        else
+          this.progress(100)
+      }
+    },
+
+    animate: function () {
+      var self = this, width = 0
+      function animateFrame() {
+        width += self.increment
+        self.progress(width)
+        if (width <= 100) requestAnimationFrame(animateFrame)
+      }
+      requestAnimationFrame(animateFrame)
+    },
+
+    progress: function (width) {
+      this.elementChild.style.width = width + '%'
+      if (width >= 100) this.finish()
+    },
+
+    reset: function () {
+      if (!this.element) return
+      this.progress(0)
+      cancelAnimationFrame(this.intervalId)
+      clearInterval(this.intervalId)
+      dom.show(this.element)
+    },
+
+    finish: function () {
+      app.disable(false)
+      cancelAnimationFrame(this.intervalId)
+      clearInterval(this.intervalId)
+      dom.hide(this.element)
+    },
+  },
+}
