@@ -52,7 +52,13 @@ else
 		echo "Reverted."; \
 		exit 1; \
 	fi
-	@git add . && git commit -m "Build $(TAG)" && git push
+	@git add -- $(BUILD_CHANGES) && \
+	git commit --only -m "Build $(TAG)" -- $(BUILD_CHANGES) && \
+	git add . && \
+	if ! git diff --cached --quiet; then \
+		git commit --allow-empty-message -m ""; \
+	fi && \
+	git push
 	@echo "✅ Deployed latest: $(TAG)"
 endif
 
