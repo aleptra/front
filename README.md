@@ -16,10 +16,10 @@
 
 ### CDN
 
-#### Stable (v1.0.0)
+#### Stable (v1.1.0)
 
 ```html
-<script src="https://cdn.front.nu/1.0.0/front.js"></script>
+<script src="https://cdn.front.nu/1.1.0/front.js"></script>
 ```
 
 _(Also available: `front.min.js`)_
@@ -36,7 +36,7 @@ _(Also available: `front.min.js`)_
 
 ### Download Locally
 
-- [Stable (v1.0.0)](/1.0.0/front.js)
+- [Stable (v1.1.0)](/1.1.0/front.js)
 - [Development (latest)](/nightly/front.js)
 
 ## Documentation

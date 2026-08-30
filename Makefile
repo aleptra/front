@@ -14,6 +14,7 @@ SRC = src
 TEST_QUERY = $(if $(TEST),?test=$(TEST),)
 JS_FILE = $(SRC)/front.js
 JS_MIN_FILE = front.min.js
+README_FILE = README.md
 TAG := $(shell grep -o 'build:[[:space:]]*[0-9]*' $(JS_FILE) | awk -F':' '{ print $$2+1 }')
 VERSION := $(shell grep 'frontVersion' $(JS_FILE) | grep -oE '[0-9]+' | head -3 | paste -sd '.' -)
 
@@ -29,7 +30,12 @@ define minify
 	> $(2)
 endef
 
+BUILD_CHANGES := $(shell git diff --name-only HEAD -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins; git ls-files --others --exclude-standard -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins)
+
 latest: test
+ifeq ($(strip $(BUILD_CHANGES)),)
+	@echo "No distributable JavaScript changes; skipping latest build."
+else
 	@sed -i '' -E 's/(build:[[:space:]]+)[0-9]+/\1$(TAG)/g' $(JS_FILE)
 	@echo "Build: $(TAG) (v$(VERSION))"
 	@rsync -av --exclude='/test/' --delete --delete-excluded $(SRC)/ nightly/
@@ -47,6 +53,7 @@ latest: test
 	fi
 	@git add . && git commit -m "Build $(TAG)" && git push
 	@echo "✅ Deployed latest: $(TAG)"
+endif
 
 release: test
 	@if ! command -v gh &> /dev/null; then echo "Error: gh (GitHub CLI) is required. Install with: brew install gh"; exit 1; fi
@@ -64,6 +71,7 @@ release: test
 	@echo ""
 	@read -p "Commit and tag v$(VERSION)? [y/n]: " ans; \
 	if [ "$$ans" != "y" ]; then rm -rf $(VERSION); echo "Reverted."; exit 1; fi
+	@sed -i '' -E -e 's/Stable \(v[0-9]+\.[0-9]+\.[0-9]+\)/Stable (v$(VERSION))/g' -e 's#(https://cdn\.front\.nu/)[0-9]+\.[0-9]+\.[0-9]+(/front\.js)#\1$(VERSION)\2#g' -e 's#(\]\(/)[0-9]+\.[0-9]+\.[0-9]+(/front\.js\))#\1$(VERSION)\2#g' $(README_FILE)
 	@git add . && git commit -m "Release $(VERSION)" && git push
 	@git tag -a v$(VERSION) -m "v$(VERSION)" && git push origin v$(VERSION)
 	@zip -r front-$(VERSION).zip $(VERSION)
