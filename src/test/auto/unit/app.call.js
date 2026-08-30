@@ -76,3 +76,31 @@ test('app.call - primaryvalue with multiple bracket values', function () {
   assertFalse(stub.get.element).desc('element is false')
   assertEqual(stub.get.value.length, 3).desc('has three values')
 })
+
+test('app.call - if branch dispatches the conditional handler directly', function () {
+  var target = createElement('div')
+  var originalIf = dom.if
+  var originalExec = app.exec
+  var ifCalled = false
+  var execCalled = false
+
+  dom.if = function () {
+    ifCalled = true
+  }
+  app.exec = function () {
+    execCalled = true
+  }
+
+  try {
+    app.call('if:([yes]:[yes])/settext:#' + target.id + ':[matched]', {
+      element: target,
+      srcElement: target
+    })
+  } finally {
+    dom.if = originalIf
+    app.exec = originalExec
+  }
+
+  assertTrue(ifCalled).desc('conditional handler called')
+  assertFalse(execCalled).desc('conditional branch skipped direct app.exec')
+})

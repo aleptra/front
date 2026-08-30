@@ -35,6 +35,7 @@ BUILD_CHANGES := $(shell git diff --name-only HEAD -- Makefile $(SRC)/front.js $
 latest: test
 ifeq ($(strip $(BUILD_CHANGES)),)
 	@echo "No distributable JavaScript changes; skipping latest build."
+	@git add . && git commit --allow-empty-message -m "" && git push
 else
 	@sed -i '' -E 's/(build:[[:space:]]+)[0-9]+/\1$(TAG)/g' $(JS_FILE)
 	@echo "Build: $(TAG) (v$(VERSION))"
