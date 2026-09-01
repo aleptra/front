@@ -708,6 +708,61 @@ var dom = {
   },
 
   /**
+   * @function state
+   * @memberof dom
+   * @param {HTMLElement} object
+   * @param {string} value - The in-memory state key.
+   * @desc Binds form controls and output elements to app.state.
+   */
+  state: function (object, value) {
+    var key = value && value.trim ? value.trim() : value,
+      isControl = object.localName === 'input' || object.localName === 'select' || object.localName === 'textarea'
+
+    if (!key || !app.state) return
+
+    function render(stateValue) {
+      stateValue = stateValue === undefined || stateValue === null ? '' : String(stateValue)
+      if (isControl) {
+        if (app.element.get(object) !== stateValue) app.element.set(object, stateValue)
+        return
+      }
+
+      var template = object._stateTemplate
+      if (template === undefined) template = object._stateTemplate = object.innerHTML
+      if (template.indexOf('{state') !== -1) {
+        object.originalHtml = template
+        app.variables.reset.content(object)
+        app.variables.update.content(object, 'state', stateValue)
+      } else {
+        object.textContent = stateValue
+      }
+    }
+
+    if (!object._stateSubscribed) {
+      object._stateSubscribed = true
+      object._stateUnsubscribe = app.state.subscribe(function (state) {
+        render(state[key])
+        if (object.getAttribute('onstate')) {
+          object.executed = object.executed || {}
+          app.element.runOnEvent({ exec: { func: 'state', element: object } })
+        }
+      })
+    }
+
+    var current = app.state.get(key)
+    if (isControl && current === undefined) app.state.set(key, app.element.get(object))
+    else render(current)
+
+    if (isControl && !object._stateChangeHandler) {
+      object._stateChangeHandler = function () { app.state.set(key, app.element.get(object)) }
+      app.listeners.add(object, 'change', object._stateChangeHandler)
+      if (object.localName === 'input' || object.localName === 'textarea') {
+        app.listeners.add(object, 'input', object._stateChangeHandler)
+      }
+    }
+  },
+
+  /**
    * @function submit
    * @memberof dom
    * @param {*} object
@@ -2804,12 +2859,72 @@ var app = previousApp || {
   },
 
   /**
+   * @namespace state
+   * @memberof app
+   * @desc Provides lightweight in-memory application state and subscriptions.
+   */
+  state: (function () {
+    var current = {},
+      subscribers = []
+
+    function notify() {
+      for (var i = 0, list = subscribers.slice(); i < list.length; i++) {
+        try {
+          list[i](current)
+        } catch (e) {
+          app.log.error()('State subscriber error:', e)
+        }
+      }
+    }
+
+    return {
+      get: function (name) {
+        return name === undefined ? current : current[name]
+      },
+
+      set: function (name, value) {
+        var changes = typeof name === 'string' ? {} : name,
+          next = {},
+          changed = false,
+          key
+
+        if (typeof name === 'string') changes[name] = value
+        if (!changes || typeof changes !== 'object' || Array.isArray(changes)) return current
+
+        for (key in current) {
+          if (Object.prototype.hasOwnProperty.call(current, key)) next[key] = current[key]
+        }
+        for (key in changes) {
+          if (Object.prototype.hasOwnProperty.call(changes, key)) {
+            if (current[key] !== changes[key]) changed = true
+            next[key] = changes[key]
+          }
+        }
+
+        if (!changed) return current
+        current = next
+        notify()
+        return current
+      },
+
+      subscribe: function (listener) {
+        if (typeof listener !== 'function') return function () { }
+        subscribers.push(listener)
+        return function () {
+          var index = subscribers.indexOf(listener)
+          if (index !== -1) subscribers.splice(index, 1)
+        }
+      }
+    }
+  })(),
+
+  /**
    * @namespace globals
    * @memberof app
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 765 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 766 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
