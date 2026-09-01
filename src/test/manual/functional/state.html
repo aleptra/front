@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>State</h1>
+  <p>These examples use the in-memory <code>state</code> FTML attribute. Reloading the page resets the state.</p>
+
+  <h2>Select state</h2>
+  <label for="docVersion">Version:</label>
+  <select id="docVersion" state="docVersion" name="version">
+    <option value="1.1.0" selected>1.1.0</option>
+    <option value="1.0.0">1.0.0</option>
+  </select>
+
+  <p>Template subscriber: <strong state="docVersion">{state}</strong></p>
+  <p>Second subscriber: <span state="docVersion">{state}</span></p>
+  <p>Fallback subscriber: <span state="missingVersion">{state:No version available}</span></p>
+  <p>Plain output subscriber: <span state="docVersion">Waiting for a version</span></p>
+  <h2>State events</h2>
+  <p id="stateEvent">Waiting for a change</p>
+  <span state="docVersion" onstate="settext:#stateEvent:[state event fired]" hide></span>
+  <h2>Input state</h2>
+  <label for="stateMessage">Message:</label>
+  <input id="stateMessage" type="text" state="message" value="Initial message">
+  <p>Input output: <span state="message">{state}</span></p>
+
+  <h2>Textarea state</h2>
+  <textarea id="stateNotes" state="notes" rows="3">Initial notes</textarea>
+  <p>Textarea output:</p>
+  <pre state="notes">{state}</pre>
+</body>
+
+</html>

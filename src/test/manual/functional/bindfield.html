@@ -132,6 +132,18 @@
     <option data-get="name"></option>
   </select>
 
+  <h4>Select value binding:</h4>
+  <select
+    id="docVersion"
+    name="version"
+    bindfield="value:#selectedVersion"
+    onvaluechange="rerun:#selectedVersion"
+  >
+    <option value="1.1.0" selected>1.1.0</option>
+    <option value="1.0.0">1.0.0</option>
+  </select>
+  <span id="selectedVersion" onbindfield="alert:[Value changed {value}]">{value}</span>
+
   <section>
     <h4>Bindfield with reloadcontent false</h4>
     <form flex flexdirection="row" onformsubmit="alert:[OK];reset">

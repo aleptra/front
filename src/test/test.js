@@ -161,6 +161,13 @@
     return el
   }
 
+  global.dispatchTestEvent = function (element, type, bubbles, cancelable) {
+    var event = document.createEvent('Event')
+    event.initEvent(type, bubbles !== false, cancelable !== false)
+    element.dispatchEvent(event)
+    return event
+  }
+
   /**
    * @function createStub
    * @memberof global
