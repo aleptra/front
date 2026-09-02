@@ -126,6 +126,12 @@ app.module.data = {
     return this.src(element)
   },
 
+  rerun: function (object) {
+    var element = this._pagingTarget(object)
+    if (!element) return
+    return this._rerun(element)
+  },
+
   page: function (object) {
     if (!object || !object.exec) return object
     return this.goTo(this._pagingTarget(object), this._pagingValue(object), object)
@@ -303,7 +309,9 @@ app.module.data = {
       rootData
 
     var datamerge = element.getAttribute('data-merge'),
+      datafilter = element.getAttribute('data-filter'),
       datafilteritem = element.getAttribute('data-filteritem'),
+      activeFilter = datafilter || datafilteritem,
       datareplace = element.getAttribute('data-replace'),
       datasort = element.getAttribute('data-sort'),
       dataLimit = element.getAttribute('data-limit'),
@@ -339,9 +347,11 @@ app.module.data = {
         app.call(datasuccess.value, { srcElement: element })
       }
 
-      if (datafilteritem) {
+      if (activeFilter) {
         var datafilterkey = element.getAttribute('data-filterkey'),
-          filteredResponse = this._filter(responseData.data, datafilteritem, datafilterkey)
+          filteredResponse = datafilter
+            ? this._filterExpression(responseData.data, datafilter, datafilterkey)
+            : this._filter(responseData.data, datafilteritem, datafilterkey)
         filteredResponse.status = responseData.status
         responseData = filteredResponse
       }
@@ -367,20 +377,21 @@ app.module.data = {
         element._dataPaging = null
       }
 
-      if (datafilteritem && !options.iterate) {
-        var filteredData = element.getAttribute('data-filterkey')
-          ? responseData.data[element.getAttribute('data-filterkey')]
-          : responseData.data
+      if (activeFilter && !options.iterate) {
+        var filterKey = element.getAttribute('data-filterkey'),
+          filteredData = filterKey
+            ? app.element.getPropertyByPath(responseData.data, filterKey)
+            : responseData.data
         if (Array.isArray(filteredData) && filteredData.length === 1) {
           responseData.data = filteredData[0]
         }
       }
 
       if ((dataempty || datanotempty) && responseData.status === 200) {
-        var filterKey = element.getAttribute('data-filterkey'),
+        var emptyFilterKey = element.getAttribute('data-filterkey'),
           iterateKey = options.iterate,
-          target = (filterKey && responseData.data[filterKey])
-            || (iterateKey && iterateKey !== 'true' && responseData.data[iterateKey])
+          target = (emptyFilterKey && app.element.getPropertyByPath(responseData.data, emptyFilterKey))
+            || (iterateKey && iterateKey !== 'true' && app.element.getPropertyByPath(responseData.data, iterateKey))
             || responseData.data,
           empty = !target || (Array.isArray(target) ? !target.length : (typeof target === 'object' ? !Object.keys(target).length : false))
         if (empty && dataempty) {
@@ -431,8 +442,13 @@ app.module.data = {
     var iterate = options.iterate,
       onkeyempty = options.onkeyempty,
       dataSource = element.getAttribute('data-src'),
-      datafilteritem = !dataSource && element.getAttribute('data-filteritem'),
+      // Only an element's own filter applies during traversal. A source element's
+      // filter is already applied to the response in _run, and nested collections
+      // of an already-selected item must not be filtered by the parent condition.
+      datafilter = !dataSource ? element.getAttribute('data-filter') : null,
+      datafilteritem = !dataSource ? element.getAttribute('data-filteritem') : null,
       datafilterkey = element.getAttribute('data-filterkey'),
+      activeFilter = datafilter || datafilteritem,
       datasort = !dataSource && element.getAttribute('data-sort'),
       dataLimit = !dataSource && element.getAttribute('data-limit'),
       dataPage = !dataSource && element.getAttribute('data-page'),
@@ -450,13 +466,17 @@ app.module.data = {
     var pagingEnabled = dataPageValue !== null || dataPagesizeValue !== null
 
     // Nested iterate elements can filter and transform the inherited response independently.
-    // Source elements are transformed in _run before traversal begins.
-    if (datafilteritem) {
+    // When no explicit key is provided, filter the collection named by data-iterate.
+    if (activeFilter && !datafilterkey && iterate && iterate !== 'true') datafilterkey = iterate
+
+    if (activeFilter) {
       var filterContext = context
-      if (datafilterkey && (!context || context[datafilterkey] === undefined) && dataRoot && dataRoot[datafilterkey] !== undefined) {
+      if (datafilterkey && app.element.getPropertyByPath(context, datafilterkey) === undefined && dataRoot && app.element.getPropertyByPath(dataRoot, datafilterkey) !== undefined) {
         filterContext = dataRoot
       }
-      context = this._filter(filterContext, datafilteritem, datafilterkey).data
+      context = (datafilter
+        ? this._filterExpression(filterContext, datafilter, datafilterkey)
+        : this._filter(filterContext, datafilteritem, datafilterkey)).data
     }
 
     if (datasort || dataLimitValue !== null || pagingEnabled) {
@@ -873,9 +893,9 @@ app.module.data = {
   },
 
   _filter: function (response, item, key) {
-    var parts = (item || '').split(';')
+    var parts = (item || '').split(';'),
+      filterConditions = []
 
-    var filterConditions = []
     for (var i = 0; i < parts.length; i++) {
       var part = parts[i].trim()
       if (!part) continue
@@ -893,36 +913,212 @@ app.module.data = {
       }
 
       // Coerce booleans.
-      if (filterValue === 'true' || filterValue === 'false') {
-        filterValue = filterValue === 'true'
-      }
-
+      if (filterValue === 'true' || filterValue === 'false') filterValue = filterValue === 'true'
       filterConditions.push({ key: filterKey, value: filterValue })
     }
 
-    // Resolve target array — avoid mutating the cached response.
-    var source = (key && response[key]) ? response[key] : response
-
-    var result = Array.isArray(source) ? source.filter(function (item) {
+    var hasCollection = key && app.element.getPropertyByPath(response, key) !== undefined
+    return this._filterCollection(response, key, hasCollection, function (item) {
       for (var i = 0; i < filterConditions.length; i++) {
-        var cond = filterConditions[i]
-        if (item[cond.key] != cond.value) return false
+        var condition = filterConditions[i]
+        if (!item || item[condition.key] != condition.value) return false
       }
       return true
-    }) : source
+    })
+  },
 
-    // Build a shallow copy of the response with filtered data.
+  _filterCollection: function (response, key, hasCollection, predicate) {
+    var source = hasCollection ? app.element.getPropertyByPath(response, key) : response,
+      result = Array.isArray(source) ? source.filter(predicate) : source
+
+    if (!hasCollection) return { data: result }
+
     var filtered = {}
-    if (key && response[key]) {
-      for (var prop in response) {
-        if (response.hasOwnProperty(prop)) filtered[prop] = response[prop]
-      }
-      filtered[key] = result
-    } else {
-      filtered = result
+    for (var prop in response) {
+      if (response.hasOwnProperty(prop)) filtered[prop] = response[prop]
     }
 
+    var parts = key.split('.'),
+      target = filtered
+    for (var i = 0; i < parts.length - 1; i++) {
+      var part = parts[i],
+        value = target[part]
+      if (!value || typeof value !== 'object') return { data: filtered }
+
+      if (Array.isArray(value)) {
+        target[part] = value.slice()
+      } else {
+        target[part] = {}
+        for (var nestedProp in value) {
+          if (value.hasOwnProperty(nestedProp)) target[part][nestedProp] = value[nestedProp]
+        }
+      }
+      target = target[part]
+    }
+    target[parts[parts.length - 1]] = result
     return { data: filtered }
+  },
+
+  _filterExpression: function (response, expression, key) {
+    var hasCollection = key && response && app.element.getPropertyByPath(response, key) !== undefined
+    return this._filterCollection(response, key, hasCollection, this._compileFilterExpression(expression))
+  },
+
+  _matchesFilterExpression: function (item, expression) {
+    return this._compileFilterExpression(expression)(item)
+  },
+
+  _compileFilterExpression: function (expression) {
+    var value = (expression || '').trim()
+    if (!value) return function () { return false }
+
+    while (this._isWrappedFilterExpression(value)) {
+      value = value.substring(1, value.length - 1).trim()
+    }
+
+    var self = this,
+      orParts = this._splitFilterExpression(value, '||')
+    if (orParts.length > 1) {
+      var orMatchers = []
+      for (var i = 0; i < orParts.length; i++) {
+        orMatchers.push(this._compileFilterExpression(orParts[i]))
+      }
+      return function (item) {
+        for (var j = 0; j < orMatchers.length; j++) {
+          if (orMatchers[j](item)) return true
+        }
+        return false
+      }
+    }
+
+    var andParts = this._splitFilterExpression(value, '&&')
+    if (andParts.length > 1) {
+      var andMatchers = []
+      for (var k = 0; k < andParts.length; k++) {
+        andMatchers.push(this._compileFilterExpression(andParts[k]))
+      }
+      return function (item) {
+        for (var l = 0; l < andMatchers.length; l++) {
+          if (!andMatchers[l](item)) return false
+        }
+        return true
+      }
+    }
+
+    var match = this._parseFilterClause(value)
+    if (!match) return function () { return false }
+
+    var path = match[1].split('.'),
+      operator = match[2],
+      expected = this._filterLiteral(match[3])
+
+    return function (item) {
+      var actual = item
+      for (var m = 0; m < path.length; m++) {
+        actual = actual === null || actual === undefined ? '' : actual[path[m]]
+      }
+      return self._compareFilterValue(actual, expected, operator)
+    }
+  },
+
+  _splitFilterExpression: function (expression, operator) {
+    var parts = [],
+      start = 0,
+      bracketDepth = 0,
+      parenthesisDepth = 0
+
+    for (var i = 0; i < expression.length; i++) {
+      var character = expression.charAt(i)
+      if (character === '[') bracketDepth++
+      else if (character === ']' && bracketDepth) bracketDepth--
+      else if (!bracketDepth && character === '(') parenthesisDepth++
+      else if (!bracketDepth && character === ')' && parenthesisDepth) parenthesisDepth--
+
+      if (!bracketDepth && !parenthesisDepth && expression.substr(i, operator.length) === operator) {
+        parts.push(expression.substring(start, i).trim())
+        start = i + operator.length
+        i += operator.length - 1
+      }
+    }
+
+    if (parts.length) parts.push(expression.substring(start).trim())
+    return parts.length ? parts : [expression.trim()]
+  },
+
+  _isWrappedFilterExpression: function (expression) {
+    if (expression.charAt(0) !== '(' || expression.charAt(expression.length - 1) !== ')') return false
+
+    var bracketDepth = 0,
+      parenthesisDepth = 0
+    for (var i = 0; i < expression.length; i++) {
+      var character = expression.charAt(i)
+      if (character === '[') bracketDepth++
+      else if (character === ']' && bracketDepth) bracketDepth--
+      else if (!bracketDepth && character === '(') parenthesisDepth++
+      else if (!bracketDepth && character === ')') {
+        parenthesisDepth--
+        if (parenthesisDepth === 0 && i !== expression.length - 1) return false
+      }
+    }
+    return parenthesisDepth === 0 && bracketDepth === 0
+  },
+
+  _parseFilterClause: function (clause) {
+    return clause.match(/^\s*([A-Za-z_$][\w$.-]*)\s*(>:|<:|!=|!~|>|<|~|=|:|!)\s*(.*?)\s*$/)
+  },
+
+  _matchesFilterClause: function (item, clause) {
+    var match = this._parseFilterClause(clause)
+    if (!match) return false
+
+    return this._compareFilterValue(
+      app.element.getPropertyByPath(item, match[1]),
+      this._filterLiteral(match[3]),
+      match[2]
+    )
+  },
+
+  _compareFilterValue: function (actual, expected, operator) {
+    switch (operator) {
+      case ':':
+      case '=':
+        return actual == expected
+      case '!':
+      case '!=':
+        return actual != expected
+      case '>':
+      case '<':
+      case '<:':
+      case '>:':
+        var actualNumber = Number(actual),
+          expectedNumber = Number(expected)
+        if (isNaN(actualNumber) || isNaN(expectedNumber)) return false
+        if (operator === '>') return actualNumber > expectedNumber
+        if (operator === '<') return actualNumber < expectedNumber
+        if (operator === '>:') return actualNumber >= expectedNumber
+        return actualNumber <= expectedNumber
+      case '~':
+        return String(actual === undefined || actual === null ? '' : actual).indexOf(String(expected)) !== -1
+      case '!~':
+        return String(actual === undefined || actual === null ? '' : actual).indexOf(String(expected)) === -1
+      default:
+        return false
+    }
+  },
+
+  _filterLiteral: function (value) {
+    value = (value || '').trim()
+    if (value.charAt(0) === '[' && value.charAt(value.length - 1) === ']') value = value.substring(1, value.length - 1).trim()
+
+    if (value.length > 1 && ((value.charAt(0) === "'" && value.charAt(value.length - 1) === "'") || (value.charAt(0) === '"' && value.charAt(value.length - 1) === '"'))) {
+      value = value.substring(1, value.length - 1)
+    }
+
+    if (value === 'true') return true
+    if (value === 'false') return false
+    if (value === 'null') return null
+    if (value !== '' && !isNaN(Number(value))) return Number(value)
+    return value
   },
 
   _replace: function (response) {
