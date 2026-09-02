@@ -309,3 +309,48 @@ test('statebind - does not suppress events for later attributes or elements', fu
   app.attributes.run([bound, sibling])
   assertEqual(target.textContent, 'Sibling event ran')
 })
+
+test('statebind - later attributes on the same element still dispatch events', function () {
+  var key = 'integrationStateBindSameElement'
+  var target = createElement('div')
+  var element = createElement('div')
+
+  // statebind owns its own event, but must not suppress events for the
+  // attributes processed after it on the very same element. A non-action
+  // attribute is used deliberately: an action would reassign the internal
+  // result and hide a leaked suppression value.
+  element.setAttribute('statebind', 's:' + key)
+  element.setAttribute('marker', 'true')
+  element.setAttribute('onmarker', 'settext:#' + target.id + ':[Later attribute ran]')
+  target.textContent = 'Waiting'
+
+  app.attributes.run([element])
+  assertEqual(target.textContent, 'Later attribute ran')
+})
+
+test('statebind - ignores malformed bindings without subscribing', function () {
+  var element = createElement('div')
+  var missingKey = createElement('div')
+
+  element.setAttribute('statebind', '')
+  element.setAttribute('data-filter', 'since<:[{s}]')
+  missingKey.setAttribute('statebind', 'docVersion')
+  missingKey.setAttribute('data-filter', 'since<:[{s}]')
+
+  app.attributes.run([element, missingKey])
+
+  assertEqual(element.getAttribute('data-filter'), 'since<:[{s}]')
+  assertEqual(missingKey.getAttribute('data-filter'), 'since<:[{s}]')
+  assertEqual(!!element._statebindSubscribed, false)
+  assertEqual(!!missingKey._statebindSubscribed, false)
+})
+
+test('statebind - renders an empty value for unset state', function () {
+  var element = createElement('div')
+
+  element.setAttribute('statebind', 's:integrationStateBindUnset')
+  element.setAttribute('data-filter', 'since<:[{s}]')
+
+  app.attributes.run([element])
+  assertEqual(element.getAttribute('data-filter'), 'since<:[]')
+})
