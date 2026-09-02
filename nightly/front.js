@@ -763,6 +763,64 @@ var dom = {
   },
 
   /**
+   * @function statebind
+   * @memberof dom
+   * @param {HTMLElement} object
+   * @param {string} value - Variable and state key, e.g. "s:docVersion".
+   * @desc Binds an application state value into element attributes without replacing content.
+   */
+  statebind: function (object, value) {
+    var binding = (value || '').split(':'),
+      variable = binding.shift().trim(),
+      key = binding.join(':').trim()
+
+    if (!variable || !key || !app.state) return
+    if (!object.originalAttributes) app.element.saveOriginalValues(object)
+
+    function render(state) {
+      var stateValue = state[key]
+      stateValue = stateValue === undefined || stateValue === null ? '' : String(stateValue)
+      if (object._statebindValue === stateValue && object._statebindRendered) return false
+
+      object._statebindValue = stateValue
+      object._statebindRendered = true
+      app.variables.reset.attributes(object)
+      app.variables.update.attributes(object, variable, stateValue)
+      return true
+    }
+
+    if (!object._statebindSubscribed) {
+      object._statebindSubscribed = true
+
+      var unsubscribe = function () {
+        if (object._statebindUnsubscribe) object._statebindUnsubscribe()
+        object._statebindUnsubscribe = null
+        object._statebindSubscribed = false
+      }
+
+      object._statebindUnsubscribe = app.state.subscribe(function (state) {
+        // Iterated content can replace this node while its state subscription
+        // remains alive. Do not let detached nodes dispatch stale callbacks.
+        if (!document.contains(object)) {
+          unsubscribe()
+          return
+        }
+
+        if (render(state) && object.getAttribute('onstatebind')) {
+          object.executed = object.executed || {}
+          app.element.runOnEvent({ exec: { func: 'statebind', element: object } })
+        }
+      })
+    }
+
+    render(app.state.get())
+
+    // statebind dispatches onstatebind from its state subscription only.
+    // Suppress the generic post-attribute event for this binding pass.
+    return false
+  },
+
+  /**
    * @function submit
    * @memberof dom
    * @param {*} object
@@ -2027,21 +2085,26 @@ var app = previousApp || {
    * @desc Handles the execution of functions based on a string input.
    */
   exec: function (run, args) {
+    var result
     try {
       run = run.split('.')
       switch (run.length) {
         case 4:
-          return window[run[0]][run[1]][run[2]][run[3]](args)
+          result = window[run[0]][run[1]][run[2]][run[3]](args)
+          break
         case 3:
-          return window[run[0]][run[1]][run[2]](args)
+          result = window[run[0]][run[1]][run[2]](args)
+          break
         case 2:
-          return window[run[0]][run[1]](args)
+          result = window[run[0]][run[1]](args)
+          break
       }
+      return result
     } catch (e) {
       if (e.message.indexOf('run[0]') !== -1) console.error('Command not found', run)
       if (e.message.indexOf('object.exec') !== -1) console.error('Could not execute command', run)
     } finally {
-      app.element.runOnEvent(args) // check for element events.
+      if (result !== false) app.element.runOnEvent(args) // check for element events.
     }
   },
 
@@ -2924,7 +2987,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 766 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 767 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3472,7 +3535,8 @@ var app = previousApp || {
           for (var j = 0; j < attributes.length; j++) {
             var attrName = attributes[j].name,
               attrValue = attributes[j].value,
-              attrFullname = dom._actionMap[attrName] || attrName
+              attrFullname = dom._actionMap[attrName] || attrName,
+              actionResult = undefined
 
             if (exclude.indexOf(attrName) === -1 && exclude.indexOf(attrFullname) === -1) {
               var name = attrFullname.split('-')
@@ -3489,20 +3553,22 @@ var app = previousApp || {
               if (app.plugin[name[0]] && name[1] === '' && name[2]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
                 element.lastRunAttribute = attrName
-                app.plugin[name[0]][name[2]] ? app.plugin[name[0]][name[2]](element) : app.log.error(400)(name[0] + '--' + name[2])
+                actionResult = app.plugin[name[0]][name[2]] ? app.plugin[name[0]][name[2]](element) : app.log.error(400)(name[0] + '--' + name[2])
               } else if (app.module[name[0]] && name[1]) {
                 app.log.info(1)(name[0] + ':' + name[0] + '-' + name[1])
                 element.lastRunAttribute = attrName
-                app.module[name[0]][name[1]] ? app.module[name[0]][name[1]](element) : app.log.error(400)(name[0] + '-' + name[1])
+                actionResult = app.module[name[0]][name[1]] ? app.module[name[0]][name[1]](element) : app.log.error(400)(name[0] + '-' + name[1])
               } else if (dom[name]) {
                 app.log.info(1)('dom.' + name)
                 element.lastRunAttribute = attrName
-                dom[name](element, attrValue)
+                actionResult = dom[name](element, attrValue)
               }
               element.executed = {}
 
-              // Run onEvent for all attributes.
-              app.element.runOnEvent({ exec: { func: attrName, element: element } })
+              // Actions can own their event lifecycle by returning false.
+              if (actionResult !== false) {
+                app.element.runOnEvent({ exec: { func: attrName, element: element } })
+              }
             } else {
               app.log.warn(100)(name + '')
             }

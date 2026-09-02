@@ -1,7 +1,3 @@
-function runState(element) {
-  dom.rerun(element)
-}
-
 test('state - should get and set a value by key', function () {
   var key = 'integrationStateGetSet'
 
@@ -71,7 +67,7 @@ test('state - should initialize and update a select control', function () {
   select.value = 'first'
   select.setAttribute('state', key)
 
-  runState(select)
+  dom.rerun(select)
   assertEqual(app.state.get(key), 'first')
 
   select.value = 'second'
@@ -90,8 +86,8 @@ test('state - should initialize and update input and textarea controls', functio
   textarea.value = 'text-first'
   textarea.setAttribute('state', textareaKey)
 
-  runState(input)
-  runState(textarea)
+  dom.rerun(input)
+  dom.rerun(textarea)
   assertEqual(app.state.get(inputKey), 'input-first')
   assertEqual(app.state.get(textareaKey), 'text-first')
 
@@ -114,8 +110,8 @@ test('state - should update multiple templated and plain outputs', function () {
   plain.textContent = 'Waiting'
   plain.setAttribute('state', key)
 
-  runState(template)
-  runState(plain)
+  dom.rerun(template)
+  dom.rerun(plain)
   assertEqual(template.textContent, 'Value: initial')
   assertEqual(plain.textContent, 'initial')
 
@@ -130,7 +126,7 @@ test('state - should render a fallback for an unset state value', function () {
 
   output.innerHTML = '{state:No value}'
   output.setAttribute('state', key)
-  runState(output)
+  dom.rerun(output)
 
   assertEqual(output.textContent, 'No value')
 
@@ -147,10 +143,169 @@ test('state - should run the onstate callback when the value changes', function 
   output.setAttribute('state', key)
   output.setAttribute('onstate', 'settext:#' + target.id + ':[State changed]')
 
-  runState(output)
+  dom.rerun(output)
   assertEqual(target.textContent, 'State changed')
 
   target.textContent = 'Waiting'
   app.state.set(key, 'changed')
   assertEqual(target.textContent, 'State changed')
+})
+
+test('statebind - replaces attribute variables without replacing content', function () {
+  var key = 'integrationStateBind'
+  var parent = createElement('section')
+  var element = document.createElement('div')
+  var sourceCalls = 0
+  var originalSource = app.module.data && app.module.data.src
+  parent.setAttribute('data-src', 'mock://statebind')
+  parent.appendChild(element)
+  element.innerHTML = '<span>Rows remain</span>'
+  element.setAttribute('statebind', 's:' + key)
+  element.setAttribute('data-filter', 'since>:[{s}]')
+
+  if (app.module.data) app.module.data.src = function () { sourceCalls++ }
+
+  try {
+    app.state.set(key, 1000000)
+    dom.rerun(element)
+    assertEqual(element.getAttribute('data-filter'), 'since>:[1000000]')
+    assertEqual(element.querySelector('span').textContent, 'Rows remain')
+
+    app.state.set(key, 1000001)
+    assertEqual(element.getAttribute('data-filter'), 'since>:[1000001]')
+    assertEqual(element.querySelector('span').textContent, 'Rows remain')
+    assertEqual(sourceCalls, 0)
+  } finally {
+    if (app.module.data) app.module.data.src = originalSource
+  }
+})
+
+test('statebind - runs onstatebind after state changes', function () {
+  var key = 'integrationStateBindEvent'
+  var target = createElement('div')
+  var element = createElement('div')
+
+  target.textContent = 'Waiting'
+  element.setAttribute('statebind', 's:' + key)
+  element.setAttribute('onstatebind', 'settext:#' + target.id + ':[State changed]')
+
+  dom.rerun(element)
+  assertEqual(target.textContent, 'Waiting')
+
+  app.state.set(key, 1000000)
+  assertEqual(target.textContent, 'State changed')
+
+  target.textContent = 'Waiting'
+  app.state.set(key, 1000001)
+  assertEqual(target.textContent, 'State changed')
+})
+
+test('statebind - reruns a data source once after a state change', function () {
+  if (!app.module.data) return
+
+  var key = 'integrationStateBindDataRerun'
+  var data = app.module.data
+  var element = createElement('div')
+  var reruns = 0
+
+  element.setAttribute('data-src', 'mock://statebind-data-rerun')
+  element.setAttribute('statebind', 's:' + key)
+  element.setAttribute('data-filter', 'since<:[{s}]')
+  element.setAttribute('onstatebind', 'data-rerun:#' + element.id)
+
+  withStub(data, '_rerun', function (target) {
+    reruns++
+    assertEqual(target, element)
+    assertEqual(target.getAttribute('data-filter'), 'since<:[1000000]')
+  }, function () {
+    dom.rerun(element)
+    assertEqual(reruns, 0)
+
+    app.state.set(key, 1000000)
+    assertEqual(reruns, 1)
+
+    app.state.set(key, 1000000)
+    assertEqual(reruns, 1)
+  })
+})
+
+test('statebind - generic rerun does not re-enter onstatebind', function () {
+  var key = 'integrationStateBindGenericRerun'
+  var element = createElement('div')
+  var callbacks = 0
+
+  element.setAttribute('statebind', 's:' + key)
+  element.setAttribute('data-filter', 'since<:[{s}]')
+  element.setAttribute('onstatebind', 'alert:[changed];rerun:#' + element.id)
+
+  // Counting with a cap keeps a recursion regression a failed assertion
+  // instead of an exhausted call stack.
+  withStub(dom, 'alert', function () {
+    callbacks++
+    if (callbacks > 25) throw new Error('onstatebind recursion detected')
+  }, function () {
+    dom.rerun(element)
+    assertEqual(callbacks, 0)
+
+    app.state.set(key, 1000000)
+    assertEqual(callbacks, 1)
+    assertEqual(element.getAttribute('data-filter'), 'since<:[1000000]')
+
+    app.state.set(key, 1000001)
+    assertEqual(callbacks, 2)
+    assertEqual(element.getAttribute('data-filter'), 'since<:[1000001]')
+  })
+})
+
+test('statebind - detached iterate nodes stop dispatching callbacks', function () {
+  if (!app.module.data) return
+
+  var key = 'integrationStateBindDetached'
+  var data = app.module.data
+  var source = createElement('div')
+  var reruns = 0
+
+  source.setAttribute('data-src', 'mock://statebind-detached')
+
+  function addBoundNode() {
+    var element = document.createElement('div')
+    element.setAttribute('statebind', 's:' + key)
+    element.setAttribute('data-filter', 'since<:[{s}]')
+    element.setAttribute('onstatebind', 'data-rerun:#' + source.id)
+    source.appendChild(element)
+    app.attributes.run([element])
+    return element
+  }
+
+  addBoundNode()
+  source.innerHTML = ''
+  addBoundNode()
+
+  withStub(data, '_rerun', function (element) {
+    reruns++
+    assertEqual(element, source)
+  }, function () {
+    app.state.set(key, 1000000)
+    assertEqual(reruns, 1)
+
+    source.innerHTML = ''
+    addBoundNode()
+    app.state.set(key, 1000001)
+    assertEqual(reruns, 2)
+  })
+})
+
+test('statebind - does not suppress events for later attributes or elements', function () {
+  var key = 'integrationStateBindEventIsolation'
+  var target = createElement('div')
+  var bound = createElement('div')
+  var sibling = createElement('div')
+
+  bound.setAttribute('statebind', 's:' + key)
+  sibling.setAttribute('bgcolor', 'black')
+  sibling.setAttribute('onbgcolor', 'settext:#' + target.id + ':[Sibling event ran]')
+  target.textContent = 'Waiting'
+
+  app.attributes.run([bound, sibling])
+  assertEqual(target.textContent, 'Sibling event ran')
 })
