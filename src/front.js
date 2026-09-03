@@ -1860,8 +1860,7 @@ var app = previousApp || {
   load: function () {
     if (!window.frontLoaded) {
       var selector = 'script[src*=front]',
-        element = app.element.select(selector),
-        config = app.config.get(false, { frontSrcLocal: '' }, element)
+        element = app.element.select(selector)
 
       app.disable(true)
 
@@ -1869,30 +1868,31 @@ var app = previousApp || {
       if (app.isLocalNetwork) {
         var request = app.xhr.request({ url: '/config', sync: false })
         request.onreadystatechange = function () {
-          if (this.readyState === 4 && this.status === 200) {
-            app.env = {}
-            request.responseText.split('\n').forEach(function (line) {
-              if ((line = line.trim()) && line[0] !== '#') {
-                var p = line.split('='), k = p[0].trim(), v = p[1].trim()
-                if (p.length === 2) app.env[k] = v
-              }
-            })
-            config.frontSrcLocal = app.env.FRONT_JS_URL || config.frontSrcLocal
-            app.debug = /true|1/.test(app.env.DEBUG)
-          }
+          if (this.readyState !== 4 || this.status !== 200) return
 
-          if (config.frontSrcLocal.length > 0) {
-            element.parentNode.removeChild(element)
-
-            var script = document.createElement('script'),
-              attributes = element.attributes
-            for (var i = 0; i < attributes.length; i++) {
-              script.setAttribute(attributes[i].name, attributes[i].value)
+          app.env = {}
+          request.responseText.split('\n').forEach(function (line) {
+            if ((line = line.trim()) && line[0] !== '#') {
+              var p = line.split('='), k = p[0].trim(), v = p[1].trim()
+              if (p.length === 2) app.env[k] = v
             }
+          })
 
-            script.src = config.frontSrcLocal // Override front.js.
-            document.head.appendChild(script)
+          app.debug = /true|1/.test(app.env.DEBUG)
+
+          // The config file is the only source for a local front.js override.
+          if (!app.env.FRONT_JS_URL) return
+
+          element.parentNode.removeChild(element)
+
+          var script = document.createElement('script'),
+            attributes = element.attributes
+          for (var i = 0; i < attributes.length; i++) {
+            script.setAttribute(attributes[i].name, attributes[i].value)
           }
+
+          script.src = app.env.FRONT_JS_URL // Override front.js.
+          document.head.appendChild(script)
         }
       }
 
@@ -2907,7 +2907,6 @@ var app = previousApp || {
         resetStyle: 'false',
         varsDir: 'assets/json/vars',
         storageKey: false,
-        frontSrcLocal: '',
         //fileExtension: '.html'
       }, scriptElement || app.script.element)
 
@@ -2987,7 +2986,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 767 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 768 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
