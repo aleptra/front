@@ -4,3 +4,11 @@ test('boxshadow - should apply box shadow to the element', function () {
   app.call('boxshadow:#' + testElement.id + ':[0 4px 6px rgba(0,0,0,0.5)]')
   assertStyleEqual(testElement, 'boxShadow', expected)
 })
+
+
+test('boxshadow - should expand a shade shorthand inside the shadow value', function () {
+  var testElement = createElement('div')
+  testElement.setAttribute('boxshadow', '0 2px 4px black05')
+  app.attributes.run([testElement])
+  assertContains(testElement.style.boxShadow, 'rgba(0, 0, 0, 0.5)')
+})
