@@ -334,27 +334,8 @@ var dom = {
         return match.charAt(0).toUpperCase() + match.slice(1)
       })
 
-    // Color mapping for black01-black09 and white01-white09 using rgba
-    var colorMap = {
-      black01: 'rgba(0,0,0,.1)',
-      black02: 'rgba(0,0,0,.2)',
-      black03: 'rgba(0,0,0,.3)',
-      black04: 'rgba(0,0,0,.4)',
-      black05: 'rgba(0,0,0,.5)',
-      black06: 'rgba(0,0,0,.6)',
-      black07: 'rgba(0,0,0,.7)',
-      black08: 'rgba(0,0,0,.8)',
-      black09: 'rgba(0,0,0,.9)',
-      white01: 'rgba(255,255,255,.1)',
-      white02: 'rgba(255,255,255,.2)',
-      white03: 'rgba(255,255,255,.3)',
-      white04: 'rgba(255,255,255,.4)',
-      white05: 'rgba(255,255,255,.5)',
-      white06: 'rgba(255,255,255,.6)',
-      white07: 'rgba(255,255,255,.7)',
-      white08: 'rgba(255,255,255,.8)',
-      white09: 'rgba(255,255,255,.9)'
-    }
+    // Shades: white and black.
+    if (/color|shadow|border|outline/i.test(attr)) value = String(value).replace(/black0([1-9])/g, 'rgba(0,0,0,.$1)').replace(/white0([1-9])/g, 'rgba(255,255,255,.$1)')
 
     switch (attr) {
       case 'align':
@@ -388,7 +369,6 @@ var dom = {
         element.style.backgroundPosition = position
         break
       case 'bgcolor':
-        value = colorMap[value] || value
         attr = 'backgroundColor'
         break
       case 'boxshadow':
@@ -2983,7 +2963,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 770 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 771 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
