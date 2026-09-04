@@ -3,20 +3,16 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := default
 .PHONY: default latest release test test\:unit test\:integration test\:performance
 
-default:
-	@if git diff --quiet && git diff --cached --quiet && [ -z "$$(git ls-files --others --exclude-standard)" ]; then \
-		echo "Nothing to do"; \
-	else \
-		$(MAKE) latest; \
-	fi
-
 SRC = src
 TEST_QUERY = $(if $(TEST),?test=$(TEST),)
+NOW = python3 -c 'import time;print(time.time())'
+SINCE = python3 -c "import sys,time;print('%.1f' % (time.time() - float(sys.argv[1])))"
 JS_FILE = $(SRC)/front.js
 JS_MIN_FILE = front.min.js
 README_FILE = README.md
 TAG := $(shell grep -o 'build:[[:space:]]*[0-9]*' $(JS_FILE) | awk -F':' '{ print $$2+1 }')
 VERSION := $(shell grep 'frontVersion' $(JS_FILE) | grep -oE '[0-9]+' | head -3 | paste -sd '.' -)
+BUILD_CHANGES := $(shell git diff --name-only HEAD -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins; git ls-files --others --exclude-standard -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins)
 
 define minify
 	sed -E 's#//.*$$##' $(1) \
@@ -30,7 +26,12 @@ define minify
 	> $(2)
 endef
 
-BUILD_CHANGES := $(shell git diff --name-only HEAD -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins; git ls-files --others --exclude-standard -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins)
+default:
+	@if git diff --quiet && git diff --cached --quiet && [ -z "$$(git ls-files --others --exclude-standard)" ]; then \
+		echo "Nothing to do"; \
+	else \
+		$(MAKE) latest; \
+	fi
 
 latest: test
 ifeq ($(strip $(BUILD_CHANGES)),)
@@ -94,20 +95,20 @@ app:
 	@echo ""
 
 test:
-	@FAIL=0; START=$$(date +%s); TOTAL=0; \
+	@FAIL=0; START=$$($(NOW)); TOTAL=0; \
 	OUT=$$($(MAKE) test:unit 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
 	PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
 	OUT=$$($(MAKE) test:integration 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
 	PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
 	OUT=$$($(MAKE) test:performance 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
 	PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
-	END=$$(date +%s); ELAPSED=$$((END - START)); \
+	ELAPSED=$$($(SINCE) $$START); \
 	if [ $$FAIL -eq 0 ]; then echo ""; echo "================================"; echo "✅ $$TOTAL tests passed in $${ELAPSED}s"; echo "================================"; \
 	else echo ""; echo "================================"; echo "❌ Some tests failed ($${ELAPSED}s)"; echo "================================"; exit 1; fi
 
 test\:unit:
 	@echo ""; echo "=== Unit Tests ==="; \
-	START=$$(date +%s); \
+	START=$$($(NOW)); \
 	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
 	PORT=9225; \
 	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
@@ -115,7 +116,7 @@ test\:unit:
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
 		"http://localhost:$$PORT/test/auto/unit/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_unit.html; \
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
-	END=$$(date +%s); ELAPSED=$$((END - START)); \
+	ELAPSED=$$($(SINCE) $$START); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_unit.html); \
 	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_unit.html; \
 	echo ""; echo "$$SUMMARY"; \
@@ -123,7 +124,7 @@ test\:unit:
 
 test\:integration:
 	@echo ""; echo "=== Integration Tests ==="; \
-	START=$$(date +%s); \
+	START=$$($(NOW)); \
 	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
 	PORT=9226; \
 	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
@@ -131,7 +132,7 @@ test\:integration:
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
 		"http://localhost:$$PORT/test/auto/integration/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_integration.html; \
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
-	END=$$(date +%s); ELAPSED=$$((END - START)); \
+	ELAPSED=$$($(SINCE) $$START); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_integration.html); \
 	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_integration.html; \
 	echo ""; echo "$$SUMMARY"; \
@@ -139,7 +140,7 @@ test\:integration:
 
 test\:performance:
 	@echo ""; echo "=== Performance Tests ==="; \
-	START=$$(date +%s); \
+	START=$$($(NOW)); \
 	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
 	PORT=9227; \
 	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
@@ -147,7 +148,7 @@ test\:performance:
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
 		"http://localhost:$$PORT/test/auto/performance/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_performance.html; \
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
-	END=$$(date +%s); ELAPSED=$$((END - START)); \
+	ELAPSED=$$($(SINCE) $$START); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_performance.html); \
 	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_performance.html; \
 	echo ""; echo "$$SUMMARY"; \
