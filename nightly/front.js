@@ -332,6 +332,9 @@ var dom = {
       return match.charAt(0).toUpperCase() + match.slice(1)
     })
 
+    // placeholdercolor falls back to the element's color, before shades expand.
+    if (attr === 'placeholdercolor' && !value) value = element.getAttribute('color') || ''
+
     // Shades: white and black.
     if (/color|shadow|border|outline/i.test(attr)) value = String(value).replace(/black0([1-9])/g, 'rgba(0,0,0,.$1)').replace(/white0([1-9])/g, 'rgba(255,255,255,.$1)')
 
@@ -412,14 +415,13 @@ var dom = {
         element.style.lineHeight = 'normal'
         break
       case 'placeholdercolor':
+        if (!value) return
         if (!element.id) dom.setUniqueId(element)
-        var phColor = value || element.getAttribute('color') || ''
-        if (!phColor) return
         var s = document.getElementById('ph-' + element.id)
         if (s) s.parentNode.removeChild(s)
         s = document.createElement('style')
         s.id = 'ph-' + element.id
-        s.innerHTML = '#' + element.id + '::placeholder { color: ' + phColor + ' !important; }'
+        s.innerHTML = '#' + element.id + '::placeholder { color: ' + value + ' !important; }'
         document.body.appendChild(s)
         return
       case 'Top':
@@ -437,7 +439,7 @@ var dom = {
         break
       default:
         // Handle "unset:property" or "inherit:property" syntax
-        var specialMatch = func.trim().match(/^(unset|inherit)$/i)
+        var specialMatch = func.trim().match(/^(unset|inherit|initial)$/i)
         if (specialMatch) {
           attr = value
           value = func
@@ -2891,7 +2893,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 774 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 775 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,

@@ -52,3 +52,17 @@ test('bgcolor - should pass through an unmapped colour untouched', function () {
   app.call('bgcolor:#' + testElement.id + ':[black10]')
   assertStyleEqual(testElement, 'backgroundColor', 'rgba(0, 0, 0, 0)')
 })
+
+test('bgcolor - should accept hex and rgba literals untouched', function () {
+  var hex = createElement('div')
+  app.call('bgcolor:#' + hex.id + ':[#ff0000]')
+  assertStyleEqual(hex, 'backgroundColor', 'rgb(255, 0, 0)')
+
+  var rgba = createElement('div')
+  app.call('bgcolor:#' + rgba.id + ':[rgba(0,0,255,.25)]')
+  assertStyleEqual(rgba, 'backgroundColor', 'rgba(0, 0, 255, 0.25)')
+
+  var transparent = createElement('div')
+  app.call('bgcolor:#' + transparent.id + ':[transparent]')
+  assertStyleEqual(transparent, 'backgroundColor', 'rgba(0, 0, 0, 0)')
+})

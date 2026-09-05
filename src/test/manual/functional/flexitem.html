@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Flexitem</h1>
+  <p><code>flexitem</code> sets the CSS <code>flex</code> shorthand on a child. It only has a
+    visible effect inside a flex container, so every case below sits in a parent carrying the
+    <code>flex</code> attribute.</p>
+  <hr>
+
+  <section>
+    <!-- Test 1: Callback fires -->
+    <h4>1. Attribute runs</h4>
+    <p>With <code>debug:true</code> the console should log <code>flexitem(OK)</code>.</p>
+    <div flex>
+      <div flexitem="1" onflexitem="log:[flexitem(OK)]" bgcolor="black01" padding="0.5rem">flexitem</div>
+    </div>
+    <hr>
+
+    <!-- Test 2: Bare number is a grow ratio -->
+    <h4>2. A bare number is a grow ratio</h4>
+    <p>The second box should be twice as wide as the first. A bare number must not become
+      <code>2px</code>.</p>
+    <div flex gap="0.5rem">
+      <div flexitem="1" bgcolor="black01" padding="0.5rem">1</div>
+      <div flexitem="2" bgcolor="black03" padding="0.5rem">2</div>
+    </div>
+    <hr>
+
+    <!-- Test 3: Full shorthand -->
+    <h4>3. Full shorthand</h4>
+    <p>Both boxes share the row evenly, sized from their content through
+      <code>1 1 auto</code>.</p>
+    <div flex gap="0.5rem">
+      <div flexitem="1 1 auto" bgcolor="black01" padding="0.5rem">auto basis</div>
+      <div flexitem="1 1 auto" bgcolor="black03" padding="0.5rem">auto basis</div>
+    </div>
+    <hr>
+
+    <!-- Test 4: Fixed basis -->
+    <h4>4. Fixed basis does not grow or shrink</h4>
+    <p>The left box should stay 200px wide while the right one takes the remaining space. Resize
+      the window: only the right box changes.</p>
+    <div flex gap="0.5rem">
+      <div flexitem="0 0 200px" bgcolor="black03" padding="0.5rem">fixed 200px</div>
+      <div flexitem="1" bgcolor="black01" padding="0.5rem">fills the rest</div>
+    </div>
+    <hr>
+
+    <!-- Test 5: flexitem is not the flex attribute -->
+    <h4>5. flexitem is not the same as flex</h4>
+    <p>The outer element uses <code>flex</code>, which means <code>display: flex</code>. The
+      children use <code>flexitem</code>, which means the <code>flex</code> property. Inspect the
+      computed styles: the parent should read <code>display: flex</code> and each child should
+      read a <code>flex</code> value, not a display change.</p>
+    <div id="flexparent" flex gap="0.5rem" border="1px solid black" padding="0.5rem">
+      <div id="flexchild" flexitem="3" bgcolor="black01" padding="0.5rem">3</div>
+      <div flexitem="1" bgcolor="black03" padding="0.5rem">1</div>
+    </div>
+    <pre>getComputedStyle(document.getElementById('flexparent')).display
+getComputedStyle(document.getElementById('flexchild')).flex</pre>
+    <hr>
+
+    <!-- Test 6: Compared with flexgrow -->
+    <h4>6. Compared with flexgrow</h4>
+    <p><code>flexgrow</code> sets only the grow factor, so these two rows should look the same.
+      Both boxes in each row split the space one to three.</p>
+    <div flex gap="0.5rem" marginbottom="0.5rem">
+      <div flexitem="1" bgcolor="black01" padding="0.5rem">flexitem 1</div>
+      <div flexitem="3" bgcolor="black03" padding="0.5rem">flexitem 3</div>
+    </div>
+    <div flex gap="0.5rem">
+      <div flexgrow="1" bgcolor="black01" padding="0.5rem">flexgrow 1</div>
+      <div flexgrow="3" bgcolor="black03" padding="0.5rem">flexgrow 3</div>
+    </div>
+  </section>
+</body>
+
+</html>
