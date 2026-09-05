@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="wave"
+    wave--conf="src:https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/320px-Flag_of_the_United_States.svg.png;slices:40;speed:0.01;amount:6"
+    conf="debug:true"></script>
+</head>
+
+<body bgcolor="#0b0d10" color="white">
+  <h1>Wave Plugin</h1>
+  <p>The plugin slices an image onto a canvas and animates the slices to fake a waving motion.
+    The image url comes from <code>wave--conf</code> on the script element, so this page needs
+    network access.</p>
+  <hr>
+
+  <!-- Test 1: Canvas is created and animates -->
+  <h4>1. Canvas is created and animates</h4>
+  <p>A canvas should appear inside the box showing the image with a continuous ripple.</p>
+  <div wave--load width="320px" height="180px" border="1px solid #333"></div>
+  <hr>
+
+  <!-- Test 2: One canvas per container -->
+  <h4>2. One canvas per container</h4>
+  <p>Run this in the console. Expect 1 for the box above.</p>
+  <pre>document.querySelector('[wave--load]').querySelectorAll('canvas').length</pre>
+  <hr>
+
+  <!-- Test 3: Slice count changes the detail -->
+  <h4>3. Slice count changes the detail</h4>
+  <p>Set <code>slices:8</code> in <code>wave--conf</code> and reload. The ripple should look
+    coarse and blocky compared to 40 slices.</p>
+  <hr>
+
+  <!-- Test 4: Missing image -->
+  <h4>4. A missing image renders nothing</h4>
+  <p>With no reachable image the container stays empty and no canvas is created. Point
+    <code>src</code> at a bad url and reload: the page must keep working.</p>
+  <hr>
+
+  <!-- Test 5: Collapsed container -->
+  <h4>5. A collapsed container is skipped</h4>
+  <p>The container below has no size, so the plugin bails out before creating a canvas. Expect
+    0 canvases and no error.</p>
+  <div id="wavecollapsed" wave--load></div>
+  <pre>document.getElementById('wavecollapsed').querySelectorAll('canvas').length</pre>
+</body>
+
+</html>

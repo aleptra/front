@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="progressbar" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Progressbar Plugin</h1>
+  <p>The plugin styles a native <code>&lt;progress&gt;</code> element by injecting pseudo-element
+    rules into a stylesheet with the id <code>pb-&lt;element id&gt;</code>. It reads the
+    <code>color</code>, <code>bgcolor</code> and <code>radius</code> attributes.</p>
+  <hr>
+
+  <!-- Test 1: Colours are applied -->
+  <h4>1. Colours are applied</h4>
+  <p>The bar should show a red fill on a black track with rounded ends.</p>
+  <progress id="pb1" progressbar--set color="red" bgcolor="black" radius="4px" value="40" max="100"
+    width="100%"></progress>
+  <hr>
+
+  <!-- Test 2: Independent bars -->
+  <h4>2. Independent bars</h4>
+  <p>Each bar keeps its own colours, so this one must stay green on grey.</p>
+  <progress id="pb2" progressbar--set color="green" bgcolor="#ddd" radius="0" value="70" max="100"
+    width="100%"></progress>
+  <hr>
+
+  <!-- Test 3: Shade shorthand -->
+  <h4>3. Shade shorthand works</h4>
+  <p>This bar uses <code>bgcolor="black01"</code>, so the track should be a light translucent
+    grey rather than solid black.</p>
+  <progress id="pb3" progressbar--set color="blue" bgcolor="black01" radius="6px" value="25"
+    max="100" width="100%"></progress>
+  <hr>
+
+  <!-- Test 4: Value updates -->
+  <h4>4. Updating the value keeps the styling</h4>
+  <p>Click the buttons. The fill length changes while the colours stay applied.</p>
+  <button click="setattr:#pb1:[value][10]">10%</button>
+  <button click="setattr:#pb1:[value][90]">90%</button>
+  <hr>
+
+  <!-- Test 5: Stylesheet exists -->
+  <h4>5. A stylesheet is created per bar</h4>
+  <p>Run this in the console. All three should be style elements, not null.</p>
+  <pre>document.getElementById('pb-pb1')
+document.getElementById('pb-pb2')
+document.getElementById('pb-pb3')</pre>
+</body>
+
+</html>

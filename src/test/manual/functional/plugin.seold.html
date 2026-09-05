@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="seold" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Seold Plugin</h1>
+  <p>The plugin collects a name, description and url from the page and injects a JSON-LD
+    structured data block into the document. Inspect the end of
+    <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code> for a
+    <code>script type="application/ld+json"</code> element.</p>
+  <hr>
+
+  <!-- Test 1: Values are collected -->
+  <h4>1. Values are collected from the page</h4>
+  <p>The three elements below feed the structured data. Nothing changes visually.</p>
+  <p>Term: <span seold--name>Attribute</span></p>
+  <p>Definition: <span seold--desc>A declarative instruction placed directly on an element.</span>
+  </p>
+  <a seold--url href="https://front.nu/documentation/reference/ftml/attributes.html">Reference</a>
+  <hr>
+
+  <!-- Test 2: The block is injected -->
+  <h4>2. A JSON-LD block is injected</h4>
+  <p>Run this in the console. Expect one script element whose text contains "Attribute".</p>
+  <pre>document.querySelectorAll('script[type="application/ld+json"]').length
+document.querySelector('script[type="application/ld+json"]').textContent</pre>
+  <hr>
+
+  <!-- Test 3: Values are readable on the plugin -->
+  <h4>3. Values are readable on the plugin</h4>
+  <p>Run this in the console. Each should match the text above.</p>
+  <pre>app.plugin.seold.nameValue
+app.plugin.seold.descValue
+app.plugin.seold.urlValue</pre>
+  <hr>
+
+  <!-- Test 4: Partial data -->
+  <h4>4. Partial data does not throw</h4>
+  <p>This page provides all three values. Comment out the description element above, reload, and
+    the page should still work with a smaller block.</p>
+</body>
+
+</html>

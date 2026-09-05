@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="particles"
+    particles--conf="particles:40;maxSpeed:1;size:3;mousemove:true" conf="debug:true"></script>
+</head>
+
+<body bgcolor="#0b0d10" color="white">
+  <h1>Particles Plugin</h1>
+  <p>Options come from <code>particles--conf</code> on the script element and apply to every
+    container on the page. Each particle is a child element of the container.</p>
+  <hr>
+
+  <!-- Test 1: Particles are created and animate -->
+  <h4>1. Particles are created and animate</h4>
+  <p>Forty particles should appear in the box and drift upward continuously.</p>
+  <div particles--load width="100%" height="18rem" border="1px solid #333" relative></div>
+  <hr>
+
+  <!-- Test 2: Count matches the config -->
+  <h4>2. Count matches the config</h4>
+  <p>Run this in the console. Expect 40, matching <code>particles:40</code> above.</p>
+  <pre>document.querySelector('[particles--load]').children.length</pre>
+  <hr>
+
+  <!-- Test 3: Mouse tracking -->
+  <h4>3. Mouse tracking</h4>
+  <p>With <code>mousemove:true</code>, move the pointer across the first box and the particles
+    should react to it. Set <code>mousemove:false</code> on the script tag, reload, and the
+    motion should ignore the pointer.</p>
+  <hr>
+
+  <!-- Test 4: Two containers -->
+  <h4>4. Two independent containers</h4>
+  <p>Both boxes fill with their own particles and animate independently.</p>
+  <div particles--load width="48%" height="12rem" border="1px solid #333" relative inlineblock></div>
+  <div particles--load width="48%" height="12rem" border="1px solid #333" relative inlineblock></div>
+  <hr>
+
+  <!-- Test 5: Zero sized container -->
+  <h4>5. A collapsed container is harmless</h4>
+  <p>The container below has no height. Nothing should render and the page must not throw.</p>
+  <div particles--load width="100%" border="1px solid #333"></div>
+</body>
+
+</html>

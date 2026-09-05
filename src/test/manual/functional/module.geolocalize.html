@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="geolocalize" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Geolocalize Module</h1>
+  <p>The browser asks for location permission on load. Allow it for tests 1 and 2, deny it for
+    test 3 (use a private window to be asked again).</p>
+  <p><strong>Note:</strong> <code>geolocalize-get</code> depends on an <code>app.await</code>
+    registry that <code>front.js</code> does not create on its own. The inline script below
+    primes it, which is what the automated test does too. Without it the callback throws when
+    the position arrives.</p>
+  <script>
+    // Prime the await registry the module expects.
+    window.addEventListener('load', function () {
+      app.await = app.await || {}
+      app.await['geolocalize-get'] = { element: document.getElementById('geotarget'), enable: true }
+    })
+  </script>
+  <hr>
+
+  <!-- Test 1: Coordinates replace a variable -->
+  <h4>1. Coordinates fill a variable</h4>
+  <p>Allow location access. The link below should get its <code>href</code> rewritten from
+    <code>{coords}</code> to "latitude,longitude".</p>
+  <div id="geotarget" geolocalize-get="coords">
+    <a href="https://maps.google.com/?q={coords}" target="_blank">Open my position</a>
+  </div>
+  <hr>
+
+  <!-- Test 2: Values are stored on the module -->
+  <h4>2. Values are stored on the module</h4>
+  <p>After allowing access, run this in the console. Both should be non-zero numbers.</p>
+  <pre>app.module.geolocalize._latitude
+app.module.geolocalize._longitude</pre>
+  <hr>
+
+  <!-- Test 3: Permission denied -->
+  <h4>3. Denied permission shows the error target</h4>
+  <p>Deny location access. The hidden <code>#geoerror</code> element below should become
+    visible and read "User denied the request for Geolocation" in red.</p>
+  <div id="geoerror" hide></div>
+</body>
+
+</html>

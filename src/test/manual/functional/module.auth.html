@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="auth" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Auth Module</h1>
+  <p>The module reads a JWT from local storage. Use the buttons below to log in with a token
+    that never expires, or with one that is already expired, then reload to see how the
+    attributes react. Attributes are evaluated on load, so reload after changing state.</p>
+  <script>
+    // Unsigned demo tokens. Only the payload matters to the module.
+    function demoToken(exp) {
+      var head = btoa('{"alg":"none","typ":"JWT"}').replace(/=+$/, '')
+      var body = btoa('{"sub":"demo","name":"Demo User","exp":' + exp + '}').replace(/=+$/, '')
+      return head + '.' + body + '.x'
+    }
+    window.demoLogin = function (seconds) {
+      app.module.auth.login(demoToken(Math.floor(Date.now() / 1000) + seconds))
+      location.reload()
+    }
+    window.demoLogout = function () {
+      app.module.auth.logout()
+      location.reload()
+    }
+  </script>
+  <button onclick="demoLogin(3600)">Log in (valid 1h)</button>
+  <button onclick="demoLogin(-3600)">Log in (already expired)</button>
+  <button onclick="demoLogout()">Log out</button>
+  <hr>
+
+  <!-- Test 1: protect removes content -->
+  <h4>1. auth-protect removes content when not logged in</h4>
+  <p>Logged out: the box below is removed from the DOM entirely. Logged in: it stays.</p>
+  <div auth-protect border="1px solid black" padding="0.5rem">Protected content</div>
+  <hr>
+
+  <!-- Test 2: show only when authenticated -->
+  <h4>2. auth-show hides content when not logged in</h4>
+  <p>Logged out: hidden. Logged in: visible.</p>
+  <div auth-show border="1px solid green" padding="0.5rem">Visible only when logged in</div>
+  <hr>
+
+  <!-- Test 3: hide when authenticated -->
+  <h4>3. auth-hide hides content when logged in</h4>
+  <p>Logged out: visible. Logged in: hidden. This is the inverse of test 2.</p>
+  <div auth-hide border="1px solid red" padding="0.5rem">Visible only when logged out</div>
+  <hr>
+
+  <!-- Test 4: expired token counts as logged out -->
+  <h4>4. An expired token is not valid</h4>
+  <p>Click "Log in (already expired)". The page should behave exactly like logged out: test 1
+    removed, test 2 hidden, test 3 visible.</p>
+  <hr>
+
+  <!-- Test 5: globals and claims -->
+  <h4>5. Globals and claims</h4>
+  <p>Run these in the console while logged in. Expect <code>true</code>, the user object, and
+    "Demo User".</p>
+  <pre>app.globals.get('authenticated')
+app.module.auth.getUser()
+app.module.auth.getClaim('name')</pre>
+</body>
+
+</html>

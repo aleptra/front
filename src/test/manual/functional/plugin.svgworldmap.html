@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="svgworldmap"
+    svgworldmap--conf="defaultZoom:1;fixedMarkerSize:true;dragSensitivity:1.5" conf="debug:true"></script>
+</head>
+
+<body bgcolor="#0b0d10" color="white">
+  <h1>Svgworldmap Plugin</h1>
+  <p>The plugin loads a world SVG, injects it into the container and places markers from the
+    <code>svgworldmap--lat</code>, <code>svgworldmap--lng</code> and
+    <code>svgworldmap--label</code> attributes. It needs <code>world.svg</code> to be reachable
+    from the page, so serve this over localhost.</p>
+  <hr>
+
+  <!-- Test 1: Map renders with a marker -->
+  <h4>1. Map renders with a marker</h4>
+  <p>The container should hold an <code>svg</code> inside a <code>.svg-world-map</code> wrapper,
+    with a labelled marker over Stockholm.</p>
+  <div id="worldmap" svgworldmap--render svgworldmap--lat="59.3293" svgworldmap--lng="18.0686"
+    svgworldmap--label="Stockholm" width="100%" height="24rem" border="1px solid #333"></div>
+  <pre>document.querySelector('#worldmap .svg-world-map')
+document.querySelector('#worldmap svg')</pre>
+  <hr>
+
+  <!-- Test 2: Drag and zoom -->
+  <h4>2. Drag and zoom</h4>
+  <p>Drag the map to pan it, then use the wheel to zoom. Panning speed follows
+    <code>dragSensitivity</code> in the script config.</p>
+  <hr>
+
+  <!-- Test 3: Fixed marker size -->
+  <h4>3. Fixed marker size</h4>
+  <p>With <code>fixedMarkerSize:true</code> the marker keeps its screen size while zooming. Set
+    it to <code>false</code>, reload, and the marker should scale with the map.</p>
+  <hr>
+
+  <!-- Test 4: Filter buttons -->
+  <h4>4. Filter markers by tag</h4>
+  <p><code>svgworldmap-filter</code> declares the groups. Click a button: only markers carrying
+    that tag stay visible. Click it again to clear the filter.</p>
+  <div id="taggedmap" svgworldmap--render svgworldmap-filter="City:city;Port:port"
+    svgworldmap--lat="59.3293" svgworldmap--lng="18.0686" svgworldmap--label="Stockholm"
+    svgworldmap--tags="city" width="100%" height="24rem" border="1px solid #333"></div>
+  <button clicktargetfield="#taggedmap" click="svgworldmap--filter:[city]">Show cities</button>
+  <button clicktargetfield="#taggedmap" click="svgworldmap--filter:[port]">Show ports</button>
+  <hr>
+
+  <!-- Test 5: Missing svg -->
+  <h4>5. A missing world.svg fails quietly</h4>
+  <p>Open this page over <code>file://</code> so the svg cannot load. The container should stay
+    empty and the page must keep working.</p>
+</body>
+
+</html>

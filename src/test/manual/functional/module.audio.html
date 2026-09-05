@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="audio" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Audio Module</h1>
+  <p>Drop an audio file at <code>assets/tone.mp3</code> before running these tests. The
+    module wraps the browser <code>Audio</code> object, so the file has to be reachable.</p>
+  <hr>
+
+  <!-- Test 1: Play through click -->
+  <h4>1. Play a file on click</h4>
+  <p>Click Play. The file should start playing. Nothing visible changes.</p>
+  <button click="audio-play:[assets/tone.mp3]">Play</button>
+  <hr>
+
+  <!-- Test 2: Two independent sources -->
+  <h4>2. Two independent sources</h4>
+  <p>Each button plays its own file. Clicking both starts two overlapping sounds.</p>
+  <button click="audio-play:[assets/tone.mp3]">Play A</button>
+  <button click="audio-play:[assets/tone2.mp3]">Play B</button>
+  <hr>
+
+  <!-- Test 3: Missing file -->
+  <h4>3. Missing file fails quietly</h4>
+  <p>Click Play. No sound plays and the page keeps working. Check the console for the
+    browser's own media error.</p>
+  <button click="audio-play:[assets/does-not-exist.mp3]">Play missing file</button>
+  <hr>
+
+  <!-- Test 4: Play after another action -->
+  <h4>4. Chained with another action</h4>
+  <p>Click Play. The text below changes to "played" and the sound starts.</p>
+  <button click="audio-play:[assets/tone.mp3];settext:#audiostatus:[played]">Play and report</button>
+  <p id="audiostatus">waiting</p>
+</body>
+
+</html>

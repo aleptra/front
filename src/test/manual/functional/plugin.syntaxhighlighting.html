@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="syntaxhighlighting" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Syntaxhighlighting Plugin</h1>
+  <p>The plugin wraps tokens in <code>&lt;mark&gt;</code> elements. Inspect the code blocks to
+    confirm the marks exist rather than judging by colour alone.</p>
+  <hr>
+
+  <!-- Test 1: Markup -->
+  <h4>1. Escaped markup</h4>
+  <p>Tags, attribute names and attribute values should each be marked.</p>
+  <code syntaxhighlighting--set whitespace="pre" block padding="1rem" bgcolor="black01">&lt;div class="box" hide&gt;Hello&lt;/div&gt;</code>
+  <hr>
+
+  <!-- Test 2: JSON -->
+  <h4>2. JSON</h4>
+  <p>Keys, strings, numbers and booleans should each be marked separately.</p>
+  <code syntaxhighlighting--set whitespace="pre" block padding="1rem" bgcolor="black01">{"name":"Front","enabled":true,"version":1,"tags":["ftml","dom"]}</code>
+  <hr>
+
+  <!-- Test 3: Multi line -->
+  <h4>3. Multi line block keeps its line breaks</h4>
+  <p>Indentation and newlines must survive highlighting.</p>
+  <code syntaxhighlighting--set whitespace="pre" block padding="1rem" bgcolor="black01">&lt;ul data-iterate="items"&gt;
+  &lt;li data-get="title"&gt;&lt;/li&gt;
+&lt;/ul&gt;</code>
+  <hr>
+
+  <!-- Test 4: Plain text -->
+  <h4>4. Plain text is left alone</h4>
+  <p>Nothing to tokenise here, so the text should render unchanged and not throw.</p>
+  <code syntaxhighlighting--set block padding="1rem" bgcolor="black01">just some words</code>
+  <hr>
+
+  <!-- Test 5: Highlight after replacing content -->
+  <h4>5. Re-highlight after the content changes</h4>
+  <p>Click the button. The block is replaced and highlighted again through
+    <code>onsethtml</code>.</p>
+  <button click="sethtml:#lateblock:[&lt;span class='x'&gt;late&lt;/span&gt;]">Replace content</button>
+  <code id="lateblock" syntaxhighlighting--set onsethtml="syntaxhighlighting--set" whitespace="pre"
+    block padding="1rem" bgcolor="black01">&lt;em&gt;original&lt;/em&gt;</code>
+</body>
+
+</html>

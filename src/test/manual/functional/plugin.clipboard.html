@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="clipboard" clipboard--conf="range:false" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Clipboard Plugin</h1>
+  <p>Clipboard access needs a user gesture and a secure context, so serve this over
+    <code>http://localhost</code> rather than opening the file directly.</p>
+  <hr>
+
+  <!-- Test 1: Copy element text -->
+  <h4>1. Copy the element's own text</h4>
+  <p>Click Copy, then paste somewhere. You should get "copy me".</p>
+  <button click="clipboard--copy:#copysource">Copy</button>
+  <div id="copysource">copy me</div>
+  <hr>
+
+  <!-- Test 2: Paste into a field -->
+  <h4>2. Paste into a field</h4>
+  <p>Copy any text, then click Paste. The input should receive the clipboard contents.</p>
+  <button click="clipboard--paste:#pastetarget">Paste</button>
+  <input id="pastetarget" type="text" placeholder="clipboard lands here">
+  <hr>
+
+  <!-- Test 3: Range mode -->
+  <h4>3. Range mode copies the selection</h4>
+  <p>Select part of the sentence below, then click Copy selection. With
+    <code>clipboard--conf="range:true"</code> on the script tag only the highlighted text is copied.
+    With the current <code>false</code> setting the whole element is copied instead.</p>
+  <button click="clipboard--copy:#rangesource">Copy selection</button>
+  <div id="rangesource">Select only these few words and copy them.</div>
+  <hr>
+
+  <!-- Test 4: Copy then confirm -->
+  <h4>4. Chained feedback</h4>
+  <p>Click Copy. The status text updates, confirming the action completed.</p>
+  <button click="clipboard--copy:#copysource;settext:#clipstatus:[copied]">Copy and report</button>
+  <p id="clipstatus">waiting</p>
+</body>
+
+</html>

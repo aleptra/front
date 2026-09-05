@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="share" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Share Plugin</h1>
+  <p>Each button opens a platform share URL in a new window. Allow pop-ups for this page, and
+    expect the target site to load with the title and url prefilled.</p>
+  <hr>
+
+  <!-- Test 1: Twitter -->
+  <h4>1. Twitter</h4>
+  <p>Click Share. A twitter.com intent window opens containing the title and url below.</p>
+  <button share--platform="twitter" share--title="Front FTML" share--url="https://front.nu"
+    click="share--open">Share on Twitter</button>
+  <hr>
+
+  <!-- Test 2: WhatsApp -->
+  <h4>2. WhatsApp</h4>
+  <p>Click Share. An api.whatsapp.com window opens with the title followed by the url.</p>
+  <button share--platform="whatsapp" share--title="Front FTML" share--url="https://front.nu"
+    click="share--open">Share on WhatsApp</button>
+  <hr>
+
+  <!-- Test 3: LinkedIn -->
+  <h4>3. LinkedIn</h4>
+  <p>Click Share. A linkedin.com share window opens.</p>
+  <button share--platform="linkedin" share--title="Front FTML" share--url="https://front.nu"
+    click="share--open">Share on LinkedIn</button>
+  <hr>
+
+  <!-- Test 4: Unknown platform -->
+  <h4>4. Unknown platform fails quietly</h4>
+  <p>Only twitter, whatsapp and linkedin are supported. Click Share: no window opens and the
+    console logs "Unsupported share platform: facebook".</p>
+  <button share--platform="facebook" share--title="Front FTML" share--url="https://front.nu"
+    click="share--open">Share on an unsupported platform</button>
+  <hr>
+
+  <!-- Test 5: Values come from the clicked element -->
+  <h4>5. Each button carries its own values</h4>
+  <p>Click Share. The opened url should contain "Second title" rather than the title used
+    above, proving the values are read per element.</p>
+  <button share--platform="twitter" share--title="Second title" share--url="https://example.com"
+    click="share--open">Share something else</button>
+</body>
+
+</html>

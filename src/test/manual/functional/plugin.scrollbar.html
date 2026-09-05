@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="scrollbar" scrollbar--conf="width:auto;radius:3;thumb:white;track:#0b0d10"
+    conf="debug:true"></script>
+</head>
+
+<body bgcolor="#0b0d10" color="white">
+  <h1>Scrollbar Plugin</h1>
+  <p>The plugin injects a scoped stylesheet per element, keyed by a generated
+    <code>data-scrollbar-id</code>. Scrollbar styling is only visible in engines that support
+    it, so check WebKit or Chromium.</p>
+  <hr>
+
+  <!-- Test 1: Defaults from the script tag -->
+  <h4>1. Defaults from the script tag</h4>
+  <p>Scroll the box. The bar should be wide with a white rounded thumb, taken from
+    <code>scrollbar--conf</code> on the script element.</p>
+  <div scrollbar--set height="8rem" overflow="auto" border="1px solid #333" padding="0.5rem">
+    <p>Line one</p>
+    <p>Line two</p>
+    <p>Line three</p>
+    <p>Line four</p>
+    <p>Line five</p>
+    <p>Line six</p>
+    <p>Line seven</p>
+    <p>Line eight</p>
+  </div>
+  <hr>
+
+  <!-- Test 2: Per element override -->
+  <h4>2. Per element override</h4>
+  <p>This box passes its own values, so the bar should be thin with a red thumb and square
+    corners, different from test 1.</p>
+  <div scrollbar--set="width:thin;radius:0;thumb:red" height="8rem" overflow="auto"
+    border="1px solid #333" padding="0.5rem">
+    <p>Line one</p>
+    <p>Line two</p>
+    <p>Line three</p>
+    <p>Line four</p>
+    <p>Line five</p>
+    <p>Line six</p>
+    <p>Line seven</p>
+    <p>Line eight</p>
+  </div>
+  <hr>
+
+  <!-- Test 3: Scoping -->
+  <h4>3. Each element gets its own stylesheet</h4>
+  <p>Run this in the console. Expect two different ids and two matching style elements.</p>
+  <pre>document.querySelectorAll('[data-scrollbar-id]').length
+document.querySelectorAll('style[id^="scrollbar-style-"]').length</pre>
+  <hr>
+
+  <!-- Test 4: Non scrolling element -->
+  <h4>4. A non scrolling element is harmless</h4>
+  <p>The box below has no overflow. It should still get an id and must not throw.</p>
+  <div scrollbar--set border="1px solid #333" padding="0.5rem">Short content, no scrollbar.</div>
+</body>
+
+</html>

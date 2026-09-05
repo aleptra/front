@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" module="sound" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Sound Module</h1>
+  <p><strong>Status: placeholder.</strong> <code>app.module.sound.play</code> is currently an
+    empty function, so nothing is expected to happen yet. These cases confirm the attribute is
+    dispatched without throwing, and they become real tests once the module is implemented.</p>
+  <hr>
+
+  <!-- Test 1: Attribute is dispatched -->
+  <h4>1. Attribute runs without error</h4>
+  <p>Load the page. With <code>debug:true</code> the console should log the
+    <code>sound:sound-play</code> dispatch and the page must not throw.</p>
+  <div sound-play></div>
+  <hr>
+
+  <!-- Test 2: Dispatched on click -->
+  <h4>2. Dispatched from a click</h4>
+  <p>Click the button. No sound plays, but the second action still runs, proving the call
+    returned normally.</p>
+  <button click="sound-play;settext:#soundstatus:[dispatched]">Play</button>
+  <p id="soundstatus">waiting</p>
+  <hr>
+
+  <!-- Test 3: Value is accepted -->
+  <h4>3. A value is accepted</h4>
+  <p>Click the button. The attribute takes a value without complaint.</p>
+  <button click="sound-play:[beep]">Play named sound</button>
+</body>
+
+</html>

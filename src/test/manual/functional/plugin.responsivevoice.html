@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="responsivevoice" conf="debug:true"></script>
+  <!-- The plugin drives the external ResponsiveVoice library, which must be loaded
+       separately and needs a key for production use. Without it the calls are no-ops. -->
+  <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+</head>
+
+<body>
+  <h1>Responsivevoice Plugin</h1>
+  <p>The plugin calls <code>window.responsiveVoice</code>. If that library is missing or
+    blocked, nothing is spoken and the page should keep working. Speech also needs a user
+    gesture in most browsers, so use the buttons.</p>
+  <hr>
+
+  <!-- Test 1: Speak a literal -->
+  <h4>1. Speak a literal value</h4>
+  <p>Click Speak. You should hear "hello from front".</p>
+  <button click="responsivevoice--speak:[hello from front]">Speak</button>
+  <hr>
+
+  <!-- Test 2: Speak element text -->
+  <h4>2. Speak another element's text</h4>
+  <p>Click Speak. The sentence in the box below should be read out.</p>
+  <button click="responsivevoice--speak:#speechsource">Speak the box</button>
+  <div id="speechsource" border="1px solid black" padding="0.5rem">Attributes describe behaviour
+    directly on the element.</div>
+  <hr>
+
+  <!-- Test 3: A new call cancels the previous one -->
+  <h4>3. A new call cancels the previous one</h4>
+  <p>Click the first button, then quickly click the second. The first sentence should stop and
+    the second should take over rather than overlapping.</p>
+  <button click="responsivevoice--speak:[this is a longer sentence that takes a while to finish]">Speak
+    long</button>
+  <button click="responsivevoice--speak:[short]">Speak short</button>
+  <hr>
+
+  <!-- Test 4: Library missing -->
+  <h4>4. Missing library fails quietly</h4>
+  <p>Block or remove the ResponsiveVoice script above and reload. Clicking the buttons should
+    stay silent without throwing, and the chained action below still runs.</p>
+  <button click="responsivevoice--speak:[test];settext:#voicestatus:[dispatched]">Speak and
+    report</button>
+  <p id="voicestatus">waiting</p>
+</body>
+
+</html>

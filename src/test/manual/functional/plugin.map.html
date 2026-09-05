@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="map" map--conf="osmTarget:#osmmap" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Map Plugin</h1>
+  <p>The plugin reads coordinates from <code>map--lat</code> and <code>map--lng</code> on the
+    target element and renders through a provider configured in <code>map--conf</code>. Google
+    and Bing need an API key; OpenStreetMap does not. Without a usable provider the target is
+    queued and stays empty, which is the expected fallback.</p>
+  <hr>
+
+  <!-- Test 1: Coordinates are picked up -->
+  <h4>1. Coordinates are picked up</h4>
+  <p>Click Render. Run the console line afterwards: the pending target should be this element.</p>
+  <button click="map--run:#osmmap">Render</button>
+  <div id="osmmap" map--lat="59.3293" map--lng="18.0686" width="100%" height="18rem"
+    border="1px solid #333"></div>
+  <pre>app.plugin.map._pendingTarget</pre>
+  <hr>
+
+  <!-- Test 2: A second location -->
+  <h4>2. A second location</h4>
+  <p>Click Render. The pending target switches to the second box, proving coordinates are read
+    per element rather than globally.</p>
+  <button click="map--run:#osmmap2">Render</button>
+  <div id="osmmap2" map--lat="48.8566" map--lng="2.3522" width="100%" height="18rem"
+    border="1px solid #333"></div>
+  <hr>
+
+  <!-- Test 3: Missing coordinates -->
+  <h4>3. Missing coordinates fail quietly</h4>
+  <p>Click Render. The box has no lat or lng, so nothing should render and the page must keep
+    working.</p>
+  <button click="map--run:#nocoords">Render</button>
+  <div id="nocoords" width="100%" height="8rem" border="1px solid #333"></div>
+  <hr>
+
+  <!-- Test 4: No provider configured -->
+  <h4>4. No provider configured</h4>
+  <p>Remove <code>map--conf</code> from the script tag and reload, then click any Render button.
+    The target should stay empty without throwing.</p>
+</body>
+
+</html>

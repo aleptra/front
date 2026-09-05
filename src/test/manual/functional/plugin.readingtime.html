@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="readingtime" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Readingtime Plugin</h1>
+  <p>The plugin counts the words in the target element and writes an estimate into the element
+    carrying <code>readingtime--set</code>.</p>
+  <hr>
+
+  <!-- Test 1: Estimate is written -->
+  <h4>1. Estimate is written into the output</h4>
+  <p>The span below should read something like "1 min to read" for the short article.</p>
+  <p>Estimate: <span readingtime--set="#shortarticle"></span></p>
+  <article id="shortarticle">
+    <p>Front renders markup from attributes. This article is intentionally short so the
+      estimate stays at roughly one minute of reading time for an average reader.</p>
+  </article>
+  <hr>
+
+  <!-- Test 2: Longer text gives a bigger number -->
+  <h4>2. A longer article gives a larger estimate</h4>
+  <p>The paragraph below is duplicated by script to about 400 words, so the estimate should
+    read "2 min to read".</p>
+  <p>Estimate: <span id="longestimate" readingtime--set="#longarticle"></span></p>
+  <article id="longarticle"></article>
+  <script>
+    var words = []
+    for (var i = 0; i < 400; i++) words.push('word')
+    document.getElementById('longarticle').textContent = words.join(' ')
+  </script>
+  <hr>
+
+  <!-- Test 3: Missing target -->
+  <h4>3. A missing target fails quietly</h4>
+  <p>The span below points at an element that does not exist. It should stay empty and the page
+    must keep working.</p>
+  <p>Estimate: <span readingtime--set="#nosucharticle">[empty]</span></p>
+  <hr>
+
+  <!-- Test 4: Recalculate -->
+  <h4>4. Recalculate after the article grows</h4>
+  <p>Click Append, then Recalculate. The estimate should increase.</p>
+  <button click="insertbeforeend:#longarticle:[ and more words to read here]">Append</button>
+  <button click="rerun:#longestimate">Recalculate</button>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="filtersearch" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Filtersearch Plugin</h1>
+  <hr>
+
+  <!-- Test 1: Type to filter -->
+  <h4>1. Type to filter rows</h4>
+  <p>Type "an" in the field. Banana and Mango stay, Apple and Cherry disappear. Clear the field
+    and all four come back.</p>
+  <input id="filterinput" type="text" placeholder="Filter fruit" filtersearch--input
+    onvaluechange="filtersearch--run:#fruitlist">
+  <ul id="fruitlist">
+    <li filtersearch--select>Apple</li>
+    <li filtersearch--select>Banana</li>
+    <li filtersearch--select>Cherry</li>
+    <li filtersearch--select>Mango</li>
+  </ul>
+  <hr>
+
+  <!-- Test 2: Empty state target -->
+  <h4>2. Empty state message</h4>
+  <p>Type "zzz" below. Every row hides and the message appears through
+    <code>filtersearch--onempty</code>. Clear the field and the message hides again.</p>
+  <input type="text" placeholder="Filter alpha/beta" filtersearch--input
+    onvaluechange="filtersearch--run:#emptylist">
+  <ul id="emptylist" filtersearch--onempty="#noresults">
+    <li filtersearch--select>Alpha</li>
+    <li filtersearch--select>Beta</li>
+  </ul>
+  <div id="noresults" hide>No rows match your filter.</div>
+  <hr>
+
+  <!-- Test 3: Count feeds a variable -->
+  <h4>3. Match count drives a heading</h4>
+  <p><code>filtersearch--count</code> writes the number of matches into a variable, which
+    <code>if</code> then reads. Type "zzz": the heading hides because the count reaches 0. Clear
+    the field: it comes back.</p>
+  <input type="text" placeholder="Filter cities" filtersearch--input
+    onvaluechange="filtersearch--run:#citylist">
+  <h5 id="citytitle">Cities</h5>
+  <ul id="citylist">
+    <li filtersearch--select filtersearch--count="citycount"
+      if="([{citycount}]:[0])/hide:#citytitle?show:#citytitle">Berlin</li>
+    <li filtersearch--select filtersearch--count="citycount"
+      if="([{citycount}]:[0])/hide:#citytitle?show:#citytitle">Bergen</li>
+  </ul>
+  <hr>
+
+  <!-- Test 4: Hidden marker -->
+  <h4>4. Search a hidden value</h4>
+  <p>Type "citrus". The Lemon row matches on its hidden marker even though the word is not
+    visible in the row.</p>
+  <input type="text" placeholder="Try citrus" filtersearch--input
+    onvaluechange="filtersearch--run:#markerlist">
+  <ul id="markerlist">
+    <li filtersearch--select>Lemon <span hide filtersearch--marker>citrus</span></li>
+    <li filtersearch--select>Apple <span hide filtersearch--marker>pome</span></li>
+  </ul>
+  <hr>
+
+  <!-- Test 5: Group checkboxes -->
+  <h4>5. Filter by group</h4>
+  <p>Tick "With value". Only rows whose marker has a value stay visible. Untick to restore.</p>
+  <fieldset>
+    <input type="checkbox" id="grp_value" filtersearch--group="_hasvalue"
+      click="filtersearch--run:#grouplist">
+    <label for="grp_value">With value</label>
+  </fieldset>
+  <ul id="grouplist">
+    <li filtersearch--select>Core row <span hide filtersearch--marker></span></li>
+    <li filtersearch--select>Module row <span hide filtersearch--marker>data</span></li>
+  </ul>
+  <hr>
+
+  <!-- Test 6: Reset -->
+  <h4>6. Reset restores every row</h4>
+  <p>Filter the first list, then click Clear. The field empties, all rows return and focus goes
+    back to the field.</p>
+  <button click="reset:#filterinput;filtersearch--run:#fruitlist" onclicked="focus:#filterinput">Clear
+    filter</button>
+</body>
+
+</html>

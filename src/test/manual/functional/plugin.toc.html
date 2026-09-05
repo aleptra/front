@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="../../../front.js" plugin="toc" conf="debug:true"></script>
+</head>
+
+<body>
+  <h1>Toc Plugin</h1>
+  <p>The plugin scans the surrounding article for headings and builds nested links inside the
+    <code>nav</code>. Generated links carry <code>data-toc-generated="true"</code>.</p>
+  <hr>
+
+  <article>
+    <!-- Test 1: Links are generated -->
+    <h4>1. Links are generated from headings</h4>
+    <p>The list below should contain one link per heading in this article, nested by level.</p>
+    <nav toc--set border="1px solid black" padding="0.5rem" block></nav>
+
+    <h2>Attribute Layers</h2>
+    <p>First section.</p>
+    <h3>Execution order</h3>
+    <p>Nested under Attribute Layers.</p>
+    <h3>Value handling</h3>
+    <p>Also nested under Attribute Layers.</p>
+    <h2>Values</h2>
+    <p>Second top level section.</p>
+
+    <!-- Test 2: Excluded headings -->
+    <h4>2. Excluded headings are skipped</h4>
+    <p>The heading directly below is marked with <code>toc--exclude</code> and must not appear
+      in the list above.</p>
+    <h2 toc--exclude>Internal Notes</h2>
+    <p>This section is deliberately left out of the table of contents.</p>
+
+    <!-- Test 3: Anchors jump -->
+    <h4>3. Clicking a link jumps to the heading</h4>
+    <p>Click any generated link. The page should scroll to that heading, and the address bar
+      should show the matching fragment.</p>
+
+    <!-- Test 4: Rebuild -->
+    <h4>4. Rebuilding does not duplicate links</h4>
+    <p>Click Rebuild. The list should be regenerated with the same number of links, not
+      doubled.</p>
+    <button click="rerun:#tocnav">Rebuild</button>
+    <nav id="tocnav" toc--set border="1px solid black" padding="0.5rem" block></nav>
+  </article>
+</body>
+
+</html>
