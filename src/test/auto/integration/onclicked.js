@@ -45,13 +45,16 @@ test('onclicked - should suppress event callbacks while a parent is data-loading
   assertEqual(target.textContent, 'clicked')
 })
 
-test.skip('onclicked - should route a nested native click to its button ancestor once', function () {
+test('onclicked - should route a nested native click to its button ancestor once', function () {
   var target = createElement('div')
   var button = createElement('button')
   var nested = document.createElement('span')
   button.appendChild(nested)
   button.setAttribute('click', 'settext:#' + target.id + ':[clicked]')
   button.setAttribute('onclicked', 'insertbeforeend:#' + target.id + ':[!]')
+
+  // The attribute runner initialises the event bookkeeping before events fire.
+  app.attributes.run([button])
 
   app.click(nested)
 

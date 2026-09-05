@@ -12,13 +12,15 @@ test('focus - should focus the element', function () {
   assertTrue(focused)
 })
 
-test.skip('focus - should run the normalized focused callback', function () {
+test('focus - should run the normalized focused callback', function () {
   var target = createElement('div')
   var el = createElement('input')
   var originalTimeout = window.setTimeout
   var focused = false
   el.focus = function () { focused = true }
   el.setAttribute('onfocused', 'settext:#' + target.id + ':[focused]')
+  // The attribute runner initialises the event bookkeeping before events fire.
+  app.attributes.run([el])
   window.setTimeout = function (cb) { cb() }
 
   app.call('focus:#' + el.id)

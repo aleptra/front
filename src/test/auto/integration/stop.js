@@ -52,6 +52,7 @@ test('stop - Pattern 3: attr (specific attribute on parent only)', function () {
 })
 
 
+// Unresolved semantics: '*' alone does not stop the parent's own attributes.
 test.skip('stop - Pattern 4: *;parentattr (attributes on children and parent)', function () {
   var parent = createElement('div')
   parent.innerHTML = '<div id="parent" settext="NO1">YES<div settext="NO2">YES</div></div>'
@@ -62,13 +63,15 @@ test.skip('stop - Pattern 4: *;parentattr (attributes on children and parent)', 
   assertEqual(parent.innerText, 'YESYES')
 })
 
+// Unresolved semantics: the parent's settext still runs, replacing the child.
 test.skip('stop - Pattern 5: Mixed (specific parent, specific child)', function () {
   var parent = createElement('div')
   parent.setAttribute('settext', 'NO')
   parent.innerHTML = '<div settext="YES" bgcolor="red" bold>Child</div>'
 
   dom.stop(parent, 'settext;*.bgcolor')
-  app.attributes.run([parent].concat(parent.querySelectorAll('*')))
+  // concat does not spread a NodeList, so convert it to a real array first.
+  app.attributes.run([parent].concat([].slice.call(parent.querySelectorAll('*'))))
 
   var child = parent.querySelector('div')
   assertEqual(parent.innerText.includes('Child'), true)

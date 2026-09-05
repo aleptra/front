@@ -1,4 +1,4 @@
-test.skip('prependattr - should prepend text to an attribute', function () {
+test('prependattr - should prepend text to an attribute', function () {
   var element = createElement('div')
   element.setAttribute('data-label', 'value')
 

@@ -13,6 +13,8 @@ test('settext - should set empty text when value is empty', function () {
   assertEqual(testElement.innerText, expected)
 })
 
+// Known limitation: extractBracketValues also consumes the [1] index, so the
+// selector and the value collide and produce "1,indexed".
 test.skip('settext - should resolve an indexed custom-element selector', function () {
   createElement('front-parser-item')
   var second = createElement('front-parser-item')
@@ -36,6 +38,8 @@ test('settext - should preserve the unique call flag in parsed commands', functi
   assertTrue(parsed.unique)
 })
 
+// Known limitation: app.call splits on ';' before brackets are parsed, so a
+// semicolon inside [] starts a second command.
 test.skip('settext - should preserve semicolons inside bracket values', function () {
   var target = createElement('div')
 
