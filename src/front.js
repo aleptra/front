@@ -1051,7 +1051,8 @@ var dom = {
 
     var tag = object.localName,
       state = object.attributes.statevalue,
-      insert = insert.replace('insert', '')
+      // prependattr writes to the front of the target attribute.
+      insert = insert === 'prependattr' ? 'afterbegin' : insert.replace('insert', '')
 
     var normal = insert === '2' ? value : '',
       afterbegin = insert === 'afterbegin' ? value : '',
@@ -1174,7 +1175,7 @@ var dom = {
         }
         break
       case 'maprun':
-        app.exec(data.run, { element: object })
+        app.call(data, { element: object })
         break
       case 'maptext':
         var value = app.element.getPropertyByPath(cache.data, 'text.' + value)
@@ -2893,7 +2894,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 775 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 776 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
