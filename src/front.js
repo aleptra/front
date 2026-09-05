@@ -392,6 +392,9 @@ var dom = {
         value = attr
         attr = 'fontWeight'
         break
+      case 'font':
+        if (/^\S+$/.test(value)) value = '100% ' + value
+        break
       case 'block':
       case 'grid':
       case 'flex':
@@ -447,7 +450,6 @@ var dom = {
     }
 
     element.style[attr] = value
-
     // Let css decide the unit: a bare number it rejected only needs px.
     if (!element.style[attr] && /^-?\d*\.?\d+$/.test(value)) element.style[attr] = value + 'px'
   },
@@ -2894,7 +2896,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 776 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 777 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
