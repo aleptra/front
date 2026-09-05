@@ -393,11 +393,8 @@ var dom = {
       case 'grid':
       case 'flex':
       case 'table':
-        value = attr
-        attr = 'display'
-        break
       case 'inline':
-        value = 'inline'
+        value = attr
         attr = 'display'
         break
       case 'inlineblock':
@@ -2894,7 +2891,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 773 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 774 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
