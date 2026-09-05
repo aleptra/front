@@ -328,34 +328,51 @@ var dom = {
       func = element.lastRunAttribute
     }
 
-    var prefix = '',
-      suffix = '',
-      attr = func.replace(/(top|bottom|left|right)$/g, function (match) {
-        return match.charAt(0).toUpperCase() + match.slice(1)
-      })
+    var attr = func.replace(/(top|bottom|left|right)$/g, function (match) {
+      return match.charAt(0).toUpperCase() + match.slice(1)
+    })
 
     // Shades: white and black.
     if (/color|shadow|border|outline/i.test(attr)) value = String(value).replace(/black0([1-9])/g, 'rgba(0,0,0,.$1)').replace(/white0([1-9])/g, 'rgba(255,255,255,.$1)')
 
+    _styleMap = {
+      align: 'textAlign',
+      alignitems: 'alignItems',
+      alignself: 'alignSelf',
+      bgcolor: 'backgroundColor',
+      boxshadow: 'boxShadow',
+      fontsize: 'fontSize',
+      flexdirection: 'flexDirection',
+      gridarea: 'gridArea',
+      gridrow: 'gridRow',
+      gridcolumn: 'gridColumn',
+      gridcolumns: 'gridTemplateColumns',
+      gridrows: 'gridTemplateRows',
+      justifycontent: 'justifyContent',
+      letterspacing: 'letterSpacing',
+      lineheight: 'lineHeight',
+      flexgrow: 'flexGrow',
+      zindex: 'zIndex',
+      minwidth: 'minWidth',
+      minheight: 'minHeight',
+      maxheight: 'maxHeight',
+      maxwidth: 'maxWidth',
+      outlinecolor: 'outlineColor',
+      outlineoffset: 'outlineOffset',
+      outlinestyle: 'outlineStyle',
+      outlinewidth: 'outlineWidth',
+      overflowx: 'overflowX',
+      overflowy: 'overflowY',
+      radius: 'borderRadius',
+      textshadow: 'textShadow',
+      valign: 'verticalAlign',
+      wordbreak: 'wordBreak',
+      whitespace: 'whiteSpace',
+    }
+
+    attr = _styleMap[attr] || attr
+
     switch (attr) {
-      case 'align':
-        attr = 'textAlign'
-        break
-      case 'valign':
-        attr = 'verticalAlign'
-        break
-      case 'alignitems':
-        attr = 'alignItems'
-        break
-      case 'alignself':
-        attr = 'alignSelf'
-        break
-      case 'wordbreak':
-        attr = 'wordBreak'
-        break
-      case 'whitespace':
-        attr = 'whiteSpace'
-        break
       case 'bgimage':
         var parts = value.split(' ')
         var url = parts[0]
@@ -368,30 +385,9 @@ var dom = {
         element.style.backgroundSize = size
         element.style.backgroundPosition = position
         break
-      case 'bgcolor':
-        attr = 'backgroundColor'
-        break
-      case 'boxshadow':
-        attr = 'boxShadow'
-        break
-      case 'outlinecolor':
-        attr = 'outlineColor'
-        break
-      case 'outlineoffset':
-        attr = 'outlineOffset'
-        break
-      case 'outlinestyle':
-        attr = 'outlineStyle'
-        break
-      case 'outlinewidth':
-        attr = 'outlineWidth'
-        break
       case 'bold':
         value = attr
         attr = 'fontWeight'
-        break
-      case 'flexgrow':
-        attr = 'flexGrow'
         break
       case 'block':
       case 'grid':
@@ -399,21 +395,6 @@ var dom = {
       case 'table':
         value = attr
         attr = 'display'
-        break
-      case 'gridarea':
-        attr = 'gridArea'
-        break
-      case 'gridcolumns':
-        attr = 'gridTemplateColumns'
-        break
-      case 'gridrows':
-        attr = 'gridTemplateRows'
-        break
-      case 'gridcolumn':
-        attr = 'gridColumn'
-        break
-      case 'gridrow':
-        attr = 'gridRow'
         break
       case 'inline':
         value = 'inline'
@@ -423,54 +404,12 @@ var dom = {
         value = 'inline-block'
         attr = 'display'
         break
-      case 'radius':
-        attr = 'borderRadius'
-        break
       case 'flexitem':
         attr = 'flex'
-        break
-      case 'flexdirection':
-        attr = 'flexDirection'
-        break
-      case 'justifycontent':
-        attr = 'justifyContent'
-        break
-      case 'lineheight':
-        attr = 'lineHeight'
-        break
-      case 'maxheight':
-        attr = 'maxHeight'
-        break
-      case 'minheight':
-        attr = 'minHeight'
-        break
-      case 'minwidth':
-        attr = 'minWidth'
-        break
-      case 'maxwidth':
-        attr = 'maxWidth'
-        break
-      case 'fontsize':
-        attr = 'fontSize'
-        break
-      case 'letterspacing':
-        attr = 'letterSpacing'
-        break
-      case 'textshadow':
-        attr = 'textShadow'
         break
       case 'underline':
         element.style.textDecoration = 'underline'
         element.style.textUnderlinePosition = 'under'
-        break
-      case 'zindex':
-        attr = 'zIndex'
-        break
-      case 'overflowx':
-        attr = 'overflowX'
-        break
-      case 'overflowy':
-        attr = 'overflowY'
         break
       case 'zoom':
         element.style.lineHeight = 'normal'
@@ -500,17 +439,6 @@ var dom = {
         attr = 'position'
         break
       default:
-        // Extract the value and unit in the default case
-        var regex = /^(\d+)([a-z%]*)$/,
-          match = value.match(regex)
-
-        if (match) {
-          var numeric = parseFloat(match[1]), // Convert the value to a float
-            unit = match[2] || 'px',
-            value = numeric,
-            prefix = unit
-        }
-
         // Handle "unset:property" or "inherit:property" syntax
         var specialMatch = func.trim().match(/^(unset|inherit)$/i)
         if (specialMatch) {
@@ -519,7 +447,10 @@ var dom = {
         }
     }
 
-    element.style[attr] = suffix + value + prefix
+    element.style[attr] = value
+
+    // Let css decide the unit: a bare number it rejected only needs px.
+    if (!element.style[attr] && /^-?\d*\.?\d+$/.test(value)) element.style[attr] = value + 'px'
   },
 
   /**
@@ -2963,7 +2894,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 771 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 773 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
