@@ -5,6 +5,7 @@ SHELL := /bin/bash
 
 SRC = src
 TEST_QUERY = $(if $(TEST),?test=$(TEST),)
+TEST_RUNTIME ?= $(SRC)/front.js
 NOW = python3 -c 'import time;print(time.time())'
 SINCE = python3 -c "import sys,time;print('%.1f' % (time.time() - float(sys.argv[1])))"
 JS_FILE = $(SRC)/front.js
@@ -107,15 +108,20 @@ test:
 	else echo ""; echo "================================"; echo "❌ Some tests failed ($${ELAPSED}s)"; echo "================================"; exit 1; fi
 
 test\:unit:
-	@echo ""; echo "=== Unit Tests ==="; \
+	@echo ""; echo "=== Unit Tests ($(TEST_RUNTIME)) ==="; \
 	START=$$($(NOW)); \
 	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
 	PORT=9225; \
-	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
+	TEST_ROOT=$$(mktemp -d /tmp/front-test-unit.XXXXXX); \
+	PID=""; \
+	cleanup() { if [ -n "$PID" ]; then kill "$PID" 2>/dev/null || true; wait "$PID" 2>/dev/null || true; fi; rm -rf "$TEST_ROOT"; }; \
+	trap cleanup EXIT; \
+	rsync -a --exclude='.build/' "$(SRC)/" "$$TEST_ROOT/"; \
+	cp "$(TEST_RUNTIME)" "$$TEST_ROOT/front.js"; \
+	python3 -m http.server $$PORT -d "$$TEST_ROOT" &>/dev/null & PID=$$!; \
 	sleep 0.5; \
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
 		"http://localhost:$$PORT/tests/auto/unit/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_unit.html; \
-	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	ELAPSED=$$($(SINCE) $$START); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_unit.html); \
 	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_unit.html; \
@@ -123,15 +129,20 @@ test\:unit:
 	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ unit passed ($${ELAPSED}s)" || { echo "❌ unit failed ($${ELAPSED}s)"; exit 1; }
 
 test\:integration:
-	@echo ""; echo "=== Integration Tests ==="; \
+	@echo ""; echo "=== Integration Tests ($(TEST_RUNTIME)) ==="; \
 	START=$$($(NOW)); \
 	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
 	PORT=9226; \
-	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
+	TEST_ROOT=$$(mktemp -d /tmp/front-test-integration.XXXXXX); \
+	PID=""; \
+	cleanup() { if [ -n "$PID" ]; then kill "$PID" 2>/dev/null || true; wait "$PID" 2>/dev/null || true; fi; rm -rf "$TEST_ROOT"; }; \
+	trap cleanup EXIT; \
+	rsync -a --exclude='.build/' "$(SRC)/" "$$TEST_ROOT/"; \
+	cp "$(TEST_RUNTIME)" "$$TEST_ROOT/front.js"; \
+	python3 -m http.server $$PORT -d "$$TEST_ROOT" &>/dev/null & PID=$$!; \
 	sleep 0.5; \
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
 		"http://localhost:$$PORT/tests/auto/integration/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_integration.html; \
-	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	ELAPSED=$$($(SINCE) $$START); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_integration.html); \
 	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_integration.html; \
@@ -139,15 +150,20 @@ test\:integration:
 	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ integration passed ($${ELAPSED}s)" || { echo "❌ integration failed ($${ELAPSED}s)"; exit 1; }
 
 test\:performance:
-	@echo ""; echo "=== Performance Tests ==="; \
+	@echo ""; echo "=== Performance Tests ($(TEST_RUNTIME)) ==="; \
 	START=$$($(NOW)); \
 	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
 	PORT=9227; \
-	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
+	TEST_ROOT=$$(mktemp -d /tmp/front-test-performance.XXXXXX); \
+	PID=""; \
+	cleanup() { if [ -n "$PID" ]; then kill "$PID" 2>/dev/null || true; wait "$PID" 2>/dev/null || true; fi; rm -rf "$TEST_ROOT"; }; \
+	trap cleanup EXIT; \
+	rsync -a --exclude='.build/' "$(SRC)/" "$$TEST_ROOT/"; \
+	cp "$(TEST_RUNTIME)" "$$TEST_ROOT/front.js"; \
+	python3 -m http.server $$PORT -d "$$TEST_ROOT" &>/dev/null & PID=$$!; \
 	sleep 0.5; \
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
 		"http://localhost:$$PORT/tests/auto/performance/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_performance.html; \
-	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	ELAPSED=$$($(SINCE) $$START); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_performance.html); \
 	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_performance.html; \
@@ -155,13 +171,20 @@ test\:performance:
 	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ performance passed ($${ELAPSED}s)" || { echo "❌ performance failed ($${ELAPSED}s)"; exit 1; }
 
 app\:create:
-	@if [ -z "$(DIR)" ]; then \
-		read -p "Enter project name: " DIR; \
+	@set -e; \
+	DIR="$(DIR)"; \
+	if [ -z "$$DIR" ]; then \
+		read -p "Enter project name: " DIR || true; \
+	fi; \
+	if [ -z "$$DIR" ]; then \
+		echo "Error: project name is required."; \
+		exit 1; \
 	fi; \
 	PROJECTDIR=~/front/$$DIR; \
 	PROJECTDIR=$$(eval echo $$PROJECTDIR); \
 	if [ -d "$$PROJECTDIR" ]; then \
-		echo "Error: $$PROJECTDIR already exists"; exit 1; \
+		echo "Error: $$PROJECTDIR already exists"; \
+		exit 1; \
 	fi; \
 	USE_CDN="$(USE_CDN)"; \
 	if [ -z "$$USE_CDN" ]; then \
@@ -172,32 +195,28 @@ app\:create:
 		esac; \
 	fi; \
 	LATEST_VERSION="$(VERSION)"; \
+	if [ "$$USE_CDN" = "1" ]; then echo "✓ Using v$$LATEST_VERSION from CDN"; else echo "✓ Using local Front runtime"; fi; \
 	echo "Creating app project in $$PROJECTDIR..."; \
 	mkdir -p "$$PROJECTDIR"; \
-	echo '<!DOCTYPE html>' > $$PROJECTDIR/index.html; \
-	echo '<html lang="en">' >> $$PROJECTDIR/index.html; \
-	echo '<head>' >> $$PROJECTDIR/index.html; \
-	echo '  <meta charset="UTF-8">' >> $$PROJECTDIR/index.html; \
-	echo '  <meta name="viewport" content="width=device-width, initial-scale=1.0">' >> $$PROJECTDIR/index.html; \
+	echo '<!DOCTYPE html>' > "$$PROJECTDIR/index.html"; \
+	echo '<html lang="en">' >> "$$PROJECTDIR/index.html"; \
+	echo '<head>' >> "$$PROJECTDIR/index.html"; \
+	echo '  <meta charset="UTF-8">' >> "$$PROJECTDIR/index.html"; \
+	echo '  <meta name="viewport" content="width=device-width, initial-scale=1.0">' >> "$$PROJECTDIR/index.html"; \
 	if [ "$$USE_CDN" = "1" ]; then \
-		echo '  <script src="https://cdn.front.nu/'$$LATEST_VERSION'/front.min.js"></script>' >> $$PROJECTDIR/index.html; \
+		echo '  <script src="https://cdn.front.nu/'$$LATEST_VERSION'/front.min.js"></script>' >> "$$PROJECTDIR/index.html"; \
 	else \
 		mkdir -p "$$PROJECTDIR/src"; \
 		cp -R "$$LATEST_VERSION" "$$PROJECTDIR/src/"; \
-		echo '  <script src="src/'$$LATEST_VERSION'/front.js"></script>' >> $$PROJECTDIR/index.html; \
+		echo '  <script src="src/'$$LATEST_VERSION'/front.js"></script>' >> "$$PROJECTDIR/index.html"; \
 	fi; \
-	echo '  <title>Front App</title>' >> $$PROJECTDIR/index.html; \
-	echo '</head>' >> $$PROJECTDIR/index.html; \
-	echo '<body>' >> $$PROJECTDIR/index.html; \
-	echo '  <h1 settext="FTML is running successfully!"></h1>' >> $$PROJECTDIR/index.html; \
-	echo '</body>' >> $$PROJECTDIR/index.html; \
-	echo '</html>' >> $$PROJECTDIR/index.html; \
+	echo '  <title>Front App</title>' >> "$$PROJECTDIR/index.html"; \
+	echo '</head>' >> "$$PROJECTDIR/index.html"; \
+	echo '<body>' >> "$$PROJECTDIR/index.html"; \
+	echo '  <h1 settext="FTML is running successfully!"></h1>' >> "$$PROJECTDIR/index.html"; \
+	echo '</body>' >> "$$PROJECTDIR/index.html"; \
+	echo '</html>' >> "$$PROJECTDIR/index.html"; \
 	echo "✓ App project created in $$PROJECTDIR"; \
-	if [ "$$USE_CDN" = "1" ]; then \
-		echo "✓ Using v$$LATEST_VERSION from CDN"; \
-	else \
-		echo "✓ Using local Front runtime"; \
-	fi; \
 
 app\:run:
 	@PS3="Select project: "; \
