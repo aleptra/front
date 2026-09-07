@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 .DEFAULT_GOAL := default
-.PHONY: default latest release test test\:unit test\:integration test\:performance
+.PHONY: default latest release test test\:unit test\:integration test\:performance ios doctor
 
 SRC = src
 TEST_QUERY = $(if $(TEST),?test=$(TEST),)
@@ -40,7 +40,7 @@ ifeq ($(strip $(BUILD_CHANGES)),)
 else
 	@sed -i '' -E 's/(build:[[:space:]]+)[0-9]+/\1$(TAG)/g' $(JS_FILE)
 	@echo "Build: $(TAG) (v$(VERSION))"
-	@rsync -av --exclude='/test/' --delete --delete-excluded $(SRC)/ nightly/
+	@rsync -av --exclude='/tests/' --delete --delete-excluded $(SRC)/ nightly/
 	@$(call minify,$(JS_FILE),nightly/$(JS_MIN_FILE))
 	@echo "Built latest"
 	@read -p "Deploy? [y/n]: " ans; \
@@ -71,7 +71,7 @@ release: test
 	@echo "Release $(VERSION) from $(SRC)?"
 	@read -p "Confirm [y/n]: " ans && [ "$$ans" = "y" ] || exit 1
 	@mkdir -p $(VERSION)
-	@rsync -av --exclude=test $(SRC)/ $(VERSION)/
+	@rsync -av --exclude=tests $(SRC)/ $(VERSION)/
 	@$(call minify,$(JS_FILE),$(VERSION)/$(JS_MIN_FILE))
 	@echo ""
 	@echo "Prepared $(VERSION):"
@@ -114,7 +114,7 @@ test\:unit:
 	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
 	sleep 0.5; \
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
-		"http://localhost:$$PORT/test/auto/unit/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_unit.html; \
+		"http://localhost:$$PORT/tests/auto/unit/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_unit.html; \
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	ELAPSED=$$($(SINCE) $$START); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_unit.html); \
@@ -130,7 +130,7 @@ test\:integration:
 	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
 	sleep 0.5; \
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
-		"http://localhost:$$PORT/test/auto/integration/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_integration.html; \
+		"http://localhost:$$PORT/tests/auto/integration/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_integration.html; \
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	ELAPSED=$$($(SINCE) $$START); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_integration.html); \
@@ -146,7 +146,7 @@ test\:performance:
 	python3 -m http.server $$PORT -d $(SRC) &>/dev/null & PID=$$!; \
 	sleep 0.5; \
 	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
-		"http://localhost:$$PORT/test/auto/performance/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_performance.html; \
+		"http://localhost:$$PORT/tests/auto/performance/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_performance.html; \
 	kill $$PID 2>/dev/null; wait $$PID 2>/dev/null; \
 	ELAPSED=$$($(SINCE) $$START); \
 	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_performance.html); \
@@ -163,29 +163,53 @@ app\:create:
 	if [ -d "$$PROJECTDIR" ]; then \
 		echo "Error: $$PROJECTDIR already exists"; exit 1; \
 	fi; \
+	USE_CDN="$(USE_CDN)"; \
+	if [ -z "$$USE_CDN" ]; then \
+		read -p "Use Front CDN? [Y/n]: " CDN_ANSWER || true; \
+		case "$$CDN_ANSWER" in \
+			n|N|no|NO) USE_CDN=0 ;; \
+			*) USE_CDN=1 ;; \
+		esac; \
+	fi; \
 	LATEST_VERSION="$(VERSION)"; \
 	echo "Creating app project in $$PROJECTDIR..."; \
-	mkdir -p $$PROJECTDIR/src $$PROJECTDIR/dist; \
+	mkdir -p "$$PROJECTDIR"; \
 	echo '<!DOCTYPE html>' > $$PROJECTDIR/index.html; \
 	echo '<html lang="en">' >> $$PROJECTDIR/index.html; \
 	echo '<head>' >> $$PROJECTDIR/index.html; \
 	echo '  <meta charset="UTF-8">' >> $$PROJECTDIR/index.html; \
 	echo '  <meta name="viewport" content="width=device-width, initial-scale=1.0">' >> $$PROJECTDIR/index.html; \
-	echo '  <title>FTML App</title>' >> $$PROJECTDIR/index.html; \
+	if [ "$$USE_CDN" = "1" ]; then \
+		echo '  <script src="https://cdn.front.nu/'$$LATEST_VERSION'/front.min.js"></script>' >> $$PROJECTDIR/index.html; \
+	else \
+		mkdir -p "$$PROJECTDIR/src"; \
+		cp -R "$$LATEST_VERSION" "$$PROJECTDIR/src/"; \
+		echo '  <script src="src/'$$LATEST_VERSION'/front.js"></script>' >> $$PROJECTDIR/index.html; \
+	fi; \
+	echo '  <title>Front App</title>' >> $$PROJECTDIR/index.html; \
 	echo '</head>' >> $$PROJECTDIR/index.html; \
 	echo '<body>' >> $$PROJECTDIR/index.html; \
 	echo '  <h1 settext="FTML is running successfully!"></h1>' >> $$PROJECTDIR/index.html; \
-	echo '  <script src="https://cdn.front.nu/'$$LATEST_VERSION'/front.min.js"></script>' >> $$PROJECTDIR/index.html; \
 	echo '</body>' >> $$PROJECTDIR/index.html; \
 	echo '</html>' >> $$PROJECTDIR/index.html; \
 	echo "✓ App project created in $$PROJECTDIR"; \
-	echo "✓ Using v$$LATEST_VERSION from CDN"; \
+	if [ "$$USE_CDN" = "1" ]; then \
+		echo "✓ Using v$$LATEST_VERSION from CDN"; \
+	else \
+		echo "✓ Using local Front runtime"; \
+	fi; \
 
 app\:run:
 	@PS3="Select project: "; \
 	select PROJECTDIR in $$(ls -d ~/front/*/ 2>/dev/null | xargs -n1 basename); do \
 		cd ~/front/$$PROJECTDIR && python3 -m http.server 8000; break; \
 	done
+
+ios:
+	@$(MAKE) -C $(SRC)/webviews ios
+
+doctor:
+	@$(MAKE) -C $(SRC)/webviews doctor
 
 %:
 	@:
