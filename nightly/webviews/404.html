@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Page not found | Front</title>
+  <style>
+    :root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0b0d10; color: #fff; }
+    main { width: min(34rem, calc(100% - 3rem)); padding: 2rem; text-align: center; }
+    h1 { margin: 0 0 0.75rem; font-size: 2rem; }
+    img { display: block; width: 72px; height: 72px; margin: 0 auto 1.5rem; padding: 8px; border-radius: 14px; background: #fff; }
+    p { color: #b8c0cc; line-height: 1.5; }
+    a { display: inline-block; margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 0.4rem; background: #fff; color: #0b0d10; font-weight: 600; text-decoration: none; }
+    a[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="front-logo.svg" alt="Front">
+    <h1>Page not found</h1>
+    <p>The Front page could not be loaded.</p>
+    <a id="retry" hidden>Try again</a>
+  </main>
+  <script>
+    (function () {
+      var retry = document.getElementById('retry')
+      var target = new URLSearchParams(window.location.search).get('url')
+      if (!target) return
+      retry.href = target
+      retry.hidden = false
+    }())
+  </script>
+</body>
+</html>

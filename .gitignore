@@ -12,5 +12,6 @@
 .LSOverride
 config
 dist/*.zip
+.build/
 node_modules
 package-lock.json
