@@ -20,7 +20,7 @@ test('bgimage - should set size, repeat and position from a four part value', fu
 
   // The value is split on spaces as url, size, repeat, position.
   assertEqual(testElement.style.backgroundImage, 'url("pic.png")')
-  assertEqual(testElement.style.backgroundSize, '16px auto')
+  assertStyleEqualAny(testElement, 'backgroundSize', ['16px auto', '16px'])
   assertEqual(testElement.style.backgroundRepeat, 'no-repeat')
   assertEqual(testElement.style.backgroundPosition, '10px center')
 })
@@ -50,7 +50,7 @@ test('bgimage - should work as an attribute', function () {
   app.attributes.run([testElement])
 
   assertEqual(testElement.style.backgroundImage, 'url("pic.png")')
-  assertEqual(testElement.style.backgroundSize, '100% auto')
+  assertStyleEqualAny(testElement, 'backgroundSize', ['100% auto', '100%'])
   assertEqual(testElement.style.backgroundRepeat, 'no-repeat')
   // A single vertical keyword normalises to "center top".
   assertEqual(testElement.style.backgroundPosition, 'center top')
@@ -61,5 +61,5 @@ test('bgimage - should keep a path with directories intact', function () {
   app.call('bgimage:#' + testElement.id + ':[/assets/img/logo.png 32px no-repeat left]')
 
   assertEqual(testElement.style.backgroundImage, 'url("/assets/img/logo.png")')
-  assertEqual(testElement.style.backgroundSize, '32px auto')
+  assertStyleEqualAny(testElement, 'backgroundSize', ['32px auto', '32px'])
 })

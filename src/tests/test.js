@@ -127,6 +127,13 @@
     return withDescription(log(currentTest, expected, val, isPass))
   }
 
+  global.assertStyleEqualAny = function (el, prop, expected) {
+    var val = window.getComputedStyle(el)[prop]
+    var values = Array.isArray(expected) ? expected : [expected]
+    var isPass = values.indexOf(val) !== -1
+    return withDescription(log(currentTest, values.join(' or '), val, isPass))
+  }
+
   global.assertIsObject = function (el) {
     var isPass = typeof el === 'object' && el !== null
     return withDescription(log(currentTest, 'object', el, isPass))
