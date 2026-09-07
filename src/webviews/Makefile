@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
-PROJECT := ios/FrontWebViewPOC.xcodeproj
-SCHEME := FrontWebViewPOC
+PROJECT := ios/FrontWebView.xcodeproj
+SCHEME := FrontWebView
 BUNDLE_ID := com.front.webviewpoc
 DERIVED_DATA := ../.build/ios
 DEVICE_NAME ?= Front iPhone
@@ -68,7 +68,7 @@ ios:
 	"$$SIMCTL" bootstatus "$$DEVICE_ID" -b; \
 	open -a Simulator; \
 	DEVELOPER_DIR="$$XCODE" "$$XCODE/usr/bin/xcodebuild" -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration Debug -sdk iphonesimulator -destination "id=$$DEVICE_ID" -derivedDataPath "$(DERIVED_DATA)" CODE_SIGNING_ALLOWED=NO FRONT_URL="$$FRONT_URL" build; \
-	"$$SIMCTL" install "$$DEVICE_ID" "$(DERIVED_DATA)/Build/Products/Debug-iphonesimulator/FrontWebViewPOC.app"; \
+	"$$SIMCTL" install "$$DEVICE_ID" "$(DERIVED_DATA)/Build/Products/Debug-iphonesimulator/FrontWebView.app"; \
 	"$$SIMCTL" launch "$$DEVICE_ID" "$(BUNDLE_ID)"
 
 clean:

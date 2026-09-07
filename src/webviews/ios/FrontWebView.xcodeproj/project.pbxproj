@@ -19,8 +19,8 @@
 		D10000000000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D10000000000000000000002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D10000000000000000000003 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D10000000000000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FrontWebViewPOC/Info.plist; sourceTree = "<group>"; };
-		D10000000000000000000005 /* FrontWebViewPOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrontWebViewPOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D10000000000000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FrontWebView/Info.plist; sourceTree = "<group>"; };
+		D10000000000000000000005 /* FrontWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrontWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10000000000000000000006 /* webviews */ = {isa = PBXFileReference; lastKnownFileType = folder; name = webviews; path = ../; sourceTree = "<group>"; };
 		D10000000000000000000007 /* front.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = front.js; path = ../../front.js; sourceTree = "<group>"; };
 		D10000000000000000000008 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -40,12 +40,12 @@
 		E10000000000000000000002 = {
 			isa = PBXGroup;
 			children = (
-				E10000000000000000000003 /* FrontWebViewPOC */,
+				E10000000000000000000003 /* FrontWebView */,
 				E10000000000000000000004 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		E10000000000000000000003 /* FrontWebViewPOC */ = {
+		E10000000000000000000003 /* FrontWebView */ = {
 			isa = PBXGroup;
 			children = (
 				D10000000000000000000001 /* AppDelegate.swift */,
@@ -54,13 +54,13 @@
 				D10000000000000000000004 /* Info.plist */,
 				D10000000000000000000008 /* LaunchScreen.storyboard */,
 			);
-			path = FrontWebViewPOC;
+			path = FrontWebView;
 			sourceTree = "<group>";
 		};
 		E10000000000000000000004 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D10000000000000000000005 /* FrontWebViewPOC.app */,
+				D10000000000000000000005 /* FrontWebView.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,9 +68,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B10000000000000000000001 /* FrontWebViewPOC */ = {
+		B10000000000000000000001 /* FrontWebView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = G10000000000000000000002 /* Build configuration list for PBXNativeTarget \"FrontWebViewPOC\" */;
+			buildConfigurationList = G10000000000000000000002 /* Build configuration list for PBXNativeTarget \"FrontWebView\" */;
 			buildPhases = (
 				E10000000000000000000005 /* Sources */,
 				E10000000000000000000001 /* Frameworks */,
@@ -80,9 +80,9 @@
 			);
 			dependencies = (
 			);
-			name = FrontWebViewPOC;
-			productName = FrontWebViewPOC;
-			productReference = D10000000000000000000005 /* FrontWebViewPOC.app */;
+			name = FrontWebView;
+			productName = FrontWebView;
+			productReference = D10000000000000000000005 /* FrontWebView.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -99,7 +99,7 @@
 					};
 				};
 			};
-			buildConfigurationList = G10000000000000000000001 /* Build configuration list for PBXProject \"FrontWebViewPOC\" */;
+			buildConfigurationList = G10000000000000000000001 /* Build configuration list for PBXProject \"FrontWebView\" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -112,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B10000000000000000000001 /* FrontWebViewPOC */,
+				B10000000000000000000001 /* FrontWebView */,
 			);
 		};
 /* End PBXProject section */
@@ -170,7 +170,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				FRONT_URL = "";
-				INFOPLIST_FILE = FrontWebViewPOC/Info.plist;
+				INFOPLIST_FILE = FrontWebView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.front.webviewpoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -185,7 +185,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				FRONT_URL = "";
-				INFOPLIST_FILE = FrontWebViewPOC/Info.plist;
+				INFOPLIST_FILE = FrontWebView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.front.webviewpoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -197,7 +197,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		G10000000000000000000001 /* Build configuration list for PBXProject \"FrontWebViewPOC\" */ = {
+		G10000000000000000000001 /* Build configuration list for PBXProject \"FrontWebView\" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F10000000000000000000001 /* Debug */,
@@ -206,7 +206,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		G10000000000000000000002 /* Build configuration list for PBXNativeTarget \"FrontWebViewPOC\" */ = {
+		G10000000000000000000002 /* Build configuration list for PBXNativeTarget \"FrontWebView\" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F10000000000000000000003 /* Debug */,
