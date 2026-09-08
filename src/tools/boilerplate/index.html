@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="__FRONT_SCRIPT__" module="navigate" conf="resetStyle:true"></script>
+  <title>Front App with SPA</title>
+</head>
+
+<body flex flexdirection="column" bgcolor="black" color="white" alignitems="center" justifycontent="center"
+  font="arial">
+  <nav flex gap="1rem" margin="1rem">
+    <a href="index.html" underline target="_top">Home</a>
+    <a href="spa.html" underline>Test SPA</a>
+  </nav>
+  <div id="navloader" hide width="12rem" height="4px" bgcolor="white05" radius="2px" margintop="1rem">
+    <div width="0" height="100%" bgcolor="lime"></div>
+  </div>
+  <main flex flexdirection="column" align="center" alignitems="center" width="100%" maxwidth="40rem" padding="1rem">
+    <h1 color="lime" aria-hidden="true">✔</h1>
+    <h2 settext="FTML is running successfully!"></h2>
+    <p align="center" maxwidth="34rem" lineheight="1.6" margintop="1rem">
+      Welcome to your new Front project. Edit this file to start building with familiar HTML.
+    </p>
+    <p align="center" maxwidth="34rem" lineheight="1.6" margintop="0.5rem">
+      Build interactive pages by adding Front attributes to your markup.
+    </p>
+    <div flex gap="1rem" margintop="2rem">
+      <img setsrc="https://www.front.nu/favicon.ico" width="32" alt="Front logo">
+      <a href="https://www.front.nu/documentation" target="_blank" rel="noopener noreferrer" underline>
+        Documentation
+      </a>
+      <a href="https://github.com/aleptra/front" target="_blank" rel="noopener noreferrer" underline>
+        GitHub
+      </a>
+    </div>
+  </main>
+
+</body>
+
+</html>
