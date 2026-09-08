@@ -1,12 +1,34 @@
 <script src="__FRONT_SCRIPT__"></script>
-<title>About Front</title>
+<title>SPA Test</title>
 <template srcdoc="../index"></template>
-<section flex flexdirection="column" alignitems="center" width="100%" maxwidth="34rem" padding="2rem">
-  <h1 color="lime">About Front</h1>
-  <p align="center" lineheight="1.6" margintop="1rem">
-    Front is a markup-first framework for building interactive interfaces with HTML attributes.
-  </p>
-  <p align="center" lineheight="1.6" margintop="0.75rem">
-    This page was loaded into the same application without a full browser refresh using navigate module.
-  </p>
+<section flex flexdirection="column" alignitems="center" width="100%" maxwidth="38rem">
+  <header align="center" width="100%">
+    <h1 color="white" margintop="0.6rem">Single-page navigation</h1>
+  </header>
+
+  <article width="100%" bgcolor="white01" border="1px solid white02" radius="0.6rem" padding="1.5rem" margintop="2rem">
+    <p lineheight="1.6" margintop="1rem">
+      Click the link to load <code>spa-target.html</code> into the panel below.
+    </p>
+    <a href="_fragments/spa-target.html" target="#element" bgcolor="lime" color="black" padding="0.65rem 1.9rem" radius="1rem"
+      margintop="1rem" border="2px solid black" bold navigate-pushstate="false">
+      Test ►
+    </a>
+    <div id="element" aria-live="polite" width="100%" minheight="5rem" bgcolor="black" border="1px solid white02"
+      radius="0.35rem" padding="1rem" margintop="1rem">
+      <p align="center" justifycontnt="center" lineheight="1.5" color="white07" margintop="0">
+        Waiting for the targeted content test…
+      </p>
+    </div>
+  </article>
+
+  <div flex flexdirection="column" alignitems="center" margintop="1.5rem">
+    <button type="button" click="navigate-back" bgcolor="transparent" color="white" border="0" radius="0.35rem"
+      padding="0.4rem 1.1rem" fontsize="90%" cursor="pointer">
+      Go back ↩
+    </button>
+    <p align="center" fontsize="0.8rem" lineheight="1.5" color="white05" margintop="0.75rem">
+      Use Go back after testing navigation to return to the previous page.
+    </p>
+  </div>
 </section>
