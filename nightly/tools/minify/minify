@@ -1,0 +1,88 @@
+#!/bin/bash
+set -euo pipefail
+
+if [ "$#" -ne 2 ]; then
+	echo "Usage: $0 INPUT OUTPUT" >&2
+	exit 64
+fi
+
+input=$1
+output=$2
+
+if [ ! -f "$input" ]; then
+	echo "Input not found: $input" >&2
+	exit 1
+fi
+
+mkdir -p "$(dirname "$output")"
+
+sed -E -e '# Remove block comments.' -e '/\/\*/,/\*\//d' "$input" \
+| sed -E -e '# Remove single-line comments.' -e 's#//.*$##' \
+| sed -E -e '# Protect quoted value literals during the value rename.' -e "s/'value'/__FRONT_SINGLE_VALUE__/g; s/\"value\"/__FRONT_DOUBLE_VALUE__/g" \
+| sed -E -e '# Rename standalone element locals to $e.' -e 's#(^|[^.[:alnum:]_$])element([^:[:alnum:]_$]|$)#\1\$e\2#g' \
+| sed -E -e '# Rename standalone value locals to $v.' -e 's#(^|[^.[:alnum:]_$])value([^:[:alnum:]_$]|$)#\1\$v\2#g' \
+| sed -E -e '# Restore the protected quoted value literals.' -e "s/__FRONT_SINGLE_VALUE__/'value'/g; s/__FRONT_DOUBLE_VALUE__/\"value\"/g" \
+| sed -E \
+	-e '# Normalize line whitespace and remove empty lines.' \
+	-e 's/^[[:space:]]+//; s/[[:space:]]+$//; s/[[:space:]]+/ /g; /^$/d' \
+| sed -E \
+	-e '# Protect comma spaces in double-quoted literals.' \
+	-e ':double_comma' \
+	-e 's/("[^"]*),[[:space:]]([^"]*")/\1__FRONT_COMMA_SPACE__\2/' \
+	-e 't double_comma' \
+	-e '# Protect comma spaces in single-quoted literals.' \
+	-e ':single_comma' \
+	-e "s/('[^']*),[[:space:]]([^']*')/\1__FRONT_COMMA_SPACE__\2/" \
+	-e 't single_comma' \
+	-e '# Remove spaces after comma-separated code values.' \
+	-e 's/,[[:space:]]+/,/g' \
+	-e '# Restore comma spaces inside quoted literals.' \
+	-e 's/__FRONT_COMMA_SPACE__/, /g' \
+| sed -E \
+	-e '# Compress } else if (...) { to }else if(...){.' \
+	-e 's/}[[:space:]]+else[[:space:]]+if[[:space:]]*\(/}else if(/g' \
+	-e '# Compress } else { to }else{.' \
+	-e 's/}[[:space:]]else[[:space:]]*{/}else{/g' \
+| sed -E \
+	-e '# Remove spaces before if/control/function blocks.' \
+	-e 's#(^|[^[:alnum:]_$])if[[:space:]]+\((.*)\)#\1if(\2)#g; s#(^|[^[:alnum:]_$])(for|while|switch|catch|with)[[:space:]]+\(#\1\2(#g; s/(if\([^)]*\))[[:space:]]+{/\1{/g; s/((for|while|switch|catch|with)\([^)]*\))[[:space:]]+{/\1{/g; s/function[[:space:]]+\(/function(/g; s/(function\([^)]*\))[[:space:]]+{/\1{/g' \
+	-e '# Remove spaces around semicolons, comparisons, and binary minus inside for headers.' \
+	-e 's/(for\([^;]*[^[:space:]])[[:space:]]*;[[:space:]]*/\1;/g' \
+	-e 's/(for\([^;]*;[^;]*[^[:space:]])[[:space:]]*;[[:space:]]*/\1;/g' \
+	-e 's/(for\([^)]*)[[:space:]]+([<>]=?)[[:space:]]+([^)]*\))/\1\2\3/g' \
+	-e 's/(for\([^)]*[[:alnum:]_$])[[:space:]]+-[[:space:]]+([[:alnum:]_$][^)]*\))/\1-\2/g' \
+| sed -E -e '# Remove the space before return in if one-liners.' -e 's/[)][[:space:]]+return/)return/g' \
+| sed -E -e '# Compress unquoted element object entries.' -e 's/([,{])[[:space:]]*element[[:space:]]*:[[:space:]]+/\1element:/g' \
+| sed -E -e '# Remove space before the closing brace of element entries.' -e 's/(element:object)[[:space:]]+}/\1}/g' \
+| sed -E -e '# Remove the space before element objects after commas.' -e 's/,[[:space:]]+{element:/,{element:/g' \
+| sed -E -e '# Remove spaces around assignment and comparison operators.' -e 's/[[:space:]]+([=]{1,3}|![=]{1,2})[[:space:]]+/\1/g' \
+| sed -E -e '# Remove spaces after colons in quoted object entries.' -e "s/(['\"][[:alnum:]_-]+['\"]):[[:space:]]+(['\"])/\1:\2/g" \
+| sed -E -e '# Remove spaces after unquoted object property colons.' -e 's/(^|[,{])[[:space:]]*([[:alnum:]_$]+):[[:space:]]+([[:alnum:]_$])/\1\2:\3/g' \
+| sed -E -e '# Remove spaces before object closing braces after identifier values.' -e 's/({[^{}]*:[^{}]*[[:alnum:]_$.])[[:space:]]+}/\1}/g' \
+| sed -E \
+	-e '# Protect plus spaces inside double-quoted literals.' \
+	-e ':double_plus' \
+	-e 's/("[^"]*)[[:space:]]+[+][[:space:]]([^"]*")/\1__FRONT_PLUS_SPACE__\2/' \
+	-e 't double_plus' \
+	-e '# Protect plus spaces inside single-quoted literals.' \
+	-e ':single_plus' \
+	-e "s/('[^']*)[[:space:]]+[+][[:space:]]([^']*')/\1__FRONT_PLUS_SPACE__\2/" \
+	-e 't single_plus' \
+	-e '# Remove spaces around identifier plus expressions.' \
+	-e 's/([[:alnum:]_$])[[:space:]]+[+][[:space:]]+([[:alnum:]_$])/\1+\2/g' \
+	-e '# Remove spaces around plus operators next to quoted strings.' \
+	-e "s/(['\"])[[:space:]]+[+][[:space:]]+/\1+/g; s/[[:space:]]+[+][[:space:]]+(['\"])/+\1/g" \
+	-e '# Restore plus spaces inside quoted literals.' \
+	-e 's/__FRONT_PLUS_SPACE__/ + /g' \
+| sed -E \
+	-e '# Join all safe multiline syntax boundaries in one full-file pass.' \
+	-e ':all' -e 'N' -e '$!ball' \
+	-e 's/([{,;])\n[[:space:]]*/\1/g' \
+	-e 's/}\n[[:space:]]*}/}}/g' \
+	-e 's/[)]\n[[:space:]]*}/)}/g' \
+> "$output"
+
+original_size_kb=$(awk -v bytes="$(wc -c < "$input")" 'BEGIN { printf "%.2f", bytes / 1024 }')
+minified_size_kb=$(awk -v bytes="$(wc -c < "$output")" 'BEGIN { printf "%.2f", bytes / 1024 }')
+echo "Original size: ${original_size_kb} KB"
+echo "Minified size: ${minified_size_kb} KB"

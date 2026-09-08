@@ -45,13 +45,17 @@ Visit [front.nu/documentation](https://www.front.nu/documentation) for guides, A
 
 ## Testing
 
+> ⚠️ The test commands require Python 3 and Google Chrome or Chromium for headless execution.
+
 Run the complete test suite:
 
 ```sh
 make test
 ```
 
-This runs the unit, integration, and performance test suites. You can run an individual suite with:
+This runs the unit, integration, and performance test suites.
+
+Run an individual test suite:
 
 ```sh
 make test:unit
@@ -59,7 +63,7 @@ make test:integration
 make test:performance
 ```
 
-For example, run one specific test from each suite:
+Run a specific test from each suite:
 
 ```sh
 make test:unit TEST=app.call
@@ -67,7 +71,35 @@ make test:integration TEST=bottom
 make test:performance TEST=core.dom
 ```
 
-> ⚠️ The test commands require Python 3 and Google Chrome or Chromium for headless execution.
+Run the minified runtime test suite:
+
+```sh
+make test:minify
+```
+
+## Edge Deployment
+
+Build and deploy the latest edge version:
+
+```sh
+make latest
+```
+
+This runs the test suite, updates the build number, synchronizes the runtime to the edge distribution, generates the minified file, and commits and pushes the deployment after confirmation.
+
+> ⚠️ This command is for project maintainers or release managers only. Review your working tree before running it; it commits and pushes changes automatically.
+
+## Official Release
+
+Create and publish an official versioned release:
+
+```sh
+make release
+```
+
+The command runs the test suite, prepares the versioned runtime and minified file, updates the README, commits and pushes the release, creates a Git tag and archive, and publishes a GitHub release. It requires the GitHub CLI with an authenticated account and asks for confirmation before preparing and publishing the release.
+
+> ⚠️ This command is for project maintainers or release managers only. Review your working tree before running it; it commits and pushes changes automatically.
 
 ## License
 
