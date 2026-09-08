@@ -1,11 +1,12 @@
 SHELL := /bin/bash
 
 .DEFAULT_GOAL := default
-.PHONY: default latest release test test\:unit test\:integration test\:performance ios doctor
+.PHONY: default latest release test test\:min test\:unit test\:integration test\:performance ios doctor
 
 SRC = src
 TEST_QUERY = $(if $(TEST),?test=$(TEST),)
-TEST_RUNTIME ?= $(SRC)/front.js
+MINIFY ?= 0
+TEST_RUNTIME ?= $(if $(filter 1 true yes,$(MINIFY)),$(VERSION)/$(JS_MIN_FILE),$(SRC)/front.js)
 NOW = python3 -c 'import time;print(time.time())'
 SINCE = python3 -c "import sys,time;print('%.1f' % (time.time() - float(sys.argv[1])))"
 JS_FILE = $(SRC)/front.js
@@ -25,6 +26,29 @@ define minify
 	| perl -0777 -pe 's/([{,;])\n\s*/$$1/g' \
 	| perl -0777 -pe 's/}\n\s*}/}}/g' \
 	> $(2)
+endef
+
+define run_browser_test
+	@echo ""; echo "=== $(1) Tests ($(TEST_RUNTIME)) ==="; \
+	START=$$($(NOW)); \
+	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
+	PORT=$(3); \
+	TEST_ROOT=$$(mktemp -d /tmp/front-test-$(2).XXXXXX); \
+	PID=""; \
+	cleanup() { if [ -n "$$PID" ]; then kill "$$PID" 2>/dev/null || true; wait "$$PID" 2>/dev/null || true; fi; rm -rf "$$TEST_ROOT"; }; \
+	trap cleanup EXIT; \
+	rsync -a --exclude='.build/' "$(SRC)/" "$$TEST_ROOT/"; \
+	cp "$(TEST_RUNTIME)" "$$TEST_ROOT/front.js"; \
+	python3 -c "from pathlib import Path; root=Path('$$TEST_ROOT/tests/auto'); [p.write_text(p.read_text().replace('../../../front.js', '../../../front.js?run=$$START')) for p in root.glob('*/index.html')]"; \
+	python3 -m http.server $$PORT -d "$$TEST_ROOT" &>/dev/null & PID=$$!; \
+	sleep 0.5; \
+	"$$CHROME" --headless=new --incognito --disable-gpu --disable-cache --disk-cache-size=0 --virtual-time-budget=10000 --dump-dom --no-sandbox \
+		"http://localhost:$$PORT/tests/auto/$(2)/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_$(2).html; \
+	ELAPSED=$$($(SINCE) $$START); \
+	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_$(2).html); \
+	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_$(2).html; \
+	echo ""; echo "$$SUMMARY"; \
+	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ $(2) passed ($${ELAPSED}s)" || { echo "❌ $(2) failed ($${ELAPSED}s)"; exit 1; }
 endef
 
 default:
@@ -97,78 +121,25 @@ app:
 
 test:
 	@FAIL=0; START=$$($(NOW)); TOTAL=0; \
-	OUT=$$($(MAKE) test:unit 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
-	PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
-	OUT=$$($(MAKE) test:integration 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
-	PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
-	OUT=$$($(MAKE) test:performance 2>&1); FAIL=$$((FAIL + $$?)); echo "$$OUT"; \
-	PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
+	for SUITE in unit integration performance; do \
+		OUT=$$($(MAKE) test:$$SUITE 2>&1); STATUS=$$?; echo "$$OUT"; FAIL=$$((FAIL + STATUS)); \
+		PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
+	done; \
 	ELAPSED=$$($(SINCE) $$START); \
 	if [ $$FAIL -eq 0 ]; then echo ""; echo "================================"; echo "✅ $$TOTAL tests passed in $${ELAPSED}s"; echo "================================"; \
 	else echo ""; echo "================================"; echo "❌ Some tests failed ($${ELAPSED}s)"; echo "================================"; exit 1; fi
 
+test\:minify:
+	@$(MAKE) test MINIFY=1
+
 test\:unit:
-	@echo ""; echo "=== Unit Tests ($(TEST_RUNTIME)) ==="; \
-	START=$$($(NOW)); \
-	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
-	PORT=9225; \
-	TEST_ROOT=$$(mktemp -d /tmp/front-test-unit.XXXXXX); \
-	PID=""; \
-	cleanup() { if [ -n "$PID" ]; then kill "$PID" 2>/dev/null || true; wait "$PID" 2>/dev/null || true; fi; rm -rf "$TEST_ROOT"; }; \
-	trap cleanup EXIT; \
-	rsync -a --exclude='.build/' "$(SRC)/" "$$TEST_ROOT/"; \
-	cp "$(TEST_RUNTIME)" "$$TEST_ROOT/front.js"; \
-	python3 -m http.server $$PORT -d "$$TEST_ROOT" &>/dev/null & PID=$$!; \
-	sleep 0.5; \
-	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
-		"http://localhost:$$PORT/tests/auto/unit/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_unit.html; \
-	ELAPSED=$$($(SINCE) $$START); \
-	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_unit.html); \
-	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_unit.html; \
-	echo ""; echo "$$SUMMARY"; \
-	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ unit passed ($${ELAPSED}s)" || { echo "❌ unit failed ($${ELAPSED}s)"; exit 1; }
+	$(call run_browser_test,Unit,unit,9225)
 
 test\:integration:
-	@echo ""; echo "=== Integration Tests ($(TEST_RUNTIME)) ==="; \
-	START=$$($(NOW)); \
-	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
-	PORT=9226; \
-	TEST_ROOT=$$(mktemp -d /tmp/front-test-integration.XXXXXX); \
-	PID=""; \
-	cleanup() { if [ -n "$PID" ]; then kill "$PID" 2>/dev/null || true; wait "$PID" 2>/dev/null || true; fi; rm -rf "$TEST_ROOT"; }; \
-	trap cleanup EXIT; \
-	rsync -a --exclude='.build/' "$(SRC)/" "$$TEST_ROOT/"; \
-	cp "$(TEST_RUNTIME)" "$$TEST_ROOT/front.js"; \
-	python3 -m http.server $$PORT -d "$$TEST_ROOT" &>/dev/null & PID=$$!; \
-	sleep 0.5; \
-	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
-		"http://localhost:$$PORT/tests/auto/integration/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_integration.html; \
-	ELAPSED=$$($(SINCE) $$START); \
-	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_integration.html); \
-	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_integration.html; \
-	echo ""; echo "$$SUMMARY"; \
-	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ integration passed ($${ELAPSED}s)" || { echo "❌ integration failed ($${ELAPSED}s)"; exit 1; }
+	$(call run_browser_test,Integration,integration,9226)
 
 test\:performance:
-	@echo ""; echo "=== Performance Tests ($(TEST_RUNTIME)) ==="; \
-	START=$$($(NOW)); \
-	CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; \
-	PORT=9227; \
-	TEST_ROOT=$$(mktemp -d /tmp/front-test-performance.XXXXXX); \
-	PID=""; \
-	cleanup() { if [ -n "$PID" ]; then kill "$PID" 2>/dev/null || true; wait "$PID" 2>/dev/null || true; fi; rm -rf "$TEST_ROOT"; }; \
-	trap cleanup EXIT; \
-	rsync -a --exclude='.build/' "$(SRC)/" "$$TEST_ROOT/"; \
-	cp "$(TEST_RUNTIME)" "$$TEST_ROOT/front.js"; \
-	python3 -m http.server $$PORT -d "$$TEST_ROOT" &>/dev/null & PID=$$!; \
-	sleep 0.5; \
-	"$$CHROME" --headless=new --disable-gpu --virtual-time-budget=10000 --dump-dom --no-sandbox \
-		"http://localhost:$$PORT/tests/auto/performance/$(TEST_QUERY)" 2>/dev/null | tr -d '\n' > /tmp/front_test_performance.html; \
-	ELAPSED=$$($(SINCE) $$START); \
-	SUMMARY=$$(grep -o 'Total: [^<]*' /tmp/front_test_performance.html); \
-	grep -oE '(✅|❌|⚠️)[^<]*' /tmp/front_test_performance.html; \
-	echo ""; echo "$$SUMMARY"; \
-	echo "$$SUMMARY" | grep -q "Failed: 0" && echo "✅ performance passed ($${ELAPSED}s)" || { echo "❌ performance failed ($${ELAPSED}s)"; exit 1; }
+	$(call run_browser_test,Performance,performance,9227)
 
 app\:create:
 	@set -e; \
