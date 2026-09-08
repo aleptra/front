@@ -1,0 +1,127 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+REPO_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/../../.." && pwd)
+PROJECT_ROOT="${HOME}/front"
+VERSION=${VERSION:-}
+
+usage() {
+	cat <<'EOF'
+====================
+
+Available commands:
+make app:create DIR=<dir>  - Create new app project in specified directory
+make app:run               - Start development server
+EOF
+}
+
+create_project() {
+	local dir=${DIR:-}
+	local use_cdn=${USE_CDN:-}
+	local project_dir
+	local script_url
+	local html_file
+	local html_tmp
+
+	if [ -z "$dir" ]; then
+		read -r -p "Enter project name: " dir || true
+	fi
+	if [ -z "$dir" ]; then
+		echo "Error: project name is required." >&2
+		exit 1
+	fi
+
+	project_dir="$PROJECT_ROOT/$dir"
+	if [ -e "$project_dir" ] || [ -L "$project_dir" ]; then
+		echo "Error: $project_dir already exists" >&2
+		exit 1
+	fi
+
+	if [ -z "$use_cdn" ]; then
+		read -r -p "Use Front CDN? [Y/n]: " cdn_answer || true
+		case "$cdn_answer" in
+			n|N|no|NO) use_cdn=0 ;;
+			*) use_cdn=1 ;;
+		esac
+	fi
+
+	if [ -z "$VERSION" ]; then
+		VERSION=$(grep 'frontVersion' "$REPO_ROOT/src/front.js" | grep -oE '[0-9]+' | head -3 | paste -sd '.' -)
+	fi
+	if [ -z "$VERSION" ]; then
+		echo "Error: could not determine Front version." >&2
+		exit 1
+	fi
+
+	if [ "$use_cdn" = "1" ]; then
+		echo "✓ Using v$VERSION from CDN"
+		script_url="https://cdn.front.nu/$VERSION/front.min.js"
+	else
+		echo "✓ Using local Front runtime"
+		if [ ! -d "$REPO_ROOT/$VERSION" ]; then
+			echo "Error: local runtime $REPO_ROOT/$VERSION does not exist" >&2
+			exit 1
+		fi
+		mkdir -p "$project_dir/src"
+		cp -R "$REPO_ROOT/$VERSION" "$project_dir/src/"
+		script_url="src/$VERSION/front.js"
+	fi
+
+	echo "Creating app project in $project_dir..."
+	mkdir -p "$project_dir"
+	rsync -a "$SCRIPT_DIR/skeleton/." "$project_dir/"
+
+	while IFS= read -r -d '' html_file; do
+		html_tmp="$html_file.tmp"
+		sed "s|__FRONT_SCRIPT__|$script_url|g" "$html_file" > "$html_tmp"
+		mv "$html_tmp" "$html_file"
+	done < <(find "$project_dir" -type f -name '*.html' -print0)
+
+	echo "✓ App project created in $project_dir"
+}
+
+run_project() {
+	local project
+	local projects=()
+
+	if [ ! -d "$PROJECT_ROOT" ]; then
+		echo "Error: $PROJECT_ROOT does not exist" >&2
+		exit 1
+	fi
+
+	for project in "$PROJECT_ROOT"/*/; do
+		[ -d "$project" ] || continue
+		projects+=("$(basename "$project")")
+	done
+
+	if [ "${#projects[@]}" -eq 0 ]; then
+		echo "Error: no projects found in $PROJECT_ROOT" >&2
+		exit 1
+	fi
+
+	PS3="Select project: "
+	select project in "${projects[@]}"; do
+		if [ -n "$project" ]; then
+			cd "$PROJECT_ROOT/$project"
+			exec python3 -m http.server 8000
+		fi
+	done
+}
+
+case "${1:-help}" in
+	help|-h|--help)
+		usage
+		;;
+	create)
+		create_project
+		;;
+	run)
+		run_project
+		;;
+	*)
+		echo "Error: unknown command: $1" >&2
+		usage >&2
+		exit 64
+		;;
+esac
