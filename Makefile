@@ -1,10 +1,11 @@
 SHELL := /bin/bash
 
 .DEFAULT_GOAL := default
-.PHONY: default latest release test test\:minify test\:unit test\:integration test\:performance ios doctor
+.PHONY: default latest release test test\:minify test\:unit test\:integration test\:performance app app\:create app\:run ios doctor
 
 SRC = src
 MINIFY_TOOL = $(SRC)/tools/minify/minify
+BOILERPLATE_TOOL = $(SRC)/tools/boilerplate/boilerplate
 JS_FILE = $(SRC)/front.js
 JS_MIN_FILE = front.min.js
 README_FILE = README.md
@@ -15,8 +16,7 @@ MINIFY ?= 0
 TEST_RUNTIME ?= $(if $(filter 1 true yes,$(MINIFY)),$(SRC)/.build/web/$(JS_MIN_FILE),$(SRC)/front.js)
 TAG := $(shell grep -o 'build:[[:space:]]*[0-9]*' $(JS_FILE) | awk -F':' '{ print $$2+1 }')
 VERSION := $(shell grep 'frontVersion' $(JS_FILE) | grep -oE '[0-9]+' | head -3 | paste -sd '.' -)
-BUILD_CHANGES := $(shell git diff --name-only HEAD -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins $(SRC)/tools/minify; git ls-files --others --exclude-standard -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins $(SRC)/tools/minify)
-
+BUILD_CHANGES := $(shell git diff --name-only HEAD -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins $(SRC)/tools/minify $(SRC)/tools/boilerplate; git ls-files --others --exclude-standard -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins $(SRC)/tools/minify $(SRC)/tools/boilerplate)
 
 define run_browser_test
 	@echo ""; echo "=== $(1) Tests ($(TEST_RUNTIME)) ==="; \
@@ -101,14 +101,6 @@ release: test
 	@printf "## What's included\n- Runtime\n- Modules\n- Plugins\n\n## CDN\n- https://cdn.front.nu/$(VERSION)/front.js\n- https://cdn.front.nu/$(VERSION)/$(JS_MIN_FILE) (minified)\n\n## Documentation\nhttps://www.front.nu/documentation\n" | gh release create v$(VERSION) --title "$(VERSION)" --notes-file - front-$(VERSION).zip
 	@echo "✅ Released $(VERSION)"
 
-app:
-	@echo "===================="
-	@echo ""
-	@echo -e "Available commands:"
-	@echo "make app:create DIR=<dir>  - Create new app project in specified directory"
-	@echo "make app:run               - Start development server"
-	@echo ""
-
 test:
 	@FAIL=0; START=$$($(NOW)); TOTAL=0; \
 	for SUITE in unit integration performance; do \
@@ -136,54 +128,14 @@ test\:integration:
 test\:performance:
 	$(call run_browser_test,Performance,performance,9227)
 
+app:
+	@$(BOILERPLATE_TOOL) help
+
 app\:create:
-	@set -e; \
-	DIR="$(DIR)"; \
-	if [ -z "$$DIR" ]; then \
-		read -p "Enter project name: " DIR || true; \
-	fi; \
-	if [ -z "$$DIR" ]; then \
-		echo "Error: project name is required."; \
-		exit 1; \
-	fi; \
-	PROJECTDIR=~/front/$$DIR; \
-	PROJECTDIR=$$(eval echo $$PROJECTDIR); \
-	if [ -d "$$PROJECTDIR" ]; then \
-		echo "Error: $$PROJECTDIR already exists"; \
-		exit 1; \
-	fi; \
-	USE_CDN="$(USE_CDN)"; \
-	if [ -z "$$USE_CDN" ]; then \
-		read -p "Use Front CDN? [Y/n]: " CDN_ANSWER || true; \
-		case "$$CDN_ANSWER" in \
-			n|N|no|NO) USE_CDN=0 ;; \
-			*) USE_CDN=1 ;; \
-		esac; \
-	fi; \
-	LATEST_VERSION="$(VERSION)"; \
-	if [ "$$USE_CDN" = "1" ]; then echo "✓ Using v$$LATEST_VERSION from CDN"; else echo "✓ Using local Front runtime"; fi; \
-	echo "Creating app project in $$PROJECTDIR..."; \
-	mkdir -p "$$PROJECTDIR"; \
-	if [ "$$USE_CDN" = "1" ]; then \
-		SCRIPT_URL="https://cdn.front.nu/$$LATEST_VERSION/front.min.js"; \
-	else \
-		mkdir -p "$$PROJECTDIR/src"; \
-		cp -R "$$LATEST_VERSION" "$$PROJECTDIR/src/"; \
-		SCRIPT_URL="src/$$LATEST_VERSION/front.js"; \
-	fi; \
-	cp -R "$(SRC)/tools/boilerplate/." "$$PROJECTDIR/"; \
-	find "$$PROJECTDIR" -type f -name '*.html' -print0 | while IFS= read -r -d '' HTML_FILE; do \
-		HTML_TMP="$$HTML_FILE.tmp"; \
-		sed "s|__FRONT_SCRIPT__|$$SCRIPT_URL|g" "$$HTML_FILE" > "$$HTML_TMP"; \
-		mv "$$HTML_TMP" "$$HTML_FILE"; \
-	done; \
-	echo "✓ App project created in $$PROJECTDIR"; \
+	@DIR="$(DIR)" USE_CDN="$(USE_CDN)" VERSION="$(VERSION)" "$(BOILERPLATE_TOOL)" create
 
 app\:run:
-	@PS3="Select project: "; \
-	select PROJECTDIR in $$(ls -d ~/front/*/ 2>/dev/null | xargs -n1 basename); do \
-		cd ~/front/$$PROJECTDIR && python3 -m http.server 8000; break; \
-	done
+	@"$(BOILERPLATE_TOOL)" run
 
 ios:
 	@$(MAKE) -C $(SRC)/webviews ios
