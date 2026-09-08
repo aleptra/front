@@ -1,17 +1,17 @@
 SHELL := /bin/bash
 
 .DEFAULT_GOAL := default
-.PHONY: default latest release test test\:min test\:unit test\:integration test\:performance ios doctor
+.PHONY: default latest release test test\:minify test\:unit test\:integration test\:performance ios doctor
 
 SRC = src
-TEST_QUERY = $(if $(TEST),?test=$(TEST),)
-MINIFY ?= 0
-TEST_RUNTIME ?= $(if $(filter 1 true yes,$(MINIFY)),$(VERSION)/$(JS_MIN_FILE),$(SRC)/front.js)
-NOW = python3 -c 'import time;print(time.time())'
-SINCE = python3 -c "import sys,time;print('%.1f' % (time.time() - float(sys.argv[1])))"
 JS_FILE = $(SRC)/front.js
 JS_MIN_FILE = front.min.js
 README_FILE = README.md
+TEST_QUERY = $(if $(TEST),?test=$(TEST),)
+NOW = python3 -c 'import time;print(time.time())'
+SINCE = python3 -c "import sys,time;print('%.1f' % (time.time() - float(sys.argv[1])))"
+MINIFY ?= 0
+TEST_RUNTIME ?= $(if $(filter 1 true yes,$(MINIFY)),$(SRC)/.build/web/$(JS_MIN_FILE),$(SRC)/front.js)
 TAG := $(shell grep -o 'build:[[:space:]]*[0-9]*' $(JS_FILE) | awk -F':' '{ print $$2+1 }')
 VERSION := $(shell grep 'frontVersion' $(JS_FILE) | grep -oE '[0-9]+' | head -3 | paste -sd '.' -)
 BUILD_CHANGES := $(shell git diff --name-only HEAD -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins; git ls-files --others --exclude-standard -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins)
@@ -23,8 +23,8 @@ define minify
 	| sed -E 's/[[:space:]]+$$//' \
 	| sed -E 's/[[:space:]]+/ /g' \
 	| sed -E '/^$$/d' \
-	| perl -0777 -pe 's/([{,;])\n\s*/$$1/g' \
-	| perl -0777 -pe 's/}\n\s*}/}}/g' \
+	| sed -E -e ':a' -e 'N' -e '$$!ba' -e 's/([{,;])\n[[:space:]]*/\1/g' \
+	| sed -E -e ':a' -e 'N' -e '$$!ba' -e 's/}\n[[:space:]]*}/}}/g' \
 	> $(2)
 endef
 
@@ -130,7 +130,11 @@ test:
 	else echo ""; echo "================================"; echo "❌ Some tests failed ($${ELAPSED}s)"; echo "================================"; exit 1; fi
 
 test\:minify:
-	@$(MAKE) test MINIFY=1
+	@set -e; \
+	TMP_RUNTIME="$(SRC)/.build/web/$(JS_MIN_FILE)"; \
+	mkdir -p "$(SRC)/.build/web"; \
+	$(call minify,$(JS_FILE),$$TMP_RUNTIME); \
+	$(MAKE) test MINIFY=1 TEST_RUNTIME="$$TMP_RUNTIME"
 
 test\:unit:
 	$(call run_browser_test,Unit,unit,9225)
