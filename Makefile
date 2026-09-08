@@ -198,24 +198,19 @@ app\:create:
 	if [ "$$USE_CDN" = "1" ]; then echo "✓ Using v$$LATEST_VERSION from CDN"; else echo "✓ Using local Front runtime"; fi; \
 	echo "Creating app project in $$PROJECTDIR..."; \
 	mkdir -p "$$PROJECTDIR"; \
-	echo '<!DOCTYPE html>' > "$$PROJECTDIR/index.html"; \
-	echo '<html lang="en">' >> "$$PROJECTDIR/index.html"; \
-	echo '<head>' >> "$$PROJECTDIR/index.html"; \
-	echo '  <meta charset="UTF-8">' >> "$$PROJECTDIR/index.html"; \
-	echo '  <meta name="viewport" content="width=device-width, initial-scale=1.0">' >> "$$PROJECTDIR/index.html"; \
 	if [ "$$USE_CDN" = "1" ]; then \
-		echo '  <script src="https://cdn.front.nu/'$$LATEST_VERSION'/front.min.js"></script>' >> "$$PROJECTDIR/index.html"; \
+		SCRIPT_URL="https://cdn.front.nu/$$LATEST_VERSION/front.min.js"; \
 	else \
 		mkdir -p "$$PROJECTDIR/src"; \
 		cp -R "$$LATEST_VERSION" "$$PROJECTDIR/src/"; \
-		echo '  <script src="src/'$$LATEST_VERSION'/front.js"></script>' >> "$$PROJECTDIR/index.html"; \
+		SCRIPT_URL="src/$$LATEST_VERSION/front.js"; \
 	fi; \
-	echo '  <title>Front App</title>' >> "$$PROJECTDIR/index.html"; \
-	echo '</head>' >> "$$PROJECTDIR/index.html"; \
-	echo '<body>' >> "$$PROJECTDIR/index.html"; \
-	echo '  <h1 settext="FTML is running successfully!"></h1>' >> "$$PROJECTDIR/index.html"; \
-	echo '</body>' >> "$$PROJECTDIR/index.html"; \
-	echo '</html>' >> "$$PROJECTDIR/index.html"; \
+	cp -R "$(SRC)/tools/boilerplate/." "$$PROJECTDIR/"; \
+	find "$$PROJECTDIR" -type f -name '*.html' -print0 | while IFS= read -r -d '' HTML_FILE; do \
+		HTML_TMP="$$HTML_FILE.tmp"; \
+		sed "s|__FRONT_SCRIPT__|$$SCRIPT_URL|g" "$$HTML_FILE" > "$$HTML_TMP"; \
+		mv "$$HTML_TMP" "$$HTML_FILE"; \
+	done; \
 	echo "✓ App project created in $$PROJECTDIR"; \
 
 app\:run:
