@@ -4,6 +4,7 @@ SHELL := /bin/bash
 .PHONY: default latest release test test\:minify test\:unit test\:integration test\:performance ios doctor
 
 SRC = src
+MINIFY_TOOL = $(SRC)/tools/minify/minify
 JS_FILE = $(SRC)/front.js
 JS_MIN_FILE = front.min.js
 README_FILE = README.md
@@ -14,19 +15,8 @@ MINIFY ?= 0
 TEST_RUNTIME ?= $(if $(filter 1 true yes,$(MINIFY)),$(SRC)/.build/web/$(JS_MIN_FILE),$(SRC)/front.js)
 TAG := $(shell grep -o 'build:[[:space:]]*[0-9]*' $(JS_FILE) | awk -F':' '{ print $$2+1 }')
 VERSION := $(shell grep 'frontVersion' $(JS_FILE) | grep -oE '[0-9]+' | head -3 | paste -sd '.' -)
-BUILD_CHANGES := $(shell git diff --name-only HEAD -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins; git ls-files --others --exclude-standard -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins)
+BUILD_CHANGES := $(shell git diff --name-only HEAD -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins $(SRC)/tools/minify; git ls-files --others --exclude-standard -- Makefile $(SRC)/front.js $(SRC)/modules $(SRC)/plugins $(SRC)/tools/minify)
 
-define minify
-	sed -E 's#//.*$$##' $(1) \
-	| sed -E '/\/\*/,/\*\//d' \
-	| sed -E 's/^[[:space:]]+//' \
-	| sed -E 's/[[:space:]]+$$//' \
-	| sed -E 's/[[:space:]]+/ /g' \
-	| sed -E '/^$$/d' \
-	| sed -E -e ':a' -e 'N' -e '$$!ba' -e 's/([{,;])\n[[:space:]]*/\1/g' \
-	| sed -E -e ':a' -e 'N' -e '$$!ba' -e 's/}\n[[:space:]]*}/}}/g' \
-	> $(2)
-endef
 
 define run_browser_test
 	@echo ""; echo "=== $(1) Tests ($(TEST_RUNTIME)) ==="; \
@@ -66,7 +56,7 @@ else
 	@sed -i '' -E 's/(build:[[:space:]]+)[0-9]+/\1$(TAG)/g' $(JS_FILE)
 	@echo "Build: $(TAG) (v$(VERSION))"
 	@rsync -av --exclude='/tests/' --delete --delete-excluded $(SRC)/ nightly/
-	@$(call minify,$(JS_FILE),nightly/$(JS_MIN_FILE))
+	@$(MINIFY_TOOL) "$(JS_FILE)" "nightly/$(JS_MIN_FILE)"
 	@echo "Built latest"
 	@read -p "Deploy? [y/n]: " ans; \
 	if [ "$$ans" != "y" ]; then \
@@ -97,7 +87,7 @@ release: test
 	@read -p "Confirm [y/n]: " ans && [ "$$ans" = "y" ] || exit 1
 	@mkdir -p $(VERSION)
 	@rsync -av --exclude=tests $(SRC)/ $(VERSION)/
-	@$(call minify,$(JS_FILE),$(VERSION)/$(JS_MIN_FILE))
+	@$(MINIFY_TOOL) "$(JS_FILE)" "$(VERSION)/$(JS_MIN_FILE)"
 	@echo ""
 	@echo "Prepared $(VERSION):"
 	@ls $(VERSION)/
@@ -133,8 +123,9 @@ test\:minify:
 	@set -e; \
 	TMP_RUNTIME="$(SRC)/.build/web/$(JS_MIN_FILE)"; \
 	mkdir -p "$(SRC)/.build/web"; \
-	$(call minify,$(JS_FILE),$$TMP_RUNTIME); \
-	$(MAKE) test MINIFY=1 TEST_RUNTIME="$$TMP_RUNTIME"
+	MINIFY_OUTPUT=$$($(MINIFY_TOOL) "$(JS_FILE)" "$$TMP_RUNTIME"); \
+	$(MAKE) test MINIFY=1 TEST_RUNTIME="$$TMP_RUNTIME"; \
+	echo "$$MINIFY_OUTPUT"
 
 test\:unit:
 	$(call run_browser_test,Unit,unit,9225)
