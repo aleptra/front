@@ -89,17 +89,13 @@ app\:run\:ios:
 	else \
 		echo "Using existing WebViews in $(WEBVIEWS_DIR)"; \
 	fi; \
-	nested_makefile="$(WEBVIEWS_DIR)/Makefile"; \
-	if [ -f Makefile ] && [ "$(WEBVIEWS_DIR)" = "src/webviews" ]; then \
-		cp Makefile "$$nested_makefile"; \
-	fi; \
 	project_file="$(WEBVIEWS_DIR)/ios/FrontWebView.xcodeproj/project.pbxproj"; \
 	if [ ! -f "../front.js" ]; then \
 		echo "Error: repository runtime ../front.js was not found." >&2; \
 		exit 1; \
 	fi; \
 	sed -i '' 's#path = ../../front.js;#path = ../../../../front.js;#' "$$project_file"
-	@$(MAKE) -C src/webviews ios CONFIG_FILE="$(abspath $(CONFIG_FILE))" CONFIGURATION="$(IOS_CONFIGURATION)" URL="$(IOS_URL)" DEVICE_NAME="$(IOS_DEVICE_NAME)" XCODE_DEVELOPER_DIR="$(IOS_XCODE_DEVELOPER_DIR)" DOWNLOAD_IOS_RUNTIME="$(IOS_DOWNLOAD_IOS_RUNTIME)" SHUTDOWN_SIMULATOR="$(IOS_SHUTDOWN_SIMULATOR)" DERIVED_DATA="$(IOS_DERIVED_DATA)"
+	@$(MAKE) -C src/webviews ios CONFIG_FILE="$(abspath $(CONFIG_FILE))" CONFIGURATION="$(IOS_CONFIGURATION)" URL="$(IOS_URL)" DEVICE_NAME="$(IOS_DEVICE_NAME)" XCODE_DEVELOPER_DIR="$(IOS_XCODE_DEVELOPER_DIR)" DOWNLOAD_IOS_RUNTIME="$(IOS_DOWNLOAD_IOS_RUNTIME)" SHUTDOWN_SIMULATOR="$(IOS_SHUTDOWN_SIMULATOR)" DERIVED_DATA="$(IOS_DERIVED_DATA)" IOS_BUNDLE_IDENTIFIER="$(IOS_BUNDLE_IDENTIFIER)"
 
 ios:
 	@set -e; \

@@ -10,6 +10,7 @@ IOS_MODE ?= local
 IOS_LOCAL_URL ?= http://127.0.0.1:8080
 IOS_PRODUCTION_URL ?=
 IOS_DEVICE_NAME ?= Front iPhone
+IOS_BUNDLE_IDENTIFIER ?= com.front.webviewpoc
 IOS_XCODE_DEVELOPER_DIR ?=
 IOS_DOWNLOAD_IOS_RUNTIME ?= 1
 IOS_SHUTDOWN_SIMULATOR ?= 0
@@ -86,8 +87,6 @@ app\:run\:ios:
 	else \
 		echo "Using existing WebViews in $(WEBVIEWS_DIR)"; \
 	fi; \
-	project_file="$(WEBVIEWS_DIR)/ios/FrontWebView.xcodeproj/project.pbxproj"; \
-	sed -i '' -E 's#PRODUCT_BUNDLE_IDENTIFIER = [^;]+;#PRODUCT_BUNDLE_IDENTIFIER = $(IOS_BUNDLE_IDENTIFIER);#g' "$$project_file"; \
 	runtime_file=; \
 	for candidate in src/*/front.js ../front.js; do \
 		if [ -f "$$candidate" ]; then runtime_file="$$candidate"; break; fi; \
@@ -104,4 +103,4 @@ app\:run\:ios:
 	fi; \
 	sed -E -e 's#src="[^"]*front(\.min)?\.js"#src="../front.js"#g' -e 's#[[:space:]]module="navigate"##g' index.html > src/webviews/index.html; \
 	if [ -f spa.html ]; then cp spa.html src/webviews/spa.html; fi
-	@$(MAKE) -C src/webviews ios CONFIG_FILE="$(abspath $(CONFIG_FILE))" CONFIGURATION="$(IOS_CONFIGURATION)" URL="$(IOS_URL)" DEVICE_NAME="$(IOS_DEVICE_NAME)" XCODE_DEVELOPER_DIR="$(IOS_XCODE_DEVELOPER_DIR)" DOWNLOAD_IOS_RUNTIME="$(IOS_DOWNLOAD_IOS_RUNTIME)" SHUTDOWN_SIMULATOR="$(IOS_SHUTDOWN_SIMULATOR)" DERIVED_DATA="$(IOS_DERIVED_DATA)"
+	@$(MAKE) -C src/webviews ios CONFIG_FILE="$(abspath $(CONFIG_FILE))" CONFIGURATION="$(IOS_CONFIGURATION)" URL="$(IOS_URL)" DEVICE_NAME="$(IOS_DEVICE_NAME)" XCODE_DEVELOPER_DIR="$(IOS_XCODE_DEVELOPER_DIR)" DOWNLOAD_IOS_RUNTIME="$(IOS_DOWNLOAD_IOS_RUNTIME)" SHUTDOWN_SIMULATOR="$(IOS_SHUTDOWN_SIMULATOR)" DERIVED_DATA="$(IOS_DERIVED_DATA)" IOS_BUNDLE_IDENTIFIER="$(IOS_BUNDLE_IDENTIFIER)"
