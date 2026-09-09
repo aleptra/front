@@ -140,7 +140,7 @@ app:
 	@$(BOILERPLATE_TOOL) help
 
 app\:create:
-	@DIR="$(DIR)" USE_CDN="$(USE_CDN)" VERSION="$(VERSION)" "$(BOILERPLATE_TOOL)" create
+	@DIR="$(DIR)" USE_CDN="$(USE_CDN)" VERSION="$(VERSION)" IOS_APP_NAME="$(IOS_APP_NAME)" "$(BOILERPLATE_TOOL)" create
 
 app\:run:
 	@"$(BOILERPLATE_TOOL)" run
