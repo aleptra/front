@@ -86,15 +86,8 @@ app\:run\:ios:
 	else \
 		echo "Using existing WebViews in $(WEBVIEWS_DIR)"; \
 	fi; \
-	nested_makefile="$(WEBVIEWS_DIR)/Makefile"; \
-	if ! grep -q '^FRONT_IOS_RUNNER_VERSION := 3$' "$$nested_makefile"; then \
-		echo "Refreshing stale WebView Makefile"; \
-		$(MAKE) install:webviews WEBVIEWS_REFRESH=1; \
-	fi; \
-	if ! grep -q '^FRONT_IOS_RUNNER_VERSION := 3$' "$$nested_makefile"; then \
-		echo "Error: downloaded WebView Makefile is stale; deploy $(WEBVIEWS_URL)/Makefile and try again." >&2; \
-		exit 1; \
-	fi; \
+	project_file="$(WEBVIEWS_DIR)/ios/FrontWebView.xcodeproj/project.pbxproj"; \
+	sed -i '' -E 's#PRODUCT_BUNDLE_IDENTIFIER = [^;]+;#PRODUCT_BUNDLE_IDENTIFIER = $(IOS_BUNDLE_IDENTIFIER);#g' "$$project_file"; \
 	runtime_file=; \
 	for candidate in src/*/front.js ../front.js; do \
 		if [ -f "$$candidate" ]; then runtime_file="$$candidate"; break; fi; \

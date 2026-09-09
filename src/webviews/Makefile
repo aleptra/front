@@ -1,6 +1,5 @@
 SHELL := /bin/sh
 
-FRONT_IOS_RUNNER_VERSION := 2
 CONFIG_FILE ?= config
 -include $(CONFIG_FILE)
 
@@ -12,13 +11,12 @@ IOS_LOCAL_URL ?= http://127.0.0.1:8080
 IOS_PRODUCTION_URL ?=
 IOS_DEVICE_NAME ?= Front iPhone
 IOS_APP_NAME ?= Front WebView
-IOS_XCODE_DEVELOPER_DIR ?=
+IOS_BUNDLE_IDENTIFIER ?= com.front.webviewpoc
 IOS_DOWNLOAD_IOS_RUNTIME ?= 1
 IOS_SHUTDOWN_SIMULATOR ?= 0
 IOS_DERIVED_DATA ?= ../.build/ios
 PROJECT ?= ios/FrontWebView.xcodeproj
 SCHEME ?= FrontWebView
-BUNDLE_ID ?= com.front.webviewpoc
 WEB_HOST ?= 127.0.0.1
 WEB_PORT ?= 8080
 WEB_URL ?= http://$(WEB_HOST):$(WEB_PORT)
@@ -92,17 +90,8 @@ app\:run\:ios:
 		echo "Using existing WebViews in $(WEBVIEWS_DIR)"; \
 	fi; \
 	nested_makefile="$(WEBVIEWS_DIR)/Makefile"; \
-	if ! grep -q '^FRONT_IOS_RUNNER_VERSION := $(FRONT_IOS_RUNNER_VERSION)$$' "$$nested_makefile"; then \
-		echo "Refreshing stale WebView Makefile"; \
-		if [ -f Makefile ] && grep -q '^FRONT_IOS_RUNNER_VERSION := $(FRONT_IOS_RUNNER_VERSION)$$' Makefile; then \
-			cp Makefile "$$nested_makefile"; \
-		else \
-			$(MAKE) install:webviews WEBVIEWS_REFRESH=1; \
-		fi; \
-	fi; \
-	if ! grep -q '^FRONT_IOS_RUNNER_VERSION := $(FRONT_IOS_RUNNER_VERSION)$$' "$$nested_makefile"; then \
-		echo "Error: downloaded WebView Makefile is stale; deploy $(WEBVIEWS_URL)/Makefile and try again." >&2; \
-		exit 1; \
+	if [ -f Makefile ] && [ "$(WEBVIEWS_DIR)" = "src/webviews" ]; then \
+		cp Makefile "$$nested_makefile"; \
 	fi; \
 	project_file="$(WEBVIEWS_DIR)/ios/FrontWebView.xcodeproj/project.pbxproj"; \
 	if [ ! -f "../front.js" ]; then \
@@ -172,10 +161,10 @@ ios:
 	"$$SIMCTL" bootstatus "$$DEVICE_ID" -b; \
 	open -a Simulator >/dev/null 2>&1 || true; \
 	sleep 2; \
-	DEVELOPER_DIR="$$XCODE" "$$XCODE/usr/bin/xcodebuild" -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration "$$BUILD_CONFIGURATION" -sdk iphonesimulator -destination "id=$$DEVICE_ID" -derivedDataPath "$(if $(DERIVED_DATA),$(DERIVED_DATA),$(IOS_DERIVED_DATA))" CODE_SIGNING_ALLOWED=NO FRONT_URL="$(if $(URL),$(URL),$(IOS_URL))" build; \
+	DEVELOPER_DIR="$$XCODE" "$$XCODE/usr/bin/xcodebuild" -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration "$$BUILD_CONFIGURATION" -sdk iphonesimulator -destination "id=$$DEVICE_ID" -derivedDataPath "$(if $(DERIVED_DATA),$(DERIVED_DATA),$(IOS_DERIVED_DATA))" CODE_SIGNING_ALLOWED=NO PRODUCT_BUNDLE_IDENTIFIER="$(IOS_BUNDLE_IDENTIFIER)" FRONT_URL="$(if $(URL),$(URL),$(IOS_URL))" build; \
 	"$$SIMCTL" install "$$DEVICE_ID" "$$APP_PATH"; \
-	if ! "$$SIMCTL" launch "$$DEVICE_ID" "$(BUNDLE_ID)"; then \
+	if ! "$$SIMCTL" launch "$$DEVICE_ID" "$(IOS_BUNDLE_IDENTIFIER)"; then \
 		echo "Simulator app launch was not ready; retrying..."; \
 		sleep 2; \
-		"$$SIMCTL" launch "$$DEVICE_ID" "$(BUNDLE_ID)"; \
+		"$$SIMCTL" launch "$$DEVICE_ID" "$(IOS_BUNDLE_IDENTIFIER)"; \
 	fi
