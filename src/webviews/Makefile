@@ -9,6 +9,7 @@ URL ?=
 export FRONT_URL := $(URL)
 XCODE_DEVELOPER_DIR ?=
 DOWNLOAD_IOS_RUNTIME ?= 1
+SHUTDOWN_SIMULATOR ?= 0
 
 .PHONY: ios doctor clean
 
@@ -62,14 +63,21 @@ ios:
 		DEVICE_ID=$$("$$SIMCTL" create "$(DEVICE_NAME)" "$$DEVICE_TYPE" "$$RUNTIME"); \
 	fi; \
 	echo "Using Simulator: $$DEVICE_ID"; \
-	cleanup() { "$$SIMCTL" shutdown "$$DEVICE_ID" >/dev/null 2>&1 || true; }; \
-	trap cleanup EXIT; \
+	if [ "$(SHUTDOWN_SIMULATOR)" = "1" ]; then \
+		cleanup() { "$$SIMCTL" shutdown "$$DEVICE_ID" >/dev/null 2>&1 || true; }; \
+		trap cleanup EXIT; \
+	fi; \
 	"$$SIMCTL" boot "$$DEVICE_ID" >/dev/null 2>&1 || true; \
 	"$$SIMCTL" bootstatus "$$DEVICE_ID" -b; \
 	open -a Simulator; \
+	sleep 2; \
 	DEVELOPER_DIR="$$XCODE" "$$XCODE/usr/bin/xcodebuild" -project "$(PROJECT)" -scheme "$(SCHEME)" -configuration Debug -sdk iphonesimulator -destination "id=$$DEVICE_ID" -derivedDataPath "$(DERIVED_DATA)" CODE_SIGNING_ALLOWED=NO FRONT_URL="$$FRONT_URL" build; \
 	"$$SIMCTL" install "$$DEVICE_ID" "$(DERIVED_DATA)/Build/Products/Debug-iphonesimulator/FrontWebView.app"; \
-	"$$SIMCTL" launch "$$DEVICE_ID" "$(BUNDLE_ID)"
+	if ! "$$SIMCTL" launch "$$DEVICE_ID" "$(BUNDLE_ID)"; then \
+		echo "Simulator app launch was not ready; retrying..."; \
+		sleep 2; \
+		"$$SIMCTL" launch "$$DEVICE_ID" "$(BUNDLE_ID)"; \
+	fi
 
 clean:
 	rm -rf "$(DERIVED_DATA)"

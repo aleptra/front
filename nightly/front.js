@@ -377,11 +377,11 @@ var dom = {
 
     switch (attr) {
       case 'bgimage':
-        var parts = value.split(' ')
-        var url = parts[0]
-        var size = parts[1]
-        var repeat = parts[2]
-        var position = parts[3]
+        var parts = value.split(' '),
+          url = parts[0],
+          size = parts[1],
+          repeat = parts[2],
+          position = parts[3]
 
         element.style.backgroundImage = 'url(' + url + ')'
         element.style.backgroundRepeat = repeat
@@ -1499,9 +1499,9 @@ var dom = {
     element = app.element.resolveCall(element, value)
     if (!element || !value) return
 
-    var wildcards = {}
-    var stopAll = false
-    var parts = value.split(';')
+    var wildcards = {},
+      stopAll = false,
+      parts = value.split(';')
 
     // Optimization: Map lookups are faster than array indexOf
     for (var i = 0; i < parts.length; i++) {
@@ -1512,17 +1512,17 @@ var dom = {
 
     var children = element.getElementsByTagName('*')
     for (var i = 0; i < children.length; i++) {
-      var child = children[i]
-      var start = child.getAttribute('start')
+      var child = children[i],
+        start = child.getAttribute('start')
 
       // Quick escape if element explicitly allows all
       if (start === '*') continue
 
-      var allow = start ? start.split(';') : []
-      var currentStop = child.getAttribute('stop') || ''
-      var stops = currentStop ? currentStop.split(';') : []
-      var attrs = child.attributes
-      var modified = false
+      var allow = start ? start.split(';') : [],
+        currentStop = child.getAttribute('stop') || '',
+        stops = currentStop ? currentStop.split(';') : [],
+        attrs = child.attributes,
+        modified = false
 
       for (var j = 0; j < attrs.length; j++) {
         var name = attrs[j].name
@@ -1689,8 +1689,8 @@ var dom = {
     if (el.originalHtml) el.innerHTML = el.originalHtml
 
     // Collect el + all descendants into one array
-    var nodes = [el]
-    var all = app.element.find(el, '*')
+    var nodes = [el],
+      all = app.element.find(el, '*')
     for (var i = 0, n = all.length; i < n; i++) {
       nodes[nodes.length] = all[i]
     }
@@ -2896,7 +2896,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 784 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 785 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
