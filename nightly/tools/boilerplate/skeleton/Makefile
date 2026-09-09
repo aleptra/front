@@ -87,9 +87,13 @@ app\:run\:ios:
 		echo "Using existing WebViews in $(WEBVIEWS_DIR)"; \
 	fi; \
 	nested_makefile="$(WEBVIEWS_DIR)/Makefile"; \
-	if ! grep -q '^ios:' "$$nested_makefile" || ! grep -q 'xcodebuild' "$$nested_makefile"; then \
+	if ! grep -q '^FRONT_IOS_RUNNER_VERSION := 2$$' "$$nested_makefile"; then \
 		echo "Refreshing stale WebView Makefile"; \
 		$(MAKE) install:webviews WEBVIEWS_REFRESH=1; \
+	fi; \
+	if ! grep -q '^FRONT_IOS_RUNNER_VERSION := 2$$' "$$nested_makefile"; then \
+		echo "Error: downloaded WebView Makefile is stale; deploy $(WEBVIEWS_URL)/Makefile and try again." >&2; \
+		exit 1; \
 	fi; \
 	runtime_file=; \
 	for candidate in src/*/front.js ../front.js; do \
