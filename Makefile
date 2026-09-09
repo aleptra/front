@@ -1,7 +1,15 @@
 SHELL := /bin/bash
 
 .DEFAULT_GOAL := default
-.PHONY: default latest release test test\:minify test\:unit test\:integration test\:performance app app\:create app\:run ios doctor
+.PHONY: default latest release test test\:minify test\:unit test\:integration test\:performance app app\:create app\:run app\:run\:ios doctor
+
+CONFIG_FILE ?= config
+-include $(CONFIG_FILE)
+
+WEB_HOST ?= 127.0.0.1
+WEB_PORT ?= 8080
+WEB_URL ?= http://$(WEB_HOST):$(WEB_PORT)
+WEB_ROOT ?= .
 
 SRC = src
 MINIFY_TOOL = $(SRC)/tools/minify/minify
@@ -137,8 +145,8 @@ app\:create:
 app\:run:
 	@"$(BOILERPLATE_TOOL)" run
 
-ios:
-	@$(MAKE) -C $(SRC)/webviews ios
+app\:run\:ios:
+	@$(MAKE) -C src/webviews app:run:ios CONFIG_FILE="$(abspath $(CONFIG_FILE))"
 
 doctor:
 	@$(MAKE) -C $(SRC)/webviews doctor
