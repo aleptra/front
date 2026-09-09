@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Front WebView POC</title>
+  <script src="../front.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body { margin: 0; padding: 24px; font-family: Arial, sans-serif; }
+    main { max-width: 680px; margin: 0 auto; }
+    section { padding: 20px; margin-top: 16px; border: 1px solid #d6dce5; border-radius: 12px; background: white; }
+    button { border: 0; border-radius: 8px; padding: 10px 14px; margin: 4px 4px 4px 0; color: white; background: #2563eb; font: inherit; }
+    button.secondary { background: #475569; }
+    #status { min-height: 24px; padding: 12px; border-radius: 8px; background: #eef2ff; color: #1e293b; }
+    code { padding: 2px 5px; border-radius: 4px; background: #eef2f7; }
+  </style>
+</head>
+<body bgcolor="#f8fafc" color="#182230" font="Arial">
+  <main>
+    <h1>Front WebView POC</h1>
+    <p>This page runs the existing Front runtime inside a WebView-compatible asset bundle.</p>
+
+    <section>
+      <h2>Front runtime</h2>
+      <p id="status">Waiting for an action.</p>
+      <button click="settext:#status:[Front app.call executed this FTML action.]">
+        Run Front action
+      </button>
+    </section>
+
+    <section>
+      <h2>Native bridge</h2>
+      <p>These buttons use <code>frontNative</code>. A native host can implement the same commands on Android, iOS, or Windows.</p>
+      <button id="share-button">Share</button>
+      <button id="clipboard-button" class="secondary">Copy text</button>
+      <button id="storage-button" class="secondary">Save state</button>
+    </section>
+  </main>
+
+  <script src="bridge.js"></script>
+</body>
+</html>

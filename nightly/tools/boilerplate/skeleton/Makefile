@@ -86,10 +86,20 @@ app\:run\:ios:
 	else \
 		echo "Using existing WebViews in $(WEBVIEWS_DIR)"; \
 	fi; \
-	project_file="$(WEBVIEWS_DIR)/ios/FrontWebView.xcodeproj/project.pbxproj"; \
-	if [ ! -f "../front.js" ]; then \
-		echo "Error: repository runtime ../front.js was not found." >&2; \
-		exit 1; \
+	runtime_file=; \
+	for candidate in src/*/front.js ../front.js; do \
+		if [ -f "$$candidate" ]; then runtime_file="$$candidate"; break; fi; \
+	done; \
+	if [ -n "$$runtime_file" ]; then \
+		mkdir -p src; \
+		cp "$$runtime_file" src/front.js; \
+	elif [ ! -f src/front.js ]; then \
+		runtime_url="$$(sed -n -E 's#.*<script src="([^"]*front(\.min)?\.js)".*#\1#p' index.html | head -1)"; \
+		case "$$runtime_url" in \
+			http://*|https://*) mkdir -p src; curl --fail --silent --show-error --location "$$runtime_url" --output src/front.js ;; \
+			*) echo "Error: no local or CDN Front runtime was found for iOS." >&2; exit 1 ;; \
+		esac; \
 	fi; \
-	sed -i '' 's#path = ../../front.js;#path = ../../../../front.js;#' "$$project_file"
+	sed -E -e 's#src="[^"]*front(\.min)?\.js"#src="../front.js"#g' -e 's#[[:space:]]module="navigate"##g' index.html > src/webviews/index.html; \
+	if [ -f spa.html ]; then cp spa.html src/webviews/spa.html; fi
 	@$(MAKE) -C src/webviews ios CONFIG_FILE="$(abspath $(CONFIG_FILE))" CONFIGURATION="$(IOS_CONFIGURATION)" URL="$(IOS_URL)" DEVICE_NAME="$(IOS_DEVICE_NAME)" XCODE_DEVELOPER_DIR="$(IOS_XCODE_DEVELOPER_DIR)" DOWNLOAD_IOS_RUNTIME="$(IOS_DOWNLOAD_IOS_RUNTIME)" SHUTDOWN_SIMULATOR="$(IOS_SHUTDOWN_SIMULATOR)" DERIVED_DATA="$(IOS_DERIVED_DATA)"

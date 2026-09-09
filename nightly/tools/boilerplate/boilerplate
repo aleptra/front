@@ -64,8 +64,8 @@ create_project() {
 			exit 1
 		fi
 		mkdir -p "$project_dir/src"
-		cp -R "$REPO_ROOT/$VERSION" "$project_dir/src/"
-		script_url="src/$VERSION/front.js"
+		cp -R "$REPO_ROOT/$VERSION"/. "$project_dir/src/"
+		script_url="src/front.js"
 	fi
 
 	echo "Creating app project in $project_dir..."
