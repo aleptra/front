@@ -23,7 +23,6 @@ create_project() {
 	local script_url
 	local html_file
 	local html_tmp
-	local ios_app_name=${IOS_APP_NAME:-Front WebView}
 
 	if [ -z "$dir" ]; then
 		read -r -p "Enter project name: " dir || true
@@ -72,12 +71,6 @@ create_project() {
 	echo "Creating app project in $project_dir..."
 	mkdir -p "$project_dir"
 	rsync -a "$SCRIPT_DIR/skeleton/." "$project_dir/"
-	IOS_APP_NAME="$ios_app_name" awk '
-BEGIN { value=ENVIRON["IOS_APP_NAME"] }
-$0 ~ /^IOS_APP_NAME=/ { print "IOS_APP_NAME=" value; found=1; next }
-{ print }
-END { if (!found) print "IOS_APP_NAME=" value }
-' "$project_dir/config" > "$project_dir/config.tmp"
 	mv "$project_dir/config.tmp" "$project_dir/config"
 
 	while IFS= read -r -d '' html_file; do
