@@ -86,6 +86,11 @@ app\:run\:ios:
 	else \
 		echo "Using existing WebViews in $(WEBVIEWS_DIR)"; \
 	fi; \
+	nested_makefile="$(WEBVIEWS_DIR)/Makefile"; \
+	if ! grep -q '^ios:' "$$nested_makefile" || ! grep -q 'xcodebuild' "$$nested_makefile"; then \
+		echo "Refreshing stale WebView Makefile"; \
+		$(MAKE) install:webviews WEBVIEWS_REFRESH=1; \
+	fi; \
 	runtime_file=; \
 	for candidate in src/*/front.js ../front.js; do \
 		if [ -f "$$candidate" ]; then runtime_file="$$candidate"; break; fi; \
