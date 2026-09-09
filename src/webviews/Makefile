@@ -86,6 +86,11 @@ app\:run\:ios:
 	else \
 		echo "Using existing WebViews in $(WEBVIEWS_DIR)"; \
 	fi; \
+	nested_makefile="$(WEBVIEWS_DIR)/Makefile"; \
+	if ! grep -q '^ios:' "$$nested_makefile" || ! grep -q 'xcodebuild' "$$nested_makefile"; then \
+		echo "Refreshing stale WebView Makefile"; \
+		$(MAKE) install:webviews WEBVIEWS_REFRESH=1; \
+	fi; \
 	project_file="$(WEBVIEWS_DIR)/ios/FrontWebView.xcodeproj/project.pbxproj"; \
 	if [ ! -f "../front.js" ]; then \
 		echo "Error: repository runtime ../front.js was not found." >&2; \
