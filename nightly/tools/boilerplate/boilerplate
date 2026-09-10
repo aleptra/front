@@ -73,14 +73,6 @@ create_project() {
 	rsync -a "$SCRIPT_DIR/skeleton/." "$project_dir/"
 	mkdir -p "$project_dir/src/webviews"
 	cp "$REPO_ROOT/src/webviews/Makefile" "$project_dir/src/webviews/Makefile"
-	if [ -n "${IOS_BUNDLE_IDENTIFIER:-}" ]; then
-		IOS_BUNDLE_IDENTIFIER="$IOS_BUNDLE_IDENTIFIER" awk '
-$0 ~ /^IOS_BUNDLE_IDENTIFIER=/ { print "IOS_BUNDLE_IDENTIFIER=" ENVIRON["IOS_BUNDLE_IDENTIFIER"]; found=1; next }
-{ print }
-END { if (!found) print "IOS_BUNDLE_IDENTIFIER=" ENVIRON["IOS_BUNDLE_IDENTIFIER"] }
-' "$project_dir/config" > "$project_dir/config.tmp"
-		mv "$project_dir/config.tmp" "$project_dir/config"
-	fi
 
 	while IFS= read -r -d '' html_file; do
 		html_tmp="$html_file.tmp"
