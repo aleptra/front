@@ -1,6 +1,4 @@
 test('data-bindheader - binds a response header into a target element', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var target = createElement('span')
   var element = createElement('div')

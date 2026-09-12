@@ -1,6 +1,4 @@
 test('data-onsuccess - runs the callback for a cached successful response', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var target = createElement('div')
   var element = createElement('div')
@@ -20,8 +18,6 @@ test('data-onsuccess - runs the callback for a cached successful response', func
 })
 
 test('data-onsuccess - does not run for a failed response', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var target = createElement('div')
   var element = createElement('div')

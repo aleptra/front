@@ -1,6 +1,4 @@
 test('data-onerror - forwards the error actions to the request', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var element = createElement('div')
   var request

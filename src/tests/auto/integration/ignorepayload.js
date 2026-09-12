@@ -1,6 +1,4 @@
 test('ignorepayload - marked fields are left out of the request payload', function () {
-  if (!app.module.data) return
-
   var form = createElement('form')
   var request
 

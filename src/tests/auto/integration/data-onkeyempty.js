@@ -1,6 +1,4 @@
 test('data-onkeyempty - runs the callback when a nested key resolves to nothing', function () {
-  if (!app.module.data) return
-
   var target = createElement('div')
   var element = createElement('div')
 
@@ -22,8 +20,6 @@ test('data-onkeyempty - runs the callback when a nested key resolves to nothing'
 })
 
 test('data-onkeyempty - stays silent when the nested key has items', function () {
-  if (!app.module.data) return
-
   var target = createElement('div')
   var element = createElement('div')
 

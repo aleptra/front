@@ -1,6 +1,4 @@
 test('data-onnotempty - runs the callback when the collection has items', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var target = createElement('div')
   var element = createElement('div')
@@ -21,8 +19,6 @@ test('data-onnotempty - runs the callback when the collection has items', functi
 })
 
 test('data-onnotempty - does not run for an empty collection', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var target = createElement('div')
   var element = createElement('div')

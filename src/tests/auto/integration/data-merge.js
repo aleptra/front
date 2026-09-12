@@ -1,6 +1,4 @@
 test('data-merge - copies the named keys from the joined response', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var merged = data._merge(
     { data: { items: ['a'], extra: 'original' }, status: 200 },
@@ -15,8 +13,6 @@ test('data-merge - copies the named keys from the joined response', function () 
 })
 
 test('data-merge - merges the joined cache into the rendered response', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var element = createElement('div')
   var rendered

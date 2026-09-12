@@ -1,6 +1,4 @@
 test('data-replace - rewrites matching values in the response', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var element = createElement('div')
   var response = {

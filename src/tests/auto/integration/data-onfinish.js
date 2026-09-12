@@ -1,6 +1,4 @@
 test('data-onfinish - runs the callback and marks the element loaded', function () {
-  if (!app.module.data) return
-
   var target = createElement('div')
   var element = createElement('div')
 
@@ -16,8 +14,6 @@ test('data-onfinish - runs the callback and marks the element loaded', function 
 })
 
 test('data-onfinish - restores the target and hides the loader', function () {
-  if (!app.module.data) return
-
   var loader = createElement('div')
   var element = createElement('div')
 

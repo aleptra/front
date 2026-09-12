@@ -1,6 +1,4 @@
 test('data-onstatus - runs the actions for a matching status code', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var target = createElement('div')
   var element = createElement('div')
@@ -20,8 +18,6 @@ test('data-onstatus - runs the actions for a matching status code', function () 
 })
 
 test('data-onstatus - ignores a status that does not match', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var target = createElement('div')
   var element = createElement('div')

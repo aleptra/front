@@ -1,6 +1,4 @@
 test('data-sort - random ordering works with pagesize one and refreshes', function () {
-  if (!app.module.data) return
-
   var data = app.module.data,
     source = { data: { items: [{ id: 'one' }, { id: 'two' }, { id: 'three' }] }, status: 200 },
     element = createElement('div'),
@@ -34,8 +32,6 @@ test('data-sort - random ordering works with pagesize one and refreshes', functi
 })
 
 test('data-sort - random ordering runs after filtering and before limit', function () {
-  if (!app.module.data) return
-
   var data = app.module.data,
     source = {
       data: {
@@ -76,8 +72,6 @@ test('data-sort - random ordering runs after filtering and before limit', functi
 })
 
 test('data-sort - leaves non-array collections unchanged', function () {
-  if (!app.module.data) return
-
   var data = app.module.data,
     object = { title: 'single' },
     response = { data: { item: object }, status: 200 },

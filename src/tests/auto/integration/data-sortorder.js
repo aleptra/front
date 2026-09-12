@@ -22,8 +22,6 @@ function runSortorder(source, attributes, iterate, read) {
 }
 
 test('data-sortorder - sorts strings ascending and descending', function () {
-  if (!app.module.data) return
-
   var source = { data: { items: [{ title: 'Zeta' }, { title: 'Alpha' }, { title: 'Beta' }] }, status: 200 }
   var asc = runSortorder(source, {
     'data-iterate': 'items',
@@ -46,8 +44,6 @@ test('data-sortorder - sorts strings ascending and descending', function () {
 })
 
 test('data-sortorder - sorts numeric values ascending and descending', function () {
-  if (!app.module.data) return
-
   var source = { data: { items: [{ score: 10 }, { score: 2 }, { score: 1 }] }, status: 200 }
   var asc = runSortorder(source, {
     'data-iterate': 'items',
@@ -69,8 +65,6 @@ test('data-sortorder - sorts numeric values ascending and descending', function 
 })
 
 test('data-sortorder - sorts nested properties and root arrays', function () {
-  if (!app.module.data) return
-
   var nestedSource = {
     data: { items: [{ meta: { name: 'Zeta' } }, { meta: { name: 'Alpha' } }] },
     status: 200
@@ -99,8 +93,6 @@ test('data-sortorder - sorts nested properties and root arrays', function () {
 })
 
 test('data-sortorder - supports collection-prefixed paths in nested iterates', function () {
-  if (!app.module.data) return
-
   var mockData = {
     locations: [{ id: 'site-1' }],
     location_evidence: [
@@ -126,8 +118,6 @@ test('data-sortorder - supports collection-prefixed paths in nested iterates', f
 })
 
 test('data-sortorder - defaults to ascending when omitted or unsupported', function () {
-  if (!app.module.data) return
-
   var source = { data: { items: [{ title: 'Zeta' }, { title: 'Alpha' }] }, status: 200 }
   var omitted = runSortorder(source, {
     'data-iterate': 'items',
@@ -148,8 +138,6 @@ test('data-sortorder - defaults to ascending when omitted or unsupported', funct
 })
 
 test('data-sortorder - filters before sorting', function () {
-  if (!app.module.data) return
-
   var source = {
     data: {
       items: [
@@ -175,8 +163,6 @@ test('data-sortorder - filters before sorting', function () {
 })
 
 test('data-sortorder - applies before limit and pagination', function () {
-  if (!app.module.data) return
-
   var source = {
     data: {
       items: [

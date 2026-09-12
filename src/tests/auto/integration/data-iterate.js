@@ -125,8 +125,6 @@ test('data-iterate - should iterate over a nested key path (multi-level)', funct
 
 
 test('data-iterate - nested iterate inside iterate should render sub-items', function () {
-  if (!app.module.data) return
-
   // Parent array with nested arrays
   var mockData = [
     { category: 'Fruits', items: [{ name: 'Apple' }, { name: 'Banana' }] },
@@ -169,8 +167,6 @@ test('data-iterate - nested iterate inside iterate should render sub-items', fun
 })
 
 test('data-iterate - three levels deep nested iterate', function () {
-  if (!app.module.data) return
-
   var mockData = [
     {
       department: 'Engineering',
@@ -217,8 +213,6 @@ test('data-iterate - three levels deep nested iterate', function () {
 
 
 test('data-iterate - empty array should produce no iterations', function () {
-  if (!app.module.data) return
-
   var mockData = []
 
   var parent = createElement('div')
@@ -237,8 +231,6 @@ test('data-iterate - empty array should produce no iterations', function () {
 })
 
 test('data-iterate - single item array should produce one iteration', function () {
-  if (!app.module.data) return
-
   var mockData = [{ word: 'Solo' }]
 
   var parent = createElement('div')
@@ -258,8 +250,6 @@ test('data-iterate - single item array should produce one iteration', function (
 })
 
 test('data-iterate - data-set should resolve variable into attribute', function () {
-  if (!app.module.data) return
-
   var mockData = [
     { id: '42', label: 'Click me' },
     { id: '99', label: 'Submit' }
@@ -285,8 +275,6 @@ test('data-iterate - data-set should resolve variable into attribute', function 
 })
 
 test('data-iterate - iterate over object keys', function () {
-  if (!app.module.data) return
-
   // Response is a plain object (not array) — iterates over keys
   var mockData = {
     eng: { word: 'Hello' },
@@ -310,9 +298,43 @@ test('data-iterate - iterate over object keys', function () {
   assertEqual(paragraphs[1].textContent, 'Hej')
 })
 
-test('data-iterate - multiple elements per iteration block', function () {
-  if (!app.module.data) return
+test('data-iterate - nested true renders one dynamic row and cell per object key', function () {
+  var mockData = [
+    { id: '1', name: 'Alice', role: 'Admin' },
+    { id: '2', name: 'Bob', role: 'Editor' }
+  ]
 
+  var parent = document.createElement('tbody')
+  parent.setAttribute('data-src', 'mock://test')
+  parent.setAttribute('data-header', 'id,name,role')
+  parent.setAttribute('data-loader', 'mock-loader')
+  parent.setAttribute('data-iterate', 'true')
+  parent.innerHTML = '<tr data-iterate="true"><td data-get="[*]"></td></tr>'
+
+  app.element.saveOriginalValues(parent)
+  app.element.saveOriginalValues(parent.querySelector('tr'))
+
+  var responseData = { data: mockData, status: 200 }
+  var options = { iterate: 'true', element: parent }
+
+  app.module.data._traverse(options, responseData, parent, '*:not([data-iterate-skip])')
+
+  var rows = parent.querySelectorAll('tr')
+  assertEqual(rows.length, 2)
+  assertEqual(rows[0].querySelectorAll('td').length, 3)
+  assertEqual(rows[1].querySelectorAll('td').length, 3)
+  assertEqual(rows[0].textContent, '1AliceAdmin')
+  assertEqual(rows[1].textContent, '2BobEditor')
+  assertEqual(rows[0].querySelectorAll('td')[0].textContent, '1')
+  assertEqual(rows[0].querySelectorAll('td')[1].textContent, 'Alice')
+  assertEqual(rows[0].querySelectorAll('td')[2].textContent, 'Admin')
+  assertEqual(rows[1].querySelectorAll('td')[0].textContent, '2')
+  assertEqual(rows[1].querySelectorAll('td')[1].textContent, 'Bob')
+  assertEqual(rows[1].querySelectorAll('td')[2].textContent, 'Editor')
+  assertNotEqual(parent.textContent.indexOf('[object Object]') >= 0, true)
+})
+
+test('data-iterate - multiple elements per iteration block', function () {
   var mockData = [
     { title: 'Post 1', author: 'Alice' },
     { title: 'Post 2', author: 'Bob' }
@@ -340,8 +362,6 @@ test('data-iterate - multiple elements per iteration block', function () {
 })
 
 test('data-iterate - data-get with dot-path accesses nested property', function () {
-  if (!app.module.data) return
-
   var mockData = [
     { meta: { score: '95' } },
     { meta: { score: '82' } }
@@ -365,8 +385,6 @@ test('data-iterate - data-get with dot-path accesses nested property', function 
 })
 
 test('data-iterate - data-iterate-skip elements should be preserved', function () {
-  if (!app.module.data) return
-
   var mockData = [{ word: 'One' }, { word: 'Two' }]
 
   var parent = createElement('div')
@@ -393,8 +411,6 @@ test('data-iterate - data-iterate-skip elements should be preserved', function (
 })
 
 test('data-iterate - data-set to external element by id', function () {
-  if (!app.module.data) return
-
   var mockData = [
     { lang_code: 'eng', word: 'Jesus' },
     { lang_code: 'swe', word: 'Jesus' }
@@ -402,7 +418,6 @@ test('data-iterate - data-set to external element by id', function () {
 
   // External target element
   var target = createElement('h1')
-  target.id = 'ext_target'
 
   var parent = createElement('section')
   parent.setAttribute('data-src', 'mock://test')
@@ -433,8 +448,6 @@ test('data-iterate - data-set to external element by id', function () {
 })
 
 test('data-filter - nested child filters can share one named source array', function () {
-  if (!app.module.data) return
-
   var mockData = {
     excavations: [
       { country: 'Syria', modern_name: 'Ebla' },
@@ -477,8 +490,6 @@ test('data-filter - nested child filters can share one named source array', func
 })
 
 test('data-iterate - nested child can use a root collection without data-src', function () {
-  if (!app.module.data) return
-
   var mockData = {
     locations: [
       { id: 'site-1', name: 'Example site' }
@@ -514,8 +525,6 @@ test('data-iterate - nested child can use a root collection without data-src', f
 })
 
 test('data-filter - nested child filters handle single and empty matches', function () {
-  if (!app.module.data) return
-
   var parent = createElement('details')
   parent.setAttribute('data-src', 'mock://archaeological-fieldwork-single-empty')
   parent.innerHTML =
@@ -544,8 +553,6 @@ test('data-filter - nested child filters handle single and empty matches', funct
 })
 
 test('data-page - renders the requested page and publishes metadata', function () {
-  if (!app.module.data) return
-
   var data = app.module.data,
     source = {
       data: {
@@ -592,8 +599,6 @@ test('data-page - renders the requested page and publishes metadata', function (
 })
 
 test('data-page - named arrays are paged without mutating cached data', function () {
-  if (!app.module.data) return
-
   var data = app.module.data,
     source = {
       data: {
@@ -630,8 +635,6 @@ test('data-page - named arrays are paged without mutating cached data', function
 })
 
 test('data-page - navigation helpers rerender pages and stop at boundaries', function () {
-  if (!app.module.data) return
-
   var data = app.module.data,
     source = {
       data: {
@@ -683,8 +686,6 @@ test('data-page - navigation helpers rerender pages and stop at boundaries', fun
 })
 
 test('data-limit - caps a named collection without mutating the source', function () {
-  if (!app.module.data) return
-
   var data = app.module.data,
     source = {
       data: {
@@ -718,8 +719,6 @@ test('data-limit - caps a named collection without mutating the source', functio
 })
 
 test('data-page - supports pagesize 1 and 4', function () {
-  if (!app.module.data) return
-
   var data = app.module.data,
     source = {
       data: {
@@ -777,8 +776,6 @@ test('data-page - supports pagesize 1 and 4', function () {
 })
 
 test('data-page - boundary events update declarative navigation controls', function () {
-  if (!app.module.data) return
-
   var data = app.module.data,
     source = {
       data: {
@@ -835,8 +832,6 @@ test('data-page - boundary events update declarative navigation controls', funct
 })
 
 test('data-iterate - root collection fallback supports sort and limit', function () {
-  if (!app.module.data) return
-
   var mockData = {
     locations: [{ id: 'site-1' }],
     location_evidence: [
@@ -861,8 +856,6 @@ test('data-iterate - root collection fallback supports sort and limit', function
 })
 
 test('data-iterate - root collection fallback supports pagination', function () {
-  if (!app.module.data) return
-
   var mockData = {
     locations: [{ id: 'site-1' }],
     location_evidence: [
@@ -888,8 +881,6 @@ test('data-iterate - root collection fallback supports pagination', function () 
 })
 
 test('data-iterate - root collection fallback works through deeper nesting', function () {
-  if (!app.module.data) return
-
   var mockData = {
     locations: [{ id: 'site-1' }],
     location_evidence: [{ id: 'evidence-1', location_id: 'site-1', title: 'Tablet' }],
@@ -917,8 +908,6 @@ test('data-iterate - root collection fallback works through deeper nesting', fun
 })
 
 test('data-iterate - local child collection takes precedence over root collection', function () {
-  if (!app.module.data) return
-
   var mockData = {
     locations: [{
       id: 'site-1',

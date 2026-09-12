@@ -35,8 +35,6 @@ test('data-filteritem - filters the selected collection with legacy syntax', fun
 })
 
 test('data-filteritem - nested iterates of a selected item are not re-filtered', function () {
-  if (!app.module.data) return
-
   var section = createElement('section')
   section.setAttribute('data-src', 'mock://data-filteritem-nested')
   section.setAttribute('data-filterkey', 'workshop')

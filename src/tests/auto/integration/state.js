@@ -201,8 +201,6 @@ test('statebind - runs onstatebind after state changes', function () {
 })
 
 test('statebind - reruns a data source once after a state change', function () {
-  if (!app.module.data) return
-
   var key = 'integrationStateBindDataRerun'
   var data = app.module.data
   var element = createElement('div')
@@ -258,8 +256,6 @@ test('statebind - generic rerun does not re-enter onstatebind', function () {
 })
 
 test('statebind - detached iterate nodes stop dispatching callbacks', function () {
-  if (!app.module.data) return
-
   var key = 'integrationStateBindDetached'
   var data = app.module.data
   var source = createElement('div')

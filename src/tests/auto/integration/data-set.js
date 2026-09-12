@@ -1,6 +1,4 @@
 test('data-set - replaces attribute variables with resolved values', function () {
-  if (!app.module.data) return
-
   var element = createElement('div')
   element.setAttribute('data-src', 'mock://data-set')
   element.innerHTML = '<a data-set="d:slug" href="/attribute/?a={d}" title="{d}"></a>'

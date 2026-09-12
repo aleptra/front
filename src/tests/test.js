@@ -111,6 +111,11 @@
     return withDescription(log(currentTest, expected, actual, isPass))
   }
 
+  global.assertNotEqual = function (actual, expected) {
+    var isPass = actual !== expected
+    return withDescription(log(currentTest, 'not ' + expected, actual, isPass))
+  }
+
   global.assertTrue = function (val) {
     var isPass = val === true
     return withDescription(log(currentTest, true, val, isPass))

@@ -13,8 +13,6 @@ test('data-src - schedules a source request through data-src', function () {
 })
 
 test('data-rerun - uses the cached response without requesting data-src', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var element = createElement('div')
   var cached = { data: { items: ['cached'] }, status: 200 }
@@ -39,8 +37,6 @@ test('data-rerun - uses the cached response without requesting data-src', functi
 })
 
 test('data-rerun - falls back to the source when no cache exists', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var element = createElement('div')
   var requested
@@ -64,8 +60,6 @@ test('data-rerun - falls back to the source when no cache exists', function () {
 })
 
 test('data-rerun - does nothing without a data source', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var element = createElement('div')
   var sourceCalls = 0

@@ -14,8 +14,6 @@ test('data-filter - supports bracket values and comparisons', function () {
 })
 
 test('data-filter - supports OR, contains, and nested paths', function () {
-  if (!app.module.data) return
-
   var source = {
     items: [
       { country: 'Turkey', meta: { region: 'Asia' } },
@@ -31,8 +29,6 @@ test('data-filter - supports OR, contains, and nested paths', function () {
 })
 
 test('data-filter - runs through data source filtering', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var element = createElement('div')
   var rendered
@@ -64,8 +60,6 @@ test('data-filter - runs through data source filtering', function () {
 })
 
 test('data-filter - filters nested iterate elements', function () {
-  if (!app.module.data) return
-
   var parent = createElement('section')
   parent.setAttribute('data-src', 'mock://data-filter-nested')
   parent.innerHTML =
@@ -94,8 +88,6 @@ test('data-filter - filters nested iterate elements', function () {
 })
 
 test('data-filter - filters a nested iterate by its own numeric filter only', function () {
-  if (!app.module.data) return
-
   var data = app.module.data
   var source = {
     attribute: {
@@ -143,8 +135,6 @@ test('data-filter - filters a nested iterate by its own numeric filter only', fu
 })
 
 test('data-filter - uses >: for inclusive numeric filtering', function () {
-  if (!app.module.data) return
-
   var source = {
     items: [
       { since: 999999 },
@@ -161,8 +151,6 @@ test('data-filter - uses >: for inclusive numeric filtering', function () {
 })
 
 test('data-filter - uses <: for inclusive numeric filtering', function () {
-  if (!app.module.data) return
-
   var source = {
     items: [
       { since: 999999 },

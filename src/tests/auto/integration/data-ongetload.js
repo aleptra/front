@@ -1,6 +1,4 @@
 test('data-ongetload - runs the callback after data-get resolves', function () {
-  if (!app.module.data) return
-
   var target = createElement('div')
   var element = createElement('div')
 
