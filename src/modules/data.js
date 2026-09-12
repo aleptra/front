@@ -609,7 +609,13 @@ app.module.data = {
             childName = childIterate.getAttribute('data-iterate'),
             childIndex = nestedIndexByName[childName] || 0,
             childContext = childName === 'true'
-              ? responseData.data
+              ? iterate
+                ? Array.isArray(responseObject)
+                  ? responseObject[childIndex]
+                  : keys && keys[childIndex] !== undefined && Object.prototype.hasOwnProperty.call(responseObject, keys[childIndex])
+                    ? responseObject[keys[childIndex]]
+                    : responseObject
+                : responseData.data
               : Array.isArray(responseObject) ? responseObject[childIndex] : responseObject
 
           nestedIndexByName[childName] = childIndex + 1
@@ -746,7 +752,12 @@ app.module.data = {
         var key = value.replace(value.slice(-1) === '.' ? '[*].' : '[*]', keyAtIndex)
         return app.element.getPropertyByPath(fullObject, key)
       } else if (value === '[*]') {
-        return obj !== undefined ? obj : (keys && keys[options.index])
+        if (obj !== undefined) return obj
+        if (fullObject && keyAtIndex !== undefined && Object.prototype.hasOwnProperty.call(fullObject, keyAtIndex)) {
+          var item = fullObject[keyAtIndex]
+          return item !== null && typeof item === 'object' ? keyAtIndex : item
+        }
+        return keys && keys[options.index]
       } else if (value[0] === '#') {
         return app.element.getPropertyByPath(fullObject, value.substring(1))
       }
