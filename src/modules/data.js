@@ -506,7 +506,7 @@ app.module.data = {
 
     var responseObject = iterate === 'true'
       ? context
-      : app.element.getPropertyByPath(context, iterate) || app.element.getPropertyByPath(responseData.data[options.k], iterate) || app.element.getPropertyByPath(dataRoot, iterate),
+      : app.element.getPropertyByPath(context, iterate) || (responseData.data && app.element.getPropertyByPath(responseData.data[options.k], iterate)) || app.element.getPropertyByPath(dataRoot, iterate),
       total = iterate && responseObject && responseObject.length - 1 || 0
 
     // Fire data-onkeyempty when the resolved key is missing or has no items.
@@ -514,9 +514,11 @@ app.module.data = {
       app.call(onkeyempty, { srcElement: element })
     }
 
-    if (!responseObject) {
-      if (element.hasAttribute('data-set')) this._process('data-set', element, responseData.data)
-    } else {
+    if (!responseObject && element.hasAttribute('data-set')) {
+      this._process('data-set', element, responseData.data)
+    }
+
+    if (responseObject) {
       if (!responseObject.length) {
         var keys = Object.keys(responseObject)
         if (keys) total = keys.length - 1 || 0
