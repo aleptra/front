@@ -334,6 +334,14 @@ app.module.data = {
     var pagingEnabled = dataPageValue !== null || dataPagesizeValue !== null
 
     if (responseData) {
+      if (options.iterate && options.iterate !== 'true' && Array.isArray(responseData.data) && responseData.data.length === 1) {
+        var responseItem = responseData.data[0]
+        if (responseItem && typeof responseItem === 'object' && app.element.getPropertyByPath(responseItem, options.iterate) !== undefined) {
+          responseData = this._cloneResponse(responseData)
+          responseData.data = responseData.data[0]
+        }
+      }
+
       if (datasort || dataLimitValue !== null || pagingEnabled) responseData = this._cloneResponse(responseData)
       if (datamerge) {
         var responseDataJoin = app.caches.get(this.storageMechanism, this.storageType, options.storageKey.replace('join', '') + 'join')
@@ -506,7 +514,9 @@ app.module.data = {
       app.call(onkeyempty, { srcElement: element })
     }
 
-    if (responseObject !== undefined) {
+    if (!responseObject) {
+      if (element.hasAttribute('data-set')) this._process('data-set', element, responseData.data)
+    } else {
       if (!responseObject.length) {
         var keys = Object.keys(responseObject)
         if (keys) total = keys.length - 1 || 0

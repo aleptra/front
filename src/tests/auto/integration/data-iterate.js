@@ -927,3 +927,143 @@ test('data-iterate - local child collection takes precedence over root collectio
 
   assertEqual(parent.querySelector('[data-iterate] span').textContent, 'Nested evidence')
 })
+
+
+test('data-iterate - data-set replaces empty and default variables when the collection is missing', function () {
+  if (!app.module.data) return
+
+  var emptyTarget = createElement('div')
+  var parent = createElement('div')
+  parent.setAttribute('data-src', 'mock://missing-collection')
+  parent.setAttribute('data-iterate', 'alternatives')
+  parent.setAttribute('data-onempty', 'settext:#' + emptyTarget.id + ':[No alternatives]')
+  parent.setAttribute('data-set', 'main:main.id')
+  parent.setAttribute('data-marker', '{main}|{main:0}')
+  parent.innerHTML = '<span data-get="word"></span>'
+  app.element.saveOriginalValues(parent)
+
+  app.module.data._run(
+    { storageKey: 'data-iterate-missing-collection', iterate: 'alternatives', element: parent },
+    { data: [], status: 200 }
+  )
+
+  assertEqual(emptyTarget.textContent, 'No alternatives')
+  assertEqual(parent.getAttribute('data-marker'), '|0')
+})
+
+
+test('data-iterate - null named collection uses data-set fallback and onkeyempty', function () {
+  if (!app.module.data) return
+
+  var emptyTarget = createElement('div')
+  var parent = createElement('div')
+  parent.setAttribute('data-src', 'mock://null-collection')
+  parent.setAttribute('data-iterate', 'alternatives')
+  parent.setAttribute('data-set', 'main:main.id;missing:missing.id')
+  parent.setAttribute('data-marker', '{main}|{missing:0}')
+  parent.innerHTML = '<span data-get="word"></span>'
+  app.element.saveOriginalValues(parent)
+
+  app.module.data._run(
+    {
+      storageKey: 'data-iterate-null-collection',
+      iterate: 'alternatives',
+      onkeyempty: 'settext:#' + emptyTarget.id + ':[No alternatives]',
+      element: parent
+    },
+    { data: { alternatives: null, main: { id: 'null-main' } }, status: 200 }
+  )
+
+  assertEqual(emptyTarget.textContent, 'No alternatives')
+  assertEqual(parent.getAttribute('data-marker'), 'null-main|0')
+})
+
+
+test('data-iterate - unwraps an empty named collection response envelope', function () {
+  if (!app.module.data) return
+
+  var emptyTarget = createElement('div')
+  var parent = createElement('div')
+  parent.setAttribute('data-src', 'mock://empty-envelope')
+  parent.setAttribute('data-iterate', 'alternatives')
+  parent.setAttribute('data-onempty', 'settext:#' + emptyTarget.id + ':[No alternatives]')
+  parent.setAttribute('data-set', 'main:main.id;total:total')
+  parent.setAttribute('data-marker', '{main}-{total}')
+  parent.innerHTML = '<span data-get="word"></span>'
+  app.element.saveOriginalValues(parent)
+
+  app.module.data._run(
+    { storageKey: 'data-iterate-empty-envelope', iterate: 'alternatives', element: parent },
+    {
+      data: [{
+        total: 0,
+        main: { id: 'empty-main' },
+        alternatives: []
+      }],
+      status: 200
+    }
+  )
+
+  assertEqual(emptyTarget.textContent, 'No alternatives')
+  assertEqual(parent.getAttribute('data-marker'), 'empty-main-0')
+  assertEqual(parent.querySelectorAll('span').length, 0)
+})
+
+
+test('data-iterate - does not unwrap an envelope without the named collection', function () {
+  if (!app.module.data) return
+
+  var parent = createElement('div')
+  parent.setAttribute('data-src', 'mock://invalid-envelope')
+  parent.setAttribute('data-iterate', 'alternatives')
+  parent.setAttribute('data-set', 'main:main.id')
+  parent.setAttribute('data-marker', '{main}|{main:0}')
+  parent.innerHTML = '<span data-get="word"></span>'
+  app.element.saveOriginalValues(parent)
+
+  app.module.data._run(
+    { storageKey: 'data-iterate-invalid-envelope', iterate: 'alternatives', element: parent },
+    {
+      data: [{
+        main: { id: 'should-not-unwrap' },
+        other: [{ word: 'Not an alternative' }]
+      }],
+      status: 200
+    }
+  )
+
+  assertEqual(parent.getAttribute('data-marker'), '|0')
+  assertEqual(parent.querySelectorAll('span').length, 1)
+  assertEqual(parent.querySelector('span').textContent, '')
+})
+
+
+test('data-iterate - unwraps a single named collection response envelope', function () {
+  if (!app.module.data) return
+
+  var target = createElement('h1')
+  var parent = createElement('div')
+  parent.setAttribute('data-src', 'mock://single-envelope')
+  parent.setAttribute('data-iterate', 'alternatives')
+  parent.setAttribute('data-bind', 'main.word.eng:#' + target.id)
+  parent.setAttribute('data-set', 'main:main.id;total:total')
+  parent.setAttribute('data-marker', '{main}-{total}')
+  parent.innerHTML = '<span data-get="word"></span>'
+  app.element.saveOriginalValues(parent)
+
+  app.module.data._run(
+    { storageKey: 'data-iterate-single-envelope', iterate: 'alternatives', element: parent },
+    {
+      data: [{
+        total: 1,
+        main: { id: 'main-1', word: { eng: 'Question' } },
+        alternatives: [{ word: 'Answer' }]
+      }],
+      status: 200
+    }
+  )
+
+  assertEqual(target.textContent, 'Question')
+  assertEqual(parent.querySelector('span').textContent, 'Answer')
+  assertEqual(parent.getAttribute('data-marker'), 'main-1-1')
+})
