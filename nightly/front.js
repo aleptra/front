@@ -393,7 +393,7 @@ var dom = {
         attr = 'fontWeight'
         break
       case 'font':
-        if (/^\S+$/.test(value)) value = '100% ' + value
+        if (/^\S+$/.test(value)) value = (element.style.fontSize || '100%') + ' ' + value
         break
       case 'block':
       case 'grid':
@@ -2896,7 +2896,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 796 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 797 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,

@@ -70,19 +70,41 @@ test('data-request - response field can be stored in localStorage', function () 
   assertEqual(localStorage.getItem('auth-token'), null)
 })
 
-test('data-resolution - supports root, lookup, OR, and AND paths', function () {
+test('data-resolution - supports root, parent, wildcard, full-object, OR, and AND paths', function () {
   var data = {
     users: [{ id: '1', name: 'Ada' }, { id: '2', name: 'Lin' }],
-    profile: { name: 'Grace', role: 'admin' }
+    profile: { name: 'Grace', role: 'admin' },
+    keyed: {
+      eng: { word: 'Hello' },
+      swe: { word: 'Hej' }
+    }
   }
   var options = {
     data: data,
-    fullObject: data.users,
-    keys: ['users'],
+    fullObject: data.keyed,
+    parentContext: { name: 'Parent' },
+    keys: ['eng', 'swe'],
     index: 0
   }
 
-  assertEqual(app.module.data._resolve(data.users[0], '[].profile.name', options), 'Grace')
+  assertEqual(app.module.data._resolve(data.keyed.eng, 'word', options), 'Hello')
+  assertEqual(app.module.data._resolve(data.keyed.eng, '^.name', options), 'Parent')
+  assertEqual(app.module.data._resolve(data.keyed.eng, '[].profile.name', options), 'Grace')
+  assertEqual(app.module.data._resolve(data.keyed.eng, '[*].word', options), 'Hello')
+  assertEqual(app.module.data._resolve(data.keyed.swe, '[*].word', {
+    data: data,
+    fullObject: data.keyed,
+    keys: ['eng', 'swe'],
+    index: 1
+  }), 'Hej')
+  assertEqual(app.module.data._resolve('Current', '[*]', options), 'Current')
+  assertEqual(app.module.data._resolve(undefined, '[*]', options), 'eng')
+  assertEqual(app.module.data._resolve(data.keyed.eng, '#profile.name', {
+    data: data,
+    fullObject: data,
+    keys: [],
+    index: 0
+  }), 'Grace')
   assertEqual(app.module.data._resolve(data.users[0], '(id%2).name', { data: data.users }), 'Lin')
   assertEqual(app.module.data._resolve({ title: 'Fallback' }, 'missing||title', {}), 'Fallback')
   assertEqual(app.module.data._resolve({ first: 'Ada', last: 'Lovelace' }, 'first&&last', {}), 'Ada Lovelace')

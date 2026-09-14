@@ -76,3 +76,21 @@ test('font - should accept css-order line height', function () {
   assertEqual(testElement.style.lineHeight, '1.5')
   assertEqual(testElement.style.fontFamily, 'Arial')
 })
+
+test('font - family-only shorthand preserves fontsize in either attribute order', function () {
+  var fontsizeFirst = createElement('span')
+  fontsizeFirst.setAttribute('fontsize', '2rem')
+  fontsizeFirst.setAttribute('font', 'tahoma')
+  app.attributes.run([fontsizeFirst])
+
+  assertEqual(fontsizeFirst.style.fontSize, '2rem')
+  assertEqual(fontsizeFirst.style.fontFamily, 'tahoma')
+
+  var fontFirst = createElement('span')
+  fontFirst.setAttribute('font', 'tahoma')
+  fontFirst.setAttribute('fontsize', '2rem')
+  app.attributes.run([fontFirst])
+
+  assertEqual(fontFirst.style.fontSize, '2rem')
+  assertEqual(fontFirst.style.fontFamily, 'tahoma')
+})

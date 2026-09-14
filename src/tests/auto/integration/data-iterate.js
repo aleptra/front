@@ -1067,3 +1067,34 @@ test('data-iterate - unwraps a single named collection response envelope', funct
   assertEqual(parent.querySelector('span').textContent, 'Answer')
   assertEqual(parent.getAttribute('data-marker'), 'main-1-1')
 })
+
+test('data-iterate - nested items can resolve a parent context with ^', function () {
+  var parent = createElement('section')
+  parent.setAttribute('data-iterate', 'databases')
+  parent.innerHTML = '<nav data-iterate="tables"><a data-set="name:name;db:^.name" data-get="name" href="table.html?db={db}&i={name}"></a></nav>'
+
+  app.element.saveOriginalValues(parent)
+  app.element.saveOriginalValues(parent.querySelector('[data-iterate]'))
+
+  app.module.data._traverse(
+    { iterate: 'databases', element: parent },
+    {
+      data: {
+        databases: [
+          { name: 'animalogy', tables: [{ name: 'animal' }, { name: 'animal_species' }] },
+          { name: 'cosmology', tables: [] }
+        ]
+      },
+      status: 200
+    },
+    parent,
+    '*:not([data-iterate-skip])'
+  )
+
+  var links = parent.querySelectorAll('a')
+  assertEqual(links.length, 2)
+  assertEqual(links[0].textContent, 'animal')
+  assertEqual(links[0].getAttribute('href'), 'table.html?db=animalogy&i=animal')
+  assertEqual(links[1].textContent, 'animal_species')
+  assertEqual(links[1].getAttribute('href'), 'table.html?db=animalogy&i=animal_species')
+})
