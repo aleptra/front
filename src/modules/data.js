@@ -465,6 +465,7 @@ app.module.data = {
       dataPageValue = dataPage === null ? null : parseInt(dataPage, 10),
       dataPagesizeValue = dataPagesize === null ? null : parseInt(dataPagesize, 10),
       context = options.dataContext !== undefined ? options.dataContext : responseData.data,
+      parentContext = options.dataContext,
       dataRoot = options.dataRoot !== undefined ? options.dataRoot : responseData.data
 
     if (dataLimitValue !== null && (isNaN(dataLimitValue) || dataLimitValue < 0)) dataLimitValue = null
@@ -555,6 +556,7 @@ app.module.data = {
             keys: keys,
             fullObject: responseObject,
             data: responseData.data,
+            parentContext: parentContext,
             index: j
           }
 
@@ -755,10 +757,13 @@ app.module.data = {
     // 2. Original context-based resolution
     if (options) {
       var fullObject = options.fullObject,
+        parentContext = options.parentContext,
         keys = options.keys,
         keyAtIndex = keys && keys[options.index]
 
-      if (value.indexOf('[].') !== -1) { // Root level access.
+      if (value.indexOf('^.') === 0) {
+        return app.element.getPropertyByPath(parentContext, value.substring(2))
+      } else if (value.indexOf('[].') !== -1) { // Root level access.
         return app.element.getPropertyByPath(options.data, value.substring(3))
       } else if (value.indexOf('[*].') !== -1) {
         var key = value.replace(value.slice(-1) === '.' ? '[*].' : '[*]', keyAtIndex)
