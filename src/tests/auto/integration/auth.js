@@ -32,6 +32,23 @@ test('auth - valid login stores and exposes JWT state', function () {
   resetAuthState()
 })
 
+test('auth - declarative login extracts response token', function () {
+  var auth = app.module.auth
+  resetAuthState()
+  var responseToken = authToken({ sub: 'response-user', exp: Math.floor(Date.now() / 1000) + 3600 })
+  var execToken = authToken({ sub: 'exec-user', exp: Math.floor(Date.now() / 1000) + 3600 })
+
+  auth.login({
+    options: { response: { data: { token: responseToken } } },
+    exec: { value: execToken }
+  })
+
+  assertTrue(auth.isValid())
+  assertEqual(auth.getClaim('sub'), 'response-user')
+  assertTrue(app.globals.get('authenticated'))
+  resetAuthState()
+})
+
 test('auth - malformed and expired tokens are invalid', function () {
   var auth = app.module.auth
   resetAuthState()
