@@ -66,7 +66,15 @@ app.module.auth = {
    * @desc Stores a token and updates auth state.
    * @param {string} token - JWT token string
    */
-  login: function (token) {
+  login: function (arg) {
+    var token = arg
+    if (arg && arg.options && arg.options.response && arg.options.response.data &&
+      typeof arg.options.response.data.token === 'string') {
+      token = arg.options.response.data.token
+    } else if (arg && arg.exec && typeof arg.exec.value === 'string') {
+      token = arg.exec.value
+    }
+
     this._token = token
     localStorage.setItem(this._storageKey, token)
     this._user = this._decode()
