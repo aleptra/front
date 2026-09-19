@@ -150,7 +150,7 @@ app.module.globalize = {
       if (tag === 'optgroup') {
         element.label = element.originalLabel || element.label
       } else {
-        element.textContent = element.renderedText || element.originalText || element.textContent
+        element.textContent = element.renderedText || element.textContent
       }
     }
 

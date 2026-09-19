@@ -36,6 +36,7 @@ test('app.variables.update.content - sets renderedText on parent after replaceme
 test('app.variables.update.content - does not set renderedText when nothing changed', function () {
   var el = createElement('p')
   el.textContent = 'no placeholders'
+  delete el.renderedText
   app.variables.update.content(el, 'app', 'Front')
   assertEqual(el.renderedText, undefined)
 })
