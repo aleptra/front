@@ -2901,7 +2901,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 801 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 802 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3572,6 +3572,7 @@ var app = previousApp || {
 
             if (originalContent !== modifiedContent) {
               element.nodeValue = modifiedContent
+              if (element.parentNode) element.parentNode.renderedText = element.parentNode.textContent
             }
           }
         }
