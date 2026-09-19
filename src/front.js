@@ -920,7 +920,10 @@ var dom = {
    */
   doctitle: function (object, value) {
     var title = object.exec ? object.exec.value : value
-    if (title) document.title = title
+    if (title) {
+      document.title = title
+      app.globals.set('title', title)
+    }
   },
 
   /**
@@ -2898,7 +2901,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 800 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 801 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
