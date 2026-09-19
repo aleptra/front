@@ -2901,7 +2901,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 802 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 803 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3912,6 +3912,7 @@ var app = previousApp || {
                     title: responsePage.title
                   }
                   dom.bind.include = ''
+                  dom.doctitle(false, responsePageTitle)
                   app.globals.refresh()
                   if (!skipTemplates) app.assets.get.templates()
                   break
