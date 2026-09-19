@@ -1648,7 +1648,7 @@ var dom = {
     originalNode.innerHTML = element.originalHtml
 
     // Preserve iterate-skip elements
-    var skipNodes = originalNode.querySelectorAll('[iterate-skip]')
+    var skipNodes = app.element.find(originalNode, '*[iterate-skip]')
     var frag = document.createDocumentFragment()
     for (var s = 0; s < skipNodes.length; s++) {
       frag.appendChild(skipNodes[s])
@@ -2142,6 +2142,7 @@ var app = previousApp || {
       var el = document.createElement('spot'),
         html = string && string.match(/<html\s+([^>]*)>/i) || '',
         body = string && string.match(/<body\s+([^>]*)>/i) || '',
+        title = string && string.match(/<title[^>]*>[\s\S]*?<\/title>/i) || '',
         doctype = string && string.match(/<!doctype\s+[^>]*>/i) || ''
 
       if (html) {
@@ -2191,6 +2192,7 @@ var app = previousApp || {
 
       el.innerHTML = string.replace(/<img([^>]*) src="/g, '<img$1 __src="')
       el.doctype = doctype ? doctype[0] : ''
+      el.title = title ? title[0] : ''
 
       return el
     },
@@ -2896,7 +2898,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 799 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 800 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3658,6 +3660,8 @@ var app = previousApp || {
     render: function () {
       app.log.info()('Rendering templates...')
       var titleEl = app.element.select('title')
+      if (titleEl && app.srcTemplate.title) titleEl.outerHTML = app.srcTemplate.title
+      titleEl = app.element.select('title')
       if (titleEl) app.attributes.run([titleEl])
       var currentPageTitle = titleEl ? titleEl.textContent : document.title,
         currentPageBodyContent = document.body.innerHTML,
@@ -3900,9 +3904,9 @@ var app = previousApp || {
                     },
                     page: true,
                     total: templateSrc.length + (templateSrcDoc ? 1 : 0),
-                    bindvar: templateAttr && templateElement.getAttribute('bindvar') || ''
+                    bindvar: templateAttr && templateElement.getAttribute('bindvar') || '',
+                    title: responsePage.title
                   }
-                  dom.doctitle(false, responsePageTitle)
                   dom.bind.include = ''
                   app.globals.refresh()
                   if (!skipTemplates) app.assets.get.templates()
