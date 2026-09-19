@@ -2896,7 +2896,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 798 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 799 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3657,7 +3657,9 @@ var app = previousApp || {
      */
     render: function () {
       app.log.info()('Rendering templates...')
-      var currentPageTitle = document.title,
+      var titleEl = app.element.select('title')
+      if (titleEl) app.attributes.run([titleEl])
+      var currentPageTitle = titleEl ? titleEl.textContent : document.title,
         currentPageBodyContent = document.body.innerHTML,
         isReload = app.srcTemplate.page,
         srcDoc = app.srcTemplate.url.srcDoc,
