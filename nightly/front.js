@@ -387,13 +387,13 @@ var dom = {
         element.style.backgroundRepeat = repeat
         element.style.backgroundSize = size
         element.style.backgroundPosition = position
-        break
+        return
       case 'bold':
         value = attr
         attr = 'fontWeight'
         break
       case 'font':
-        if (/^\S+$/.test(value)) value = (element.style.fontSize || '100%') + ' ' + value
+        if (/^\S+$/.test(value)) value = (element.style.fontSize || '100%') + '/' + getComputedStyle(document.body).lineHeight + ' ' + value
         break
       case 'block':
       case 'grid':
@@ -413,7 +413,7 @@ var dom = {
       case 'underline':
         element.style.textDecoration = 'underline'
         element.style.textUnderlinePosition = 'under'
-        break
+        return
       case 'zoom':
         element.style.lineHeight = 'normal'
         break
@@ -2901,7 +2901,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 804 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 805 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
