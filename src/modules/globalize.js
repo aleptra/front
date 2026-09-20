@@ -154,7 +154,7 @@ app.module.globalize = {
       }
     }
 
-    var value = value || element.textContent,
+    var value = (value || element.textContent).trim(),
       isRoot = value[0] == '/' ? true : false
 
     if (this.fetchedData) {
