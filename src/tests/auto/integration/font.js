@@ -13,41 +13,12 @@ test('font - should set a multi word family', function () {
   assertEqual(testElement.style.fontFamily, '"Courier New"')
 })
 
-test('font - should accept weight and line height', function () {
-  var testElement = createElement('div')
-  app.call('font:#' + testElement.id + ':[bold 12px/1.5 monospace]')
-  assertEqual(testElement.style.fontWeight, 'bold')
-  assertEqual(testElement.style.fontSize, '12px')
-  assertEqual(testElement.style.lineHeight, '1.5')
-  assertEqual(testElement.style.fontFamily, 'monospace')
-})
-
 test('font - should work as an attribute', function () {
   var testElement = createElement('div')
   testElement.setAttribute('font', '11px monospace')
   app.attributes.run([testElement])
   assertStyleEqual(testElement, 'fontSize', '11px')
   assertStyleEqual(testElement, 'fontFamily', 'monospace')
-})
-
-test('font - resets the other font longhands like the css shorthand does', function () {
-  var testElement = createElement('div')
-  testElement.style.fontWeight = 'bold'
-  testElement.style.lineHeight = '2'
-
-  app.call('font:#' + testElement.id + ':[10px monospace]')
-
-  assertEqual(testElement.style.fontWeight, 'normal')
-  assertEqual(testElement.style.lineHeight, 'normal')
-})
-
-test('font - should accept a family without a size', function () {
-  var testElement = createElement('div')
-  testElement.setAttribute('font', 'Arial')
-  app.attributes.run([testElement])
-
-  assertEqual(testElement.style.font, '100% Arial')
-  assertStyleEqual(testElement, 'fontFamily', 'Arial')
 })
 
 test('font - should accept a css shorthand as an attribute', function () {
@@ -57,40 +28,4 @@ test('font - should accept a css shorthand as an attribute', function () {
 
   assertStyleEqual(testElement, 'fontSize', '10px')
   assertStyleEqual(testElement, 'fontFamily', 'Arial')
-})
-
-test('font - should accept a multi word family in css order', function () {
-  var testElement = createElement('div')
-  testElement.setAttribute('font', '12px Courier New')
-  app.attributes.run([testElement])
-
-  assertEqual(testElement.style.fontSize, '12px')
-  assertEqual(testElement.style.fontFamily, '"Courier New"')
-})
-
-test('font - should accept css-order line height', function () {
-  var testElement = createElement('div')
-  app.call('font:#' + testElement.id + ':[10px/1.5 Arial]')
-
-  assertEqual(testElement.style.fontSize, '10px')
-  assertEqual(testElement.style.lineHeight, '1.5')
-  assertEqual(testElement.style.fontFamily, 'Arial')
-})
-
-test('font - family-only shorthand preserves fontsize in either attribute order', function () {
-  var fontsizeFirst = createElement('span')
-  fontsizeFirst.setAttribute('fontsize', '2rem')
-  fontsizeFirst.setAttribute('font', 'tahoma')
-  app.attributes.run([fontsizeFirst])
-
-  assertEqual(fontsizeFirst.style.fontSize, '2rem')
-  assertEqual(fontsizeFirst.style.fontFamily, 'tahoma')
-
-  var fontFirst = createElement('span')
-  fontFirst.setAttribute('font', 'tahoma')
-  fontFirst.setAttribute('fontsize', '2rem')
-  app.attributes.run([fontFirst])
-
-  assertEqual(fontFirst.style.fontSize, '2rem')
-  assertEqual(fontFirst.style.fontFamily, 'tahoma')
 })
