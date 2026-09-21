@@ -2306,10 +2306,10 @@ var app = previousApp || {
         switch (attr) {
           case 'attr':
             element.setAttribute(typeof value === 'string' ? value : value[0], value[1] || '')
-            break
+            return
           case 'text':
             element.textContent = value
-            break
+            return
           case 'html':
             if (localName === 'iframe') {
               var encoded = encodeURIComponent(value),
@@ -2318,7 +2318,10 @@ var app = previousApp || {
             } else {
               element.innerHTML = value
             }
-            break
+            return
+          case 'href':
+            element.href = value
+            return
           case 'queryhref':
             // EXPERIMENTAL
             var attr = element.getAttribute('href') || '',
@@ -2327,11 +2330,11 @@ var app = previousApp || {
               operation = values[1]
 
             element.setAttribute('href', app.element.operate(operation, query, attr))
-            break
+            return
           case 'value':
             element.setAttribute('value', value)
             element.value = value
-            break
+            return
           default:
             var call = element.call
             if (call) {
@@ -2341,7 +2344,6 @@ var app = previousApp || {
                 test = element.getAttribute('max')
 
               value = app.element.operate(operation, false, test)
-
             }
             element.setAttribute(attr, value)
         }
@@ -2925,7 +2927,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 809 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 810 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
