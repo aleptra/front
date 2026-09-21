@@ -1324,7 +1324,8 @@ var dom = {
   },
 
   /**
-   *
+   * @function split
+   * @memberof dom
    * @param {*} object
    * @param {*} value
    */
@@ -1336,6 +1337,7 @@ var dom = {
 
   /**
    * @function log
+   * @memberof dom
    */
   log: function (object, value) {
     console.log(value || object.exec.value)
@@ -1343,6 +1345,7 @@ var dom = {
 
   /**
    * @function select
+   * @memberof dom
    * @param {*} object
    * @param {*} value
    */
@@ -1384,11 +1387,11 @@ var dom = {
   },
 
   /**
-  * @function if
-  * @memberof dom
-  * @param {Object} element
-  * @param {string} value - "([l]op[r]&[l]op[r])/trueAction?falseAction"
-  */
+   * @function if
+   * @memberof dom
+   * @param {Object} element
+   * @param {string} value - "([l]op[r]&[l]op[r])/trueAction?falseAction"
+   */
   if: function (element, value) {
     var el = app.element.resolveCall(element, value),
       str = el.call.string
@@ -1469,6 +1472,10 @@ var dom = {
     }
   },
 
+  /**
+   * @function if
+   * @memberof bindif
+   */
   bindif: function (object, options) {
     var test = object.value,
       test2 = test.split(';')
@@ -1496,11 +1503,11 @@ var dom = {
   },
 
   /**
-  * @function stop
-  * @memberof dom
-  * @param {HTMLElement} element - The parent element whose children will be processed.
-  * @param {string} value - Semi-colon separated attributes or patterns (e.g., "*.settext")
-  */
+   * @function stop
+   * @memberof dom
+   * @param {HTMLElement} element - The parent element whose children will be processed.
+   * @param {string} value - Semi-colon separated attributes or patterns (e.g., "*.settext")
+   */
   stop: function (element, value) {
     element = app.element.resolveCall(element, value)
     if (!element || !value) return
@@ -1678,6 +1685,10 @@ var dom = {
     app.attributes.run(elements)
   },
 
+  /**
+   * @function runattr
+   * @memberof dom
+   */
   runattr: function (object, value) {
     var el = app.element.resolveCall(object, value),
       element = el.call.element,
@@ -1688,7 +1699,7 @@ var dom = {
 
   /* @function rerun
    * @memberof dom
-  */
+   */
   rerun: function (object, exclude) {
     var el = object.exec ? object.exec.element : object
 
@@ -1704,6 +1715,10 @@ var dom = {
     app.attributes.run(nodes, exclude, true)
   },
 
+  /**
+   * @function rundelay
+   * @memberof dom
+   */
   rundelay: function (object, value) {
     var el = app.element.resolveCall(object, value)
 
@@ -1712,6 +1727,10 @@ var dom = {
     }, parseInt(el.call.delayValue, 10) || 1000)
   },
 
+  /**
+   * @function runrepeat
+   * @memberof dom
+   */
   runrepeat: function (object, value) {
     var el = app.element.resolveCall(object, value)
     setInterval(function () {
@@ -2906,7 +2925,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 808 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 809 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
