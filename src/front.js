@@ -1728,7 +1728,8 @@ var dom = {
   }
 }
 
-var previousApp = typeof window !== 'undefined' && window.app
+var previousApp = typeof window !== 'undefined' && window.app,
+  isLocalNetwork = location.protocol === 'file:' || /localhost|127\.0\.0\.1|::1|\.local/i.test(location.hostname)
 
 var app = previousApp || {
   module: previousApp && previousApp.module || {},
@@ -1738,7 +1739,7 @@ var app = previousApp || {
   docMode: document.documentMode || 0,
   srcDocTemplate: '',
   srcTemplate: [],
-  isLocalNetwork: location.protocol === 'file:' || /localhost|127\.0\.0\.1|::1|\.local/i.test(location.hostname),
+  isLocalNetwork: isLocalNetwork,
   spa: false,
   vars: { total: 0, totalStore: 0, loaded: 0 },
   modules: { total: 0, loaded: 0 },
@@ -2904,10 +2905,11 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 806 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 807 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
+    isLocalNetwork: this.isLocalNetwork,
     href: '',
     title: '',
     windowHeight: (window.visualViewport && window.visualViewport.height) || window.innerHeight,
