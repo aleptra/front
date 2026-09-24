@@ -135,6 +135,7 @@ app.module.navigate = {
    * @private
    */
   _click: function (event) {
+
     var link = app.element.getTagLink(event.target),
       href = link && link.attributes.href
 
@@ -150,38 +151,67 @@ app.module.navigate = {
       } else if (link.href) {
         if (link.target === '_blank') return
 
-        var pushState = link.getAttribute('navigate-pushstate') === 'false' ? false : true,
+        var url = new URL(link.href, window.location.href),
+          sameOrigin = url.origin === window.location.origin,
+          pushState = link.getAttribute('navigate-pushstate') === 'false' ? false : true,
           target = link.target === '_top' ? 'html' : link.target || this.config.target,
           explicitTarget = link.getAttribute('target')
 
         var state = {
           'href': link.href,
-          // Keep the query string because page navigation uses state.pathname as the XHR URL.
-          'pathname': link.pathname + (link.search || ''),
+          // Same-origin URLs use their pathname.
+          // External URLs keep their complete URL for XHR.
+          'pathname': sameOrigin
+            ? url.pathname + (url.search || '')
+            : link.href,
           'target': target,
+          // Remember that this is an external resource.
+          'external': !sameOrigin,
           // Targeted links load partial content and must not render page templates.
           'skipTemplates': !!explicitTarget && target !== 'html',
-          'arg': { disableSrcdoc: true, runAttributes: true }
+
+          'arg': {
+            disableSrcdoc: true,
+            runAttributes: true
+          }
         }
 
-        // Save scroll position for current page before URL changes.
+        // Save scroll position for current page before navigation.
         if (this._scrollTimer) clearTimeout(this._scrollTimer)
         this._saveScroll()
 
-        // Prevent duplicate history entries.
-        if (link.href !== window.location.href && pushState) history.pushState(state, '', link.href)
+        // Only same-origin URLs can change the browser URL with pushState.
+        // External URLs stay on the current browser URL, but their URL
+        // is preserved inside history.state.
+        if (
+          sameOrigin &&
+          link.href !== window.location.href &&
+          pushState
+        ) {
+          history.pushState(state, '', link.href)
+        } else if (!sameOrigin && pushState) {
+          history.pushState(state, '', window.location.href)
+        }
 
         this._restoring = true
-        this._scroll() // Reset scroll to top.
+
+        // Reset scroll to top.
+        this._scroll()
 
         var self = this
-        app.wait(300, function () { self._restoring = false })
+
+        app.wait(300, function () {
+          self._restoring = false
+        })
 
         var onloaded = document.body.getAttribute('navigate-onloaded')
+
         if (onloaded) app.call(onloaded)
 
-        this._load(state) // Load page
+        // Load page/content into the requested target.
+        this._load(state)
       }
+
       return event.preventDefault()
     }
   },
