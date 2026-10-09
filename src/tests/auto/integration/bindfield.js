@@ -13,3 +13,34 @@ test('bindfield - should initialize and update a target', function () {
   input.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, keyCode: 65 }))
   assertEqual(target.textContent, 'Value: second')
 })
+
+test('bindfield - onbindfield handler is called on field keyup', function () {
+  var input = createElement('input')
+  input.type = 'text'
+  input.value = 'initial'
+
+  var handlerCalled = false
+  var originalCall = app.call
+  app.call = function (call, exec) {
+    if (call === 'log("field changed")') {
+      handlerCalled = true
+    }
+    return originalCall.call(app, call, exec)
+  }
+
+  input.setAttribute('bindfield', 'value:#dummy')
+  input.setAttribute('onbindfield', 'log("field changed")')
+
+  try {
+    dom.rerun(input)
+
+    // Trigger field change
+    input.value = 'changed'
+    input.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, keyCode: 65 }))
+
+    assertTrue(handlerCalled).desc('onbindfield handler is called when field value changes')
+
+  } finally {
+    app.call = originalCall
+  }
+})

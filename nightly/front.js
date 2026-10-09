@@ -2644,6 +2644,7 @@ var app = previousApp || {
         var func = dom._eventMap[parsedCall.exec.func] || parsedCall.exec.func,
           el = parsedCall.exec.element,
           exec = el.executed && el.executed[func],
+          runonce = el && parsedCall.exec.runonce,
           hasAttr = el && el.getAttribute
 
         // Don't fire events if a parent hasn't loaded yet
@@ -2656,7 +2657,7 @@ var app = previousApp || {
         if (!exec) {
           var call = hasAttr && el.getAttribute('on' + func)
           if (call) {
-            el.executed[func] = true
+            if (runonce !== false) el.executed[func] = true
             el.call = call
             app.call(call, parsedCall.exec)
             el.executed = {} // Reset
@@ -2927,7 +2928,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 811 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 812 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,

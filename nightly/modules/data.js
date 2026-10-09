@@ -731,7 +731,7 @@ app.module.data = {
       }
     })
 
-    app.element.runOnEvent({ exec: { func: accessor, element: element } })
+    app.element.runOnEvent({ exec: { func: accessor, element: element, runonce: false } })
   },
 
   /**
