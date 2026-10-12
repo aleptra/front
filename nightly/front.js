@@ -314,6 +314,35 @@ var dom = {
   },
 
   /**
+   * @function close
+   * @memberof dom
+   * @desc Close elements
+   */
+  close: function (element) {
+    element = app.element.resolveCall(element)
+    console.dir(element)
+    if (element.localName === 'details') {
+      element.open = false
+    } else if (element.localName === 'dialog') {
+      element.close()
+    }
+  },
+
+  /**
+   * @function open
+   * @memberof dom
+   * @desc Open elements
+   */
+  open: function (element) {
+    element = app.element.resolveCall(element)
+    if (element.localName === 'details') {
+      element.open = true
+    } else if (element.localName === 'dialog') {
+      element.showModal()
+    }
+  },
+
+  /**
    * @function apply
    * @memberof dom
    * @param {*} element
@@ -1897,6 +1926,7 @@ var app = previousApp || {
     })
 
     app.listeners.add(document, 'click', function (e) {
+      // Handle regular click events
       var bodyClick = document.body.attributes.click,
         link, click
       if (bodyClick) {
@@ -1906,26 +1936,22 @@ var app = previousApp || {
         link = app.element.getTagLink(e.target) || e.target
         click = link.attributes.click
       }
-      /*,
-    onclickif = link.attributes.onclickif
-
-  if (onclickif) {
-    var ret = app.call(onclickif.value, { element: link })[0]
-    if (!ret) return
-  }*/
 
       if (click) {
         var clicktargetfield = link.attributes.clicktargetfield,
           target = clicktargetfield && clicktargetfield.value.split(':') || ''
-        //,
-        //element = target && app.element.select(target[0]) || element
-
-        /* element.lastRunAttribute = val[0]
-         element.targetAttribute = target && target[1]
-         element.targetField = clicktargetfield
-         element.clicked = element*/
         app.call(click.value, { srcElement: link, element: app.element.select(target[0]) })
         app.element.runOnEvent({ exec: { func: 'click', element: link } })
+      }
+
+      // Handle clickoutside events
+      var clickoutside = document.querySelectorAll('[clickoutside]'),
+        i = clickoutside.length
+      while (i--) {
+        var el = clickoutside[i]
+        if (el !== e.target && !el.contains(e.target)) {
+          app.call(el.getAttribute('clickoutside'), { element: el })
+        }
       }
     })
 
@@ -2928,7 +2954,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 812 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 813 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
