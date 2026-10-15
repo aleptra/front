@@ -320,7 +320,6 @@ var dom = {
    */
   close: function (element) {
     element = app.element.resolveCall(element)
-    console.dir(element)
     if (element.localName === 'details') {
       element.open = false
     } else if (element.localName === 'dialog') {
@@ -2954,7 +2953,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 813 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 815 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
