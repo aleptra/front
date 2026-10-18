@@ -2953,7 +2953,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 815 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 816 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -4040,6 +4040,7 @@ var app = previousApp || {
         success = options.success,
         aftersuccess = options.aftersuccess,
         loader = options.loader,
+        download = options.download,
         type = options.type,
         sync = options.sync ? options.sync : true,
         run = onload && onload.run && onload.run.func ? onload.run.func : false,
@@ -4066,6 +4067,18 @@ var app = previousApp || {
       xhr.onload = function () {
         var status = this.statusType || {}
         if (status.informational || status.success || status.redirect) {
+
+          if (download) {
+            var name = download.value,
+              link = document.createElement('a')
+
+            link.href = URL.createObjectURL(new Blob([this.response]))
+            link.download = name === 'true' ? (xhr.responseURL || '').split('/').pop() : name
+
+            link.click()
+            URL.revokeObjectURL(link.href)
+            return
+          }
 
           var responseData = this.responseText,
             responseError = this.responseError // Get the parsing error message.
@@ -4140,6 +4153,10 @@ var app = previousApp || {
       }
 
       xhr.open(method, url + urlExtension, sync)
+
+      if (options.download) {
+        xhr.responseType = 'arraybuffer'
+      }
 
       if (options.credentials) {
         xhr.withCredentials = true
