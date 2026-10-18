@@ -255,6 +255,7 @@ app.module.data = {
       header = attr['data-header'],
       credentials = attr['data-credentials'],
       loader = attr['data-loader'],
+      download = attr['data-download'],
       beforesuccess = attr['data-onbeforesuccess'],
       success = attr['data-onsuccess'],
       aftersuccess = attr['data-onaftersuccess'],
@@ -292,6 +293,7 @@ app.module.data = {
       },
       onprogress: { content: (progresscontent) ? progresscontent.value : '' },
       loader: loader && loader.value,
+      download: download && download.value,
       error: error && error.value,
       empty: empty && empty.value,
       beforesuccess: beforesuccess,
@@ -837,6 +839,7 @@ app.module.data = {
       credentials = attr['data-credentials'],
       csrf = attr['data-csrf'],
       loader = attr['data-loader'],
+      download = attr['data-download'],
       empty = attr['data-onempty'],
       url = attr['data-req' + method]
 
@@ -868,11 +871,12 @@ app.module.data = {
       error: error && error.value,
       credentials: credentials && credentials.value === 'true',
       loader: loader && loader.value,
+      download: download,
       empty: empty && empty.value,
       beforesuccess: beforesuccess,
       success: success && success.value,
       aftersuccess: aftersuccess,
-      headers: headerValue
+      headers: headerValue,
     })
   },
 
