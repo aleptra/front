@@ -127,9 +127,9 @@ app.module.form = {
       var files = input.files
       if (!files || !files.length) return
 
-      var endpoint = form.getAttribute('action') || form.getAttribute('data-src')
+      var endpoint = form.getAttribute('action')
       if (!endpoint) {
-        console.error('form-upload: no action or data-src on form')
+        console.error('form-upload: no action on form')
         return
       }
 
@@ -176,6 +176,8 @@ app.module.form = {
             } catch (e) {
               console.log('Uploaded:', file.name)
             }
+            var success = form.getAttribute('form-onuploadsuccess')
+            if (success) app.call(success, { element: form })
             next()
           } else {
             var errMsg = 'Upload failed'
@@ -207,6 +209,8 @@ app.module.form = {
       if (input.parentNode) {
         input.parentNode.removeChild(input)
       }
+      var cancel = form.getAttribute('form-onuploadcancel')
+      if (cancel) app.call(cancel, { element: form })
     })
 
     // Open picker
