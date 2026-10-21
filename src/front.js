@@ -342,6 +342,17 @@ var dom = {
   },
 
   /**
+   * @function click
+   * @memberof dom
+   * @desc Trigger click on element
+   */
+  click: function (element, value) {
+    console.log('wee')
+    element = app.element.resolveCall(element, value)
+    app.click(element)
+  },
+
+  /**
    * @function apply
    * @memberof dom
    * @param {*} element
@@ -2953,7 +2964,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 817 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 818 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3414,6 +3425,7 @@ var app = previousApp || {
       'click',
       'charset',
       'content',
+      'dbclick',
       'defer',
       'href',
       'for',
