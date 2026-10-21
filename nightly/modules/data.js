@@ -412,17 +412,21 @@ app.module.data = {
       }
 
       if (databind) {
-        var test = databind.split(':'),
-          realValue = app.element.getPropertyByPath(responseData.data, test[0]),
-          target = app.element.select(test[1])
-        app.element.set(target, realValue)
-        app.element.onchange(target, 'data-bind')
+        var bindings = databind.split(';')
+        for (var b = 0; b < bindings.length; b++) {
+          var binding = bindings[b].trim(),
+            parts = binding.split(':'),
+            realValue = app.element.getPropertyByPath(responseData.data, parts[0]),
+            target = app.element.select(parts[1])
+          app.element.set(target, realValue)
+          app.element.onchange(target, 'data-bind')
+        }
       }
 
       if (databindheader) {
-        var test2 = databindheader.split(':'),
-          realValue2 = responseData.headers[test2[0]],
-          target2 = app.element.select(test2[1])
+        var parts = databindheader.split(':'),
+          realValue2 = responseData.headers[parts[0]],
+          target2 = app.element.select(parts[1])
         app.element.set(target2, realValue2)
         app.element.onchange(target2, 'data-bindheader')
       }
@@ -717,13 +721,13 @@ app.module.data = {
 
       for (var i = 0; i < value.length; i++) {
         if (value[i]) {
-          var test = value[i].split(':')
-          if (test[1] && test[1][0] === '#') {
-            app.element.set(app.element.select(test[1]), self._resolve(responseObject, test[0], options), false)
-          } else if (test[1]) {
-            app.variables.update.attributes(element, test[0], self._resolve(responseObject, test[1], options))
+          var parts = value[i].split(':')
+          if (parts[1] && parts[1][0] === '#') {
+            app.element.set(app.element.select(parts[1]), self._resolve(responseObject, parts[0], options), false)
+          } else if (parts[1]) {
+            app.variables.update.attributes(element, parts[0], self._resolve(responseObject, parts[1], options))
           } else {
-            app.element.set(element, self._resolve(responseObject, test[0], options), false)
+            app.element.set(element, self._resolve(responseObject, parts[0], options), false)
           }
         }
       }
