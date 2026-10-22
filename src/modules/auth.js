@@ -30,6 +30,7 @@ app.module.auth = {
   _token: null,
   _user: null,
   _valid: false,
+  _cookieDomain: null,
 
   /**
    * @function __autoload
@@ -39,14 +40,16 @@ app.module.auth = {
     var conf = app.config.get('auth', {
       storageKey: 'auth',
       redirectOnExpiry: '',
-      refreshMargin: 60000
+      refreshMargin: 60000,
+      cookieDomain: ''
     }, options.element)
 
     this._storageKey = conf.storageKey
     this._redirectOnExpiry = conf.redirectOnExpiry
     this._refreshMargin = parseInt(conf.refreshMargin, 10)
+    this._cookieDomain = conf.cookieDomain
 
-    this._token = localStorage.getItem(this._storageKey)
+    this._token = this._getToken()
     this._user = this._decode()
     this._valid = this._checkValid()
 
@@ -76,7 +79,7 @@ app.module.auth = {
     }
 
     this._token = token
-    localStorage.setItem(this._storageKey, token)
+    this._setToken(token)
     this._user = this._decode()
     this._valid = this._checkValid()
     app.globals.set('authenticated', this._valid)
@@ -182,6 +185,49 @@ app.module.auth = {
 
   // --- Internal ---
 
+  _getToken: function () {
+    if (this._cookieDomain) {
+      var cookieToken = this._getCookie(this._storageKey)
+      if (cookieToken) return cookieToken
+    }
+    return localStorage.getItem(this._storageKey)
+  },
+
+  _setToken: function (token) {
+    localStorage.setItem(this._storageKey, token)
+    if (this._cookieDomain) {
+      this._setCookie(this._storageKey, token)
+    }
+  },
+
+  _removeToken: function () {
+    localStorage.removeItem(this._storageKey)
+    if (this._cookieDomain) {
+      this._deleteCookie(this._storageKey)
+    }
+  },
+
+  _setCookie: function (name, value) {
+    var expires = new Date()
+    expires.setFullYear(expires.getFullYear() + 1)
+    document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + expires.toUTCString() + ';path=/;domain=' + this._cookieDomain
+  },
+
+  _getCookie: function (name) {
+    var cookies = document.cookie.split(';')
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim()
+      if (cookie.indexOf(name + '=') === 0) {
+        return decodeURIComponent(cookie.substring(name.length + 1))
+      }
+    }
+    return null
+  },
+
+  _deleteCookie: function (name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;domain=' + this._cookieDomain
+  },
+
   _decode: function () {
     if (!this._token) return null
     try {
@@ -199,7 +245,7 @@ app.module.auth = {
   },
 
   _clear: function () {
-    localStorage.removeItem(this._storageKey)
+    this._removeToken()
     this._token = null
     this._user = null
     this._valid = false
