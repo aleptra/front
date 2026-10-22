@@ -288,6 +288,32 @@ app.module.storage = {
     }
   },
 
+  bindcookie: function (element) {
+    element = element.exec ? element.exec.element : element
+    var value = element.getAttribute('storage-bindcookie')
+    if (!value) return
+    var parts = value.split(':')
+    var key = parts[0]
+    var variable = parts[1] || key
+    var raw = this._getCookie(key)
+    if (raw) {
+      try { raw = JSON.parse(raw) } catch (e) { }
+      app.variables.update.attributes(element, variable, raw)
+      app.variables.update.content(element, variable, raw)
+    }
+  },
+
+  _getCookie: function (name) {
+    var cookies = document.cookie.split(';')
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim()
+      if (cookie.indexOf(name + '=') === 0) {
+        return decodeURIComponent(cookie.substring(name.length + 1))
+      }
+    }
+    return null
+  },
+
   sessionremove: function (object) { this._remove('session', object) },
   sessionset: function (object) { this._set('session', object) },
   sessionadd: function (object) { this._add('session', object) },
