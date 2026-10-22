@@ -2963,7 +2963,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 821 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 822 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3418,6 +3418,7 @@ var app = previousApp || {
       'action',
       'async',
       'alt',
+      'autocomplete',
       'checked',
       'conf',
       'class',
@@ -3437,6 +3438,7 @@ var app = previousApp || {
       'selected',
       'src',
       'style',
+      'readonly',
       'rel',
       'target',
       'type',
