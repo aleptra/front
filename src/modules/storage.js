@@ -296,6 +296,12 @@ app.module.storage = {
     var key = parts[0]
     var variable = parts[1] || key
     var raw = this._getCookie(key)
+
+    // Fall back to localStorage on local network
+    if (!raw && app.isLocalNetwork) {
+      raw = localStorage.getItem(key)
+    }
+
     if (raw) {
       try { raw = JSON.parse(raw) } catch (e) { }
       app.variables.update.attributes(element, variable, raw)
