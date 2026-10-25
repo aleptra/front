@@ -151,14 +151,19 @@ app.module.auth = {
   /**
    * @function protect
    * @desc FTML: <div auth-protect> or <div auth-protect="redirect:url">
+   * If not authenticated: removes element by default, or redirects if redirect:url is specified.
    */
-  protect: function (element) {
+  protect: function (element, value) {
     if (!this._valid) {
-      var value = element.getAttribute('auth-protect')
-      if (value && value.indexOf('redirect:') === 0) {
-        window.location.href = value.replace('redirect:', '')
+      var protect = element.exec ? element.exec.string : (element.getAttribute && element.getAttribute('auth-protect'))
+      if (protect && protect.indexOf(':') > -1) {
+        // Handle redirect case: auth-protect="redirect:url"
+        var parts = protect.split(':')
+        var url = parts[1] ? parts.slice(1).join(':') : ''
+        url && (window.location.href = url)
       } else {
-        element.remove()
+        // No value or empty: remove the element
+        element.parentNode && element.parentNode.removeChild(element)
       }
     }
   },
