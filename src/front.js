@@ -1900,7 +1900,8 @@ var app = previousApp || {
     app.script = {
       element: element,
       path: (value.match(/^(.*\/)[^/]+$/) || ['', ''])[1],
-      selector: selector
+      selector: selector,
+      autorun: element.getAttribute('autorun')
     }
 
     app.config.set()
@@ -2963,7 +2964,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 824 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 825 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3895,6 +3896,9 @@ var app = previousApp || {
 
           // Execute deferred attributes after all elements are processed.
           app.attributes.runDeferred()
+
+          // Execute autorun from script tag.
+          if (app.script.autorun) app.call(app.script.autorun)
 
           app.disable(false)
         }
