@@ -184,6 +184,36 @@ app.module.screen = {
       gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
       gap: '1rem'
     },
+    navside: {
+      display: 'grid',
+      gridTemplateAreas: '"nav head" "nav main" "nav foot"',
+      gridTemplateRows: 'auto 1fr auto',
+      gridTemplateColumns: 'auto 1fr',
+      height: '100%',
+      width: '100%',
+      _children: {
+        nav: {
+          gridArea: 'nav',
+          overflow: 'auto',
+          padding: '0',
+          display: 'flex',
+          flexDirection: 'column'
+        },
+        header: {
+          gridArea: 'head',
+          zIndex: '10'
+        },
+        main: {
+          gridArea: 'main',
+          overflow: 'auto',
+          flexDirection: 'column'
+        },
+        footer: {
+          gridArea: 'foot'
+        }
+      }
+    }
+    ,
     '2column': {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
@@ -213,10 +243,49 @@ app.module.screen = {
     var layoutType = resolved.call ? resolved.call.value : el.getAttribute('screen-layout')
     var layoutDef = this._layouts[layoutType]
 
+    var direction = el.getAttribute('screen-layoutdir')
     if (!layoutDef) return
 
     for (var prop in layoutDef) {
       if (prop !== '_children' && layoutDef.hasOwnProperty(prop)) el.style[prop] = layoutDef[prop]
+    }
+
+    // Apply direction modifier: row-reverse flips grid areas and columns for any layout
+    if (direction === 'row-reverse' && layoutDef.gridTemplateAreas) {
+      // Split by quoted groups: "..." "..." "..."
+      var areasStr = layoutDef.gridTemplateAreas
+      var areas = []
+      var current = ''
+      for (var i = 0; i < areasStr.length; i++) {
+        if (areasStr[i] === '"') {
+          current += areasStr[i]
+          i++
+          while (i < areasStr.length && areasStr[i] !== '"') {
+            current += areasStr[i]
+            i++
+          }
+          if (i < areasStr.length) current += areasStr[i]
+          areas.push(current)
+          current = ''
+        }
+      }
+      // Reverse each row's columns
+      areas = areas.map(function (area) {
+        return '"' + area.slice(1, -1).split(' ').reverse().join(' ') + '"'
+      })
+      el.style.gridTemplateAreas = areas.join(' ')
+
+      // Reverse columns to keep flexible column (1fr) with main content
+      if (layoutDef.gridTemplateColumns) {
+        var cols = layoutDef.gridTemplateColumns.split(' ')
+        if (cols.length === 2) {
+          // Swap: 'auto 1fr' becomes '1fr auto'
+          el.style.gridTemplateColumns = cols[1] + ' ' + cols[0]
+        } else if (cols.length === 3) {
+          // Swap: 'auto 1fr auto' becomes 'auto 1fr auto' (already symmetric)
+          el.style.gridTemplateColumns = cols[2] + ' ' + cols[1] + ' ' + cols[0]
+        }
+      }
     }
 
     // Save the display value that layout set, so show() can restore it
