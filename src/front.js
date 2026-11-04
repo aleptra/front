@@ -3791,25 +3791,28 @@ var app = previousApp || {
 
             // Use the template element when available, fall back to source document.
             var activeEl = parsedEl || srcDocEl,
-              inheritContent = activeEl.getAttribute('inheritcontent') !== 'false',
+              inheritContent = activeEl.hasAttribute('inheritcontent'),
               content = inheritContent && srcDocEl ? srcDocEl.innerHTML : activeEl.innerHTML,
-              inherit = activeEl.getAttribute('inherit') || activeEl.getAttribute('inheritattributes'),
-              finalAttrs = {}
+              attr = activeEl.attributes,
+              inherit = activeEl.getAttribute('inherit') || activeEl.getAttribute('inheritattributes')
 
-            if (srcDocEl && inherit !== 'false') {
+            // Resolve attributes: srcDoc base + template overrides.
+            var finalAttrs = {},
+              inheritList = inherit && inherit !== 'true' ? ';' + inherit + ';' : null
+
+            if (inherit !== 'false' && srcDocEl) {
               for (var a = 0; a < srcDocEl.attributes.length; a++) {
                 var attrName = srcDocEl.attributes[a].name
-                if (!inherit || (';' + inherit + ';').indexOf(';' + attrName + ';') !== -1) {
+                if (!inheritList || inheritList.indexOf(';' + attrName + ';') !== -1) {
                   finalAttrs[attrName] = srcDocEl.attributes[a].value
                 }
               }
             }
 
             if (parsedEl) {
-              for (var k = 0; k < parsedEl.attributes.length; k++) {
-                var attrName = parsedEl.attributes[k].name
-                if (attrName !== 'inherit' && attrName !== 'inheritcontent' && attrName !== 'inheritattributes') {
-                  finalAttrs[attrName] = parsedEl.attributes[k].value
+              for (var k = 0; k < attr.length; k++) {
+                if (attr[k].name !== 'inherit' && attr[k].name !== 'inheritcontent' && attr[k].name !== 'inheritattributes') {
+                  finalAttrs[attr[k].name] = attr[k].value
                 }
               }
             }
