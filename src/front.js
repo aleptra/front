@@ -2966,7 +2966,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 827 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 828 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3791,24 +3791,25 @@ var app = previousApp || {
 
             // Use the template element when available, fall back to source document.
             var activeEl = parsedEl || srcDocEl,
-              inheritContent = activeEl.hasAttribute('inheritcontent'),
+              inheritContent = activeEl.getAttribute('inheritcontent') !== 'false',
               content = inheritContent && srcDocEl ? srcDocEl.innerHTML : activeEl.innerHTML,
-              attr = activeEl.attributes,
-              inherit = activeEl.getAttribute('inherit') || activeEl.getAttribute('inheritattributes')
+              inherit = activeEl.getAttribute('inherit') || activeEl.getAttribute('inheritattributes'),
+              finalAttrs = {}
 
-            // Resolve attributes: srcDoc base + template overrides.
-            var finalAttrs = {}
-
-            if (inherit !== 'false' && srcDocEl) {
+            if (srcDocEl && inherit !== 'false') {
               for (var a = 0; a < srcDocEl.attributes.length; a++) {
-                finalAttrs[srcDocEl.attributes[a].name] = srcDocEl.attributes[a].value
+                var attrName = srcDocEl.attributes[a].name
+                if (!inherit || (';' + inherit + ';').indexOf(';' + attrName + ';') !== -1) {
+                  finalAttrs[attrName] = srcDocEl.attributes[a].value
+                }
               }
             }
 
             if (parsedEl) {
-              for (var k = 0; k < attr.length; k++) {
-                if (attr[k].name !== 'inherit' && attr[k].name !== 'inheritcontent' && attr[k].name !== 'inheritattributes') {
-                  finalAttrs[attr[k].name] = attr[k].value
+              for (var k = 0; k < parsedEl.attributes.length; k++) {
+                var attrName = parsedEl.attributes[k].name
+                if (attrName !== 'inherit' && attrName !== 'inheritcontent' && attrName !== 'inheritattributes') {
+                  finalAttrs[attrName] = parsedEl.attributes[k].value
                 }
               }
             }
