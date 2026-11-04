@@ -246,6 +246,12 @@ app.module.screen = {
     var direction = el.getAttribute('screen-layoutdir')
     if (!layoutDef) return
 
+    // For navside layout, adapt gridTemplateAreas based on whether footer exists
+    if (layoutType === 'navside' && !el.querySelector('footer')) {
+      layoutDef.gridTemplateAreas = '"nav head" "nav main"'
+      layoutDef.gridTemplateRows = 'auto 1fr'
+    }
+
     for (var prop in layoutDef) {
       if (prop !== '_children' && layoutDef.hasOwnProperty(prop)) el.style[prop] = layoutDef[prop]
     }
