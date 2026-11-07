@@ -1737,10 +1737,18 @@ var dom = {
     if (el && full) app.call(full, { srcElement: element })
   },
 
-  /* @function rerun
-   * @memberof dom
+  /*
+   * DEPRECATED
    */
   rerun: function (object, exclude) {
+    return this.runtree(object, exclude)
+  },
+
+  /**
+   * @function runtree
+   * @memberof dom
+   */
+  runtree: function (object, exclude) {
     var el = object.exec ? object.exec.element : object
 
     if (el.originalHtml) el.innerHTML = el.originalHtml
@@ -1753,6 +1761,16 @@ var dom = {
     }
 
     app.attributes.run(nodes, exclude, true)
+  },
+
+  /**
+   * @function runself
+   * @memberof dom
+   * @desc Runs attributes on element only, not children
+   */
+  runself: function (object, value) {
+    var el = app.element.resolveCall(object, value)
+    app.attributes.run(el.call.value)
   },
 
   /**
@@ -2966,7 +2984,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 829 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 830 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
