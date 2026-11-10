@@ -1604,26 +1604,70 @@ var dom = {
    * @memberof dom
    */
   start: function (element, value) {
-    element = app.element.resolveCall(element, value)
+    element = app.element.resolveCall(element, value, value && value.indexOf && value.indexOf('[') !== -1 ? 'bracketArray' : false)
 
-    var attrs = value ? value.replace(/\*\./g, '').split(';') : [],
+    var attrs = (element.call && element.call.value && Array.isArray(element.call.value)) ? element.call.value : (value ? value.split(';') : []),
+      // Check for pure wildcard: either empty, or contains exactly '*'
       startAll = !attrs.length || attrs.indexOf('*') !== -1,
       all = element.getElementsByTagName('*'),
       exclude = ['stop', 'start'],
-      i, j, el, stopList
+      // Only set hasBracketWildcard for bracket mode wildcards [*][*.attr]
+      hasBracketWildcard = element.call && element.call.value && Array.isArray(element.call.value) && attrs.indexOf('*') !== -1,
+      excludedAttrs = [],
+      preserveStop = false,
+      i, j, el, stopList, runExclude
+
+    // Extract attributes to exclude from wildcard patterns like *.attr or just attr (only in bracket mode)
+    if (hasBracketWildcard) {
+      for (i = 0; i < attrs.length; i++) {
+        // In bracket wildcard mode, treat patterns after [*] as exclusions
+        // Support both [*.attr] and [attr] syntax
+        var pattern = attrs[i]
+        if (pattern === '*') continue // Skip the wildcard itself
+
+        var excludedAttr = pattern.indexOf('*.') === 0 ? pattern.substring(2) : pattern
+        if (excludedAttr === 'stop') {
+          preserveStop = true
+        } else {
+          excludedAttrs.push(excludedAttr)
+        }
+      }
+    }
 
     for (i = -1; ++i <= all.length;) {
       el = i === all.length ? element : all[i]
       if (el.nodeType !== 1) continue
 
-      if (startAll) {
+      if (startAll && (!hasBracketWildcard || (!excludedAttrs.length && !preserveStop))) {
+        // Pure wildcard mode: [*] or no args or * (no exclusions)
         el.removeAttribute('stop')
         app.attributes.run([el], exclude, true)
+      } else if (hasBracketWildcard && (excludedAttrs.length || preserveStop)) {
+        // Bracket wildcard with exclusions [*][*.attr] or [*][*.stop]
+        if (preserveStop) {
+          // Preserve existing stop attribute: don't include 'stop' in exclude so the stop content is respected
+          runExclude = ['start']
+          app.attributes.run([el], runExclude, false)
+        } else {
+          // Wildcard with attr exclusions: keep excluded attrs in stop
+          stopList = (el.getAttribute('stop') || '').split(';').filter(function (attr) {
+            return attr && excludedAttrs.indexOf(attr) !== -1
+          })
+          stopList[0] ? el.setAttribute('stop', stopList.join(';')) : el.removeAttribute('stop')
+          // Run with excluded attrs also passed to exclude list
+          app.attributes.run([el], exclude.concat(excludedAttrs), false)
+        }
       } else {
+        // Selective mode: resume specific stopped attributes (includes *.attr non-bracket syntax)
         stopList = (el.getAttribute('stop') || '').split(';')
 
         for (j = attrs.length; j--;) {
-          stopList.splice(stopList.indexOf(attrs[j]), 1)
+          var attrName = attrs[j]
+          // Handle *.attr syntax: extract just the attribute name
+          if (attrName.indexOf('*.') === 0) {
+            attrName = attrName.substring(2)
+          }
+          stopList.splice(stopList.indexOf(attrName), 1)
         }
 
         stopList[0] ? el.setAttribute('stop', stopList.join(';')) : el.removeAttribute('stop')
@@ -2984,7 +3028,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 830 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 831 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
