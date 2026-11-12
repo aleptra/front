@@ -1792,17 +1792,25 @@ var dom = {
    * @function runtree
    * @memberof dom
    */
-  runtree: function (object, exclude) {
-    var el = object.exec ? object.exec.element : object
+  runtree: function (object, value) {
+    var el, exclude
 
+    if (object.exec) {
+      // Old pattern: called from rerun
+      el = object.exec.element
+      exclude = value
+    } else {
+      // New pattern: bracket syntax
+      el = app.element.resolveCall(object, value)
+      exclude = []
+      app.element.handleStopBracket(el, el.call && el.call.value, true)
+    }
+
+    if (!el || el.nodeType !== 1) return
     if (el.originalHtml) el.innerHTML = el.originalHtml
 
-    // Collect el + all descendants into one array
-    var nodes = [el],
-      all = app.element.find(el, '*')
-    for (var i = 0, n = all.length; i < n; i++) {
-      nodes[nodes.length] = all[i]
-    }
+    var nodes = [el], all = app.element.find(el, '*')
+    for (var i = 0; i < all.length; i++) nodes.push(all[i])
 
     app.attributes.run(nodes, exclude, true)
   },
@@ -1814,7 +1822,8 @@ var dom = {
    */
   runself: function (object, value) {
     var el = app.element.resolveCall(object, value)
-    app.attributes.run(el.call.value)
+    app.element.handleStopBracket(el, el.call && el.call.value, false)
+    if (el && el.nodeType === 1) app.attributes.run([el])
   },
 
   /**
@@ -2719,6 +2728,19 @@ var app = previousApp || {
       return values.length ? (values.length === 1 ? values[0] : values) : ''
     },
 
+    handleStopBracket: function (el, value, includeDescendants) {
+      if (!value) return
+      var hasStop = (typeof value === 'string' && value === 'stop') ||
+        (Array.isArray(value) && value.indexOf('stop') !== -1)
+      if (!hasStop || !el || el.nodeType !== 1) return
+
+      el.removeAttribute('stop')
+      if (includeDescendants) {
+        var all = app.element.find(el, '*')
+        for (var i = 0; i < all.length; i++) all[i].removeAttribute('stop')
+      }
+    },
+
     saveOriginalValues: function (element) {
       if (!element._originalCaptured) {
         element._originalCaptured = true
@@ -3028,7 +3050,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 831 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 832 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
