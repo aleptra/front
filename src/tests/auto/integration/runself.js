@@ -3,8 +3,6 @@ test('runself - runs attributes on specific selector', function () {
   element.id = 'runself-test'
   element.setAttribute('settext', 'selector-text')
 
-  app.element.saveOriginalValues(element)
-
   // runself runs app.attributes.run with the selector
   dom.runself(element, '#runself-test')
 
@@ -57,7 +55,6 @@ test('runself - bracket syntax without stop works normally', function () {
   element.setAttribute('settext', 'Works')
   element.textContent = 'Original'
 
-  app.element.saveOriginalValues(element)
   app.call('runself:#test2', { srcElement: element })
 
   assertEqual(element.textContent, 'Works')
