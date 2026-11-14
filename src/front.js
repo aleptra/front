@@ -3050,7 +3050,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 832 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 833 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3876,39 +3876,10 @@ var app = previousApp || {
             // Use the template element when available, fall back to source document.
             var activeEl = parsedEl || srcDocEl,
               inheritContent = activeEl.hasAttribute('inheritcontent'),
-              content = inheritContent && srcDocEl ? srcDocEl.innerHTML : activeEl.innerHTML,
-              attr = activeEl.attributes,
-              inherit = activeEl.getAttribute('inherit') || activeEl.getAttribute('inheritattributes')
+              content = inheritContent && srcDocEl ? srcDocEl.innerHTML : activeEl.innerHTML
 
-            // Resolve attributes: srcDoc base + template overrides.
-            var finalAttrs = {},
-              inheritList = inherit && inherit !== 'true' ? ';' + inherit + ';' : null
-
-            if (inherit !== 'false' && srcDocEl) {
-              for (var a = 0; a < srcDocEl.attributes.length; a++) {
-                var attrName = srcDocEl.attributes[a].name
-                if (!inheritList || inheritList.indexOf(';' + attrName + ';') !== -1) {
-                  finalAttrs[attrName] = srcDocEl.attributes[a].value
-                }
-              }
-            }
-
-            if (parsedEl) {
-              for (var k = 0; k < attr.length; k++) {
-                if (attr[k].name !== 'inherit' && attr[k].name !== 'inheritcontent' && attr[k].name !== 'inheritattributes') {
-                  finalAttrs[attr[k].name] = attr[k].value
-                }
-              }
-            }
-
-            // Clear and apply attributes on live element.
-            while (targetElement.attributes.length) {
-              targetElement.removeAttribute(targetElement.attributes[0].name)
-            }
-
-            for (var key in finalAttrs) {
-              targetElement.setAttribute(key, finalAttrs[key])
-            }
+            // Apply attributes: srcDoc base + template overrides
+            this.applyAttributes(activeEl, targetElement, srcDocEl)
 
             if (elSelector.content !== false) {
               dom.set(replaceElement, this.resolveBase(content))
@@ -3952,6 +3923,57 @@ var app = previousApp || {
         if (children[i].matches && children[i].matches(selector)) return children[i]
       }
       return null
+    },
+
+    applyAttributes: function (templateEl, targetElement, baseEl) {
+      var inherit = templateEl.getAttribute('inherit') || templateEl.getAttribute('inheritattributes'),
+        inheritList = inherit && inherit !== 'true' ? ';' + inherit + ';' : null,
+        finalAttrs = {}
+
+      // Preserve specified attributes from base element (or current element if no base)
+      var sourceEl = baseEl || targetElement
+      if (inherit !== 'false' && sourceEl) {
+        for (var a = 0; a < sourceEl.attributes.length; a++) {
+          var name = sourceEl.attributes[a].name
+          if (!inheritList || inheritList.indexOf(';' + name + ';') !== -1) {
+            finalAttrs[name] = sourceEl.attributes[a].value
+          }
+        }
+      }
+
+      // Apply template attributes (overrides) - skip control attributes
+      for (var k = 0; k < templateEl.attributes.length; k++) {
+        var name = templateEl.attributes[k].name
+        if (name !== 'inherit' && name !== 'inheritcontent' && name !== 'inheritattributes') {
+          finalAttrs[name] = templateEl.attributes[k].value
+        }
+      }
+
+      // Replace attributes on target element
+      while (targetElement.attributes.length) {
+        targetElement.removeAttribute(targetElement.attributes[0].name)
+      }
+      for (var key in finalAttrs) {
+        targetElement.setAttribute(key, finalAttrs[key])
+      }
+    },
+
+    applyInlineTemplate: function (responsePage) {
+      var templateElement = app.element.find(responsePage, 'template')
+      if (!templateElement) return
+
+      var templateContent = app.parse.text(templateElement.innerHTML)
+      var elementSelectors = this.elementSelectors
+
+      for (var j = 0; j < elementSelectors.length; j++) {
+        var elSelector = elementSelectors[j],
+          templateEl = this.resolveSection(templateContent, elSelector.name),
+          targetElement = app.element.select('body > ' + elSelector.name)
+
+        if (templateEl && targetElement) {
+          this.applyAttributes(templateEl, targetElement)
+        }
+      }
     }
   },
 
@@ -4074,7 +4096,11 @@ var app = previousApp || {
                   dom.bind.include = ''
                   dom.doctitle(false, responsePageTitle)
                   app.globals.refresh()
-                  if (!skipTemplates) app.assets.get.templates()
+                  if (!skipTemplates) {
+                    app.assets.get.templates()
+                  } else {
+                    app.templates.applyInlineTemplate(responsePage)
+                  }
                   break
                 case 'var':
                   app.vars.loaded++
