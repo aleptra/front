@@ -1,8 +1,20 @@
-// inheritcontent is resolved inside the template render pass, which needs a cached
-// srcdoc template, a parsed template fragment and the live document section all in
-// place. That pipeline is exercised by the manual template fixtures instead.
-test.skip('inheritcontent - keeps the source document content over the template', function () {
-  var section = createElement('header')
-  section.setAttribute('inheritcontent', '')
-  assertEqual(section.hasAttribute('inheritcontent'), true)
+test('inheritcontent - keeps existing content when true', function () {
+  var main = app.element.select('body > main')
+  if (!main) {
+    main = document.createElement('main')
+    document.body.appendChild(main)
+  }
+
+  main.innerHTML = 'Existing content'
+  main.setAttribute('bgcolor', 'blue')
+
+  var mockPage = '<template><main inheritcontent="true" color="red">New content</main></template>'
+  var responsePage = app.parse.text(mockPage)
+
+  app.templates.applyInlineTemplate(responsePage)
+
+  // Content should remain unchanged (inheritcontent=true means keep existing)
+  assertEqual(main.innerHTML, 'Existing content')
+  // Attributes should still be applied
+  assertEqual(main.getAttribute('color'), 'red')
 })
