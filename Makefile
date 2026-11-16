@@ -111,7 +111,8 @@ release: test
 
 test:
 	@FAIL=0; START=$$($(NOW)); TOTAL=0; \
-	for SUITE in unit integration performance; do \
+	SUITES=$$([ -n "$(TEST)" ] && echo "integration" || echo "unit integration performance"); \
+	for SUITE in $$SUITES; do \
 		OUT=$$($(MAKE) test:$$SUITE 2>&1); STATUS=$$?; echo "$$OUT"; FAIL=$$((FAIL + STATUS)); \
 		PASSED=$$(echo "$$OUT" | grep -o 'Passed: [0-9]*' | grep -o '[0-9]*' | head -1); PASSED=$${PASSED:-0}; TOTAL=$$((TOTAL + PASSED)); \
 	done; \
