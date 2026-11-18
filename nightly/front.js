@@ -321,13 +321,20 @@ var dom = {
    */
   close: function (element) {
     element = app.element.resolveCall(element)
-    if (element.localName === 'details') {
-      element.open = false
-    } else if (element.localName === 'dialog') {
-      element.close()
+    // Get the actual element that will be closed
+    var target = element.exec ? element.exec.element : element
+    if (target._closingOrOpening) return // Prevent infinite loops
+    target._closingOrOpening = true
+    try {
+      if (target.localName === 'details') {
+        target.open = false
+      } else if (target.localName === 'dialog') {
+        target.close()
+      }
+    } finally {
+      target._closingOrOpening = false
     }
   },
-
   /**
    * @function open
    * @memberof dom
@@ -335,18 +342,26 @@ var dom = {
    */
   open: function (element) {
     element = app.element.resolveCall(element)
-    if (element.localName === 'details') {
-      element.open = true
-    } else if (element.localName === 'dialog') {
-      element.showModal()
+    // Get the actual element that will be opened
+    var target = element.exec ? element.exec.element : element
+    if (target._closingOrOpening) return // Prevent infinite loops
+    target._closingOrOpening = true
+    try {
+      if (target.localName === 'details') {
+        target.open = true
+      } else if (target.localName === 'dialog') {
+        target.showModal()
+      }
+    } finally {
+      target._closingOrOpening = false
     }
   },
 
   /**
    * @function click
-   * @memberof dom
-   * @desc Trigger click on element
-   */
+ * @memberof dom
+ * @desc Trigger click on element
+ */
   click: function (element, value) {
     element = app.element.resolveCall(element, value)
     app.click(element)
@@ -1822,6 +1837,7 @@ var dom = {
    */
   runself: function (object, value) {
     var el = app.element.resolveCall(object, value)
+    console.dir(el)
     app.element.handleStopBracket(el, el.call && el.call.value, false)
     if (el && el.nodeType === 1) app.attributes.run([el])
   },
@@ -3050,7 +3066,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 834 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 835 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3830,11 +3846,11 @@ var app = previousApp || {
 
       if (srcDoc) {
         var srcDocCache = app.caches.get('window', 'template', srcDoc),
-          srcDocPage = app.parse.text(srcDocCache.data, ['title']),
+          srcDocPage = app.parse.text(srcDocCache.data, ['title', 'template']),
           srcDocPageBodyAttr = srcDocPage.bodyAttr,
           srcDocPageScript = app.element.find(srcDocPage, app.script.selector, true),
           srcDocPageBaseHref = app.element.find(srcDocPage, 'base', true)
-
+        console.dir(srcDocPage)
         dom.hrefhost(srcDocPageBaseHref)
         var responsePageContent = srcDocPage.innerHTML
 
