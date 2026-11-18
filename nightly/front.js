@@ -1837,7 +1837,6 @@ var dom = {
    */
   runself: function (object, value) {
     var el = app.element.resolveCall(object, value)
-    console.dir(el)
     app.element.handleStopBracket(el, el.call && el.call.value, false)
     if (el && el.nodeType === 1) app.attributes.run([el])
   },
@@ -3066,7 +3065,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 835 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 836 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
@@ -3850,7 +3849,7 @@ var app = previousApp || {
           srcDocPageBodyAttr = srcDocPage.bodyAttr,
           srcDocPageScript = app.element.find(srcDocPage, app.script.selector, true),
           srcDocPageBaseHref = app.element.find(srcDocPage, 'base', true)
-        console.dir(srcDocPage)
+
         dom.hrefhost(srcDocPageBaseHref)
         var responsePageContent = srcDocPage.innerHTML
 
@@ -3988,6 +3987,7 @@ var app = previousApp || {
 
         if (templateEl && targetElement) {
           this.applyAttributes(templateEl, targetElement)
+          app.attributes.run(templateEl)
         }
       }
     }
