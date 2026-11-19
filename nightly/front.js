@@ -267,7 +267,7 @@ var dom = {
     if (object && object.exec) object = object.exec.element
     var el = object instanceof Object ? object : app.element.select(object) // Todo: Remove in future.
     if (el) {
-      if (typeof el.initDisplay === 'undefined') {
+      if (!('initDisplay' in el)) {
         el.initDisplay = el.style.display || ''
       }
       value = prop ? 'visibility: hidden' : 'display: none'
@@ -3065,7 +3065,7 @@ var app = previousApp || {
    * @desc Handles global variables for the application.
    */
   globals: {
-    frontVersion: { major: 1, minor: 1, patch: 0, build: 836 },
+    frontVersion: { major: 1, minor: 1, patch: 0, build: 837 },
     language: document.documentElement.lang || 'en',
     docMode: document.documentMode || 0,
     isFrontpage: document.doctype ? true : false,
